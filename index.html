@@ -162,7 +162,9 @@ function randomTurn(tilt) {
 // ---------- state ----------
 let S = { coins: START_COINS, won: 0, drops: 0, lastRegen: Date.now(), got: {}, sets: {}, muted: false, guard: 0, table: null,
   active: null, xp: 0, level: 1, shakes: 2, quest: null, questNext: 0, daily: null, tickets: 0 };
-let world = null, tongue = null, tongueContact = null, tongueRest = null, bodies = [], falling = [], floats = [], winTimes = [], rings = [];
+let world = null, tongue = null, tongueContact = null, tongueRest = null, sweepBody=null, sweepCollider=null, bodies = [], falling = [], floats = [], winTimes = [], rings = [];
+let sweepTime=0, pupilAim=200;
+const SWEEP_START=PUSH_MIN-12, SWEEP_END=T.FRONT+80, SWEEP_DURATION=2.4;
 let pusherY = PUSH_MIN, tongueDrawY = PUSH_MIN, time = 0, lastDrop = -99, tiltNow = 0, calm = false;
 let pushPhase = 0, pushLoaded = false, pushPending = false;
 // Aiming: you choose only left/right. Coins always drop onto the tongue, on a line near its back just in front of
@@ -174,7 +176,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 11:39 AM · board preview';
+const BUILD = 'Oct 10, 11:51 AM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -202,6 +204,9 @@ function initPhysics() {
   // supports it at the retracted footprint; the moving tray only transmits a loaded push.
   tongueRest = box(halfW, TONGUE_H / 2, TONGUE_LEN / 2,
     200, TONGUE_H / 2, PUSH_MIN - TONGUE_LEN / 2, TONGUE_FRICTION);
+  sweepBody=world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(2,.12,SWEEP_START*M));
+  sweepCollider=world.createCollider(RAPIER.ColliderDesc.cuboid(halfW*M,.12,.08).setFriction(.05),sweepBody);
+  sweepCollider.setEnabled(false);
 }
 
 // The collision shape of a coin: a rounded cylinder (measured fastest and smoothest), or for testing a plain
@@ -258,18 +263,19 @@ function boardTick(dt) {
  if(board.remaining===0) {
    board.status='settling';
    const moving=bodies.some(b=>{const v=b.rb.linvel();return Math.hypot(v.x,v.y,v.z)>.01;});
-   board.quiet=(!moving&&!pushLoaded&&!pushPending&&!pendingDrops.length)?(board.quiet||0)+dt:0;
+   board.quiet=(!moving&&!pushLoaded&&!pushPending&&!pendingDrops.length&&sweepTime===0)?(board.quiet||0)+dt:0;
    if(board.quiet>=3)finishBoard('lost');
  }
 }
 function resetBoard() {
  for(const b of bodies.slice())removeCoin(b);
- board={status:'ready',remaining:BOARD.coins,elapsed:0,collected:[],used:0,released:0};boardRandom=BOARD.seed;
+ board={status:'ready',remaining:BOARD.coins,elapsed:0,collected:[],used:0,released:0,sweeps:0};boardRandom=BOARD.seed;
  S.coins=BOARD.coins;S.shakes=0;S.quest=null;S.guard=0;
  time=0;lastDrop=-99;pushPhase=0;pushLoaded=false;pushPending=false;calm=false;tiltNow=0;
  pusherY=PUSH_MIN;tongueDrawY=PUSH_MIN;
  tongue.setTranslation({x:2,y:TONGUE_H/2*M,z:(PUSH_MIN-TONGUE_LEN/2)*M},true);
  tongueContact.setSensor(true);tongueRest.setEnabled(true);world.gravity={x:0,y:-GRAVITY,z:0};
+ sweepTime=0;sweepCollider.setEnabled(false);sweepBody.setTranslation({x:2,y:.12,z:SWEEP_START*M},true);pupilAim=200;aim={x:200,y:DROP_Y};
  holding=false;taps=[];toyQueue=[];falling=[];rings=[];floats=[];callouts=[];pendingDrops=[];releaseAt=0;
  showerLeft=0;shake=0;dropTimer=0;saveTimer=0;
  prefill();for(let i=0;i<180;i++)world.step();
@@ -661,7 +667,7 @@ function pickDrop() {
 
 // Drop a coin (or now and then a special coin or prize) from above the drop line; physics does the rest.
 function tryDrop(at=aim) {
- if(board.status==='won'||board.status==='lost'||board.remaining<=0||pendingDrops.length>=6)return false;
+ if(board.status==='won'||board.status==='lost'||sweepTime>0||board.remaining<=0||pendingDrops.length>=6)return false;
  if(board.status==='ready')board.status='playing';
  const x=Math.max(T.L+COIN_R+2,Math.min(T.R-COIN_R-2,at.x));
  board.remaining--;board.used++;S.coins=board.remaining;S.drops++;
@@ -671,7 +677,7 @@ function tryDrop(at=aim) {
 
 function releaseDrop() {
  // Drop into the reopened gap, never onto the moving tray or an occupied coin.
- if(!pendingDrops.length||pusherY>PUSH_MIN+6||time<releaseAt)return;
+ if(sweepTime>0||!pendingDrops.length||pusherY>PUSH_MIN+6||time<releaseAt)return;
  const aimed=pendingDrops[0];
  const slots=[60,116,172,228,284,340].filter(x=>Math.abs(x-aimed)<=88).sort((a,b)=>Math.abs(a-aimed)-Math.abs(b-aimed));
  const x=slots.find(x=>!bodies.some(b=>{
@@ -708,6 +714,7 @@ function fallOff(b, x) {
  falling.push({x:p.x,y:p.y+4,vx:0,vy:60,kind:b.kind,id:b.id,won:true,t:0,s:p.s});
  if(b.boardTarget) {
   if(!board.collected.includes(b.id))board.collected.push(b.id);
+  if(board.collected.length===1)board.sweeps=1;
   sfx.ching();
  }
  removeCoin(b);
@@ -725,8 +732,34 @@ function lightning() {
   say('bolt', true);
 }
 
+function usePawSweep() {
+ if(board.sweeps<=0||sweepTime>0||!['playing','settling'].includes(board.status))return false;
+ board.sweeps--;sweepTime=STEP;
+ sweepBody.setTranslation({x:2,y:.12,z:SWEEP_START*M},true);
+ for(const b of bodies)b.rb.enableCcd(true);
+ holding=false;taps=[];sfx.rumble();catGrowl();return true;
+}
+
+function stepPawSweep() {
+ if(sweepTime<=0)return;
+ const p=Math.max(0,Math.min(1,(sweepTime-.2)/1.5));
+ sweepCollider.setEnabled(sweepTime>=.2&&sweepTime<=1.7);
+ const front=SWEEP_START+(SWEEP_END-SWEEP_START)*p;
+ sweepBody.setNextKinematicTranslation({x:2,y:.12,z:front*M});
+ if(sweepTime>=.2&&sweepTime<=1.7)for(const b of bodies){
+  const position=b.rb.translation(),velocity=b.rb.linvel();
+  // Reward assistance catches coins that hop over the moving paw contact.
+  // They still travel and fall through physics; nothing is teleported or removed.
+  if(position.z/M<front+8&&position.z/M<T.FRONT+b.r&&position.y>-.3)
+    b.rb.applyImpulse({x:0,y:0,z:b.rb.mass()*Math.max(0,3.6-velocity.z)},true);
+ }
+ sweepTime+=STEP;
+ if(sweepTime>=SWEEP_DURATION){sweepTime=0;sweepCollider.setEnabled(false);for(const b of bodies)b.rb.enableCcd(false);}
+}
+
 function step() {
   time += STEP;
+  stepPawSweep();
   // Keep a continuous rigid stroke. New coins load the next complete push at the back;
   // a settled pile is supported while the unloaded tongue slides underneath it.
   releaseDrop();
@@ -819,6 +852,7 @@ function step() {
 }
 
 function update(dt) {
+  pupilAim+=(aim.x-pupilAim)*Math.min(1,dt*12);
   boardTick(dt);
   regen();
   guardAnim += ((S.guard > 0 ? 1 : 0) - guardAnim) * Math.min(1, dt * 5);
@@ -1297,8 +1331,8 @@ function newCanvas(w, h) { const c = document.createElement('canvas'); c.width =
 
 async function loadArt() {
  async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
- const [head,table,tongue,paw,coin,snacks]=await Promise.all(['head','table','tongue','paw','coin','snacks'].map(n=>image('img/art/'+n+'.png')));
- Object.assign(ART,{head,table,tongue,paw,coin,snacks});
+ const [head,table,tongue,paw,coin,snacks,pupil]=await Promise.all(['head','table','tongue','paw','coin','snacks','pupil'].map(n=>image('img/art/'+n+'.png')));
+ Object.assign(ART,{head,table,tongue,paw,coin,snacks,pupil});
  const face=newCanvas(COIN_R*2*SPR,COIN_R*2*SPR);face.getContext('2d').drawImage(coin,0,0,face.width,face.height);
  sprites.coin={cv:face,half:COIN_R};sprites.silver=sprites.coin;
 }
@@ -1326,6 +1360,18 @@ function artX(x) { return 200 + (x - 200) * ART_ZX; }
 function drawMachine() {
  ctx.drawImage(ART.table,0,180,400,420);
  drawTongue();
+}
+
+function drawTrackingPupils() {
+ const look=Math.max(-1,Math.min(1,(pupilAim-200)/140));
+ const sx=420/ART.head.width,sy=280/ART.head.height;
+ for(const e of [{x:522,y:407,rx:100,ry:83},{x:1060,y:435,rx:107,ry:87}]) {
+  const cx=-10+e.x*sx,cy=-15+e.y*sy,w=55*sx,h=145*sy;
+  ctx.save();ctx.beginPath();ctx.ellipse(cx,cy,e.rx*sx,e.ry*sy,0,0,7);ctx.clip();
+  // Upright pupils translate left/right; no rotation, tilt or skew is applied.
+  ctx.drawImage(ART.pupil,483,107,289,1041,cx+look*e.rx*sx*.28-w/2,cy-h/2,w,h);
+  ctx.restore();
+ }
 }
 
 // Slit pupils that follow where you're aiming (and glance down at the table), with a blink every few seconds.
@@ -1398,13 +1444,20 @@ function drawBucket() {
 // table's front corner, and how far they're turned (radians) so the toes point inward
 const PAW_SIZE = 150, PAW_INSET = 40, PAW_DROP = 38, PAW_TURN = 2.35;
 function drawPaws() {
- const corner=proj(T.L,T.FRONT),cy=VIEW.y+corner.y*VIEW.zy;
+ const resting=410;
+ let depth=resting,reach=0;
+ if(sweepTime>0){
+  if(sweepTime<.2){const p=sweepTime/.2;depth=resting+(SWEEP_START-resting)*p;reach=p;}
+  else if(sweepTime<=1.7){const p=(sweepTime-.2)/1.5;depth=SWEEP_START+(SWEEP_END-SWEEP_START)*p;reach=1;}
+  else {const p=(sweepTime-1.7)/(.7);depth=SWEEP_END+(resting-SWEEP_END)*p;reach=1-p;}
+ }
+ const cy=VIEW.y+proj(200,depth).y*VIEW.zy;
  for(const side of [-1,1]) {
-  const open=.5+.5*Math.sin(time*3+(side>0?Math.PI:0));
-  ctx.save();ctx.translate(side<0?42:W-42,cy+60+open*2);
-  ctx.rotate(side*2.35);if(side<0)ctx.scale(-1,1);
-  const h=170*ART.paw.height/ART.paw.width;
-  ctx.drawImage(ART.paw,-85,-h*.45,170,h);ctx.restore();
+  const base=side<0?20:W-20,inner=side<0?136:W-136;
+  ctx.save();ctx.translate(base+(inner-base)*reach,cy+Math.sin(time*2)*1.2);
+  if(side>0)ctx.scale(-1,1);
+  const w=128,h=w*ART.paw.height/ART.paw.width;
+  ctx.drawImage(ART.paw,-w/2,-h/2,w,h);ctx.restore();
  }
 }
 
@@ -1440,6 +1493,7 @@ function draw() {
   for (const b of bodies) drawBody(b);
   // Rear coins are inside the mouth: the upper lip and muzzle occlude them.
   ctx.drawImage(ART.head,-10,-15,420,280);
+  drawTrackingPupils();
   for (const f of falling) {
     // tipping over the edge and dropping away, fading as it goes (the ones at the corners go behind the paws)
     ctx.globalAlpha = Math.max(0, 1 - f.t * 1.9);
@@ -1515,8 +1569,8 @@ function drawBoardHUD() {
  const bottom=H-PAD_B-BOTTOM_H;
  ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(100,bottom,200,BOTTOM_H);
  ctx.textAlign='center';ctx.fillStyle='#ffe680';ctx.font='bold 13px system-ui';
- ctx.fillText(board.status==='won'?'BOARD CLEAR':board.status==='lost'?'TRY AGAIN':board.status==='settling'?'LAST COINS SETTLING':board.status==='ready'?'TAP TO START':'PUSH BOTH SNACKS',200,bottom+18);
- ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='won'?'Prototype complete · Replay':'Restart board',200,bottom+42);
+ ctx.fillText(board.status==='won'?'BOARD CLEAR':board.status==='lost'?'TRY AGAIN':sweepTime>0?'PAW SWEEP!':board.sweeps>0?'PAW SWEEP · 1':board.status==='settling'?'LAST COINS SETTLING':board.status==='ready'?'TAP TO START':'PUSH BOTH SNACKS',200,bottom+18);
+ ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='won'?'Prototype complete · Replay':board.sweeps>0?'Tap above to sweep · Restart below':'Restart board',200,bottom+42);
  ctx.fillStyle='#c0b8cc';ctx.font='9px system-ui';ctx.fillText(BUILD+' · '+Math.round(perf.fps)+' fps · '+bodies.length+' bodies',200,H-5);
  ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('i',W-8,H-6);
 }
@@ -1698,7 +1752,11 @@ cv.addEventListener('pointerdown', e => {
   sfx.unlock(); musicOK = true; musicTick();
   const p = toGame(e);
   if(p.y>H-26&&p.x>W-35){openCredits();return;}
-  if(p.y>H-PAD_B-BOTTOM_H) { resetBoard();return; }
+  if(p.y>H-PAD_B-BOTTOM_H&&p.x>=100&&p.x<=300) {
+    if(p.y<H-PAD_B-BOTTOM_H+32&&sweepTime>0)return;
+    if(p.y<H-PAD_B-BOTTOM_H+32&&board.sweeps>0&&!['won','lost'].includes(board.status)){usePawSweep();return;}
+    resetBoard();return;
+  }
   // the top bar and quest banner: collection and sound buttons (nothing else up there)
   if (p.y < PAD_T + BAR_H + BANNER_H) {
     if (p.y > PAD_T - 6 && p.y < PAD_T + BAR_H) {
@@ -1740,7 +1798,7 @@ Promise.all([RAPIER.init(), loadArt()])
   .catch(e => { document.body.insertAdjacentHTML('beforeend', `<p style="color:#fff">Could not start: ${e}</p>`); });
 // Test hook: run the game faster than real time, e.g. __game.sim(10, 0.25) = 10 s with a drop every 0.25 s.
 window.__game = {
-  BOARD, get board() { return board; }, resetBoard, draw, resize, loadArt, get perf() { return perf; },
+  BOARD, get board() { return board; }, resetBoard, usePawSweep, get sweeping(){return sweepTime>0;}, draw, resize, loadArt, get perf() { return perf; },
   S, get bodies() { return bodies; }, get world() { return world; }, tryDrop, save, sfx, prefill,
   // test helper: start over with a new table using a given collision shape
   restart(shape, sides) {
