@@ -185,7 +185,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 2:50 PM · board preview';
+const BUILD = 'Oct 10, 3:57 PM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -255,15 +255,22 @@ function addCoin(kind, id, x, h, y, rot, linvel, angvel) {
 }
 
 // One isolated, deterministic board. Campaign and collection economy are deliberately absent.
-const BOARD = Object.freeze({ id:'snack-shelf', seed:42, coins:140, seconds:90,
- targets:[{id:'cheese',x:140,y:548},{id:'shrimp',x:260,y:548}] });
+const BOARDS = Object.freeze([
+ {id:'snack-shelf',name:'Board 1',seed:42,coins:140,seconds:90,
+  targets:[{id:'cheese',x:140,y:490},{id:'shrimp',x:260,y:570}],
+  towers:[{x:200,y:420,n:10}]},
+ {id:'twin-towers',name:'Board 2',seed:137,coins:160,seconds:110,
+  targets:[{id:'cheese',x:260,y:510},{id:'shrimp',x:132,y:580}],
+  towers:[{x:115,y:465,n:8},{x:285,y:390,n:12}]}
+]);
+let boardIndex=0, BOARD=BOARDS[0];
 let board = {status:'ready', remaining:BOARD.coins, elapsed:0, collected:[], used:0};
 let boardRandom = BOARD.seed;
 function seededRandom() { boardRandom=boardRandom*16807%2147483647; return (boardRandom-1)/2147483646; }
 function finishBoard(status) {
  if(board.status==='won'||board.status==='lost')return;
  board.status=status; holding=false; taps=[];pendingDrops=[];
- if(status==='won') { sfx.kaching(); callout('BOARD CLEAR!', {voice:'quest',color:'#7dff6a'}); }
+ if(status==='won') { recordedSfx.duck();sfx.kaching(); callout('BOARD CLEAR!', {voice:'quest',color:'#7dff6a'}); }
  else sfx.empty();
 }
 function boardTick(dt) {
@@ -277,7 +284,13 @@ function boardTick(dt) {
    if(board.quiet>=3)finishBoard('lost');
  }
 }
+function selectBoard(index) {
+ if(!Number.isInteger(index)||index<0||index>=BOARDS.length)return false;
+ boardIndex=index;BOARD=BOARDS[index];resetBoard();return true;
+}
+function nextBoard(){if(board.status!=='won'||boardIndex>=BOARDS.length-1)return false;return selectBoard(boardIndex+1);}
 function resetBoard() {
+ recordedSfx.reset();
  for(const b of bodies.slice())removeCoin(b);
  board={status:'ready',remaining:BOARD.coins,elapsed:0,collected:[],used:0,released:0,sweeps:0};boardRandom=BOARD.seed;
  S.coins=BOARD.coins;S.shakes=0;S.quest=null;S.guard=0;
@@ -364,12 +377,12 @@ function prefill() {
   let row=0;
   for(let y=y0;y<y1;y+=d*.866,row++)
    for(let x=T.L+COIN_R+1+(row%2)*d/2;x<T.R-COIN_R;x+=d) {
-    if(y>340 && Math.hypot(x-200,y-420)<COIN_R*2+3)continue;
+    if(BOARD.towers.some(t=>Math.hypot(x-t.x,y-t.y)<COIN_R*2+3))continue;
     addCoin(seededRandom()<.25?'silver':'coin',null,x,h,y,yawTurn(seededRandom()*6));
    }
  }
  sheet(PUSH_MAX+COIN_R+3,T.FRONT-COIN_R,COIN_HALF+.2);
- addStack(200,null,420,yawTurn(0),10,null,0);
+ for(const t of BOARD.towers)addStack(t.x,null,t.y,yawTurn(0),t.n,null,0);
  for(const target of BOARD.targets) {
   const b=addCoin('item',target.id,target.x,COIN_HALF*2+halfOf('item')+1,target.y,yawTurn(0));
   b.boardTarget=true;
@@ -537,6 +550,45 @@ const sfx = (() => {
   };
 })();
 
+// Existing project recordings mapped to specific events, with small reusable pools.
+const recordedSfx=(()=>{
+ const definitions={
+  drop:{file:'coin-drop.mp3',volume:.24,pool:4,cooldown:.07,limit:1.1},
+  land:{file:'coin-land.mp3',volume:.25,pool:3,cooldown:.09,limit:.84},
+  push:{file:'pusher.mp3',volume:.15,pool:1,cooldown:1,limit:.84},
+  spill:{file:'coin-spill.mp3',volume:.24,pool:1,cooldown:1.2,limit:1.8},
+  off:{file:'coin-off.mp3',volume:.17,pool:2,cooldown:.18,limit:.85},
+  roll:{file:'coin-roll.mp3',volume:.18,pool:1,cooldown:.5,limit:1.2}
+ };
+ const pools={},last={},cursor={};let edges=[];
+ for(const [name,d]of Object.entries(definitions)){
+  pools[name]=Array.from({length:d.pool},()=>{
+   const a=new Audio('sounds/effects/'+d.file);a.preload='auto';a.volume=d.volume;a.loop=false;a._ready=false;
+   a.oncanplay=a.onloadeddata=()=>{a._ready=true;};a.onerror=()=>{a._ready=false;};
+   a.ontimeupdate=()=>{if(a.currentTime>d.limit)a.pause();};return a;
+  });last[name]=-Infinity;cursor[name]=0;
+ }
+ function stopAll(){for(const list of Object.values(pools))for(const a of list){a.pause();}}
+ function play(name,scale=1){
+  if(S.muted||inBackground||document.visibilityState!=='visible')return true;
+  const d=definitions[name],list=pools[name];if(!d)return false;
+  if(time-last[name]<d.cooldown)return true;
+  if(!list.some(a=>a._ready||a.readyState>=2))return false; // retain synth fallback until recording loads
+  if(Object.values(pools).flat().filter(a=>!a.paused).length>=6)return true;
+  let a=list.find(a=>a.paused&&(a._ready||a.readyState>=2))||list[(cursor[name]++)%list.length];
+  if(!(a._ready||a.readyState>=2))return false;
+  a.pause();a.currentTime=0;a.volume=Math.min(1,d.volume*scale*(board.status==='won'?.35:1));last[name]=time;
+  try{const p=a.play();if(p&&p.catch)p.catch(()=>{a._ready=false;});return true;}catch(e){a._ready=false;return false;}
+ }
+ function edge(){edges=edges.filter(t=>time-t<.3);edges.push(time);play(edges.length>=3?'spill':'off');}
+ function duck(){for(const list of Object.values(pools))for(const a of list)if(!a.paused)a.volume*=.35;}
+ function reset(){stopAll();edges=[];for(const name of Object.keys(last))last[name]=-Infinity;}
+ return {play,edge,reset,stopAll,duck};
+})();
+for(const [method,clip]of [['drop','drop'],['land','land'],['tumble','roll']]){
+ const fallback=sfx[method];sfx[method]=(...args)=>{if(!recordedSfx.play(clip))fallback(...args);};
+}
+
 // ---------- gameplay ----------
 // ---------- the voice ----------
 // Little things are said, not written (text on screen got in the way). Each line is a recorded clip,
@@ -565,9 +617,9 @@ const music = new Audio(); // Effects-only until a new music direction is approv
 music.loop = false; music.volume = 0;
 S.musicEnabled = false;
 try {const audioSettings=JSON.parse(localStorage.getItem('catpusher.audio.v1')||'null');if(audioSettings){S.musicEnabled=false;S.muted=!!audioSettings.muted;}}catch(e){}
-function saveAudioSettings(){try{localStorage.setItem('catpusher.audio.v1',JSON.stringify({musicEnabled:S.musicEnabled,muted:S.muted}));}catch(e){}}
+function saveAudioSettings(){if(S.muted)recordedSfx.stopAll();try{localStorage.setItem('catpusher.audio.v1',JSON.stringify({musicEnabled:S.musicEnabled,muted:S.muted}));}catch(e){}}
 let musicOK = false, duckUntil = 0, inBackground = false;
-window.appPaused = p => { inBackground = p; if (p) music.pause(); }; // the phone app calls this when it's left / reopened
+window.appPaused = p => { inBackground = p; if (p){music.pause();recordedSfx.stopAll();} }; // stop recordings in background
 function musicTick() { if(!music.paused)music.pause(); }
 let lastSay = -9;
 function say(key, important) {
@@ -701,6 +753,7 @@ function collect(id) {
 
 // A coin that went over the front edge: into the bucket (won) or past it at the corners (lost).
 function fallOff(b, x) {
+ recordedSfx.edge();
  const p=proj(x,T.FRONT);
  falling.push({x:p.x,y:p.y+4,vx:0,vy:60,kind:b.kind,id:b.id,won:true,t:0,s:p.s});
  if(b.boardTarget) {
@@ -761,6 +814,7 @@ function step() {
   const requested = time - lastDrop < ACTIVE_SEC || shake > 0 || showerLeft > 0;
   pushPhase = (pushPhase + STEP) % PUSH_PERIOD;
   const phase = pushPhase / PUSH_PERIOD;
+  if(requested&&phase>=.08&&phase<.08+STEP/PUSH_PERIOD)recordedSfx.play('push');
   pushLoaded=false;pushPending=false;
   // Constant-speed straight travel and a short dwell at each end: a mechanical slide.
   const stroke = phase < 0.08 ? 0 : phase < 0.53 ? (phase - 0.08) / 0.45
@@ -1463,7 +1517,7 @@ function draw() {
   const sh = shake > 0 ? shake * 6 : 0;
   ctx.save(); ctx.translate(200 + rand(-sh, sh), VIEW.y + rand(-sh, sh) * 0.5); ctx.scale(VIEW.z, VIEW.zy); ctx.translate(-200, 0);
   drawMachine();
-  drawAim();
+  // Aiming ring removed; tap position still controls drops and pupil tracking.
   // back to front: further back first, and lower before higher, so piles stack up the right way
   // (a tower sorts by its base, so coins in front of it still draw over it)
   // The order is smoothed and only changes when two coins are clearly apart: coins jiggling in a pile used to swap
@@ -1538,7 +1592,7 @@ function drawBoardHUD() {
  ctx.textBaseline='middle';ctx.textAlign='left';
  ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(0,0,W,by+BANNER_H);
  ctx.fillStyle='#ffd76a';ctx.font='bold 19px system-ui';ctx.fillText(board.remaining+' coins',12,PAD_T+21);
- ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText('SNACKS',190,PAD_T+21);
+ ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText('BOARD '+(boardIndex+1)+' / '+BOARDS.length,190,PAD_T+21);
  ctx.textAlign='right';ctx.font='22px system-ui';ctx.fillText(S.muted?'🔇':'🔊',W-12,PAD_T+21);
  if(window.Android){ctx.font='20px system-ui';ctx.fillText('↻',W-66,PAD_T+21);}
  ctx.textAlign='left';ctx.font='bold 12px system-ui';ctx.fillStyle=BOARD.seconds-board.elapsed<20?'#ff7a7a':'#fff';
@@ -1551,8 +1605,8 @@ function drawBoardHUD() {
  const bottom=H-PAD_B-BOTTOM_H;
  ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(100,bottom,200,BOTTOM_H);
  ctx.textAlign='center';ctx.fillStyle='#ffe680';ctx.font='bold 13px system-ui';
- ctx.fillText(board.status==='won'?'BOARD CLEAR':board.status==='lost'?'TRY AGAIN':sweepTime>0?'PAW SWEEP!':board.sweeps>0?'PAW SWEEP · 1':board.status==='settling'?'LAST COINS SETTLING':board.status==='ready'?'TRY PAW SWEEP':'PUSH BOTH SNACKS',200,bottom+18);
- ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='won'?'Prototype complete · Replay':board.status==='ready'?'Tap board to play':board.sweeps>0?'Tap above to sweep · Restart below':'Restart board',200,bottom+42);
+ ctx.fillText(board.status==='won'?(boardIndex<BOARDS.length-1?'NEXT BOARD':'BOTH BOARDS CLEAR'):board.status==='lost'?'TRY AGAIN':sweepTime>0?'PAW SWEEP!':board.sweeps>0?'PAW SWEEP · 1':board.status==='settling'?'LAST COINS SETTLING':board.status==='ready'?'TRY PAW SWEEP':'PUSH BOTH SNACKS',200,bottom+18);
+ ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='won'?'Replay board '+(boardIndex+1):board.status==='ready'?'Tap board to play':board.sweeps>0?'Tap above to sweep · Restart below':'Restart board',200,bottom+42);
  ctx.fillStyle='#c0b8cc';ctx.font='9px system-ui';ctx.fillText(BUILD+' · '+Math.round(perf.fps)+' fps · '+bodies.length+' bodies',200,H-5);
  ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('i',W-8,H-6);
 }
@@ -1733,6 +1787,7 @@ cv.addEventListener('pointerdown', e => {
   const p = toGame(e);
   if(p.y>H-26&&p.x>W-35){openCredits();return;}
   if(p.y>H-PAD_B-BOTTOM_H&&p.x>=100&&p.x<=300) {
+    if(p.y<H-PAD_B-BOTTOM_H+32&&board.status==='won'){nextBoard();return;}
     if(p.y<H-PAD_B-BOTTOM_H+32&&board.status==='ready'){previewPawSweep();return;}
     if(p.y<H-PAD_B-BOTTOM_H+32&&sweepTime>0)return;
     if(p.y<H-PAD_B-BOTTOM_H+32&&board.sweeps>0&&!['won','lost'].includes(board.status)){usePawSweep();return;}
@@ -1778,7 +1833,7 @@ Promise.all([RAPIER.init(), loadArt()])
   .catch(e => { document.body.insertAdjacentHTML('beforeend', `<p style="color:#fff">Could not start: ${e}</p>`); });
 // Test hook: run the game faster than real time, e.g. __game.sim(10, 0.25) = 10 s with a drop every 0.25 s.
 window.__game = {
-  BOARD, get board() { return board; }, resetBoard, usePawSweep, get sweeping(){return sweepTime>0;}, draw, resize, loadArt, get perf() { return perf; },
+  BOARDS, get BOARD(){return BOARD;}, get boardIndex(){return boardIndex;}, selectBoard, nextBoard, get board() { return board; }, resetBoard, usePawSweep, get sweeping(){return sweepTime>0;}, draw, resize, loadArt, get perf() { return perf; },
   S, get bodies() { return bodies; }, get world() { return world; }, tryDrop, save, sfx, prefill,
   // test helper: start over with a new table using a given collision shape
   restart(shape, sides) {
