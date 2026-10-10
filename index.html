@@ -1,0 +1,1930 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Cat Coin Pusher</title>
+<style>
+html,body{margin:0;height:100%;background:#064e4a;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;font-family:system-ui,sans-serif}
+canvas{display:block;margin:0 auto}
+#panel{position:absolute;inset:0;background:rgba(14,8,26,.94);display:none;color:#f4ecff;padding:20px 16px;box-sizing:border-box;overflow:auto}
+#panel h2{margin:0 0 12px;font-size:22px}
+.set{background:#2a1f3d;border-radius:12px;padding:12px;margin-bottom:12px}
+.set h3{margin:0 0 8px;font-size:16px;display:flex;justify-content:space-between}
+.items{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.it{background:#3a2d52;border-radius:10px;text-align:center;padding:8px 2px;font-size:12px}
+.it b{display:block;font-size:30px;font-weight:400}
+.it.no{opacity:.3;filter:grayscale(1)}
+.reward{font-size:13px;margin-top:8px;color:#c9b8e8}
+.reward.on{color:#ffd76a}
+#close{position:sticky;top:0;float:right;background:#ffd76a;color:#3a2600;border:0;border-radius:8px;padding:8px 14px;font-size:15px}
+.dev{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.dev button{background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:8px;padding:8px 10px;font-size:14px}
+.dev button.on{border-color:#ffd76a;color:#ffd76a}
+.dev button:active{transform:scale(.94);background:#5a4a7a}
+.dev button.done{background:#ffd76a;color:#3a2600;border-color:#ffd76a}
+.devswitch{display:block;margin:22px auto 4px;background:none;color:#8a7aa8;border:1px solid #4a3d62;border-radius:8px;padding:6px 12px;font-size:12px}
+.wide{display:block;width:100%;margin:4px 0 14px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;padding:12px;font-size:16px}
+.wide:active{transform:scale(.97);background:#5a4a7a}
+#newtable{display:block;width:100%;margin-top:18px;background:#3a2d52;color:#ffd76a;border:1px solid #ffd76a;border-radius:10px;padding:12px;font-size:16px}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="panel"></div>
+<!-- Rapier 3D physics engine (Apache 2.0, lib/RAPIER-LICENSE.txt), wrapped so it sets window.RAPIER. -->
+<script src="lib/rapier.js"></script>
+<script>
+'use strict';
+// The table is simulated in 3D by Rapier: coins are real thin cylinders with weight and friction, the tongue is a
+// moving block, and the table, side walls and the back wall above the tongue are solid. Game units: x across the
+// table (T.L..T.R), y = depth from the back (PUSH_BACK) to the front edge (T.FRONT), h = height above the table.
+// Rapier works in metres (M per unit). Drawing projects everything into the slanted view of Jenny's art (proj()).
+const W = 400;
+let H = 720; // grows on tall phones; the extra height is empty space below the bucket
+const T = { L: 30, R: 370, BACK: 190, FRONT: 640 };
+const PAY_L = 60, PAY_R = 340; // the bucket's edges: coins off the table past these miss it
+// The tongue (pusher) slides between PUSH_MIN and PUSH_MAX; its back runs under the back wall at PUSH_BACK, which
+// scrapes coins off it as it pulls back, so they spill over its front edge onto the table.
+// (a short stroke, so little bare table is left between the tongue and the coins in front of it, and the tongue is
+// never more than a third bare; the back wall sits right under the cat's upper lip, so coins fill the tongue)
+const PUSH_BACK = -25, TONGUE_H = 18, TONGUE_LEN = 300;
+let PUSH_MIN = 205, PUSH_MAX = 275, PUSH_PERIOD = 3.2;
+const COIN_R = 26, LUCKY_R = 28, ITEM_R = 30; // big coins: more action per coin, and fewer for the phone to simulate
+const COIN_HALF = 2, LUCKY_HALF = 3.5, ITEM_HALF = 9; // half thicknesses
+// Bonus chips: big, thick, coloured, with a scalloped edge and their value (5x, 10x) printed on them.
+const BONUS = { x5: { r: 36, half: 3.5, value: 5 }, x10: { r: 40, half: 4, value: 10 } };
+// Flat and boxy things on the table (half sizes across, up, deep): arcade ticket strips, dollar bills, Rubik's cubes.
+const BOX = {
+  ticket: { hx: 26, hy: 1.2, hz: 11, density: 0.5 },
+  cash: { hx: 32, hy: 1, hz: 14, density: 0.5 },
+  cube: { hx: 12, hy: 12, hz: 12, density: 0.8 },
+};
+// what each thing is worth in coins when it lands in the bucket (tickets count separately)
+const VALUE = { coin: 1, silver: 1, smiley: 2, clover: 3, rainbow: 20, bolt: 1, shower: 1, lucky: 10, x5: 5, x10: 10, toycoin: 2, joker: 5,
+  cash: 25, cube: 15, ticket: 0 };
+const TICKETS_PER_STRIP = 10;
+// how each kind is written in a save (one character each)
+const SAVE_CODE = { coin: 'c', lucky: 'l', item: 'i', power: 'p', x5: '5', x10: 't', stack: 's', silver: 'a', clover: 'o',
+  rainbow: 'b', smiley: 'y', bolt: 'z', shower: 'h', ticket: 'q', cash: 'd', cube: 'u', toycoin: 'g', joker: 'j' };
+// Heavy metal coins: strong gravity, little air drag (COIN_DAMP), stiff contacts, almost no bounce.
+// (some drag is still needed: without it coins never quite come to rest, and resting coins cost nothing to simulate)
+// The table tilts toward the player (TILT_DEG) only while you're playing: from each drop for ACTIVE_SEC, easing
+// back to flat after. Flat, the coins stay put even though the tongue keeps moving (Jenny: "this is not a conveyor
+// belt" — coins move when you drop coins, or shake). Without the tilt pushes make piles instead of payouts.
+const ACTIVE_SEC = 2, IDLE_DAMP = 4;
+const M = 0.01, GRAVITY = 30, TILT_DEG = 5, STEP = 1 / 60, COIN_DAMP = 0.12, COIN_SPIN_DAMP = 1.2, COIN_BOUNCE = 0;
+// The tongue is slippery like a steel shelf: when it pulls back, coins on it mostly stay put, so the front ones
+// drop off its edge.
+const COIN_FRICTION = 0.3, TABLE_FRICTION = 0.25, TONGUE_FRICTION = 0.1, TOY_GRIP = 1.1;
+const GUARD_SEC = 30, START_COINS = 100, REGEN_SEC = 20, REGEN_CAP = 100;
+const KEY = 'catpusher.v2', OLD_KEY = 'catpusher.v1';
+// Collection sets. Three are on show at a time (S.active); finishing one pays out and the next set in this list
+// takes its place, so there's always something new to collect.
+const SETS = [
+  { name: 'Cat toys', reward: 'Yarn wallpaper', items: [['yarn', '🧶', 'Yarn ball'], ['mouse', '🐭', 'Toy mouse'], ['feather', '🪶', 'Feather wand'], ['bell', '🔔', 'Jingle bell']] },
+  { name: 'Snacks', reward: 'Fish wallpaper', items: [['fish', '🐟', 'Fish'], ['milk', '🥛', 'Milk'], ['shrimp', '🍤', 'Shrimp'], ['cheese', '🧀', 'Cheese']] },
+  { name: 'Fancy', reward: 'Royal cat wallpaper', items: [['crown', '👑', 'Crown'], ['bow', '🎀', 'Bow'], ['hat', '🎩', 'Top hat'], ['gem', '💎', 'Gem']] },
+  { name: 'Garden', reward: 'Garden wallpaper', items: [['sunflower', '🌻', 'Sunflower'], ['ladybug', '🐞', 'Ladybug'], ['mushroom', '🍄', 'Mushroom'], ['butterfly', '🦋', 'Butterfly']] },
+  { name: 'Sweets', reward: 'Candy wallpaper', items: [['donut', '🍩', 'Donut'], ['cookie', '🍪', 'Cookie'], ['cupcake', '🧁', 'Cupcake'], ['lollipop', '🍭', 'Lollipop']] },
+  { name: 'Ocean', reward: 'Ocean wallpaper', items: [['octopus', '🐙', 'Octopus'], ['shell', '🐚', 'Shell'], ['crab', '🦀', 'Crab'], ['tropical', '🐠', 'Tropical fish']] },
+  { name: 'Music', reward: 'Jazz cat wallpaper', items: [['guitar', '🎸', 'Guitar'], ['trumpet', '🎺', 'Trumpet'], ['drum', '🥁', 'Drum'], ['keys', '🎹', 'Keyboard']] },
+  { name: 'Space', reward: 'Space cat wallpaper', items: [['rocket', '🚀', 'Rocket'], ['planet', '🪐', 'Planet'], ['moon', '🌙', 'Moon'], ['star', '⭐', 'Star']] },
+  { name: 'Treasure', reward: 'Golden cat wallpaper', items: [['moneybag', '💰', 'Money bag'], ['key', '🗝️', 'Old key'], ['trophy', '🏆', 'Trophy'], ['ring', '💍', 'Ring']] },
+];
+const ITEMS = {};
+for (const s of SETS) for (const [id, emoji, name] of s.items) ITEMS[id] = { emoji, name, set: s };
+const SET_REWARD = { coins: 150, shakes: 2 }; // for finishing a set
+
+function rand(a, b) { return a + Math.random() * (b - a); }
+function activeSets() {
+  if (!Array.isArray(S.active) || !S.active.length) S.active = SETS.slice(0, 3).map(s => s.name);
+  return S.active.map(n => SETS.find(s => s.name === n)).filter(Boolean);
+}
+// a prize from the sets on show, usually one you don't have yet
+function pickItem() {
+  const ids = activeSets().flatMap(s => s.items.map(([i]) => i)), need = ids.filter(i => !S.got[i]);
+  const from = need.length && Math.random() < 0.7 ? need : ids;
+  return from[(Math.random() * from.length) | 0];
+}
+function radius(kind) {
+  if (BOX[kind]) return Math.max(BOX[kind].hx, BOX[kind].hz);
+  return BONUS[kind] ? BONUS[kind].r : kind === 'item' || kind === 'power' ? ITEM_R : kind === 'lucky' ? LUCKY_R : COIN_R;
+}
+function halfOf(kind) {
+  if (BOX[kind]) return BOX[kind].hy;
+  return BONUS[kind] ? BONUS[kind].half : kind === 'item' || kind === 'power' ? ITEM_HALF : kind === 'lucky' ? LUCKY_HALF : COIN_HALF;
+}
+
+// ---------- perspective ----------
+// Fitted to the table in Jenny's picture: the back edge is 58% the width of the front edge. A unit of height lifts
+// a point LIFT units up the screen; a unit toward the viewer moves it SQUASH units down (both times the depth scale).
+const ART_ZX = 1.2; // how much wider than the picture the machine is drawn (see artX)
+const P_K = 0.73, P_H = 823, P_Y0 = -244, P_X = 0.9 * ART_ZX, SQUASH = 0.6, LIFT = 0.85;
+const FRONT_Y = 579;
+function depthScale(y) { return 1 / (1 + P_K * (1 - (y - T.BACK) / (T.FRONT - T.BACK))); }
+function proj(x, y) { const s = depthScale(y); return { x: 200 + (x - 200) * s * P_X, y: P_Y0 + P_H * s, s: s * P_X }; }
+function unprojX(sx, y) { return 200 + (sx - 200) / (depthScale(y) * P_X); }
+function screenOf(x, y, h) { const p = proj(x, y); return { x: p.x, y: p.y - h * LIFT * p.s, s: p.s }; }
+// a small 3D direction (x across, y up, z toward the front) as a screen offset at depth scale s
+function projVec(v, s) { return { x: v.x * s, y: (v.z * SQUASH - v.y * LIFT) * s }; }
+function qrot(q, v) {
+  const ix = q.w * v.x + q.y * v.z - q.z * v.y, iy = q.w * v.y + q.z * v.x - q.x * v.z;
+  const iz = q.w * v.z + q.x * v.y - q.y * v.x, iw = -q.x * v.x - q.y * v.y - q.z * v.z;
+  return {
+    x: ix * q.w + iw * -q.x + iy * -q.z - iz * -q.y,
+    y: iy * q.w + iw * -q.y + iz * -q.x - ix * -q.z,
+    z: iz * q.w + iw * -q.z + ix * -q.y - iy * -q.x,
+  };
+}
+// a rotation about the up axis (yaw), tipped by `tilt` radians toward a random direction
+function qmul(a, b) {
+  return {
+    x: a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
+    y: a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x,
+    z: a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w,
+    w: a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z,
+  };
+}
+function yawTurn(a) { return { x: 0, y: Math.sin(a / 2), z: 0, w: Math.cos(a / 2) }; }
+function randomTurn(tilt) {
+  const yaw = rand(0, Math.PI * 2), a = rand(0, Math.PI * 2), s = Math.sin(tilt / 2);
+  const t = { x: Math.cos(a) * s, y: 0, z: Math.sin(a) * s, w: Math.cos(tilt / 2) };
+  const y = { x: 0, y: Math.sin(yaw / 2), z: 0, w: Math.cos(yaw / 2) };
+  return { // t * y
+    x: t.w * y.x + t.x * y.w + t.y * y.z - t.z * y.y,
+    y: t.w * y.y - t.x * y.z + t.y * y.w + t.z * y.x,
+    z: t.w * y.z + t.x * y.y - t.y * y.x + t.z * y.w,
+    w: t.w * y.w - t.x * y.x - t.y * y.y - t.z * y.z,
+  };
+}
+
+// ---------- state ----------
+let S = { coins: START_COINS, won: 0, drops: 0, lastRegen: Date.now(), got: {}, sets: {}, muted: false, guard: 0, table: null,
+  active: null, xp: 0, level: 1, shakes: 2, quest: null, questNext: 0, daily: null, tickets: 0 };
+let world = null, tongue = null, tongueContact = null, tongueRest = null, bodies = [], falling = [], floats = [], winTimes = [], rings = [];
+let pusherY = PUSH_MIN, tongueDrawY = PUSH_MIN, time = 0, lastDrop = -99, tiltNow = 0, calm = false;
+let pushPhase = 0, pushLoaded = false, pushPending = false;
+// Aiming: you choose only left/right. Coins always drop onto the tongue, on a line near its back just in front of
+// the back wall (DROP_Y), so each new coin lands behind the coins already there and helps push them forward.
+const DROP_Y = PUSH_BACK + COIN_R + 14, DROP_H = 55;
+let aim = { x: 200, y: DROP_Y }, aimShow = 0, guardAnim = 0;
+let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, lastChaching = 0;
+// test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
+const perf = { step: 0, fps: 60 };
+// when this version was published (publish_game.ps1 fills it in), shown in the readout
+const BUILD = 'Oct 10, 9:46 AM';
+
+function initPhysics() {
+  // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
+  // forward instead of up into piles, so the table builds up and then avalanches over the edge
+  world = new RAPIER.World({ x: 0, y: -GRAVITY, z: 0 }); // flat until you drop (see ACTIVE_SEC)
+  world.timestep = STEP;
+  // Six solver passes keep contacts firm; unchanged by the priority-1 motion work.
+  world.integrationParameters.numSolverIterations = 6;
+  world.integrationParameters.numAdditionalFrictionIterations = 1;
+  // stiffer contacts (Rapier's default lets resting coins sink into each other a little, which looks soft)
+  if ('contact_natural_frequency' in world.integrationParameters) world.integrationParameters.contact_natural_frequency = 60;
+  const fixed = world.createRigidBody(RAPIER.RigidBodyDesc.fixed());
+  const box = (hx, hy, hz, x, h, y, fr) => world.createCollider(
+    RAPIER.ColliderDesc.cuboid(hx * M, hy * M, hz * M).setTranslation(x * M, h * M, y * M).setFriction(fr), fixed);
+  const halfW = (T.R - T.L) / 2;
+  box(halfW + 40, 10, (T.FRONT + 100) / 2, 200, -10, (T.FRONT - 100) / 2, TABLE_FRICTION); // table top, open at the front
+  box(10, 200, (T.FRONT + 100) / 2, T.L - 10, 190, (T.FRONT - 100) / 2, 0.2);               // side walls
+  box(10, 200, (T.FRONT + 100) / 2, T.R + 10, 190, (T.FRONT - 100) / 2, 0.2);
+  box(halfW + 40, 150, 20, 200, TONGUE_H + 1.5 + 150, PUSH_BACK - 20, 0.2);                 // back wall above the tongue
+  tongue = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased()
+    .setTranslation(200 * M, TONGUE_H / 2 * M, (pusherY - TONGUE_LEN / 2) * M));
+  tongueContact = world.createCollider(RAPIER.ColliderDesc.cuboid(halfW * M, TONGUE_H / 2 * M, TONGUE_LEN / 2 * M)
+    .setFriction(TONGUE_FRICTION).setSensor(true), tongue);
+  // When unloaded, the sliding tongue slips under the resting mat. A stationary backing
+  // supports it at the retracted footprint; the moving tray only transmits a loaded push.
+  tongueRest = box(halfW, TONGUE_H / 2, TONGUE_LEN / 2,
+    200, TONGUE_H / 2, PUSH_MIN - TONGUE_LEN / 2, TONGUE_FRICTION);
+}
+
+// The collision shape of a coin: a rounded cylinder (measured fastest and smoothest), or for testing a plain
+// cylinder or a SHAPE_SIDES-sided prism.
+let SHAPE = 'round', SHAPE_SIDES = 10;
+function coinShape(r, half, edge) {
+  if (SHAPE === 'round') return RAPIER.ColliderDesc.roundCylinder((half - edge) * M, (r - edge) * M, edge * M);
+  if (SHAPE === 'cyl') return RAPIER.ColliderDesc.cylinder(half * M, r * M);
+  const pts = [];
+  for (let i = 0; i < SHAPE_SIDES; i++) {
+    const a = i / SHAPE_SIDES * Math.PI * 2;
+    for (const y of [-half, half]) pts.push(Math.cos(a) * r * M, y * M, Math.sin(a) * r * M);
+  }
+  return RAPIER.ColliderDesc.convexHull(new Float32Array(pts));
+}
+
+// A coin (or prize). Position in game units; rot/linvel/angvel optional.
+let uids = 0;
+function addCoin(kind, id, x, h, y, rot, linvel, angvel) {
+  const r = radius(kind), half = halfOf(kind), edge = Math.min(half * 0.6, 1.2);
+  const desc = RAPIER.RigidBodyDesc.dynamic().setTranslation(x * M, h * M, y * M)
+    .setLinearDamping(COIN_DAMP).setAngularDamping(COIN_SPIN_DAMP).setCanSleep(true);
+  if (rot) desc.setRotation(rot);
+  if (linvel) desc.setLinvel(linvel.x, linvel.y, linvel.z);
+  if (angvel) desc.setAngvel(angvel);
+  const rb = world.createRigidBody(desc);
+  const bx = BOX[kind];
+  world.createCollider((bx ? RAPIER.ColliderDesc.cuboid(bx.hx * M, bx.hy * M, bx.hz * M) : coinShape(r, half, edge))
+    // toys are heavy and grippy, so they wedge in and get stuck (that's what shakes are for)
+    .setFriction(kind === 'item' || bx ? TOY_GRIP : COIN_FRICTION).setRestitution(COIN_BOUNCE)
+    .setDensity(bx ? bx.density * 2 : kind === 'item' ? 1.6 : kind === 'power' ? 1 : 3), rb);
+  // quest: a toy the quest is about; sortK, uid: drawing order (see draw)
+  const b = { rb, kind, id: id || null, r, half, dead: false, vy: 0, fresh: false, quest: false, sortK: null, uid: ++uids };
+  bodies.push(b);
+  return b;
+}
+
+// ---------- towers ----------
+// A tall stack of thin coins can't balance in the physics engine (it wobbles itself over), so a tower is one solid
+// column, drawn as its coins. It stands until something really disturbs it: once it leans past TOWER_BREAK_TILT
+// (or drops off the table) it breaks into individual coins that keep its motion and tumble down.
+// A solid column only slides when shoved, so a tower also gets wobblier the further it's pushed: after a random
+// TOWER_SHOVE distance it tips over in the direction it's moving (then breaks as it leans).
+const STACK_STEP = COIN_HALF * 2 + 0.2, TOWER_BREAK_TILT = Math.cos(14 * Math.PI / 180), TOWER_TWIST = 2.2;
+const TOWER_SHOVE = [15, 45], TOWER_TIP_PUSH = 0.6; // speed (m/s) given to the tower's top to tip it
+function stackHalf(n, top) { return (n * STACK_STEP + (top ? BONUS[top].half * 2 + 0.3 : 0)) / 2; }
+// h = height of the column's centre (null: standing on the table)
+function addStack(x, h, y, rot, n, top, phase) {
+  const half = stackHalf(n, top);
+  const desc = RAPIER.RigidBodyDesc.dynamic().setTranslation(x * M, (h == null ? half + 0.1 : h) * M, y * M)
+    .setLinearDamping(0.15).setAngularDamping(0.5).setCanSleep(true);
+  if (rot) desc.setRotation(rot);
+  const rb = world.createRigidBody(desc);
+  world.createCollider(RAPIER.ColliderDesc.roundCylinder((half - 1) * M, (COIN_R - 1) * M, 1 * M)
+    .setFriction(COIN_FRICTION).setRestitution(0.05).setDensity(0.6), rb); // light, so the coins shove it along
+  const t = rb.translation();
+  const b = { rb, kind: 'stack', id: null, r: COIN_R, half, n, top: top || null, phase: phase == null ? rand(0, 6) : phase,
+    dead: false, vy: 0, fresh: false, quest: false, sortK: null, uid: ++uids, moved: 0, limit: rand(TOWER_SHOVE[0], TOWER_SHOVE[1]), lx: t.x, lz: t.z, tipping: false };
+  bodies.push(b);
+  return b;
+}
+// Each coin of a tower: its centre relative to the column's centre (game units) and its own turn.
+function stackParts(b) {
+  const parts = [];
+  for (let i = 0; i < b.n; i++) {
+    const a = b.phase + i * 0.55;
+    parts.push({ kind: 'coin', p: { x: Math.cos(a) * TOWER_TWIST, y: -b.half + COIN_HALF + i * STACK_STEP, z: Math.sin(a) * TOWER_TWIST }, q: yawTurn(i * 0.4) });
+  }
+  if (b.top) parts.push({ kind: b.top, p: { x: 0, y: -b.half + b.n * STACK_STEP + BONUS[b.top].half + 0.3, z: 0 }, q: yawTurn(b.phase) });
+  return parts;
+}
+function breakStack(b) {
+  const t = b.rb.translation(), q = b.rb.rotation(), lv = b.rb.linvel(), av = b.rb.angvel();
+  removeCoin(b);
+  for (const part of stackParts(b)) {
+    const o = qrot(q, part.p);
+    addCoin(part.kind, null, t.x / M + o.x, t.y / M + o.y, t.z / M + o.z, qmul(q, part.q),
+      { x: lv.x + rand(-0.15, 0.15), y: lv.y, z: lv.z + rand(-0.15, 0.15) }, av);
+  }
+  sfx.tumble(b.n);
+}
+
+function removeCoin(b) {
+  b.dead = true;
+  world.removeRigidBody(b.rb);
+  const i = bodies.indexOf(b);
+  if (i >= 0) bodies.splice(i, 1);
+}
+
+// The showpiece towers every new table starts with: a tall centrepiece topped with a 10x chip, a 5x-topped tower
+// either side, and two smaller ones further back. Each coin sits a touch off the one below, turning slowly, like
+// a hand-stacked arcade tower.
+const TOWERS = [
+  { x: 200, y: 470, n: 30, top: 'x10' },
+  { x: 102, y: 525, n: 18, top: 'x5' },
+  { x: 298, y: 525, n: 18, top: 'x5' },
+];
+
+// A new table: the showpiece towers standing on the table, a carpet of coins around them and on the tongue,
+// loose coins heaped over it, and a couple of prizes.
+// A clean board: an even, full spread of coins — TABLE_LAYERS tight layers on the table (right from the tongue's
+// front edge to the table's front edge) and TONGUE_LAYERS on the tongue, each layer sitting in the gaps of the one
+// below — plus the showpiece towers. No toys: they only arrive when a special coin goes over the edge (dropToy).
+const TABLE_LAYERS = 3, TONGUE_LAYERS = 2;
+function prefill() {
+  const d = COIN_R * 2 + 0.6;
+  const nearTower = (x, y, gap) => TOWERS.some(t => Math.hypot(t.x - x, t.y - y) < gap);
+  // one layer of hex-packed coins between depths y0 and y1 at height h; odd layers shift into the gaps below
+  const sheet = (y0, y1, h, layer, onTable) => {
+    const shiftX = layer % 2 ? d / 2 : 0, shiftY = layer % 2 ? d * 0.29 : 0;
+    let row = 0;
+    for (let y = y0 + shiftY; y < y1; y += d * 0.866, row++) {
+      const off = ((row % 2) * d / 2 + shiftX) % d;
+      for (let x = T.L + COIN_R + 0.5 + off; x < T.R - COIN_R; x += d) {
+        if (onTable && nearTower(x, y, COIN_R * 2 + 3)) continue; // towers stand on the table itself
+        addCoin(Math.random() < 0.25 ? 'silver' : 'coin', null, x + rand(-1, 1), h + COIN_HALF + 0.2, y + rand(-1, 1), randomTurn(0));
+      }
+    }
+  };
+  const step = COIN_HALF * 2 + 0.2;
+  for (let k = 0; k < TONGUE_LAYERS; k++) sheet(PUSH_BACK + COIN_R + 1, PUSH_MIN - COIN_R, TONGUE_H + k * step, k, false);
+  for (let k = 0; k < TABLE_LAYERS; k++) sheet(PUSH_MIN + COIN_R + 1, T.FRONT - COIN_R + (k ? -4 : 4), k * step, k, true);
+  for (const t of TOWERS) addStack(t.x, null, t.y, yawTurn(rand(0, 6)), t.n, t.top);
+}
+
+function load() {
+  let saved = null;
+  try {
+    if (/[?&]reset\b/.test(location.search)) { localStorage.removeItem(KEY); localStorage.removeItem(OLD_KEY); }
+    const raw = localStorage.getItem(KEY) || localStorage.getItem(OLD_KEY);
+    if (raw) {
+      saved = JSON.parse(raw);
+      Object.assign(S, saved);
+    }
+  } catch (e) { }
+  const kinds = Object.fromEntries(Object.entries(SAVE_CODE).map(([k, c]) => [c, k]));
+  // a saved table from this version: coins exactly where they were (older saves keep progress but get a new table)
+  if (saved && Array.isArray(saved.table) && saved.table.length && saved.table[0].length === 9) {
+    for (const [x, h, y, qx, qy, qz, qw, k, id] of saved.table) {
+      const q = { x: qx, y: qy, z: qz, w: qw };
+      if (k === 's') { // a tower: "coins:topChip:twist"
+        const [n, top, phase] = String(id).split(':');
+        addStack(x, h, y, q, +n, top || null, +phase);
+      } else addCoin(kinds[k] || 'coin', id || null, x, h, y, q);
+    }
+  } else {
+    prefill();
+    // let the new table settle before it's shown (the tongue stays put meanwhile)
+    for (let i = 0; i < 90; i++) world.step();
+  }
+  S.table = null;
+  // a toy quest carries on: the toys on the table are the ones it's about
+  if (S.quest && S.quest.kind === 'thistoy') for (const b of bodies) if (TOY_KINDS.has(b.kind)) b.quest = true;
+}
+
+function save() {
+  try {
+    const r = (v, n) => Math.round(v * n) / n;
+    S.table = bodies.map(b => {
+      const t = b.rb.translation(), q = b.rb.rotation();
+      return [r(t.x / M, 10), r(t.y / M, 10), r(t.z / M, 10), r(q.x, 1e4), r(q.y, 1e4), r(q.z, 1e4), r(q.w, 1e4), SAVE_CODE[b.kind] || 'c',
+        b.kind === 'stack' ? `${b.n}:${b.top || ''}:${r(b.phase, 100)}` : b.id || 0];
+    });
+    localStorage.setItem(KEY, JSON.stringify(S));
+  } catch (e) { }
+  S.table = null;
+}
+
+function regen() {
+  if (S.coins >= REGEN_CAP) { S.lastRegen = Date.now(); return; }
+  const n = Math.floor((Date.now() - S.lastRegen) / 1000 / REGEN_SEC);
+  if (n > 0) { S.coins = Math.min(REGEN_CAP, S.coins + n); S.lastRegen += n * REGEN_SEC * 1000; }
+}
+
+// ---------- sound (placeholder synth) ----------
+const sfx = (() => {
+  let ac = null, master = null, noiseBuf = null, lastClink = 0, lastChing = 0;
+  function ready() {
+    if (S.muted) return false;
+    if (!ac) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return false;
+      ac = new AC();
+      master = ac.createGain(); master.gain.value = 0.55; master.connect(ac.destination);
+      noiseBuf = ac.createBuffer(1, ac.sampleRate * 0.5, ac.sampleRate);
+      const d = noiseBuf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+    if (ac.state === 'suspended') ac.resume();
+    return true;
+  }
+  function tone(f, t0, dur, type, vol, fEnd) {
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.type = type; o.frequency.setValueAtTime(f, t0);
+    if (fEnd) o.frequency.exponentialRampToValueAtTime(fEnd, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(master); o.start(t0); o.stop(t0 + dur + 0.03);
+  }
+  function noise(t0, dur, vol, freq, q) {
+    const s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
+    s.buffer = noiseBuf; s.loop = true; f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = q || 1;
+    g.gain.setValueAtTime(vol, t0); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    s.connect(f); f.connect(g); g.connect(master); s.start(t0); s.stop(t0 + dur + 0.02);
+  }
+  // A coin hitting stainless steel: a sharp broadband clack, a short bright ring of inharmonic overtones, and
+  // (settle) the quick rattle of the coin bouncing to rest, each bounce closer and quieter. pitch < 1 is a bigger,
+  // deeper surface such as the bucket.
+  function steelAt(t, v, pitch, settle) {
+    const p = (pitch || 1) * (0.94 + Math.random() * 0.12);
+    noise(t, 0.012, 0.45 * v, 6000, 0.6);
+    noise(t, 0.03, 0.12 * v, 2500 * p, 1.5);
+    for (const [f, a, d] of [[1350, 0.9, 0.09], [2870, 0.6, 0.07], [4230, 0.5, 0.05], [5960, 0.35, 0.04], [7810, 0.22, 0.03]]) {
+      tone(f * p, t, d / Math.sqrt(p), 'sine', 0.09 * v * a);
+    }
+    if (!settle) return;
+    let gap = 0.055, a = 0.45;
+    for (let i = 0, n = 3 + (Math.random() * 2 | 0); i < n; i++) {
+      t += gap; gap *= 0.65; a *= 0.7;
+      noise(t, 0.008, 0.3 * v * a, 5500, 0.8);
+      tone(2870 * p, t, 0.05, 'sine', 0.05 * v * a);
+      tone(4230 * p, t, 0.035, 'sine', 0.04 * v * a);
+    }
+  }
+  function clinkAt(t, v) { steelAt(t, v, 1, false); }
+  // Register bell: inharmonic partials so it rings like a struck bell rather than a beep.
+  function bell(t, f, vol, dur) {
+    [[1, 1], [2, 0.45], [2.76, 0.6], [4.07, 0.3], [5.4, 0.18]].forEach(([m, a]) => tone(f * m, t, dur / Math.sqrt(m), 'sine', vol * a));
+  }
+  return {
+    unlock() { ready(); },
+    clink(v = 1) {
+      if (!ready()) return;
+      const now = ac.currentTime;
+      if (now - lastClink < 0.035) return;
+      lastClink = now; clinkAt(now, v);
+    },
+    land() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      steelAt(t, 0.8, 1, true);
+    },
+    // One coin into the steel bucket: a deeper clang that rattles to rest.
+    ching() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      if (t - lastChing < 0.06) { steelAt(t, 0.35, 0.6, false); return; }
+      lastChing = t;
+      steelAt(t, 0.75, 0.6, true);
+      tone(520, t, 0.25, 'sine', 0.04);
+    },
+    // Full cash register: key clack, ratchet, bell, drawer rolling open, then coins jingling.
+    kaching() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      noise(t, 0.04, 0.4, 1600, 1.2); tone(150, t, 0.07, 'square', 0.07, 70);
+      for (let i = 0; i < 7; i++) noise(t + 0.06 + i * 0.022, 0.016, 0.32, 3400, 4);
+      bell(t + 0.22, 2093, 0.17, 1.8);
+      noise(t + 0.26, 0.3, 0.22, 380, 0.6);
+      tone(95, t + 0.55, 0.14, 'triangle', 0.22, 60);
+      for (let i = 0; i < 5; i++) steelAt(t + 0.58 + i * 0.05 + Math.random() * 0.03, 0.45, 0.6, i === 4);
+    },
+    prize() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      [784, 988, 1175, 1568, 1976].forEach((f, i) => tone(f, t + i * 0.06, 0.16, 'square', 0.05));
+      tone(2637, t + 0.32, 0.6, 'sine', 0.1);
+    },
+    fanfare() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      [523, 659, 784, 1047, 784, 1047, 1319].forEach((f, i) => tone(f, t + i * 0.1, 0.22, 'square', 0.05));
+      [1047, 1319, 1568, 2093].forEach(f => tone(f, t + 0.75, 1.2, 'triangle', 0.07));
+    },
+    // a tower falling over: a quick run of clinks, one per coin (up to 8)
+    tumble(n) {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      const k = Math.min(n, 8);
+      for (let i = 0; i < k; i++) steelAt(t + i * 0.045 + Math.random() * 0.02, 0.6 - i * 0.04, 1, i === k - 1);
+    },
+    // a comic-book hit for the big callouts: a punchy kick, a snare-like crack, a brass stab and a cymbal wash
+    bam() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      tone(170, t, 0.32, 'sine', 0.55, 42);
+      noise(t, 0.14, 0.55, 1900, 0.7);
+      noise(t + 0.01, 0.9, 0.12, 7000, 0.5);
+      [392, 494, 587, 784].forEach((f, i) => tone(f, t + 0.03, 0.42, 'sawtooth', 0.045 - i * 0.006));
+      [784, 988].forEach(f => tone(f, t + 0.2, 0.5, 'square', 0.03));
+    },
+    // the cat's growl: a low buzzing rumble that wobbles and sinks
+    growl() {
+      if (!ready()) return;
+      const t = ac.currentTime, o = ac.createOscillator(), f = ac.createBiquadFilter(), g = ac.createGain();
+      const lfo = ac.createOscillator(), depth = ac.createGain();
+      o.type = 'sawtooth'; o.frequency.setValueAtTime(105, t); o.frequency.linearRampToValueAtTime(72, t + 1.1);
+      f.type = 'lowpass'; f.frequency.value = 650; f.Q.value = 3;
+      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.32, t + 0.12);
+      g.gain.linearRampToValueAtTime(0.26, t + 0.85); g.gain.linearRampToValueAtTime(0.0001, t + 1.2);
+      lfo.frequency.value = 26; depth.gain.value = 0.18; lfo.connect(depth); depth.connect(g.gain); // the rattle
+      o.connect(f); f.connect(g); g.connect(master);
+      o.start(t); lfo.start(t); o.stop(t + 1.25); lfo.stop(t + 1.25);
+      noise(t, 1.1, 0.1, 320, 1.4);
+    },
+    // a shake: a deep rattle of the whole machine, coins jingling
+    rumble() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      for (let i = 0; i < 6; i++) noise(t + i * 0.18, 0.3, 0.3, 140 + i * 15, 0.5);
+      tone(48, t, 1.4, 'sine', 0.3, 38);
+      for (let i = 0; i < 10; i++) steelAt(t + 0.1 + i * 0.12 + Math.random() * 0.05, 0.35, 0.8 + Math.random() * 0.4, false);
+    },
+    // lightning: a sharp crack, then a long low rumble
+    thunder() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      noise(t, 0.08, 0.6, 3500, 0.5); noise(t + 0.03, 0.12, 0.4, 1800, 0.6);
+      for (let i = 0; i < 4; i++) noise(t + 0.08 + i * 0.25, 0.9, 0.35 - i * 0.06, 110 + i * 25, 0.4);
+      tone(55, t + 0.05, 1.4, 'sine', 0.25, 35);
+    },
+    gutter() { if (!ready()) return; tone(260, ac.currentTime, 0.3, 'triangle', 0.12, 80); },
+    drop() { if (!ready()) return; tone(900, ac.currentTime, 0.08, 'triangle', 0.05, 1500); },
+    empty() { if (!ready()) return; tone(150, ac.currentTime, 0.15, 'square', 0.05, 110); },
+  };
+})();
+
+// ---------- gameplay ----------
+// ---------- the voice ----------
+// Little things are said, not written (text on screen got in the way). Each line is a recorded clip,
+// sounds/voice/<key>.mp3, when Jenny has recorded it; until then the phone's own voice (Android.speak) says the
+// words, or the browser's speech on the PC. One line at a time; a line that comes too soon after another is dropped
+// unless it matters (callouts).
+const VOICE = {
+  got: 'Got it!', set: 'Set completed!', level: 'Level up!', quest: 'Quest complete!', daily: 'Daily challenge won!',
+  dailystart: 'Daily challenge! Go!', dailylost: 'Out of time! Try again!',
+  paw: 'Paws in!', tickets: 'You got tickets!', joker: 'Jack in the box!', cube: "Rubik's cube!", cash: 'Ka-ching!',
+  rainbow: 'Rainbow!', bolt: 'Lightning!', jackpot: 'Jackpot!', shower: 'Coin shower!', rush: 'Coin rush!',
+  toy: 'Here comes a toy!', oops: 'Oops!', timeup: "Time's up!", noshakes: 'No shakes left!', nocoins: 'Out of coins!',
+  table: 'Fresh table!', newquest: 'New quest!',
+};
+const clips = {}; // key → Audio once its file has loaded; false if there's no recording
+for (const k in VOICE) {
+  const a = new Audio(); a.preload = 'auto';
+  a.oncanplaythrough = () => { clips[k] = a; }; a.onerror = () => { clips[k] = false; };
+  a.src = `sounds/voice/${k}.mp3`;
+}
+// Background music: Jenny's pick, "Cute Cat Meow Song" by juncala (Pixabay, free under the Pixabay Content License:
+// fine inside the game, but the file must never be offered on its own). Loops all the time, quietly, and dips while
+// the voice talks. Starts on the first tap (phones don't allow sound before one); follows the 🔊 button.
+const MUSIC_VOL = 0.35;
+const music = new Audio('sounds/music/cat-meow-song.mp3');
+music.loop = true; music.volume = MUSIC_VOL;
+let musicOK = false, duckUntil = 0, inBackground = false;
+window.appPaused = p => { inBackground = p; if (p) music.pause(); }; // the phone app calls this when it's left / reopened
+function musicTick() {
+  const want = musicOK && !S.muted && !inBackground && document.visibilityState === 'visible';
+  if (want && music.paused) music.play().catch(() => { });
+  else if (!want && !music.paused) music.pause();
+  music.volume = performance.now() < duckUntil ? MUSIC_VOL * 0.4 : MUSIC_VOL;
+}
+let lastSay = -9;
+function say(key, important) {
+  if (S.muted || !VOICE[key]) return;
+  const now = performance.now() / 1000;
+  if (!important && now - lastSay < 1.4) return;
+  const clip = clips[key];
+  if (!clip) return;
+  lastSay = now; duckUntil = performance.now() + 1600;
+  if (clip) { try { clip.currentTime = 0; clip.play(); } catch (e) { } return; }
+  // Missing recordings stay silent; phone TTS is too artificial for this cat.
+
+}
+// the three small things that still show (briefly): the quest banner flashes red when time's up, the SHAKE
+// button wobbles when you have none, the coin counter flashes when you're out
+let bannerFlash = 0, shakeWobble = 0, coinFlash = 0;
+
+// What the next dropped coin is. Mostly gold or silver; now and then something special, with a cap on how many
+// tickets, bills and cubes are on the table at once so it never gets cluttered.
+// (Toys never come from your taps; they're the reward for getting a special coin over the edge.)
+const DROPS = [ // [kind, chance]
+  ['x10', 0.012], ['x5', 0.028], ['rainbow', 0.006], ['bolt', 0.012], ['shower', 0.015], ['clover', 0.025], ['smiley', 0.025],
+  ['toycoin', 0.02], ['joker', 0.005],
+];
+const DROP_CAP = { ticket: 2, cash: 2, cube: 4 };
+// Toys are rare, so each one is an event: it's announced as it drops in, and a quest starts to win it.
+// They come onto the table only from: a toy coin over the edge (the toy pictured on it), a jack-in-the-box coin
+// (JOKER_TOYS toys), now and then another special coin (toyChance, rarer as you level up), and some quest rewards.
+// At most MAX_TOYS on the table at once. Prizes and the golden paw get rarer as you level up too (toyWeights).
+const SPECIAL = new Set(['x5', 'x10', 'rainbow', 'clover', 'smiley', 'bolt', 'shower', 'lucky']);
+const TOY_KINDS = new Set(['item', 'cube', 'ticket', 'cash', 'power']);
+const TOYS = [['item', 5], ['cube', 2], ['ticket', 2], ['cash', 1], ['power', 1]]; // [kind, weight] for random toys
+const JOKER_TOYS = 3, MAX_TOYS = 3, QUEST_TOY_CHANCE = 0.35; // QUEST_TOY_CHANCE: a finished quest also drops a toy
+function toyChance() { return Math.max(0.1, 0.35 - 0.015 * (S.level - 1)); }
+function toyWeights() {
+  const rare = 1 / (1 + 0.08 * (S.level - 1));
+  return TOYS.map(([k, w]) => [k, k === 'item' || k === 'power' ? w * rare : w]);
+}
+function toysOnTable() { return bodies.filter(b => TOY_KINDS.has(b.kind)).length; }
+let toyQueue = []; // [{ at: time it drops, id: toy (item id, cube, ticket, cash) or null for a random one }]
+// the extra detail a dropped thing needs: which prize, or which toy a toy coin pictures
+function dropId(kind) {
+  if (kind === 'item') return pickItem();
+  if (kind !== 'toycoin') return null;
+  return Math.random() < 0.7 ? pickItem() : ['cube', 'ticket', 'cash'][(Math.random() * 3) | 0]; // pictures a prize or a toy
+}
+function randomToy() {
+  const open = toyWeights().filter(([k]) => !DROP_CAP[k] || bodies.filter(b => b.kind === k).length < DROP_CAP[k]);
+  let r = Math.random() * open.reduce((s, [, w]) => s + w, 0);
+  for (const [k, w] of open) if ((r -= w) < 0) return k === 'item' ? pickItem() : k;
+  return pickItem();
+}
+function toyName(id) {
+  return ITEMS[id] ? `${ITEMS[id].emoji} ${ITEMS[id].name}` : { cube: "Rubik's cube", ticket: '🎟 tickets', cash: '💵 cash', power: '🐾 golden paw' }[id];
+}
+function dropToy(id) {
+  if (toysOnTable() >= MAX_TOYS) return;
+  id = id || randomToy();
+  const kind = ITEMS[id] ? 'item' : id, x = rand(T.L + 40, T.R - 40), y = rand(PUSH_MAX + 40, T.FRONT - 90);
+  const b = addCoin(kind, kind === 'item' ? id : null, x, DROP_H + 40, y, randomTurn(rand(0.2, 0.8)),
+    { x: 0, y: -3, z: 0 }, { x: rand(-4, 4), y: rand(-3, 3), z: rand(-4, 4) });
+  b.fresh = true; b.quest = true;
+  say('toy', true);
+  toyQuest(id);
+}
+// A toy on the table becomes a quest: "Win the 👑 Crown". Whatever quest was running waits (its clock stopped) and
+// carries on afterwards. More toys while it runs join it ("Win 3 toys").
+const TOY_QUEST_SEC = 150;
+function toyQuest(id) {
+  const q = S.quest;
+  if (q && q.kind === 'thistoy') {
+    q.n++; q.text = `Win ${q.n - q.have} toys`; q.ends = Math.max(q.ends, Date.now() + TOY_QUEST_SEC * 1000); q.coins += 20;
+    return;
+  }
+  if (q) S.questPaused = { ...q, left: Math.max(20000, q.ends - Date.now()) };
+  S.quest = { kind: 'thistoy', text: `Win the ${toyName(id)}`, n: 1, have: 0,
+    ends: Date.now() + TOY_QUEST_SEC * 1000, coins: 25 + 5 * S.level, shakes: 1 };
+}
+// a quest is over (won or not): the one that was waiting carries on, or the next starts after the usual gap
+function questOver() {
+  const p = S.questPaused;
+  S.questPaused = null;
+  if (p) { S.quest = { kind: p.kind, text: p.text, n: p.n, have: p.have, ends: Date.now() + p.left, coins: p.coins, shakes: p.shakes }; return; }
+  S.quest = null; S.questNext = Date.now() + QUEST_GAP;
+}
+let forcedDrop = null, devTaps = []; // developer mode: the kind the next tap drops; recent taps on the readout
+const DEV_DROPS = [['bolt', '⚡ Lightning'], ['shower', 'Coin shower'], ['joker', '🤡 Jack-in-the-box'], ['toycoin', 'Toy coin'],
+  ['x10', '10x chip'], ['x5', '5x chip'],
+  ['rainbow', '🌈 Rainbow'], ['clover', '🍀 Clover'], ['smiley', '🙂 Smiley'], ['silver', 'Silver'], ['power', '🐾 Golden paw'],
+  ['item', 'Prize'], ['ticket', '🎟 Ticket'], ['cash', '💵 Cash'], ['cube', 'Rubik\'s cube']];
+function pickDrop() {
+  if (forcedDrop) { const kind = forcedDrop; forcedDrop = null; return { kind, id: dropId(kind) }; }
+  let r = Math.random();
+  for (const [kind, p] of DROPS) {
+    if ((r -= p) >= 0) continue;
+    if (DROP_CAP[kind] && bodies.filter(b => b.kind === kind).length >= DROP_CAP[kind]) break;
+    return { kind, id: dropId(kind) };
+  }
+  return { kind: Math.random() < 0.25 ? 'silver' : 'coin', id: null };
+}
+
+// Drop a coin (or now and then a special coin or prize) from above the drop line; physics does the rest.
+function tryDrop(at = aim) {
+  if (S.coins <= 0) {
+    if (coinFlash <= 0) say('nocoins');
+    coinFlash = 1.5;
+    sfx.empty(); return;
+  }
+  S.coins--; S.drops++; lastDrop = time;
+  dailyStart();
+  addXP(1); progress('drop', 1);
+  let { kind, id } = pickDrop();
+  const rad = radius(kind), x = Math.max(T.L + rad, Math.min(T.R - rad, at.x + rand(-2, 2)));
+  const y = Math.max(DROP_Y, PUSH_BACK + rad + 4) + rand(-3, 3); // big chips land a little further out, clear of the wall
+  // dropped nearly flat with little tumble, so coins settle into neat layers instead of jumbled heaps
+  const b = addCoin(kind, id, x, DROP_H, y, randomTurn(rand(0.02, 0.06)),
+    { x: 0, y: -1, z: 0 }, { x: rand(-0.25, 0.25), y: rand(-1, 1), z: rand(-0.25, 0.25) });
+  b.fresh = true; // ring and thud when it first lands
+  sfx.drop();
+}
+
+function collect(id) {
+  const it = ITEMS[id];
+  S.got[id] = (S.got[id] || 0) + 1;
+  say('got', true);
+  progress('toy', 1);
+  const set = it.set;
+  if (!S.sets[set.name] && set.items.every(([i]) => S.got[i])) {
+    // set complete: a reward, and the next set takes its place
+    S.sets[set.name] = true;
+    S.coins += SET_REWARD.coins; S.shakes = (S.shakes || 0) + SET_REWARD.shakes;
+    const i = activeSets().indexOf(set), next = SETS.find(s => !S.sets[s.name] && !S.active.includes(s.name));
+    if (next && i >= 0) S.active[i] = next.name;
+    setTimeout(() => {
+      callout(`${set.name} set complete!`, { voice: 'set', dur: 3, color: '#ff4fa8' });
+      sfx.fanfare();
+    }, 900);
+  }
+}
+
+// A coin that went over the front edge: into the bucket (won) or past it at the corners (lost).
+function fallOff(b, x) {
+  const guarded = S.guard > 0, inPay = x > PAY_L && x < PAY_R, won = guarded || inPay;
+  const p = proj(x, T.FRONT);
+  // with the paws folded in, coins over the gutters get steered toward the bucket
+  const vx = guarded && !inPay ? (200 - p.x) * 1.6 : (p.x - 200) * 0.15;
+  falling.push({ x: p.x, y: p.y + 4, vx, vy: 60, kind: b.kind, id: b.id, won, t: 0, s: p.s });
+  removeCoin(b);
+  if (b.quest && won) progress('thistoy', 1);
+  if (!won) {
+    sfx.gutter();
+    if (TOY_KINDS.has(b.kind)) say('oops', true);
+    if (b.quest && S.quest && S.quest.kind === 'thistoy') { // a toy the quest was about is gone
+      const q = S.quest;
+      q.n--; q.text = q.n - q.have > 1 ? `Win ${q.n - q.have} toys` : 'Win the last toy';
+      if (q.n <= 0) { bannerFlash = 1.6; questOver(); }
+      else if (q.have >= q.n) questDone(q);
+    }
+    return;
+  }
+  if (b.kind === 'item') { collect(b.id); return; }
+  if (b.kind === 'power') {
+    S.guard += GUARD_SEC;
+    progress('toy', 1);
+    say('paw', true);
+    return;
+  }
+  if (b.kind === 'ticket') {
+    S.tickets = (S.tickets || 0) + TICKETS_PER_STRIP;
+    progress('toy', 1);
+    say('tickets', true);
+    return;
+  }
+  const v = VALUE[b.kind] || 1;
+  S.coins += v; S.won += v;
+  addXP(v); progress('push', 1); progress('won', v);
+  if (SPECIAL.has(b.kind) || b.kind === 'toycoin' || b.kind === 'joker') progress('special', 1);
+  // toys drop onto the table shortly after
+  if (b.kind === 'toycoin') toyQueue.push({ at: time + 0.5, id: b.id });
+  else if (b.kind === 'joker') {
+    say('joker', true);
+    catGrowl();
+    for (let i = 0; i < JOKER_TOYS; i++) toyQueue.push({ at: time + 0.6 + i * 0.35, id: null });
+  } else if (SPECIAL.has(b.kind) && Math.random() < toyChance()) toyQueue.push({ at: time + 0.5, id: null });
+  if (b.kind === 'cube' || b.kind === 'cash') progress('toy', 1);
+  // (no text for these, just the voice: text is only for goals met)
+  const line = { cube: 'cube', cash: 'cash', rainbow: 'rainbow', x10: 'jackpot' }[b.kind];
+  if (line) say(line, true);
+  if (v > 1) { sfx.kaching(); lastChaching = time; } else sfx.ching();
+  winTimes.push(time);
+  winTimes = winTimes.filter(t => time - t < 1.2);
+  if (winTimes.length >= 6 && time - lastChaching > 2) {
+    sfx.kaching(); lastChaching = time;
+    say('rush');
+  }
+}
+
+// Lightning coin: a flash, a thunder crack, and the whole machine shakes for SHAKE_SEC.
+const SHAKE_SEC = 1.6, SHAKE_KICK = 0.22; // kick: speed (m/s) of each jolt
+// Coin shower: SHOWER_COINS free coins tumble out of the mouth across the tongue.
+const SHOWER_COINS = 8;
+let shake = 0, flash = 0, showerLeft = 0, showerTimer = 0;
+function lightning() {
+  shake = SHAKE_SEC; flash = 1;
+  sfx.thunder(); catGrowl();
+  say('bolt', true);
+}
+
+function step() {
+  time += STEP;
+  // Keep a continuous rigid stroke. New coins load the next complete push at the back;
+  // a settled pile is supported while the unloaded tongue slides underneath it.
+  const requested = time - lastDrop < ACTIVE_SEC || shake > 0 || showerLeft > 0;
+  if (requested) pushPending = true;
+  const previousPhase = pushPhase;
+  pushPhase = (pushPhase + STEP) % PUSH_PERIOD;
+  const phase = pushPhase / PUSH_PERIOD;
+  if (pushPhase < previousPhase || time <= STEP + 1e-8) {
+    const loaded = pushPending || requested;
+    pushPending = false;
+    if (loaded !== pushLoaded) {
+      pushLoaded = loaded;
+      tongueContact.setSensor(!loaded);
+      tongueRest.setEnabled(!loaded);
+    }
+  }
+  const smooth = t => t * t * (3 - 2 * t);
+  const stroke = phase < 0.08 ? 0 : phase < 0.53 ? smooth((phase - 0.08) / 0.45)
+    : phase < 0.61 ? 1 : 1 - smooth((phase - 0.61) / 0.39);
+  pusherY = PUSH_MIN + (PUSH_MAX - PUSH_MIN) * stroke;
+  tongueDrawY = pusherY;
+  const active = pushLoaded || requested;
+  const wantTilt = active ? 1 : 0;
+  if (Math.abs(wantTilt - tiltNow) > 0.001) {
+    tiltNow += (wantTilt - tiltNow) * (wantTilt ? 0.1 : 0.15);
+    if (Math.abs(wantTilt - tiltNow) < 0.01) tiltNow = wantTilt;
+    const t = TILT_DEG * tiltNow * Math.PI / 180;
+    world.gravity = { x: 0, y: -GRAVITY * Math.cos(t), z: GRAVITY * Math.sin(t) };
+  }
+  // calm for a moment: coins that are only jittering in their piles are put to sleep (still, and free to simulate)
+  if (calm && time - lastDrop > ACTIVE_SEC + 1.5 && Math.round(time / STEP) % 30 === 0)
+    for (const b of bodies) if (!b.rb.isSleeping()) { const v = b.rb.linvel(); if (Math.abs(v.x) + Math.abs(v.z) < 0.05 && Math.abs(v.y) < 0.2) b.rb.sleep(); }
+  if (active === calm) { // just started or stopped playing
+    calm = !active;
+    for (const b of bodies) {
+      b.rb.setLinearDamping(calm ? IDLE_DAMP : b.kind === 'stack' ? 0.15 : COIN_DAMP);
+      b.rb.setAngularDamping(calm ? IDLE_DAMP : COIN_SPIN_DAMP);
+    }
+  }
+  if (S.guard > 0) S.guard = Math.max(0, S.guard - STEP);
+  tongue.setNextKinematicTranslation({ x: 200 * M, y: TONGUE_H / 2 * M, z: (pusherY - TONGUE_LEN / 2) * M });
+  if (shake > 0) { // lightning: the table jolts every few steps, rattling everything toward the front edge
+    shake = Math.max(0, shake - STEP);
+    if (Math.round(time / STEP) % 4 === 0) {
+      for (const b of bodies) {
+        const m = b.rb.mass(), a = SHAKE_KICK * (0.4 + shake / SHAKE_SEC);
+        b.rb.applyImpulse({ x: rand(-a, a) * m, y: rand(0, a * 0.7) * m, z: (rand(-a, a) + a * 0.8) * m }, true);
+      }
+    }
+  }
+  const t0 = performance.now();
+  world.step();
+  perf.step += (performance.now() - t0 - perf.step) * 0.05;
+  const toBreak = [];
+  for (let i = bodies.length - 1; i >= 0; i--) {
+    const b = bodies[i];
+    if (b.rb.isSleeping()) { b.vy = 0; continue; }
+    const t = b.rb.translation();
+    if (b.kind === 'stack') { // a tower that's tipping (or going over the edge) falls apart into its coins
+      if (qrot(b.rb.rotation(), { x: 0, y: 1, z: 0 }).y < TOWER_BREAK_TILT || t.y < 0) { toBreak.push(b); continue; }
+      const dx = t.x - b.lx, dz = t.z - b.lz, d = Math.hypot(dx, dz) / M;
+      b.lx = t.x; b.lz = t.z; b.moved += d;
+      if (!b.tipping && b.moved > b.limit && d > 0.02) {
+        // shoved far enough: a push at the top of the tower, the way it's moving, tips it over its base edge
+        b.tipping = true;
+        const ux = dx / (d * M), uz = dz / (d * M), top = qrot(b.rb.rotation(), { x: 0, y: b.half * M, z: 0 });
+        const k = b.rb.mass() * TOWER_TIP_PUSH;
+        b.rb.applyImpulseAtPoint({ x: ux * k, y: 0, z: uz * k }, { x: t.x + top.x, y: t.y + top.y, z: t.z + top.z }, true);
+      }
+      continue;
+    }
+    if (t.y < -0.3) { fallOff(b, t.x / M); continue; }          // over the edge and below the table
+    if (t.y > 5 || t.x < -1 || t.x > 5) { removeCoin(b); continue; } // knocked clean out (shouldn't happen)
+    // a coin that was falling and has just stopped: it hit something, so it sounds (harder hit, louder)
+    const vy = b.rb.linvel().y;
+    if (b.vy < -0.9 && vy > -0.25) {
+      if (b.fresh) {
+        b.fresh = false;
+        const s = screenOf(t.x / M, t.z / M, t.y / M);
+        rings.push({ x: s.x, y: s.y, s: s.s, t: 0 });
+        sfx.land();
+        if (b.kind === 'bolt') lightning();
+        if (b.kind === 'shower') { showerLeft += SHOWER_COINS; say('shower'); }
+      } else sfx.clink(Math.min(1, -b.vy / 3.5));
+    }
+    b.vy = vy;
+  }
+  for (const b of toBreak) breakStack(b);
+}
+
+function update(dt) {
+  regen();
+  guardAnim += ((S.guard > 0 ? 1 : 0) - guardAnim) * Math.min(1, dt * 5);
+  flash = Math.max(0, flash - dt * 3);
+  questTick(); calloutTick(dt); moodTick(dt); musicTick();
+  while (toyQueue.length && toyQueue[0].at <= time) dropToy(toyQueue.shift().id);
+  // a coin shower drops its free coins one after another across the tongue
+  showerTimer -= dt;
+  if (showerLeft > 0 && showerTimer <= 0) {
+    showerLeft--; showerTimer = 0.09;
+    const b = addCoin(Math.random() < 0.25 ? 'silver' : 'coin', null, rand(T.L + 30, T.R - 30), DROP_H, DROP_Y + rand(-3, 10),
+      randomTurn(rand(0.03, 0.15)), { x: 0, y: -3, z: 0 }, { x: rand(-1, 1), y: rand(-3, 3), z: rand(-1, 1) });
+    b.fresh = true;
+  }
+  // each quick tap drops one coin where tapped (queued in order); holding keeps dropping where the finger is
+  dropTimer -= dt;
+  if (dropTimer <= 0) {
+    if (taps.length) { aim = taps.shift(); tryDrop(aim); dropTimer = 0.15; }
+    else if (holding) { aim = holdPos; tryDrop(aim); dropTimer = 0.22; }
+  }
+  if (holding) aim = holdPos;
+  aimShow = holding ? 1 : Math.max(0, aimShow - dt * 1.5);
+  for (let i = falling.length - 1; i >= 0; i--) {
+    const f = falling[i]; f.t += dt; f.vy += 1400 * dt; f.y += f.vy * dt; f.x += f.vx * dt;
+    if (f.t > 0.55) falling.splice(i, 1); // dropped out of sight below the table
+  }
+  for (let i = rings.length - 1; i >= 0; i--) { rings[i].t += dt / 0.45; if (rings[i].t >= 1) rings.splice(i, 1); }
+  for (let i = floats.length - 1; i >= 0; i--) { floats[i].t += dt; if (floats[i].t > 1) floats.splice(i, 1); }
+  bannerFlash = Math.max(0, bannerFlash - dt); shakeWobble = Math.max(0, shakeWobble - dt); coinFlash = Math.max(0, coinFlash - dt);
+  meterBump = Math.max(0, meterBump - dt * 4);
+  saveTimer += dt;
+  if (saveTimer > 5) { saveTimer = 0; save(); }
+}
+
+// ---------- goals: the level gauge, timed quests, the daily challenge, shakes ----------
+// Long term: every coin you drop and every coin you win fills the level gauge; each level pays coins (every fifth
+// also a shake). Short term: there's always a timed quest running or about to start; finish it in time for coins
+// and sometimes a shake. Daily: win DAILY.target coins today. Shakes rattle the whole table for a moment, to free
+// toys that have got stuck; you earn them from quests, the daily challenge, finishing sets and every fifth level.
+function xpFor(level) { return 40 + level * 20; }
+function addXP(n) {
+  S.xp += n;
+  while (S.xp >= xpFor(S.level)) {
+    S.xp -= xpFor(S.level); S.level++;
+    const coins = 15 + S.level * 5, shakes = S.level % 5 === 0 ? 1 : 0;
+    S.coins += coins; S.shakes += shakes;
+    callout(`Level ${S.level}!`, { voice: 'level', color: '#4fc3ff' });
+  }
+}
+const QUESTS = [ // the kinds of timed quest: target range, time range (s), coins per unit of target, chance of a shake
+  { kind: 'push', text: n => `Push ${n} coins over the edge`, n: [25, 60], sec: [120, 210], coins: 2, shake: 0.5 },
+  { kind: 'special', text: n => `Get ${n} special coins over`, n: [2, 3], sec: [180, 240], coins: 30, shake: 1 },
+  { kind: 'drop', text: n => `Drop ${n} coins`, n: [30, 50], sec: [60, 90], coins: 1, shake: 0 },
+]; // (toy quests start by themselves when a toy arrives: toyQuest)
+const QUEST_GAP = 12000; // ms between one quest ending and the next starting
+// The daily challenge runs midnight to midnight. Each try is timed: win DAILY.target coins within DAILY.sec. Run out
+// of time and that try is lost; the next try starts with your next coin, as often as you like, until you win (then
+// it's done for the day). Midnight starts a fresh challenge.
+const DAILY = { target: 150, sec: 600, coins: 200, shakes: 3 };
+function newQuest() {
+  const q = QUESTS[(Math.random() * QUESTS.length) | 0];
+  const n = Math.round(rand(q.n[0], q.n[1])), sec = Math.round(rand(q.sec[0], q.sec[1]) / 10) * 10;
+  S.quest = { kind: q.kind, text: q.text(n), n, have: 0, ends: Date.now() + sec * 1000,
+    coins: Math.max(10, Math.round(n * q.coins / 5) * 5), shakes: Math.random() < q.shake ? 1 : 0 };
+}
+function today() { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; }
+function daily() {
+  if (!S.daily || S.daily.date !== today() || !('tries' in S.daily)) S.daily = { date: today(), won: false, tries: 0, have: 0, ends: 0 };
+  return S.daily;
+}
+function dailyRunning() { const d = daily(); return !d.won && d.ends > Date.now(); }
+// your coin starts a try if none is running
+function dailyStart() {
+  const d = daily();
+  if (d.won || d.ends > Date.now()) return;
+  d.tries++; d.have = 0; d.ends = Date.now() + DAILY.sec * 1000;
+  say('dailystart');
+}
+function dailyTick() {
+  const d = daily();
+  if (!d.won && d.ends && Date.now() > d.ends) { // time's up on this try: lost
+    d.ends = 0; bannerFlash = 1.6; say('dailylost', true);
+  }
+}
+function questDone(q) {
+  S.coins += q.coins; S.shakes += q.shakes;
+  callout('Quest complete!', { voice: 'quest', color: '#7dff6a' });
+  // now and then a finished quest also drops a toy in (which starts its own quest)
+  const toy = q.kind !== 'thistoy' && Math.random() < QUEST_TOY_CHANCE;
+  questOver();
+  if (toy) toyQueue.push({ at: time + 2.5, id: null });
+}
+// something happened that counts toward goals: 'drop' (coins dropped), 'push' (coins over the edge),
+// 'special' (special coins over), 'toy' (toys won), 'won' (coins won)
+function progress(kind, n) {
+  const q = S.quest;
+  if (q && q.kind === kind && q.have < q.n) {
+    q.have = Math.min(q.n, q.have + n); meterBump = 1;
+    if (q.have >= q.n) questDone(q);
+  }
+  if (kind === 'won' && dailyRunning()) {
+    const d = daily();
+    d.have = Math.min(DAILY.target, d.have + n);
+    if (d.have >= DAILY.target) {
+      d.won = true; d.ends = 0; S.coins += DAILY.coins; S.shakes += DAILY.shakes;
+      callout('Daily won!', { voice: 'daily', color: '#ff8a3d', dur: 3 });
+    }
+  }
+}
+function questTick() {
+  dailyTick();
+  const q = S.quest;
+  if (q && Date.now() > q.ends) { say('timeup', true); bannerFlash = 1.6; questOver(); }
+  if (!S.quest && Date.now() > (S.questNext || 0)) { newQuest(); say('newquest'); }
+}
+function useShake() {
+  if (shake > 0) return;
+  if (!S.shakes) { say('noshakes', true); shakeWobble = 0.6; sfx.empty(); return; }
+  S.shakes--; shake = SHAKE_SEC;
+  sfx.rumble(); catGrowl();
+  try { navigator.vibrate && navigator.vibrate([60, 40, 60, 40, 80]); } catch (e) { }
+}
+
+// ---------- comic-book callouts ----------
+// Big moments (a prize, a finished set, a quest, a level, a jackpot) get a 1960s TV-style starburst with a big
+// word or two (no sentences, no caption card), a big sound, and a voice line. One at a time; the rest wait.
+let callouts = [], meterBump = 0;
+function callout(word, o = {}) {
+  callouts.push({ word: word.toUpperCase(), emoji: o.emoji || '', voice: o.voice || null,
+    color: o.color || '#ffd23f', t: 0, dur: o.dur || 2.2, rot: rand(-0.12, 0.12), x: 200 + rand(-10, 10), started: false, said: false });
+}
+function calloutTick(dt) {
+  const c = callouts[0];
+  if (!c) return;
+  if (!c.started) {
+    c.started = true; sfx.bam();
+    try { navigator.vibrate && navigator.vibrate(45); } catch (e) { }
+  }
+  c.t += dt;
+  if (!c.said && c.t > 0.3) { c.said = true; if (c.voice) say(c.voice, true); } // just after the bam
+  if (c.t > c.dur) callouts.shift();
+}
+// split the words into at most three lines, so a long one ("SNACKS SET COMPLETE!") stacks up big
+function calloutLines(word) {
+  const w = word.split(' ');
+  if (w.length <= 1 || word.length <= 10) return [word];
+  if (w.length === 2) return w;
+  const cut = Math.ceil(w.length / 2);
+  return [w.slice(0, cut).join(' '), w.slice(cut).join(' ')];
+}
+function drawCallout() {
+  const c = callouts[0];
+  if (!c) return;
+  const t = c.t, pop = t < 0.16 ? 0.3 + t / 0.16 * 0.95 : t < 0.3 ? 1.25 - (t - 0.16) / 0.14 * 0.25 : 1 + Math.sin(t * 9) * 0.015;
+  ctx.save();
+  ctx.globalAlpha = Math.max(0, Math.min(1, (c.dur - t) * 3));
+  ctx.translate(c.x, H * 0.42); ctx.rotate(c.rot); ctx.scale(pop, pop);
+  // the starburst: a jagged ring of points, outlined in heavy black
+  const lines = calloutLines(c.word), font = px => `italic 900 ${px}px Impact, "Arial Black", system-ui`;
+  // as big as fits: up to 64px, shrunk so the widest line is at most 290 wide
+  ctx.font = font(64);
+  const widest = Math.max(...lines.map(l => ctx.measureText(l).width)), size = Math.min(64, 64 * 290 / widest);
+  const lh = size * 1.02, th = lh * lines.length;
+  // just the words (no starburst behind them): the goal's colour with a heavy black outline and a white shine
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+  ctx.font = font(size);
+  lines.forEach((l, i) => {
+    const y = -th / 2 + lh * (i + 0.5);
+    ctx.lineWidth = Math.max(7, size / 5); ctx.strokeStyle = '#111'; ctx.strokeText(l, 0, y);
+    ctx.fillStyle = c.color; ctx.fillText(l, 0, y);
+    ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.fillText(l, -2, y - 3);
+  });
+  ctx.restore();
+}
+
+// ---------- the cat's moods ----------
+// The face bobs and sways gently all the time; now and then (and on lightning, shakes and jack-in-the-box) the cat
+// growls and lunges: the face swells toward you, the brows come down and the pupils narrow. Cartoon-scary.
+let lunge = 0, nextGrowl = 25;
+function catGrowl() { sfx.growl(); lunge = 1; }
+function moodTick(dt) {
+  lunge = Math.max(0, lunge - dt * 1.1);
+  if (time > nextGrowl) { if (lunge === 0) catGrowl(); nextGrowl = time + rand(25, 55); }
+}
+function lungeShape() { return lunge > 0 ? Math.sin((1 - lunge) * Math.PI) : 0; } // 0 → 1 → 0 over the lunge
+
+// ---------- drawing ----------
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+let scale = 1;
+const SPR = 3, sprites = {};
+const EDGE = { coin: '#8a5c08', lucky: '#a02c86', power: '#8a5c00', x5: '#b8932a', x10: '#b8932a', silver: '#7d8290',
+  clover: '#3b7a2a', smiley: '#b8860b', rainbow: '#8a4fd0', bolt: '#2b2a6a', shower: '#1d7a7a', toycoin: '#6a4a9a', joker: '#7a1030',
+  ticket: '#c46a12', cash: '#2f6b3a', cube: '#111' };
+const CUBE_FACES = ['#ffffff', '#ffd500', '#c41e3a', '#ff5800', '#0051ba', '#009e60']; // +y -y +x -x +z -z
+
+function drawPaw(g, x, y, s, col) {
+  g.fillStyle = col;
+  g.beginPath(); g.ellipse(x, y + s * 0.35, s * 0.55, s * 0.45, 0, 0, 7); g.fill();
+  for (const [dx, dy] of [[-0.62, -0.25], [-0.22, -0.62], [0.22, -0.62], [0.62, -0.25]]) {
+    g.beginPath(); g.arc(x + dx * s, y + dy * s, s * 0.2, 0, 7); g.fill();
+  }
+}
+
+function makeSprite(r, draw) {
+  const size = Math.ceil((r * 2 + 4) * SPR), c = r + 2;
+  const sc = document.createElement('canvas'); sc.width = sc.height = size;
+  const g = sc.getContext('2d'); g.scale(SPR, SPR);
+  draw(g, c, r);
+  return { cv: sc, half: c };
+}
+
+function coinSprite(r, c1, c2, c3, paw) {
+  return makeSprite(r, (g, c) => {
+    const gr = g.createRadialGradient(c - r * 0.4, c - r * 0.4, r * 0.1, c, c, r);
+    gr.addColorStop(0, c1); gr.addColorStop(0.6, c2); gr.addColorStop(1, c3);
+    g.fillStyle = gr; g.beginPath(); g.arc(c, c, r, 0, 7); g.fill();
+    g.strokeStyle = c3; g.lineWidth = 1.2; g.beginPath(); g.arc(c, c, r * 0.74, 0, 7); g.stroke();
+    if (paw) drawPaw(g, c, c, r * 0.42, paw);
+  });
+}
+
+// A bonus chip: coloured face, a scalloped gold edge with white inlays like a casino chip, and its value in the middle.
+function chipSprite(r, light, dark, label) {
+  return makeSprite(r, (g, c) => {
+    g.fillStyle = '#f3d36a'; // scalloped gold edge
+    g.beginPath();
+    for (let i = 0; i <= 48; i++) {
+      const a = i / 48 * Math.PI * 2, rr = i % 2 ? r : r * 0.93;
+      g.lineTo(c + Math.cos(a) * rr, c + Math.sin(a) * rr);
+    }
+    g.fill();
+    const gr = g.createRadialGradient(c - r * 0.35, c - r * 0.35, r * 0.1, c, c, r * 0.9);
+    gr.addColorStop(0, light); gr.addColorStop(1, dark);
+    g.fillStyle = gr; g.beginPath(); g.arc(c, c, r * 0.86, 0, 7); g.fill();
+    g.fillStyle = 'rgba(255,255,255,.92)'; // white inlays around the rim
+    for (let i = 0; i < 8; i++) {
+      const a = i / 8 * Math.PI * 2;
+      g.save(); g.translate(c + Math.cos(a) * r * 0.76, c + Math.sin(a) * r * 0.76); g.rotate(a);
+      g.fillRect(-r * 0.07, -r * 0.13, r * 0.14, r * 0.26); g.restore();
+    }
+    g.strokeStyle = '#f3d36a'; g.lineWidth = r * 0.05;
+    g.beginPath(); g.arc(c, c, r * 0.6, 0, 7); g.stroke();
+    g.font = `900 ${Math.round(r * (label.length > 2 ? 0.52 : 0.62))}px system-ui,sans-serif`;
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.lineWidth = r * 0.08; g.strokeStyle = 'rgba(30,10,20,.8)'; g.strokeText(label, c, c + r * 0.03);
+    g.fillStyle = '#fff'; g.fillText(label, c, c + r * 0.03);
+  });
+}
+
+// A coin face with a picture on it instead of the paw print.
+function symbolCoin(r, c1, c2, c3, symbol) {
+  return makeSprite(r, (g, c) => {
+    const gr = g.createRadialGradient(c - r * 0.4, c - r * 0.4, r * 0.1, c, c, r);
+    gr.addColorStop(0, c1); gr.addColorStop(0.6, c2); gr.addColorStop(1, c3);
+    g.fillStyle = gr; g.beginPath(); g.arc(c, c, r, 0, 7); g.fill();
+    g.strokeStyle = c3; g.lineWidth = 1.2; g.beginPath(); g.arc(c, c, r * 0.8, 0, 7); g.stroke();
+    symbol(g, c, r);
+  });
+}
+const SYMBOL = {
+  clover(g, c, r) { // four heart-shaped leaves and a stem
+    g.strokeStyle = '#1f5a17'; g.lineWidth = r * 0.07; g.lineCap = 'round';
+    g.beginPath(); g.moveTo(c, c); g.quadraticCurveTo(c + r * 0.15, c + r * 0.35, c + r * 0.3, c + r * 0.5); g.stroke();
+    g.fillStyle = '#2f8f22';
+    for (let k = 0; k < 4; k++) {
+      const a = k * Math.PI / 2 + Math.PI / 4, px = -Math.sin(a), py = Math.cos(a);
+      for (const s of [-1, 1]) {
+        g.beginPath();
+        g.arc(c + Math.cos(a) * r * 0.27 + px * s * r * 0.1, c + Math.sin(a) * r * 0.27 + py * s * r * 0.1, r * 0.16, 0, 7);
+        g.fill();
+      }
+    }
+  },
+  smiley(g, c, r) {
+    g.fillStyle = '#3a2a00';
+    for (const s of [-1, 1]) { g.beginPath(); g.ellipse(c + s * r * 0.24, c - r * 0.15, r * 0.08, r * 0.13, 0, 0, 7); g.fill(); }
+    g.strokeStyle = '#3a2a00'; g.lineWidth = r * 0.08; g.lineCap = 'round';
+    g.beginPath(); g.arc(c, c + r * 0.02, r * 0.4, 0.2 * Math.PI, 0.8 * Math.PI); g.stroke();
+  },
+  rainbow(g, c, r) { // rainbow rings with a sparkle in the middle
+    const cols = ['#ff4d4d', '#ff9a3d', '#ffe14d', '#4dd96b', '#4db3ff', '#9a6bff'];
+    cols.forEach((col, i) => { g.strokeStyle = col; g.lineWidth = r * 0.09; g.beginPath(); g.arc(c, c, r * (0.74 - i * 0.1), 0, 7); g.stroke(); });
+    g.fillStyle = '#fff';
+    g.beginPath();
+    for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4, rr = i % 2 ? r * 0.08 : r * 0.2; g.lineTo(c + Math.cos(a) * rr, c + Math.sin(a) * rr); }
+    g.fill();
+  },
+  bolt(g, c, r) {
+    g.fillStyle = '#ffe14d'; g.strokeStyle = '#7a4a00'; g.lineWidth = r * 0.04;
+    const p = [[0.12, -0.62], [-0.3, 0.06], [-0.02, 0.06], [-0.16, 0.62], [0.32, -0.12], [0.03, -0.12], [0.2, -0.62]];
+    g.beginPath(); for (const [x, y] of p) g.lineTo(c + x * r, c + y * r); g.closePath(); g.fill(); g.stroke();
+  },
+  shower(g, c, r) {
+    g.font = `900 ${Math.round(r * 0.6)}px system-ui,sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.lineWidth = r * 0.08; g.strokeStyle = 'rgba(0,40,40,.7)'; g.strokeText('+' + SHOWER_COINS, c, c + r * 0.04);
+    g.fillStyle = '#fff'; g.fillText('+' + SHOWER_COINS, c, c + r * 0.04);
+  },
+};
+// Pictures for the top faces of flat things and cube faces, drawn over a unit square (-1..1) later.
+function faceSprite(w, h, draw) {
+  const sc = document.createElement('canvas'); sc.width = Math.ceil(w * SPR); sc.height = Math.ceil(h * SPR);
+  const g = sc.getContext('2d'); g.scale(SPR, SPR); draw(g, w, h);
+  return { cv: sc };
+}
+function boxSprite(kind, face) {
+  const key = kind + ':' + (face || '');
+  if (sprites[key]) return sprites[key];
+  const B = BOX[kind];
+  if (kind === 'ticket') sprites[key] = faceSprite(B.hx * 2, B.hz * 2, (g, w, h) => {
+    g.fillStyle = '#ff9a3d'; g.fillRect(0, 0, w, h);
+    g.fillStyle = '#c45a10'; for (const x of [0, w]) { g.beginPath(); g.arc(x, h / 2, h * 0.2, 0, 7); g.fill(); }
+    g.strokeStyle = '#a8460a'; g.lineWidth = 0.8; g.setLineDash([2, 1.5]); g.strokeRect(2, 2, w - 4, h - 4); g.setLineDash([]);
+    g.fillStyle = '#7a2a00'; g.font = `900 ${h * 0.42}px system-ui,sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText('TICKET', w / 2, h / 2 + 0.5);
+  });
+  else if (kind === 'cash') sprites[key] = faceSprite(B.hx * 2, B.hz * 2, (g, w, h) => {
+    g.fillStyle = '#bfe3b0'; g.fillRect(0, 0, w, h);
+    g.strokeStyle = '#2f6b3a'; g.lineWidth = 1.4; g.strokeRect(1.5, 1.5, w - 3, h - 3);
+    g.fillStyle = '#8fc98a'; g.beginPath(); g.ellipse(w / 2, h / 2, w * 0.17, h * 0.36, 0, 0, 7); g.fill();
+    g.fillStyle = '#1f4f2a'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.font = `900 ${h * 0.55}px system-ui,sans-serif`; g.fillText('$', w / 2, h / 2 + 0.5);
+    g.font = `800 ${h * 0.26}px system-ui,sans-serif`; g.fillText(VALUE.cash, w * 0.12, h * 0.25); g.fillText(VALUE.cash, w * 0.88, h * 0.75);
+  });
+  else sprites[key] = faceSprite(24, 24, (g, w) => { // a Rubik's cube face: 3x3 stickers on black
+    g.fillStyle = '#111'; g.fillRect(0, 0, w, w);
+    g.fillStyle = face;
+    for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) {
+      g.beginPath(); g.roundRect ? g.roundRect(1 + i * 7.5, 1 + j * 7.5, 6.5, 6.5, 1.2) : g.rect(1 + i * 7.5, 1 + j * 7.5, 6.5, 6.5); g.fill();
+    }
+  });
+  return sprites[key];
+}
+
+// a coin face with an emoji in the middle (toy coins, the jack-in-the-box coin)
+function emojiCoin(r, c1, c2, c3, emoji) {
+  return symbolCoin(r, c1, c2, c3, (g, c, rr) => {
+    g.font = `${Math.round(rr * 1.05)}px system-ui,"Segoe UI Emoji","Noto Color Emoji"`;
+    g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#000';
+    g.fillText(emoji, c, c + rr * 0.06);
+  });
+}
+// a little Rubik's cube on a toy coin
+function cubeSymbol(g, c, r) {
+  const s = r * 0.24, cols = ['#c41e3a', '#ffd500', '#0051ba', '#009e60', '#ff5800', '#ffffff', '#ffd500', '#c41e3a', '#0051ba'];
+  g.fillStyle = '#111'; g.fillRect(c - s * 1.6, c - s * 1.6, s * 3.2, s * 3.2);
+  cols.forEach((col, i) => { g.fillStyle = col; g.fillRect(c - s * 1.5 + (i % 3) * s * 1.02, c - s * 1.5 + ((i / 3) | 0) * s * 1.02, s * 0.9, s * 0.9); });
+}
+
+function sprite(kind, id) {
+  const key = id ? kind + ':' + id : kind;
+  if (sprites[key]) return sprites[key];
+  if (kind === 'toycoin') {
+    const lav = ['#f4ecff', '#c9b0f0', '#6a4a9a'];
+    sprites[key] = id === 'cube' ? symbolCoin(COIN_R, ...lav, cubeSymbol)
+      : emojiCoin(COIN_R, ...lav, ITEMS[id] ? ITEMS[id].emoji : id === 'ticket' ? '🎟' : '💵');
+    return sprites[key];
+  }
+  if (kind === 'joker') { sprites[key] = emojiCoin(COIN_R, '#ffe0e8', '#e8456a', '#7a1030', '🤡'); return sprites[key]; }
+  if (kind === 'silver') sprites[kind] = coinSprite(COIN_R, '#ffffff', '#c9cdd8', '#6e7480', 'rgba(70,75,90,.5)');
+  else if (kind === 'clover') sprites[kind] = symbolCoin(COIN_R, '#f4ffe8', '#bfe8a0', '#4f8a3a', SYMBOL.clover);
+  else if (kind === 'smiley') sprites[kind] = symbolCoin(COIN_R, '#fffbd0', '#ffd93a', '#b8860b', SYMBOL.smiley);
+  else if (kind === 'rainbow') sprites[kind] = symbolCoin(COIN_R, '#ffffff', '#f0e8ff', '#8a4fd0', SYMBOL.rainbow);
+  else if (kind === 'bolt') sprites[kind] = symbolCoin(COIN_R, '#8a8cff', '#3b3aa8', '#1d1c5a', SYMBOL.bolt);
+  else if (kind === 'shower') sprites[kind] = symbolCoin(COIN_R, '#c8fff4', '#3cc8b4', '#1d7a7a', SYMBOL.shower);
+  else if (kind === 'x5') sprites[kind] = chipSprite(BONUS.x5.r, '#5ec8ff', '#0b4f8a', '5x');
+  else if (kind === 'x10') sprites[kind] = chipSprite(BONUS.x10.r, '#ff6a7a', '#8a0a22', '10x');
+  else if (kind === 'lucky') sprites[kind] = coinSprite(LUCKY_R, '#ffe0f4', '#e86ac0', '#8a2a78', 'rgba(255,255,255,.85)');
+  else if (kind === 'power') sprites[kind] = coinSprite(ITEM_R, '#fffbe0', '#ffcf30', '#b07a00', 'rgba(60,40,0,.85)');
+  else sprites[kind] = coinSprite(COIN_R, '#fff4b0', '#f2c230', '#a8740c', 'rgba(150,100,10,.55)');
+  return sprites[kind];
+}
+
+// A coin as Rapier has it: its face is the disc in the coin's own plane (axes u, w), projected into the slanted
+// view; the rim is the back face, offset by the coin's thickness, in the edge colour. We look at whichever face is
+// turned toward the viewer.
+function drawCoinAt(kind, c, q, id) {
+  let n = qrot(q, { x: 0, y: 1, z: 0 }), u = qrot(q, { x: 1, y: 0, z: 0 }), w = qrot(q, { x: 0, y: 0, z: 1 });
+  if (n.y * LIFT + n.z * SQUASH < 0) { n = { x: -n.x, y: -n.y, z: -n.z }; w = { x: -w.x, y: -w.y, z: -w.z }; }
+  const r = radius(kind), half = halfOf(kind), pn = projVec(n, c.s), pu = projVec(u, c.s), pw = projVec(w, c.s);
+  ctx.fillStyle = EDGE[kind];
+  for (const k of [-1, 0]) { // back face and middle, together the visible rim
+    ctx.save(); ctx.translate(c.x + pn.x * half * k, c.y + pn.y * half * k); ctx.transform(pu.x, pu.y, pw.x, pw.y, 0, 0);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill(); ctx.restore();
+  }
+  const sp = sprite(kind, id);
+  ctx.save(); ctx.translate(c.x + pn.x * half, c.y + pn.y * half); ctx.transform(pu.x, pu.y, pw.x, pw.y, 0, 0);
+  ctx.drawImage(sp.cv, -sp.half, -sp.half, sp.half * 2, sp.half * 2); ctx.restore();
+}
+
+// A prize standing up on whatever it's resting on (the golden paw is a gold medallion on its edge).
+function drawPrize(kind, id, x, y, s) {
+  const r = radius(kind) * s;
+  ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath(); ctx.ellipse(x, y, r * 0.9, r * 0.9 * SQUASH, 0, 0, 7); ctx.fill();
+  if (kind === 'power') {
+    const sp = sprite('power'), w = sp.cv.width / SPR * s * 1.1;
+    ctx.fillStyle = '#8a5c00'; ctx.beginPath(); ctx.ellipse(x + 2 * s, y - r * 0.95, r * 1.05, r * 1.1, 0, 0, 7); ctx.fill();
+    ctx.drawImage(sp.cv, x - w / 2, y - r * 0.95 - w / 2, w, w);
+    return;
+  }
+  ctx.font = `${Math.round(r * 2.1)}px system-ui,"Segoe UI Emoji","Noto Color Emoji"`;
+  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = '#000'; // color emoji take the fill's transparency, so it must be opaque
+  ctx.fillText(ITEMS[id].emoji, x, y + r * 0.35);
+}
+
+function drawBody(b) {
+  const t = b.rb.translation(), x = t.x / M, h = t.y / M, y = t.z / M;
+  if (b.kind === 'stack') { // a tower: its coins bottom to top, following the column's lean
+    const q = b.rb.rotation();
+    for (const part of stackParts(b)) {
+      const o = qrot(q, part.p);
+      drawCoinAt(part.kind, screenOf(x + o.x, y + o.z, h + o.y), qmul(q, part.q));
+    }
+  } else if (b.kind === 'item' || b.kind === 'power') {
+    const c = screenOf(x, y, h - b.half);
+    drawPrize(b.kind, b.id, c.x, c.y, c.s);
+  } else if (BOX[b.kind]) drawBoxAt(b.kind, x, y, h, b.rb.rotation());
+  else drawCoinAt(b.kind, screenOf(x, y, h), b.rb.rotation(), b.id);
+}
+
+// A ticket strip, bill or Rubik's cube as Rapier has it: each face turned toward the viewer, back faces first,
+// drawn by mapping its picture (or edge colour) onto the face's parallelogram on screen.
+function drawBoxAt(kind, x, y, h, q) {
+  const B = BOX[kind], neg = v => ({ x: -v.x, y: -v.y, z: -v.z });
+  const ex = qrot(q, { x: 1, y: 0, z: 0 }), ey = qrot(q, { x: 0, y: 1, z: 0 }), ez = qrot(q, { x: 0, y: 0, z: 1 });
+  const faces = [ // [normal, its half size, edge 1, half size, edge 2, half size, face number]
+    [ey, B.hy, ex, B.hx, ez, B.hz, 0], [neg(ey), B.hy, ex, B.hx, ez, B.hz, 1],
+    [ex, B.hx, ez, B.hz, ey, B.hy, 2], [neg(ex), B.hx, ez, B.hz, ey, B.hy, 3],
+    [ez, B.hz, ex, B.hx, ey, B.hy, 4], [neg(ez), B.hz, ex, B.hx, ey, B.hy, 5],
+  ];
+  const shown = faces.filter(f => f[0].y * LIFT + f[0].z * SQUASH > 0)
+    .map(f => ({ f, d: f[0].z * f[1] + f[0].y * f[1] * 1.3 })).sort((a, b) => a.d - b.d);
+  for (const { f: [n, dn, t1, e1, t2, e2, i] } of shown) {
+    const c = screenOf(x + n.x * dn, y + n.z * dn, h + n.y * dn), p1 = projVec(t1, c.s), p2 = projVec(t2, c.s);
+    ctx.save(); ctx.translate(c.x, c.y); ctx.transform(p1.x * e1, p1.y * e1, p2.x * e2, p2.y * e2, 0, 0);
+    if (kind === 'cube') ctx.drawImage(boxSprite('cube', CUBE_FACES[i]).cv, -1, -1, 2, 2);
+    else if (i <= 1) ctx.drawImage(boxSprite(kind).cv, -1, -1, 2, 2);
+    else { ctx.fillStyle = EDGE[kind]; ctx.fillRect(-1, -1, 2, 2); }
+    ctx.restore();
+  }
+}
+
+// a coin falling into the bucket (or past it): flat, sinking and fading
+function drawFalling(f) {
+  if (f.kind === 'item' || f.kind === 'power') { drawPrize(f.kind, f.id, f.x, f.y, f.s); return; }
+  const sq = Math.max(0.25, SQUASH - f.t * 1.2);
+  if (BOX[f.kind]) {
+    const B = BOX[f.kind], w = B.hx * 2 * f.s, h = (f.kind === 'cube' ? B.hy : B.hz) * 2 * f.s * (f.kind === 'cube' ? 1 : sq);
+    ctx.drawImage(boxSprite(f.kind, f.kind === 'cube' ? CUBE_FACES[4] : '').cv, f.x - w / 2, f.y - h / 2, w, h);
+    return;
+  }
+  const sp = sprite(f.kind, f.id), r = radius(f.kind) * f.s;
+  ctx.fillStyle = EDGE[f.kind]; ctx.beginPath(); ctx.ellipse(f.x, f.y + 2 * f.s, r, r * sq, 0, 0, 7); ctx.fill();
+  const w = sp.cv.width / SPR * f.s;
+  ctx.drawImage(sp.cv, f.x - sp.half * f.s, f.y - sp.half * f.s * sq, w, w * sq);
+}
+
+function blitFlat(kind, x, y, s = 0.75) {
+  const sp = sprite(kind), w = sp.cv.width / SPR * s;
+  ctx.drawImage(sp.cv, x - sp.half * s, y - sp.half * s, w, w);
+}
+
+function roundRect(x, y, w, h, r) {
+  ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+}
+
+// ---------- machine art ----------
+// Jenny's generated machine picture (img/machine_source.webp, 941x1672) is cut into layers when the game loads:
+// the background (paws painted out, arms extended down past the table, bucket removed), the tongue (stretched
+// in and out as the pusher), one paw (mirrored for the left; bends inward at the wrist with the golden paw),
+// and the bucket (drawn narrower so coins at the front corners can miss it).
+const ART = { src: 'img/machine_source.webp', IW: 941, IH: 1672 };
+const AK = W / ART.IW; // picture pixels -> game units
+const FUR = [25, 26, 35], BG = [6, 78, 74]; // BG: a deep version of the table's green, behind the cat
+const ARM_TOP = 560, HEAD_CUT = 470, MOUTH_TOP = 290; // picture rows: where the arms are cleared from, and the bottom of the head layer
+// the cat's eyes in the picture (pixels): centre and half-size of the yellow
+const EYES = [{ x: 340, y: 249, rx: 48, ry: 42 }, { x: 594, y: 249, rx: 48, ry: 42 }], EYE_YELLOW = [251, 221, 118];
+const TONGUE_BOX = [205, 385, 735, 532], PAW_BOX = [705, 752, 934, 958], TABLE_CUT = 1362;
+const BUCKET_BOX = [56, 1362, 886, 1668], BUCKET_SCALE = 0.72, PAW_SCALE = 0.72;
+const WRIST = { x: 46, y: 1418 }; // left wrist in picture pixels; the right one is mirrored
+
+function newCanvas(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
+
+async function loadArt() {
+  const im = new Image(); im.src = ART.src; await im.decode();
+  const IW = im.width, IH = im.height;
+  const bg = newCanvas(IW, IH), g = bg.getContext('2d');
+  g.drawImage(im, 0, 0);
+  const img = g.getImageData(0, 0, IW, IH), d = img.data;
+  const idx = (x, y) => (y * IW + x) * 4;
+  // Cut a layer out of the picture: the pixels in box where keep() is true, grown by `grow` px to take in the outline.
+  function cut([x0, y0, x1, y1], keep, grow) {
+    const w = x1 - x0, h = y1 - y0;
+    let m = new Uint8Array(w * h);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (keep(idx(x0 + x, y0 + y), y0 + y)) m[y * w + x] = 1;
+    for (let k = 0; k < grow; k++) {
+      const n = m.slice();
+      for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) {
+        const j = y * w + x;
+        if (!m[j] && (m[j - 1] || m[j + 1] || m[j - w] || m[j + w])) n[j] = 1;
+      }
+      m = n;
+    }
+    const c = newCanvas(w, h), cg = c.getContext('2d'), out = cg.createImageData(w, h);
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      if (!m[y * w + x]) continue;
+      const i = idx(x0 + x, y0 + y), o = (y * w + x) * 4;
+      out.data[o] = d[i]; out.data[o + 1] = d[i + 1]; out.data[o + 2] = d[i + 2]; out.data[o + 3] = 255;
+    }
+    cg.putImageData(out, 0, 0);
+    return { c, m };
+  }
+  const pink = i => d[i] > 150 && d[i] > d[i + 1] + 50;
+  const white = i => d[i] > 165 && d[i + 1] > 160 && d[i + 2] > 145;
+  // No empty mouth: the dark inside of the mouth (around and behind the tongue, up to the upper lip) becomes tongue,
+  // so only tongue shows between the lips. The tongue layer is cut from the lip down; the head layer gets a hole
+  // there (below), and the tongue is drawn under the head, so the lips and fangs stay on top.
+  const mouthDark = i => d[i] > d[i + 1] + 35 && d[i] < 120; // the dark red inside of the mouth
+  for (let y = MOUTH_TOP; y < TONGUE_BOX[3]; y++) for (let x = TONGUE_BOX[0]; x < TONGUE_BOX[2]; x++) {
+    const i = idx(x, y);
+    if (mouthDark(i)) { d[i] = 188; d[i + 1] = 64; d[i + 2] = 97; }
+  }
+  const tcut = cut([TONGUE_BOX[0], MOUTH_TOP, TONGUE_BOX[2], TONGUE_BOX[3]], i => pink(i), 2);
+  ART.tongue = tcut.c; ART.tongueMask = tcut.m;
+  ART.paw = cut(PAW_BOX, white, 4).c;
+  // the bucket: everything in its box except the table felt, the wooden rails and the purple background
+  ART.bucket = cut(BUCKET_BOX, i => {
+    const r = d[i], gg = d[i + 1], b = d[i + 2];
+    return !(gg > r + 25 && b > r + 20) && !(r > gg + 30) && !(b > gg + 12 && r > gg + 5);
+  }, 0).c;
+  // paint the paws out with fur
+  for (const box of [[10, 752, 236, 958], PAW_BOX]) {
+    const p = cut(box, white, 5), [x0, y0, x1, y1] = box, w = x1 - x0;
+    for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) {
+      if (!p.m[(y - y0) * w + (x - x0)]) continue;
+      const i = idx(x, y); d[i] = FUR[0]; d[i + 1] = FUR[1]; d[i + 2] = FUR[2];
+    }
+  }
+  // the painted pupils (and glints) are filled in with the eye's yellow; drawEyes() draws pupils that look around
+  for (const e of EYES) {
+    for (let y = e.y - e.ry; y <= e.y + e.ry; y++) for (let x = e.x - e.rx; x <= e.x + e.rx; x++) {
+      const nx = (x - e.x) / (e.rx * 0.82), ny = (y - e.y) / (e.ry * 0.86);
+      if (nx * nx + ny * ny > 1) continue;
+      const i = idx(x, y), r = d[i], gg = d[i + 1], b = d[i + 2];
+      if ((r < 120 && gg < 120 && b < 120) || (r > 225 && gg > 225 && b > 200)) { d[i] = EYE_YELLOW[0]; d[i + 1] = EYE_YELLOW[1]; d[i + 2] = EYE_YELLOW[2]; }
+    }
+  }
+  // No arms: from the table's back edge down, everything outside the table's wooden rails becomes background.
+  // (The rails' outer edges run in a straight line from (222, 600) to (64, 1300) on the left, mirrored on the right.)
+  for (let y = ARM_TOP; y < TABLE_CUT; y++) {
+    const spread = (y - 600) * (158 / 700), xl = 222 - spread - 2, xr = 718 + spread + 2;
+    for (let x = 0; x < IW; x++) {
+      if (x >= xl && x <= xr) continue;
+      const i = idx(x, y); d[i] = BG[0]; d[i + 1] = BG[1]; d[i + 2] = BG[2];
+    }
+  }
+  // The arms hid the rails from about row 630 to 995. There the rails are rebuilt: each row is the wood (plus a
+  // little of the felt beside it) of row RAIL_SRC, squeezed to the rail's width there. The rails' outer edges and
+  // widths, measured where they show, bend slightly, so they're followed with a curve through three rows.
+  const fit3 = (pts) => y => pts.reduce((s, [yi, vi], i) => s + vi * pts.reduce((p, [yj], j) => j === i ? p : p * (y - yj) / (yi - yj), 1), 0);
+  const RAIL_SRC = 1000, RAIL_FROM = 625, RAIL_TO = 995;
+  const rails = [ // [outer edge, width, which way is inward]
+    [fit3([[560, 229], [1000, 137], [1300, 60]]), fit3([[560, 25], [1000, 41], [1300, 50]]), 1],
+    [fit3([[560, 709], [1000, 801], [1300, 878]]), fit3([[560, 25], [1000, 42], [1300, 52]]), -1],
+  ];
+  const src = d.slice(idx(0, RAIL_SRC), idx(0, RAIL_SRC + 1));
+  for (const [edge, width, dir] of rails) {
+    const e0 = edge(RAIL_SRC), w0 = width(RAIL_SRC);
+    for (let y = RAIL_FROM; y <= RAIL_TO; y++) {
+      const e = edge(y), w = width(y);
+      for (let k = -3; k < w + 70; k++) {
+        const xs = Math.round(e0 + dir * (k < w ? k * w0 / w : w0 + (k - w))), xt = Math.round(e + dir * k);
+        const i = idx(xt, y), s = xs * 4;
+        if (k >= w + 14 && Math.max(d[i], d[i + 1], d[i + 2]) > 75) continue; // further in, only the dark fur is replaced
+        d[i] = src[s]; d[i + 1] = src[s + 1]; d[i + 2] = src[s + 2];
+      }
+    }
+  }
+  // ...and the fur left between that line and the rails, and the shoulders beside the tongue under the head layer:
+  // from each side, every dark pixel up to the first light one (the rail's wood, the lips, the felt) goes too
+  const dark = i => Math.max(d[i], d[i + 1], d[i + 2]) < 100;
+  const lightRun = (x, y, dx) => { let n = 0; for (let k = 0; k < 4; k++) if (!dark(idx(x + dx * k, y))) n++; return n >= 3; };
+  for (let y = HEAD_CUT; y < TABLE_CUT; y++) {
+    const lim = y < ARM_TOP ? 215 : 222 - (y - 600) * (158 / 700) + 45; // no further in than this (the felt is dark too)
+    for (let x = 0; x < lim && !lightRun(x, y, 1); x++) { const i = idx(x, y); d[i] = BG[0]; d[i + 1] = BG[1]; d[i + 2] = BG[2]; }
+    for (let x = IW - 1; x > IW - 1 - lim && !lightRun(x, y, -1); x--) { const i = idx(x, y); d[i] = BG[0]; d[i + 1] = BG[1]; d[i + 2] = BG[2]; }
+  }
+  // the picture's dark purple background becomes green, so the black cat stands out against it
+  for (let i = 0; i < d.length; i += 4) {
+    const r = d[i], gg = d[i + 1], b = d[i + 2];
+    if (b > gg + 10 && r > gg + 4 && r < 80 && b < 90) { d[i] = BG[0]; d[i + 1] = BG[1]; d[i + 2] = BG[2]; }
+  }
+  // clear everything below the table's front edge (the bucket is drawn separately)
+  for (let y = TABLE_CUT; y < IH; y++) for (let x = 0; x < IW; x++) {
+    const i = idx(x, y); d[i] = BG[0]; d[i + 1] = BG[1]; d[i + 2] = BG[2];
+  }
+  g.putImageData(img, 0, 0);
+  ART.bg = bg;
+  // the head (everything above HEAD_CUT) as its own layer, so the face can bob, sway and lunge
+  const head = newCanvas(IW, HEAD_CUT);
+  const hg = head.getContext('2d');
+  hg.drawImage(bg, 0, 0, IW, HEAD_CUT, 0, 0, IW, HEAD_CUT);
+  // a hole where the tongue is, so the tongue (drawn under the head) shows between the lips
+  const [mx0, , mx1] = TONGUE_BOX, mw = mx1 - mx0, hd = hg.getImageData(mx0, MOUTH_TOP, mw, HEAD_CUT - MOUTH_TOP);
+  for (let y = 0; y < HEAD_CUT - MOUTH_TOP; y++) for (let x = 0; x < mw; x++) if (ART.tongueMask[y * mw + x]) hd.data[(y * mw + x) * 4 + 3] = 0;
+  hg.putImageData(hd, mx0, MOUTH_TOP);
+  // Widen only the outer cheeks. Keep the eyes and tongue opening at their original
+  // coordinates; overscan the fur so breathing and head sway never reveal side gaps.
+  const wideHead = newCanvas(IW, HEAD_CUT), wg = wideHead.getContext('2d');
+  const faceLeft = TONGUE_BOX[0], faceRight = TONGUE_BOX[2], cheekStretch = 4;
+  wg.drawImage(head, faceLeft, 0, faceRight - faceLeft, HEAD_CUT,
+    faceLeft, 0, faceRight - faceLeft, HEAD_CUT);
+  wg.drawImage(head, 0, 0, faceLeft, HEAD_CUT,
+    faceLeft * (1 - cheekStretch), 0, faceLeft * cheekStretch, HEAD_CUT);
+  wg.drawImage(head, faceRight, 0, IW - faceRight, HEAD_CUT,
+    faceRight, 0, (IW - faceRight) * cheekStretch, HEAD_CUT);
+  ART.head = wideHead;
+  // Clear the stationary face behind the animated layer to avoid a second outline.
+  g.fillStyle = `rgb(${BG.join(',')})`;
+  g.fillRect(0, 0, IW, HEAD_CUT);
+}
+
+// The machine is drawn zoomed in (VIEW.z) around the screen's centre, so the table fills more of the screen and the
+// arms run partly off the sides; it's placed (VIEW.y) so the bucket sits near the bottom of the screen.
+// On tall phones the machine is also stretched a little taller (VIEW.zy, at most 12% more than its width), which
+// gives more table, and any space still left over is split between above the cat and below the bucket.
+const VIEW = { z: 1, zy: 1, y: 0 };
+const MACHINE_TOP = 34, MACHINE_BOTTOM = 640; // tips of the ears and bottom of the paws, in game units
+function fitView() {
+  // the machine fits between the top bar (its ears may tuck behind the quest banner) and the bottom bar
+  const top = PAD_T + BAR_H, bottom = H - PAD_B - BOTTOM_H + 6;
+  VIEW.z = H >= 800 ? 1.08 : 1.0;
+  VIEW.zy = Math.max(VIEW.z, Math.min(VIEW.z * 1.12, (bottom - top) / (MACHINE_BOTTOM - MACHINE_TOP)));
+  VIEW.y = bottom - MACHINE_BOTTOM * VIEW.zy;
+  const gapTop = VIEW.y + MACHINE_TOP * VIEW.zy - top;
+  if (gapTop > 12) VIEW.y -= (gapTop - 12) / 2;
+}
+function screenToGameX(sx) { return (sx - 200) / VIEW.z + 200; }
+// The picture is also drawn ART_ZX times wider than it is (around the centre), so the cat's cheeks reach the
+// screen's edges and the table is wider; the projection (P_X) is widened by the same amount to match.
+function artX(x) { return 200 + (x - 200) * ART_ZX; }
+
+function drawMachine() {
+  ctx.drawImage(ART.bg, artX(0), 0, W * ART_ZX, ART.IH * AK);
+  // a shadowy drop below the table's front edge, where the coins fall away
+  const top = TABLE_CUT * AK, sh = ctx.createLinearGradient(0, top, 0, top + 70);
+  sh.addColorStop(0, 'rgba(0,0,0,.55)'); sh.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = sh; ctx.fillRect(artX(0), top, W * ART_ZX, 70);
+  drawTongue(); // under the head, so the lips and fangs overlap it
+  // the head on its own layer: a gentle bob, sway and breath, swelling toward you when the cat growls
+  const ls = lungeShape(), pivotY = 420 * AK;
+  const sc = 1 + Math.sin(time * 2.1) * 0.008 + ls * 0.07;
+  const rot = Math.sin(time * 0.8) * 0.014 + Math.sin(time * 31) * 0.012 * ls;
+  ctx.save();
+  ctx.translate(200, pivotY + Math.sin(time * 1.6) * 1.3 + ls * 5); ctx.rotate(rot); ctx.scale(sc, sc); ctx.translate(-200, -pivotY);
+  ctx.drawImage(ART.head, artX(0), 0, W * ART_ZX, HEAD_CUT * AK);
+  drawEyes(ls);
+  ctx.restore();
+}
+
+// Slit pupils that follow where you're aiming (and glance down at the table), with a blink every few seconds.
+let blinkAt = 3;
+function drawEyes(ls) {
+  const look = Math.max(-1, Math.min(1, (aim.x - 200) / 150));
+  if (time > blinkAt + 0.14) blinkAt = time + rand(2.5, 6);
+  const shut = ls > 0.1 ? 0 : time > blinkAt ? 1 - Math.abs((time - blinkAt) / 0.07 - 1) : 0; // 0 open .. 1 closed
+  for (const e of EYES) {
+    const cx = artX(e.x * AK), cy = e.y * AK, rx = e.rx * AK * ART_ZX * 0.82, ry = e.ry * AK * 0.86;
+    ctx.save();
+    ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, 0, 7); ctx.clip();
+    const px = cx + look * rx * 0.62, py = cy + ry * 0.12;
+    ctx.fillStyle = '#111'; ctx.beginPath(); ctx.ellipse(px, py, rx * (0.2 - 0.1 * ls), ry * 0.78, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,.9)'; ctx.beginPath(); ctx.arc(px + rx * 0.12, py - ry * 0.32, rx * 0.12, 0, 7); ctx.fill();
+    if (shut > 0) { // eyelid coming down
+      ctx.fillStyle = `rgb(${FUR})`;
+      ctx.fillRect(cx - rx, cy - ry, rx * 2, ry * 2 * shut);
+    }
+    ctx.restore();
+    if (ls > 0.05) { // a scowl: a heavy black brow slanting down toward the nose
+      const inward = cx < 200 ? 1 : -1;
+      ctx.save(); ctx.globalAlpha = Math.min(1, ls * 2.5);
+      ctx.fillStyle = '#0c0a10';
+      ctx.beginPath();
+      ctx.moveTo(cx - inward * rx * 1.1, cy - ry * 1.15);
+      ctx.lineTo(cx + inward * rx * 0.9, cy - ry * (0.55 - 0.25 * ls));
+      ctx.lineTo(cx + inward * rx * 0.95, cy - ry * (0.2 - 0.25 * ls));
+      ctx.lineTo(cx - inward * rx * 1.0, cy - ry * 0.85);
+      ctx.closePath(); ctx.fill();
+      ctx.restore();
+    }
+  }
+}
+
+// The tongue is a rigid tray sliding out of the mouth; its artwork never stretches.
+function drawTongue() {
+  const [x0, , x1] = TONGUE_BOX, top = MOUTH_TOP * AK, bottom = proj(200, tongueDrawY).y;
+  const height = proj(200, PUSH_MAX).y - top;
+  ctx.save();
+  ctx.beginPath(); ctx.rect(artX(x0 * AK), top, (x1 - x0) * AK * ART_ZX, height); ctx.clip();
+  ctx.drawImage(ART.tongue, artX(x0 * AK), bottom - height, (x1 - x0) * AK * ART_ZX, height);
+  ctx.restore();
+}
+
+function bucketRect() {
+  const w = (BUCKET_BOX[2] - BUCKET_BOX[0]) * AK * BUCKET_SCALE * ART_ZX, h = (BUCKET_BOX[3] - BUCKET_BOX[1]) * AK * BUCKET_SCALE;
+  return { x: 200 - w / 2, y: TABLE_CUT * AK, w, h };
+}
+
+function drawBucket() {
+  const b = bucketRect();
+  ctx.drawImage(ART.bucket, b.x, b.y, b.w, b.h);
+  // heap of won coins inside the rim, rising slowly as you win
+  const n = Math.min(90, S.won), cy = BUCKET_TOP;
+  for (let i = 0; i < n; i++) {
+    const a = (i * 137.5) % 360 * Math.PI / 180, rr = ((i * 61) % 100) / 100;
+    const x = 200 + Math.cos(a) * rr * b.w * 0.38, y = cy + Math.sin(a) * rr * 4 - Math.min(5, i / 18);
+    ctx.fillStyle = '#8a5c08'; ctx.beginPath(); ctx.ellipse(x, y + 1.2, 8, 3, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = i % 9 === 0 ? '#fff0a0' : '#f0c030'; ctx.beginPath(); ctx.ellipse(x, y, 8, 3, 0, 0, 7); ctx.fill();
+  }
+  ctx.fillStyle = '#ffd76a'; ctx.font = 'bold 15px system-ui'; ctx.textAlign = 'center';
+  ctx.fillText(`${S.won} won`, 200, b.y + b.h * 0.62);
+}
+
+// The paws rest on the table's front corners beside the bucket, kneading: each slowly spreads open (wider, turned
+// out a little) and closes again, the two out of step. With the golden paw they swing in over the gaps.
+// big paws in the bottom corners: width, how far in from the screen edge their centres sit, how far below the
+// table's front corner, and how far they're turned (radians) so the toes point inward
+const PAW_SIZE = 150, PAW_INSET = 40, PAW_DROP = 38, PAW_TURN = 2.35;
+function drawPaws() {
+  // Drawn in screen space (over the bottom bar): big paws filling both bottom corners, hugging the table's front
+  // corners from below, toes curled in over the edge toward the middle.
+  const w = PAW_SIZE, h = w * ART.paw.height / ART.paw.width;
+  const corner = proj(T.L, T.FRONT), cy = VIEW.y + corner.y * VIEW.zy;
+  for (const side of [-1, 1]) {
+    const open = 0.5 + 0.5 * Math.sin(time * 4 + (side > 0 ? Math.PI : 0)); // 0 closed .. 1 spread
+    const px = side < 0 ? PAW_INSET : W - PAW_INSET, py = cy + PAW_DROP + 4 * open;
+    ctx.save(); ctx.translate(px - side * guardAnim * 26, py - guardAnim * 14);
+    // The paw picture has its toes at the bottom; turning it by side × PAW_TURN points the toes up and in over the
+    // table's corner, with the wrist going off the screen's corner. Kneading rocks it; the golden paw reaches in.
+    ctx.rotate(side * (PAW_TURN - 0.08 * open - guardAnim * 0.25));
+    if (side < 0) ctx.scale(-1, 1);
+    const sx = 0.94 + 0.12 * open, sy = 1.03 - 0.06 * open;
+    ctx.drawImage(ART.paw, -w / 2 * sx, -h * 0.45 * sy, w * sx, h * sy);
+    // claws come out of the toes as the paw spreads, and tuck back in as it closes
+    const claw = Math.max(0, open - 0.2) / 0.8, toeY = h * 0.47 * sy;
+    if (claw > 0) {
+      ctx.fillStyle = '#fbf6ea'; ctx.strokeStyle = 'rgba(70,60,55,.85)'; ctx.lineWidth = 1.4;
+      for (const f of [-0.27, -0.09, 0.09, 0.27]) {
+        const cx = f * w * sx, len = (6 + 12 * claw) * sy, b = w * 0.03;
+        ctx.beginPath(); ctx.moveTo(cx - b, toeY - 2); ctx.quadraticCurveTo(cx + b * 0.4, toeY + len * 0.7, cx + b * 0.2, toeY + len);
+        ctx.quadraticCurveTo(cx + b * 1.5, toeY + len * 0.45, cx + b, toeY - 2); ctx.closePath(); ctx.fill(); ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+}
+
+// A gold ring on the tongue where your coin will land.
+function drawAim() {
+  if (aimShow <= 0) return;
+  const c = screenOf(aim.x, DROP_Y, TONGUE_H), rad = COIN_R * c.s;
+  ctx.globalAlpha = 0.85 * aimShow; ctx.strokeStyle = '#ffe680'; ctx.lineWidth = 2.5;
+  ctx.setLineDash([5, 4]);
+  ctx.beginPath(); ctx.ellipse(c.x, c.y, rad, rad * SQUASH, 0, 0, 7); ctx.stroke();
+  ctx.setLineDash([]); ctx.globalAlpha = 1;
+}
+
+const BUCKET_TOP = 589;
+
+function draw() {
+  ctx.setTransform(scale * devicePixelRatio, 0, 0, scale * devicePixelRatio, 0, 0);
+  ctx.fillStyle = `rgb(${BG})`; ctx.fillRect(0, 0, W, H);
+  // the machine, zoomed in around the centre (and shaking while lightning strikes)
+  const sh = shake > 0 ? shake * 6 : 0;
+  ctx.save(); ctx.translate(200 + rand(-sh, sh), VIEW.y + rand(-sh, sh) * 0.5); ctx.scale(VIEW.z, VIEW.zy); ctx.translate(-200, 0);
+  drawMachine();
+  drawAim();
+  // back to front: further back first, and lower before higher, so piles stack up the right way
+  // (a tower sorts by its base, so coins in front of it still draw over it)
+  // The order is smoothed and only changes when two coins are clearly apart: coins jiggling in a pile used to swap
+  // order every frame, which flickered.
+  for (const b of bodies) {
+    const t = b.rb.translation(), k = t.z / M + (t.y / M - (b.kind === 'stack' ? b.half : 0)) * 1.3;
+    b.sortK = b.sortK === null ? k : Math.abs(k - b.sortK) > 1.5 ? k : b.sortK;
+  }
+  bodies.sort((a, b) => a.sortK - b.sortK || a.uid - b.uid);
+  for (const b of bodies) drawBody(b);
+  for (const f of falling) {
+    // tipping over the edge and dropping away, fading as it goes (the ones at the corners go behind the paws)
+    ctx.globalAlpha = Math.max(0, 1 - f.t * 1.9);
+    drawFalling(f);
+    ctx.globalAlpha = 1;
+  }
+  for (const r of rings) {
+    ctx.globalAlpha = 1 - r.t; ctx.strokeStyle = '#fff3b0'; ctx.lineWidth = 2.5 * (1 - r.t) + 0.5;
+    const rad = (14 + r.t * 34) * r.s;
+    ctx.beginPath(); ctx.ellipse(r.x, r.y, rad, rad * SQUASH, 0, 0, 7); ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+  for (const f of floats) {
+    ctx.globalAlpha = 1 - f.t; ctx.fillStyle = f.big ? '#ff9ad8' : '#ffd76a';
+    ctx.font = `bold ${f.big ? 22 : 16}px system-ui`; ctx.textAlign = 'center';
+    ctx.fillText(f.text, f.x, f.y - f.t * 40); ctx.globalAlpha = 1;
+  }
+  ctx.restore();
+  if (flash > 0) { ctx.fillStyle = `rgba(230,235,255,${flash * 0.6})`; ctx.fillRect(0, 0, W, H); } // lightning flash
+  drawHUD();
+  drawCallout();
+}
+
+// ---------- screen layout ----------
+// A border top and bottom (PAD_T, PAD_B) so nothing sits under the phone's rounded corners or camera. Top: the bar
+// (coins, level gauge, collection, sound) and the quest banner under it. Bottom: the daily challenge and the shake button.
+const PAD_T = 26, BAR_H = 44, BANNER_H = 28, PAD_B = 18, BOTTOM_H = 62;
+function shakeButton() { return { x: 200, y: H - PAD_B - BOTTOM_H / 2, r: 26 }; }
+function clock(ms) { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; }
+function bar(x, y, w, h, f, col) {
+  ctx.fillStyle = 'rgba(255,255,255,.14)'; roundRect(x, y, w, h, h / 2); ctx.fill();
+  if (f > 0) { ctx.fillStyle = col; roundRect(x, y, Math.max(h, w * Math.min(1, f)), h, h / 2); ctx.fill(); }
+}
+// The quest meter: a tall tube up the right side of the table that fills toward the quest's goal, with the count
+// in big numbers on top (it bumps each time it goes up).
+function drawQuestMeter() {
+  const q = S.quest;
+  if (!q) return;
+  const sy = z => VIEW.y + VIEW.zy * proj(T.R, z).y; // a table depth → screen y
+  const top = sy(PUSH_MAX) + 34, bot = sy(T.FRONT) - 6, x = W - 22, w = 14, f = q.have / q.n;
+  ctx.fillStyle = 'rgba(18,11,28,.6)'; roundRect(x - w / 2 - 3, top - 3, w + 6, bot - top + 6, (w + 6) / 2); ctx.fill();
+  if (f > 0) {
+    const h = Math.max(w, (bot - top) * f), g = ctx.createLinearGradient(0, bot - h, 0, bot);
+    g.addColorStop(0, '#c8ff9a'); g.addColorStop(1, '#2fbf3a');
+    ctx.fillStyle = g; roundRect(x - w / 2, bot - h, w, h, w / 2); ctx.fill();
+  }
+  const s = 1 + meterBump * 0.45;
+  ctx.save(); ctx.translate(x - 4, top - 22); ctx.scale(s, s);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+  ctx.font = 'italic 900 26px Impact, "Arial Black", system-ui';
+  ctx.lineWidth = 6; ctx.strokeStyle = '#111'; ctx.strokeText(q.have, 0, 0);
+  ctx.fillStyle = q.have >= q.n ? '#7dff6a' : '#ffe680'; ctx.fillText(q.have, 0, 0);
+  ctx.font = '900 11px system-ui'; ctx.lineWidth = 4; ctx.strokeText('/' + q.n, 2, 18);
+  ctx.fillStyle = '#fff'; ctx.fillText('/' + q.n, 2, 18);
+  ctx.restore();
+}
+function drawHUD() {
+  const y0 = PAD_T, emoji = 'system-ui,"Segoe UI Emoji","Noto Color Emoji"';
+  ctx.textBaseline = 'middle';
+  // top bar
+  ctx.fillStyle = 'rgba(18,11,28,.88)'; ctx.fillRect(0, 0, W, y0 + BAR_H);
+  blitFlat('coin', 22, y0 + 20);
+  // out of coins: the counter flashes red and the refill timer shows bigger
+  const cf = coinFlash > 0 && Math.floor(coinFlash * 6) % 2 === 0;
+  ctx.fillStyle = cf ? '#ff5a5a' : '#ffd76a'; ctx.font = 'bold 21px system-ui'; ctx.textAlign = 'left';
+  ctx.fillText(S.coins, 40, y0 + 18);
+  if (S.coins < REGEN_CAP) {
+    ctx.fillStyle = coinFlash > 0 ? '#ffb0b0' : '#b9a6d6'; ctx.font = coinFlash > 0 ? 'bold 12px system-ui' : '10px system-ui';
+    ctx.fillText(`+1 in ${clock(REGEN_SEC * 1000 - (Date.now() - S.lastRegen))}`, 40, y0 + 35);
+  }
+  // the level gauge: fills as you drop and win coins
+  ctx.fillStyle = '#4fc3ff'; ctx.beginPath(); ctx.arc(128, y0 + 22, 15, 0, 7); ctx.fill();
+  ctx.fillStyle = '#04263a'; ctx.font = '900 13px system-ui'; ctx.textAlign = 'center'; ctx.fillText(S.level, 128, y0 + 23);
+  bar(148, y0 + 15, 140, 14, S.xp / xpFor(S.level), '#4fc3ff');
+  ctx.fillStyle = '#d8ecff'; ctx.font = '700 10px system-ui'; ctx.fillText(`${S.xp} / ${xpFor(S.level)}`, 218, y0 + 22.5);
+  ctx.font = `22px ${emoji}`;
+  ctx.fillText('🎒', W - 76, y0 + 22);
+  ctx.fillText(S.muted ? '🔇' : '🔊', W - 28, y0 + 22);
+  // the quest banner: what to do, how long is left, progress, and the reward
+  const by = y0 + BAR_H, q = S.quest;
+  ctx.fillStyle = 'rgba(18,11,28,.72)'; ctx.fillRect(0, by, W, BANNER_H);
+  if (bannerFlash > 0 && Math.floor(bannerFlash * 5) % 2 === 0) { ctx.fillStyle = 'rgba(232,32,58,.75)'; ctx.fillRect(0, by, W, BANNER_H); } // time's up
+  ctx.textAlign = 'left'; ctx.font = `700 12px ${emoji}`;
+  if (q) {
+    const left = q.ends - Date.now();
+    ctx.fillStyle = left < 20000 ? '#ff7a7a' : '#ffe680';
+    ctx.fillText(`⏱ ${clock(left)}`, 8, by + 10);
+    ctx.fillStyle = '#fff'; ctx.fillText(q.text, 58, by + 10, 210);
+    ctx.textAlign = 'right'; ctx.fillStyle = '#ffd76a';
+    ctx.fillText(`🎁 +${q.coins}${q.shakes ? ' +1 shake' : ''}`, W - 8, by + 10);
+    bar(58, by + 21, 150, 6, q.have / q.n, '#7dff6a');
+    ctx.textAlign = 'left'; ctx.fillStyle = '#c9f7c0'; ctx.font = '700 9px system-ui';
+    ctx.fillText(`${q.have}/${q.n}`, 8, by + 24);
+  } else {
+    ctx.fillStyle = '#b9a6d6'; ctx.fillText(`Next quest in ${clock((S.questNext || 0) - Date.now())}`, 8, by + 10);
+  }
+  // the daily challenge, on the banner's second line, right side
+  const d = daily();
+  ctx.textAlign = 'left'; ctx.fillStyle = '#ffd9b0'; ctx.font = `700 9px ${emoji}`;
+  const live = dailyRunning();
+  ctx.fillStyle = live && d.ends - Date.now() < 60000 ? '#ff7a7a' : '#ffd9b0';
+  ctx.fillText(d.won ? '⭐ Daily won!' : live ? `⭐ ${clock(d.ends - Date.now())} ${d.have}/${DAILY.target}` : '⭐ Daily: drop to start', 220, by + 24, live ? 90 : 170);
+  if (live) bar(312, by + 21, W - 320, 6, d.have / DAILY.target, '#ff8a3d');
+  if (S.guard > 0) {
+    ctx.textAlign = 'center'; ctx.fillStyle = '#ffcf30'; ctx.font = `bold 15px ${emoji}`;
+    ctx.fillText(`🐾 Paws in ${clock(S.guard * 1000)}`, 200, by + BANNER_H + 14);
+  }
+  drawQuestMeter();
+  // bottom bar: the big paws fill the corners; the shake button sits between them
+  const bb = H - PAD_B - BOTTOM_H, sb = shakeButton();
+  if (shakeWobble > 0) sb.x += Math.sin(shakeWobble * 45) * 7 * shakeWobble / 0.6; // no shakes left
+  ctx.fillStyle = 'rgba(18,11,28,.5)'; ctx.fillRect(0, bb, W, H - bb);
+  drawPaws();
+  // the shake button
+  const pressable = S.shakes > 0 && shake <= 0;
+  const gr = ctx.createRadialGradient(sb.x - 8, sb.y - 8, 4, sb.x, sb.y, sb.r);
+  gr.addColorStop(0, pressable ? '#ffd27a' : '#8a8090'); gr.addColorStop(1, pressable ? '#e8620c' : '#4a4252');
+  ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(sb.x, sb.y, sb.r, 0, 7); ctx.fill();
+  ctx.lineWidth = 3; ctx.strokeStyle = '#111'; ctx.stroke();
+  ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; ctx.font = 'italic 900 13px Impact, "Arial Black", system-ui';
+  ctx.fillText('SHAKE', sb.x, sb.y + 1);
+  ctx.fillStyle = '#e8203a'; ctx.beginPath(); ctx.arc(sb.x + 20, sb.y - 18, 10, 0, 7); ctx.fill();
+  ctx.lineWidth = 2; ctx.stroke(); ctx.fillStyle = '#fff'; ctx.font = '900 11px system-ui'; ctx.fillText(S.shakes, sb.x + 20, sb.y - 17.5);
+  // test readout, in the bottom border
+  ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+  ctx.fillStyle = 'rgba(200,190,220,.5)'; ctx.font = '9px system-ui';
+  ctx.fillText(`${BUILD} · physics ${perf.step.toFixed(1)} ms · ${Math.round(perf.fps)} fps · ${bodies.length} coins`, 8, H - 5);
+}
+
+function resize() {
+  H = Math.max(720, Math.min(960, W * innerHeight / innerWidth));
+  scale = Math.min(innerWidth / W, innerHeight / H);
+  cv.style.width = W * scale + 'px'; cv.style.height = H * scale + 'px';
+  cv.width = Math.round(W * scale * devicePixelRatio); cv.height = Math.round(H * scale * devicePixelRatio);
+  fitView();
+}
+
+// ---------- collection panel ----------
+const panel = document.getElementById('panel');
+function openPanel() {
+  let h = '<button id="close">Close</button><h2>🎒 Collection</h2>';
+  // on the phone app: check for a newer game in OneDrive right now
+  if (window.Android && Android.checkUpdates) h += '<button id="checkupd" class="wide">🔄 Check for updates</button>';
+  const dl = daily();
+  h += `<div class="set"><h3><span>Level ${S.level}</span><span>${S.xp} / ${xpFor(S.level)}</span></h3>`
+    + `<div class="reward">Shakes: ${S.shakes} · ⭐ Daily challenge (win ${DAILY.target} coins in ${DAILY.sec / 60} min): ${dl.won ? 'won today!' : dailyRunning() ? `${dl.have} / ${DAILY.target}, ${clock(dl.ends - Date.now())} left` : `${dl.tries} tr${dl.tries === 1 ? 'y' : 'ies'} so far today`}`
+    + `${S.quest ? ` · ⏱ ${S.quest.text}: ${S.quest.have}/${S.quest.n}` : ''}</div>`
+    + '<div class="reward">Finish a set for +' + SET_REWARD.coins + ' coins and +' + SET_REWARD.shakes + ' shakes; a new set takes its place.</div></div>';
+  for (const s of activeSets()) {
+    const n = s.items.filter(([i]) => S.got[i]).length;
+    h += `<div class="set"><h3><span>${s.name}</span><span>${n}/${s.items.length}</span></h3><div class="items">`;
+    for (const [id, emoji, name] of s.items) h += `<div class="it${S.got[id] ? '' : ' no'}"><b>${emoji}</b>${name}${S.got[id] > 1 ? ' ×' + S.got[id] : ''}</div>`;
+    h += `</div><div class="reward${S.sets[s.name] ? ' on' : ''}">${S.sets[s.name] ? 'Unlocked: ' : 'Complete the set to unlock: '}${s.reward}</div></div>`;
+  }
+  const finished = SETS.filter(s => S.sets[s.name]).map(s => s.name);
+  if (finished.length) h += `<div class="reward on">Finished sets: ${finished.join(', ')}</div>`;
+  h += `<div class="reward">Coins won so far: ${S.won} · Tickets: 🎟 ${S.tickets || 0}</div>`;
+  h += '<button id="newtable">Start a new table</button><div class="reward">Keeps your coins and collection.</div>';
+  h += `<button id="devmode" class="devswitch">Developer mode: ${S.dev ? 'on' : 'off'}</button>`;
+  if (S.dev) {
+    h += '<div class="set" style="margin-top:18px"><h3><span>Developer</span><span>for testing</span></h3><div class="dev">'
+      + '<button data-coins="100">+100 coins</button><button data-coins="1000">+1,000 coins</button><button data-coins="0">Set to 0</button>'
+      + '<button data-guard="1">Golden paw now</button><button data-shakes="3">+3 shakes</button><button data-quest="1">New quest</button>'
+      + '<button data-callout="1">Test callout</button></div><div class="reward">Drop next:</div><div class="dev">'
+      + DEV_DROPS.map(([k, label]) => `<button data-drop="${k}"${forcedDrop === k ? ' class="on"' : ''}>${label}</button>`).join('')
+      + '</div></div>';
+  }
+  panel.innerHTML = h; panel.style.display = 'block';
+  // each developer button flashes, says what it did for a moment, and buzzes (where the phone allows it)
+  const done = (b, text) => {
+    try { navigator.vibrate && navigator.vibrate(20); } catch (e) { }
+    const was = b.dataset.label || (b.dataset.label = b.textContent);
+    b.textContent = text; b.classList.add('done');
+    setTimeout(() => { b.textContent = was; b.classList.remove('done'); }, 1100);
+  };
+  for (const b of panel.querySelectorAll('[data-coins]')) b.onclick = () => {
+    const n = +b.dataset.coins; S.coins = n ? S.coins + n : 0; save(); done(b, `✓ ${S.coins.toLocaleString()} coins`);
+  };
+  for (const b of panel.querySelectorAll('[data-guard]')) b.onclick = () => { S.guard += GUARD_SEC; done(b, `✓ paws in ${Math.round(S.guard)} s`); };
+  for (const b of panel.querySelectorAll('[data-shakes]')) b.onclick = () => { S.shakes += 3; save(); done(b, `✓ ${S.shakes} shakes`); };
+  for (const b of panel.querySelectorAll('[data-quest]')) b.onclick = () => { newQuest(); done(b, '✓ new quest'); };
+  for (const b of panel.querySelectorAll('[data-callout]')) b.onclick = () => {
+    panel.style.display = 'none'; callout('Crown!', { voice: 'got', emoji: '👑' }); catGrowl();
+  };
+  for (const b of panel.querySelectorAll('[data-drop]')) b.onclick = () => {
+    forcedDrop = b.dataset.drop; done(b, '✓ next drop');
+    for (const o of panel.querySelectorAll('[data-drop]')) o.classList.toggle('on', o === b);
+  };
+  document.getElementById('close').onclick = () => { panel.style.display = 'none'; };
+  document.getElementById('devmode').onclick = () => { S.dev = !S.dev; save(); openPanel(); if (S.dev) panel.scrollTop = 99999; };
+  const cu = document.getElementById('checkupd');
+  if (cu) cu.onclick = () => { save(); cu.textContent = 'Checking…'; Android.checkUpdates(); setTimeout(() => { cu.textContent = '🔄 Check for updates'; }, 1500); };
+  // two taps, so a stray tap can't wipe the table
+  const nt = document.getElementById('newtable');
+  nt.onclick = () => {
+    if (!nt.dataset.armed) { nt.dataset.armed = '1'; nt.textContent = 'Tap again to clear the table'; return; }
+    panel.style.display = 'none';
+    newTable();
+  };
+}
+
+// A fresh table (heaped coins, towers, prizes), settled before it's shown. Coins in hand and the collection stay.
+function newTable() {
+  for (const b of bodies.slice()) removeCoin(b);
+  falling = []; rings = []; floats = []; taps = [];
+  prefill();
+  for (let i = 0; i < 90; i++) world.step();
+  save();
+  say('table', true);
+}
+
+// ---------- input ----------
+function toGame(e) { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) / scale, y: (e.clientY - r.top) / scale }; }
+// The spot on the drop line straight across from where you touch (only left/right comes from the touch).
+function aimFromScreen(sx) {
+  return { x: Math.max(T.L + 18, Math.min(T.R - 18, unprojX(screenToGameX(sx), DROP_Y))), y: DROP_Y };
+}
+cv.addEventListener('pointerdown', e => {
+  if (!world) return; // still loading
+  sfx.unlock(); musicOK = true; musicTick();
+  const p = toGame(e);
+  // the top bar and quest banner: collection and sound buttons (nothing else up there)
+  if (p.y < PAD_T + BAR_H + BANNER_H) {
+    if (p.y > PAD_T - 6 && p.y < PAD_T + BAR_H) {
+      if (p.x > W - 52) { S.muted = !S.muted; save(); }
+      else if (p.x > W - 100) openPanel();
+    }
+    return;
+  }
+  // the shake button; everywhere else (including the bottom of the screen) drops coins
+  const sb = shakeButton();
+  if (Math.hypot(p.x - sb.x, p.y - sb.y) < sb.r + 8) { useShake(); return; }
+  cv.setPointerCapture(e.pointerId);
+  holding = true; holdPos = aimFromScreen(p.x); aim = holdPos; aimShow = 1;
+  if (taps.length < 5) taps.push(holdPos);
+});
+cv.addEventListener('pointermove', e => { if (holding) holdPos = aimFromScreen(toGame(e).x); });
+for (const ev of ['pointerup', 'pointercancel']) cv.addEventListener(ev, () => { holding = false; });
+addEventListener('contextmenu', e => e.preventDefault());
+addEventListener('resize', resize);
+document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
+addEventListener('pagehide', save);
+
+// ---------- main loop ----------
+let last = performance.now(), acc = 0;
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  if (dt > 0) perf.fps += (1 / dt - perf.fps) * 0.05;
+  acc += dt;
+  let n = 0;
+  while (acc >= STEP && n++ < 3) { step(); acc -= STEP; }
+  if (acc > STEP) acc = 0; // a slow phone drops time rather than falling ever further behind
+  update(dt); draw();
+  requestAnimationFrame(frame);
+}
+Promise.all([RAPIER.init(), loadArt()])
+  .then(() => { initPhysics(); load(); regen(); resize(); last = performance.now(); requestAnimationFrame(frame); })
+  .catch(e => { document.body.insertAdjacentHTML('beforeend', `<p style="color:#fff">Could not start: ${e}</p>`); });
+// Test hook: run the game faster than real time, e.g. __game.sim(10, 0.25) = 10 s with a drop every 0.25 s.
+window.__game = {
+  S, get bodies() { return bodies; }, get world() { return world; }, tryDrop, save, sfx, prefill,
+  // test helper: start over with a new table using a given collision shape
+  restart(shape, sides) {
+    SHAPE = shape || SHAPE; SHAPE_SIDES = sides || SHAPE_SIDES;
+    for (const b of bodies.slice()) removeCoin(b);
+    prefill();
+  },
+  sim(sec, every) {
+    let next = 0;
+    for (let t = 0; t < sec; t += STEP) {
+      if (every && t >= next) { tryDrop({ x: rand(T.L + 30, T.R - 30), y: DROP_Y }); next += every; }
+      step(); update(STEP);
+    }
+  },
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# Sounds are licensed for use in the game only, not for redistribution (see CREDITS.md)
+sounds/
+*.mp3
+*.wav
+# Builds, signing and local settings
+*.apk
+*.keystore
+*.jks
+build/
+.gradle/
+local.properties
+android/app/src/main/assets/
