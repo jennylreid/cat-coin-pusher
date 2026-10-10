@@ -176,7 +176,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 11:51 AM · board preview';
+const BUILD = 'Oct 10, 12:02 PM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -1453,10 +1453,10 @@ function drawPaws() {
  }
  const cy=VIEW.y+proj(200,depth).y*VIEW.zy;
  for(const side of [-1,1]) {
-  const base=side<0?20:W-20,inner=side<0?136:W-136;
+  const base=side<0?-12:W+12,inner=side<0?100:W-100;
   ctx.save();ctx.translate(base+(inner-base)*reach,cy+Math.sin(time*2)*1.2);
   if(side>0)ctx.scale(-1,1);
-  const w=128,h=w*ART.paw.height/ART.paw.width;
+  const w=280,h=w*ART.paw.height/ART.paw.width;
   ctx.drawImage(ART.paw,-w/2,-h/2,w,h);ctx.restore();
  }
 }
