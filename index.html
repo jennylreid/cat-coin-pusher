@@ -49,6 +49,7 @@ const PAY_L = 60, PAY_R = 340; // the bucket's edges: coins off the table past t
 // (a short stroke, so little bare table is left between the tongue and the coins in front of it, and the tongue is
 // never more than a third bare; the back wall sits right under the cat's upper lip, so coins fill the tongue)
 const PUSH_BACK = -25, TONGUE_H = 18, TONGUE_LEN = 300;
+const PUSH_HALF=110, LEDGE_BACK=164;
 let PUSH_MIN = 205, PUSH_MAX = 275, PUSH_PERIOD = 3.2;
 const COIN_R = 26, LUCKY_R = 28, ITEM_R = 30; // big coins: more action per coin, and fewer for the phone to simulate
 const COIN_HALF = 2, LUCKY_HALF = 3.5, ITEM_HALF = 9; // half thicknesses
@@ -176,7 +177,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 12:02 PM · board preview';
+const BUILD = 'Oct 10, 1:10 PM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -195,14 +196,14 @@ function initPhysics() {
   box(halfW + 40, 10, (T.FRONT + 100) / 2, 200, -10, (T.FRONT - 100) / 2, TABLE_FRICTION); // table top, open at the front
   box(10, 200, (T.FRONT + 100) / 2, T.L - 10, 190, (T.FRONT - 100) / 2, 0.2);               // side walls
   box(10, 200, (T.FRONT + 100) / 2, T.R + 10, 190, (T.FRONT - 100) / 2, 0.2);
-  box(halfW + 40, 150, 12, 200, TONGUE_H + 150, PUSH_MIN - 12, 0.2); // mouth barrier; coins cannot retreat into the cat
+  box(halfW + 40, 150, 12, 200, TONGUE_H + 150, LEDGE_BACK - 12, 0.2); // upper ledge backstop prevents coins retreating into the throat
   tongue = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased()
     .setTranslation(200 * M, TONGUE_H / 2 * M, (pusherY - TONGUE_LEN / 2) * M));
-  tongueContact = world.createCollider(RAPIER.ColliderDesc.cuboid(halfW * M, TONGUE_H / 2 * M, TONGUE_LEN / 2 * M)
+  tongueContact = world.createCollider(RAPIER.ColliderDesc.cuboid(PUSH_HALF * M, TONGUE_H / 2 * M, TONGUE_LEN / 2 * M)
     .setFriction(TONGUE_FRICTION).setSensor(true), tongue);
   // When unloaded, the sliding tongue slips under the resting mat. A stationary backing
   // supports it at the retracted footprint; the moving tray only transmits a loaded push.
-  tongueRest = box(halfW, TONGUE_H / 2, TONGUE_LEN / 2,
+  tongueRest = box(PUSH_HALF, TONGUE_H / 2, TONGUE_LEN / 2,
     200, TONGUE_H / 2, PUSH_MIN - TONGUE_LEN / 2, TONGUE_FRICTION);
   sweepBody=world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(2,.12,SWEEP_START*M));
   sweepCollider=world.createCollider(RAPIER.ColliderDesc.cuboid(halfW*M,.12,.08).setFriction(.05),sweepBody);
@@ -245,7 +246,7 @@ function addCoin(kind, id, x, h, y, rot, linvel, angvel) {
 }
 
 // One isolated, deterministic board. Campaign and collection economy are deliberately absent.
-const BOARD = Object.freeze({ id:'snack-shelf', seed:42, coins:48, seconds:90,
+const BOARD = Object.freeze({ id:'snack-shelf', seed:42, coins:60, seconds:90,
  targets:[{id:'cheese',x:140,y:548},{id:'shrimp',x:260,y:548}] });
 let board = {status:'ready', remaining:BOARD.coins, elapsed:0, collected:[], used:0};
 let boardRandom = BOARD.seed;
@@ -363,6 +364,10 @@ function prefill() {
  for(const target of BOARD.targets) {
   const b=addCoin('item',target.id,target.x,COIN_HALF*2+halfOf('item')+1,target.y,yawTurn(0));
   b.boardTarget=true;
+ }
+ for(const x of [142,200,258]) {
+  const b=addCoin('coin',null,x,TONGUE_H+COIN_HALF+.3,190,yawTurn(seededRandom()*6));
+  b.ledgeCoin=true;
  }
 }
 
@@ -669,7 +674,7 @@ function pickDrop() {
 function tryDrop(at=aim) {
  if(board.status==='won'||board.status==='lost'||sweepTime>0||board.remaining<=0||pendingDrops.length>=6)return false;
  if(board.status==='ready')board.status='playing';
- const x=Math.max(T.L+COIN_R+2,Math.min(T.R-COIN_R-2,at.x));
+ const x=Math.max(200-PUSH_HALF+COIN_R,Math.min(200+PUSH_HALF-COIN_R,at.x));
  board.remaining--;board.used++;S.coins=board.remaining;S.drops++;
  pendingDrops.push(x);pushPending=true;
  return true;
@@ -679,9 +684,10 @@ function releaseDrop() {
  // Drop into the reopened gap, never onto the moving tray or an occupied coin.
  if(sweepTime>0||!pendingDrops.length||pusherY>PUSH_MIN+6||time<releaseAt)return;
  const aimed=pendingDrops[0];
- const slots=[60,116,172,228,284,340].filter(x=>Math.abs(x-aimed)<=88).sort((a,b)=>Math.abs(a-aimed)-Math.abs(b-aimed));
+ const slots=[116,172,228,284].filter(x=>Math.abs(x-aimed)<=88).sort((a,b)=>Math.abs(a-aimed)-Math.abs(b-aimed));
  const x=slots.find(x=>!bodies.some(b=>{
-  const p=b.rb.translation();return p.y>=0&&Math.hypot(p.x/M-x,p.z/M-DROP_Y)<COIN_R+b.r+2;
+  const p=b.rb.translation();if(b.ledgeCoin&&p.y/M>10)return false;
+  return p.y>=0&&Math.hypot(p.x/M-x,p.z/M-DROP_Y)<COIN_R+b.r+2;
  }));
  if(x===undefined)return;
  pendingDrops.shift();board.released++;releaseAt=time+.1;lastDrop=time;pushPending=true;
@@ -852,7 +858,7 @@ function step() {
 }
 
 function update(dt) {
-  pupilAim+=(aim.x-pupilAim)*Math.min(1,dt*12);
+  pupilAim+=((aim.lookX??aim.x)-pupilAim)*Math.min(1,dt*12);
   boardTick(dt);
   regen();
   guardAnim += ((S.guard > 0 ? 1 : 0) - guardAnim) * Math.min(1, dt * 5);
@@ -1410,12 +1416,8 @@ function drawEyes(ls) {
 // The tongue is a rigid tray sliding out of the mouth; its artwork never stretches.
 function drawTongue() {
  const bottom=proj(200,tongueDrawY).y;
- ctx.save();ctx.beginPath();ctx.rect(74,155,252,140);ctx.clip();
- // The fixed rear backing fills the mouth; the rigid moving slab slides over it.
- ctx.drawImage(ART.tongue,20,180,1594,400,74,145,252,95);
- // Source padding is cropped; placement is a translation, never a changing scale.
- ctx.drawImage(ART.tongue,20,170,1594,610,74,bottom-130,252,130);
- ctx.restore();
+ // A short narrow ledge, translated rigidly; mouth backing is in the head art.
+ ctx.drawImage(ART.tongue,45,278,1686,391,124,bottom-45,152,45);
 }
 
 function bucketRect() {
@@ -1745,7 +1747,8 @@ function newTable() { resetBoard(); return;
 function toGame(e) { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) / scale, y: (e.clientY - r.top) / scale }; }
 // The spot on the drop line straight across from where you touch (only left/right comes from the touch).
 function aimFromScreen(sx) {
-  return { x: Math.max(T.L + 18, Math.min(T.R - 18, unprojX(screenToGameX(sx), DROP_Y))), y: DROP_Y };
+  const lookX=Math.max(T.L,Math.min(T.R,unprojX(screenToGameX(sx),DROP_Y)));
+  return { x: Math.max(200-PUSH_HALF+COIN_R, Math.min(200+PUSH_HALF-COIN_R, lookX)), y: DROP_Y, lookX };
 }
 cv.addEventListener('pointerdown', e => {
   if (!world) return; // still loading
