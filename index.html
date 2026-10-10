@@ -73,7 +73,7 @@ const SAVE_CODE = { coin: 'c', lucky: 'l', item: 'i', power: 'p', x5: '5', x10: 
 // The table tilts toward the player (TILT_DEG) only while you're playing: from each drop for ACTIVE_SEC, easing
 // back to flat after. Flat, the coins stay put even though the tongue keeps moving (Jenny: "this is not a conveyor
 // belt" — coins move when you drop coins, or shake). Without the tilt pushes make piles instead of payouts.
-const ACTIVE_SEC = 2, IDLE_DAMP = 4;
+const ACTIVE_SEC = 2, IDLE_DAMP = 4, MOUTH_DROP_SEC = 0.42, MOUTH_REVEAL_SEC = 0.1;
 const M = 0.01, GRAVITY = 30, TILT_DEG = 0, STEP = 1 / 60, COIN_DAMP = 0.8, COIN_SPIN_DAMP = 2.5, COIN_BOUNCE = 0;
 // The tongue is slippery like a steel shelf: when it pulls back, coins on it mostly stay put, so the front ones
 // drop off its edge.
@@ -186,7 +186,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 4:58 PM · board preview';
+const BUILD = 'Oct 10, 5:04 PM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -741,7 +741,7 @@ function tryDrop(at=aim) {
  const x=Math.max(200-PUSH_HALF+COIN_R,Math.min(200+PUSH_HALF-COIN_R,at.x));
  board.remaining--;board.used++;board.released++;S.coins=board.remaining;S.drops++;lastDrop=time;
  // Every tap releases immediately just beyond the moving tray's front face.
- const b=addCoin('coin',null,x,DROP_H,Math.max(DROP_Y,pusherY+COIN_R+3),yawTurn(seededRandom()*6),{x:0,y:-1,z:0},{x:0,y:0,z:0});
+ const b=addCoin('coin',null,x,DROP_H,Math.max(DROP_Y,pusherY+COIN_R+3),yawTurn(seededRandom()*6),{x:0,y:0,z:0},{x:0,y:0,z:0});
  b.fresh=true;b.input=true;b.mouthAt=time;sfx.drop();return true;
 }
 
@@ -822,7 +822,10 @@ function stepPawSweep() {
 
 function step() {
   time += STEP;
+  const finishingSweep=sweepTime>0;
   stepPawSweep();
+  // Once play ends, finish any earned sweep but stop further board movement and scoring.
+  if((board.status==='won'||board.status==='lost')&&!finishingSweep)return;
   // Solid physical tray travels continuously. Input controls damping, never contact.
   const requested = time - lastDrop < ACTIVE_SEC || shake > 0 || showerLeft > 0;
   pushPhase = (pushPhase + STEP) % PUSH_PERIOD;
@@ -1304,7 +1307,7 @@ function drawPrize(kind,id,x,y,s) {
 }
 
 function drawBody(b) {
-  if(b.input&&time-b.mouthAt<.18)return; // The same physical coin is shown on its short mouth-to-board flight below.
+  if(b.input&&time-b.mouthAt<MOUTH_REVEAL_SEC+MOUTH_DROP_SEC)return; // First show the coin in the mouth, then on its fall.
   const t = b.rb.translation(), x = t.x / M, h = t.y / M, y = t.z / M;
   if (b.kind === 'stack') { // a tower: its coins bottom to top, following the column's lean
     const q = b.rb.rotation();
@@ -1552,10 +1555,10 @@ function draw() {
   }
   drawTrackingPupils();
   for(const b of bodies){
-    if(!b.input||time-b.mouthAt>=.18)continue;
-    const u=Math.max(0,(time-b.mouthAt)/.18),t=b.rb.translation(),end=screenOf(t.x/M,t.z/M,t.y/M);
+    if(!b.input||time-b.mouthAt>=MOUTH_REVEAL_SEC+MOUTH_DROP_SEC)continue;
+    const u=Math.max(0,(time-b.mouthAt-MOUTH_REVEAL_SEC)/MOUTH_DROP_SEC),t=b.rb.translation(),end=screenOf(t.x/M,t.z/M,t.y/M);
     const ease=u*u;
-    drawCoinAt(b.kind,{...end,x:209+(end.x-209)*ease,y:164+(end.y-164)*ease,s:.38+(end.s-.38)*ease},b.rb.rotation(),b.id);
+    drawCoinAt(b.kind,{...end,x:209+(end.x-209)*ease,y:156+(end.y-156)*ease,s:.8+(end.s-.8)*ease},b.rb.rotation(),b.id);
   }
   for (const f of falling) {
     // tipping over the edge and dropping away, fading as it goes (the ones at the corners go behind the paws)
