@@ -73,12 +73,12 @@ const SAVE_CODE = { coin: 'c', lucky: 'l', item: 'i', power: 'p', x5: '5', x10: 
 // back to flat after. Flat, the coins stay put even though the tongue keeps moving (Jenny: "this is not a conveyor
 // belt" — coins move when you drop coins, or shake). Without the tilt pushes make piles instead of payouts.
 const ACTIVE_SEC = 2, IDLE_DAMP = 4;
-const M = 0.01, GRAVITY = 30, TILT_DEG = 5, STEP = 1 / 60, COIN_DAMP = 0.12, COIN_SPIN_DAMP = 1.2, COIN_BOUNCE = 0;
+const M = 0.01, GRAVITY = 30, TILT_DEG = 0, STEP = 1 / 60, COIN_DAMP = 0.8, COIN_SPIN_DAMP = 2.5, COIN_BOUNCE = 0;
 // The tongue is slippery like a steel shelf: when it pulls back, coins on it mostly stay put, so the front ones
 // drop off its edge.
-const COIN_FRICTION = 0.3, TABLE_FRICTION = 0.25, TONGUE_FRICTION = 0.1, TOY_GRIP = 1.1;
+const COIN_FRICTION = 0.18, TABLE_FRICTION = 0.32, TONGUE_FRICTION = 0.08, TOY_GRIP = 0.22;
 const GUARD_SEC = 30, START_COINS = 100, REGEN_SEC = 20, REGEN_CAP = 100;
-const KEY = 'catpusher.v2', OLD_KEY = 'catpusher.v1';
+const KEY = 'catpusher.board.prototype.v1', OLD_KEY = KEY;
 // Collection sets. Three are on show at a time (S.active); finishing one pays out and the next set in this list
 // takes its place, so there's always something new to collect.
 const SETS = [
@@ -173,7 +173,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 9:46 AM';
+const BUILD = 'Oct 10, 11:12 AM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -238,6 +238,42 @@ function addCoin(kind, id, x, h, y, rot, linvel, angvel) {
   return b;
 }
 
+// One isolated, deterministic board. Campaign and collection economy are deliberately absent.
+const BOARD = Object.freeze({ id:'snack-shelf', seed:42, coins:320, seconds:180,
+ targets:[{id:'cheese',x:140,y:548},{id:'shrimp',x:260,y:548}] });
+let board = {status:'ready', remaining:BOARD.coins, elapsed:0, collected:[], used:0};
+let boardRandom = BOARD.seed;
+function seededRandom() { boardRandom=boardRandom*16807%2147483647; return (boardRandom-1)/2147483646; }
+function finishBoard(status) {
+ if(board.status==='won'||board.status==='lost')return;
+ board.status=status; holding=false; taps=[];
+ if(status==='won') { sfx.kaching(); callout('BOARD CLEAR!', {voice:'quest',color:'#7dff6a'}); }
+ else sfx.empty();
+}
+function boardTick(dt) {
+ if(board.status!=='playing' && board.status!=='settling')return;
+ board.elapsed+=dt;
+ if(board.elapsed>=BOARD.seconds) {finishBoard('lost');return;}
+ if(board.remaining===0) {
+   board.status='settling';
+   const moving=bodies.some(b=>{const v=b.rb.linvel();return Math.hypot(v.x,v.y,v.z)>.01;});
+   board.quiet=(!moving&&!pushLoaded&&!pushPending)?(board.quiet||0)+dt:0;
+   if(board.quiet>=3)finishBoard('lost');
+ }
+}
+function resetBoard() {
+ for(const b of bodies.slice())removeCoin(b);
+ board={status:'ready',remaining:BOARD.coins,elapsed:0,collected:[],used:0};boardRandom=BOARD.seed;
+ S.coins=BOARD.coins;S.shakes=0;S.quest=null;S.guard=0;
+ time=0;lastDrop=-99;pushPhase=0;pushLoaded=false;pushPending=false;calm=false;tiltNow=0;
+ pusherY=PUSH_MIN;tongueDrawY=PUSH_MIN;
+ tongue.setTranslation({x:2,y:TONGUE_H/2*M,z:(PUSH_MIN-TONGUE_LEN/2)*M},true);
+ tongueContact.setSensor(true);tongueRest.setEnabled(true);world.gravity={x:0,y:-GRAVITY,z:0};
+ holding=false;taps=[];toyQueue=[];falling=[];rings=[];floats=[];callouts=[];
+ showerLeft=0;shake=0;dropTimer=0;saveTimer=0;
+ prefill();for(let i=0;i<180;i++)world.step();
+}
+
 // ---------- towers ----------
 // A tall stack of thin coins can't balance in the physics engine (it wobbles itself over), so a tower is one solid
 // column, drawn as its coins. It stands until something really disturbs it: once it leans past TOWER_BREAK_TILT
@@ -258,7 +294,7 @@ function addStack(x, h, y, rot, n, top, phase) {
     .setFriction(COIN_FRICTION).setRestitution(0.05).setDensity(0.6), rb); // light, so the coins shove it along
   const t = rb.translation();
   const b = { rb, kind: 'stack', id: null, r: COIN_R, half, n, top: top || null, phase: phase == null ? rand(0, 6) : phase,
-    dead: false, vy: 0, fresh: false, quest: false, sortK: null, uid: ++uids, moved: 0, limit: rand(TOWER_SHOVE[0], TOWER_SHOVE[1]), lx: t.x, lz: t.z, tipping: false };
+    dead: false, vy: 0, fresh: false, quest: false, sortK: null, uid: ++uids, moved: 0, limit: TOWER_SHOVE[0]+seededRandom()*(TOWER_SHOVE[1]-TOWER_SHOVE[0]), lx: t.x, lz: t.z, tipping: false };
   bodies.push(b);
   return b;
 }
@@ -278,7 +314,7 @@ function breakStack(b) {
   for (const part of stackParts(b)) {
     const o = qrot(q, part.p);
     addCoin(part.kind, null, t.x / M + o.x, t.y / M + o.y, t.z / M + o.z, qmul(q, part.q),
-      { x: lv.x + rand(-0.15, 0.15), y: lv.y, z: lv.z + rand(-0.15, 0.15) }, av);
+      { x: lv.x + seededRandom()*.3-.15, y: lv.y, z: lv.z + seededRandom()*.3-.15 }, av);
   }
   sfx.tumble(b.n);
 }
@@ -306,74 +342,29 @@ const TOWERS = [
 // below — plus the showpiece towers. No toys: they only arrive when a special coin goes over the edge (dropToy).
 const TABLE_LAYERS = 3, TONGUE_LAYERS = 2;
 function prefill() {
-  const d = COIN_R * 2 + 0.6;
-  const nearTower = (x, y, gap) => TOWERS.some(t => Math.hypot(t.x - x, t.y - y) < gap);
-  // one layer of hex-packed coins between depths y0 and y1 at height h; odd layers shift into the gaps below
-  const sheet = (y0, y1, h, layer, onTable) => {
-    const shiftX = layer % 2 ? d / 2 : 0, shiftY = layer % 2 ? d * 0.29 : 0;
-    let row = 0;
-    for (let y = y0 + shiftY; y < y1; y += d * 0.866, row++) {
-      const off = ((row % 2) * d / 2 + shiftX) % d;
-      for (let x = T.L + COIN_R + 0.5 + off; x < T.R - COIN_R; x += d) {
-        if (onTable && nearTower(x, y, COIN_R * 2 + 3)) continue; // towers stand on the table itself
-        addCoin(Math.random() < 0.25 ? 'silver' : 'coin', null, x + rand(-1, 1), h + COIN_HALF + 0.2, y + rand(-1, 1), randomTurn(0));
-      }
-    }
-  };
-  const step = COIN_HALF * 2 + 0.2;
-  for (let k = 0; k < TONGUE_LAYERS; k++) sheet(PUSH_BACK + COIN_R + 1, PUSH_MIN - COIN_R, TONGUE_H + k * step, k, false);
-  for (let k = 0; k < TABLE_LAYERS; k++) sheet(PUSH_MIN + COIN_R + 1, T.FRONT - COIN_R + (k ? -4 : 4), k * step, k, true);
-  for (const t of TOWERS) addStack(t.x, null, t.y, yawTurn(rand(0, 6)), t.n, t.top);
+ const d=COIN_R*2+0.8;
+ function sheet(y0,y1,h) {
+  let row=0;
+  for(let y=y0;y<y1;y+=d*.866,row++)
+   for(let x=T.L+COIN_R+1+(row%2)*d/2;x<T.R-COIN_R;x+=d) {
+    if(y>340 && Math.hypot(x-200,y-420)<COIN_R*2+3)continue;
+    addCoin(seededRandom()<.25?'silver':'coin',null,x,h,y,yawTurn(seededRandom()*6));
+   }
+ }
+ sheet(PUSH_BACK+COIN_R+2,PUSH_MIN-COIN_R,TONGUE_H+COIN_HALF+.2);
+ sheet(PUSH_MIN+COIN_R+2,T.FRONT-COIN_R,COIN_HALF+.2);
+ addStack(200,null,420,yawTurn(0),10,null,0);
+ for(const target of BOARD.targets) {
+  const b=addCoin('item',target.id,target.x,COIN_HALF*2+halfOf('item')+1,target.y,yawTurn(0));
+  b.boardTarget=true;
+ }
 }
 
-function load() {
-  let saved = null;
-  try {
-    if (/[?&]reset\b/.test(location.search)) { localStorage.removeItem(KEY); localStorage.removeItem(OLD_KEY); }
-    const raw = localStorage.getItem(KEY) || localStorage.getItem(OLD_KEY);
-    if (raw) {
-      saved = JSON.parse(raw);
-      Object.assign(S, saved);
-    }
-  } catch (e) { }
-  const kinds = Object.fromEntries(Object.entries(SAVE_CODE).map(([k, c]) => [c, k]));
-  // a saved table from this version: coins exactly where they were (older saves keep progress but get a new table)
-  if (saved && Array.isArray(saved.table) && saved.table.length && saved.table[0].length === 9) {
-    for (const [x, h, y, qx, qy, qz, qw, k, id] of saved.table) {
-      const q = { x: qx, y: qy, z: qz, w: qw };
-      if (k === 's') { // a tower: "coins:topChip:twist"
-        const [n, top, phase] = String(id).split(':');
-        addStack(x, h, y, q, +n, top || null, +phase);
-      } else addCoin(kinds[k] || 'coin', id || null, x, h, y, q);
-    }
-  } else {
-    prefill();
-    // let the new table settle before it's shown (the tongue stays put meanwhile)
-    for (let i = 0; i < 90; i++) world.step();
-  }
-  S.table = null;
-  // a toy quest carries on: the toys on the table are the ones it's about
-  if (S.quest && S.quest.kind === 'thistoy') for (const b of bodies) if (TOY_KINDS.has(b.kind)) b.quest = true;
-}
+function load() { resetBoard(); }
 
-function save() {
-  try {
-    const r = (v, n) => Math.round(v * n) / n;
-    S.table = bodies.map(b => {
-      const t = b.rb.translation(), q = b.rb.rotation();
-      return [r(t.x / M, 10), r(t.y / M, 10), r(t.z / M, 10), r(q.x, 1e4), r(q.y, 1e4), r(q.z, 1e4), r(q.w, 1e4), SAVE_CODE[b.kind] || 'c',
-        b.kind === 'stack' ? `${b.n}:${b.top || ''}:${r(b.phase, 100)}` : b.id || 0];
-    });
-    localStorage.setItem(KEY, JSON.stringify(S));
-  } catch (e) { }
-  S.table = null;
-}
+function save() { /* This review prototype never writes the production save. */ }
 
-function regen() {
-  if (S.coins >= REGEN_CAP) { S.lastRegen = Date.now(); return; }
-  const n = Math.floor((Date.now() - S.lastRegen) / 1000 / REGEN_SEC);
-  if (n > 0) { S.coins = Math.min(REGEN_CAP, S.coins + n); S.lastRegen += n * REGEN_SEC * 1000; }
-}
+function regen() {}
 
 // ---------- sound (placeholder synth) ----------
 const sfx = (() => {
@@ -665,22 +656,24 @@ function pickDrop() {
 
 // Drop a coin (or now and then a special coin or prize) from above the drop line; physics does the rest.
 function tryDrop(at = aim) {
+ if(board.status==='won'||board.status==='lost'||board.remaining<=0)return false;
+ if(board.status==='ready')board.status='playing';
+ board.remaining--;board.used++;S.coins=board.remaining+1;
   if (S.coins <= 0) {
     if (coinFlash <= 0) say('nocoins');
     coinFlash = 1.5;
     sfx.empty(); return;
   }
   S.coins--; S.drops++; lastDrop = time;
-  dailyStart();
-  addXP(1); progress('drop', 1);
-  let { kind, id } = pickDrop();
-  const rad = radius(kind), x = Math.max(T.L + rad, Math.min(T.R - rad, at.x + rand(-2, 2)));
-  const y = Math.max(DROP_Y, PUSH_BACK + rad + 4) + rand(-3, 3); // big chips land a little further out, clear of the wall
+  let kind = 'coin', id = null;
+  const rad = radius(kind), x = Math.max(T.L + rad, Math.min(T.R - rad, at.x + (seededRandom()*4-2)));
+  const y = Math.max(DROP_Y, PUSH_BACK + rad + 4) + seededRandom()*6-3; // big chips land a little further out, clear of the wall
   // dropped nearly flat with little tumble, so coins settle into neat layers instead of jumbled heaps
-  const b = addCoin(kind, id, x, DROP_H, y, randomTurn(rand(0.02, 0.06)),
-    { x: 0, y: -1, z: 0 }, { x: rand(-0.25, 0.25), y: rand(-1, 1), z: rand(-0.25, 0.25) });
+  const b = addCoin(kind, id, x, DROP_H, y, yawTurn(seededRandom()*6),
+    { x: 0, y: -1, z: 0 }, { x: 0, y: 0, z: 0 });
   b.fresh = true; // ring and thud when it first lands
   sfx.drop();
+  return true;
 }
 
 function collect(id) {
@@ -704,59 +697,14 @@ function collect(id) {
 
 // A coin that went over the front edge: into the bucket (won) or past it at the corners (lost).
 function fallOff(b, x) {
-  const guarded = S.guard > 0, inPay = x > PAY_L && x < PAY_R, won = guarded || inPay;
-  const p = proj(x, T.FRONT);
-  // with the paws folded in, coins over the gutters get steered toward the bucket
-  const vx = guarded && !inPay ? (200 - p.x) * 1.6 : (p.x - 200) * 0.15;
-  falling.push({ x: p.x, y: p.y + 4, vx, vy: 60, kind: b.kind, id: b.id, won, t: 0, s: p.s });
-  removeCoin(b);
-  if (b.quest && won) progress('thistoy', 1);
-  if (!won) {
-    sfx.gutter();
-    if (TOY_KINDS.has(b.kind)) say('oops', true);
-    if (b.quest && S.quest && S.quest.kind === 'thistoy') { // a toy the quest was about is gone
-      const q = S.quest;
-      q.n--; q.text = q.n - q.have > 1 ? `Win ${q.n - q.have} toys` : 'Win the last toy';
-      if (q.n <= 0) { bannerFlash = 1.6; questOver(); }
-      else if (q.have >= q.n) questDone(q);
-    }
-    return;
-  }
-  if (b.kind === 'item') { collect(b.id); return; }
-  if (b.kind === 'power') {
-    S.guard += GUARD_SEC;
-    progress('toy', 1);
-    say('paw', true);
-    return;
-  }
-  if (b.kind === 'ticket') {
-    S.tickets = (S.tickets || 0) + TICKETS_PER_STRIP;
-    progress('toy', 1);
-    say('tickets', true);
-    return;
-  }
-  const v = VALUE[b.kind] || 1;
-  S.coins += v; S.won += v;
-  addXP(v); progress('push', 1); progress('won', v);
-  if (SPECIAL.has(b.kind) || b.kind === 'toycoin' || b.kind === 'joker') progress('special', 1);
-  // toys drop onto the table shortly after
-  if (b.kind === 'toycoin') toyQueue.push({ at: time + 0.5, id: b.id });
-  else if (b.kind === 'joker') {
-    say('joker', true);
-    catGrowl();
-    for (let i = 0; i < JOKER_TOYS; i++) toyQueue.push({ at: time + 0.6 + i * 0.35, id: null });
-  } else if (SPECIAL.has(b.kind) && Math.random() < toyChance()) toyQueue.push({ at: time + 0.5, id: null });
-  if (b.kind === 'cube' || b.kind === 'cash') progress('toy', 1);
-  // (no text for these, just the voice: text is only for goals met)
-  const line = { cube: 'cube', cash: 'cash', rainbow: 'rainbow', x10: 'jackpot' }[b.kind];
-  if (line) say(line, true);
-  if (v > 1) { sfx.kaching(); lastChaching = time; } else sfx.ching();
-  winTimes.push(time);
-  winTimes = winTimes.filter(t => time - t < 1.2);
-  if (winTimes.length >= 6 && time - lastChaching > 2) {
-    sfx.kaching(); lastChaching = time;
-    say('rush');
-  }
+ const p=proj(x,T.FRONT);
+ falling.push({x:p.x,y:p.y+4,vx:0,vy:60,kind:b.kind,id:b.id,won:true,t:0,s:p.s});
+ if(b.boardTarget) {
+  if(!board.collected.includes(b.id))board.collected.push(b.id);
+  sfx.ching();
+ }
+ removeCoin(b);
+ if(board.collected.length===BOARD.targets.length)finishBoard('won');
 }
 
 // Lightning coin: a flash, a thunder crack, and the whole machine shakes for SHAKE_SEC.
@@ -863,10 +811,11 @@ function step() {
 }
 
 function update(dt) {
+  boardTick(dt);
   regen();
   guardAnim += ((S.guard > 0 ? 1 : 0) - guardAnim) * Math.min(1, dt * 5);
   flash = Math.max(0, flash - dt * 3);
-  questTick(); calloutTick(dt); moodTick(dt); musicTick();
+  calloutTick(dt); moodTick(dt); musicTick();
   while (toyQueue.length && toyQueue[0].at <= time) dropToy(toyQueue.shift().id);
   // a coin shower drops its free coins one after another across the tongue
   showerTimer -= dt;
@@ -977,7 +926,8 @@ function questTick() {
   if (q && Date.now() > q.ends) { say('timeup', true); bannerFlash = 1.6; questOver(); }
   if (!S.quest && Date.now() > (S.questNext || 0)) { newQuest(); say('newquest'); }
 }
-function useShake() {
+function useShake() { return; // No carried-in boosts in the baseline board.
+
   if (shake > 0) return;
   if (!S.shakes) { say('noshakes', true); shakeWobble = 0.6; sfx.empty(); return; }
   S.shakes--; shake = SHAKE_SEC;
@@ -1252,19 +1202,10 @@ function drawCoinAt(kind, c, q, id) {
 }
 
 // A prize standing up on whatever it's resting on (the golden paw is a gold medallion on its edge).
-function drawPrize(kind, id, x, y, s) {
-  const r = radius(kind) * s;
-  ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath(); ctx.ellipse(x, y, r * 0.9, r * 0.9 * SQUASH, 0, 0, 7); ctx.fill();
-  if (kind === 'power') {
-    const sp = sprite('power'), w = sp.cv.width / SPR * s * 1.1;
-    ctx.fillStyle = '#8a5c00'; ctx.beginPath(); ctx.ellipse(x + 2 * s, y - r * 0.95, r * 1.05, r * 1.1, 0, 0, 7); ctx.fill();
-    ctx.drawImage(sp.cv, x - w / 2, y - r * 0.95 - w / 2, w, w);
-    return;
-  }
-  ctx.font = `${Math.round(r * 2.1)}px system-ui,"Segoe UI Emoji","Noto Color Emoji"`;
-  ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
-  ctx.fillStyle = '#000'; // color emoji take the fill's transparency, so it must be opaque
-  ctx.fillText(ITEMS[id].emoji, x, y + r * 0.35);
+function drawPrize(kind,id,x,y,s) {
+ const side=id==='shrimp'?1:0,w=ART.snacks.width/2;
+ const size=radius('item')*s*2.8;
+ ctx.drawImage(ART.snacks,side*w,0,w,ART.snacks.height,x-size/2,y-size*.7,size,size);
 }
 
 function drawBody(b) {
@@ -1347,142 +1288,11 @@ const WRIST = { x: 46, y: 1418 }; // left wrist in picture pixels; the right one
 function newCanvas(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 
 async function loadArt() {
-  const im = new Image(); im.src = ART.src; await im.decode();
-  const IW = im.width, IH = im.height;
-  const bg = newCanvas(IW, IH), g = bg.getContext('2d');
-  g.drawImage(im, 0, 0);
-  const img = g.getImageData(0, 0, IW, IH), d = img.data;
-  const idx = (x, y) => (y * IW + x) * 4;
-  // Cut a layer out of the picture: the pixels in box where keep() is true, grown by `grow` px to take in the outline.
-  function cut([x0, y0, x1, y1], keep, grow) {
-    const w = x1 - x0, h = y1 - y0;
-    let m = new Uint8Array(w * h);
-    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (keep(idx(x0 + x, y0 + y), y0 + y)) m[y * w + x] = 1;
-    for (let k = 0; k < grow; k++) {
-      const n = m.slice();
-      for (let y = 1; y < h - 1; y++) for (let x = 1; x < w - 1; x++) {
-        const j = y * w + x;
-        if (!m[j] && (m[j - 1] || m[j + 1] || m[j - w] || m[j + w])) n[j] = 1;
-      }
-      m = n;
-    }
-    const c = newCanvas(w, h), cg = c.getContext('2d'), out = cg.createImageData(w, h);
-    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
-      if (!m[y * w + x]) continue;
-      const i = idx(x0 + x, y0 + y), o = (y * w + x) * 4;
-      out.data[o] = d[i]; out.data[o + 1] = d[i + 1]; out.data[o + 2] = d[i + 2]; out.data[o + 3] = 255;
-    }
-    cg.putImageData(out, 0, 0);
-    return { c, m };
-  }
-  const pink = i => d[i] > 150 && d[i] > d[i + 1] + 50;
-  const white = i => d[i] > 165 && d[i + 1] > 160 && d[i + 2] > 145;
-  // No empty mouth: the dark inside of the mouth (around and behind the tongue, up to the upper lip) becomes tongue,
-  // so only tongue shows between the lips. The tongue layer is cut from the lip down; the head layer gets a hole
-  // there (below), and the tongue is drawn under the head, so the lips and fangs stay on top.
-  const mouthDark = i => d[i] > d[i + 1] + 35 && d[i] < 120; // the dark red inside of the mouth
-  for (let y = MOUTH_TOP; y < TONGUE_BOX[3]; y++) for (let x = TONGUE_BOX[0]; x < TONGUE_BOX[2]; x++) {
-    const i = idx(x, y);
-    if (mouthDark(i)) { d[i] = 188; d[i + 1] = 64; d[i + 2] = 97; }
-  }
-  const tcut = cut([TONGUE_BOX[0], MOUTH_TOP, TONGUE_BOX[2], TONGUE_BOX[3]], i => pink(i), 2);
-  ART.tongue = tcut.c; ART.tongueMask = tcut.m;
-  ART.paw = cut(PAW_BOX, white, 4).c;
-  // the bucket: everything in its box except the table felt, the wooden rails and the purple background
-  ART.bucket = cut(BUCKET_BOX, i => {
-    const r = d[i], gg = d[i + 1], b = d[i + 2];
-    return !(gg > r + 25 && b > r + 20) && !(r > gg + 30) && !(b > gg + 12 && r > gg + 5);
-  }, 0).c;
-  // paint the paws out with fur
-  for (const box of [[10, 752, 236, 958], PAW_BOX]) {
-    const p = cut(box, white, 5), [x0, y0, x1, y1] = box, w = x1 - x0;
-    for (let y = y0; y < y1; y++) for (let x = x0; x < x1; x++) {
-      if (!p.m[(y - y0) * w + (x - x0)]) continue;
-      const i = idx(x, y); d[i] = FUR[0]; d[i + 1] = FUR[1]; d[i + 2] = FUR[2];
-    }
-  }
-  // the painted pupils (and glints) are filled in with the eye's yellow; drawEyes() draws pupils that look around
-  for (const e of EYES) {
-    for (let y = e.y - e.ry; y <= e.y + e.ry; y++) for (let x = e.x - e.rx; x <= e.x + e.rx; x++) {
-      const nx = (x - e.x) / (e.rx * 0.82), ny = (y - e.y) / (e.ry * 0.86);
-      if (nx * nx + ny * ny > 1) continue;
-      const i = idx(x, y), r = d[i], gg = d[i + 1], b = d[i + 2];
-      if ((r < 120 && gg < 120 && b < 120) || (r > 225 && gg > 225 && b > 200)) { d[i] = EYE_YELLOW[0]; d[i + 1] = EYE_YELLOW[1]; d[i + 2] = EYE_YELLOW[2]; }
-    }
-  }
-  // No arms: from the table's back edge down, everything outside the table's wooden rails becomes background.
-  // (The rails' outer edges run in a straight line from (222, 600) to (64, 1300) on the left, mirrored on the right.)
-  for (let y = ARM_TOP; y < TABLE_CUT; y++) {
-    const spread = (y - 600) * (158 / 700), xl = 222 - spread - 2, xr = 718 + spread + 2;
-    for (let x = 0; x < IW; x++) {
-      if (x >= xl && x <= xr) continue;
-      const i = idx(x, y); d[i] = BG[0]; d[i + 1] = BG[1]; d[i + 2] = BG[2];
-    }
-  }
-  // The arms hid the rails from about row 630 to 995. There the rails are rebuilt: each row is the wood (plus a
-  // little of the felt beside it) of row RAIL_SRC, squeezed to the rail's width there. The rails' outer edges and
-  // widths, measured where they show, bend slightly, so they're followed with a curve through three rows.
-  const fit3 = (pts) => y => pts.reduce((s, [yi, vi], i) => s + vi * pts.reduce((p, [yj], j) => j === i ? p : p * (y - yj) / (yi - yj), 1), 0);
-  const RAIL_SRC = 1000, RAIL_FROM = 625, RAIL_TO = 995;
-  const rails = [ // [outer edge, width, which way is inward]
-    [fit3([[560, 229], [1000, 137], [1300, 60]]), fit3([[560, 25], [1000, 41], [1300, 50]]), 1],
-    [fit3([[560, 709], [1000, 801], [1300, 878]]), fit3([[560, 25], [1000, 42], [1300, 52]]), -1],
-  ];
-  const src = d.slice(idx(0, RAIL_SRC), idx(0, RAIL_SRC + 1));
-  for (const [edge, width, dir] of rails) {
-    const e0 = edge(RAIL_SRC), w0 = width(RAIL_SRC);
-    for (let y = RAIL_FROM; y <= RAIL_TO; y++) {
-      const e = edge(y), w = width(y);
-      for (let k = -3; k < w + 70; k++) {
-        const xs = Math.round(e0 + dir * (k < w ? k * w0 / w : w0 + (k - w))), xt = Math.round(e + dir * k);
-        const i = idx(xt, y), s = xs * 4;
-        if (k >= w + 14 && Math.max(d[i], d[i + 1], d[i + 2]) > 75) continue; // further in, only the dark fur is replaced
-        d[i] = src[s]; d[i + 1] = src[s + 1]; d[i + 2] = src[s + 2];
-      }
-    }
-  }
-  // ...and the fur left between that line and the rails, and the shoulders beside the tongue under the head layer:
-  // from each side, every dark pixel up to the first light one (the rail's wood, the lips, the felt) goes too
-  const dark = i => Math.max(d[i], d[i + 1], d[i + 2]) < 100;
-  const lightRun = (x, y, dx) => { let n = 0; for (let k = 0; k < 4; k++) if (!dark(idx(x + dx * k, y))) n++; return n >= 3; };
-  for (let y = HEAD_CUT; y < TABLE_CUT; y++) {
-    const lim = y < ARM_TOP ? 215 : 222 - (y - 600) * (158 / 700) + 45; // no further in than this (the felt is dark too)
-    for (let x = 0; x < lim && !lightRun(x, y, 1); x++) { const i = idx(x, y); d[i] = BG[0]; d[i + 1] = BG[1]; d[i + 2] = BG[2]; }
-    for (let x = IW - 1; x > IW - 1 - lim && !lightRun(x, y, -1); x--) { const i = idx(x, y); d[i] = BG[0]; d[i + 1] = BG[1]; d[i + 2] = BG[2]; }
-  }
-  // the picture's dark purple background becomes green, so the black cat stands out against it
-  for (let i = 0; i < d.length; i += 4) {
-    const r = d[i], gg = d[i + 1], b = d[i + 2];
-    if (b > gg + 10 && r > gg + 4 && r < 80 && b < 90) { d[i] = BG[0]; d[i + 1] = BG[1]; d[i + 2] = BG[2]; }
-  }
-  // clear everything below the table's front edge (the bucket is drawn separately)
-  for (let y = TABLE_CUT; y < IH; y++) for (let x = 0; x < IW; x++) {
-    const i = idx(x, y); d[i] = BG[0]; d[i + 1] = BG[1]; d[i + 2] = BG[2];
-  }
-  g.putImageData(img, 0, 0);
-  ART.bg = bg;
-  // the head (everything above HEAD_CUT) as its own layer, so the face can bob, sway and lunge
-  const head = newCanvas(IW, HEAD_CUT);
-  const hg = head.getContext('2d');
-  hg.drawImage(bg, 0, 0, IW, HEAD_CUT, 0, 0, IW, HEAD_CUT);
-  // a hole where the tongue is, so the tongue (drawn under the head) shows between the lips
-  const [mx0, , mx1] = TONGUE_BOX, mw = mx1 - mx0, hd = hg.getImageData(mx0, MOUTH_TOP, mw, HEAD_CUT - MOUTH_TOP);
-  for (let y = 0; y < HEAD_CUT - MOUTH_TOP; y++) for (let x = 0; x < mw; x++) if (ART.tongueMask[y * mw + x]) hd.data[(y * mw + x) * 4 + 3] = 0;
-  hg.putImageData(hd, mx0, MOUTH_TOP);
-  // Widen only the outer cheeks. Keep the eyes and tongue opening at their original
-  // coordinates; overscan the fur so breathing and head sway never reveal side gaps.
-  const wideHead = newCanvas(IW, HEAD_CUT), wg = wideHead.getContext('2d');
-  const faceLeft = TONGUE_BOX[0], faceRight = TONGUE_BOX[2], cheekStretch = 4;
-  wg.drawImage(head, faceLeft, 0, faceRight - faceLeft, HEAD_CUT,
-    faceLeft, 0, faceRight - faceLeft, HEAD_CUT);
-  wg.drawImage(head, 0, 0, faceLeft, HEAD_CUT,
-    faceLeft * (1 - cheekStretch), 0, faceLeft * cheekStretch, HEAD_CUT);
-  wg.drawImage(head, faceRight, 0, IW - faceRight, HEAD_CUT,
-    faceRight, 0, (IW - faceRight) * cheekStretch, HEAD_CUT);
-  ART.head = wideHead;
-  // Clear the stationary face behind the animated layer to avoid a second outline.
-  g.fillStyle = `rgb(${BG.join(',')})`;
-  g.fillRect(0, 0, IW, HEAD_CUT);
+ async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
+ const [head,table,tongue,paw,coin,snacks]=await Promise.all(['head','table','tongue','paw','coin','snacks'].map(n=>image('img/art/'+n+'.png')));
+ Object.assign(ART,{head,table,tongue,paw,coin,snacks});
+ const face=newCanvas(COIN_R*2*SPR,COIN_R*2*SPR);face.getContext('2d').drawImage(coin,0,0,face.width,face.height);
+ sprites.coin={cv:face,half:COIN_R};sprites.silver=sprites.coin;
 }
 
 // The machine is drawn zoomed in (VIEW.z) around the screen's centre, so the table fills more of the screen and the
@@ -1506,21 +1316,9 @@ function screenToGameX(sx) { return (sx - 200) / VIEW.z + 200; }
 function artX(x) { return 200 + (x - 200) * ART_ZX; }
 
 function drawMachine() {
-  ctx.drawImage(ART.bg, artX(0), 0, W * ART_ZX, ART.IH * AK);
-  // a shadowy drop below the table's front edge, where the coins fall away
-  const top = TABLE_CUT * AK, sh = ctx.createLinearGradient(0, top, 0, top + 70);
-  sh.addColorStop(0, 'rgba(0,0,0,.55)'); sh.addColorStop(1, 'rgba(0,0,0,0)');
-  ctx.fillStyle = sh; ctx.fillRect(artX(0), top, W * ART_ZX, 70);
-  drawTongue(); // under the head, so the lips and fangs overlap it
-  // the head on its own layer: a gentle bob, sway and breath, swelling toward you when the cat growls
-  const ls = lungeShape(), pivotY = 420 * AK;
-  const sc = 1 + Math.sin(time * 2.1) * 0.008 + ls * 0.07;
-  const rot = Math.sin(time * 0.8) * 0.014 + Math.sin(time * 31) * 0.012 * ls;
-  ctx.save();
-  ctx.translate(200, pivotY + Math.sin(time * 1.6) * 1.3 + ls * 5); ctx.rotate(rot); ctx.scale(sc, sc); ctx.translate(-200, -pivotY);
-  ctx.drawImage(ART.head, artX(0), 0, W * ART_ZX, HEAD_CUT * AK);
-  drawEyes(ls);
-  ctx.restore();
+ ctx.drawImage(ART.table,0,180,400,420);
+ ctx.drawImage(ART.head,-10,-15,420,280);
+ drawTongue();
 }
 
 // Slit pupils that follow where you're aiming (and glance down at the table), with a blink every few seconds.
@@ -1558,12 +1356,11 @@ function drawEyes(ls) {
 
 // The tongue is a rigid tray sliding out of the mouth; its artwork never stretches.
 function drawTongue() {
-  const [x0, , x1] = TONGUE_BOX, top = MOUTH_TOP * AK, bottom = proj(200, tongueDrawY).y;
-  const height = proj(200, PUSH_MAX).y - top;
-  ctx.save();
-  ctx.beginPath(); ctx.rect(artX(x0 * AK), top, (x1 - x0) * AK * ART_ZX, height); ctx.clip();
-  ctx.drawImage(ART.tongue, artX(x0 * AK), bottom - height, (x1 - x0) * AK * ART_ZX, height);
-  ctx.restore();
+ const bottom=proj(200,tongueDrawY).y;
+ ctx.save();ctx.beginPath();ctx.rect(74,155,252,140);ctx.clip();
+ // Source padding is cropped; placement is a translation, never a changing scale.
+ ctx.drawImage(ART.tongue,20,170,1594,610,74,bottom-130,252,130);
+ ctx.restore();
 }
 
 function bucketRect() {
@@ -1592,32 +1389,14 @@ function drawBucket() {
 // table's front corner, and how far they're turned (radians) so the toes point inward
 const PAW_SIZE = 150, PAW_INSET = 40, PAW_DROP = 38, PAW_TURN = 2.35;
 function drawPaws() {
-  // Drawn in screen space (over the bottom bar): big paws filling both bottom corners, hugging the table's front
-  // corners from below, toes curled in over the edge toward the middle.
-  const w = PAW_SIZE, h = w * ART.paw.height / ART.paw.width;
-  const corner = proj(T.L, T.FRONT), cy = VIEW.y + corner.y * VIEW.zy;
-  for (const side of [-1, 1]) {
-    const open = 0.5 + 0.5 * Math.sin(time * 4 + (side > 0 ? Math.PI : 0)); // 0 closed .. 1 spread
-    const px = side < 0 ? PAW_INSET : W - PAW_INSET, py = cy + PAW_DROP + 4 * open;
-    ctx.save(); ctx.translate(px - side * guardAnim * 26, py - guardAnim * 14);
-    // The paw picture has its toes at the bottom; turning it by side × PAW_TURN points the toes up and in over the
-    // table's corner, with the wrist going off the screen's corner. Kneading rocks it; the golden paw reaches in.
-    ctx.rotate(side * (PAW_TURN - 0.08 * open - guardAnim * 0.25));
-    if (side < 0) ctx.scale(-1, 1);
-    const sx = 0.94 + 0.12 * open, sy = 1.03 - 0.06 * open;
-    ctx.drawImage(ART.paw, -w / 2 * sx, -h * 0.45 * sy, w * sx, h * sy);
-    // claws come out of the toes as the paw spreads, and tuck back in as it closes
-    const claw = Math.max(0, open - 0.2) / 0.8, toeY = h * 0.47 * sy;
-    if (claw > 0) {
-      ctx.fillStyle = '#fbf6ea'; ctx.strokeStyle = 'rgba(70,60,55,.85)'; ctx.lineWidth = 1.4;
-      for (const f of [-0.27, -0.09, 0.09, 0.27]) {
-        const cx = f * w * sx, len = (6 + 12 * claw) * sy, b = w * 0.03;
-        ctx.beginPath(); ctx.moveTo(cx - b, toeY - 2); ctx.quadraticCurveTo(cx + b * 0.4, toeY + len * 0.7, cx + b * 0.2, toeY + len);
-        ctx.quadraticCurveTo(cx + b * 1.5, toeY + len * 0.45, cx + b, toeY - 2); ctx.closePath(); ctx.fill(); ctx.stroke();
-      }
-    }
-    ctx.restore();
-  }
+ const corner=proj(T.L,T.FRONT),cy=VIEW.y+corner.y*VIEW.zy;
+ for(const side of [-1,1]) {
+  const open=.5+.5*Math.sin(time*3+(side>0?Math.PI:0));
+  ctx.save();ctx.translate(side<0?42:W-42,cy+60+open*2);
+  ctx.rotate(side*2.35);if(side<0)ctx.scale(-1,1);
+  const h=170*ART.paw.height/ART.paw.width;
+  ctx.drawImage(ART.paw,-85,-h*.45,170,h);ctx.restore();
+ }
 }
 
 // A gold ring on the tongue where your coin will land.
@@ -1650,6 +1429,8 @@ function draw() {
   }
   bodies.sort((a, b) => a.sortK - b.sortK || a.uid - b.uid);
   for (const b of bodies) drawBody(b);
+  // Rear coins are inside the mouth: the upper lip and muzzle occlude them.
+  ctx.drawImage(ART.head,0,0,ART.head.width,600,-10,-15,420,280*600/ART.head.height);
   for (const f of falling) {
     // tipping over the edge and dropping away, fading as it goes (the ones at the corners go behind the paws)
     ctx.globalAlpha = Math.max(0, 1 - f.t * 1.9);
@@ -1706,7 +1487,31 @@ function drawQuestMeter() {
   ctx.fillStyle = '#fff'; ctx.fillText('/' + q.n, 2, 18);
   ctx.restore();
 }
-function drawHUD() {
+function drawBoardHUD() {
+ const by=PAD_T+BAR_H;
+ ctx.textBaseline='middle';ctx.textAlign='left';
+ ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(0,0,W,by+BANNER_H);
+ ctx.fillStyle='#ffd76a';ctx.font='bold 19px system-ui';ctx.fillText(board.remaining+' coins',12,PAD_T+21);
+ ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText('SNACK SHELF',222,PAD_T+21);
+ ctx.textAlign='right';ctx.font='22px system-ui';ctx.fillText(S.muted?'🔇':'🔊',W-12,PAD_T+21);
+ if(window.Android){ctx.font='20px system-ui';ctx.fillText('↻',W-66,PAD_T+21);}
+ ctx.textAlign='left';ctx.font='bold 12px system-ui';ctx.fillStyle=BOARD.seconds-board.elapsed<20?'#ff7a7a':'#fff';
+ ctx.fillText(clock((BOARD.seconds-board.elapsed)*1000),12,by+14);
+ for(let i=0;i<BOARD.targets.length;i++) {
+  const t=BOARD.targets[i],got=board.collected.includes(t.id);
+  ctx.fillStyle=got?'#7dff6a':'#fff';ctx.fillText((got?'✓ ':'')+ITEMS[t.id].name,95+i*135,by+14);
+ }
+ drawPaws();
+ const bottom=H-PAD_B-BOTTOM_H;
+ ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(100,bottom,200,BOTTOM_H);
+ ctx.textAlign='center';ctx.fillStyle='#ffe680';ctx.font='bold 13px system-ui';
+ ctx.fillText(board.status==='won'?'BOARD CLEAR':board.status==='lost'?'TRY AGAIN':board.status==='settling'?'LAST COINS SETTLING':board.status==='ready'?'TAP TO START':'PUSH BOTH SNACKS',200,bottom+18);
+ ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='won'?'Prototype complete · Replay':'Restart board',200,bottom+42);
+ ctx.fillStyle='#c0b8cc';ctx.font='9px system-ui';ctx.fillText(BUILD+' · '+Math.round(perf.fps)+' fps · '+bodies.length+' bodies',200,H-5);
+}
+
+function drawHUD() { drawBoardHUD(); return;
+
   const y0 = PAD_T, emoji = 'system-ui,"Segoe UI Emoji","Noto Color Emoji"';
   ctx.textBaseline = 'middle';
   // top bar
@@ -1789,7 +1594,8 @@ function resize() {
 
 // ---------- collection panel ----------
 const panel = document.getElementById('panel');
-function openPanel() {
+function openPanel() { return;
+
   let h = '<button id="close">Close</button><h2>🎒 Collection</h2>';
   // on the phone app: check for a newer game in OneDrive right now
   if (window.Android && Android.checkUpdates) h += '<button id="checkupd" class="wide">🔄 Check for updates</button>';
@@ -1852,7 +1658,8 @@ function openPanel() {
 }
 
 // A fresh table (heaped coins, towers, prizes), settled before it's shown. Coins in hand and the collection stay.
-function newTable() {
+function newTable() { resetBoard(); return;
+
   for (const b of bodies.slice()) removeCoin(b);
   falling = []; rings = []; floats = []; taps = [];
   prefill();
@@ -1871,11 +1678,13 @@ cv.addEventListener('pointerdown', e => {
   if (!world) return; // still loading
   sfx.unlock(); musicOK = true; musicTick();
   const p = toGame(e);
+  if(p.y>H-PAD_B-BOTTOM_H) { resetBoard();return; }
+  if(board.status==='won'||board.status==='lost')return;
   // the top bar and quest banner: collection and sound buttons (nothing else up there)
   if (p.y < PAD_T + BAR_H + BANNER_H) {
     if (p.y > PAD_T - 6 && p.y < PAD_T + BAR_H) {
       if (p.x > W - 52) { S.muted = !S.muted; save(); }
-      else if (p.x > W - 100) openPanel();
+      else if (p.x > W - 100 && window.Android) Android.checkUpdates();
     }
     return;
   }
@@ -1910,6 +1719,7 @@ Promise.all([RAPIER.init(), loadArt()])
   .catch(e => { document.body.insertAdjacentHTML('beforeend', `<p style="color:#fff">Could not start: ${e}</p>`); });
 // Test hook: run the game faster than real time, e.g. __game.sim(10, 0.25) = 10 s with a drop every 0.25 s.
 window.__game = {
+  BOARD, get board() { return board; }, resetBoard, draw, resize, loadArt, get perf() { return perf; },
   S, get bodies() { return bodies; }, get world() { return world; }, tryDrop, save, sfx, prefill,
   // test helper: start over with a new table using a given collision shape
   restart(shape, sides) {
@@ -1917,6 +1727,7 @@ window.__game = {
     for (const b of bodies.slice()) removeCoin(b);
     prefill();
   },
+  tick() {step();update(STEP);},
   sim(sec, every) {
     let next = 0;
     for (let t = 0; t < sec; t += STEP) {
