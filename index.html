@@ -49,7 +49,7 @@ const PAY_L = 60, PAY_R = 340; // the bucket's edges: coins off the table past t
 // (a short stroke, so little bare table is left between the tongue and the coins in front of it, and the tongue is
 // never more than a third bare; the back wall sits right under the cat's upper lip, so coins fill the tongue)
 const PUSH_BACK = -25, TONGUE_H = 18, TONGUE_LEN = 300;
-const PUSH_HALF=110, LEDGE_BACK=164;
+const PUSH_HALF=170, LEDGE_BACK=205;
 let PUSH_MIN = 205, PUSH_MAX = 275, PUSH_PERIOD = 3.2;
 const COIN_R = 26, LUCKY_R = 28, ITEM_R = 30; // big coins: more action per coin, and fewer for the phone to simulate
 const COIN_HALF = 2, LUCKY_HALF = 3.5, ITEM_HALF = 9; // half thicknesses
@@ -77,7 +77,7 @@ const ACTIVE_SEC = 2, IDLE_DAMP = 4;
 const M = 0.01, GRAVITY = 30, TILT_DEG = 0, STEP = 1 / 60, COIN_DAMP = 0.8, COIN_SPIN_DAMP = 2.5, COIN_BOUNCE = 0;
 // The tongue is slippery like a steel shelf: when it pulls back, coins on it mostly stay put, so the front ones
 // drop off its edge.
-const COIN_FRICTION = 0.18, TABLE_FRICTION = 0.32, TONGUE_FRICTION = 0.08, TOY_GRIP = 0.22;
+const COIN_FRICTION = 0.02, TABLE_FRICTION = 0.05, TONGUE_FRICTION = 0.08, TOY_GRIP = 0.035;
 const GUARD_SEC = 30, START_COINS = 100, REGEN_SEC = 20, REGEN_CAP = 100;
 const KEY = 'catpusher.board.prototype.v1', OLD_KEY = KEY;
 // Collection sets. Three are on show at a time (S.active); finishing one pays out and the next set in this list
@@ -177,7 +177,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 1:10 PM · board preview';
+const BUILD = 'Oct 10, 1:37 PM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -200,11 +200,12 @@ function initPhysics() {
   tongue = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased()
     .setTranslation(200 * M, TONGUE_H / 2 * M, (pusherY - TONGUE_LEN / 2) * M));
   tongueContact = world.createCollider(RAPIER.ColliderDesc.cuboid(PUSH_HALF * M, TONGUE_H / 2 * M, TONGUE_LEN / 2 * M)
-    .setFriction(TONGUE_FRICTION).setSensor(true), tongue);
+    .setFriction(TONGUE_FRICTION).setSensor(false), tongue);
   // When unloaded, the sliding tongue slips under the resting mat. A stationary backing
   // supports it at the retracted footprint; the moving tray only transmits a loaded push.
   tongueRest = box(PUSH_HALF, TONGUE_H / 2, TONGUE_LEN / 2,
     200, TONGUE_H / 2, PUSH_MIN - TONGUE_LEN / 2, TONGUE_FRICTION);
+  tongueRest.setEnabled(false);
   sweepBody=world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(2,.12,SWEEP_START*M));
   sweepCollider=world.createCollider(RAPIER.ColliderDesc.cuboid(halfW*M,.12,.08).setFriction(.05),sweepBody);
   sweepCollider.setEnabled(false);
@@ -246,7 +247,7 @@ function addCoin(kind, id, x, h, y, rot, linvel, angvel) {
 }
 
 // One isolated, deterministic board. Campaign and collection economy are deliberately absent.
-const BOARD = Object.freeze({ id:'snack-shelf', seed:42, coins:60, seconds:90,
+const BOARD = Object.freeze({ id:'snack-shelf', seed:42, coins:140, seconds:90,
  targets:[{id:'cheese',x:140,y:548},{id:'shrimp',x:260,y:548}] });
 let board = {status:'ready', remaining:BOARD.coins, elapsed:0, collected:[], used:0};
 let boardRandom = BOARD.seed;
@@ -275,7 +276,7 @@ function resetBoard() {
  time=0;lastDrop=-99;pushPhase=0;pushLoaded=false;pushPending=false;calm=false;tiltNow=0;
  pusherY=PUSH_MIN;tongueDrawY=PUSH_MIN;
  tongue.setTranslation({x:2,y:TONGUE_H/2*M,z:(PUSH_MIN-TONGUE_LEN/2)*M},true);
- tongueContact.setSensor(true);tongueRest.setEnabled(true);world.gravity={x:0,y:-GRAVITY,z:0};
+ tongueContact.setSensor(false);tongueRest.setEnabled(false);world.gravity={x:0,y:-GRAVITY,z:0};
  sweepTime=0;sweepCollider.setEnabled(false);sweepBody.setTranslation({x:2,y:.12,z:SWEEP_START*M},true);pupilAim=200;aim={x:200,y:DROP_Y};
  holding=false;taps=[];toyQueue=[];falling=[];rings=[];floats=[];callouts=[];pendingDrops=[];releaseAt=0;
  showerLeft=0;shake=0;dropTimer=0;saveTimer=0;
@@ -365,10 +366,7 @@ function prefill() {
   const b=addCoin('item',target.id,target.x,COIN_HALF*2+halfOf('item')+1,target.y,yawTurn(0));
   b.boardTarget=true;
  }
- for(const x of [142,200,258]) {
-  const b=addCoin('coin',null,x,TONGUE_H+COIN_HALF+.3,190,yawTurn(seededRandom()*6));
-  b.ledgeCoin=true;
- }
+
 }
 
 function load() { resetBoard(); }
@@ -672,27 +670,13 @@ function pickDrop() {
 
 // Drop a coin (or now and then a special coin or prize) from above the drop line; physics does the rest.
 function tryDrop(at=aim) {
- if(board.status==='won'||board.status==='lost'||sweepTime>0||board.remaining<=0||pendingDrops.length>=6)return false;
+ if(board.status==='won'||board.status==='lost'||sweepTime>0||board.remaining<=0)return false;
  if(board.status==='ready')board.status='playing';
  const x=Math.max(200-PUSH_HALF+COIN_R,Math.min(200+PUSH_HALF-COIN_R,at.x));
- board.remaining--;board.used++;S.coins=board.remaining;S.drops++;
- pendingDrops.push(x);pushPending=true;
- return true;
-}
-
-function releaseDrop() {
- // Drop into the reopened gap, never onto the moving tray or an occupied coin.
- if(sweepTime>0||!pendingDrops.length||pusherY>PUSH_MIN+6||time<releaseAt)return;
- const aimed=pendingDrops[0];
- const slots=[116,172,228,284].filter(x=>Math.abs(x-aimed)<=88).sort((a,b)=>Math.abs(a-aimed)-Math.abs(b-aimed));
- const x=slots.find(x=>!bodies.some(b=>{
-  const p=b.rb.translation();if(b.ledgeCoin&&p.y/M>10)return false;
-  return p.y>=0&&Math.hypot(p.x/M-x,p.z/M-DROP_Y)<COIN_R+b.r+2;
- }));
- if(x===undefined)return;
- pendingDrops.shift();board.released++;releaseAt=time+.1;lastDrop=time;pushPending=true;
- const b=addCoin('coin',null,x,DROP_H,DROP_Y,yawTurn(seededRandom()*6),{x:0,y:-1,z:0},{x:0,y:0,z:0});
- b.fresh=true;b.input=true;sfx.drop();
+ board.remaining--;board.used++;board.released++;S.coins=board.remaining;S.drops++;lastDrop=time;
+ // Every tap releases immediately just beyond the moving tray's front face.
+ const b=addCoin('coin',null,x,DROP_H,Math.max(DROP_Y,pusherY+COIN_R+3),yawTurn(seededRandom()*6),{x:0,y:-1,z:0},{x:0,y:0,z:0});
+ b.fresh=true;b.input=true;sfx.drop();return true;
 }
 
 function collect(id) {
@@ -766,29 +750,17 @@ function stepPawSweep() {
 function step() {
   time += STEP;
   stepPawSweep();
-  // Keep a continuous rigid stroke. New coins load the next complete push at the back;
-  // a settled pile is supported while the unloaded tongue slides underneath it.
-  releaseDrop();
-  const requested = time - lastDrop < ACTIVE_SEC || pendingDrops.length>0 || shake > 0 || showerLeft > 0;
-  if (requested) pushPending = true;
-  const previousPhase = pushPhase;
+  // Solid physical tray travels continuously. Input controls damping, never contact.
+  const requested = time - lastDrop < ACTIVE_SEC || shake > 0 || showerLeft > 0;
   pushPhase = (pushPhase + STEP) % PUSH_PERIOD;
   const phase = pushPhase / PUSH_PERIOD;
-  if (pushPhase < previousPhase || time <= STEP + 1e-8) {
-    const loaded = pushPending || requested;
-    pushPending = false;
-    if (loaded !== pushLoaded) {
-      pushLoaded = loaded;
-      tongueContact.setSensor(!loaded);
-      tongueRest.setEnabled(!loaded);
-    }
-  }
+  pushLoaded=false;pushPending=false;
   // Constant-speed straight travel and a short dwell at each end: a mechanical slide.
   const stroke = phase < 0.08 ? 0 : phase < 0.53 ? (phase - 0.08) / 0.45
     : phase < 0.61 ? 1 : 1 - (phase - 0.61) / 0.39;
   pusherY = PUSH_MIN + (PUSH_MAX - PUSH_MIN) * stroke;
   tongueDrawY = pusherY;
-  const active = pushLoaded || requested;
+  const active = requested;
   const wantTilt = active ? 1 : 0;
   if (Math.abs(wantTilt - tiltNow) > 0.001) {
     tiltNow += (wantTilt - tiltNow) * (wantTilt ? 0.1 : 0.15);
@@ -1415,9 +1387,11 @@ function drawEyes(ls) {
 
 // The tongue is a rigid tray sliding out of the mouth; its artwork never stretches.
 function drawTongue() {
- const bottom=proj(200,tongueDrawY).y;
- // A short narrow ledge, translated rigidly; mouth backing is in the head art.
- ctx.drawImage(ART.tongue,45,278,1686,391,124,bottom-45,152,45);
+ const left=screenOf(200-PUSH_HALF,tongueDrawY,0);
+ const right=screenOf(200+PUSH_HALF,tongueDrawY,0);
+ const rear=screenOf(200,tongueDrawY-60,TONGUE_H);
+ // Project the rigid physical tray: fixed height, full contact width, front edge on the shelf.
+ ctx.drawImage(ART.tongue,45,278,1686,391,left.x,rear.y,right.x-left.x,left.y-rear.y);
 }
 
 function bucketRect() {
@@ -1455,8 +1429,8 @@ function drawPaws() {
  }
  const cy=VIEW.y+proj(200,depth).y*VIEW.zy;
  for(const side of [-1,1]) {
-  const base=side<0?-12:W+12,inner=side<0?100:W-100;
-  ctx.save();ctx.translate(base+(inner-base)*reach,cy+Math.sin(time*2)*1.2);
+  const base=side<0?-85:W+85,inner=side<0?100:W-100;
+  ctx.save();ctx.translate(base+(inner-base)*reach,cy-35*(1-reach)+Math.sin(time*2)*1.2);
   if(side>0)ctx.scale(-1,1);
   const w=280,h=w*ART.paw.height/ART.paw.width;
   ctx.drawImage(ART.paw,-w/2,-h/2,w,h);ctx.restore();
