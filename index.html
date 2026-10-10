@@ -167,13 +167,14 @@ let pusherY = PUSH_MIN, tongueDrawY = PUSH_MIN, time = 0, lastDrop = -99, tiltNo
 let pushPhase = 0, pushLoaded = false, pushPending = false;
 // Aiming: you choose only left/right. Coins always drop onto the tongue, on a line near its back just in front of
 // the back wall (DROP_Y), so each new coin lands behind the coins already there and helps push them forward.
-const DROP_Y = PUSH_BACK + COIN_R + 14, DROP_H = 55;
+const DROP_Y = PUSH_MIN + COIN_R + 5, DROP_H = 35;
+let pendingDrops = [], releaseAt = 0;
 let aim = { x: 200, y: DROP_Y }, aimShow = 0, guardAnim = 0;
 let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, lastChaching = 0;
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 11:12 AM · board preview';
+const BUILD = 'Oct 10, 11:39 AM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -192,7 +193,7 @@ function initPhysics() {
   box(halfW + 40, 10, (T.FRONT + 100) / 2, 200, -10, (T.FRONT - 100) / 2, TABLE_FRICTION); // table top, open at the front
   box(10, 200, (T.FRONT + 100) / 2, T.L - 10, 190, (T.FRONT - 100) / 2, 0.2);               // side walls
   box(10, 200, (T.FRONT + 100) / 2, T.R + 10, 190, (T.FRONT - 100) / 2, 0.2);
-  box(halfW + 40, 150, 20, 200, TONGUE_H + 1.5 + 150, PUSH_BACK - 20, 0.2);                 // back wall above the tongue
+  box(halfW + 40, 150, 12, 200, TONGUE_H + 150, PUSH_MIN - 12, 0.2); // mouth barrier; coins cannot retreat into the cat
   tongue = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased()
     .setTranslation(200 * M, TONGUE_H / 2 * M, (pusherY - TONGUE_LEN / 2) * M));
   tongueContact = world.createCollider(RAPIER.ColliderDesc.cuboid(halfW * M, TONGUE_H / 2 * M, TONGUE_LEN / 2 * M)
@@ -239,14 +240,14 @@ function addCoin(kind, id, x, h, y, rot, linvel, angvel) {
 }
 
 // One isolated, deterministic board. Campaign and collection economy are deliberately absent.
-const BOARD = Object.freeze({ id:'snack-shelf', seed:42, coins:320, seconds:180,
+const BOARD = Object.freeze({ id:'snack-shelf', seed:42, coins:48, seconds:90,
  targets:[{id:'cheese',x:140,y:548},{id:'shrimp',x:260,y:548}] });
 let board = {status:'ready', remaining:BOARD.coins, elapsed:0, collected:[], used:0};
 let boardRandom = BOARD.seed;
 function seededRandom() { boardRandom=boardRandom*16807%2147483647; return (boardRandom-1)/2147483646; }
 function finishBoard(status) {
  if(board.status==='won'||board.status==='lost')return;
- board.status=status; holding=false; taps=[];
+ board.status=status; holding=false; taps=[];pendingDrops=[];
  if(status==='won') { sfx.kaching(); callout('BOARD CLEAR!', {voice:'quest',color:'#7dff6a'}); }
  else sfx.empty();
 }
@@ -257,19 +258,19 @@ function boardTick(dt) {
  if(board.remaining===0) {
    board.status='settling';
    const moving=bodies.some(b=>{const v=b.rb.linvel();return Math.hypot(v.x,v.y,v.z)>.01;});
-   board.quiet=(!moving&&!pushLoaded&&!pushPending)?(board.quiet||0)+dt:0;
+   board.quiet=(!moving&&!pushLoaded&&!pushPending&&!pendingDrops.length)?(board.quiet||0)+dt:0;
    if(board.quiet>=3)finishBoard('lost');
  }
 }
 function resetBoard() {
  for(const b of bodies.slice())removeCoin(b);
- board={status:'ready',remaining:BOARD.coins,elapsed:0,collected:[],used:0};boardRandom=BOARD.seed;
+ board={status:'ready',remaining:BOARD.coins,elapsed:0,collected:[],used:0,released:0};boardRandom=BOARD.seed;
  S.coins=BOARD.coins;S.shakes=0;S.quest=null;S.guard=0;
  time=0;lastDrop=-99;pushPhase=0;pushLoaded=false;pushPending=false;calm=false;tiltNow=0;
  pusherY=PUSH_MIN;tongueDrawY=PUSH_MIN;
  tongue.setTranslation({x:2,y:TONGUE_H/2*M,z:(PUSH_MIN-TONGUE_LEN/2)*M},true);
  tongueContact.setSensor(true);tongueRest.setEnabled(true);world.gravity={x:0,y:-GRAVITY,z:0};
- holding=false;taps=[];toyQueue=[];falling=[];rings=[];floats=[];callouts=[];
+ holding=false;taps=[];toyQueue=[];falling=[];rings=[];floats=[];callouts=[];pendingDrops=[];releaseAt=0;
  showerLeft=0;shake=0;dropTimer=0;saveTimer=0;
  prefill();for(let i=0;i<180;i++)world.step();
 }
@@ -351,8 +352,7 @@ function prefill() {
     addCoin(seededRandom()<.25?'silver':'coin',null,x,h,y,yawTurn(seededRandom()*6));
    }
  }
- sheet(PUSH_BACK+COIN_R+2,PUSH_MIN-COIN_R,TONGUE_H+COIN_HALF+.2);
- sheet(PUSH_MIN+COIN_R+2,T.FRONT-COIN_R,COIN_HALF+.2);
+ sheet(PUSH_MAX+COIN_R+3,T.FRONT-COIN_R,COIN_HALF+.2);
  addStack(200,null,420,yawTurn(0),10,null,0);
  for(const target of BOARD.targets) {
   const b=addCoin('item',target.id,target.x,COIN_HALF*2+halfOf('item')+1,target.y,yawTurn(0));
@@ -543,16 +543,21 @@ for (const k in VOICE) {
 // Background music: Jenny's pick, "Cute Cat Meow Song" by juncala (Pixabay, free under the Pixabay Content License:
 // fine inside the game, but the file must never be offered on its own). Loops all the time, quietly, and dips while
 // the voice talks. Starts on the first tap (phones don't allow sound before one); follows the 🔊 button.
-const MUSIC_VOL = 0.35;
-const music = new Audio('sounds/music/cat-meow-song.mp3');
-music.loop = true; music.volume = MUSIC_VOL;
+const MUSIC_VOL = 0.10;
+const music = new Audio('sounds/music/retro-funk.mp3');
+music.loop = false; music.volume = 0;
+S.musicEnabled = true;
+try {const audioSettings=JSON.parse(localStorage.getItem('catpusher.audio.v1')||'null');if(audioSettings){S.musicEnabled=audioSettings.musicEnabled!==false;S.muted=!!audioSettings.muted;}}catch(e){}
+function saveAudioSettings(){try{localStorage.setItem('catpusher.audio.v1',JSON.stringify({musicEnabled:S.musicEnabled,muted:S.muted}));}catch(e){}}
 let musicOK = false, duckUntil = 0, inBackground = false;
 window.appPaused = p => { inBackground = p; if (p) music.pause(); }; // the phone app calls this when it's left / reopened
 function musicTick() {
-  const want = musicOK && !S.muted && !inBackground && document.visibilityState === 'visible';
+  const want = musicOK && !music.ended && S.musicEnabled && !S.muted && !inBackground && document.visibilityState === 'visible'
+    && (board.status==='playing'||board.status==='settling');
   if (want && music.paused) music.play().catch(() => { });
   else if (!want && !music.paused) music.pause();
-  music.volume = performance.now() < duckUntil ? MUSIC_VOL * 0.4 : MUSIC_VOL;
+  const target=performance.now()<duckUntil?MUSIC_VOL*.25:MUSIC_VOL;
+  music.volume += (target-music.volume)*.08;
 }
 let lastSay = -9;
 function say(key, important) {
@@ -655,25 +660,27 @@ function pickDrop() {
 }
 
 // Drop a coin (or now and then a special coin or prize) from above the drop line; physics does the rest.
-function tryDrop(at = aim) {
- if(board.status==='won'||board.status==='lost'||board.remaining<=0)return false;
+function tryDrop(at=aim) {
+ if(board.status==='won'||board.status==='lost'||board.remaining<=0||pendingDrops.length>=6)return false;
  if(board.status==='ready')board.status='playing';
- board.remaining--;board.used++;S.coins=board.remaining+1;
-  if (S.coins <= 0) {
-    if (coinFlash <= 0) say('nocoins');
-    coinFlash = 1.5;
-    sfx.empty(); return;
-  }
-  S.coins--; S.drops++; lastDrop = time;
-  let kind = 'coin', id = null;
-  const rad = radius(kind), x = Math.max(T.L + rad, Math.min(T.R - rad, at.x + (seededRandom()*4-2)));
-  const y = Math.max(DROP_Y, PUSH_BACK + rad + 4) + seededRandom()*6-3; // big chips land a little further out, clear of the wall
-  // dropped nearly flat with little tumble, so coins settle into neat layers instead of jumbled heaps
-  const b = addCoin(kind, id, x, DROP_H, y, yawTurn(seededRandom()*6),
-    { x: 0, y: -1, z: 0 }, { x: 0, y: 0, z: 0 });
-  b.fresh = true; // ring and thud when it first lands
-  sfx.drop();
-  return true;
+ const x=Math.max(T.L+COIN_R+2,Math.min(T.R-COIN_R-2,at.x));
+ board.remaining--;board.used++;S.coins=board.remaining;S.drops++;
+ pendingDrops.push(x);pushPending=true;
+ return true;
+}
+
+function releaseDrop() {
+ // Drop into the reopened gap, never onto the moving tray or an occupied coin.
+ if(!pendingDrops.length||pusherY>PUSH_MIN+6||time<releaseAt)return;
+ const aimed=pendingDrops[0];
+ const slots=[60,116,172,228,284,340].filter(x=>Math.abs(x-aimed)<=88).sort((a,b)=>Math.abs(a-aimed)-Math.abs(b-aimed));
+ const x=slots.find(x=>!bodies.some(b=>{
+  const p=b.rb.translation();return p.y>=0&&Math.hypot(p.x/M-x,p.z/M-DROP_Y)<COIN_R+b.r+2;
+ }));
+ if(x===undefined)return;
+ pendingDrops.shift();board.released++;releaseAt=time+.1;lastDrop=time;pushPending=true;
+ const b=addCoin('coin',null,x,DROP_H,DROP_Y,yawTurn(seededRandom()*6),{x:0,y:-1,z:0},{x:0,y:0,z:0});
+ b.fresh=true;b.input=true;sfx.drop();
 }
 
 function collect(id) {
@@ -722,7 +729,8 @@ function step() {
   time += STEP;
   // Keep a continuous rigid stroke. New coins load the next complete push at the back;
   // a settled pile is supported while the unloaded tongue slides underneath it.
-  const requested = time - lastDrop < ACTIVE_SEC || shake > 0 || showerLeft > 0;
+  releaseDrop();
+  const requested = time - lastDrop < ACTIVE_SEC || pendingDrops.length>0 || shake > 0 || showerLeft > 0;
   if (requested) pushPending = true;
   const previousPhase = pushPhase;
   pushPhase = (pushPhase + STEP) % PUSH_PERIOD;
@@ -736,9 +744,9 @@ function step() {
       tongueRest.setEnabled(!loaded);
     }
   }
-  const smooth = t => t * t * (3 - 2 * t);
-  const stroke = phase < 0.08 ? 0 : phase < 0.53 ? smooth((phase - 0.08) / 0.45)
-    : phase < 0.61 ? 1 : 1 - smooth((phase - 0.61) / 0.39);
+  // Constant-speed straight travel and a short dwell at each end: a mechanical slide.
+  const stroke = phase < 0.08 ? 0 : phase < 0.53 ? (phase - 0.08) / 0.45
+    : phase < 0.61 ? 1 : 1 - (phase - 0.61) / 0.39;
   pusherY = PUSH_MIN + (PUSH_MAX - PUSH_MIN) * stroke;
   tongueDrawY = pusherY;
   const active = pushLoaded || requested;
@@ -991,7 +999,7 @@ function drawCallout() {
 // The face bobs and sways gently all the time; now and then (and on lightning, shakes and jack-in-the-box) the cat
 // growls and lunges: the face swells toward you, the brows come down and the pupils narrow. Cartoon-scary.
 let lunge = 0, nextGrowl = 25;
-function catGrowl() { sfx.growl(); lunge = 1; }
+function catGrowl() { sfx.growl(); lunge = 1; duckUntil=performance.now()+1200; }
 function moodTick(dt) {
   lunge = Math.max(0, lunge - dt * 1.1);
   if (time > nextGrowl) { if (lunge === 0) catGrowl(); nextGrowl = time + rand(25, 55); }
@@ -1317,7 +1325,6 @@ function artX(x) { return 200 + (x - 200) * ART_ZX; }
 
 function drawMachine() {
  ctx.drawImage(ART.table,0,180,400,420);
- ctx.drawImage(ART.head,-10,-15,420,280);
  drawTongue();
 }
 
@@ -1358,6 +1365,8 @@ function drawEyes(ls) {
 function drawTongue() {
  const bottom=proj(200,tongueDrawY).y;
  ctx.save();ctx.beginPath();ctx.rect(74,155,252,140);ctx.clip();
+ // The fixed rear backing fills the mouth; the rigid moving slab slides over it.
+ ctx.drawImage(ART.tongue,20,180,1594,400,74,145,252,95);
  // Source padding is cropped; placement is a translation, never a changing scale.
  ctx.drawImage(ART.tongue,20,170,1594,610,74,bottom-130,252,130);
  ctx.restore();
@@ -1430,7 +1439,7 @@ function draw() {
   bodies.sort((a, b) => a.sortK - b.sortK || a.uid - b.uid);
   for (const b of bodies) drawBody(b);
   // Rear coins are inside the mouth: the upper lip and muzzle occlude them.
-  ctx.drawImage(ART.head,0,0,ART.head.width,600,-10,-15,420,280*600/ART.head.height);
+  ctx.drawImage(ART.head,-10,-15,420,280);
   for (const f of falling) {
     // tipping over the edge and dropping away, fading as it goes (the ones at the corners go behind the paws)
     ctx.globalAlpha = Math.max(0, 1 - f.t * 1.9);
@@ -1492,7 +1501,8 @@ function drawBoardHUD() {
  ctx.textBaseline='middle';ctx.textAlign='left';
  ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(0,0,W,by+BANNER_H);
  ctx.fillStyle='#ffd76a';ctx.font='bold 19px system-ui';ctx.fillText(board.remaining+' coins',12,PAD_T+21);
- ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText('SNACK SHELF',222,PAD_T+21);
+ ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText('SNACKS',190,PAD_T+21);
+ ctx.font='18px system-ui';ctx.fillStyle=S.musicEnabled?'#ffe680':'#8d8294';ctx.fillText('♫',W-120,PAD_T+21);
  ctx.textAlign='right';ctx.font='22px system-ui';ctx.fillText(S.muted?'🔇':'🔊',W-12,PAD_T+21);
  if(window.Android){ctx.font='20px system-ui';ctx.fillText('↻',W-66,PAD_T+21);}
  ctx.textAlign='left';ctx.font='bold 12px system-ui';ctx.fillStyle=BOARD.seconds-board.elapsed<20?'#ff7a7a':'#fff';
@@ -1508,6 +1518,7 @@ function drawBoardHUD() {
  ctx.fillText(board.status==='won'?'BOARD CLEAR':board.status==='lost'?'TRY AGAIN':board.status==='settling'?'LAST COINS SETTLING':board.status==='ready'?'TAP TO START':'PUSH BOTH SNACKS',200,bottom+18);
  ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='won'?'Prototype complete · Replay':'Restart board',200,bottom+42);
  ctx.fillStyle='#c0b8cc';ctx.font='9px system-ui';ctx.fillText(BUILD+' · '+Math.round(perf.fps)+' fps · '+bodies.length+' bodies',200,H-5);
+ ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('i',W-8,H-6);
 }
 
 function drawHUD() { drawBoardHUD(); return;
@@ -1594,6 +1605,14 @@ function resize() {
 
 // ---------- collection panel ----------
 const panel = document.getElementById('panel');
+function openCredits() {
+ holding=false;taps=[];
+ panel.innerHTML='<button id="close">Close</button><h2>Music</h2><p>“Loopster” — Kevin MacLeod (incompetech.com)</p>'
+  +'<p>Licensed under <a style="color:#ffe680" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0</a>.</p>'
+  +'<p>Original recording; quieter playback with fades and sound-effect ducking.</p>'
+  +'<p>Tap ♫ to turn music off while keeping coin sounds, the growl and the board-clear sound.</p>';
+ panel.style.display='block';panel.querySelector('#close').onclick=()=>{panel.style.display='none';};
+}
 function openPanel() { return;
 
   let h = '<button id="close">Close</button><h2>🎒 Collection</h2>';
@@ -1678,17 +1697,19 @@ cv.addEventListener('pointerdown', e => {
   if (!world) return; // still loading
   sfx.unlock(); musicOK = true; musicTick();
   const p = toGame(e);
+  if(p.y>H-26&&p.x>W-35){openCredits();return;}
   if(p.y>H-PAD_B-BOTTOM_H) { resetBoard();return; }
-  if(board.status==='won'||board.status==='lost')return;
   // the top bar and quest banner: collection and sound buttons (nothing else up there)
   if (p.y < PAD_T + BAR_H + BANNER_H) {
     if (p.y > PAD_T - 6 && p.y < PAD_T + BAR_H) {
-      if (p.x > W - 52) { S.muted = !S.muted; save(); }
+      if (p.x > W - 52) { S.muted = !S.muted; saveAudioSettings();musicTick(); }
       else if (p.x > W - 100 && window.Android) Android.checkUpdates();
+      else if (p.x > W - 148) {S.musicEnabled=!S.musicEnabled;saveAudioSettings();musicTick();}
     }
     return;
   }
   // the shake button; everywhere else (including the bottom of the screen) drops coins
+  if(board.status==='won'||board.status==='lost')return;
   const sb = shakeButton();
   if (Math.hypot(p.x - sb.x, p.y - sb.y) < sb.r + 8) { useShake(); return; }
   cv.setPointerCapture(e.pointerId);
