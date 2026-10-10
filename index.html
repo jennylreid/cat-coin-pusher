@@ -77,7 +77,8 @@ const ACTIVE_SEC = 2, IDLE_DAMP = 4;
 const M = 0.01, GRAVITY = 30, TILT_DEG = 0, STEP = 1 / 60, COIN_DAMP = 0.8, COIN_SPIN_DAMP = 2.5, COIN_BOUNCE = 0;
 // The tongue is slippery like a steel shelf: when it pulls back, coins on it mostly stay put, so the front ones
 // drop off its edge.
-const COIN_FRICTION = 0.02, TABLE_FRICTION = 0.05, TONGUE_FRICTION = 0.08, TOY_GRIP = 0.035;
+// Min combining keeps the effective coin/shelf (.035) and coin/pusher (.05) grip at their former values.
+const COIN_FRICTION = 0.45, TABLE_FRICTION = 0.035, TONGUE_FRICTION = 0.05, TOY_GRIP = 0.035;
 const GUARD_SEC = 30, START_COINS = 100, REGEN_SEC = 20, REGEN_CAP = 100;
 const KEY = 'catpusher.board.prototype.v1', OLD_KEY = KEY;
 // Collection sets. Three are on show at a time (S.active); finishing one pays out and the next set in this list
@@ -185,7 +186,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 3:57 PM · board preview';
+const BUILD = 'Oct 10, 4:58 PM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -247,6 +248,8 @@ function addCoin(kind, id, x, h, y, rot, linvel, angvel) {
   world.createCollider((bx ? RAPIER.ColliderDesc.cuboid(bx.hx * M, bx.hy * M, bx.hz * M) : coinShape(r, half, edge))
     // toys are heavy and grippy, so they wedge in and get stuck (that's what shakes are for)
     .setFriction(kind === 'item' || bx ? TOY_GRIP : COIN_FRICTION).setRestitution(COIN_BOUNCE)
+    // Grip between coins supports piles; the lower surface coefficient keeps the shelf and pusher slippery.
+    .setFrictionCombineRule(RAPIER.CoefficientCombineRule.Min)
     .setDensity(bx ? bx.density * 2 : kind === 'item' ? 1.6 : kind === 'power' ? 1 : 3), rb);
   // quest: a toy the quest is about; sortK, uid: drawing order (see draw)
   const b = { rb, kind, id: id || null, r, half, dead: false, vy: 0, fresh: false, quest: false, sortK: null, uid: ++uids };
@@ -267,21 +270,21 @@ let boardIndex=0, BOARD=BOARDS[0];
 let board = {status:'ready', remaining:BOARD.coins, elapsed:0, collected:[], used:0};
 let boardRandom = BOARD.seed;
 function seededRandom() { boardRandom=boardRandom*16807%2147483647; return (boardRandom-1)/2147483646; }
-function finishBoard(status) {
+function finishBoard(status,reason) {
  if(board.status==='won'||board.status==='lost')return;
- board.status=status; holding=false; taps=[];pendingDrops=[];
+ board.status=status;board.endReason=reason||'targets'; holding=false; taps=[];pendingDrops=[];
  if(status==='won') { recordedSfx.duck();sfx.kaching(); callout('BOARD CLEAR!', {voice:'quest',color:'#7dff6a'}); }
- else sfx.empty();
+ else {sfx.empty();callouts=[];callout('TRY AGAIN', {color:'#ffb98b',dur:Infinity});}
 }
 function boardTick(dt) {
  if(board.status!=='playing' && board.status!=='settling')return;
  board.elapsed+=dt;
- if(board.elapsed>=BOARD.seconds) {finishBoard('lost');return;}
+ if(board.elapsed>=BOARD.seconds) {finishBoard('lost','time');return;}
  if(board.remaining===0) {
    board.status='settling';
    const moving=bodies.some(b=>{const v=b.rb.linvel();return Math.hypot(v.x,v.y,v.z)>.01;});
    board.quiet=(!moving&&!pushLoaded&&!pushPending&&!pendingDrops.length&&sweepTime===0)?(board.quiet||0)+dt:0;
-   if(board.quiet>=3)finishBoard('lost');
+   if(board.quiet>=3)finishBoard('lost','coins');
  }
 }
 function selectBoard(index) {
@@ -299,7 +302,7 @@ function resetBoard() {
  tongue.setTranslation({x:2,y:TONGUE_H/2*M,z:(PUSH_MIN-TONGUE_LEN/2)*M},true);
  tongueContact.setSensor(false);tongueRest.setEnabled(false);world.gravity={x:0,y:-GRAVITY,z:0};
  sweepTime=0;sweepCollider.setEnabled(false);sweepBody.setTranslation({x:2,y:.12,z:SWEEP_START*M},true);pupilAim=200;aim={x:200,y:DROP_Y};
- holding=false;taps=[];toyQueue=[];falling=[];rings=[];floats=[];callouts=[];pendingDrops=[];releaseAt=0;
+ holding=false;taps=[];toyQueue=[];falling=[];rings=[];floats=[];callouts=[];itemToasts=[];pendingDrops=[];releaseAt=0;
  showerLeft=0;shake=0;dropTimer=0;saveTimer=0;
  prefill();for(let i=0;i<180;i++)world.step();
 }
@@ -490,6 +493,16 @@ const sfx = (() => {
       const t = ac.currentTime;
       [784, 988, 1175, 1568, 1976].forEach((f, i) => tone(f, t + i * 0.06, 0.16, 'square', 0.05));
       tone(2637, t + 0.32, 0.6, 'sine', 0.1);
+    },
+    // A soft pop and warm rising chimes: distinct from coin clatter and board clear.
+    special() {
+      if (!ready()) return;
+      const t=ac.currentTime;
+      tone(220,t,.075,'sine',.075,100);
+      [659.25,830.61,987.77].forEach((f,i)=>{
+        tone(f,t+.035+i*.085,.28,'sine',.075);
+        tone(f*2,t+.035+i*.085,.13,'sine',.018);
+      });
     },
     fanfare() {
       if (!ready()) return;
@@ -729,7 +742,7 @@ function tryDrop(at=aim) {
  board.remaining--;board.used++;board.released++;S.coins=board.remaining;S.drops++;lastDrop=time;
  // Every tap releases immediately just beyond the moving tray's front face.
  const b=addCoin('coin',null,x,DROP_H,Math.max(DROP_Y,pusherY+COIN_R+3),yawTurn(seededRandom()*6),{x:0,y:-1,z:0},{x:0,y:0,z:0});
- b.fresh=true;b.input=true;sfx.drop();return true;
+ b.fresh=true;b.input=true;b.mouthAt=time;sfx.drop();return true;
 }
 
 function collect(id) {
@@ -753,13 +766,13 @@ function collect(id) {
 
 // A coin that went over the front edge: into the bucket (won) or past it at the corners (lost).
 function fallOff(b, x) {
- recordedSfx.edge();
+ if(!b.boardTarget)recordedSfx.edge();
  const p=proj(x,T.FRONT);
  falling.push({x:p.x,y:p.y+4,vx:0,vy:60,kind:b.kind,id:b.id,won:true,t:0,s:p.s});
  if(b.boardTarget) {
   if(!board.collected.includes(b.id))board.collected.push(b.id);
   if(board.collected.length===1)board.sweeps=1;
-  sfx.ching();
+  sfx.special();itemToasts.push({text:(ITEMS[b.id]?.name||b.id).toUpperCase()+' COLLECTED!',t:0});
  }
  removeCoin(b);
  if(board.collected.length===BOARD.targets.length)finishBoard('won');
@@ -891,6 +904,7 @@ function step() {
 }
 
 function update(dt) {
+ for(let i=itemToasts.length-1;i>=0;i--){itemToasts[i].t+=dt;if(itemToasts[i].t>1.1)itemToasts.splice(i,1);}
   pupilAim+=((aim.lookX??aim.x)-pupilAim)*Math.min(1,dt*12);
   boardTick(dt);
   regen();
@@ -1019,7 +1033,7 @@ function useShake() { return; // No carried-in boosts in the baseline board.
 // ---------- comic-book callouts ----------
 // Big moments (a prize, a finished set, a quest, a level, a jackpot) get a 1960s TV-style starburst with a big
 // word or two (no sentences, no caption card), a big sound, and a voice line. One at a time; the rest wait.
-let callouts = [], meterBump = 0;
+let callouts = [], meterBump = 0, itemToasts=[];
 function callout(word, o = {}) {
   callouts.push({ word: word.toUpperCase(), emoji: o.emoji || '', voice: o.voice || null,
     color: o.color || '#ffd23f', t: 0, dur: o.dur || 2.2, rot: rand(-0.12, 0.12), x: 200 + rand(-10, 10), started: false, said: false });
@@ -1290,6 +1304,7 @@ function drawPrize(kind,id,x,y,s) {
 }
 
 function drawBody(b) {
+  if(b.input&&time-b.mouthAt<.18)return; // The same physical coin is shown on its short mouth-to-board flight below.
   const t = b.rb.translation(), x = t.x / M, h = t.y / M, y = t.z / M;
   if (b.kind === 'stack') { // a tower: its coins bottom to top, following the column's lean
     const q = b.rb.rotation();
@@ -1370,8 +1385,8 @@ function newCanvas(w, h) { const c = document.createElement('canvas'); c.width =
 
 async function loadArt() {
  async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
- const [head,table,tongue,paw,coin,snacks,pupil]=await Promise.all(['head','table','tongue','paw','coin','snacks','pupil'].map(n=>image('img/art/'+n+'.png')));
- Object.assign(ART,{head,table,tongue,paw,coin,snacks,pupil});
+ const [head,table,tongue,paw,coin,snacks,pupil,headOpen]=await Promise.all(['head','table','tongue','paw','coin','snacks','pupil','head-open'].map(n=>image('img/art/'+n+'.png')));
+ Object.assign(ART,{head,table,tongue,paw,coin,snacks,pupil,headOpen});
  const face=newCanvas(COIN_R*2*SPR,COIN_R*2*SPR);face.getContext('2d').drawImage(coin,21,21,1209,1202,0,0,face.width,face.height);
  sprites.coin={cv:face,half:COIN_R};sprites.silver=sprites.coin;
 }
@@ -1530,7 +1545,18 @@ function draw() {
   for (const b of bodies) drawBody(b);
   // Rear coins are inside the mouth: the upper lip and muzzle occlude them.
   ctx.drawImage(ART.head,-10,-15,420,280);
+  {
+    // The mouth stays open and still; only coins move. The rest uses the approved head sprite.
+    ctx.save();ctx.beginPath();ctx.rect(-10+600*420/1536,-15+590*280/1024,400*420/1536,180*280/1024);ctx.clip();
+    ctx.drawImage(ART.headOpen,-10,-15,420,280);ctx.restore();
+  }
   drawTrackingPupils();
+  for(const b of bodies){
+    if(!b.input||time-b.mouthAt>=.18)continue;
+    const u=Math.max(0,(time-b.mouthAt)/.18),t=b.rb.translation(),end=screenOf(t.x/M,t.z/M,t.y/M);
+    const ease=u*u;
+    drawCoinAt(b.kind,{...end,x:209+(end.x-209)*ease,y:164+(end.y-164)*ease,s:.38+(end.s-.38)*ease},b.rb.rotation(),b.id);
+  }
   for (const f of falling) {
     // tipping over the edge and dropping away, fading as it goes (the ones at the corners go behind the paws)
     ctx.globalAlpha = Math.max(0, 1 - f.t * 1.9);
@@ -1551,6 +1577,11 @@ function draw() {
   ctx.restore();
   if (flash > 0) { ctx.fillStyle = `rgba(230,235,255,${flash * 0.6})`; ctx.fillRect(0, 0, W, H); } // lightning flash
   drawHUD();
+  // Small, short-lived collection toast in the space above the controls, outside the aiming area.
+  const toast=itemToasts[itemToasts.length-1];
+  if(toast){ctx.save();ctx.globalAlpha=Math.min(1,(1.1-toast.t)/.2);ctx.textAlign='center';ctx.font='bold 13px system-ui';
+    const w=ctx.measureText(toast.text).width+24,y=H-PAD_B-BOTTOM_H-24;
+    ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(200-w/2,y-17,w,25);ctx.fillStyle='#ffe680';ctx.fillText(toast.text,200,y);ctx.restore();}
   drawCallout();
 }
 
@@ -1606,7 +1637,7 @@ function drawBoardHUD() {
  ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(100,bottom,200,BOTTOM_H);
  ctx.textAlign='center';ctx.fillStyle='#ffe680';ctx.font='bold 13px system-ui';
  ctx.fillText(board.status==='won'?(boardIndex<BOARDS.length-1?'NEXT BOARD':'BOTH BOARDS CLEAR'):board.status==='lost'?'TRY AGAIN':sweepTime>0?'PAW SWEEP!':board.sweeps>0?'PAW SWEEP · 1':board.status==='settling'?'LAST COINS SETTLING':board.status==='ready'?'TRY PAW SWEEP':'PUSH BOTH SNACKS',200,bottom+18);
- ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='won'?'Replay board '+(boardIndex+1):board.status==='ready'?'Tap board to play':board.sweeps>0?'Tap above to sweep · Restart below':'Restart board',200,bottom+42);
+ ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='lost'?(board.endReason==='time'?"Time’s up · Tap to retry":"Out of coins · Tap to retry"):board.status==='won'?'Replay board '+(boardIndex+1):board.status==='ready'?'Tap board to play':board.sweeps>0?'Tap above to sweep · Restart below':'Restart board',200,bottom+42);
  ctx.fillStyle='#c0b8cc';ctx.font='9px system-ui';ctx.fillText(BUILD+' · '+Math.round(perf.fps)+' fps · '+bodies.length+' bodies',200,H-5);
  ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('i',W-8,H-6);
 }
