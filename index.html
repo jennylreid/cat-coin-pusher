@@ -126,9 +126,17 @@ const FRONT_Y = 579;
 function depthScale(y) { return 1 / (1 + P_K * (1 - (y - T.BACK) / (T.FRONT - T.BACK))); }
 function proj(x, y) { const s = depthScale(y); return { x: 200 + (x - 200) * s * P_X, y: P_Y0 + P_H * s, s: s * P_X }; }
 function unprojX(sx, y) { return 200 + (sx - 200) / (depthScale(y) * P_X); }
-function screenOf(x, y, h) { const p = proj(x, y); return { x: p.x, y: p.y - h * LIFT * p.s, s: p.s }; }
+function screenOf(x, y, h) { const p = proj(x, y); return { x: p.x, y: p.y - h * LIFT * p.s, s: p.s, worldX:x, depth:y, height:h }; }
 // a small 3D direction (x across, y up, z toward the front) as a screen offset at depth scale s
-function projVec(v, s) { return { x: v.x * s, y: (v.z * SQUASH - v.y * LIFT) * s }; }
+function projVec(v, s, at) {
+ if(at){
+  // Coin faces use the same local perspective as their board positions.
+  const ds=P_K/(T.FRONT-T.BACK)*depthScale(at.depth)**2;
+  return {x:v.x*s+(at.worldX-200)*P_X*ds*v.z,
+   y:-v.y*LIFT*s+(P_H-at.height*LIFT*P_X)*ds*v.z};
+ }
+ return { x: v.x * s, y: (v.z * SQUASH - v.y * LIFT) * s };
+}
 function qrot(q, v) {
   const ix = q.w * v.x + q.y * v.z - q.z * v.y, iy = q.w * v.y + q.z * v.x - q.x * v.z;
   const iz = q.w * v.z + q.x * v.y - q.y * v.x, iw = -q.x * v.x - q.y * v.y - q.z * v.z;
@@ -177,7 +185,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 2:20 PM · board preview';
+const BUILD = 'Oct 10, 2:50 PM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -553,21 +561,14 @@ for (const k in VOICE) {
 // fine inside the game, but the file must never be offered on its own). Loops all the time, quietly, and dips while
 // the voice talks. Starts on the first tap (phones don't allow sound before one); follows the 🔊 button.
 const MUSIC_VOL = 0.10;
-const music = new Audio('sounds/music/retro-funk.mp3');
+const music = new Audio(); // Effects-only until a new music direction is approved.
 music.loop = false; music.volume = 0;
-S.musicEnabled = true;
-try {const audioSettings=JSON.parse(localStorage.getItem('catpusher.audio.v1')||'null');if(audioSettings){S.musicEnabled=audioSettings.musicEnabled!==false;S.muted=!!audioSettings.muted;}}catch(e){}
+S.musicEnabled = false;
+try {const audioSettings=JSON.parse(localStorage.getItem('catpusher.audio.v1')||'null');if(audioSettings){S.musicEnabled=false;S.muted=!!audioSettings.muted;}}catch(e){}
 function saveAudioSettings(){try{localStorage.setItem('catpusher.audio.v1',JSON.stringify({musicEnabled:S.musicEnabled,muted:S.muted}));}catch(e){}}
 let musicOK = false, duckUntil = 0, inBackground = false;
 window.appPaused = p => { inBackground = p; if (p) music.pause(); }; // the phone app calls this when it's left / reopened
-function musicTick() {
-  const want = musicOK && !music.ended && S.musicEnabled && !S.muted && !inBackground && document.visibilityState === 'visible'
-    && (board.status==='playing'||board.status==='settling');
-  if (want && music.paused) music.play().catch(() => { });
-  else if (!want && !music.paused) music.pause();
-  const target=performance.now()<duckUntil?MUSIC_VOL*.25:MUSIC_VOL;
-  music.volume += (target-music.volume)*.08;
-}
+function musicTick() { if(!music.paused)music.pause(); }
 let lastSay = -9;
 function say(key, important) {
   if (S.muted || !VOICE[key]) return;
@@ -728,6 +729,12 @@ function usePawSweep() {
  sweepBody.setTranslation({x:2,y:.12,z:SWEEP_START*M},true);
  for(const b of bodies)b.rb.enableCcd(true);
  holding=false;taps=[];sfx.rumble();catGrowl();return true;
+}
+
+function previewPawSweep() {
+ if(board.status!=='ready')return false;
+ board.status='playing';board.sweeps=1;
+ return usePawSweep();
 }
 
 function stepPawSweep() {
@@ -1210,7 +1217,7 @@ function sprite(kind, id) {
 function drawCoinAt(kind, c, q, id) {
   let n = qrot(q, { x: 0, y: 1, z: 0 }), u = qrot(q, { x: 1, y: 0, z: 0 }), w = qrot(q, { x: 0, y: 0, z: 1 });
   if (n.y * LIFT + n.z * SQUASH < 0) { n = { x: -n.x, y: -n.y, z: -n.z }; w = { x: -w.x, y: -w.y, z: -w.z }; }
-  const r = radius(kind), half = halfOf(kind), pn = projVec(n, c.s), pu = projVec(u, c.s), pw = projVec(w, c.s);
+  const r = radius(kind), half = halfOf(kind), pn = projVec(n, c.s, c), pu = projVec(u, c.s, c), pw = projVec(w, c.s, c);
   ctx.fillStyle = EDGE[kind];
   for (const k of [-1, 0]) { // back face and middle, together the visible rim
     ctx.save(); ctx.translate(c.x + pn.x * half * k, c.y + pn.y * half * k); ctx.transform(pu.x, pu.y, pw.x, pw.y, 0, 0);
@@ -1311,7 +1318,7 @@ async function loadArt() {
  async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
  const [head,table,tongue,paw,coin,snacks,pupil]=await Promise.all(['head','table','tongue','paw','coin','snacks','pupil'].map(n=>image('img/art/'+n+'.png')));
  Object.assign(ART,{head,table,tongue,paw,coin,snacks,pupil});
- const face=newCanvas(COIN_R*2*SPR,COIN_R*2*SPR);face.getContext('2d').drawImage(coin,0,0,face.width,face.height);
+ const face=newCanvas(COIN_R*2*SPR,COIN_R*2*SPR);face.getContext('2d').drawImage(coin,21,21,1209,1202,0,0,face.width,face.height);
  sprites.coin={cv:face,half:COIN_R};sprites.silver=sprites.coin;
 }
 
@@ -1347,7 +1354,7 @@ function drawTrackingPupils() {
   const cx=-10+e.x*sx,cy=-15+e.y*sy,w=55*sx,h=145*sy;
   ctx.save();ctx.beginPath();ctx.ellipse(cx,cy,e.rx*sx,e.ry*sy,0,0,7);ctx.clip();
   // Upright pupils translate left/right; no rotation, tilt or skew is applied.
-  ctx.drawImage(ART.pupil,483,107,289,1041,cx+look*e.rx*sx*.28-w/2,cy-h/2,w,h);
+  ctx.drawImage(ART.pupil,483,107,289,1041,cx+look*e.rx*sx*.28-w/2,cy+e.ry*sy*.24-h/2,w,h);
   ctx.restore();
  }
 }
@@ -1532,7 +1539,6 @@ function drawBoardHUD() {
  ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(0,0,W,by+BANNER_H);
  ctx.fillStyle='#ffd76a';ctx.font='bold 19px system-ui';ctx.fillText(board.remaining+' coins',12,PAD_T+21);
  ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText('SNACKS',190,PAD_T+21);
- ctx.font='18px system-ui';ctx.fillStyle=S.musicEnabled?'#ffe680':'#8d8294';ctx.fillText('♫',W-120,PAD_T+21);
  ctx.textAlign='right';ctx.font='22px system-ui';ctx.fillText(S.muted?'🔇':'🔊',W-12,PAD_T+21);
  if(window.Android){ctx.font='20px system-ui';ctx.fillText('↻',W-66,PAD_T+21);}
  ctx.textAlign='left';ctx.font='bold 12px system-ui';ctx.fillStyle=BOARD.seconds-board.elapsed<20?'#ff7a7a':'#fff';
@@ -1545,8 +1551,8 @@ function drawBoardHUD() {
  const bottom=H-PAD_B-BOTTOM_H;
  ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(100,bottom,200,BOTTOM_H);
  ctx.textAlign='center';ctx.fillStyle='#ffe680';ctx.font='bold 13px system-ui';
- ctx.fillText(board.status==='won'?'BOARD CLEAR':board.status==='lost'?'TRY AGAIN':sweepTime>0?'PAW SWEEP!':board.sweeps>0?'PAW SWEEP · 1':board.status==='settling'?'LAST COINS SETTLING':board.status==='ready'?'TAP TO START':'PUSH BOTH SNACKS',200,bottom+18);
- ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='won'?'Prototype complete · Replay':board.sweeps>0?'Tap above to sweep · Restart below':'Restart board',200,bottom+42);
+ ctx.fillText(board.status==='won'?'BOARD CLEAR':board.status==='lost'?'TRY AGAIN':sweepTime>0?'PAW SWEEP!':board.sweeps>0?'PAW SWEEP · 1':board.status==='settling'?'LAST COINS SETTLING':board.status==='ready'?'TRY PAW SWEEP':'PUSH BOTH SNACKS',200,bottom+18);
+ ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='won'?'Prototype complete · Replay':board.status==='ready'?'Tap board to play':board.sweeps>0?'Tap above to sweep · Restart below':'Restart board',200,bottom+42);
  ctx.fillStyle='#c0b8cc';ctx.font='9px system-ui';ctx.fillText(BUILD+' · '+Math.round(perf.fps)+' fps · '+bodies.length+' bodies',200,H-5);
  ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('i',W-8,H-6);
 }
@@ -1637,10 +1643,7 @@ function resize() {
 const panel = document.getElementById('panel');
 function openCredits() {
  holding=false;taps=[];
- panel.innerHTML='<button id="close">Close</button><h2>Music</h2><p>“Loopster” — Kevin MacLeod (incompetech.com)</p>'
-  +'<p>Licensed under <a style="color:#ffe680" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0</a>.</p>'
-  +'<p>Original recording; quieter playback with fades and sound-effect ducking.</p>'
-  +'<p>Tap ♫ to turn music off while keeping coin sounds, the growl and the board-clear sound.</p>';
+ panel.innerHTML='<button id="close">Close</button><h2>Cat Coin Pusher</h2><p>Game effects only. Background music is off.</p><p>The first snack earns Paw Sweep. Tap PAW SWEEP in the bottom-center button to use it; tap the lower Restart line to replay.</p>';
  panel.style.display='block';panel.querySelector('#close').onclick=()=>{panel.style.display='none';};
 }
 function openPanel() { return;
@@ -1730,6 +1733,7 @@ cv.addEventListener('pointerdown', e => {
   const p = toGame(e);
   if(p.y>H-26&&p.x>W-35){openCredits();return;}
   if(p.y>H-PAD_B-BOTTOM_H&&p.x>=100&&p.x<=300) {
+    if(p.y<H-PAD_B-BOTTOM_H+32&&board.status==='ready'){previewPawSweep();return;}
     if(p.y<H-PAD_B-BOTTOM_H+32&&sweepTime>0)return;
     if(p.y<H-PAD_B-BOTTOM_H+32&&board.sweeps>0&&!['won','lost'].includes(board.status)){usePawSweep();return;}
     resetBoard();return;
@@ -1739,7 +1743,6 @@ cv.addEventListener('pointerdown', e => {
     if (p.y > PAD_T - 6 && p.y < PAD_T + BAR_H) {
       if (p.x > W - 52) { S.muted = !S.muted; saveAudioSettings();musicTick(); }
       else if (p.x > W - 100 && window.Android) Android.checkUpdates();
-      else if (p.x > W - 148) {S.musicEnabled=!S.musicEnabled;saveAudioSettings();musicTick();}
     }
     return;
   }
