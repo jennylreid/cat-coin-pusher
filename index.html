@@ -186,7 +186,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 5:42 PM · board preview';
+const BUILD = 'Oct 10, 8:57 PM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -1586,10 +1586,10 @@ function draw() {
   ctx.restore();
   if (flash > 0) { ctx.fillStyle = `rgba(230,235,255,${flash * 0.6})`; ctx.fillRect(0, 0, W, H); } // lightning flash
   drawHUD();
-  // Small, short-lived collection toast in the space above the controls, outside the aiming area.
+  // Collection messages rise and fade; canvas text never captures taps.
   const toast=itemToasts[itemToasts.length-1];
   if(toast){ctx.save();ctx.globalAlpha=Math.min(1,(1.1-toast.t)/.2);ctx.textAlign='center';ctx.font='bold 13px system-ui';
-    const w=ctx.measureText(toast.text).width+24,y=H-PAD_B-BOTTOM_H-24;
+    const w=ctx.measureText(toast.text).width+24,y=H-PAD_B-BOTTOM_H-24-100*(toast.t/1.1);
     ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(200-w/2,y-17,w,25);ctx.fillStyle='#ffe680';ctx.fillText(toast.text,200,y);ctx.restore();}
   drawCallout();
 }
