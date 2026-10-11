@@ -186,7 +186,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 9:04 PM · board preview';
+const BUILD = 'Oct 10, 10:12 PM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -1431,9 +1431,9 @@ function drawMachine() {
 
 function drawTrackingPupils() {
  const look=Math.max(-1,Math.min(1,(pupilAim-200)/140));
- const sx=420/ART.head.width,sy=280/ART.head.height;
- for(const e of [{x:522,y:407,rx:100,ry:83},{x:1060,y:435,rx:107,ry:87}]) {
-  const cx=-10+e.x*sx,cy=-15+e.y*sy,w=55*sx,h=145*sy;
+ const sx=420/ART.head.width,sy=240/ART.head.height;
+ for(const e of [{x:500,y:515,rx:118,ry:108},{x:1060,y:532,rx:118,ry:108}]) {
+  const cx=-10+e.x*sx,cy=-25+e.y*sy,w=75*sx,h=180*sy;
   ctx.save();ctx.beginPath();ctx.ellipse(cx,cy,e.rx*sx,e.ry*sy,0,0,7);ctx.clip();
   // Upright pupils translate left/right; no rotation, tilt or skew is applied.
   ctx.drawImage(ART.pupil,483,107,289,1041,cx+look*e.rx*sx*.28-w/2,cy+e.ry*sy*.24-h/2,w,h);
@@ -1557,18 +1557,14 @@ function draw() {
   bodies.sort((a, b) => a.sortK - b.sortK || a.uid - b.uid);
   for (const b of bodies) drawBody(b);
   // Rear coins are inside the mouth: the upper lip and muzzle occlude them.
-  ctx.drawImage(ART.head,-10,-15,420,280);
-  {
-    // The mouth stays open and still; only coins move. The rest uses the approved head sprite.
-    ctx.save();ctx.beginPath();ctx.rect(-10+600*420/1536,-15+590*280/1024,400*420/1536,180*280/1024);ctx.clip();
-    ctx.drawImage(ART.headOpen,-10,-15,420,280);ctx.restore();
-  }
+  ctx.drawImage(ART.head,-10,-25,420,240);
+  // The new head includes the small, stationary mouth and tongue; no old-style mouth patch is overlaid.
   drawTrackingPupils();
   for(const b of bodies){
     if(!b.input||time-b.mouthAt>=MOUTH_REVEAL_SEC+MOUTH_DROP_SEC)continue;
     const u=Math.max(0,(time-b.mouthAt-MOUTH_REVEAL_SEC)/MOUTH_DROP_SEC),t=b.rb.translation(),end=screenOf(t.x/M,t.z/M,t.y/M);
     const ease=u*u;
-    drawCoinAt(b.kind,{...end,x:209+(end.x-209)*ease,y:156+(end.y-156)*ease,s:.8+(end.s-.8)*ease},b.rb.rotation(),b.id);
+    drawCoinAt(b.kind,{...end,x:199+(end.x-199)*ease,y:153+(end.y-153)*ease,s:.8+(end.s-.8)*ease},b.rb.rotation(),b.id);
   }
   for (const f of falling) {
     // tipping over the edge and dropping away, fading as it goes (the ones at the corners go behind the paws)
