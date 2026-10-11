@@ -186,7 +186,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 9:01 PM · board preview';
+const BUILD = 'Oct 10, 9:04 PM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -273,7 +273,7 @@ function seededRandom() { boardRandom=boardRandom*16807%2147483647; return (boar
 function finishBoard(status,reason) {
  if(board.status==='won'||board.status==='lost')return;
  board.status=status;board.endReason=reason||'targets'; holding=false; taps=[];pendingDrops=[];
- if(status==='won') { recordedSfx.duck();sfx.kaching(); callout('BOARD CLEAR!', {voice:'quest',color:'#7dff6a'}); }
+ if(status==='won') { callout('BOARD CLEAR!', {voice:'quest',color:'#7dff6a',afterCollections:true}); }
  else {sfx.empty();callouts=[];callout('TRY AGAIN', {color:'#ffb98b',dur:Infinity});}
 }
 function boardTick(dt) {
@@ -918,7 +918,7 @@ function step() {
 }
 
 function update(dt) {
- for(let i=itemToasts.length-1;i>=0;i--){itemToasts[i].t+=dt;if(itemToasts[i].t>1.1)itemToasts.splice(i,1);}
+ if(itemToasts.length){itemToasts[0].t+=dt;if(itemToasts[0].t>1.1)itemToasts.shift();}
   pupilAim+=((aim.lookX??aim.x)-pupilAim)*Math.min(1,dt*12);
   boardTick(dt);
   regen();
@@ -1045,12 +1045,15 @@ function useShake() { return; // No carried-in boosts in the baseline board.
 let callouts = [], meterBump = 0, itemToasts=[];
 function callout(word, o = {}) {
   callouts.push({ word: word.toUpperCase(), emoji: o.emoji || '', voice: o.voice || null,
+    afterCollections:!!o.afterCollections,
     color: o.color || '#ffd23f', t: 0, dur: o.dur || 2.2, rot: rand(-0.12, 0.12), x: 200 + rand(-10, 10), started: false, said: false });
 }
 function calloutTick(dt) {
   const c = callouts[0];
   if (!c) return;
+  if(c.afterCollections&&itemToasts.length)return;
   if (!c.started) {
+    if(c.afterCollections){recordedSfx.duck();sfx.kaching();}
     c.started = true; sfx.bam();
     try { navigator.vibrate && navigator.vibrate(45); } catch (e) { }
   }
@@ -1069,6 +1072,7 @@ function calloutLines(word) {
 function drawCallout() {
   const c = callouts[0];
   if (!c) return;
+  if(c.afterCollections&&itemToasts.length)return;
   const t = c.t, pop = t < 0.16 ? 0.3 + t / 0.16 * 0.95 : t < 0.3 ? 1.25 - (t - 0.16) / 0.14 * 0.25 : 1 + Math.sin(t * 9) * 0.015;
   ctx.save();
   ctx.globalAlpha = Math.max(0, Math.min(1, (c.dur - t) * 3));
@@ -1587,7 +1591,7 @@ function draw() {
   if (flash > 0) { ctx.fillStyle = `rgba(230,235,255,${flash * 0.6})`; ctx.fillRect(0, 0, W, H); } // lightning flash
   drawHUD();
   // Collection messages rise and fade; canvas text never captures taps.
-  const toast=itemToasts[itemToasts.length-1];
+  const toast=itemToasts[0];
   if(toast){ctx.save();ctx.globalAlpha=Math.max(0,Math.min(1,(1.1-toast.t)/.2));ctx.textAlign='center';
     ctx.font='italic 600 32px Impact, "Arial Black", system-ui';ctx.lineJoin='round';ctx.lineWidth=3;
     const progress=Math.min(1,toast.t/.8),start=H-PAD_B-BOTTOM_H-24,y=start+(H*.42-start)*progress;
