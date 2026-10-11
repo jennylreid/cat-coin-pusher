@@ -186,7 +186,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 10, 8:57 PM · board preview';
+const BUILD = 'Oct 10, 9:01 PM · board preview';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -1588,9 +1588,12 @@ function draw() {
   drawHUD();
   // Collection messages rise and fade; canvas text never captures taps.
   const toast=itemToasts[itemToasts.length-1];
-  if(toast){ctx.save();ctx.globalAlpha=Math.min(1,(1.1-toast.t)/.2);ctx.textAlign='center';ctx.font='bold 13px system-ui';
-    const w=ctx.measureText(toast.text).width+24,y=H-PAD_B-BOTTOM_H-24-100*(toast.t/1.1);
-    ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(200-w/2,y-17,w,25);ctx.fillStyle='#ffe680';ctx.fillText(toast.text,200,y);ctx.restore();}
+  if(toast){ctx.save();ctx.globalAlpha=Math.max(0,Math.min(1,(1.1-toast.t)/.2));ctx.textAlign='center';
+    ctx.font='italic 600 32px Impact, "Arial Black", system-ui';ctx.lineJoin='round';ctx.lineWidth=3;
+    const progress=Math.min(1,toast.t/.8),start=H-PAD_B-BOTTOM_H-24,y=start+(H*.42-start)*progress;
+    ctx.strokeStyle='#382336';ctx.fillStyle='#ffe680';
+    const lines=[toast.text.replace(/ COLLECTED!$/,''),'COLLECTED!'];
+    lines.forEach((line,i)=>{ctx.strokeText(line,200,y-18+i*35);ctx.fillText(line,200,y-18+i*35);});ctx.restore();}
   drawCallout();
 }
 
