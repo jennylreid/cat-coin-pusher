@@ -173,7 +173,7 @@ function randomTurn(tilt) {
 let S = { coins: START_COINS, won: 0, drops: 0, lastRegen: Date.now(), got: {}, sets: {}, muted: false, guard: 0, table: null,
   active: null, xp: 0, level: 1, shakes: 2, quest: null, questNext: 0, daily: null, tickets: 0 };
 let world = null, tongue = null, tongueContact = null, tongueRest = null, sweepBody=null, sweepCollider=null, bodies = [], falling = [], floats = [], winTimes = [], rings = [];
-let sweepTime=0, pupilAim=200;
+let sweepTime=0, pupilAim=200, catquakeTime=0, catquakeHit=false, sweetUntil=0;
 const SWEEP_START=PUSH_MIN-12, SWEEP_END=T.FRONT+80, SWEEP_DURATION=2.4;
 let pusherY = PUSH_MIN, tongueDrawY = PUSH_MIN, time = 0, lastDrop = -99, tiltNow = 0, calm = false;
 let pushPhase = 0, pushLoaded = false, pushPending = false;
@@ -186,7 +186,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 11, 4:48 PM · production';
+const BUILD = 'Oct 11, 7:10 PM Â· production';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -283,7 +283,7 @@ function boardTick(dt) {
  if(board.remaining===0) {
    board.status='settling';
    const moving=bodies.some(b=>{const v=b.rb.linvel();return Math.hypot(v.x,v.y,v.z)>.01;});
-   board.quiet=(!moving&&!pushLoaded&&!pushPending&&!pendingDrops.length&&sweepTime===0)?(board.quiet||0)+dt:0;
+   board.quiet=(!moving&&!pushLoaded&&!pushPending&&!pendingDrops.length&&sweepTime===0&&catquakeTime===0&&shake===0)?(board.quiet||0)+dt:0;
    if(board.quiet>=3)finishBoard('lost','coins');
  }
 }
@@ -296,7 +296,8 @@ function resetBoard() {
  pushCoinSoundPlayed=false;
  recordedSfx.reset();
  for(const b of bodies.slice())removeCoin(b);
- board={status:'ready',remaining:BOARD.coins,elapsed:0,collected:[],used:0,released:0,sweeps:0};boardRandom=BOARD.seed;
+ board={status:'ready',remaining:BOARD.coins,elapsed:0,collected:[],used:0,released:0,sweeps:S.dev?1:0,quakes:S.dev?1:0};boardRandom=BOARD.seed;
+ catquakeTime=0;catquakeHit=false;sweetUntil=0;shake=0;flash=0;shakeKind='lightning';
  S.coins=BOARD.coins;S.shakes=0;S.quest=null;S.guard=0;
  time=0;lastDrop=-99;pushPhase=0;pushLoaded=false;pushPending=false;calm=false;tiltNow=0;
  pusherY=PUSH_MIN;tongueDrawY=PUSH_MIN;
@@ -751,7 +752,8 @@ const MOUTH_EXITS=[
 function mouthExit(x){return MOUTH_EXITS.reduce((best,e)=>Math.abs(e.x-x)<Math.abs(best.x-x)?e:best);}
 function mouthLipY(x){return mouthExit(x).y;}
 function tryDrop(at=aim) {
- if(board.status==='won'||board.status==='lost'||sweepTime>0||board.remaining<=0)return false;
+ if(board.status==='won'||board.status==='lost'||sweepTime>0||catquakeTime>0||board.remaining<=0)return false;
+ sweetUntil=0;
  if(board.status==='ready')board.status='playing';
  const depth=Math.max(DROP_Y,pusherY+COIN_R+3);
  const exit=mouthExit(proj(at.x,depth).x),x=unprojX(exit.x,depth);
@@ -786,12 +788,13 @@ function collect(id) {
 
 // A coin that went over the front edge: into the bucket (won) or past it at the corners (lost).
 function fallOff(b, x) {
+ if(board.quakeStats&&time<=board.quakeStats.until&&['coin','silver'].includes(b.kind))board.quakeStats.fallen++;
  if(!b.boardTarget)recordedSfx.edge();
  const p=proj(x,T.FRONT);
  falling.push({x:p.x,y:p.y+4,vx:0,vy:60,kind:b.kind,id:b.id,won:true,t:0,s:p.s});
  if(b.boardTarget) {
   if(!board.collected.includes(b.id))board.collected.push(b.id);
-  if(board.collected.length===1)board.sweeps=1;
+  if(S.dev&&board.collected.length===1)board.sweeps=1;
   sfx.special();itemToasts.push({text:(ITEMS[b.id]?.name||b.id).toUpperCase()+' COLLECTED!',t:0});
  }
  removeCoin(b);
@@ -802,23 +805,46 @@ function fallOff(b, x) {
 const SHAKE_SEC = 1.6, SHAKE_KICK = 0.22; // kick: speed (m/s) of each jolt
 // Coin shower: SHOWER_COINS free coins tumble out of the mouth across the tongue.
 const SHOWER_COINS = 8;
-let shake = 0, flash = 0, showerLeft = 0, showerTimer = 0;
+let shake = 0, flash = 0, showerLeft = 0, showerTimer = 0, shakeKind='lightning';
 function lightning() {
-  shake = SHAKE_SEC; flash = 1;
+ shakeKind='lightning';shake = SHAKE_SEC; flash = 1;
   sfx.thunder(); catGrowl();
   say('bolt', true);
 }
 
 function usePawSweep() {
- if(board.sweeps<=0||sweepTime>0||!['playing','settling'].includes(board.status))return false;
+ if(!S.dev||board.sweeps<=0||sweepTime>0||catquakeTime>0||!['playing','settling'].includes(board.status))return false;
  board.sweeps--;sweepTime=STEP;
  sweepBody.setTranslation({x:2,y:.12,z:SWEEP_START*M},true);
  for(const b of bodies)b.rb.enableCcd(true);
- holding=false;taps=[];sfx.rumble();catGrowl();return true;
+ holding=false;taps=[];sfx.rumble();return true;
 }
 
+const CATQUAKE_HIT=.73,CATQUAKE_DURATION=2.3;
+function useCatquake(){
+ if(!S.dev||board.quakes<=0||sweepTime>0||catquakeTime>0||['won','lost'].includes(board.status))return false;
+ if(board.status==='ready')board.status='playing';
+ board.quakes--;catquakeTime=STEP;catquakeHit=false;sweetUntil=0;holding=false;taps=[];
+ board.quakeStats={before:bodies.reduce((n,b)=>n+(b.kind==='stack'?b.n:['coin','silver'].includes(b.kind)?1:0),0),fallen:0,until:time+5};
+ catGrowl();return true;
+}
+function stepCatquake(){
+ if(catquakeTime<=0)return;
+ catquakeTime+=STEP;
+ if(!catquakeHit&&catquakeTime>=CATQUAKE_HIT){
+  catquakeHit=true;shakeKind='catquake';shake=1.15;flash=.12;sfx.rumble();
+  for(const b of bodies){const p=b.rb.translation(),f=Math.max(0,Math.min(1,(p.z/M-T.BACK)/(T.FRONT-T.BACK))),m=b.rb.mass();
+   const targetScale=b.boardTarget?.5:1;
+   b.rb.applyImpulse({x:rand(-.06,.06)*m,y:(.32+f*.16)*m,z:(.3+6*f*f)*m*targetScale},true);
+  }
+  try{navigator.vibrate&&navigator.vibrate([55,30,90]);}catch(e){}
+ }
+ if(catquakeTime>=CATQUAKE_DURATION){catquakeTime=0;sweetUntil=Infinity;}
+}
+function powerFace(){return catquakeTime>0?'wild':sweepTime>0||time<sweetUntil?'sweet':'normal';}
+
 function previewPawSweep() {
- if(board.status!=='ready')return false;
+ if(!S.dev||board.status!=='ready')return false;
  board.status='playing';board.sweeps=1;
  return usePawSweep();
 }
@@ -837,14 +863,15 @@ function stepPawSweep() {
     b.rb.applyImpulse({x:0,y:0,z:b.rb.mass()*Math.max(0,3.6-velocity.z)},true);
  }
  sweepTime+=STEP;
- if(sweepTime>=SWEEP_DURATION){sweepTime=0;sweepCollider.setEnabled(false);for(const b of bodies)b.rb.enableCcd(false);}
+ if(sweepTime>=SWEEP_DURATION){sweepTime=0;sweetUntil=Infinity;sweepCollider.setEnabled(false);for(const b of bodies)b.rb.enableCcd(false);}
 }
 
 let pushCoinSoundPlayed=false;
 function step() {
   time += STEP;
-  const finishingSweep=sweepTime>0;
+ const finishingSweep=sweepTime>0||catquakeTime>0||shake>0;
   stepPawSweep();
+ stepCatquake();
   // Once play ends, finish any earned sweep but stop further board movement and scoring.
   if((board.status==='won'||board.status==='lost')&&!finishingSweep)return;
   // Solid physical tray travels continuously. Input controls damping, never contact.
@@ -883,7 +910,7 @@ function step() {
     shake = Math.max(0, shake - STEP);
     if (Math.round(time / STEP) % 4 === 0) {
       for (const b of bodies) {
-        const m = b.rb.mass(), a = SHAKE_KICK * (0.4 + shake / SHAKE_SEC);
+ const m = b.rb.mass(), a = (shakeKind==='catquake'?.022:SHAKE_KICK) * (0.4 + shake / SHAKE_SEC);
         b.rb.applyImpulse({ x: rand(-a, a) * m, y: rand(0, a * 0.7) * m, z: (rand(-a, a) + a * 0.8) * m }, true);
       }
     }
@@ -1070,7 +1097,7 @@ function callout(word, o = {}) {
 function calloutTick(dt) {
   const c = callouts[0];
   if (!c) return;
-  if(c.afterCollections&&itemToasts.length)return;
+ if(c.afterCollections&&(itemToasts.length||sweepTime>0||catquakeTime>0))return;
   if (!c.started) {
     if(c.afterCollections){recordedSfx.duck();sfx.kaching();}
     c.started = true; sfx.bam();
@@ -1091,7 +1118,7 @@ function calloutLines(word) {
 function drawCallout() {
   const c = callouts[0];
   if (!c) return;
-  if(c.afterCollections&&itemToasts.length)return;
+ if(c.afterCollections&&(itemToasts.length||sweepTime>0||catquakeTime>0))return;
   const t = c.t, pop = t < 0.16 ? 0.3 + t / 0.16 * 0.95 : t < 0.3 ? 1.25 - (t - 0.16) / 0.14 * 0.25 : 1 + Math.sin(t * 9) * 0.015;
   ctx.save();
   ctx.globalAlpha = Math.max(0, Math.min(1, (c.dur - t) * 3));
@@ -1417,8 +1444,8 @@ function newCanvas(w, h) { const c = document.createElement('canvas'); c.width =
 
 async function loadArt() {
  async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
- const [head,table,tongue,paw,coin,snacks,pupil,headOpen,background]=await Promise.all(['head','table','tongue','paw','coin','snacks','pupil','head-open','background'].map(n=>image('img/art/'+n+'.png')));
- Object.assign(ART,{head,table,tongue,paw,coin,snacks,pupil,headOpen,background});
+ const [head,table,tongue,paw,coin,snacks,pupil,headOpen,background,headSweet,headWild]=await Promise.all(['head','table','tongue','paw','coin','snacks','pupil','head-open','background','head-sweet','head-wild'].map(n=>image('img/art/'+n+'.png')));
+ Object.assign(ART,{head,table,tongue,paw,coin,snacks,pupil,headOpen,background,headSweet,headWild});
  const face=newCanvas(COIN_R*2*SPR,COIN_R*2*SPR);face.getContext('2d').drawImage(coin,21,21,1209,1202,0,0,face.width,face.height);
  sprites.coin={cv:face,half:COIN_R};sprites.silver=sprites.coin;
 }
@@ -1529,7 +1556,13 @@ function drawBucket() {
 const PAW_SIZE = 150, PAW_INSET = 40, PAW_DROP = 38, PAW_TURN = 2.35;
 function drawPaws() {
  const resting=410;
- let depth=resting,reach=0;
+ let depth=resting,reach=0,quakeLift=0;
+ if(catquakeTime>0){
+  if(catquakeTime<.55){const p=catquakeTime/.55;reach=.42*p;quakeLift=-80*Math.sin(p*Math.PI/2);}
+  else if(catquakeTime<CATQUAKE_HIT){const p=(catquakeTime-.55)/(CATQUAKE_HIT-.55);reach=.42;quakeLift=-80+102*p*p;}
+  else if(catquakeTime<1.25){reach=.42;quakeLift=22;}
+  else {const p=Math.min(1,(catquakeTime-1.25)/(CATQUAKE_DURATION-1.25));reach=.42*(1-p);quakeLift=22*(1-p);}
+ }
  if(sweepTime>0){
   if(sweepTime<.2){const p=sweepTime/.2;depth=resting+(SWEEP_START-resting)*p;reach=p;}
   else if(sweepTime<=1.7){const p=(sweepTime-.2)/1.5;depth=SWEEP_START+(SWEEP_END-SWEEP_START)*p;reach=1;}
@@ -1539,7 +1572,7 @@ function drawPaws() {
  for(const side of [-1,1]) {
   const base=side<0?-70:W+70,inner=side<0?100:W-100;
   const idle=1-reach;
-  ctx.save();ctx.translate(base+(inner-base)*reach,cy-35*idle+Math.sin(time*2)*2*idle);
+ ctx.save();ctx.translate(base+(inner-base)*reach,cy-35*idle+Math.sin(time*2)*2*idle+quakeLift);
   if(side>0)ctx.scale(-1,1);
   // Original inward sweep angle and overlap; a gentle one-degree wobble only at rest.
   ctx.rotate(-.35*reach+Math.sin(time*1.7)*.018*idle);
@@ -1569,7 +1602,7 @@ function draw() {
   ctx.save(); ctx.translate(200 + rand(-sh, sh), VIEW.y + rand(-sh, sh) * 0.5); ctx.scale(VIEW.z, VIEW.zy); ctx.translate(-200, 0);
   drawMachine();
   // Idle paws can cover the rail, but coins are painted above them. Sweeping paws are drawn above the board.
-  if(sweepTime===0){ctx.save();ctx.setTransform(scale*devicePixelRatio,0,0,scale*devicePixelRatio,0,0);drawPaws();ctx.restore();}
+ if(sweepTime===0&&catquakeTime===0){ctx.save();ctx.setTransform(scale*devicePixelRatio,0,0,scale*devicePixelRatio,0,0);drawPaws();ctx.restore();}
   // Aiming ring removed; tap position still controls drops and pupil tracking.
   // back to front: further back first, and lower before higher, so piles stack up the right way
   // (a tower sorts by its base, so coins in front of it still draw over it)
@@ -1582,7 +1615,9 @@ function draw() {
   bodies.sort((a, b) => a.sortK - b.sortK || a.uid - b.uid);
   for (const b of bodies) drawBody(b);
   // Rear coins are inside the mouth: the upper lip and muzzle occlude them.
-  ctx.drawImage(ART.head,-10,-25,420,240);
+ const face=powerFace(),head=face==='wild'?ART.headWild:face==='sweet'?ART.headSweet:ART.head;
+ if(face==='wild'&&catquakeTime<.18){ctx.drawImage(ART.head,-10,-25,420,240);ctx.save();ctx.globalAlpha=catquakeTime/.18;ctx.drawImage(head,-10,-25,420,240);ctx.restore();}
+ else ctx.drawImage(head,-10,-25,420,240);
   // The new head includes the small, stationary mouth and tongue; no old-style mouth patch is overlaid.
   drawTrackingPupils();
   for(const b of bodies){
@@ -1676,12 +1711,19 @@ function drawBoardHUD() {
   const t=BOARD.targets[i],got=board.collected.includes(t.id);
   ctx.fillStyle=got?'#7dff6a':'#fff';ctx.fillText((got?'✓ ':'')+ITEMS[t.id].name,95+i*135,by+14);
  }
- if(sweepTime>0)drawPaws();
+ if(sweepTime>0||catquakeTime>0)drawPaws();
  const bottom=H-PAD_B-BOTTOM_H;
- ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(100,bottom,200,BOTTOM_H);
- ctx.textAlign='center';ctx.fillStyle='#ffe680';ctx.font='bold 13px system-ui';
- ctx.fillText(board.status==='won'?(boardIndex<BOARDS.length-1?'NEXT BOARD':'BOTH BOARDS CLEAR'):board.status==='lost'?'TRY AGAIN':sweepTime>0?'PAW SWEEP!':board.sweeps>0?'PAW SWEEP · 1':board.status==='settling'?'LAST COINS SETTLING':board.status==='ready'?'TRY PAW SWEEP':'PUSH BOTH SNACKS',200,bottom+18);
- ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='lost'?(board.endReason==='time'?"Time’s up · Tap to retry":"Out of coins · Tap to retry"):board.status==='won'?'Replay board '+(boardIndex+1):board.status==='ready'?'Tap board to play':board.sweeps>0?'Tap above to sweep · Restart below':'Restart board',200,bottom+42);
+ ctx.textAlign='center';ctx.font='bold 12px system-ui';
+ if(['won','lost'].includes(board.status)){
+  ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(100,bottom,200,BOTTOM_H);ctx.fillStyle='#ffe680';
+  ctx.fillText(board.status==='won'?(boardIndex<BOARDS.length-1?'NEXT BOARD':'BOTH BOARDS CLEAR'):'TRY AGAIN',200,bottom+18);
+ }else if(S.dev){
+  ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(20,bottom,178,32);ctx.fillRect(202,bottom,178,32);ctx.fillStyle='#ffe680';
+  ctx.fillText(sweepTime>0?'PAW SWEEP!':board.status==='ready'?'TRY PAW SWEEP':'PAW SWEEP · '+board.sweeps,109,bottom+17);
+  ctx.fillText(catquakeTime>0?'CATQUAKE!':board.status==='ready'?'TRY CATQUAKE':'CATQUAKE · '+board.quakes,291,bottom+17);
+ }
+ ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='lost'?(board.endReason==='time'?"Time’s up · Tap to retry":"Out of coins · Tap to retry"):board.status==='won'?'Replay board '+(boardIndex+1):board.status==='ready'?(S.dev?'Tap board to play · Dev powers above':'Tap board to play'):'Restart board',200,bottom+42);
+ if(board.quakeStats){const q=board.quakeStats;ctx.fillStyle='#ffe680';ctx.font='11px system-ui';ctx.fillText(q.fallen+' coins spilled · '+Math.round(100*q.fallen/Math.max(1,q.before))+'%',200,bottom-12);}
  ctx.fillStyle='#c0b8cc';ctx.font='9px system-ui';ctx.fillText(BUILD+' · '+Math.round(perf.fps)+' fps · '+bodies.length+' bodies',200,H-5);
  ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('i',W-8,H-6);
 }
@@ -1770,10 +1812,20 @@ function resize() {
 
 // ---------- collection panel ----------
 const panel = document.getElementById('panel');
+function setDeveloperMode(enabled){
+ S.dev=!!enabled;board.sweeps=S.dev?1:0;board.quakes=S.dev?1:0;save();
+}
+function testDevPower(kind){
+ if(!S.dev||sweepTime>0||catquakeTime>0||['won','lost'].includes(board.status))return false;
+ if(kind==='sweep'){board.sweeps=1;return board.status==='ready'?previewPawSweep():usePawSweep();}
+ if(kind==='quake'){board.quakes=1;return useCatquake();}return false;
+}
 function openCredits() {
  holding=false;taps=[];
- panel.innerHTML='<button id="close">Close</button><h2>Cat Coin Pusher</h2><p>Game effects only. Background music is off.</p><p>The first snack earns Paw Sweep. Tap PAW SWEEP in the bottom-center button to use it; tap the lower Restart line to replay.</p>';
+ panel.innerHTML='<button id="close">Close</button><h2>Cat Coin Pusher</h2><p>Game effects only. Background music is off.</p><button id="board-dev" class="devswitch">Developer mode: '+(S.dev?'on':'off')+'</button>'+(S.dev?'<p>Test powers here or use the buttons below the board. Restart a cleared board to test again.</p><button id="dev-sweep">Test Paw Sweep</button><button id="dev-quake">Test Catquake</button>':'');
  panel.style.display='block';panel.querySelector('#close').onclick=()=>{panel.style.display='none';};
+ panel.querySelector('#board-dev').onclick=()=>{setDeveloperMode(!S.dev);openCredits();};
+ if(S.dev)for(const [id,kind]of [['#dev-sweep','sweep'],['#dev-quake','quake']])panel.querySelector(id).onclick=()=>{if(testDevPower(kind))panel.style.display='none';};
 }
 function openPanel() { return;
 
@@ -1861,11 +1913,13 @@ cv.addEventListener('pointerdown', e => {
   sfx.unlock(); musicOK = true; musicTick();
   const p = toGame(e);
   if(p.y>H-26&&p.x>W-35){openCredits();return;}
-  if(p.y>H-PAD_B-BOTTOM_H&&p.x>=100&&p.x<=300) {
+ if(p.y>H-PAD_B-BOTTOM_H&&p.x>=20&&p.x<=380) {
     if(p.y<H-PAD_B-BOTTOM_H+32&&board.status==='won'){nextBoard();return;}
-    if(p.y<H-PAD_B-BOTTOM_H+32&&board.status==='ready'){previewPawSweep();return;}
-    if(p.y<H-PAD_B-BOTTOM_H+32&&sweepTime>0)return;
-    if(p.y<H-PAD_B-BOTTOM_H+32&&board.sweeps>0&&!['won','lost'].includes(board.status)){usePawSweep();return;}
+    if(S.dev&&p.y<H-PAD_B-BOTTOM_H+32&&!['won','lost'].includes(board.status)){
+      if(sweepTime>0||catquakeTime>0)return;
+      if(p.x<=200){if(board.status==='ready')previewPawSweep();else usePawSweep();}
+      else useCatquake();return;
+    }
     resetBoard();return;
   }
   // the top bar and quest banner: collection and sound buttons (nothing else up there)
@@ -1908,7 +1962,7 @@ Promise.all([RAPIER.init(), loadArt()])
   .catch(e => { document.body.insertAdjacentHTML('beforeend', `<p style="color:#fff">Could not start: ${e}</p>`); });
 // Test hook: run the game faster than real time, e.g. __game.sim(10, 0.25) = 10 s with a drop every 0.25 s.
 window.__game = {
-  BOARDS, get BOARD(){return BOARD;}, get boardIndex(){return boardIndex;}, selectBoard, nextBoard, get board() { return board; }, resetBoard, usePawSweep, get sweeping(){return sweepTime>0;}, draw, resize, loadArt, get perf() { return perf; },
+  setDeveloperMode, testDevPower, BOARDS, get BOARD(){return BOARD;}, get boardIndex(){return boardIndex;}, selectBoard, nextBoard, get board() { return board; }, resetBoard, usePawSweep, useCatquake, powerFace, get quaking(){return catquakeTime>0;}, get sweeping(){return sweepTime>0;}, draw, resize, loadArt, get perf() { return perf; },
   S, get bodies() { return bodies; }, get world() { return world; }, tryDrop, save, sfx, prefill,
   // test helper: start over with a new table using a given collision shape
   restart(shape, sides) {
