@@ -7,7 +7,7 @@
 <style>
 html,body{margin:0;height:100%;background:#064e4a;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;font-family:system-ui,sans-serif}
 canvas{display:block;margin:0 auto}
-#panel{position:absolute;inset:0;background:rgba(14,8,26,.94);display:none;color:#f4ecff;padding:20px 16px;box-sizing:border-box;overflow:auto}
+#panel{position:absolute;inset:0;background:rgba(14,8,26,.94);display:none;color:#f4ecff;padding:max(20px,var(--safe-top,0px)) max(16px,var(--safe-right,0px)) max(20px,var(--safe-bottom,0px)) max(16px,var(--safe-left,0px));box-sizing:border-box;overflow:auto}
 #panel h2{margin:0 0 12px;font-size:22px}
 .set{background:#2a1f3d;border-radius:12px;padding:12px;margin-bottom:12px}
 .set h3{margin:0 0 8px;font-size:16px;display:flex;justify-content:space-between}
@@ -186,7 +186,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 11, 7:10 PM Â· production';
+const BUILD = 'Oct 12, 12:02 PM Â· production';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -1697,35 +1697,53 @@ function drawQuestMeter() {
   ctx.fillStyle = '#fff'; ctx.fillText('/' + q.n, 2, 18);
   ctx.restore();
 }
+// UAT-01: Android physical-pixel insets are mapped into the fixed game canvas.
+let androidSafeArea={}, safeAreaGuides=false;
+window.setAndroidSafeArea=function(value){androidSafeArea=value||{};const k=innerWidth/(androidSafeArea.width||innerWidth);for(const edge of ['left','top','right','bottom'])document.documentElement?.style.setProperty('--safe-'+edge,(Math.max(0,androidSafeArea[edge]||0)*k)+'px');};
+function hudLayout(){
+ const k=innerWidth/(androidSafeArea.width||innerWidth)/scale;
+ const r=cv.getBoundingClientRect(),offsetX=r.left/scale,offsetY=r.top/scale;
+ const left=Math.max(0,(androidSafeArea.left||0)*k-offsetX),right=Math.max(0,(androidSafeArea.right||0)*k-offsetX);
+ const top=Math.max(0,(androidSafeArea.top||0)*k-offsetY),bottom=Math.max(0,(androidSafeArea.bottom||0)*k-Math.max(0,innerHeight/scale-H-offsetY));
+ const mainY=Math.max(PAD_T+21,top+12),bannerY=Math.max(PAD_T+BAR_H+14,mainY+30);
+ const headerBottom=Math.max(PAD_T+BAR_H+BANNER_H,bannerY+14);
+ return {left,right,top,bottom,mainY,bannerY,headerBottom,extraTop:headerBottom-(PAD_T+BAR_H+BANNER_H),bottomY:Math.min(H-PAD_B-BOTTOM_H,H-bottom-18-BOTTOM_H),settingsX:W-Math.max(8,right+12),settingsY:H-Math.max(6,bottom+12)};
+}
+function drawSafeAreaGuides(){
+ if(!S.dev||!safeAreaGuides)return;const k=innerWidth/(androidSafeArea.width||innerWidth)/scale,r=cv.getBoundingClientRect();ctx.save();ctx.translate(-r.left/scale,-r.top/scale);ctx.scale(k,k);ctx.lineWidth=3/k;ctx.strokeStyle='#ff5252';for(const b of androidSafeArea.cutouts||[])ctx.strokeRect(b.left,b.top,b.right-b.left,b.bottom-b.top);ctx.strokeStyle='#ffe600';for(const c of androidSafeArea.corners||[]){ctx.beginPath();ctx.arc(c.x,c.y,c.radius,0,7);ctx.stroke();}ctx.restore();
+}
+function safeAreaReport(){const h=hudLayout();return {native:androidSafeArea,layout:h,extraTopPhysicalPixels:h.extraTop*scale*(androidSafeArea.width||innerWidth)/innerWidth};}
+try{if(window.Android&&Android.getSafeArea)window.setAndroidSafeArea(JSON.parse(Android.getSafeArea()));}catch(e){}
+
 function drawBoardHUD() {
- const by=PAD_T+BAR_H;
+ const hud=hudLayout();const by=hud.bannerY-14;
  ctx.textBaseline='middle';ctx.textAlign='left';
- ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(0,0,W,by+BANNER_H);
- ctx.fillStyle='#ffd76a';ctx.font='bold 19px system-ui';ctx.fillText(board.remaining+' coins',12,PAD_T+21);
- ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText('BOARD '+(boardIndex+1)+' / '+BOARDS.length,190,PAD_T+21);
- ctx.textAlign='right';ctx.font='22px system-ui';ctx.fillText(S.muted?'🔇':'🔊',W-12,PAD_T+21);
- if(window.Android){ctx.font='20px system-ui';ctx.fillText('↻',W-66,PAD_T+21);}
+ ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(0,0,W,hud.headerBottom);
+ ctx.fillStyle='#ffd76a';ctx.font='bold 19px system-ui';ctx.fillText(board.remaining+' coins',hud.left+12,hud.mainY);
+ ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText('BOARD '+(boardIndex+1)+' / '+BOARDS.length,(hud.left+W-hud.right)/2-10,hud.mainY);
+ ctx.textAlign='right';ctx.font='22px system-ui';ctx.fillText(S.muted?'🔇':'🔊',W-hud.right-12,hud.mainY);
+ if(window.Android){ctx.font='20px system-ui';ctx.fillText('↻',W-hud.right-66,hud.mainY);}
  ctx.textAlign='left';ctx.font='bold 12px system-ui';ctx.fillStyle=BOARD.seconds-board.elapsed<20?'#ff7a7a':'#fff';
- ctx.fillText(clock((BOARD.seconds-board.elapsed)*1000),12,by+14);
+ ctx.fillText(clock((BOARD.seconds-board.elapsed)*1000),hud.left+12,hud.bannerY);
  for(let i=0;i<BOARD.targets.length;i++) {
   const t=BOARD.targets[i],got=board.collected.includes(t.id);
-  ctx.fillStyle=got?'#7dff6a':'#fff';ctx.fillText((got?'✓ ':'')+ITEMS[t.id].name,95+i*135,by+14);
+  ctx.fillStyle=got?'#7dff6a':'#fff';ctx.fillText((got?'✓ ':'')+ITEMS[t.id].name,Math.max(hud.left+95,95)+i*135,hud.bannerY);
  }
  if(sweepTime>0||catquakeTime>0)drawPaws();
- const bottom=H-PAD_B-BOTTOM_H;
+ const bottom=hud.bottomY;
  ctx.textAlign='center';ctx.font='bold 12px system-ui';
  if(['won','lost'].includes(board.status)){
   ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(100,bottom,200,BOTTOM_H);ctx.fillStyle='#ffe680';
   ctx.fillText(board.status==='won'?(boardIndex<BOARDS.length-1?'NEXT BOARD':'BOTH BOARDS CLEAR'):'TRY AGAIN',200,bottom+18);
- }else if(S.dev){
+ }else{
   ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(20,bottom,178,32);ctx.fillRect(202,bottom,178,32);ctx.fillStyle='#ffe680';
   ctx.fillText(sweepTime>0?'PAW SWEEP!':board.status==='ready'?'TRY PAW SWEEP':'PAW SWEEP · '+board.sweeps,109,bottom+17);
   ctx.fillText(catquakeTime>0?'CATQUAKE!':board.status==='ready'?'TRY CATQUAKE':'CATQUAKE · '+board.quakes,291,bottom+17);
  }
- ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='lost'?(board.endReason==='time'?"Time’s up · Tap to retry":"Out of coins · Tap to retry"):board.status==='won'?'Replay board '+(boardIndex+1):board.status==='ready'?(S.dev?'Tap board to play · Dev powers above':'Tap board to play'):'Restart board',200,bottom+42);
+ ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='lost'?(board.endReason==='time'?"Time’s up · Tap to retry":"Out of coins · Tap to retry"):board.status==='won'?'Replay board '+(boardIndex+1):board.status==='ready'?'Tap board to play · Powers preview above':'Restart board',200,bottom+42);
  if(board.quakeStats){const q=board.quakeStats;ctx.fillStyle='#ffe680';ctx.font='11px system-ui';ctx.fillText(q.fallen+' coins spilled · '+Math.round(100*q.fallen/Math.max(1,q.before))+'%',200,bottom-12);}
- ctx.fillStyle='#c0b8cc';ctx.font='9px system-ui';ctx.fillText(BUILD+' · '+Math.round(perf.fps)+' fps · '+bodies.length+' bodies',200,H-5);
- ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('i',W-8,H-6);
+ ctx.fillStyle='#c0b8cc';ctx.font='9px system-ui';ctx.textAlign='left';ctx.fillText(BUILD+' · '+Math.round(perf.fps)+' fps',hud.left+8,hud.settingsY);
+ ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('Settings',hud.settingsX,hud.settingsY);drawSafeAreaGuides();
 }
 
 function drawHUD() { drawBoardHUD(); return;
@@ -1820,13 +1838,16 @@ function testDevPower(kind){
  if(kind==='sweep'){board.sweeps=1;return board.status==='ready'?previewPawSweep():usePawSweep();}
  if(kind==='quake'){board.quakes=1;return useCatquake();}return false;
 }
-function openCredits() {
+function openSettings() {
  holding=false;taps=[];
- panel.innerHTML='<button id="close">Close</button><h2>Cat Coin Pusher</h2><p>Game effects only. Background music is off.</p><button id="board-dev" class="devswitch">Developer mode: '+(S.dev?'on':'off')+'</button>'+(S.dev?'<p>Test powers here or use the buttons below the board. Restart a cleared board to test again.</p><button id="dev-sweep">Test Paw Sweep</button><button id="dev-quake">Test Catquake</button>':'');
+ panel.innerHTML='<button id="close">Close</button><h2>Settings</h2><button id="settings-sound" class="wide">Sound effects: '+(S.muted?'off':'on')+'</button><p class="reward">Background music is off.</p>'+(window.Android&&Android.checkUpdates?'<button id="settings-update" class="wide">Check for updates</button>':'')+'<button id="board-dev" class="wide">Developer mode: '+(S.dev?'on':'off')+'</button>'+(S.dev?'<div class="set"><h3>Developer tools</h3><button id="safe-guides" class="wide">Show/hide safe-area guides</button><p class="reward">Test powers here or use the buttons below the board. Restart a cleared board to test again.</p><button id="dev-sweep" class="wide">Test Paw Sweep</button><button id="dev-quake" class="wide">Test Catquake</button><button id="dev-restart" class="wide">Restart current board</button></div>':'');
  panel.style.display='block';panel.querySelector('#close').onclick=()=>{panel.style.display='none';};
- panel.querySelector('#board-dev').onclick=()=>{setDeveloperMode(!S.dev);openCredits();};
- if(S.dev)for(const [id,kind]of [['#dev-sweep','sweep'],['#dev-quake','quake']])panel.querySelector(id).onclick=()=>{if(testDevPower(kind))panel.style.display='none';};
+ panel.querySelector('#settings-sound').onclick=()=>{S.muted=!S.muted;saveAudioSettings();musicTick();openSettings();};
+ panel.querySelector('#board-dev').onclick=()=>{setDeveloperMode(!S.dev);openSettings();};
+ if(window.Android&&Android.checkUpdates)panel.querySelector('#settings-update').onclick=()=>Android.checkUpdates();
+ if(S.dev){panel.querySelector('#safe-guides').onclick=()=>{safeAreaGuides=!safeAreaGuides;panel.style.display='none';};for(const [id,kind]of [['#dev-sweep','sweep'],['#dev-quake','quake']])panel.querySelector(id).onclick=()=>{if(testDevPower(kind))panel.style.display='none';};panel.querySelector('#dev-restart').onclick=()=>{resetBoard();panel.style.display='none';};}
 }
+function openCredits(){openSettings();}
 function openPanel() { return;
 
   let h = '<button id="close">Close</button><h2>🎒 Collection</h2>';
@@ -1912,10 +1933,11 @@ cv.addEventListener('pointerdown', e => {
   if (!world) return; // still loading
   sfx.unlock(); musicOK = true; musicTick();
   const p = toGame(e);
-  if(p.y>H-26&&p.x>W-35){openCredits();return;}
- if(p.y>H-PAD_B-BOTTOM_H&&p.x>=20&&p.x<=380) {
-    if(p.y<H-PAD_B-BOTTOM_H+32&&board.status==='won'){nextBoard();return;}
-    if(S.dev&&p.y<H-PAD_B-BOTTOM_H+32&&!['won','lost'].includes(board.status)){
+  const hud=hudLayout();
+  if(p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6){openSettings();return;}
+ if(p.y>hud.bottomY&&p.x>=20&&p.x<=380) {
+    if(p.y<hud.bottomY+32&&board.status==='won'){nextBoard();return;}
+    if(S.dev&&p.y<hud.bottomY+32&&!['won','lost'].includes(board.status)){
       if(sweepTime>0||catquakeTime>0)return;
       if(p.x<=200){if(board.status==='ready')previewPawSweep();else usePawSweep();}
       else useCatquake();return;
@@ -1923,10 +1945,10 @@ cv.addEventListener('pointerdown', e => {
     resetBoard();return;
   }
   // the top bar and quest banner: collection and sound buttons (nothing else up there)
-  if (p.y < PAD_T + BAR_H + BANNER_H) {
-    if (p.y > PAD_T - 6 && p.y < PAD_T + BAR_H) {
-      if (p.x > W - 52) { S.muted = !S.muted; saveAudioSettings();musicTick(); }
-      else if (p.x > W - 100 && window.Android) Android.checkUpdates();
+  if (p.y < hud.headerBottom) {
+    if (p.y > hud.mainY-24 && p.y < hud.mainY+22) {
+      if (p.x > W-hud.right-52) { S.muted = !S.muted; saveAudioSettings();musicTick(); }
+      else if (p.x > W-hud.right-100 && window.Android) Android.checkUpdates();
     }
     return;
   }
@@ -1962,7 +1984,7 @@ Promise.all([RAPIER.init(), loadArt()])
   .catch(e => { document.body.insertAdjacentHTML('beforeend', `<p style="color:#fff">Could not start: ${e}</p>`); });
 // Test hook: run the game faster than real time, e.g. __game.sim(10, 0.25) = 10 s with a drop every 0.25 s.
 window.__game = {
-  setDeveloperMode, testDevPower, BOARDS, get BOARD(){return BOARD;}, get boardIndex(){return boardIndex;}, selectBoard, nextBoard, get board() { return board; }, resetBoard, usePawSweep, useCatquake, powerFace, get quaking(){return catquakeTime>0;}, get sweeping(){return sweepTime>0;}, draw, resize, loadArt, get perf() { return perf; },
+  hudLayout, safeAreaReport, setDeveloperMode, testDevPower, BOARDS, get BOARD(){return BOARD;}, get boardIndex(){return boardIndex;}, selectBoard, nextBoard, get board() { return board; }, resetBoard, usePawSweep, useCatquake, powerFace, get quaking(){return catquakeTime>0;}, get sweeping(){return sweepTime>0;}, draw, resize, loadArt, get perf() { return perf; },
   S, get bodies() { return bodies; }, get world() { return world; }, tryDrop, save, sfx, prefill,
   // test helper: start over with a new table using a given collision shape
   restart(shape, sides) {
