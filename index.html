@@ -186,7 +186,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Board prototype 1';
+const BUILD = '2026.10.15.2';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -1895,7 +1895,7 @@ function drawBoardHUD() {
  ctx.fillStyle='#ffd76a';ctx.font='bold 19px system-ui';ctx.fillText(board.remaining+' coins',hud.left+12,hud.mainY);
  ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText('BOARD '+(boardIndex+1)+' / '+BOARDS.length,(hud.left+W-hud.right)/2-10,hud.mainY);
  ctx.textAlign='right';ctx.font='22px system-ui';ctx.fillText(S.muted?'🔇':'🔊',W-hud.right-12,hud.mainY);
- if(window.Android){ctx.font='20px system-ui';ctx.fillText('↻',W-hud.right-66,hud.mainY);}
+ if(S.dev&&window.Android){ctx.font='20px system-ui';ctx.fillText('↻',W-hud.right-66,hud.mainY);}
  ctx.textAlign='left';ctx.font='bold 12px system-ui';ctx.fillStyle=BOARD.seconds-board.elapsed<20?'#ff7a7a':'#fff';
  ctx.fillText(clock((BOARD.seconds-board.elapsed)*1000),hud.left+12,hud.bannerY);
  for(let i=0;i<BOARD.targets.length;i++) {
@@ -1915,7 +1915,9 @@ function drawBoardHUD() {
  }
  ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='lost'?(board.endReason==='time'?"Time’s up · Tap to retry":"Out of coins · Tap to retry"):board.status==='won'?'Replay board '+(boardIndex+1):board.status==='ready'?(S.dev?'Tap board to play · Powers preview above':'Tap board to play'):'Restart board',200,bottom+42);
  if(board.quakeStats){const q=board.quakeStats;ctx.fillStyle='#ffe680';ctx.font='11px system-ui';ctx.fillText(q.fallen+' coins spilled · '+Math.round(100*q.fallen/Math.max(1,q.before))+'%',200,bottom-12);}
- ctx.fillStyle='#c0b8cc';ctx.font='9px system-ui';ctx.textAlign='left';ctx.fillText(BUILD+' · '+Math.round(perf.fps)+' fps',hud.left+8,hud.settingsY);
+ ctx.fillStyle='rgba(18,11,28,.96)';ctx.fillRect(hud.left+2,hud.settingsY-13,246,26);
+ ctx.fillStyle='#ffffff';ctx.font='bold 15px system-ui';ctx.textAlign='left';ctx.fillText(BUILD,hud.left+8,hud.settingsY);
+ if(S.dev){ctx.font='11px system-ui';ctx.fillText(Math.round(perf.fps)+' fps',hud.left+190,hud.settingsY);} 
  ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('Settings',hud.settingsX,hud.settingsY);drawSafeAreaGuides();
 }
 
@@ -2121,7 +2123,7 @@ cv.addEventListener('pointerdown', e => {
   if (p.y < hud.headerBottom) {
     if (p.y > hud.mainY-24 && p.y < hud.mainY+22) {
       if (p.x > W-hud.right-52) { S.muted = !S.muted; saveAudioSettings();musicTick(); }
-      else if (p.x > W-hud.right-100 && window.Android) Android.checkUpdates();
+      else if (p.x > W-hud.right-100 && S.dev && window.Android) Android.checkUpdates();
     }
     return;
   }
