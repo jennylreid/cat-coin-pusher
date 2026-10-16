@@ -179,14 +179,14 @@ let pusherY = PUSH_MIN, tongueDrawY = PUSH_MIN, time = 0, lastDrop = -99, tiltNo
 let pushPhase = 0, pushLoaded = false, pushPending = false;
 // Aiming: you choose only left/right. Coins always drop onto the tongue, on a line near its back just in front of
 // the back wall (DROP_Y), so each new coin lands behind the coins already there and helps push them forward.
-const DROP_Y = PUSH_MIN + COIN_R + 5, DROP_H = 35;
+const DROP_Y = PUSH_MAX - 28, DROP_H = 35; // Fixed line just behind the fully extended front.
 let pendingDrops = [], releaseAt = 0;
 let aim = { x: 200, y: DROP_Y }, aimShow = 0, guardAnim = 0;
 let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, lastChaching = 0;
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = 'Oct 13, 16:05 · production';
+const BUILD = 'Board prototype 1';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -259,7 +259,7 @@ function addCoin(kind, id, x, h, y, rot, linvel, angvel) {
 
 // One isolated, deterministic board. Campaign and collection economy are deliberately absent.
 const BOARDS = Object.freeze([
- {id:'snack-shelf',name:'Board 1',seed:42,coins:140,seconds:90,
+ {id:'snack-shelf',name:'Board 1',seed:42,coins:220,seconds:90,
   targets:[{id:'cheese',x:140,y:490},{id:'shrimp',x:260,y:570}],
   towers:[{x:200,y:420,n:10}]},
  {id:'twin-towers',name:'Board 2',seed:137,coins:160,seconds:110,
@@ -755,16 +755,24 @@ function tryDrop(at=aim) {
  if(board.status==='won'||board.status==='lost'||sweepTime>0||catquakeTime>0||board.remaining<=0)return false;
  sweetUntil=0;happyUntil=0;
  if(board.status==='ready')board.status='playing';
- const depth=Math.max(DROP_Y,pusherY+COIN_R+3);
- const exit=mouthExit(proj(at.x,depth).x),x=unprojX(exit.x,depth);
+ // Read the stroke at the tap: retracted releases clear the advancing front;
+ // extended releases catch the upper tier after the existing fall. Both clear the rear rail.
+ const stroke=Math.max(0,Math.min(1,(pusherY-PUSH_MIN)/(PUSH_MAX-PUSH_MIN)));
+ const depth=265-32*stroke;
+ const x=Math.max(T.L+COIN_R,Math.min(T.R-COIN_R,at.x)),exit=mouthExit(proj(x,depth).x);
  board.remaining--;board.used++;board.released++;S.coins=board.remaining;S.drops++;lastDrop=time;
  // Release from projected lip height, at rest, above the selected lane and clear of the tray.
  const p=proj(x,depth);
  const lipY=220,lipHeight=(p.y-exit.y)/(LIFT*p.s);
+ // Start the physical fall at the existing screen-entry point. The display lift is then zero,
+ // avoiding its 0.28-second slowdown as the coin crosses the rear rail.
+ const entry=screenOf(x,depth,0),entryTop=-VIEW.y/VIEW.zy-14;
+ const entryHeight=(entry.y-entryTop)/(LIFT*entry.s);
+ const deliveryGravity=DROP_GRAVITY*(entryHeight-TONGUE_H)/(lipHeight-TONGUE_H);
  const tip={x:Math.sin(exit.tip/2),y:0,z:0,w:Math.cos(exit.tip/2)};
- const b=addCoin('coin',null,x,lipHeight,depth,tip,{x:0,y:0,z:0},{x:-.8,y:0,z:0});
- b.rb.setGravityScale(DROP_GRAVITY/GRAVITY,true);
- b.fresh=true;b.input=true;b.mouthAt=time;b.lipY=lipY;b.lipEdge=[0,0,0,0];b.mouthExit=exit.id;sfx.drop();return true;
+ const b=addCoin('coin',null,x,entryHeight,depth,tip,{x:0,y:0,z:0},{x:-exit.tip*3.6,y:0,z:0});
+ b.rb.setGravityScale(deliveryGravity/GRAVITY,true);
+ b.deliveryStartHeight=entryHeight;b.rb.enableCcd(true);b.fresh=true;b.input=true;b.mouthAt=time;b.lipY=lipY;b.lipEdge=[0,0,0,0];b.mouthExit=exit.id;sfx.drop();return true;
 }
 
 function collect(id) {
@@ -944,13 +952,13 @@ function step() {
       continue;
     }
     if (t.y < -0.3) { fallOff(b, t.x / M); continue; }          // over the edge and below the table
-    if (t.y > 5 || t.x < -1 || t.x > 5) { removeCoin(b); continue; } // knocked clean out (shouldn't happen)
+    if (t.y > Math.max(5,(b.deliveryStartHeight??0)*M+.1) || t.x < -1 || t.x > 5) { removeCoin(b); continue; } // knocked clean out (shouldn't happen)
     // a coin that was falling and has just stopped: it hit something, so it sounds (harder hit, louder)
     const vy = b.rb.linvel().y;
     if (b.vy < -0.9 && vy > -0.25) {
       if (b.fresh) {
         b.fresh = false;
-        if(b.input)b.rb.setGravityScale(1,true); // Once landed, match the existing pile physics.
+        if(b.input){b.rb.setGravityScale(1,true);b.rb.enableCcd(false);} // Once landed, match the existing pile physics.
         const s = screenOf(t.x / M, t.z / M, t.y / M);
         rings.push({ x: s.x, y: s.y, s: s.s, t: 0 });
         sfx.land();
@@ -1122,7 +1130,7 @@ function drawCallout() {
   const t = c.t, pop = t < 0.16 ? 0.3 + t / 0.16 * 0.95 : t < 0.3 ? 1.25 - (t - 0.16) / 0.14 * 0.25 : 1 + Math.sin(t * 9) * 0.015;
   ctx.save();
   ctx.globalAlpha = Math.max(0, Math.min(1, (c.dur - t) * 3));
-  ctx.translate(c.x, H * 0.42); ctx.rotate(c.rot); ctx.scale(pop, pop);
+  ctx.translate(c.x, Math.max(VIEW.y + 350 * VIEW.zy, VIEW.y + 215 * VIEW.zy + 130)); ctx.rotate(c.rot); ctx.scale(pop, pop);
   // the starburst: a jagged ring of points, outlined in heavy black
   const lines = calloutLines(c.word), font = px => `italic 900 ${px}px Impact, "Arial Black", system-ui`;
   // as big as fits: up to 64px, shrunk so the widest line is at most 290 wide
@@ -1719,8 +1727,10 @@ function __goldDust(b,c){
  let trail=__dustTrails.get(b.uid);
  if(!trail){trail={particles:[],last:time,lastX:c.x,lastY:c.y,serial:0,started:false};__dustTrails.set(b.uid,trail);}
  const grain=n=>{let h=(n+b.uid*7919)|0;h=Math.imul(h^(h>>>16),0x45d9f3b);h=Math.imul(h^(h>>>16),0x45d9f3b);return ((h^(h>>>16))>>>0)/4294967296;};
- // Emit only while airborne above the pusher; no glitter sits on settled coins.
- const landingY=screenOf(b.__uat05InitialX||200,b.__uat05InitialDepth||DROP_Y,TONGUE_H).y;
+ // Follow the actual supporting tier; a table-bound fall must not end its trail at ledge height.
+ const landingDepth=b.__uat05InitialDepth??DROP_Y;
+ const landingHeight=landingDepth<=pusherY?TONGUE_H:0;
+ const landingY=screenOf(b.__uat05InitialX??200,landingDepth,landingHeight).y;
  const age=time-b.mouthAt,v=b.rb.linvel();
  const descending=age<.1||v.y<-.15;
  if(!descending&&age>=.1)trail.ended=true;
@@ -1819,9 +1829,9 @@ function draw() {
   // Collection messages rise and fade; canvas text never captures taps.
   const toast=itemToasts[0];
   if(toast){ctx.save();ctx.globalAlpha=Math.max(0,Math.min(1,(1.1-toast.t)/.2));ctx.textAlign='center';
-    ctx.font='italic 600 32px Impact, "Arial Black", system-ui';ctx.lineJoin='round';ctx.lineWidth=3;
-    const progress=Math.min(1,toast.t/.8),start=H-PAD_B-BOTTOM_H-24,y=start+(H*.42-start)*progress;
-    ctx.strokeStyle='#382336';ctx.fillStyle='#ffe680';
+    ctx.font='italic 600 32px Impact, "Arial Black", system-ui';ctx.lineJoin='round';ctx.lineWidth=6;
+    const progress=Math.min(1,toast.t/.8),start=H-PAD_B-BOTTOM_H-24,y=start+(Math.min(start,Math.max(VIEW.y+285*VIEW.zy,VIEW.y+215*VIEW.zy+70))-start)*progress;
+    ctx.strokeStyle='#211724';ctx.fillStyle='#ffffff';
     const lines=[toast.text.replace(/ COLLECTED!$/,''),'COLLECTED!'];
     lines.forEach((line,i)=>{ctx.strokeText(line,200,y-18+i*35);ctx.fillText(line,200,y-18+i*35);});ctx.restore();}
   drawCallout();
