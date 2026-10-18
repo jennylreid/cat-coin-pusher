@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>Cat Coin Pusher</title>
+<title>Cat Pusher UAT</title>
 <style>
 html,body{margin:0;height:100%;background:#064e4a;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;font-family:system-ui,sans-serif}
 canvas{display:block;margin:0 auto}
@@ -80,12 +80,12 @@ const M = 0.01, GRAVITY = 30, TILT_DEG = 0, STEP = 1 / 60, COIN_DAMP = 0.8, COIN
 // Min combining keeps the effective coin/shelf (.035) and coin/pusher (.05) grip at their former values.
 const COIN_FRICTION = 0.45, TABLE_FRICTION = 0.035, TONGUE_FRICTION = 0.05, TOY_GRIP = 0.035;
 const GUARD_SEC = 30, START_COINS = 100, REGEN_SEC = 20, REGEN_CAP = 100;
-const KEY = 'catpusher.board.prototype.v1', OLD_KEY = KEY;
+const KEY = 'catpusher.uat.board.v1', OLD_KEY = KEY;
 // Collection sets. Three are on show at a time (S.active); finishing one pays out and the next set in this list
 // takes its place, so there's always something new to collect.
 const SETS = [
   { name: 'Cat toys', reward: 'Yarn wallpaper', items: [['yarn', '🧶', 'Yarn ball'], ['mouse', '🐭', 'Toy mouse'], ['feather', '🪶', 'Feather wand'], ['bell', '🔔', 'Jingle bell']] },
-  { name: 'Snacks', reward: 'Fish wallpaper', items: [['fish', '🐟', 'Fish'], ['milk', '🥛', 'Milk'], ['shrimp', '🍤', 'Shrimp'], ['cheese', '🧀', 'Cheese']] },
+  { name: 'Snacks', reward: 'Fish wallpaper', items: [['fish', '🐟', 'Fish'], ['milk', '🥛', 'Milk'], ['shrimp', '🍤', 'Shrimp'], ['cheese', '🧀', 'Cheese'], ['tuna', '🐟', 'Tuna']] },
   { name: 'Fancy', reward: 'Royal cat wallpaper', items: [['crown', '👑', 'Crown'], ['bow', '🎀', 'Bow'], ['hat', '🎩', 'Top hat'], ['gem', '💎', 'Gem']] },
   { name: 'Garden', reward: 'Garden wallpaper', items: [['sunflower', '🌻', 'Sunflower'], ['ladybug', '🐞', 'Ladybug'], ['mushroom', '🍄', 'Mushroom'], ['butterfly', '🦋', 'Butterfly']] },
   { name: 'Sweets', reward: 'Candy wallpaper', items: [['donut', '🍩', 'Donut'], ['cookie', '🍪', 'Cookie'], ['cupcake', '🧁', 'Cupcake'], ['lollipop', '🍭', 'Lollipop']] },
@@ -110,10 +110,12 @@ function pickItem() {
   return from[(Math.random() * from.length) | 0];
 }
 function radius(kind) {
+  if(kind==='quake')return COIN_R*1.08;
   if (BOX[kind]) return Math.max(BOX[kind].hx, BOX[kind].hz);
   return BONUS[kind] ? BONUS[kind].r : kind === 'item' || kind === 'power' ? ITEM_R : kind === 'lucky' ? LUCKY_R : COIN_R;
 }
 function halfOf(kind) {
+  if(kind==='quake')return COIN_HALF*1.3;
   if (BOX[kind]) return BOX[kind].hy;
   return BONUS[kind] ? BONUS[kind].half : kind === 'item' || kind === 'power' ? ITEM_HALF : kind === 'lucky' ? LUCKY_HALF : COIN_HALF;
 }
@@ -186,7 +188,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = '2026.10.16';
+const BUILD = '2026.10.17 UAT 3';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -264,7 +266,12 @@ const BOARDS = Object.freeze([
   towers:[{x:200,y:420,n:10}]},
  {id:'twin-towers',name:'Board 2',seed:137,coins:160,seconds:110,
   targets:[{id:'cheese',x:260,y:510},{id:'shrimp',x:132,y:580}],
-  towers:[{x:115,y:465,n:8},{x:285,y:390,n:12}]}
+  towers:[{x:115,y:465,n:8},{x:285,y:390,n:12}]},
+ // Staggered prize lanes/depths, with an accessible Quake coin toward the front.
+ {id:'tuna-terraces',name:'Board 3',seed:316,coins:140,seconds:110,
+  targets:[{id:'cheese',x:96,y:515},{id:'shrimp',x:288,y:555},{id:'tuna',x:210,y:465}],
+  towers:[{x:130,y:445,n:48},{x:270,y:430,n:36},
+   {x:92,y:365,n:4},{x:126,y:365,n:10},{x:160,y:365,n:4}]}
 ]);
 let boardIndex=0, BOARD=BOARDS[0];
 let board = {status:'ready', remaining:BOARD.coins, elapsed:0, collected:[], used:0};
@@ -293,10 +300,11 @@ function selectBoard(index) {
 }
 function nextBoard(){if(board.status!=='won'||boardIndex>=BOARDS.length-1)return false;return selectBoard(boardIndex+1);}
 function resetBoard() {
+ stopPawDance();stopTickle();danceWorldEnd();
  pushCoinSoundPlayed=false;
  recordedSfx.reset();
  for(const b of bodies.slice())removeCoin(b);
- board={status:'ready',remaining:BOARD.coins,elapsed:0,collected:[],used:0,released:0,sweeps:S.dev?1:0,quakes:S.dev?1:0};boardRandom=BOARD.seed;
+ board={status:'ready',remaining:BOARD.coins,elapsed:0,collected:[],used:0,released:0,sweeps:0,quakes:1,earnedQuakes:0};boardRandom=BOARD.seed;
  catquakeTime=0;catquakeHit=false;sweetUntil=0;happyUntil=0;shake=0;flash=0;shakeKind='lightning';
  S.coins=BOARD.coins;S.shakes=0;S.quest=null;S.guard=0;
  time=0;lastDrop=-99;pushPhase=0;pushLoaded=false;pushPending=false;calm=false;tiltNow=0;
@@ -343,7 +351,7 @@ function stackParts(b) {
   if (b.top) parts.push({ kind: b.top, p: { x: 0, y: -b.half + b.n * STACK_STEP + BONUS[b.top].half + 0.3, z: 0 }, q: yawTurn(b.phase) });
   return parts;
 }
-function breakStack(b) {
+function breakLegacyStack(b) {
   const t = b.rb.translation(), q = b.rb.rotation(), lv = b.rb.linvel(), av = b.rb.angvel();
   removeCoin(b);
   for (const part of stackParts(b)) {
@@ -352,6 +360,27 @@ function breakStack(b) {
       { x: lv.x + seededRandom()*.3-.15, y: lv.y, z: lv.z + seededRandom()*.3-.15 }, av);
   }
   sfx.tumble(b.n);
+}
+
+function breakStack(b) {
+  if(BOARD.id!=='tuna-terraces')return breakLegacyStack(b);
+  const t = b.rb.translation(), q = b.rb.rotation(), lv = b.rb.linvel(), av = b.rb.angvel();
+  removeCoin(b);
+  for (const part of stackParts(b)) {
+    const o = qrot(q, part.p), cascade=BOARD.id==='tuna-terraces';
+    // A released coin inherits its point velocity along the rotating tower.
+    const spin=cascade?{x:(av.y*o.z-av.z*o.y)*M,y:(av.z*o.x-av.x*o.z)*M,z:(av.x*o.y-av.y*o.x)*M}:{x:0,y:0,z:0};
+    const jitterX=(seededRandom()*.3-.15)*(cascade?4:1),jitterZ=(seededRandom()*.3-.15)*(cascade?2:1);
+    // Small independent spins stop the loose coins moving as one rigid-looking ribbon.
+    const turn=cascade?{x:av.x*.25+(seededRandom()-.5)*3.6,y:av.y*.25+(seededRandom()-.5)*3.6,z:av.z*.25+(seededRandom()-.5)*3.6}:av;
+    const angle=(seededRandom()-.5)*.7,axis=seededRandom()*Math.PI*2;
+    const loose={x:Math.cos(axis)*Math.sin(angle/2),y:0,z:Math.sin(axis)*Math.sin(angle/2),w:Math.cos(angle/2)};
+    addCoin(part.kind, null, t.x / M + o.x, t.y / M + o.y, t.z / M + o.z, qmul(qmul(q, part.q),loose),
+      { x: lv.x*.3 + spin.x*.35 + jitterX, y: lv.y*.3 + spin.y*.35, z: lv.z*.3 + spin.z*.35 + jitterZ }, turn);
+  }
+  // Reuse the existing coin-spill clatter for Board 3's larger cascade.
+  if(BOARD.id==='tuna-terraces'){if(!recordedSfx.play('spill',.8))sfx.tumble(b.n);}
+  else sfx.tumble(b.n);
 }
 
 function removeCoin(b) {
@@ -387,7 +416,8 @@ function prefill() {
    }
  }
  sheet(PUSH_MAX+COIN_R+3,T.FRONT-COIN_R,COIN_HALF+.2);
- for(const t of BOARD.towers)addStack(t.x,null,t.y,yawTurn(0),t.n,null,0);
+ for(const t of BOARD.towers){const b=addStack(t.x,null,t.y,yawTurn(0),t.n,null,0);if(BOARD.id==='tuna-terraces')b.limit*=.35;}
+ if(BOARD.id==='tuna-terraces')addCoin('quake',null,200,COIN_HALF*8+halfOf('quake'),595,yawTurn(0));
  for(const target of BOARD.targets) {
   const b=addCoin('item',target.id,target.x,COIN_HALF*2+halfOf('item')+1,target.y,yawTurn(0));
   b.boardTarget=true;
@@ -632,8 +662,8 @@ const MUSIC_VOL = 0.10;
 const music = new Audio(); // Effects-only until a new music direction is approved.
 music.loop = false; music.volume = 0;
 S.musicEnabled = false;
-try {const audioSettings=JSON.parse(localStorage.getItem('catpusher.audio.v1')||'null');if(audioSettings){S.musicEnabled=false;S.muted=!!audioSettings.muted;}}catch(e){}
-function saveAudioSettings(){if(S.muted)recordedSfx.stopAll();try{localStorage.setItem('catpusher.audio.v1',JSON.stringify({musicEnabled:S.musicEnabled,muted:S.muted}));}catch(e){}}
+try {const audioSettings=JSON.parse(localStorage.getItem('catpusher.uat.audio.v1')||'null');if(audioSettings){S.musicEnabled=false;S.muted=!!audioSettings.muted;}}catch(e){}
+function saveAudioSettings(){if(S.muted){recordedSfx.stopAll();stopPawDance();}try{localStorage.setItem('catpusher.uat.audio.v1',JSON.stringify({musicEnabled:S.musicEnabled,muted:S.muted}));}catch(e){}}
 let musicOK = false, duckUntil = 0, inBackground = false;
 window.appPaused = p => { inBackground = p; if (p){music.pause();recordedSfx.stopAll();} }; // stop recordings in background
 function musicTick() { if(!music.paused)music.pause(); }
@@ -800,9 +830,10 @@ function fallOff(b, x) {
  if(!b.boardTarget)recordedSfx.edge();
  const p=proj(x,T.FRONT);
  falling.push({x:p.x,y:p.y+4,vx:0,vy:60,kind:b.kind,id:b.id,won:true,t:0,s:p.s});
+ if(b.kind==='quake'){board.earnedQuakes++;sfx.special();itemToasts.push({text:'QUAKE +1',t:0});}
  if(b.boardTarget) {
   if(!board.collected.includes(b.id))board.collected.push(b.id);
-  if(S.dev&&board.collected.length===1)board.sweeps=1;
+  if(board.collected.length===1)board.sweeps=1;
   sfx.special();itemToasts.push({text:(ITEMS[b.id]?.name||b.id).toUpperCase()+' COLLECTED!',t:0});
  }
  removeCoin(b);
@@ -821,7 +852,7 @@ function lightning() {
 }
 
 function usePawSweep() {
- if(!S.dev||board.sweeps<=0||sweepTime>0||catquakeTime>0||!['playing','settling'].includes(board.status))return false;
+ if(board.sweeps<=0||sweepTime>0||catquakeTime>0||!['playing','settling'].includes(board.status))return false;
  board.sweeps--;sweepTime=STEP;
  sweepBody.setTranslation({x:2,y:.12,z:SWEEP_START*M},true);
  for(const b of bodies)b.rb.enableCcd(true);
@@ -829,8 +860,12 @@ function usePawSweep() {
 }
 
 const CATQUAKE_HIT=.73,CATQUAKE_DURATION=3.6;
+function useEarnedQuake(){
+ if(board.earnedQuakes<=0||sweepTime>0||catquakeTime>0||['won','lost'].includes(board.status))return false;
+ board.quakes++;const used=useCatquake();if(used)board.earnedQuakes--;else board.quakes--;return used;
+}
 function useCatquake(){
- if(!S.dev||board.quakes<=0||sweepTime>0||catquakeTime>0||['won','lost'].includes(board.status))return false;
+ if(board.quakes<=0||sweepTime>0||catquakeTime>0||['won','lost'].includes(board.status))return false;
  if(board.status==='ready')board.status='playing';
  board.quakes--;catquakeTime=STEP;catquakeHit=false;sweetUntil=0;holding=false;taps=[];
  board.quakeStats={before:bodies.reduce((n,b)=>n+(b.kind==='stack'?b.n:['coin','silver'].includes(b.kind)?1:0),0),fallen:0,until:time+5};
@@ -849,10 +884,10 @@ function stepCatquake(){
  }
  if(catquakeTime>=CATQUAKE_DURATION){catquakeTime=0;sweetUntil=Infinity;}
 }
-function powerFace(){return catquakeTime>0?(catquakeTime>1.25?'sweet':'wild'):time<happyUntil?'happy':board.status==='won'||sweepTime>0||time<sweetUntil?'sweet':'normal';}
+function powerFace(){return catquakeTime>0?(catquakeTime>1.25?'sweet':'wild'):time<happyUntil?'happy':board.status==='won'||sweepTime>0||time<sweetUntil||pawDance?'sweet':'normal';}
 
 function previewPawSweep() {
- if(!S.dev||board.status!=='ready')return false;
+ if(board.status!=='ready')return false;
  board.status='playing';board.sweeps=1;
  return usePawSweep();
 }
@@ -881,7 +916,7 @@ function step() {
   stepPawSweep();
  stepCatquake();
   // Once play ends, finish any earned sweep but stop further board movement and scoring.
-  if((board.status==='won'||board.status==='lost')&&!finishingSweep)return;
+  if((board.status==='won'||board.status==='lost')&&!finishingSweep){stepDanceShake();return;}
   // Solid physical tray travels continuously. Input controls damping, never contact.
   const requested = time - lastDrop < ACTIVE_SEC || shake > 0 || showerLeft > 0;
   pushPhase = (pushPhase + STEP) % PUSH_PERIOD;
@@ -939,14 +974,14 @@ function step() {
     if (b.rb.isSleeping()) { b.vy = 0; continue; }
     const t = b.rb.translation();
     if (b.kind === 'stack') { // a tower that's tipping (or going over the edge) falls apart into its coins
-      if (qrot(b.rb.rotation(), { x: 0, y: 1, z: 0 }).y < TOWER_BREAK_TILT || t.y < 0) { toBreak.push(b); continue; }
+      if (qrot(b.rb.rotation(), { x: 0, y: 1, z: 0 }).y < (BOARD.id==='tuna-terraces'?Math.cos(48*Math.PI/180):TOWER_BREAK_TILT) || t.y < 0) { toBreak.push(b); continue; }
       const dx = t.x - b.lx, dz = t.z - b.lz, d = Math.hypot(dx, dz) / M;
       b.lx = t.x; b.lz = t.z; b.moved += d;
       if (!b.tipping && b.moved > b.limit && d > 0.02) {
         // shoved far enough: a push at the top of the tower, the way it's moving, tips it over its base edge
         b.tipping = true;
         const ux = dx / (d * M), uz = dz / (d * M), top = qrot(b.rb.rotation(), { x: 0, y: b.half * M, z: 0 });
-        const k = b.rb.mass() * TOWER_TIP_PUSH;
+        const k = b.rb.mass() * TOWER_TIP_PUSH * (BOARD.id==='tuna-terraces'?2:1);
         b.rb.applyImpulseAtPoint({ x: ux * k, y: 0, z: uz * k }, { x: t.x + top.x, y: t.y + top.y, z: t.z + top.z }, true);
       }
       continue;
@@ -972,6 +1007,7 @@ function step() {
 }
 
 function update(dt) {
+ tickPawDance();tickTickle();
  if(itemToasts.length){itemToasts[0].t+=dt;if(itemToasts[0].t>1.1)itemToasts.shift();}
   pupilAim+=((aim.lookX??aim.x)-pupilAim)*Math.min(1,dt*12);
   boardTick(dt);
@@ -1164,7 +1200,7 @@ function lungeShape() { return lunge > 0 ? Math.sin((1 - lunge) * Math.PI) : 0; 
 const cv = document.getElementById('c'); let ctx = cv.getContext('2d');
 let scale = 1;
 const SPR = 3, sprites = {};
-const EDGE = { coin: '#8a5c08', lucky: '#a02c86', power: '#8a5c00', x5: '#b8932a', x10: '#b8932a', silver: '#7d8290',
+const EDGE = { quake:'#bd8d32', coin: '#b48a35', lucky: '#a02c86', power: '#8a5c00', x5: '#b8932a', x10: '#b8932a', silver: '#b48a35',
   clover: '#3b7a2a', smiley: '#b8860b', rainbow: '#8a4fd0', bolt: '#2b2a6a', shower: '#1d7a7a', toycoin: '#6a4a9a', joker: '#7a1030',
   ticket: '#c46a12', cash: '#2f6b3a', cube: '#111' };
 const CUBE_FACES = ['#ffffff', '#ffd500', '#c41e3a', '#ff5800', '#0051ba', '#009e60']; // +y -y +x -x +z -z
@@ -1183,6 +1219,34 @@ function makeSprite(r, draw) {
   const g = sc.getContext('2d'); g.scale(SPR, SPR);
   draw(g, c, r);
   return { cv: sc, half: c };
+}
+
+// Satin gold shared by the paw coin and ceramic-inlaid Quake coin.
+// Grain is deterministic and baked once into each sprite, never sampled in the draw loop.
+function craftedGoldSprite(r, quake=false) {
+ return makeSprite(r,(g,c)=>{
+  const disc=(rr,fill)=>{g.fillStyle=fill;g.beginPath();g.arc(c,c,rr,0,Math.PI*2);g.fill();};
+  let gr=g.createLinearGradient(c-r,c-r,c+r,c+r);
+  [[0,'#fff0ac'],[.18,'#efc85e'],[.48,'#b47a21'],[.72,'#f7d97e'],[1,'#825319']].forEach(([p,col])=>gr.addColorStop(p,col));disc(r,gr);
+  gr=g.createLinearGradient(c-r,c-r,c+r,c+r);gr.addColorStop(0,'#f8db89');gr.addColorStop(.48,'#dcb351');gr.addColorStop(1,'#c79738');disc(r*.925,gr);
+  g.save();g.beginPath();g.arc(c,c,r*.92,0,7);g.clip();
+  let seed=731;for(let i=0;i<2400;i++){seed=(seed*1664525+1013904223)>>>0;const x=(seed/4294967296*2-1)*r;seed=(seed*1664525+1013904223)>>>0;const y=(seed/4294967296*2-1)*r;g.fillStyle=i%2?'rgba(255,246,199,.13)':'rgba(108,66,14,.09)';g.fillRect(c+x,c+y,.19,.35);}g.restore();
+  g.strokeStyle='#95621c';g.lineWidth=r*.019;g.beginPath();g.arc(c,c,r*.919,0,7);g.stroke();
+  g.strokeStyle='#ffedb1';g.lineWidth=r*.028;g.beginPath();g.arc(c,c,r*.965,Math.PI*.83,Math.PI*1.91);g.stroke();
+  if(quake){
+   g.strokeStyle='#81521d';g.lineWidth=r*.126;g.beginPath();g.arc(c,c,r*.805,0,7);g.stroke();
+   const blue=g.createLinearGradient(c-r,c-r,c+r,c+r);blue.addColorStop(0,'#799ff6');blue.addColorStop(.28,'#2964cc');blue.addColorStop(.65,'#16429e');blue.addColorStop(1,'#5383df');
+   g.strokeStyle=blue;g.lineWidth=r*.09;g.beginPath();g.arc(c,c,r*.805,0,7);g.stroke();
+   g.strokeStyle='#ffe8a3';g.lineWidth=r*.014;for(const rr of [.744,.865]){g.beginPath();g.arc(c,c,r*rr,0,7);g.stroke();}
+   const bolt=()=>{g.beginPath();const pts=[[.11,-.66],[-.39,.09],[-.07,.09],[-.18,.66],[.4,-.15],[.08,-.15],[.25,-.66]];for(const [x,y]of pts)g.lineTo(c+x*r,c+y*r);g.closePath();};
+   bolt();g.lineJoin='round';g.lineWidth=r*.075;g.strokeStyle='#87571a';g.stroke();g.lineWidth=r*.042;g.strokeStyle='#ffdfa0';g.stroke();g.fillStyle=blue;g.fill();
+   g.save();bolt();g.clip();g.strokeStyle='rgba(208,232,255,.75)';g.lineWidth=r*.025;g.beginPath();g.moveTo(c+r*.13,c-r*.61);g.lineTo(c-r*.34,c+r*.045);g.lineTo(c-r*.075,c+r*.045);g.stroke();g.restore();
+  }else{
+   const paw=()=>{g.beginPath();g.moveTo(c-r*.38,c+r*.31);g.bezierCurveTo(c-r*.42,c+r*.12,c-r*.20,c+r*.05,c-r*.13,c-r*.02);g.bezierCurveTo(c-r*.02,c-r*.12,c+r*.13,c-r*.08,c+r*.20,c+r*.05);g.bezierCurveTo(c+r*.25,c+r*.15,c+r*.43,c+r*.23,c+r*.34,c+r*.38);g.bezierCurveTo(c+r*.24,c+r*.52,c+r*.1,c+r*.38,c,c+r*.40);g.bezierCurveTo(c-r*.16,c+r*.44,c-r*.29,c+r*.48,c-r*.38,c+r*.31);g.closePath();for(const [x,y,rx,ry,a]of [[-.42,-.12,.125,.19,-.45],[-.16,-.37,.13,.20,-.15],[.16,-.37,.13,.20,.15],[.42,-.12,.125,.19,.45]]){g.moveTo(c+x*r+rx*r,c+y*r);g.ellipse(c+x*r,c+y*r,rx*r,ry*r,a,0,7);}};
+   g.save();g.translate(r*.025,r*.043);paw();g.fillStyle='rgba(113,66,11,.7)';g.fill();g.restore();
+   gr=g.createLinearGradient(c-r*.4,c-r*.5,c+r*.4,c+r*.5);gr.addColorStop(0,'#fff0b2');gr.addColorStop(.38,'#efca6d');gr.addColorStop(1,'#c08b2e');paw();g.fillStyle=gr;g.fill();g.strokeStyle='#ac7927';g.lineWidth=r*.018;g.stroke();
+  }
+ });
 }
 
 function coinSprite(r, c1, c2, c3, paw) {
@@ -1332,10 +1396,12 @@ function sprite(kind, id) {
     return sprites[key];
   }
   if (kind === 'joker') { sprites[key] = emojiCoin(COIN_R, '#ffe0e8', '#e8456a', '#7a1030', '🤡'); return sprites[key]; }
+  if(kind==='coin')return sprites[kind]=craftedGoldSprite(COIN_R);
   if (kind === 'silver') sprites[kind] = coinSprite(COIN_R, '#ffffff', '#c9cdd8', '#6e7480', 'rgba(70,75,90,.5)');
   else if (kind === 'clover') sprites[kind] = symbolCoin(COIN_R, '#f4ffe8', '#bfe8a0', '#4f8a3a', SYMBOL.clover);
   else if (kind === 'smiley') sprites[kind] = symbolCoin(COIN_R, '#fffbd0', '#ffd93a', '#b8860b', SYMBOL.smiley);
   else if (kind === 'rainbow') sprites[kind] = symbolCoin(COIN_R, '#ffffff', '#f0e8ff', '#8a4fd0', SYMBOL.rainbow);
+  else if(kind==='quake')sprites[kind]=craftedGoldSprite(radius('quake'),true);
   else if (kind === 'bolt') sprites[kind] = symbolCoin(COIN_R, '#8a8cff', '#3b3aa8', '#1d1c5a', SYMBOL.bolt);
   else if (kind === 'shower') sprites[kind] = symbolCoin(COIN_R, '#c8fff4', '#3cc8b4', '#1d7a7a', SYMBOL.shower);
   else if (kind === 'x5') sprites[kind] = chipSprite(BONUS.x5.r, '#5ec8ff', '#0b4f8a', '5x');
@@ -1354,9 +1420,17 @@ function drawCoinAt(kind, c, q, id) {
   if (n.y * LIFT + n.z * SQUASH < 0) { n = { x: -n.x, y: -n.y, z: -n.z }; w = { x: -w.x, y: -w.y, z: -w.z }; }
   const r = radius(kind), half = halfOf(kind), pn = projVec(n, c.s, c), pu = projVec(u, c.s, c), pw = projVec(w, c.s, c);
   ctx.fillStyle = EDGE[kind];
-  for (const k of [-1, 0]) { // back face and middle, together the visible rim
+  for (const k of [-1, 0]) { // darker lower lip separates the satin-gold stack layers
+    if(kind==='coin'||kind==='silver')ctx.fillStyle=k===-1?'#80551d':'#b98d39';
     ctx.save(); ctx.translate(c.x + pn.x * half * k, c.y + pn.y * half * k); ctx.transform(pu.x, pu.y, pw.x, pw.y, 0, 0);
     ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill(); ctx.restore();
+  }
+  if(kind==='quake'){
+    if(kind==='quake')for(const k of [-.48,-.12,.28]){ctx.save();ctx.translate(c.x+pn.x*half*k,c.y+pn.y*half*k);ctx.transform(pu.x,pu.y,pw.x,pw.y,0,0);ctx.fillStyle=k===.28?'#d9af51':'#2358b4';ctx.beginPath();ctx.arc(0,0,r,0,7);ctx.fill();ctx.restore();}
+    // Fine gold milling on the visible front half of the physical edge.
+    ctx.strokeStyle='rgba(99,64,18,.55)';ctx.lineWidth=Math.max(.3,c.s*.42);ctx.beginPath();
+    for(let j=0;j<16;j++){const a=j*Math.PI*2/16,ox=(pu.x*Math.cos(a)+pw.x*Math.sin(a))*r,oy=(pu.y*Math.cos(a)+pw.y*Math.sin(a))*r;if(oy<0)continue;ctx.moveTo(c.x+ox-pn.x*half,c.y+oy-pn.y*half);ctx.lineTo(c.x+ox+pn.x*half,c.y+oy+pn.y*half);}
+    ctx.stroke();
   }
   const sp = sprite(kind, id);
   ctx.save(); ctx.translate(c.x + pn.x * half, c.y + pn.y * half); ctx.transform(pu.x, pu.y, pw.x, pw.y, 0, 0);
@@ -1365,6 +1439,7 @@ function drawCoinAt(kind, c, q, id) {
 
 // A prize standing up on whatever it's resting on (the golden paw is a gold medallion on its edge).
 function drawPrize(kind,id,x,y,s) {
+ if(id==='tuna'){const w=radius('item')*s*3.8,h=w*ART.tuna.height/ART.tuna.width;ctx.drawImage(ART.tuna,x-w/2,y-h*.8,w,h);return;}
  const side=id==='shrimp'?1:0,w=ART.snacks.width/2;
  const size=radius('item')*s*2.8;
  ctx.drawImage(ART.snacks,side*w,0,w,ART.snacks.height,x-size/2,y-size*.7,size,size);
@@ -1375,6 +1450,21 @@ function drawBody(b) {
   const t = b.rb.translation(), x = t.x / M, h = t.y / M, y = t.z / M;
   if (b.kind === 'stack') { // a tower: its coins bottom to top, following the column's lean
     const q = b.rb.rotation();
+    // Reuse upright Board 3 stack art while its projection and orientation stay visually equal.
+    // Leaning stacks redraw every coin; this never changes the physics.
+    if(BOARD.id==='tuna-terraces'&&qrot(q,{x:0,y:1,z:0}).y>.999){
+      const c=screenOf(x,y,h),density=Math.max(1,Math.min(3,scale*devicePixelRatio*VIEW.z*Math.max(1,VIEW.zy))),key=density+':'+[q.x,q.y,q.z,q.w,c.s].map(v=>Math.round(v*100)).join(',');
+      if(!b.stillArt||b.stillKey!==key){
+        b.stillKey=key;
+        const cv=document.createElement('canvas');cv.width=Math.ceil(160*density);cv.height=Math.ceil(320*density);
+        const main=ctx;ctx=cv.getContext('2d');ctx.scale(density,density);ctx.imageSmoothingQuality='high';ctx.translate(80,240);
+        try{for(const part of stackParts(b)){const o=qrot(q,part.p),p=screenOf(x+o.x,y+o.z,h+o.y);drawCoinAt(part.kind,{...p,x:p.x-c.x,y:p.y-c.y},qmul(q,part.q));}}
+        finally{ctx=main;}
+        b.stillArt=cv;
+      }
+      ctx.drawImage(b.stillArt,c.x-80,c.y-240,160,320);return;
+    }
+    b.stillArt=null;
     for (const part of stackParts(b)) {
       const o = qrot(q, part.p);
       drawCoinAt(part.kind, screenOf(x + o.x, y + o.z, h + o.y), qmul(q, part.q));
@@ -1454,9 +1544,14 @@ async function loadArt() {
  async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
  const [head,table,tongue,paw,coin,snacks,pupil,background,headSweet,headWild,headSharp,happyMouth,happyMitt]=await Promise.all(['head-waiting','table','tongue','paw','coin','snacks','pupil','background','head-sweet','head-wild','head','happy-mouth','happy-mitt'].map(n=>image('img/art/'+n+'.webp')));
  Object.assign(ART,{head,table,tongue,paw,coin,snacks,pupil,background,headSweet,headWild,headSharp,happyMouth,happyMitt});
+ ART.tuna=await image('img/art/tuna.png');
  __brassTexture=await image('img/art/brass-pusher.png');
  const face=newCanvas(COIN_R*2*SPR,COIN_R*2*SPR);face.getContext('2d').drawImage(coin,21,21,1209,1202,0,0,face.width,face.height);
- sprites.coin={cv:face,half:COIN_R};sprites.silver=sprites.coin;
+ const coinAtlas=await image('img/art/uat18-coin-faces.png');
+ function atlasCoin(rect,r,atlas=coinAtlas){const cv=newCanvas(Math.ceil(r*2*SPR),Math.ceil(r*2*SPR)),g=cv.getContext('2d');g.imageSmoothingEnabled=true;g.imageSmoothingQuality='high';g.drawImage(atlas,...rect,0,0,cv.width,cv.height);return {cv,half:r};}
+ const softPaw=await image('img/art/uat18-small-paw.png');
+ sprites.coin=atlasCoin([0,0,softPaw.width,softPaw.height],COIN_R,softPaw);sprites.silver=sprites.coin;
+ sprites.quake=atlasCoin([934,45,780,775],radius('quake'));
 }
 
 // The machine is drawn zoomed in (VIEW.z) around the screen's centre, so the table fills more of the screen and the
@@ -1482,13 +1577,13 @@ function drawMachine() {
 }
 
 function drawTrackingPupils() {
- const look=Math.max(-1,Math.min(1,(pupilAim-200)/140));
+ const gaze=pawGaze(),look=gaze?gaze.x:Math.max(-1,Math.min(1,(pupilAim-200)/140));
  const sx=420/ART.head.width,sy=240/ART.head.height;
  for(const e of [{x:500,y:515,rx:118,ry:108},{x:1060,y:532,rx:118,ry:108}]) {
   const cx=-10+e.x*sx,cy=-25+e.y*sy,w=75*sx,h=180*sy;
   ctx.save();ctx.beginPath();ctx.ellipse(cx,cy,e.rx*sx,e.ry*sy,0,0,7);ctx.clip();
   // Upright pupils translate left/right; no rotation, tilt or skew is applied.
-  ctx.drawImage(ART.pupil,483,107,289,1041,cx+look*e.rx*sx*.28-w/2,cy+e.ry*sy*.24-h/2,w,h);
+  ctx.drawImage(ART.pupil,483,107,289,1041,cx+look*e.rx*sx*.28-w/2,cy+e.ry*sy*(.24+(gaze?gaze.y:0))-h/2,w,h);
   ctx.restore();
  }
 }
@@ -1570,10 +1665,141 @@ function drawRestMitt(w,blend=1){
 }
 function restPoseBlend(){return isRestPose()?1:catquakeTime>1.25?Math.min(1,(catquakeTime-1.25)/.55):0;}
 
+// UAT-17: one cancellable audio/animation session; active only after Board Clear.
+const pawDrums=new Audio('sounds/effects/paw-dance.wav');pawDrums.preload='auto';
+let pawDance=null,pawDanceToken=0;
+function stopPawDance(){pawDance=null;pawDanceToken++;pawDrums.pause();pawDrums.currentTime=0;}
+function pawDanceClock(){return !pawDance?0:pawDance.silent?time-pawDance.started:(pawDrums.currentTime||0);}
+function pawDancePhase(){
+ if(!pawDance)return null;const t=pawDanceClock();
+ if(t<.15)return {intro:true,t:0};
+ if(!pawDance.switched&&t<1.817)return {intro:true,t:t-.15};
+ const elapsed=pawDance.switched?t-pawDance.anchor:t-1.817;
+ const n=Math.floor(Math.max(0,elapsed)/2.2);
+ return {intro:false,index:(pawDance.index+n)%4,t:Math.max(0,elapsed)%2.2};
+}
+function startPawDance(){
+ if(sweepTime>0||catquakeTime>0)return;
+ const token=++pawDanceToken;pawDance={started:time,silent:S.muted,index:0,switched:false,anchor:0};
+ if(!S.muted){pawDrums.currentTime=0;const p=pawDrums.play();if(p)p.catch(()=>{if(token===pawDanceToken)stopPawDance();});}
+}
+function tickPawDance(){if(pawDance&&(!isRestPose()||pawDanceClock()>=62.7||(!pawDance.silent&&S.muted)))stopPawDance();}
+pawDrums.onended=stopPawDance;pawDrums.onerror=stopPawDance;
+function pawGaze(){const p=pawDancePhase();if(!p)return null;
+ if(p.intro){const t=p.t,s=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};return {x:-1.7*s(t/.18)*(1-s((t-.65)/.25)),y:-.9*s((t-.65)/.25)*(1-s((t-1.25)/.3))};}
+ if(p.index===0){const q=Math.min(1,p.t/2),e=Math.max(0,Math.min(1,q/.12,(1-q)/.12)),b=Math.sin(q*Math.PI*4);return {x:1.7*e*b,y:-.3*e*Math.abs(b)};}return null;
+}
+function pawMotion(side=0){const z={x:0,y:0,r:0},f=pawDancePhase();if(!f||f.intro||f.index===0)return z;
+ const p=Math.max(0,Math.min(1,f.t/1.8)),e=Math.max(0,Math.min(1,p/.12,(1-p)/.15)),beat=p*Math.PI*6;
+ if(f.index===1)return {x:side?-side*12*e:12*e*Math.sin(beat),y:side?-58*e*(.5+.5*Math.sin(beat+side*Math.PI/2)):-15*e*(.5+.5*Math.cos(beat*2)),r:side?.38*e*Math.sin(beat+side*Math.PI/2):.075*e*Math.sin(beat)};
+ if(f.index===2)return {x:(side?22:24)*e*Math.sin(beat),y:side?-24*e*(1+Math.sin(beat+side)):-19*e*Math.abs(Math.sin(beat)),r:(side?.32:.12)*e*Math.sin(beat)};
+ return {x:side?-side*20*e:10*e*Math.sin(beat/2),y:-(side?68:30)*e*Math.abs(Math.sin(p*Math.PI*3)),r:side?side*.32*e*Math.abs(Math.sin(p*Math.PI*3)):.07*e*Math.sin(beat/2)};
+}
+function pawHit(p){const k=tickleState();for(const side of [-1,1]){const d=k?k.paw[side]:{x:0,y:0},x=200+side*135+d.x,y=VIEW.y+180*VIEW.zy+45+d.y;if(((p.x-x)/90)**2+((p.y-y)/68)**2<=1)return side;}return 0;}
+let showTapAreas=false;
+function drawPawTouchGuides(){if(!S.dev||!showTapAreas||board.status!=='won'||!isRestPose())return;const k=tickleState();ctx.save();ctx.strokeStyle='#ffda35';ctx.lineWidth=2;ctx.setLineDash([4,5]);for(const side of [-1,1]){const d=k?k.paw[side]:{x:0,y:0};ctx.beginPath();ctx.ellipse(200+side*135+d.x,VIEW.y+180*VIEW.zy+45+d.y,90,68,0,0,7);ctx.stroke();}ctx.restore();}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopPawDance();});
+addEventListener('pagehide',stopPawDance);
+
+// UAT-19: tickle fight on the resting paws after Board Clear. Each paw tap makes that paw flinch with a giggle;
+// three quick tickles and the other paw bats at the finger twice. Offsets go back to exactly zero, then the session clears.
+const tickleSound=new Audio('sounds/effects/tickle.wav'),swatSound=new Audio('sounds/effects/tickle-swat.wav');tickleSound.preload=swatSound.preload='auto';
+function playTickleSound(a){if(S.muted)return;try{a.currentTime=0;const p=a.play();if(p)p.catch(()=>{});}catch(e){}}
+let tickle=null;
+function stopTickle(){tickle=null;}
+function tkClamp(x){return Math.max(0,Math.min(1,x));}
+function tkSmooth(x){x=tkClamp(x);return x*x*(3-2*x);}
+function startTickle(side){
+ if(board.status!=='won'||!isRestPose())return;
+ stopPawDance();
+ const k=tickle||(tickle={first:time,last:-9,run:0,taps:[],swat:null,words:[],lastWord:-9});
+ k.taps.push({side,t:time});if(k.taps.length>8)k.taps.shift();
+ k.run=k.swat?0:time-k.last<.75?k.run+1:1;k.last=time;
+ if(!k.swat&&k.run>=3){k.swat={from:-side,to:side,at:time+.35};k.run=0;
+  k.words.push({text:'bap!',at:time+.47,x:200+side*110,y:300},{text:'bap!',at:time+.97,x:200+side*125,y:270});}
+ else if(time-k.lastWord>.6){k.lastWord=time;k.words.push({text:'hehe!',at:time+.2,x:200+side*90,y:165});}
+ k.words=k.words.filter(w=>time-w.at<.9);
+ playTickleSound(tickleSound);
+}
+function tickleEnd(k){return Math.max(k.last+.9,k.swat?k.swat.at+1.3:0);}
+function tickTickle(){if(tickle&&(board.status!=='won'||!isRestPose()||time>tickleEnd(tickle)))tickle=null;
+ if(tickle&&tickle.swat&&!tickle.swat.sounded&&time>=tickle.swat.at){tickle.swat.sounded=true;playTickleSound(swatSound);}}
+function tickleState(){
+ const k=tickle;if(!k)return null;
+ const z=()=>({x:0,y:0,r:0,sx:1,sy:1}),o={head:z(),paw:{'-1':z(),'1':z()},squint:0};
+ for(const a of k.taps){const t=time-a.t;if(t<0||t>1.2)continue;const f=Math.exp(-t*9)*tkClamp(t/.04),P=o.paw[a.side];P.y-=34*f;P.r+=a.side*.22*f;P.sy-=.12*f;}
+ if(k.swat){const s=k.swat.to,O=o.paw[k.swat.from],T=o.paw[s];
+  for(const a of [0,.5]){const t=time-k.swat.at-a;if(t<0||t>.5)continue;
+   const up=tkSmooth(t/.12),hit=tkSmooth((t-.12)/.1),back=tkSmooth((t-.3)/.18),u=up*(1-back),h=hit*(1-back);
+   O.x+=s*(150*h+20*u);O.y+=-110*u+70*h;O.r+=s*(.5*u+.45*h);T.y-=20*h;}
+  const t=time-k.swat.at,lean=tkSmooth((t+.15)/.2)*(1-tkSmooth((t-.9)/.35));
+  o.head.x=s*22*lean;o.head.r=s*.07*lean+.03*Math.sin(t*Math.PI*12)*lean;o.head.y=-6*lean;}
+ o.squint=tkSmooth((time-k.first)/.07)*(1-tkSmooth((time-tickleEnd(k)+.25)/.25));
+ return o;
+}
+function drawTickleWords(){
+ const k=tickle;if(!k)return;
+ ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';
+ for(const w of k.words){const t=time-w.at;if(t<0||t>.9)continue;const p=t/.9,pop=1+.35*Math.max(0,1-t/.12);
+  ctx.globalAlpha=1-tkSmooth((p-.6)/.4);ctx.font=`bold ${Math.round(30*pop)}px system-ui`;
+  ctx.lineWidth=6;ctx.strokeStyle='#2a1338';ctx.strokeText(w.text,w.x,w.y-p*30);ctx.fillStyle='#ff9ad8';ctx.fillText(w.text,w.x,w.y-p*30);}
+ ctx.restore();
+}
+// Dancing pose (UAT-17 dance): Developer-mode Settings preview only; paws no longer start it.
+function previewDancingPose(){if(sweepTime>0||catquakeTime>0)return false;stopTickle();stopPawDance();happyUntil=0;startPawDance();return !!pawDance;}
+
+// UAT-19 Dancing pose extra: between games, each paw stomp of the dance jolts the table and makes the coins hop.
+// The hops run in a separate copy of the table (danceWorld); the real physics world never moves, the copy is dropped
+// before the next board, and its own PRNG never touches Math.random, so the next board starts exactly as without it.
+// danceShakesTable: code option. true = the dance shakes the table (only ever between games, after Board Clear).
+// Set false to dance without touching the board, e.g. for a future in-game use.
+let danceShakesTable=true,danceWorld=null,danceJolt=0,danceShakeSeed=1,dancePawLift={'-1':0,'1':0};
+function danceRand(){danceShakeSeed=danceShakeSeed*16807%2147483647;return (danceShakeSeed-1)/2147483646;}
+function danceShakeActive(){return danceShakesTable&&!!pawDance&&board.status==='won'&&sweepTime===0&&catquakeTime===0&&shake===0;}
+function danceWorldStart(){
+ const w=danceWorld=new RAPIER.World({...world.gravity});w.timestep=STEP;
+ w.integrationParameters.numSolverIterations=world.integrationParameters.numSolverIterations;
+ w.integrationParameters.numAdditionalFrictionIterations=world.integrationParameters.numAdditionalFrictionIterations;
+ if('contact_natural_frequency' in w.integrationParameters)w.integrationParameters.contact_natural_frequency=60; // same as initPhysics
+ const fixed=w.createRigidBody(RAPIER.RigidBodyDesc.fixed()),copy=c=>new RAPIER.ColliderDesc(c.shape).setFriction(c.friction()).setRestitution(c.restitution()).setFrictionCombineRule(c.frictionCombineRule());
+ const coins=new Set(bodies.filter(b=>b.kind!=='stack'&&b.rb.isEnabled()&&b.rb.numColliders()===1).map(b=>b.rb.handle));
+ world.forEachCollider(c=>{const p=c.parent();if(!c.isEnabled()||c.isSensor()||p&&coins.has(p.handle))return;
+  const t=c.translation();w.createCollider(copy(c).setTranslation(t.x,t.y,t.z).setRotation(c.rotation()),fixed);});
+ for(const b of bodies)b.danceSortK=b.sortK;
+ for(const b of bodies){if(!coins.has(b.rb.handle))continue;const r=b.rb,v=r.linvel(),a=r.angvel(),t=r.translation();
+  const s=w.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(t.x,t.y,t.z).setRotation(r.rotation()).setLinvel(v.x,v.y,v.z).setAngvel(a)
+   .setLinearDamping(COIN_DAMP).setAngularDamping(COIN_SPIN_DAMP).setCanSleep(true));
+  w.createCollider(copy(r.collider(0)).setDensity(r.collider(0).density()),s);b.realRb=r;b.rb=s;}
+}
+function stepDanceShake(){
+ danceJolt=Math.max(0,danceJolt-STEP*5);
+ if(!danceShakeActive()){dancePawLift={'-1':0,'1':0};return;}
+ if(!danceWorld)danceWorldStart();
+ // A stomp is a paw coming back down after lifting; bigger lifts stomp harder.
+ let stomp=0;for(const side of [-1,1]){const y=pawMotion(side).y;
+  if(y<dancePawLift[side])dancePawLift[side]=y;
+  if(y>-6&&dancePawLift[side]<-20){stomp=Math.max(stomp,Math.min(1,-dancePawLift[side]/60));dancePawLift[side]=0;}}
+ if(stomp>0){danceJolt=Math.max(danceJolt,stomp);
+  for(const b of bodies){if(!b.realRb||b.danceDown)continue;const m=b.rb.mass(),k=.55+.45*danceRand();
+   b.rb.applyImpulse({x:(danceRand()-.5)*.5*stomp*m,y:1.7*stomp*k*m,z:(danceRand()-.62)*.45*stomp*m},true);}}
+ danceWorld.step();
+ // A coin that hops over an edge drops out of sight until the next board.
+ for(const b of bodies){if(!b.realRb||b.danceDown)continue;const t=b.rb.translation();
+  if(t.y<-.3){b.danceDown=true;b.rb.setEnabled(false);const p=proj(t.x/M,T.FRONT);falling.push({x:p.x,y:p.y+4,vx:0,vy:60,kind:b.kind,id:b.id,won:true,t:0,s:p.s});}}
+}
+function danceJoltOffset(){return danceJolt>0?{x:Math.sin(time*70)*2.2*danceJolt,y:5*danceJolt}:{x:0,y:0};}
+// Before the next board clears the table: real bodies back, in the same order as if the dance never moved anything.
+// Drawing re-sorts bodies by on-screen depth; redo that sort from the real (unmoved) coins, as draw() would have.
+function danceWorldEnd(){if(!danceWorld)return;
+ for(const b of bodies)if(b.realRb){b.rb=b.realRb;b.realRb=null;b.danceDown=false;b.sortK=b.danceSortK;}
+ for(const b of bodies){const t=b.rb.translation(),k=t.z/M+(t.y/M-(b.kind==='stack'?b.half:0))*1.3;b.sortK=b.sortK===null||b.sortK===undefined?k:Math.abs(k-b.sortK)>1.5?k:b.sortK;}
+ bodies.sort((a,b)=>a.sortK-b.sortK||a.uid-b.uid);
+ danceWorld.free();danceWorld=null;danceJolt=0;dancePawLift={'-1':0,'1':0};}
+
 function drawPaws() {
  if(isRestPose()){
   const w=182,h=w*ART.paw.height/ART.paw.width;
-  for(const side of [-1,1]){ctx.save();ctx.translate(200+side*135,VIEW.y+180*VIEW.zy+45);if(side>0)ctx.scale(-1,1);ctx.rotate(-.12);drawRestMitt(w);ctx.restore();}return;
+  for(const side of [-1,1]){ctx.save();const d=pawMotion(side),tk=tickleState(),q=tk?tk.paw[side]:null;ctx.translate(200+side*135+d.x+(q?q.x:0),VIEW.y+180*VIEW.zy+45+d.y+(q?q.y:0));ctx.rotate(d.r+(q?q.r:0));if(q)ctx.scale(q.sx,q.sy);if(side>0)ctx.scale(-1,1);ctx.rotate(-.12);drawRestMitt(w);ctx.restore();}return;
  }
  const resting=410;
  let depth=resting,reach=0,quakeLift=0;
@@ -1674,9 +1900,9 @@ function __drawBoardBodies(){
  const ratio=scale*devicePixelRatio;
  if(!__boardLayer||__boardLayer.width!==cv.width||__boardLayer.height!==cv.height){__boardLayer=document.createElement('canvas');__boardLayer.width=cv.width;__boardLayer.height=cv.height;}
  if(!__railMatte||ratio!==__matteRatio||H!==__matteH){__matteRatio=ratio;__matteH=H;__boardClipPath=null;__skyClipPath=null;__railMatte=document.createElement('canvas');__railMatte.width=Math.ceil(W*ratio);__railMatte.height=Math.ceil(H*ratio);const q=__railMatte.getContext('2d');q.setTransform(ratio,0,0,ratio,0,0);q.fillStyle='#fff';q.fill(__cachedBoardPath());}
- const main=ctx,layer=__boardLayer.getContext('2d');layer.setTransform(1,0,0,1,0,0);layer.clearRect(0,0,__boardLayer.width,__boardLayer.height);layer.setTransform(...__camera);layer.globalAlpha=1;
+ const main=ctx,layer=__boardLayer.getContext('2d');layer.imageSmoothingEnabled=true;layer.imageSmoothingQuality='low';layer.setTransform(1,0,0,1,0,0);layer.clearRect(0,0,__boardLayer.width,__boardLayer.height);layer.setTransform(...__camera);layer.globalAlpha=1;
  ctx=layer;__activeCoinClip='felt';
- try{for(const b of bodies)drawBody(b);layer.globalCompositeOperation='destination-in';layer.drawImage(__railMatte,0,0,W,H);}
+ try{for(const b of bodies)if(!b.danceDown)drawBody(b);layer.globalCompositeOperation='destination-in';layer.drawImage(__railMatte,0,0,W,H);}
  finally{layer.globalCompositeOperation='source-over';__activeCoinClip='';ctx=main;}
  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.drawImage(__boardLayer,0,0);ctx.restore();
 }
@@ -1779,7 +2005,7 @@ function draw() {
   if(ART.background){const cover=Math.max(W/ART.background.width,H/ART.background.height),bw=ART.background.width*cover,bh=ART.background.height*cover;ctx.drawImage(ART.background,(W-bw)/2,(H-bh)/2,bw,bh);}
   // the machine, zoomed in around the centre (and shaking while lightning strikes)
   const sh = shake > 0 ? shake * 6 : 0;
-  ctx.save(); ctx.translate(200 + rand(-sh, sh), VIEW.y + rand(-sh, sh) * 0.5); ctx.scale(VIEW.z, VIEW.zy); ctx.translate(-200, 0);
+  const dj=danceJoltOffset();ctx.save(); ctx.translate(200 + rand(-sh, sh) + dj.x, VIEW.y + rand(-sh, sh) * 0.5 + dj.y); ctx.scale(VIEW.z, VIEW.zy); ctx.translate(-200, 0);
   drawMachine();
   // Idle paws can cover the rail, but coins are painted above them. Sweeping paws are drawn above the board.
  if(sweepTime===0&&catquakeTime===0&&powerFace()!=='happy'&&!isRestPose()){ctx.save();ctx.setTransform(scale*devicePixelRatio,0,0,scale*devicePixelRatio,0,0);drawPaws();ctx.restore();}
@@ -1799,10 +2025,10 @@ function draw() {
  // Independent rear coin-entry rail; approved resting geometry stays fixed.
  // No aim line or target circle: the foreground fall shows the accepted lane.
  const face=powerFace(),head=face==='wild'?ART.headWild:face==='sweet'||face==='happy'?ART.headSweet:ART.head;
- const down=quakeHeadOffset();ctx.save();ctx.translate(0,down);
+ const down=quakeHeadOffset();ctx.save();ctx.translate(0,down);const tk=isRestPose()?tickleState():null;if(tk){const h=tk.head;ctx.translate(200+h.x,110+h.y);ctx.rotate(h.r);ctx.translate(-200,-110);}if(isRestPose()&&pawDance){const g=pawGaze(),d=pawMotion();ctx.translate(200+d.x,110+d.y+(g?g.y*19:0));ctx.rotate(d.r+(g?-g.x*.048:0));ctx.translate(-200,-110);}
  if(face==='wild'&&catquakeTime<.18){ctx.drawImage(ART.head,-10,-25,420,240);ctx.save();ctx.globalAlpha=catquakeTime/.18;ctx.drawImage(head,-10,-25,420,240);ctx.restore();}
  else ctx.drawImage(head,-10,-25,420,240);
- if(face==='happy')drawHappyFeatures();else drawTrackingPupils();ctx.restore();
+ if(face==='happy')drawHappyFeatures();else{drawTrackingPupils();if(tk&&tk.squint>0){ctx.save();ctx.globalAlpha=tk.squint;drawHappyFeatures();ctx.restore();}}ctx.restore();
  if(face==='happy')drawHappyPaws();
   for (const f of falling) {
     // tipping over the edge and dropping away, fading as it goes (the ones at the corners go behind the paws)
@@ -1883,7 +2109,7 @@ function hudLayout(){
  return {left,right,top,bottom,mainY,bannerY,headerBottom,extraTop:headerBottom-(PAD_T+BAR_H+BANNER_H),bottomY:Math.min(H-PAD_B-BOTTOM_H,H-bottom-18-BOTTOM_H),settingsX:W-Math.max(8,right+12),settingsY:H-Math.max(6,bottom+12)};
 }
 function drawSafeAreaGuides(){
- if(!S.dev||!safeAreaGuides)return;const k=innerWidth/(androidSafeArea.width||innerWidth)/scale,r=cv.getBoundingClientRect();ctx.save();ctx.translate(-r.left/scale,-r.top/scale);ctx.scale(k,k);ctx.lineWidth=3/k;ctx.strokeStyle='#ff5252';for(const b of androidSafeArea.cutouts||[])ctx.strokeRect(b.left,b.top,b.right-b.left,b.bottom-b.top);ctx.strokeStyle='#ffe600';for(const c of androidSafeArea.corners||[]){ctx.beginPath();ctx.arc(c.x,c.y,c.radius,0,7);ctx.stroke();}ctx.restore();
+ if(!safeAreaGuides)return;const k=innerWidth/(androidSafeArea.width||innerWidth)/scale,r=cv.getBoundingClientRect();ctx.save();ctx.translate(-r.left/scale,-r.top/scale);ctx.scale(k,k);ctx.lineWidth=3/k;ctx.strokeStyle='#ff5252';for(const b of androidSafeArea.cutouts||[])ctx.strokeRect(b.left,b.top,b.right-b.left,b.bottom-b.top);ctx.strokeStyle='#ffe600';for(const c of androidSafeArea.corners||[]){ctx.beginPath();ctx.arc(c.x,c.y,c.radius,0,7);ctx.stroke();}ctx.restore();
 }
 function safeAreaReport(){const h=hudLayout();return {native:androidSafeArea,layout:h,extraTopPhysicalPixels:h.extraTop*scale*(androidSafeArea.width||innerWidth)/innerWidth};}
 try{if(window.Android&&Android.getSafeArea)window.setAndroidSafeArea(JSON.parse(Android.getSafeArea()));}catch(e){}
@@ -1900,20 +2126,23 @@ function drawBoardHUD() {
  ctx.fillText(clock((BOARD.seconds-board.elapsed)*1000),hud.left+12,hud.bannerY);
  for(let i=0;i<BOARD.targets.length;i++) {
   const t=BOARD.targets[i],got=board.collected.includes(t.id);
-  ctx.fillStyle=got?'#7dff6a':'#fff';ctx.fillText((got?'✓ ':'')+ITEMS[t.id].name,Math.max(hud.left+95,95)+i*135,hud.bannerY);
+  if(BOARD.targets.length>2)ctx.font='bold 11px system-ui';
+  ctx.fillStyle=got?'#7dff6a':'#fff';ctx.fillText((got?'✓ ':'')+ITEMS[t.id].name,Math.max(hud.left+95,95)+i*(BOARD.targets.length>2?96:135),hud.bannerY);
  }
- if(sweepTime>0||catquakeTime>0||isRestPose())drawPaws();
+ if(sweepTime>0||catquakeTime>0||isRestPose())drawPaws();drawPawTouchGuides();drawTickleWords();
  const bottom=hud.bottomY;
  ctx.textAlign='center';ctx.font='bold 12px system-ui';
  if(['won','lost'].includes(board.status)){
   ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(100,bottom,200,BOTTOM_H);ctx.fillStyle='#ffe680';
-  ctx.fillText(board.status==='won'?(boardIndex<BOARDS.length-1?'NEXT BOARD':'BOTH BOARDS CLEAR'):'TRY AGAIN',200,bottom+18);
- }else if(S.dev){
+  ctx.fillText(board.status==='won'?(boardIndex<BOARDS.length-1?'NEXT BOARD':'ALL BOARDS CLEAR'):'TRY AGAIN',200,bottom+18);
+ }else if(!S.dev&&BOARD.id==='tuna-terraces'){
+  if(BOARD.id==='tuna-terraces'){ctx.fillStyle=board.earnedQuakes?'#00d9ee':'rgba(18,11,28,.9)';ctx.fillRect(100,bottom,200,32);ctx.fillStyle=board.earnedQuakes?'#002836':'#b0d7df';ctx.fillText(catquakeTime>0?'QUAKE! · '+board.earnedQuakes+' left':board.earnedQuakes?'USE QUAKE · '+board.earnedQuakes:'QUAKE · 0',200,bottom+17);}
+ }else{
   ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(20,bottom,178,32);ctx.fillRect(202,bottom,178,32);ctx.fillStyle='#ffe680';
   ctx.fillText(sweepTime>0?'PAW SWEEP!':board.status==='ready'?'TRY PAW SWEEP':'PAW SWEEP · '+board.sweeps,109,bottom+17);
   ctx.fillText(catquakeTime>0?'CATQUAKE!':board.status==='ready'?'TRY CATQUAKE':'CATQUAKE · '+board.quakes,291,bottom+17);
  }
- ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='lost'?(board.endReason==='time'?"Time’s up · Tap to retry":"Out of coins · Tap to retry"):board.status==='won'?'Replay board '+(boardIndex+1):board.status==='ready'?(S.dev?'Tap board to play · Powers preview above':'Tap board to play'):'Restart board',200,bottom+42);
+ ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='lost'?(board.endReason==='time'?"Time’s up · Tap to retry":"Out of coins · Tap to retry"):board.status==='won'?'Replay board '+(boardIndex+1):board.status==='ready'?(S.dev||BOARD.id!=='tuna-terraces'?'Tap board to play · Powers preview above':'Tap board to play'):'Restart board',200,bottom+42);
  if(board.quakeStats){const q=board.quakeStats;ctx.fillStyle='#ffe680';ctx.font='11px system-ui';ctx.fillText(q.fallen+' coins spilled · '+Math.round(100*q.fallen/Math.max(1,q.before))+'%',200,bottom-12);}
  ctx.fillStyle='rgba(18,11,28,.96)';ctx.fillRect(hud.left+2,hud.settingsY-13,246,26);
  ctx.fillStyle='#ffffff';ctx.font='bold 15px system-ui';ctx.textAlign='left';ctx.fillText(BUILD,hud.left+8,hud.settingsY);
@@ -2005,24 +2234,26 @@ function resize() {
 
 // ---------- collection panel ----------
 const panel = document.getElementById('panel');
-function setDeveloperMode(enabled){
- S.dev=!!enabled;board.sweeps=S.dev?1:0;board.quakes=S.dev?1:0;save();
-}
-function testDevPower(kind){
- if(!S.dev||sweepTime>0||catquakeTime>0||['won','lost'].includes(board.status))return false;
- if(kind==='sweep'){board.sweeps=1;return board.status==='ready'?previewPawSweep():usePawSweep();}
- if(kind==='quake'){board.quakes=1;return useCatquake();}return false;
-}
-function openSettings() {
+function openCredits(){
  holding=false;taps=[];
- panel.innerHTML='<button id="close">Close</button><h2>Settings</h2><button id="settings-sound" class="wide">Sound effects: '+(S.muted?'off':'on')+'</button><p class="reward">Background music is off.</p>'+(window.Android&&Android.checkUpdates?'<button id="settings-update" class="wide">Check for updates</button>':'')+'<button id="board-dev" class="wide">Developer mode: '+(S.dev?'on':'off')+'</button>'+(S.dev?'<div class="set"><h3>Developer tools</h3><button id="safe-guides" class="wide">Show/hide safe-area guides</button><p class="reward">Test powers here or use the buttons below the board. Restart a cleared board to test again.</p><button id="dev-sweep" class="wide">Test Paw Sweep</button><button id="dev-quake" class="wide">Test Catquake</button><button id="happy-test" class="wide">Preview Happy (6 seconds)</button><button id="dev-restart" class="wide">Restart current board</button></div>':'');
- panel.style.display='block';panel.querySelector('#close').onclick=()=>{panel.style.display='none';};
- panel.querySelector('#settings-sound').onclick=()=>{S.muted=!S.muted;saveAudioSettings();musicTick();openSettings();};
- panel.querySelector('#board-dev').onclick=()=>{setDeveloperMode(!S.dev);openSettings();};
- if(window.Android&&Android.checkUpdates)panel.querySelector('#settings-update').onclick=()=>Android.checkUpdates();
- if(S.dev){panel.querySelector('#happy-test').onclick=()=>{if(previewHappy())panel.style.display='none';};panel.querySelector('#safe-guides').onclick=()=>{safeAreaGuides=!safeAreaGuides;panel.style.display='none';};for(const [id,kind]of [['#dev-sweep','sweep'],['#dev-quake','quake']])panel.querySelector(id).onclick=()=>{if(testDevPower(kind))panel.style.display='none';};panel.querySelector('#dev-restart').onclick=()=>{resetBoard();panel.style.display='none';};}
+ const canCheck=window.Android&&typeof Android.checkUpdates==='function';
+ panel.innerHTML='<button id="close">Close</button><h2>UAT Settings</h2>'
+  +(canCheck?'<button id="checkupd" class="wide">Check for updates</button>':'')
+  +'<button id="safe-guides" class="wide">Show/hide safe-area guides</button><button id="happy-test" class="wide">Preview Happy (6 seconds)</button>'+(S.dev?'<button id="dance-test" class="wide">Preview Dancing pose</button>':'')+'<button id="sound-test" class="wide">Sound effects: '+(S.muted?'off':'on')+'</button>'
+  +(S.dev?'<button id="tap-areas" class="wide">Show tap areas: '+(showTapAreas?'on':'off')+'</button>':'')
+  +'<button id="devmode" class="devswitch">Developer mode: '+(S.dev?'on':'off')+'</button>'
+  +'<p>Waiting is the toothy idle pose. Rest is the small smile with raised mitts, used for board clear. Recovery returns from Quake. Happy usage is TBD; preview only.</p>';
+ panel.style.display='block';
+ panel.querySelector('#close').onclick=()=>panel.style.display='none';
+ panel.querySelector('#safe-guides').onclick=()=>{safeAreaGuides=!safeAreaGuides;panel.style.display='none';};
+ panel.querySelector('#happy-test').onclick=()=>{if(previewHappy())panel.style.display='none';};
+ const dance=panel.querySelector('#dance-test');if(dance)dance.onclick=()=>{if(previewDancingPose())panel.style.display='none';};
+ panel.querySelector('#sound-test').onclick=()=>{S.muted=!S.muted;saveAudioSettings();openCredits();};
+ panel.querySelector('#devmode').onclick=()=>{S.dev=!S.dev;save();openCredits();};
+ const tapAreas=panel.querySelector('#tap-areas');if(tapAreas)tapAreas.onclick=()=>{showTapAreas=!showTapAreas;openCredits();};
+ const check=panel.querySelector('#checkupd');
+ if(check)check.onclick=()=>{save();check.textContent='Checking…';Android.checkUpdates();setTimeout(()=>{check.textContent='Check for updates';},1500);};
 }
-function openCredits(){openSettings();}
 function openPanel() { return;
 
   let h = '<button id="close">Close</button><h2>🎒 Collection</h2>';
@@ -2108,11 +2339,14 @@ cv.addEventListener('pointerdown', e => {
   if (!world) return; // still loading
   sfx.unlock(); musicOK = true; musicTick();
   const p = toGame(e);
+  if(board.status==='won'&&isRestPose()){const side=pawHit(p);if(side){startTickle(side);return;}}
+  stopPawDance();
   const hud=hudLayout();
   if(p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6){openCredits();return;}
  if(p.y>hud.bottomY&&p.x>=20&&p.x<=380) {
     if(p.y<hud.bottomY+32&&board.status==='won'){nextBoard();return;}
-    if(S.dev&&p.y<hud.bottomY+32&&!['won','lost'].includes(board.status)){
+    if(p.y<hud.bottomY+32&&!['won','lost'].includes(board.status)){
+      if(!S.dev&&BOARD.id==='tuna-terraces'){if(p.x>=100&&p.x<=300)useEarnedQuake();return;}
       if(sweepTime>0||catquakeTime>0)return;
       if(p.x<=200){if(board.status==='ready')previewPawSweep();else usePawSweep();}
       else useCatquake();return;
@@ -2159,7 +2393,7 @@ Promise.all([RAPIER.init(), loadArt()])
   .catch(e => { document.body.insertAdjacentHTML('beforeend', `<p style="color:#fff">Could not start: ${e}</p>`); });
 // Test hook: run the game faster than real time, e.g. __game.sim(10, 0.25) = 10 s with a drop every 0.25 s.
 window.__game = {
-  get view(){return {...VIEW};}, hudLayout, safeAreaReport, setDeveloperMode, testDevPower, isRestPose, recoveryScale, previewHappy, quakeHeadOffset, BOARDS, get BOARD(){return BOARD;}, get boardIndex(){return boardIndex;}, selectBoard, nextBoard, get board() { return board; }, resetBoard, usePawSweep, useCatquake, powerFace, get quaking(){return catquakeTime>0;}, get sweeping(){return sweepTime>0;}, draw, resize, loadArt, get perf() { return perf; },
+  get view(){return {...VIEW};}, hudLayout, safeAreaReport, isRestPose, recoveryScale, previewHappy, quakeHeadOffset, BOARDS, get BOARD(){return BOARD;}, get boardIndex(){return boardIndex;}, previewDancingPose, get tickle(){return tickle;}, selectBoard, nextBoard, get board() { return board; }, resetBoard, usePawSweep, useCatquake, powerFace, get quaking(){return catquakeTime>0;}, get sweeping(){return sweepTime>0;}, draw, resize, loadArt, get perf() { return perf; },
   S, get bodies() { return bodies; }, get world() { return world; }, tryDrop, save, sfx, prefill,
   // test helper: start over with a new table using a given collision shape
   restart(shape, sides) {
