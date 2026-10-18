@@ -14,6 +14,8 @@ My role is product owner: I decide what to build and perform UAT. I automate all
 - **Codex** is the engineer: it executes on the prompt, tests it and writes a report in `tickets/`.
 - Every change goes to a separate **UAT** (test) app before I approve it for release to production. 
 
+More about how I work: [my GitHub profile](https://github.com/jennylreid).
+
 ## Timeline
 
 | Date | Milestone |
