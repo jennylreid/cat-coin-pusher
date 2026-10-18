@@ -11,7 +11,8 @@ wrapped in a small Android app (`android/`) that runs the game and fetches game 
 I'm the product owner: I decide what gets built and test every release on my phone. The work runs as
 small tickets, each in its own AI conversation:
 
-- **Claude** is the project manager: it writes the tickets, keeps the board and reviews each report.
+- **Claude** is the product manager: it turns my ideas into tickets, keeps the backlog and reviews each
+  report against the ticket. It proposes; I decide.
 - **Codex** is the engineer: it builds the ticket, tests it and writes a report in `tickets/`.
 - Every change goes to a separate **UAT** (test) app first. Only builds I've signed off on my phone get
   promoted to the real app.
