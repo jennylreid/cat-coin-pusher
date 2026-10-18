@@ -8,14 +8,11 @@ wrapped in a small Android app (`android/`) that runs the game and fetches game 
 
 ## How it was made
 
-I'm the product owner: I decide what gets built and test every release on my phone. The work runs as
-small tickets, each in its own AI conversation:
+My role is product owner: I decide what to build and perform UAT. I automate all steps where a human adds no value to the best of my ability. 
 
-- **Claude** is the product manager: it turns my ideas into tickets, keeps the backlog and reviews each
-  report against the ticket. It proposes; I decide.
-- **Codex** is the engineer: it builds the ticket, tests it and writes a report in `tickets/`.
-- Every change goes to a separate **UAT** (test) app first. Only builds I've signed off on my phone get
-  promoted to the real app.
+- **Claude** is the product manager: it turns my ideas into prompts, adds those to tickets to a kanban and seeds new Codex conversations. 
+- **Codex** is the engineer: it executes on the prompt, tests it and writes a report in `tickets/`.
+- Every change goes to a separate **UAT** (test) app before I approve it for release to production. 
 
 ## Timeline
 
