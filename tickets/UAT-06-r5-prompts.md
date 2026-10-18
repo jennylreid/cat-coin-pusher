@@ -1,0 +1,9 @@
+# UAT-06 revision 5 — image-tool prompt
+
+Original Sharp Grin close-up and numbered target guide are the only art references. Revision 4 discarded.
+
+Precise edit of original Sharp Grin in IMAGE 1. IMAGE 2 is ONLY a numbered target guide; never include its circles/numbers/footer in output. Keep the exact original fourteen teeth (ten upper, four lower), original lip, mouth, tongue and white muzzle identical. Lengthen ONLY these FOUR teeth: upper1 marked at crop x221 y97 (4th upper tooth from left); upper2 marked x445 y98 (8th upper tooth from left); lower3 marked x249 y151 (2nd lower tooth from left, immediately left of tongue); lower4 marked x421 y144 (3rd lower tooth from left, immediately right of tongue). Upper selected two extend their pointed tips DOWN about 40% more than their original tooth height, root anchored in identical spot. Lower inner pair extend pointed tips UP about 100% more than their original height, roots anchored to identical lower lip. Same original tooth WIDTH, shape, lean, ivory color/texture and bold black outline style; simply longer versions of those exact teeth, no curved fangs, no narrower needle teeth, no redrawing the tooth row. Preserve ALL other ten teeth EXACTLY as they are, no new teeth, no new gaps or crowding, no scaling or moving mouth/tongue. Original tongue remains fully visible, same exact size, shape and place. Return same full opaque close-up composition as IMAGE1 (650:230 aspect ratio). No annotations. Change only four selected tooth lengths.
+
+Selected output (archived unchanged): C:/Users/jenny/.codex/generated_images/01a12d36-4217-7423-884f-7ad62f92d1a1/exec-47580e3e-085d-4e9b-98e4-2f022a8e6b38.png
+
+Only the four selected image-tool tooth cutouts are used. Standard placement fits original widths/roots and longer heights; original other teeth, tongue/lip and background remain from Sharp Grin. No code-drawn teeth. Waiting revision5 remains review pending.
