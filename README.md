@@ -1,7 +1,7 @@
 # Cat Coin Pusher
 
-A coin-pusher arcade game for Android phones, starring a tuxedo cat. Tap to drop coins from the cat's mouth,
-push prizes off the table, and use cat powers like Paw Sweep and Catquake to clear each board.
+A coin-pusher arcade game for Android phones, starring a tuxedo cat. Tap to drop coins, which fall from the top of
+the screen with a sparkling trail, push prizes off the table, and use cat powers like Paw Sweep and Catquake to clear each board.
 
 It's a single-file HTML/JavaScript game (`index.html`) with real physics from [Rapier](https://rapier.rs/),
 wrapped in a small Android app (`android/`) that runs the game and fetches game updates without a reinstall.
@@ -21,7 +21,7 @@ small tickets, each in its own AI conversation:
 | Date | Milestone |
 |---|---|
 | Oct 10, 2026 | First phone release; the cat board with Rapier physics, Paw Sweep, sound effects, a second board |
-| Oct 11 | Coins fall from the cat's mouth; Catquake power; Developer mode; retrospective |
+| Oct 11 | Cosmic background; Catquake power; Developer mode; retrospective |
 | Oct 12 | Ticketed work starts: safe-area fix (PROD-01); new faces and poses in UAT |
 | Oct 13 | PROD-02: Rest, Waiting and Happy faces, brass pusher, comet-sparkle coin fall, 120 fps |
 | Oct 15 | PROD-03: timing-based coin landing, easier Board 1. PROD-04: update check and readable build names |
