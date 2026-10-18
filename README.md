@@ -1,0 +1,48 @@
+# Cat Coin Pusher
+
+A coin-pusher arcade game for Android phones, starring a tuxedo cat. Tap to drop coins from the cat's mouth,
+push prizes off the table, and use cat powers like Paw Sweep and Catquake to clear each board.
+
+It's a single-file HTML/JavaScript game (`index.html`) with real physics from [Rapier](https://rapier.rs/),
+wrapped in a small Android app (`android/`) that runs the game and fetches game updates without a reinstall.
+
+## How it was made
+
+I'm the product owner: I decide what gets built and test every release on my phone. The work runs as
+small tickets, each in its own AI conversation:
+
+- **Claude** is the project manager: it writes the tickets, keeps the board and reviews each report.
+- **Codex** is the engineer: it builds the ticket, tests it and writes a report in `tickets/`.
+- Every change goes to a separate **UAT** (test) app first. Only builds I've signed off on my phone get
+  promoted to the real app.
+
+## Timeline
+
+| Date | Milestone |
+|---|---|
+| Oct 10, 2026 | First phone release; the cat board with Rapier physics, Paw Sweep, sound effects, a second board |
+| Oct 11 | Coins fall from the cat's mouth; Catquake power; Developer mode; retrospective |
+| Oct 12 | Ticketed work starts: safe-area fix (PROD-01); new faces and poses in UAT |
+| Oct 13 | PROD-02: Rest, Waiting and Happy faces, brass pusher, comet-sparkle coin fall, 120 fps |
+| Oct 15 | PROD-03: timing-based coin landing, easier Board 1. PROD-04: update check and readable build names |
+| Oct 16 | APK 16 hotfix after APK 15 wouldn't open on the phone |
+| Oct 17 | In testing: Board 3 with coin towers, the Quake coin, a dancing pose, tickle-the-paws |
+
+The history before the move to GitHub was rebuilt from dated release backups: one commit per release,
+dated when it was published.
+
+## What's here
+
+| Path | What it is |
+|---|---|
+| `index.html` | The game (latest test build) |
+| `img/art/` | Game art |
+| `lib/` | Rapier physics engine (Apache 2.0) |
+| `android/` | Android wrapper app (Java) |
+| `tests/` | Physics and gameplay regression tests (Node) |
+| `tickets/` | Backlog, ticket briefs and the engineer's reports |
+| `SPEC.md`, `ROADMAP.md`, `DEVELOPER.md` | Design, plans and engineering notes |
+| `RETROSPECTIVE-2026-10-11.md` | What went wrong and right in the first two days |
+| `cat-art/` | The cat from my finance app, which inspired this one |
+
+Sound files aren't included (see [CREDITS.md](CREDITS.md)), so the game runs silently from this repository.
