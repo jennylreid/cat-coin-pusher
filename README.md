@@ -8,7 +8,7 @@ wrapped in a small Android app (`android/`) that runs the game and fetches game 
 
 ## How it was made
 
-My role is product owner: I decide what to build and perform UAT. I automate all steps where a human adds no value to the best of my ability. 
+My role is product owner: I decide what to build and perform UAT. I automate all steps where a human adds no value. 
 
 - **Claude** is the product manager: it turns my ideas into prompts, adds those to tickets to a kanban and seeds new Codex conversations. 
 - **Codex** is the engineer: it executes on the prompt, tests it and writes a report in `tickets/`.
