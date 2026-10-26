@@ -51,7 +51,7 @@ const PAY_L = 60, PAY_R = 340; // the bucket's edges: coins off the table past t
 const PUSH_BACK = -25, TONGUE_H = 18, TONGUE_LEN = 300;
 // CP-21 funnel: the table is FUNNEL_BACK either side of centre beside the pusher (about 4 coins across), then widens
 // steadily from depth FUNNEL_D1 to FUNNEL_D2 to the full width (T.L..T.R): about 4, 5, then 6 coins across.
-const FUNNEL_BACK=110, FUNNEL_D1=225, FUNNEL_D2=315;
+const FUNNEL_BACK=110, FUNNEL_D1=225, FUNNEL_D2=315, GUARD_END=FUNNEL_D2+116; // CP-21: side wall to here (two rows of 53, plus 10)
 function tableHalfAt(y){const hw=(T.R-T.L)/2;return y<=FUNNEL_D1?FUNNEL_BACK:y>=FUNNEL_D2?hw:FUNNEL_BACK+(hw-FUNNEL_BACK)*(y-FUNNEL_D1)/(FUNNEL_D2-FUNNEL_D1);}
 const PUSH_HALF=FUNNEL_BACK, LEDGE_BACK=205;
 let PUSH_MIN = 205, PUSH_MAX = 275, PUSH_PERIOD = 3.2;
@@ -200,7 +200,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = '2026.10.26 UAT 3';
+const BUILD = '2026.10.26 UAT 4';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -221,7 +221,7 @@ function initPhysics() {
   const wall=(x0,y0,x1,y1,side)=>{const len=Math.hypot(x1-x0,y1-y0),a=Math.atan2(x1-x0,y1-y0),nx=Math.cos(a)*side,nz=-Math.sin(a)*side;
    world.createCollider(RAPIER.ColliderDesc.cuboid(10*M,200*M,(len/2+2)*M).setTranslation(((x0+x1)/2+nx*10)*M,190*M,((y0+y1)/2+nz*10)*M)
     .setRotation({x:0,y:Math.sin(a/2),z:0,w:Math.cos(a/2)}).setFriction(0.2),fixed);};
-  for(const s of [-1,1]){wall(200+s*FUNNEL_BACK,-100,200+s*FUNNEL_BACK,FUNNEL_D1,s);wall(200+s*FUNNEL_BACK,FUNNEL_D1,200+s*halfW,FUNNEL_D2,s);}/* CP-21: no side walls past the funnel (open gutters) */for(const s of [-1,1]){const x=200+s*(halfW+COIN_R*0.9),hh=2,len=T.FRONT+100-FUNNEL_D2;world.createCollider(RAPIER.ColliderDesc.cuboid(2*M,hh*M,len/2*M).setTranslation(x*M,hh*M,(FUNNEL_D2+len/2)*M).setFriction(0.2),fixed);} /* CP-21: low side lip */
+  for(const s of [-1,1]){wall(200+s*FUNNEL_BACK,-100,200+s*FUNNEL_BACK,FUNNEL_D1,s);wall(200+s*FUNNEL_BACK,FUNNEL_D1,200+s*halfW,FUNNEL_D2,s);wall(200+s*halfW,FUNNEL_D2,200+s*halfW,GUARD_END,s);}/* CP-21: side wall only along the first two full-width rows, then open gutters */for(const s of [-1,1]){const x=200+s*(halfW+COIN_R*0.9),hh=2,len=T.FRONT+100-GUARD_END;world.createCollider(RAPIER.ColliderDesc.cuboid(2*M,hh*M,len/2*M).setTranslation(x*M,hh*M,(GUARD_END+len/2)*M).setFriction(0.2),fixed);} /* CP-21: low side lip */
   box(halfW + 40, 150, 12, 200, TONGUE_H + 150, LEDGE_BACK - 12, 0.2); // upper ledge backstop prevents coins retreating into the throat
   tongue = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased()
     .setTranslation(200 * M, TONGUE_H / 2 * M, (pusherY - TONGUE_LEN / 2) * M));

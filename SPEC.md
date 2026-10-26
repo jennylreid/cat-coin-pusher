@@ -1,4 +1,4 @@
-# CP-21 PUBLISHED — 20261026134357 / APK4 (2026.10.26 UAT 3; UAT 2 20261026113204, UAT 1 20261026100613)
+# CP-21 PUBLISHED — 20261026141443 / APK4 (2026.10.26 UAT 4; UAT 3 20261026134357, UAT 2 20261026113204, UAT 1 20261026100613)
 
 Layout lock. The locked numbers are in "Locked layout (CP-21)" below and supersede older board geometry. Source: work/cp21/release.html. Report: tickets/CP-21.md. Phone UAT pending.
 
@@ -135,9 +135,9 @@ Layout first, art second: new art fills this layout and does not change it. Temp
 - **Coins:** approved big-paw face, colour C: contrast 1.3 / saturation 0.9, a lighter, softer gold (UAT 2; UAT 1 was 1.6 / 1.25, too yellow); drawn twice as thick as the physics (COIN_LOOK 2); dark gold sides, bright faces. COIN_R 26 (physics unchanged).
 - **Quake coin:** 20% wider than a paw coin (QUAKE_R 1.2, physics too), same thickness as paw coins, dark gold side with a blue band matching the face's dark blue.
 - **Coins always whole (UAT 3):** coins are only hidden when they slide under the back wall (in front of the ledge's slot everything shows), fall off an edge, or are behind art. The old picture's felt outline no longer masks them.
-- **Side gutters (UAT 3, Jenny):** coins can slide over the left and right edges from where the table reaches full width to the front. The funnel walls beside the ledge stay. A low invisible lip, one coin thick, runs 0.9 coin radius outside each edge, so a coin hangs most of its width over the edge, while coins riding on others can tip off. A coin or prize dropping off a side is lost and doesn't pay. Pure physics without the lip lost over half the coins (0/18 wins). A later tree mode (like Bear Coin) may block the gutters.
+- **Side gutters (UAT 3–4, Jenny):** the side wall stays up from where the table reaches full width along the first two full-width rows (depth 315 to 431, UAT 4: the first push used to shove their outer coins far over the edges); from there to the front coins can slide over the left and right edges. The funnel walls beside the ledge stay. A low invisible lip, one coin thick, runs 0.9 coin radius outside each edge, so a coin hangs most of its width over the edge, while coins riding on others can tip off. A coin or prize dropping off a side is lost and doesn't pay. Pure physics without the lip lost over half the coins (0/18 wins). A later tree mode (like Bear Coin) may block the gutters.
 - **Rescue:** a coin squeezed down through the table well inside its edges (about 1 in 1,000 taps) is put back on top of the table instead of vanishing.
-- **Balance (desktop, Oct 26, UAT 3):** 18/18 no-power wins over 3 boards, 3 seeds, 0.22/0.4 s taps. Coins used: Board 1 88–132 of 220, Board 2 76–105 of 160, Board 3 106–147 of 160 (tightest). 13 of 1,988 coins and no prizes went off the sides (tickets/CP-21-evidence/wins-uat3.log).
+- **Balance (desktop, Oct 26, UAT 4):** 18/18 no-power wins over 3 boards, 3 seeds, 0.22/0.4 s taps. Coins used: Board 1 72–119 of 220, Board 2 74–130 of 160, Board 3 106–149 of 160 (tightest). 1 of 1,879 coins and no prizes went off the sides (UAT 3: 13 of 1,988) (tickets/CP-21-evidence/wins-uat4.log).
 - **Next (art pass, not layout):** rounder cat head or chin fluff to fill the gap between chin and ledge; ledge look; extended felt streaks; Jenny prefers the Rest face to the Waiting face, so Waiting will change later.
 
 ## Coin entry and input

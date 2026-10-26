@@ -1,19 +1,19 @@
 ﻿{
-    "version":  20261026134357,
-    "displayName":  "2026.10.26 UAT 3",
+    "version":  20261026141443,
+    "displayName":  "2026.10.26 UAT 4",
     "apkVersion":  4,
-    "baselineJSONSHA256":  "5397f4d893ddd849f38e883817bd65ad6538b4e3346b626f2a54422c7116ea83",
-    "stagedJSONSHA256":  "5584fc78698986d0ebd1c200b5c53c531f4471d12f6e5353c579afc57b903f38",
-    "backup":  "uat/backups/before-CP-21-UAT3-20261026134357",
-    "authorization":  "Jenny, Oct 26: Let me have some time with all of this in UAT.",
-    "releaseHTMLSHA256":  "677bd50ed85e5bf1cea6e1af99a19c363d4f904157cbb7dfb3b6a84b7fbb03c7",
-    "reviewHTMLSHA256":  "e30cf9385eaaa70a078ae64c2a786c343b8cae071444b64e4b77a907fa6ae52f",
+    "baselineJSONSHA256":  "5584fc78698986d0ebd1c200b5c53c531f4471d12f6e5353c579afc57b903f38",
+    "stagedJSONSHA256":  "6d2d2bf248e3b1af531f3e59c139db3610b3829452617098683b9c2cbffd8ebf",
+    "backup":  "uat/backups/before-CP-21-UAT4-20261026141443",
+    "authorization":  "Jenny, Oct 26: yes, put it in UAT",
+    "releaseHTMLSHA256":  "142db7798043f99a038105cf9138c09089c13f107798ba23bfb31706015b8012",
+    "reviewHTMLSHA256":  "0cb4966c53f012476b8f529c597e63f3c385ca02368d57a0be0d93f7de387ee1",
     "changedFiles":  [
                          "index.html"
                      ],
     "addedFiles":  [
 
                    ],
-    "selection":  "CP-21 UAT 3: coins always whole (old felt matte removed), open side gutters with a low lip, rescue for coins squeezed through the table",
+    "selection":  "CP-21 UAT 4: side wall kept along the first two full-width rows (first push no longer shoves coins over the edges)",
     "localPublication":  "verified"
 }
