@@ -1,19 +1,19 @@
 ﻿{
-    "version":  20261026141443,
-    "displayName":  "2026.10.26 UAT 4",
+    "version":  20261026163104,
+    "displayName":  "2026.10.26 UAT 5",
     "apkVersion":  4,
-    "baselineJSONSHA256":  "5584fc78698986d0ebd1c200b5c53c531f4471d12f6e5353c579afc57b903f38",
-    "stagedJSONSHA256":  "6d2d2bf248e3b1af531f3e59c139db3610b3829452617098683b9c2cbffd8ebf",
-    "backup":  "uat/backups/before-CP-21-UAT4-20261026141443",
-    "authorization":  "Jenny, Oct 26: yes, put it in UAT",
-    "releaseHTMLSHA256":  "142db7798043f99a038105cf9138c09089c13f107798ba23bfb31706015b8012",
-    "reviewHTMLSHA256":  "0cb4966c53f012476b8f529c597e63f3c385ca02368d57a0be0d93f7de387ee1",
+    "baselineJSONSHA256":  "6d2d2bf248e3b1af531f3e59c139db3610b3829452617098683b9c2cbffd8ebf",
+    "stagedJSONSHA256":  "4a525064fbf2c3f3eea3d912ebcbf493707fc56d53d9a73ddf795e8d6f50c472",
+    "backup":  "uat/backups/before-CP-21-UAT5-20261026163104",
+    "authorization":  "Jenny, Oct 26: yes pls (publish the seam fix as UAT 5)",
+    "releaseHTMLSHA256":  "67e58ba0cfe0976b2b8c7ea42efabe7206869e204c279aa9457563ce569ab9b8",
+    "reviewHTMLSHA256":  "75ccc8a633a55eee3258d3e281773395fe6fa33b0a54deb88a63a496f2090532",
     "changedFiles":  [
                          "index.html"
                      ],
     "addedFiles":  [
 
                    ],
-    "selection":  "CP-21 UAT 4: side wall kept along the first two full-width rows (first push no longer shoves coins over the edges)",
+    "selection":  "CP-21 UAT 5: empty-board seam removed (front trim at the real front edge, extended felt blended)",
     "localPublication":  "verified"
 }

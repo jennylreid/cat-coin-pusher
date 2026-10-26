@@ -1,4 +1,4 @@
-# CP-21 PUBLISHED — 20261026141443 / APK4 (2026.10.26 UAT 4; UAT 3 20261026134357, UAT 2 20261026113204, UAT 1 20261026100613)
+# CP-21 PUBLISHED — 20261026163104 / APK4 (2026.10.26 UAT 5; UAT 4 20261026141443, UAT 3 20261026134357, UAT 2 20261026113204, UAT 1 20261026100613)
 
 Layout lock. The locked numbers are in "Locked layout (CP-21)" below and supersede older board geometry. Source: work/cp21/release.html. Report: tickets/CP-21.md. Phone UAT pending.
 
@@ -138,7 +138,8 @@ Layout first, art second: new art fills this layout and does not change it. Temp
 - **Side gutters (UAT 3–4, Jenny):** the side wall stays up from where the table reaches full width along the first two full-width rows (depth 315 to 431, UAT 4: the first push used to shove their outer coins far over the edges); from there to the front coins can slide over the left and right edges. The funnel walls beside the ledge stay. A low invisible lip, one coin thick, runs 0.9 coin radius outside each edge, so a coin hangs most of its width over the edge, while coins riding on others can tip off. A coin or prize dropping off a side is lost and doesn't pay. Pure physics without the lip lost over half the coins (0/18 wins). A later tree mode (like Bear Coin) may block the gutters.
 - **Rescue:** a coin squeezed down through the table well inside its edges (about 1 in 1,000 taps) is put back on top of the table instead of vanishing.
 - **Balance (desktop, Oct 26, UAT 4):** 18/18 no-power wins over 3 boards, 3 seeds, 0.22/0.4 s taps. Coins used: Board 1 72–119 of 220, Board 2 74–130 of 160, Board 3 106–149 of 160 (tightest). 1 of 1,879 coins and no prizes went off the sides (UAT 3: 13 of 1,988) (tickets/CP-21-evidence/wins-uat4.log).
-- **Next (art pass, not layout):** rounder cat head or chin fluff to fill the gap between chin and ledge; ledge look; extended felt streaks; Jenny prefers the Rest face to the Waiting face, so Waiting will change later.
+- **Table front (UAT 5):** the front-edge trim (dark line plus thin gold line) is drawn at the real front edge (760). The felt below the old painted front is filled by mirroring the last 50 painted felt rows, so there is no seam or streaking on an empty board. Drawing only.
+- **Next (art pass, not layout):** rounder cat head or chin fluff to fill the gap between chin and ledge; ledge look; Jenny prefers the Rest face to the Waiting face, so Waiting will change later.
 
 ## Coin entry and input
 

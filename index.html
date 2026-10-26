@@ -200,7 +200,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = '2026.10.26 UAT 4';
+const BUILD = '2026.10.26 UAT 5';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -1952,7 +1952,7 @@ function __rowFunnel(y){const v1=Math.max(0,Math.min(1,(y-__top)/(__front1-__top
 const __NF=__plane(T.FRONT).py,__EXT=Math.max(0,__NF-__front1),__GXR=__plane(T.FRONT).gx/__plane(640).gx; // CP-21: longer table, rows keep their size
 const __WARP_Y0=120,__WARP_Y1=680+__EXT;
 function __warpTable(src){const d=src.height/420,c=newCanvas(src.width,Math.round((__WARP_Y1-__WARP_Y0)*d)),g=c.getContext('2d'),dx=src.width/400;
- for(let r=0;r<c.height;r++){const y0=__WARP_Y0+(r+.5)/d,yo=y0<=__front1-4?y0:y0<__NF-4?__front1-4:y0-__EXT,wr=y0<=__front1-4?1:y0<__NF-4?1+(__GXR-1)*(y0-__front1+4)/Math.max(1,__EXT):__GXR,m=__camBack(yo),f=__rowFunnel(yo)*wr,sy=Math.floor((m.y-180)*d);if(!(sy>=0&&sy<src.height))continue;
+ for(let r=0;r<c.height;r++){const y0=__WARP_Y0+(r+.5)/d,yo=y0<=__front1-4?y0:y0<__NF-4?__front1-4-((m=>m<50?m:100-m)((y0-__front1+4)%100)):y0-__EXT,wr=y0<=__front1-4?1:y0<__NF-4?1+(__GXR-1)*(y0-__front1+4)/Math.max(1,__EXT):__GXR,m=__camBack(yo),f=__rowFunnel(yo)*wr,sy=Math.floor((m.y-180)*d);if(!(sy>=0&&sy<src.height))continue;
   g.drawImage(src,0,sy,src.width,1,(200-200*m.k*f)*dx,r,400*m.k*f*dx,1);}return c;}
 for(const r of __felt){const m=__camFwd(r[0]),f=__rowFunnel(m.y);r[0]=m.y;r[1]=200+(r[1]-200)*m.k*f;r[2]=200+(r[2]-200)*m.k*f;}
 screenOf=function(x,y,h){const p=__plane(y);return {x:200+(x-200)*p.gx,y:p.py-h*LIFT*p.gx,s:p.gx,worldX:x,depth:y,height:h,fit:true};};
@@ -2026,7 +2026,7 @@ drawMachine=function(){
  // Keep original table art except the blocking centre front rail; expose the physical open edge.
  ctx.save();ctx.beginPath();ctx.rect(0,__WARP_Y0,400,__NF-__WARP_Y0);ctx.rect(0,__NF,40,__WARP_Y1-__NF);ctx.rect(358,__NF,42,__WARP_Y1-__NF);ctx.clip();
  ctx.clip(__cachedBoardPath());ctx.drawImage(ART.table,0,__WARP_Y0,400,__WARP_Y1-__WARP_Y0);ctx.restore();
- ctx.fillStyle='#18352c';ctx.fillRect(42,__front1-.5,314,3.5);ctx.fillStyle='#a16b25';ctx.fillRect(42,__front1+2,314,1);
+ ctx.fillStyle='#18352c';ctx.fillRect(42,__NF-.5,314,3.5);ctx.fillStyle='#a16b25';ctx.fillRect(42,__NF+2,314,1); // CP-21: trim at the real front edge
  drawArmrests();drawTongue();
 };
 const __oldTryDrop=tryDrop;
