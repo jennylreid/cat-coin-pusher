@@ -200,7 +200,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = '2026.10.26 UAT 2';
+const BUILD = '2026.10.26 UAT 3';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -216,12 +216,12 @@ function initPhysics() {
   const box = (hx, hy, hz, x, h, y, fr) => world.createCollider(
     RAPIER.ColliderDesc.cuboid(hx * M, hy * M, hz * M).setTranslation(x * M, h * M, y * M).setFriction(fr), fixed);
   const halfW = (T.R - T.L) / 2;
-  box(halfW + 40, 10, (T.FRONT + 100) / 2, 200, -10, (T.FRONT - 100) / 2, TABLE_FRICTION); // table top, open at the front
+  box(halfW + 40, 10, (FUNNEL_D2 + 100) / 2, 200, -10, (FUNNEL_D2 - 100) / 2, TABLE_FRICTION); box(halfW, 10, (T.FRONT - FUNNEL_D2) / 2, 200, -10, (T.FRONT + FUNNEL_D2) / 2, TABLE_FRICTION); // table top: as before beside the funnel walls, then (CP-21) ending at the open side edges
   // side walls (CP-21 funnel): straight beside the pusher, a slant, then straight to the front
   const wall=(x0,y0,x1,y1,side)=>{const len=Math.hypot(x1-x0,y1-y0),a=Math.atan2(x1-x0,y1-y0),nx=Math.cos(a)*side,nz=-Math.sin(a)*side;
    world.createCollider(RAPIER.ColliderDesc.cuboid(10*M,200*M,(len/2+2)*M).setTranslation(((x0+x1)/2+nx*10)*M,190*M,((y0+y1)/2+nz*10)*M)
     .setRotation({x:0,y:Math.sin(a/2),z:0,w:Math.cos(a/2)}).setFriction(0.2),fixed);};
-  for(const s of [-1,1]){wall(200+s*FUNNEL_BACK,-100,200+s*FUNNEL_BACK,FUNNEL_D1,s);wall(200+s*FUNNEL_BACK,FUNNEL_D1,200+s*halfW,FUNNEL_D2,s);wall(200+s*halfW,FUNNEL_D2,200+s*halfW,T.FRONT+100,s);}
+  for(const s of [-1,1]){wall(200+s*FUNNEL_BACK,-100,200+s*FUNNEL_BACK,FUNNEL_D1,s);wall(200+s*FUNNEL_BACK,FUNNEL_D1,200+s*halfW,FUNNEL_D2,s);}/* CP-21: no side walls past the funnel (open gutters) */for(const s of [-1,1]){const x=200+s*(halfW+COIN_R*0.9),hh=2,len=T.FRONT+100-FUNNEL_D2;world.createCollider(RAPIER.ColliderDesc.cuboid(2*M,hh*M,len/2*M).setTranslation(x*M,hh*M,(FUNNEL_D2+len/2)*M).setFriction(0.2),fixed);} /* CP-21: low side lip */
   box(halfW + 40, 150, 12, 200, TONGUE_H + 150, LEDGE_BACK - 12, 0.2); // upper ledge backstop prevents coins retreating into the throat
   tongue = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased()
     .setTranslation(200 * M, TONGUE_H / 2 * M, (pusherY - TONGUE_LEN / 2) * M));
@@ -835,6 +835,8 @@ function collect(id) {
 
 // A coin that went over the front edge: into the bucket (won) or past it at the corners (lost).
 function fallOff(b, x) {
+ {const t=b.rb.translation(),z=t.z/M;if(Math.abs(x-200)<=(T.R-T.L)/2-2&&z<T.FRONT-30){b.rb.setTranslation({x:(200+(x-200)*.6)*M,y:30*M,z:Math.max(z,PUSH_MAX+COIN_R+4)*M},true);b.rb.setLinvel({x:0,y:0,z:0},true);b.rb.setAngvel({x:0,y:0,z:0},true);return;}} // CP-21: rescue a coin squeezed through the table
+ if(Math.abs(x-200)>(T.R-T.L)/2-2&&b.rb.translation().z/M<T.FRONT-4)return gutterOff(b,x); // CP-21: off a side
  if(board.quakeStats&&time<=board.quakeStats.until&&['coin','silver'].includes(b.kind))board.quakeStats.fallen++;
  if(!b.boardTarget)recordedSfx.edge();
  const p=proj(x,T.FRONT);
@@ -849,6 +851,12 @@ function fallOff(b, x) {
  if(board.collected.length===BOARD.targets.length)finishBoard('won');
 }
 
+// CP-21: a coin (or prize) that drops off a side edge is lost: it falls out of sight beside the table and does not pay.
+function gutterOff(b,x){
+ const t=b.rb.translation(),at=screenOf(t.x/M,t.z/M,t.y/M);
+ const rotation={...b.rb.rotation()};falling.push({x:at.x,y:at.y,vx:(x<200?-40:40),vy:60,kind:b.kind,id:b.id,won:false,t:0,s:at.s,gutter:true,__screenStart:at,__sourceX:at.x,__sourceY:at.y,__rotation:rotation});
+ removeCoin(b);
+}
 // Lightning coin: a flash, a thunder crack, and the whole machine shakes for SHAKE_SEC.
 const SHAKE_SEC = 1.6, SHAKE_KICK = 0.22; // kick: speed (m/s) of each jolt
 // Coin shower: SHOWER_COINS free coins tumble out of the mouth across the tongue.
@@ -1959,7 +1967,7 @@ function __cachedBoardPath(){
   for(let i=__felt.length-1;i>=0;i-=58){const v=__felt[i];p.lineTo(v[2]-1,v[0]);}p.lineTo(__felt[0][2]-1,__felt[0][0]);p.closePath();__boardClipPath=p;
  }return __boardClipPath;
 }
-function __cachedSkyPath(){if(!__skyClipPath){const p=new Path2D(__cachedBoardPath());p.rect(198-__slotHalf,-1000,2*__slotHalf+4,1228);__skyClipPath=p;}return __skyClipPath;}
+function __cachedSkyPath(){if(!__skyClipPath){const p=new Path2D();p.rect(-1000,218,3000,3000);p.rect(198-__slotHalf,-1000,2*__slotHalf+4,1228);__skyClipPath=p;}return __skyClipPath;}
 function __clipDelivery(){ctx.clip(__cachedSkyPath());}
 const __oldBody=drawBody;
 function __inputInFlight(b){
@@ -1974,7 +1982,7 @@ let __boardLayer=null,__railMatte=null,__matteRatio=0,__matteH=0;
 function __drawBoardBodies(){
  const ratio=scale*devicePixelRatio;
  if(!__boardLayer||__boardLayer.width!==cv.width||__boardLayer.height!==cv.height){__boardLayer=document.createElement('canvas');__boardLayer.width=cv.width;__boardLayer.height=cv.height;}
- if(!__railMatte||ratio!==__matteRatio||H!==__matteH){__matteRatio=ratio;__matteH=H;__boardClipPath=null;__skyClipPath=null;__railMatte=document.createElement('canvas');__railMatte.width=Math.ceil(W*ratio);__railMatte.height=Math.ceil(H*ratio);const q=__railMatte.getContext('2d');q.setTransform(ratio,0,0,ratio,0,0);q.fillStyle='#fff';q.fill(__cachedBoardPath());}
+ if(!__railMatte||ratio!==__matteRatio||H!==__matteH){__matteRatio=ratio;__matteH=H;__boardClipPath=null;__skyClipPath=null;__railMatte=document.createElement('canvas');__railMatte.width=Math.ceil(W*ratio);__railMatte.height=Math.ceil(H*ratio);const q=__railMatte.getContext('2d');q.setTransform(ratio,0,0,ratio,0,0);q.fillStyle='#fff';q.fillRect(-1000,218,3000,3000);} // CP-21: coins whole everywhere in front of the slot
  const main=ctx,layer=__boardLayer.getContext('2d');layer.imageSmoothingEnabled=true;layer.imageSmoothingQuality='low';layer.setTransform(1,0,0,1,0,0);layer.clearRect(0,0,__boardLayer.width,__boardLayer.height);layer.setTransform(...__camera);layer.globalAlpha=1;
  ctx=layer;__activeCoinClip='felt';
  try{for(const b of bodies)if(!b.danceDown)drawBody(b);layer.globalCompositeOperation='destination-in';layer.drawImage(__railMatte,0,0,W,H);}

@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261026113204,
+    "displayName":  "2026.10.26 UAT 2",
+    "apkVersion":  4,
+    "baselineJSONSHA256":  "32fa529ebfb6b5f4eb2cfc9ee2ce5e5ec534c2c4853a90c28826c76ea6efdb6f",
+    "stagedJSONSHA256":  "5397f4d893ddd849f38e883817bd65ad6538b4e3346b626f2a54422c7116ea83",
+    "backup":  "uat/backups/before-CP-21-UAT2-20261026113204",
+    "authorization":  "Jenny, Oct 26: yes (publish C + angle 1 + ledge fix)",
+    "releaseHTMLSHA256":  "3f21d1d25d58010dba088a10eb3f1d94bf95fea21dd70b5fb84328633d7f4a7c",
+    "reviewHTMLSHA256":  "3c686c817751dcb46c8b847fe6f542882ff39b07ddcd18ed0d1b07109e71f05d",
+    "changedFiles":  [
+                         "index.html"
+                     ],
+    "addedFiles":  [
+
+                   ],
+    "selection":  "CP-21 UAT 2: ledge fall-through fix, coin colour C (contrast 1.3, saturation 0.9), camera tilt 0.75 with table width 350",
+    "localPublication":  "verified"
+}

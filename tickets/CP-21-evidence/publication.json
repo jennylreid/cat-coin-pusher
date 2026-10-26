@@ -1,19 +1,19 @@
 ﻿{
-    "version":  20261026113204,
-    "displayName":  "2026.10.26 UAT 2",
+    "version":  20261026134357,
+    "displayName":  "2026.10.26 UAT 3",
     "apkVersion":  4,
-    "baselineJSONSHA256":  "32fa529ebfb6b5f4eb2cfc9ee2ce5e5ec534c2c4853a90c28826c76ea6efdb6f",
-    "stagedJSONSHA256":  "5397f4d893ddd849f38e883817bd65ad6538b4e3346b626f2a54422c7116ea83",
-    "backup":  "uat/backups/before-CP-21-UAT2-20261026113204",
-    "authorization":  "Jenny, Oct 26: yes (publish C + angle 1 + ledge fix)",
-    "releaseHTMLSHA256":  "3f21d1d25d58010dba088a10eb3f1d94bf95fea21dd70b5fb84328633d7f4a7c",
-    "reviewHTMLSHA256":  "3c686c817751dcb46c8b847fe6f542882ff39b07ddcd18ed0d1b07109e71f05d",
+    "baselineJSONSHA256":  "5397f4d893ddd849f38e883817bd65ad6538b4e3346b626f2a54422c7116ea83",
+    "stagedJSONSHA256":  "5584fc78698986d0ebd1c200b5c53c531f4471d12f6e5353c579afc57b903f38",
+    "backup":  "uat/backups/before-CP-21-UAT3-20261026134357",
+    "authorization":  "Jenny, Oct 26: Let me have some time with all of this in UAT.",
+    "releaseHTMLSHA256":  "677bd50ed85e5bf1cea6e1af99a19c363d4f904157cbb7dfb3b6a84b7fbb03c7",
+    "reviewHTMLSHA256":  "e30cf9385eaaa70a078ae64c2a786c343b8cae071444b64e4b77a907fa6ae52f",
     "changedFiles":  [
                          "index.html"
                      ],
     "addedFiles":  [
 
                    ],
-    "selection":  "CP-21 UAT 2: ledge fall-through fix, coin colour C (contrast 1.3, saturation 0.9), camera tilt 0.75 with table width 350",
+    "selection":  "CP-21 UAT 3: coins always whole (old felt matte removed), open side gutters with a low lip, rescue for coins squeezed through the table",
     "localPublication":  "verified"
 }
