@@ -200,7 +200,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = '2026.10.26 UAT 1';
+const BUILD = '2026.10.26 UAT 2';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -805,7 +805,7 @@ function tryDrop(at=aim) {
  const lipY=220,lipHeight=(p.y-exit.y)/(LIFT*p.s);
  // Start the physical fall at the existing screen-entry point. The display lift is then zero,
  // avoiding its 0.28-second slowdown as the coin crosses the rear rail.
- const entry=screenOf(x,depth,0),entryTop=-VIEW.y/VIEW.zy-14;
+ const entry=screenOf(x,depth,0),entryTop=VIEW.dropTop??(-VIEW.y/VIEW.zy-14);
  const entryHeight=(entry.y-entryTop)/(LIFT*entry.s);
  const deliveryGravity=DROP_GRAVITY*(entryHeight-TONGUE_H)/(lipHeight-TONGUE_H);
  const tip={x:Math.sin(exit.tip/2),y:0,z:0,w:Math.cos(exit.tip/2)};
@@ -1570,7 +1570,7 @@ const WRIST = { x: 46, y: 1418 }; // left wrist in picture pixels; the right one
 function newCanvas(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 
 // CP-21: contrast (around the gold's mid-tone) and saturation boost for a coin sprite, applied once.
-const COIN_CONTRAST=1.6,COIN_SATURATE=1.25;
+const COIN_CONTRAST=1.3,COIN_SATURATE=0.9;
 function coinClarity(cv,k,sat){const g=cv.getContext('2d'),im=g.getImageData(0,0,cv.width,cv.height),d=im.data,w=cv.width,src=d.slice();
  // soften the satin grain a little first (half a 3x3 average), so the boost doesn't make it speckly
  for(let y=1;y<cv.height-1;y++)for(let x=1;x<w-1;x++){const i=(y*w+x)*4;if(!src[i+3])continue;for(let c=0;c<3;c++){let t=0;for(let j=-1;j<=1;j++)for(let m=-1;m<=1;m++)t+=src[i+(j*w+m)*4+c];d[i+c]=(src[i+c]+t/9)/2;}}
@@ -1598,7 +1598,7 @@ async function loadArt() {
 const VIEW = { z: 1, zy: 1, y: 0 };
 // CP-21: zoom in until the table's front edge is FRONT_MARGIN above the buttons (the ears stay just under the HUD).
 // CAM_ZOOM_MAX caps the zoom (a partial zoom leaves some space below the table).
-const HEAD_Z=0.94,CHIN_Y=215,TABLE_W=392,HEAD_DROP=0; // HEAD_DROP: head lowered over the back of the pusher (game units) // CP-21: head size on screen (whole cat in frame), the head row on the table's back edge, widest table front
+const HEAD_Z=0.94,CHIN_Y=215,TABLE_W=350,HEAD_DROP=0; // HEAD_DROP: head lowered over the back of the pusher (game units) // CP-21: head size on screen (whole cat in frame), the head row on the table's back edge, widest table front
 const CAM_FILL=true,CAM_ZOOM_MAX=9,FRONT_MARGIN=18;
 const MACHINE_TOP = 34, MACHINE_BOTTOM = 640; // tips of the ears and bottom of the paws, in game units
 function fitView() {
@@ -1610,6 +1610,8 @@ function fitView() {
  // left over is split above the head and below the table.
  VIEW.zy=Math.max(z,Math.min((bottom-FRONT_MARGIN-chin)/(__front1-CHIN_Y),TABLE_W/(2*__spanFront)*z/z0));VIEW.z=VIEW.zy*z0/z;
  const spare=bottom-FRONT_MARGIN-(chin+(__front1-CHIN_Y)*VIEW.zy);VIEW.y=chin-CHIN_Y*VIEW.zy;VIEW.headDown=0; // CP-21: scene up to the HUD
+ // CP-21: the physical drop starts from the pre-lock view's screen top (coins fell through the ledge from lower)
+ {const f1=__top+(__front-__top)*0.65,zy=Math.max(z,Math.min((bottom-FRONT_MARGIN-chin)/(f1-CHIN_Y),330/(2*__spanFront)*z/z0)),sp=bottom-FRONT_MARGIN-(chin+(f1-CHIN_Y)*zy);VIEW.dropTop=-(chin+sp/2-CHIN_Y*zy)/zy-14;} // (camera tilt 0.65, table width 330)
 }
 function screenToGameX(sx) { return (sx - 200) / VIEW.z + 200; }
 // The picture is also drawn ART_ZX times wider than it is (around the centre), so the cat's cheeks reach the
@@ -1926,7 +1928,7 @@ function __plane(y){const s=depthScale(y),v=(s-__sBack)/(1-__sBack),py=__top+(__
 // The painted table is re-projected row by row to this camera (__warpTable), so coins, rails and pusher stay in register.
 const CAM_K=Math.max(.01,0.25),__sBack0=__sBack,__spanBack0=__spanBack,__camSB=1/(1+CAM_K);
 // CAM_TILT: how tall the table looks on screen (1 = step 1). Lower = a lower camera, so coins look more side-on.
-const CAM_TILT=0.65,__front1=__top+(__front-__top)*CAM_TILT;
+const CAM_TILT=0.75,__front1=__top+(__front-__top)*CAM_TILT;
 const __camSpanBack=__spanFront-(__spanFront-__spanBack0)*(1-__camSB)/(1-__sBack0);
 function __camS(u){return 1/(1+CAM_K*(1-u));}
 __plane=function(y){const s=__camS((y-T.BACK)/(640-T.BACK)),v=(s-__camSB)/(1-__camSB),py=__top+(__front1-__top)*v,gx=(__camSpanBack+(__spanFront-__camSpanBack)*v)/170,ds=CAM_K/(640-T.BACK)*s*s,dy=(__front1-__top)*ds/(1-__camSB),dg=(__spanFront-__camSpanBack)*ds/(170*(1-__camSB));return {py,gx,dy,dg};};

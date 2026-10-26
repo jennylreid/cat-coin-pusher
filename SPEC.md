@@ -1,4 +1,4 @@
-# CP-21 PUBLISHED — 20261026100613 / APK4 (2026.10.26 UAT 1)
+# CP-21 PUBLISHED — 20261026113204 / APK4 (2026.10.26 UAT 2; UAT 1 was 20261026100613)
 
 Layout lock. The locked numbers are in "Locked layout (CP-21)" below and supersede older board geometry. Source: work/cp21/release.html. Report: tickets/CP-21.md. Phone UAT pending.
 
@@ -126,14 +126,15 @@ Layout first, art second: new art fills this layout and does not change it. Temp
 
 - **Layers:** the background is fixed to the screen (cover-fit; never moves or scales with the scene). The cat, mitts, ledge, table and coins form the scene, placed by the view. Table dimensions are locked; the table's look may change per cat. Cat head and paw sizes are locked.
 - **Canvas and view:** 400 game units wide. The cat's ear tips sit just under the HUD (HUD bottom + 8 px); the scene is anchored at the top, so any spare height is below the table, above the buttons.
-- **Camera:** flatter, lower camera. CAM_K 0.25 (how much the table narrows toward the back), CAM_TILT 0.65. Row size on screen is that of the 640-deep table: a longer table adds rows further down, never squeezes them.
-- **Table:** T = {L 30, R 370, BACK 190, FRONT 760}. Front edge drawn at the full screen width (TABLE_W 392). Narrow back: 110 either side of centre up to depth 225, widening to full width at 315, giving rows of 4, 4, 5, 6 coins, then full width. No wood rails. Fallback on file: FRONT 720 (one row fewer), `work/cp21/layout-7rows-fallback.html`.
+- **Camera:** flatter, lower camera. CAM_K 0.25 (how much the table narrows toward the back), CAM_TILT 0.75 (UAT 2; UAT 1 was 0.65, Jenny found the coins too slanted; UAT 3's view was steeper). Row size on screen is that of the 640-deep table: a longer table adds rows further down, never squeezes them.
+- **Drop:** a tapped coin's physical fall starts from the screen top the view had before the lock (tilt 0.65, table width 330), whatever the layout. A lower, slower start let about 1 in 10 coins pass through the moving ledge (UAT 1 bug).
+- **Table:** T = {L 30, R 370, BACK 190, FRONT 760}. Front edge drawn at TABLE_W 350 (UAT 2; 392 = full screen width in UAT 1). Narrow back: 110 either side of centre up to depth 225, widening to full width at 315, giving rows of 4, 4, 5, 6 coins, then full width. No wood rails. Fallback on file: FRONT 720 (one row fewer), `work/cp21/layout-7rows-fallback.html`.
 - **Start:** ordered single layer of straight rows from just in front of the pulled-back pusher to 70 units (START_CLEAR) from the front edge: 9 rows, 8 showing with the pusher forward; 51 coins on the table at the start on every board. No towers on any board (Board 3's towers dropped; tower topple physics kept). Prizes and Board 3's Quake coin rest on top of the rows; their depths moved 120 units forward with the longer table.
 - **Cat:** head drawn at HEAD_Z 0.94 of the screen fit, chin on the table's back edge (CHIN_Y 215). Head art unchanged.
 - **Mitts:** "tucked" pose for Waiting: mitts behind the cheeks, claws hooked 30 units over the inner front corner of each armrest (MITT_HOOK 30, MITT_D 228, MITT_LIFT 30, MITT_W 182), no cuffs or black arms showing. Teal/brass armrests either side of the narrow back (ARM_H 70, ARM_FRONT 240). "Reaching" (mitts out at the corners with arms) is kept as a second pose for later use.
-- **Coins:** approved big-paw face with contrast 1.6 / saturation 1.25; drawn twice as thick as the physics (COIN_LOOK 2); dark gold sides, bright faces. COIN_R 26 (physics unchanged).
+- **Coins:** approved big-paw face, colour C: contrast 1.3 / saturation 0.9, a lighter, softer gold (UAT 2; UAT 1 was 1.6 / 1.25, too yellow); drawn twice as thick as the physics (COIN_LOOK 2); dark gold sides, bright faces. COIN_R 26 (physics unchanged).
 - **Quake coin:** 20% wider than a paw coin (QUAKE_R 1.2, physics too), same thickness as paw coins, dark gold side with a blue band matching the face's dark blue.
-- **Balance (desktop, Oct 26):** 18/18 no-power wins over 3 boards, 3 seeds, 0.22/0.4 s taps (work/cp21/wins-layout-8rows.json).
+- **Balance (desktop, Oct 26, UAT 2):** 18/18 no-power wins over 3 boards, 3 seeds, 0.22/0.4 s taps; 0 of 720 taps fall through the ledge (tickets/CP-21-evidence/wins-uat2.json, fallthrough-uat2.log).
 - **Next (art pass, not layout):** rounder cat head or chin fluff to fill the gap between chin and ledge; ledge look; extended felt streaks; Jenny prefers the Rest face to the Waiting face, so Waiting will change later.
 
 ## Coin entry and input
