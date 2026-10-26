@@ -42,17 +42,29 @@ canvas{display:block;margin:0 auto}
 // Rapier works in metres (M per unit). Drawing projects everything into the slanted view of Jenny's art (proj()).
 const W = 400;
 let H = 720; // grows on tall phones; the extra height is empty space below the bucket
-const T = { L: 30, R: 370, BACK: 190, FRONT: 640 };
+const T = { L: 30, R: 370, BACK: 190, FRONT: 760 }; // CP-21: longer table (was 640)
 const PAY_L = 60, PAY_R = 340; // the bucket's edges: coins off the table past these miss it
 // The tongue (pusher) slides between PUSH_MIN and PUSH_MAX; its back runs under the back wall at PUSH_BACK, which
 // scrapes coins off it as it pulls back, so they spill over its front edge onto the table.
 // (a short stroke, so little bare table is left between the tongue and the coins in front of it, and the tongue is
 // never more than a third bare; the back wall sits right under the cat's upper lip, so coins fill the tongue)
 const PUSH_BACK = -25, TONGUE_H = 18, TONGUE_LEN = 300;
-const PUSH_HALF=170, LEDGE_BACK=205;
+// CP-21 funnel: the table is FUNNEL_BACK either side of centre beside the pusher (about 4 coins across), then widens
+// steadily from depth FUNNEL_D1 to FUNNEL_D2 to the full width (T.L..T.R): about 4, 5, then 6 coins across.
+const FUNNEL_BACK=110, FUNNEL_D1=225, FUNNEL_D2=315;
+function tableHalfAt(y){const hw=(T.R-T.L)/2;return y<=FUNNEL_D1?FUNNEL_BACK:y>=FUNNEL_D2?hw:FUNNEL_BACK+(hw-FUNNEL_BACK)*(y-FUNNEL_D1)/(FUNNEL_D2-FUNNEL_D1);}
+const PUSH_HALF=FUNNEL_BACK, LEDGE_BACK=205;
 let PUSH_MIN = 205, PUSH_MAX = 275, PUSH_PERIOD = 3.2;
 const COIN_R = 26, LUCKY_R = 28, ITEM_R = 30; // big coins: more action per coin, and fewer for the phone to simulate
 const COIN_HALF = 2, LUCKY_HALF = 3.5, ITEM_HALF = 9; // half thicknesses
+// CP-21: coin side colours, bottom to just under the face (silver coins share the gold sides).
+const RIM={coin:[[74,40,4],[160,98,14]]};RIM.silver=RIM.coin; // silver coins use the gold face art, so the gold side too
+function __rimColour(kind,t){const [a,b]=RIM[kind];return 'rgb('+a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')+')';}
+// CP-21: the Quake coin: drawn thickness (game units; paw coins are 8), width vs a paw coin (physics too), face boost
+const QUAKE_THICK = 8, QUAKE_R = 1.2, QUAKE_CONTRAST = 1.8, QUAKE_SATURATE = 1.4;
+// the side's blue band: the face ring's blue after the boost (measured: rgb(0,12,255)), a touch darker at its lowest edge
+const QUAKE_BLUE = ['rgb(0,10,215)','rgb(0,12,255)'];
+const COIN_LOOK = 2; // CP-21: how many times thicker coins are drawn than they are in the physics
 // Bonus chips: big, thick, coloured, with a scalloped edge and their value (5x, 10x) printed on them.
 const BONUS = { x5: { r: 36, half: 3.5, value: 5 }, x10: { r: 40, half: 4, value: 10 } };
 // Flat and boxy things on the table (half sizes across, up, deep): arcade ticket strips, dollar bills, Rubik's cubes.
@@ -110,7 +122,7 @@ function pickItem() {
   return from[(Math.random() * from.length) | 0];
 }
 function radius(kind) {
-  if(kind==='quake')return COIN_R*1.08;
+  if(kind==='quake')return COIN_R*QUAKE_R;
   if (BOX[kind]) return Math.max(BOX[kind].hx, BOX[kind].hz);
   return BONUS[kind] ? BONUS[kind].r : kind === 'item' || kind === 'power' ? ITEM_R : kind === 'lucky' ? LUCKY_R : COIN_R;
 }
@@ -126,7 +138,7 @@ function halfOf(kind) {
 const ART_ZX = 1.2; // how much wider than the picture the machine is drawn (see artX)
 const P_K = 0.73, P_H = 823, P_Y0 = -244, P_X = 0.9 * ART_ZX, SQUASH = 0.6, LIFT = 0.85;
 const FRONT_Y = 579;
-function depthScale(y) { return 1 / (1 + P_K * (1 - (y - T.BACK) / (T.FRONT - T.BACK))); }
+function depthScale(y) { return 1 / (1 + P_K * (1 - (y - T.BACK) / (640 - T.BACK))); } // CP-21: the picture's own table depth
 function proj(x, y) { const s = depthScale(y); return { x: 200 + (x - 200) * s * P_X, y: P_Y0 + P_H * s, s: s * P_X }; }
 function unprojX(sx, y) { return 200 + (sx - 200) / (depthScale(y) * P_X); }
 function screenOf(x, y, h) { const p = proj(x, y); return { x: p.x, y: p.y - h * LIFT * p.s, s: p.s, worldX:x, depth:y, height:h }; }
@@ -134,7 +146,7 @@ function screenOf(x, y, h) { const p = proj(x, y); return { x: p.x, y: p.y - h *
 function projVec(v, s, at) {
  if(at){
   // Coin faces use the same local perspective as their board positions.
-  const ds=P_K/(T.FRONT-T.BACK)*depthScale(at.depth)**2;
+  const ds=P_K/(640-T.BACK)*depthScale(at.depth)**2;
   return {x:v.x*s+(at.worldX-200)*P_X*ds*v.z,
    y:-v.y*LIFT*s+(P_H-at.height*LIFT*P_X)*ds*v.z};
  }
@@ -188,7 +200,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = '2026.10.17 UAT 3';
+const BUILD = '2026.10.26 UAT 1';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -205,8 +217,11 @@ function initPhysics() {
     RAPIER.ColliderDesc.cuboid(hx * M, hy * M, hz * M).setTranslation(x * M, h * M, y * M).setFriction(fr), fixed);
   const halfW = (T.R - T.L) / 2;
   box(halfW + 40, 10, (T.FRONT + 100) / 2, 200, -10, (T.FRONT - 100) / 2, TABLE_FRICTION); // table top, open at the front
-  box(10, 200, (T.FRONT + 100) / 2, T.L - 10, 190, (T.FRONT - 100) / 2, 0.2);               // side walls
-  box(10, 200, (T.FRONT + 100) / 2, T.R + 10, 190, (T.FRONT - 100) / 2, 0.2);
+  // side walls (CP-21 funnel): straight beside the pusher, a slant, then straight to the front
+  const wall=(x0,y0,x1,y1,side)=>{const len=Math.hypot(x1-x0,y1-y0),a=Math.atan2(x1-x0,y1-y0),nx=Math.cos(a)*side,nz=-Math.sin(a)*side;
+   world.createCollider(RAPIER.ColliderDesc.cuboid(10*M,200*M,(len/2+2)*M).setTranslation(((x0+x1)/2+nx*10)*M,190*M,((y0+y1)/2+nz*10)*M)
+    .setRotation({x:0,y:Math.sin(a/2),z:0,w:Math.cos(a/2)}).setFriction(0.2),fixed);};
+  for(const s of [-1,1]){wall(200+s*FUNNEL_BACK,-100,200+s*FUNNEL_BACK,FUNNEL_D1,s);wall(200+s*FUNNEL_BACK,FUNNEL_D1,200+s*halfW,FUNNEL_D2,s);wall(200+s*halfW,FUNNEL_D2,200+s*halfW,T.FRONT+100,s);}
   box(halfW + 40, 150, 12, 200, TONGUE_H + 150, LEDGE_BACK - 12, 0.2); // upper ledge backstop prevents coins retreating into the throat
   tongue = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased()
     .setTranslation(200 * M, TONGUE_H / 2 * M, (pusherY - TONGUE_LEN / 2) * M));
@@ -262,14 +277,14 @@ function addCoin(kind, id, x, h, y, rot, linvel, angvel) {
 // One isolated, deterministic board. Campaign and collection economy are deliberately absent.
 const BOARDS = Object.freeze([
  {id:'snack-shelf',name:'Board 1',seed:42,coins:220,seconds:90,
-  targets:[{id:'cheese',x:140,y:490},{id:'shrimp',x:260,y:570}],
+  targets:[{id:'cheese',x:140,y:610},{id:'shrimp',x:260,y:690}],
   towers:[{x:200,y:420,n:10}]},
  {id:'twin-towers',name:'Board 2',seed:137,coins:160,seconds:110,
-  targets:[{id:'cheese',x:260,y:510},{id:'shrimp',x:132,y:580}],
+  targets:[{id:'cheese',x:260,y:630},{id:'shrimp',x:132,y:700}],
   towers:[{x:115,y:465,n:8},{x:285,y:390,n:12}]},
  // Staggered prize lanes/depths, with an accessible Quake coin toward the front.
- {id:'tuna-terraces',name:'Board 3',seed:316,coins:140,seconds:110,
-  targets:[{id:'cheese',x:96,y:515},{id:'shrimp',x:288,y:555},{id:'tuna',x:210,y:465}],
+ {id:'tuna-terraces',name:'Board 3',seed:316,coins:160,seconds:110,
+  targets:[{id:'cheese',x:96,y:635},{id:'shrimp',x:288,y:675},{id:'tuna',x:210,y:585}],
   towers:[{x:130,y:445,n:48},{x:270,y:430,n:36},
    {x:92,y:365,n:4},{x:126,y:365,n:10},{x:160,y:365,n:4}]}
 ]);
@@ -406,23 +421,17 @@ const TOWERS = [
 // below — plus the showpiece towers. No toys: they only arrive when a special coin goes over the edge (dropToy).
 const TABLE_LAYERS = 3, TONGUE_LAYERS = 2;
 function prefill() {
- const d=COIN_R*2+0.8;
- function sheet(y0,y1,h) {
-  let row=0;
-  for(let y=y0;y<y1;y+=d*.866,row++)
-   for(let x=T.L+COIN_R+1+(row%2)*d/2;x<T.R-COIN_R;x+=d) {
-    if(BOARD.towers.some(t=>Math.hypot(x-t.x,y-t.y)<COIN_R*2+3))continue;
-    addCoin(seededRandom()<.25?'silver':'coin',null,x,h,y,yawTurn(seededRandom()*6));
-   }
+ // CP-21: an ordered start. Straight rows, one coin layer, no towers; prizes rest on top.
+ const d=COIN_R*2+1,START_CLEAR=70; // keep the front rows this far from the edge
+ for(let y=PUSH_MIN+COIN_R+2;y+COIN_R<=T.FRONT-START_CLEAR;y+=d){
+  const n=Math.floor(2*Math.min(tableHalfAt(y-COIN_R),tableHalfAt(y+COIN_R))/d);
+  for(let i=0;i<n;i++)addCoin(seededRandom()<.25?'silver':'coin',null,200+(i-(n-1)/2)*d,COIN_HALF+.2,y,yawTurn(0));
  }
- sheet(PUSH_MAX+COIN_R+3,T.FRONT-COIN_R,COIN_HALF+.2);
- for(const t of BOARD.towers){const b=addStack(t.x,null,t.y,yawTurn(0),t.n,null,0);if(BOARD.id==='tuna-terraces')b.limit*=.35;}
- if(BOARD.id==='tuna-terraces')addCoin('quake',null,200,COIN_HALF*8+halfOf('quake'),595,yawTurn(0));
+ if(BOARD.id==='tuna-terraces')addCoin('quake',null,200,COIN_HALF*2+halfOf('quake')+1,715,yawTurn(0));
  for(const target of BOARD.targets) {
   const b=addCoin('item',target.id,target.x,COIN_HALF*2+halfOf('item')+1,target.y,yawTurn(0));
   b.boardTarget=true;
  }
-
 }
 
 function load() { resetBoard(); }
@@ -724,7 +733,7 @@ function toyName(id) {
 function dropToy(id) {
   if (toysOnTable() >= MAX_TOYS) return;
   id = id || randomToy();
-  const kind = ITEMS[id] ? 'item' : id, x = rand(T.L + 40, T.R - 40), y = rand(PUSH_MAX + 40, T.FRONT - 90);
+  const kind = ITEMS[id] ? 'item' : id, y = rand(PUSH_MAX + 40, T.FRONT - 90), x = 200 + rand(-1, 1) * (tableHalfAt(y) - 40);
   const b = addCoin(kind, kind === 'item' ? id : null, x, DROP_H + 40, y, randomTurn(rand(0.2, 0.8)),
     { x: 0, y: -3, z: 0 }, { x: rand(-4, 4), y: rand(-3, 3), z: rand(-4, 4) });
   b.fresh = true; b.quest = true;
@@ -789,7 +798,7 @@ function tryDrop(at=aim) {
  // extended releases catch the upper tier after the existing fall. Both clear the rear rail.
  const stroke=Math.max(0,Math.min(1,(pusherY-PUSH_MIN)/(PUSH_MAX-PUSH_MIN)));
  const depth=265-32*stroke;
- const x=Math.max(T.L+COIN_R,Math.min(T.R-COIN_R,at.x)),exit=mouthExit(proj(x,depth).x);
+ const x=Math.max(200-PUSH_HALF+COIN_R,Math.min(200+PUSH_HALF-COIN_R,at.x)),exit=mouthExit(proj(x,depth).x);
  board.remaining--;board.used++;board.released++;S.coins=board.remaining;S.drops++;lastDrop=time;
  // Release from projected lip height, at rest, above the selected lane and clear of the tray.
  const p=proj(x,depth);
@@ -1020,7 +1029,7 @@ function update(dt) {
   showerTimer -= dt;
   if (showerLeft > 0 && showerTimer <= 0) {
     showerLeft--; showerTimer = 0.09;
-    const b = addCoin(Math.random() < 0.25 ? 'silver' : 'coin', null, rand(T.L + 30, T.R - 30), DROP_H, DROP_Y + rand(-3, 10),
+    const b = addCoin(Math.random() < 0.25 ? 'silver' : 'coin', null, rand(200 - PUSH_HALF + 30, 200 + PUSH_HALF - 30), DROP_H, DROP_Y + rand(-3, 10),
       randomTurn(rand(0.03, 0.15)), { x: 0, y: -3, z: 0 }, { x: rand(-1, 1), y: rand(-3, 3), z: rand(-1, 1) });
     b.fresh = true;
   }
@@ -1415,17 +1424,34 @@ function sprite(kind, id) {
 // A coin as Rapier has it: its face is the disc in the coin's own plane (axes u, w), projected into the slanted
 // view; the rim is the back face, offset by the coin's thickness, in the edge colour. We look at whichever face is
 // turned toward the viewer.
+// CP-21: a thick coin's side between heights h0 and h1 above its centre: the hull of the two discs, shaded from col0 at its
+// lowest point on screen to col1 toward the top.
+function __coinSide(c,pn,pu,pw,det,r,h0,h1,col0,col1){
+ const D=h1-h0,A=r*Math.hypot(pu.y,pw.y),inv=(X,Y)=>({x:(pw.y*X-pw.x*Y)/det,y:(pu.x*Y-pu.y*X)/det});
+ const d=inv(pn.x*D,pn.y*D),l=Math.hypot(d.x,d.y)||1e-6,nx=-d.y/l*r,ny=d.x/l*r,g0=inv(0,A),t=Math.min(.9,Math.abs(pn.y)*D/(A+Math.abs(pn.y)*D)+.05);
+ ctx.save();ctx.translate(c.x+pn.x*h0,c.y+pn.y*h0);ctx.transform(pu.x,pu.y,pw.x,pw.y,0,0);
+ const g=ctx.createLinearGradient(g0.x,g0.y,d.x,d.y);g.addColorStop(0,col0);g.addColorStop(t,col1);g.addColorStop(1,col1);ctx.fillStyle=g;
+ ctx.beginPath();ctx.arc(0,0,r,0,7);ctx.fill();ctx.beginPath();ctx.moveTo(nx,ny);ctx.lineTo(nx+d.x,ny+d.y);ctx.lineTo(d.x-nx,d.y-ny);ctx.lineTo(-nx,-ny);ctx.closePath();ctx.fill();
+ ctx.beginPath();ctx.arc(d.x,d.y,r,0,7);ctx.fill();ctx.restore();}
 function drawCoinAt(kind, c, q, id) {
   let n = qrot(q, { x: 0, y: 1, z: 0 }), u = qrot(q, { x: 1, y: 0, z: 0 }), w = qrot(q, { x: 0, y: 0, z: 1 });
   if (n.y * LIFT + n.z * SQUASH < 0) { n = { x: -n.x, y: -n.y, z: -n.z }; w = { x: -w.x, y: -w.y, z: -w.z }; }
   const r = radius(kind), half = halfOf(kind), pn = projVec(n, c.s, c), pu = projVec(u, c.s, c), pw = projVec(w, c.s, c);
   ctx.fillStyle = EDGE[kind];
-  for (const k of [-1, 0]) { // darker lower lip separates the satin-gold stack layers
-    if(kind==='coin'||kind==='silver')ctx.fillStyle=k===-1?'#80551d':'#b98d39';
+  // CP-21: gold and silver coins are drawn COIN_LOOK times thicker; their bottom stays on what they rest on.
+  const look=kind==='coin'||kind==='silver'?COIN_LOOK:kind==='quake'?QUAKE_THICK/(2*half):1,face=-half+2*half*look,layers=look===1?1:Math.ceil(face/1.5);
+  const det=pu.x*pw.y-pw.x*pu.y;
+  if(look!==1&&Math.abs(det)>1e-6){ // CP-21: the side as smoothly shaded shapes; the Quake coin keeps a blue ceramic band
+    if(kind==='quake'){const D=face+half,g0=__rimColour('coin',0),g1=__rimColour('coin',1);
+     __coinSide(c,pn,pu,pw,det,r,-half,face,g0,g1);__coinSide(c,pn,pu,pw,det,r,-half+.3*D,-half+.62*D,QUAKE_BLUE[0],QUAKE_BLUE[1]);__coinSide(c,pn,pu,pw,det,r,-half+.62*D,face,__rimColour('coin',.55),g1);}
+    else __coinSide(c,pn,pu,pw,det,r,-half,face,__rimColour(kind,0),__rimColour(kind,1));
+  }
+  else for (let i = 0; i <= layers; i++) { const k=(-half+i*face/layers)/half; // darker lower lip separates the satin-gold stack layers
+    if(kind==='coin'||kind==='silver')ctx.fillStyle=look===1?(i===0?'#80551d':'#b98d39'):__rimColour(kind,i/layers);
     ctx.save(); ctx.translate(c.x + pn.x * half * k, c.y + pn.y * half * k); ctx.transform(pu.x, pu.y, pw.x, pw.y, 0, 0);
     ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill(); ctx.restore();
   }
-  if(kind==='quake'){
+  if(kind==='quake'&&look===1){
     if(kind==='quake')for(const k of [-.48,-.12,.28]){ctx.save();ctx.translate(c.x+pn.x*half*k,c.y+pn.y*half*k);ctx.transform(pu.x,pu.y,pw.x,pw.y,0,0);ctx.fillStyle=k===.28?'#d9af51':'#2358b4';ctx.beginPath();ctx.arc(0,0,r,0,7);ctx.fill();ctx.restore();}
     // Fine gold milling on the visible front half of the physical edge.
     ctx.strokeStyle='rgba(99,64,18,.55)';ctx.lineWidth=Math.max(.3,c.s*.42);ctx.beginPath();
@@ -1433,7 +1459,7 @@ function drawCoinAt(kind, c, q, id) {
     ctx.stroke();
   }
   const sp = sprite(kind, id);
-  ctx.save(); ctx.translate(c.x + pn.x * half, c.y + pn.y * half); ctx.transform(pu.x, pu.y, pw.x, pw.y, 0, 0);
+  ctx.save(); ctx.translate(c.x + pn.x * face, c.y + pn.y * face); ctx.transform(pu.x, pu.y, pw.x, pw.y, 0, 0);
   ctx.drawImage(sp.cv, -sp.half, -sp.half, sp.half * 2, sp.half * 2); ctx.restore();
 }
 
@@ -1445,6 +1471,9 @@ function drawPrize(kind,id,x,y,s) {
  ctx.drawImage(ART.snacks,side*w,0,w,ART.snacks.height,x-size/2,y-size*.7,size,size);
 }
 
+// CP-21: drawn height of a body resting on coins: its height above the table (or the pusher top) times COIN_LOOK.
+function __lift(b,y,h){const half=b.half??halfOf(b.kind),onPusher=y<=tongueDrawY+2&&h-half>=TONGUE_H-2,base=onPusher?TONGUE_H:0;
+ return h+Math.max(0,h-half-base)*(COIN_LOOK-1);}
 function drawBody(b) {
   if(b.input&&b.fresh)return; // Airborne input coins are drawn in front of the mouth below.
   const t = b.rb.translation(), x = t.x / M, h = t.y / M, y = t.z / M;
@@ -1470,10 +1499,10 @@ function drawBody(b) {
       drawCoinAt(part.kind, screenOf(x + o.x, y + o.z, h + o.y), qmul(q, part.q));
     }
   } else if (b.kind === 'item' || b.kind === 'power') {
-    const c = screenOf(x, y, h - b.half);
+    const c = screenOf(x, y, __lift(b, y, h) - b.half);
     drawPrize(b.kind, b.id, c.x, c.y, c.s);
   } else if (BOX[b.kind]) drawBoxAt(b.kind, x, y, h, b.rb.rotation());
-  else drawCoinAt(b.kind, screenOf(x, y, h), b.rb.rotation(), b.id);
+  else drawCoinAt(b.kind, screenOf(x, y, __lift(b, y, h)), b.rb.rotation(), b.id);
 }
 
 // A ticket strip, bill or Rubik's cube as Rapier has it: each face turned toward the viewer, back faces first,
@@ -1540,18 +1569,26 @@ const WRIST = { x: 46, y: 1418 }; // left wrist in picture pixels; the right one
 
 function newCanvas(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 
+// CP-21: contrast (around the gold's mid-tone) and saturation boost for a coin sprite, applied once.
+const COIN_CONTRAST=1.6,COIN_SATURATE=1.25;
+function coinClarity(cv,k,sat){const g=cv.getContext('2d'),im=g.getImageData(0,0,cv.width,cv.height),d=im.data,w=cv.width,src=d.slice();
+ // soften the satin grain a little first (half a 3x3 average), so the boost doesn't make it speckly
+ for(let y=1;y<cv.height-1;y++)for(let x=1;x<w-1;x++){const i=(y*w+x)*4;if(!src[i+3])continue;for(let c=0;c<3;c++){let t=0;for(let j=-1;j<=1;j++)for(let m=-1;m<=1;m++)t+=src[i+(j*w+m)*4+c];d[i+c]=(src[i+c]+t/9)/2;}}
+ for(let i=0;i<d.length;i+=4){if(!d[i+3])continue;const l=.3*d[i]+.59*d[i+1]+.11*d[i+2];
+  for(let c=0;c<3;c++){const v=l+(d[i+c]-l)*sat;d[i+c]=Math.max(0,Math.min(255,(v-140)*k+140));}}
+ g.putImageData(im,0,0);}
 async function loadArt() {
  async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
  const [head,table,tongue,paw,coin,snacks,pupil,background,headSweet,headWild,headSharp,happyMouth,happyMitt]=await Promise.all(['head-waiting','table','tongue','paw','coin','snacks','pupil','background','head-sweet','head-wild','head','happy-mouth','happy-mitt'].map(n=>image('img/art/'+n+'.webp')));
- Object.assign(ART,{head,table,tongue,paw,coin,snacks,pupil,background,headSweet,headWild,headSharp,happyMouth,happyMitt});
+ Object.assign(ART,{head,table:__warpTable(table),tongue,paw,coin,snacks,pupil,background,headSweet,headWild,headSharp,happyMouth,happyMitt});
  ART.tuna=await image('img/art/tuna.png');
  __brassTexture=await image('img/art/brass-pusher.png');
  const face=newCanvas(COIN_R*2*SPR,COIN_R*2*SPR);face.getContext('2d').drawImage(coin,21,21,1209,1202,0,0,face.width,face.height);
  const coinAtlas=await image('img/art/uat18-coin-faces.png');
  function atlasCoin(rect,r,atlas=coinAtlas){const cv=newCanvas(Math.ceil(r*2*SPR),Math.ceil(r*2*SPR)),g=cv.getContext('2d');g.imageSmoothingEnabled=true;g.imageSmoothingQuality='high';g.drawImage(atlas,...rect,0,0,cv.width,cv.height);return {cv,half:r};}
  const softPaw=await image('img/art/uat18-small-paw.png');
- sprites.coin=atlasCoin([0,0,softPaw.width,softPaw.height],COIN_R,softPaw);sprites.silver=sprites.coin;
- sprites.quake=atlasCoin([934,45,780,775],radius('quake'));
+ sprites.coin=atlasCoin([55,44,775,765],COIN_R);coinClarity(sprites.coin.cv,COIN_CONTRAST,COIN_SATURATE);sprites.silver=sprites.coin; // CP-21: big raised-paw gold face
+ sprites.quake=atlasCoin([934,45,780,775],radius('quake'));coinClarity(sprites.quake.cv,QUAKE_CONTRAST,QUAKE_SATURATE); // CP-21: as bright as the gold coins
 }
 
 // The machine is drawn zoomed in (VIEW.z) around the screen's centre, so the table fills more of the screen and the
@@ -1559,12 +1596,20 @@ async function loadArt() {
 // On tall phones the machine is also stretched a little taller (VIEW.zy, at most 12% more than its width), which
 // gives more table, and any space still left over is split between above the cat and below the bucket.
 const VIEW = { z: 1, zy: 1, y: 0 };
+// CP-21: zoom in until the table's front edge is FRONT_MARGIN above the buttons (the ears stay just under the HUD).
+// CAM_ZOOM_MAX caps the zoom (a partial zoom leaves some space below the table).
+const HEAD_Z=0.94,CHIN_Y=215,TABLE_W=392,HEAD_DROP=0; // HEAD_DROP: head lowered over the back of the pusher (game units) // CP-21: head size on screen (whole cat in frame), the head row on the table's back edge, widest table front
+const CAM_FILL=true,CAM_ZOOM_MAX=9,FRONT_MARGIN=18;
 const MACHINE_TOP = 34, MACHINE_BOTTOM = 640; // tips of the ears and bottom of the paws, in game units
 function fitView() {
  // UAT-03: fit the full head and board below the actual HUD, entirely above buttons.
  const hud=hudLayout(),top=hud.headerBottom+8,bottom=hud.bottomY-8;
  const upper=-25,lower=600;const z=Math.min(1.08,(bottom-top)/(lower-upper));
- VIEW.z=Math.min(.98,z);VIEW.zy=z;VIEW.y=top-upper*z;
+ const z0=Math.min(.98,z);VIEW.hz=HEAD_Z;VIEW.hzy=HEAD_Z*z/z0;const chin=top+(CHIN_Y-upper)*VIEW.hzy;
+ // The table zooms to reach the bottom, but never wider than the screen (front edge at most TABLE_W wide); any height
+ // left over is split above the head and below the table.
+ VIEW.zy=Math.max(z,Math.min((bottom-FRONT_MARGIN-chin)/(__front1-CHIN_Y),TABLE_W/(2*__spanFront)*z/z0));VIEW.z=VIEW.zy*z0/z;
+ const spare=bottom-FRONT_MARGIN-(chin+(__front1-CHIN_Y)*VIEW.zy);VIEW.y=chin-CHIN_Y*VIEW.zy;VIEW.headDown=0; // CP-21: scene up to the HUD
 }
 function screenToGameX(sx) { return (sx - 200) / VIEW.z + 200; }
 // The picture is also drawn ART_ZX times wider than it is (around the centre), so the cat's cheeks reach the
@@ -1796,6 +1841,9 @@ function danceWorldEnd(){if(!danceWorld)return;
  bodies.sort((a,b)=>a.sortK-b.sortK||a.uid-b.uid);
  danceWorld.free();danceWorld=null;danceJolt=0;dancePawLift={'-1':0,'1':0};}
 
+// CP-21: where the mitts rest during play (game units; Rest-pose size) and the arm drawn up from each cuff.
+const MITT_X=160,MITT_Y=250,MITT_W=182,MITT_TURN=0,MITT_LIFT=30,MITT_HOOK=30,MITT_D=228,ARM_LEN=0;
+function drawMittArm(w,h){if(ARM_LEN<=0)return;const top=-h/2+.06*h,half=.205*w;ctx.fillStyle='rgb(8,8,7)';ctx.beginPath();ctx.moveTo(-half,top+30);ctx.lineTo(-half,top-ARM_LEN);ctx.lineTo(half,top-ARM_LEN);ctx.lineTo(half,top+30);ctx.closePath();ctx.fill();}
 function drawPaws() {
  if(isRestPose()){
   const w=182,h=w*ART.paw.height/ART.paw.width;
@@ -1825,13 +1873,14 @@ function drawPaws() {
  const oldX=base+(inner-base)*reach,oldY=cy-35*idle+Math.sin(time*2)*2*idle+quakeLift;
  const raisedX=side<0?65:W-65,raisedY=VIEW.y+180*VIEW.zy+45;
  const waiting=sweepTime===0&&catquakeTime===0;
- const waitingX=side<0?-35:W+35,waitingY=VIEW.y+proj(200,410).y*VIEW.zy-12;
+ const __mr=mittRest(side),waitingX=__mr.x,waitingY=__mr.y;
  ctx.save();ctx.translate(waiting?waitingX:oldX+(raisedX-oldX)*recoveryMix,waiting?waitingY:oldY+(raisedY-oldY)*recoveryMix);
   if(side>0)ctx.scale(-1,1);
   // Original inward sweep angle and overlap; a gentle one-degree wobble only at rest.
-  ctx.rotate(waiting?-.25+Math.sin(time*1.7)*.018:(- .35*reach+Math.sin(time*1.7)*.018*idle)*(1-recoveryMix)-.12*recoveryMix);
-  const w=280*recoveryScale(),h=w*ART.paw.height/ART.paw.width; // Impact/sweep stay full size; retreat adds perspective.
-  if(recoveryMix>0)drawRestMitt(w,recoveryMix);else ctx.drawImage(ART.paw,-w/2,-h/2,w,h);ctx.restore();
+  ctx.rotate(waiting?MITT_TURN+Math.sin(time*1.7)*.018:(- .35*reach+Math.sin(time*1.7)*.018*idle)*(1-recoveryMix)-.12*recoveryMix);
+  const w=waiting?MITT_W:280*recoveryScale(),h=w*ART.paw.height/ART.paw.width; // Impact/sweep stay full size; retreat adds perspective.
+  if(waiting)drawMittArm(w,h);
+  if(recoveryMix>0)drawRestMitt(w,recoveryMix);else if(waiting)drawRestMitt(w);else ctx.drawImage(ART.paw,-w/2,-h/2,w,h);ctx.restore(); // CP-21: idle mitts without the cuff
  }
 }
 
@@ -1872,6 +1921,30 @@ const __felt=[[228.125, 112.8906, 286.7188], [229.2188, 112.8906, 287.1094], [23
 let __camera=[1,0,0,1,0,0],__auditCoinsOnly=false,__activeCoinClip='';const __coinClipStats={board:0,delivery:0,falling:0,unclipped:0};
 const __delivery={from:200,to:200,at:-100,worldX:200,depth:DROP_Y,uid:0};
 function __plane(y){const s=depthScale(y),v=(s-__sBack)/(1-__sBack),py=__top+(__front-__top)*v,gx=(__spanBack+(__spanFront-__spanBack)*v)/170,ds=P_K/(T.FRONT-T.BACK)*s*s,dy=(__front-__top)*ds/(1-__sBack),dg=(__spanFront-__spanBack)*ds/(170*(1-__sBack));return {py,gx,dy,dg};}
+// CP-21 flatter camera. CAM_K is how strongly the table narrows toward the back as drawn (0 = parallel rails, as if
+// seen from straight above; 0.73 = the UAT-18 view). Only the drawing changes: physics and drop lanes are the same.
+// The painted table is re-projected row by row to this camera (__warpTable), so coins, rails and pusher stay in register.
+const CAM_K=Math.max(.01,0.25),__sBack0=__sBack,__spanBack0=__spanBack,__camSB=1/(1+CAM_K);
+// CAM_TILT: how tall the table looks on screen (1 = step 1). Lower = a lower camera, so coins look more side-on.
+const CAM_TILT=0.65,__front1=__top+(__front-__top)*CAM_TILT;
+const __camSpanBack=__spanFront-(__spanFront-__spanBack0)*(1-__camSB)/(1-__sBack0);
+function __camS(u){return 1/(1+CAM_K*(1-u));}
+__plane=function(y){const s=__camS((y-T.BACK)/(640-T.BACK)),v=(s-__camSB)/(1-__camSB),py=__top+(__front1-__top)*v,gx=(__camSpanBack+(__spanFront-__camSpanBack)*v)/170,ds=CAM_K/(640-T.BACK)*s*s,dy=(__front1-__top)*ds/(1-__camSB),dg=(__spanFront-__camSpanBack)*ds/(170*(1-__camSB));return {py,gx,dy,dg};};
+// A row of the painted table at screen y (old camera) -> its y and width factor k under the new camera, and back.
+// Above the back edge and below the front edge (posts, back wall, front rail) keep their painted height.
+function __camFwd(y){if(y<__top||y>__front){const e=y<__top?__top:__front,m=__camFwd(e);return {y:m.y+y-e,k:m.k};}const v0=(y-__top)/(__front-__top),s0=__sBack0+v0*(1-__sBack0),u=1-(1/s0-1)/P_K,v1=(__camS(u)-__camSB)/(1-__camSB);
+ return {y:__top+(__front1-__top)*v1,k:(__camSpanBack+(__spanFront-__camSpanBack)*v1)/(__spanBack0+(__spanFront-__spanBack0)*v0)};}
+function __camBack(y){if(y<__top||y>__front1){const e=y<__top?__top:__front1,m=__camBack(e);return {y:m.y+y-e,k:m.k};}const v1=(y-__top)/(__front1-__top),s1=__camSB+v1*(1-__camSB),u=1-(1/s1-1)/CAM_K,s0=1/(1+P_K*(1-u)),v0=(s0-__sBack0)/(1-__sBack0);
+ return {y:__top+(__front-__top)*v0,k:(__camSpanBack+(__spanFront-__camSpanBack)*v1)/(__spanBack0+(__spanFront-__spanBack0)*v0)};}
+// Step 3: each row is also narrowed to the funnel's width at that row's table depth (posts/back wall: the back's).
+const __slotHalf=__camSpanBack*PUSH_HALF/170;
+function __rowFunnel(y){const v1=Math.max(0,Math.min(1,(y-__top)/(__front1-__top))),s1=__camSB+v1*(1-__camSB);return tableHalfAt(T.BACK+(1-(1/s1-1)/CAM_K)*(640-T.BACK))/((T.R-T.L)/2);}
+const __NF=__plane(T.FRONT).py,__EXT=Math.max(0,__NF-__front1),__GXR=__plane(T.FRONT).gx/__plane(640).gx; // CP-21: longer table, rows keep their size
+const __WARP_Y0=120,__WARP_Y1=680+__EXT;
+function __warpTable(src){const d=src.height/420,c=newCanvas(src.width,Math.round((__WARP_Y1-__WARP_Y0)*d)),g=c.getContext('2d'),dx=src.width/400;
+ for(let r=0;r<c.height;r++){const y0=__WARP_Y0+(r+.5)/d,yo=y0<=__front1-4?y0:y0<__NF-4?__front1-4:y0-__EXT,wr=y0<=__front1-4?1:y0<__NF-4?1+(__GXR-1)*(y0-__front1+4)/Math.max(1,__EXT):__GXR,m=__camBack(yo),f=__rowFunnel(yo)*wr,sy=Math.floor((m.y-180)*d);if(!(sy>=0&&sy<src.height))continue;
+  g.drawImage(src,0,sy,src.width,1,(200-200*m.k*f)*dx,r,400*m.k*f*dx,1);}return c;}
+for(const r of __felt){const m=__camFwd(r[0]),f=__rowFunnel(m.y);r[0]=m.y;r[1]=200+(r[1]-200)*m.k*f;r[2]=200+(r[2]-200)*m.k*f;}
 screenOf=function(x,y,h){const p=__plane(y);return {x:200+(x-200)*p.gx,y:p.py-h*LIFT*p.gx,s:p.gx,worldX:x,depth:y,height:h,fit:true};};
 const __oldVec=projVec;
 projVec=function(v,s,at){if(!at||!at.fit)return __oldVec(v,s,at);const p=__plane(at.depth);return {x:v.x*p.gx+(at.worldX-200)*p.dg*v.z,y:-v.y*LIFT*p.gx+(p.dy-at.height*LIFT*p.dg)*v.z};};
@@ -1884,7 +1957,7 @@ function __cachedBoardPath(){
   for(let i=__felt.length-1;i>=0;i-=58){const v=__felt[i];p.lineTo(v[2]-1,v[0]);}p.lineTo(__felt[0][2]-1,__felt[0][0]);p.closePath();__boardClipPath=p;
  }return __boardClipPath;
 }
-function __cachedSkyPath(){if(!__skyClipPath){const p=new Path2D(__cachedBoardPath());p.rect(112,-1000,176,1228);__skyClipPath=p;}return __skyClipPath;}
+function __cachedSkyPath(){if(!__skyClipPath){const p=new Path2D(__cachedBoardPath());p.rect(198-__slotHalf,-1000,2*__slotHalf+4,1228);__skyClipPath=p;}return __skyClipPath;}
 function __clipDelivery(){ctx.clip(__cachedSkyPath());}
 const __oldBody=drawBody;
 function __inputInFlight(b){
@@ -1919,12 +1992,32 @@ drawFalling=function(f){
  else __oldFalling({...f,x:c.x,y:c.y,s:c.s});
  __activeCoinClip='';
 };
+// CP-21: the armrests (game units: height above the table, how far they reach back and forward).
+const ARM_H=70,ARM_BACK=T.BACK-40,ARM_FRONT=240,ARM_OUT=330;
+function __armPoint(side,d,outer,h){const x=200+side*(outer?ARM_OUT:tableHalfAt(Math.max(T.BACK,d))+1);return screenOf(x,d,h);}
+function drawArmrests(){
+ for(const side of [-1,1]){
+  const steps=[];for(let i=0;i<=8;i++)steps.push(ARM_BACK+(ARM_FRONT-ARM_BACK)*i/8);
+  const quad=(pts,fill,stroke)=>{ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);for(const q of pts.slice(1))ctx.lineTo(q.x,q.y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke();}};
+  // inner side (faces the table), then the front, then the brass top
+  const inner=[...steps.map(d=>__armPoint(side,d,false,0)),...steps.slice().reverse().map(d=>__armPoint(side,d,false,ARM_H))];
+  quad(inner,'#0b3a36');
+  const f0=__armPoint(side,ARM_FRONT,false,0),f1=__armPoint(side,ARM_FRONT,true,0),f2=__armPoint(side,ARM_FRONT,true,ARM_H),f3=__armPoint(side,ARM_FRONT,false,ARM_H);
+  const fg=ctx.createLinearGradient(0,f3.y,0,f0.y);fg.addColorStop(0,'#17605a');fg.addColorStop(1,'#0c3f3a');quad([f0,f1,f2,f3],fg);
+  const top=[...steps.map(d=>__armPoint(side,d,false,ARM_H)),...steps.slice().reverse().map(d=>__armPoint(side,d,true,ARM_H))];
+  const tg=ctx.createLinearGradient(0,top[0].y,0,f3.y);tg.addColorStop(0,'#b77d24');tg.addColorStop(.6,'#e2b24c');tg.addColorStop(1,'#f6cf67');quad(top,tg,'#805613');
+  ctx.strokeStyle='#ffe9a1';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(f3.x,f3.y);ctx.lineTo(f2.x,f2.y);ctx.stroke(); // bright brass front edge
+ }
+}
+// Where an idle mitt rests: on its armrest's top, near the front, in screen units.
+function mittRest(side){const d=MITT_D,p=screenOf(200+side*(tableHalfAt(d)+1),d,ARM_H),edge=200+(p.x-200)*VIEW.z; // the armrest's inner front corner
+ return {x:edge+side*(MITT_W/2-MITT_HOOK),y:VIEW.y+p.y*VIEW.zy-MITT_LIFT+(typeof HEAD_DROP==='number'?HEAD_DROP*VIEW.zy:0)};} // mitts move down with the head // claws hook MITT_HOOK over the inner edge
 drawMachine=function(){
  // Keep original table art except the blocking centre front rail; expose the physical open edge.
- ctx.save();ctx.beginPath();ctx.rect(0,180,400,368);ctx.rect(0,548,40,52);ctx.rect(358,548,42,52);ctx.clip();
- ctx.drawImage(ART.table,0,180,400,420);ctx.restore();
- ctx.fillStyle='#18352c';ctx.fillRect(42,547.5,314,3.5);ctx.fillStyle='#a16b25';ctx.fillRect(42,550,314,1);
- drawTongue();
+ ctx.save();ctx.beginPath();ctx.rect(0,__WARP_Y0,400,__NF-__WARP_Y0);ctx.rect(0,__NF,40,__WARP_Y1-__NF);ctx.rect(358,__NF,42,__WARP_Y1-__NF);ctx.clip();
+ ctx.clip(__cachedBoardPath());ctx.drawImage(ART.table,0,__WARP_Y0,400,__WARP_Y1-__WARP_Y0);ctx.restore();
+ ctx.fillStyle='#18352c';ctx.fillRect(42,__front1-.5,314,3.5);ctx.fillStyle='#a16b25';ctx.fillRect(42,__front1+2,314,1);
+ drawArmrests();drawTongue();
 };
 const __oldTryDrop=tryDrop;
 tryDrop=function(at=aim){const ok=__oldTryDrop(at);if(ok){const b=bodies.reduce((best,b)=>b.input&&(!best||b.uid>best.uid)?b:best,null);if(b){const t=b.rb.translation(),c=screenOf(t.x/M,t.z/M,t.y/M);b.__uat05StartY=c.y;b.__uat05InitialX=t.x/M;b.__uat05InitialDepth=t.z/M;const elapsed=Math.max(0,time-__delivery.at),k=Math.min(1,elapsed/.12),x=__delivery.from+(__delivery.to-__delivery.from)*(k*k*(3-2*k));Object.assign(__delivery,{from:x,to:c.x,at:time,worldX:t.x/M,depth:t.z/M,uid:b.uid});}}return ok;};
@@ -1932,7 +2025,7 @@ tryDrop=function(at=aim){const ok=__oldTryDrop(at);if(ok){const b=bodies.reduce(
 aimFromScreen=function(sx){const p=__plane(DROP_Y),lookX=Math.max(T.L,Math.min(T.R,200+(screenToGameX(sx)-200)/p.gx));return {x:Math.max(200-PUSH_HALF+COIN_R,Math.min(200+PUSH_HALF-COIN_R,lookX)),y:DROP_Y,lookX};};
 function __quad(points){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(const p of points.slice(1))ctx.lineTo(p.x,p.y);ctx.closePath();}
 drawTongue=function(){
- const cm=ctx.getTransform();__camera=[cm.a,cm.b,cm.c,cm.d,cm.e,cm.f];ctx.save();ctx.fillStyle='#231c10';ctx.strokeStyle='#846127';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(112,218,176,11,3);ctx.fill();ctx.stroke();
+ const cm=ctx.getTransform();__camera=[cm.a,cm.b,cm.c,cm.d,cm.e,cm.f];ctx.save();ctx.fillStyle='#231c10';ctx.strokeStyle='#846127';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(198-__slotHalf,218,2*__slotHalf+4,11,3);ctx.fill();ctx.stroke();
  const back=T.BACK,left=200-PUSH_HALF,right=200+PUSH_HALF,ftl=screenOf(left,tongueDrawY,TONGUE_H),ftr=screenOf(right,tongueDrawY,TONGUE_H),fbl=screenOf(left,tongueDrawY,0),fbr=screenOf(right,tongueDrawY,0),btl=screenOf(left,back,TONGUE_H),btr=screenOf(right,back,TONGUE_H);
  ctx.save();ctx.fillStyle='rgba(8,21,17,.65)';__quad([ftl,ftr,{x:fbr.x,y:fbr.y+2},{x:fbl.x,y:fbl.y+2}]);ctx.fill();ctx.restore();
  const points=[btl,btr,ftr,ftl];ctx.save();__quad(points);ctx.clip();const g=ctx.createLinearGradient(0,btl.y,0,ftl.y);g.addColorStop(0,'#f9d46d');g.addColorStop(.45,'#d7a844');g.addColorStop(.7,'#f6cf67');g.addColorStop(1,'#b77d24');ctx.fillStyle=g;ctx.fillRect(btl.x-30,btl.y-2,ftr.x-btl.x+60,ftl.y-btl.y+5);
@@ -1940,7 +2033,7 @@ drawTongue=function(){
  ctx.restore();ctx.strokeStyle='#ffe9a1';ctx.lineWidth=1.2;__quad(points);ctx.stroke();
  const edge=ctx.createLinearGradient(0,ftl.y,0,fbl.y);edge.addColorStop(0,'#bf8b2b');edge.addColorStop(.3,'#edc45b');edge.addColorStop(1,'#765016');ctx.fillStyle=edge;__quad([ftl,ftr,fbr,fbl]);ctx.fill();ctx.strokeStyle='#805613';ctx.lineWidth=1;ctx.stroke();ctx.strokeStyle='#fff0b3';ctx.beginPath();ctx.moveTo(ftl.x,ftl.y);ctx.lineTo(ftr.x,ftr.y);ctx.stroke();
  // Rear housing occludes the plate's rear edge, making the fixed stroke emerge from a slot.
- ctx.strokeStyle='#3d2b14';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(113,221);ctx.lineTo(287,221);ctx.stroke();ctx.restore();
+ ctx.strokeStyle='#3d2b14';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(199-__slotHalf,221);ctx.lineTo(201+__slotHalf,221);ctx.stroke();ctx.restore();
 };
 function __fallDisplay(b,age,c){
  const top=-VIEW.y/VIEW.zy-14;
@@ -2008,7 +2101,6 @@ function draw() {
   const dj=danceJoltOffset();ctx.save(); ctx.translate(200 + rand(-sh, sh) + dj.x, VIEW.y + rand(-sh, sh) * 0.5 + dj.y); ctx.scale(VIEW.z, VIEW.zy); ctx.translate(-200, 0);
   drawMachine();
   // Idle paws can cover the rail, but coins are painted above them. Sweeping paws are drawn above the board.
- if(sweepTime===0&&catquakeTime===0&&powerFace()!=='happy'&&!isRestPose()){ctx.save();ctx.setTransform(scale*devicePixelRatio,0,0,scale*devicePixelRatio,0,0);drawPaws();ctx.restore();}
   // Aiming ring removed; tap position still controls drops and pupil tracking.
   // back to front: further back first, and lower before higher, so piles stack up the right way
   // (a tower sorts by its base, so coins in front of it still draw over it)
@@ -2020,12 +2112,14 @@ function draw() {
   }
   bodies.sort((a, b) => a.sortK - b.sortK || a.uid - b.uid);
   __drawBoardBodies();
+  // CP-21: idle mitts are the U's arms, drawn above the coins (the head still covers their cuffs).
+ if(sweepTime===0&&catquakeTime===0&&powerFace()!=='happy'&&!isRestPose()){ctx.save();ctx.setTransform(scale*devicePixelRatio,0,0,scale*devicePixelRatio,0,0);drawPaws();ctx.restore();}
   // Rest-only rail backing closes the cyan seam; no head/board geometry changes.
  const restBlend=restPoseBlend();if(restBlend>0){ctx.save();ctx.globalAlpha=restBlend;const g=ctx.createLinearGradient(0,199,0,219);g.addColorStop(0,'#bd7b20');g.addColorStop(.5,'#ffc856');g.addColorStop(1,'#b8791c');ctx.fillStyle=g;ctx.fillRect(76,199,248,20);ctx.restore();}
  // Independent rear coin-entry rail; approved resting geometry stays fixed.
  // No aim line or target circle: the foreground fall shows the accepted lane.
  const face=powerFace(),head=face==='wild'?ART.headWild:face==='sweet'||face==='happy'?ART.headSweet:ART.head;
- const down=quakeHeadOffset();ctx.save();ctx.translate(0,down);const tk=isRestPose()?tickleState():null;if(tk){const h=tk.head;ctx.translate(200+h.x,110+h.y);ctx.rotate(h.r);ctx.translate(-200,-110);}if(isRestPose()&&pawDance){const g=pawGaze(),d=pawMotion();ctx.translate(200+d.x,110+d.y+(g?g.y*19:0));ctx.rotate(d.r+(g?-g.x*.048:0));ctx.translate(-200,-110);}
+ const down=quakeHeadOffset();ctx.save();ctx.translate(200,CHIN_Y+HEAD_DROP);ctx.scale(VIEW.hz/VIEW.z,VIEW.hzy/VIEW.zy);ctx.translate(-200,-CHIN_Y);ctx.translate(0,down);const tk=isRestPose()?tickleState():null;if(tk){const h=tk.head;ctx.translate(200+h.x,110+h.y);ctx.rotate(h.r);ctx.translate(-200,-110);}if(isRestPose()&&pawDance){const g=pawGaze(),d=pawMotion();ctx.translate(200+d.x,110+d.y+(g?g.y*19:0));ctx.rotate(d.r+(g?-g.x*.048:0));ctx.translate(-200,-110);}
  if(face==='wild'&&catquakeTime<.18){ctx.drawImage(ART.head,-10,-25,420,240);ctx.save();ctx.globalAlpha=catquakeTime/.18;ctx.drawImage(head,-10,-25,420,240);ctx.restore();}
  else ctx.drawImage(head,-10,-25,420,240);
  if(face==='happy')drawHappyFeatures();else{drawTrackingPupils();if(tk&&tk.squint>0){ctx.save();ctx.globalAlpha=tk.squint;drawHappyFeatures();ctx.restore();}}ctx.restore();

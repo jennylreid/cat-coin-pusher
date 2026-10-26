@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261026100613,
+    "displayName":  "2026.10.26 UAT 1",
+    "apkVersion":  4,
+    "baselineJSONSHA256":  "a72abf38bdd29bf7417b1d61093dc6c42e9f2346a411555dcaa80a58030a6116",
+    "stagedJSONSHA256":  "32fa529ebfb6b5f4eb2cfc9ee2ce5e5ec534c2c4853a90c28826c76ea6efdb6f",
+    "backup":  "uat/backups/before-CP-21-20261026100613",
+    "authorization":  "Jenny, Oct 26: let\u0027s get this in UAT",
+    "releaseHTMLSHA256":  "fa2e927afd6d4adbe675e34fe2af1bbcc47734784b95d6d71e0fd168756886fc",
+    "reviewHTMLSHA256":  "b25315d9557f9c3a734d68eff665f823c8dac3e7950796bf764c590f5c33e176",
+    "changedFiles":  [
+                         "index.html"
+                     ],
+    "addedFiles":  [
+
+                   ],
+    "selection":  "CP-21 layout lock: scene up to HUD, table/coins 19% bigger, 8 rows showing (table 760), tucked mitts, Quake coin 20% wider, ordered rows, coin look",
+    "localPublication":  "verified"
+}
