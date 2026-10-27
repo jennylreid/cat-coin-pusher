@@ -1,0 +1,10 @@
+{
+  "httpStatus": 200,
+  "etag": "\"{578FC2C8-E07A-4447-B0E5-3EBC7EA2C0E6},6\"",
+  "bytes": 57646390,
+  "sha256": "336aeed9cc7f319e02efc6fb6affa38e244b27c956abb4aa4b226e6ff3573162",
+  "version": 20261027120233,
+  "displayName": "2026.10.27",
+  "sameProductionSharedItem": true,
+  "matchesStaged": true
+}

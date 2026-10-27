@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>Cat Pusher UAT</title>
+<title>Cat Coin Pusher</title>
 <style>
 html,body{margin:0;height:100%;background:#064e4a;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;font-family:system-ui,sans-serif}
 canvas{display:block;margin:0 auto}
@@ -200,7 +200,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = '2026.10.27 UAT 8';
+const BUILD = '2026.10.27';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -671,8 +671,8 @@ const MUSIC_VOL = 0.10;
 const music = new Audio(); // Effects-only until a new music direction is approved.
 music.loop = false; music.volume = 0;
 S.musicEnabled = false;
-try {const audioSettings=JSON.parse(localStorage.getItem('catpusher.uat.audio.v1')||'null');if(audioSettings){S.musicEnabled=false;S.muted=!!audioSettings.muted;}}catch(e){}
-function saveAudioSettings(){if(S.muted){recordedSfx.stopAll();stopPawDance();}try{localStorage.setItem('catpusher.uat.audio.v1',JSON.stringify({musicEnabled:S.musicEnabled,muted:S.muted}));}catch(e){}}
+try {const audioSettings=JSON.parse(localStorage.getItem('catpusher.audio.v1')||'null');if(audioSettings){S.musicEnabled=false;S.muted=!!audioSettings.muted;}}catch(e){}
+function saveAudioSettings(){if(S.muted){recordedSfx.stopAll();stopPawDance();}try{localStorage.setItem('catpusher.audio.v1',JSON.stringify({musicEnabled:S.musicEnabled,muted:S.muted}));}catch(e){}}
 let musicOK = false, duckUntil = 0, inBackground = false;
 window.appPaused = p => { inBackground = p; if (p){music.pause();recordedSfx.stopAll();} }; // stop recordings in background
 function musicTick() { if(!music.paused)music.pause(); }
@@ -2341,16 +2341,16 @@ const panel = document.getElementById('panel');
 function openCredits(){
  holding=false;taps=[];
  const canCheck=window.Android&&typeof Android.checkUpdates==='function';
- panel.innerHTML='<button id="close">Close</button><h2>UAT Settings</h2>'
+ panel.innerHTML='<button id="close">Close</button><h2>Settings</h2>'
   +(canCheck?'<button id="checkupd" class="wide">Check for updates</button>':'')
-  +'<button id="safe-guides" class="wide">Show/hide safe-area guides</button><button id="happy-test" class="wide">Preview Happy (6 seconds)</button>'+(S.dev?'<button id="dance-test" class="wide">Preview Dancing pose</button>':'')+'<button id="sound-test" class="wide">Sound effects: '+(S.muted?'off':'on')+'</button>'
+  +(S.dev?'<button id="safe-guides" class="wide">Show/hide safe-area guides</button><button id="happy-test" class="wide">Preview Happy (6 seconds)</button>':'')+(S.dev?'<button id="dance-test" class="wide">Preview Dancing pose</button>':'')+'<button id="sound-test" class="wide">Sound effects: '+(S.muted?'off':'on')+'</button>'
   +(S.dev?'<button id="tap-areas" class="wide">Show tap areas: '+(showTapAreas?'on':'off')+'</button>':'')
   +'<button id="devmode" class="devswitch">Developer mode: '+(S.dev?'on':'off')+'</button>'
   +'<p>Waiting is the toothy idle pose. Rest is the small smile with raised mitts, used for board clear. Recovery returns from Quake. Happy usage is TBD; preview only.</p>';
  panel.style.display='block';
  panel.querySelector('#close').onclick=()=>panel.style.display='none';
- panel.querySelector('#safe-guides').onclick=()=>{safeAreaGuides=!safeAreaGuides;panel.style.display='none';};
- panel.querySelector('#happy-test').onclick=()=>{if(previewHappy())panel.style.display='none';};
+ const guides=panel.querySelector('#safe-guides');if(guides)guides.onclick=()=>{safeAreaGuides=!safeAreaGuides;panel.style.display='none';};
+ const happy=panel.querySelector('#happy-test');if(happy)happy.onclick=()=>{if(previewHappy())panel.style.display='none';};
  const dance=panel.querySelector('#dance-test');if(dance)dance.onclick=()=>{if(previewDancingPose())panel.style.display='none';};
  panel.querySelector('#sound-test').onclick=()=>{S.muted=!S.muted;saveAudioSettings();openCredits();};
  panel.querySelector('#devmode').onclick=()=>{S.dev=!S.dev;save();openCredits();};

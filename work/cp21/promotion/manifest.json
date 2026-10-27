@@ -1,0 +1,50 @@
+{
+  "version": 20261027120233,
+  "displayName": "2026.10.27",
+  "apkVersion": 16,
+  "backup": "backups\\before-CP-21-production-20261027120233",
+  "backupHashes": {
+    "phone/CatCoinPusher-game.json": "8b476702dbe611dec05641e03cbc9034fe5ac17a3900062e4c3652d32df47689",
+    "CatCoinPusher.apk": "2598c25d9d53bd2d144025b719cb8dfa33a2433b59bf34fc3d3256f6443c5d7f",
+    "CODEX_BRIEF.md": "70ab9c50b3468bd34def3bdb0422f339fd57618e55e4e2feaefa27398e96d893",
+    "DEVELOPER.md": "5ae8e07ffa527c2a4a0a5c210aa6cdafffbf9de8c5e1a5bcd558fadc783c7d3e",
+    "tickets/CP-21.md": "d6390ddc65868e153a384f47919bc4e4d41a688299821602ef4208acabb32e0c"
+  },
+  "uatJSONSHA256": "144b731fa4db9fae7bb467d99eb23cb64b00c28019e997eda6ef6716b5c7de49",
+  "uatAPKSHA256": "b14f41a65b01f05e618184262e5daf1c2ed31def5e3e9cd40365206994bef0cc",
+  "stagedJSONSHA256": "336aeed9cc7f319e02efc6fb6affa38e244b27c956abb4aa4b226e6ff3573162",
+  "releaseHTMLSHA256": "6d6bbc18e8dd737264f3170f530bd234fbc5a9b59180c1a726516179d199184b",
+  "nonHTMLFilesByteIdenticalToUAT": 29,
+  "newAPKRequired": false,
+  "authorization": "Jenny Oct 27 sign-off; tickets/CP-21-promotion-brief.md",
+  "adaptations": [
+    {
+      "before": "<title>Cat Pusher UAT</title>",
+      "after": "<title>Cat Coin Pusher</title>"
+    },
+    {
+      "before": "const BUILD = '2026.10.27 UAT 8';",
+      "after": "const BUILD = '2026.10.27';"
+    },
+    {
+      "before": "catpusher.uat.audio.v1",
+      "after": "catpusher.audio.v1"
+    },
+    {
+      "before": "<h2>UAT Settings</h2>",
+      "after": "<h2>Settings</h2>"
+    },
+    {
+      "before": "+'<button id=\"safe-guides\" class=\"wide\">Show/hide safe-area guides</button><button id=\"happy-test\" class=\"wide\">Preview Happy (6 seconds)</button>'",
+      "after": "+(S.dev?'<button id=\"safe-guides\" class=\"wide\">Show/hide safe-area guides</button><button id=\"happy-test\" class=\"wide\">Preview Happy (6 seconds)</button>':'')"
+    },
+    {
+      "before": "panel.querySelector('#safe-guides').onclick=",
+      "after": "const guides=panel.querySelector('#safe-guides');if(guides)guides.onclick="
+    },
+    {
+      "before": "panel.querySelector('#happy-test').onclick=",
+      "after": "const happy=panel.querySelector('#happy-test');if(happy)happy.onclick="
+    }
+  ]
+}

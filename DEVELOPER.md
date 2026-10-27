@@ -1,3 +1,7 @@
+## Current production — CP-21 batch, October 27, 2026
+
+Production **2026.10.27 / APK16**, numeric 20261027120233. Jenny signed off CP-21 UAT 8 with UAT-16–19; game-only promotion from the published UAT payload, not an integration-script rebuild. Source and staged payload: `work/cp21/promotion`. Native baseline stays `work/prod04/android`; no new APK. Production channel, app ID, APK bytes, audio storage key and update URL retained. Date footer and update `displayName` agree. Happy, dance and paw outline tests are Developer-only. All 18 board results exactly match UAT 8. See `tickets/CP-21.md` for backup, cloud evidence and phone steps. Earlier release checkpoints below are historical.
+
 ## UAT-18 — October 17, 2026
 
 Current published UAT: **2026.10.17 UAT 3 / APK4** (20261017204741); matching source `work/uat18/release.html`. Jenny approved smaller paw artwork, scattered Board 3 prizes and front-centre Quake placement. Game-only update adds `img/art/uat18-small-paw.png`; existing assets and APK4 retained. Verified backup: `uat/backups/before-UAT-18-accessible-20261017204741`. Fresh OneDrive download matches staged SHA-256; original shared item retained. Phone UAT pending. Both target-following no-power wins use all 140 coins. See tickets/UAT-18.md.
