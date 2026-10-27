@@ -1,4 +1,4 @@
-# CP-21 PUBLISHED — 20261026163104 / APK4 (2026.10.26 UAT 5; UAT 4 20261026141443, UAT 3 20261026134357, UAT 2 20261026113204, UAT 1 20261026100613)
+# CP-21 PUBLISHED — 20261026205627 / APK4 (2026.10.26 UAT 6 trial; UAT 5 20261026163104, UAT 4 20261026141443, UAT 3 20261026134357, UAT 2 20261026113204, UAT 1 20261026100613)
 
 Layout lock. The locked numbers are in "Locked layout (CP-21)" below and supersede older board geometry. Source: work/cp21/release.html. Report: tickets/CP-21.md. Phone UAT pending.
 
@@ -139,6 +139,7 @@ Layout first, art second: new art fills this layout and does not change it. Temp
 - **Rescue:** a coin squeezed down through the table well inside its edges (about 1 in 1,000 taps) is put back on top of the table instead of vanishing.
 - **Balance (desktop, Oct 26, UAT 4):** 18/18 no-power wins over 3 boards, 3 seeds, 0.22/0.4 s taps. Coins used: Board 1 72–119 of 220, Board 2 74–130 of 160, Board 3 106–149 of 160 (tightest). 1 of 1,879 coins and no prizes went off the sides (UAT 3: 13 of 1,988) (tickets/CP-21-evidence/wins-uat4.log).
 - **Table front (UAT 5):** the front-edge trim (dark line plus thin gold line) is drawn at the real front edge (760). The felt below the old painted front is filled by mirroring the last 50 painted felt rows, so there is no seam or streaking on an empty board. Drawing only.
+- **Pusher (UAT 6 trial, Jenny):** pusher moved back toward the cat by its stroke: PUSH_MIN 135, PUSH_MAX 205 (was 205/275), LEDGE_BACK 135; start rows unchanged (first row at 233). The opening board stays still until dropped coins reach the rows. Trial only: desktop balance got harder (15/18 wins, Board 3 lost 3 of 6; tickets/CP-21-evidence/wins-pusher-back-test.log). Keep, adjust or revert after Jenny's phone look; UAT 5 values are the fallback.
 - **Next (art pass, not layout):** rounder cat head or chin fluff to fill the gap between chin and ledge; ledge look; Jenny prefers the Rest face to the Waiting face, so Waiting will change later.
 
 ## Coin entry and input

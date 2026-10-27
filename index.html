@@ -53,8 +53,8 @@ const PUSH_BACK = -25, TONGUE_H = 18, TONGUE_LEN = 300;
 // steadily from depth FUNNEL_D1 to FUNNEL_D2 to the full width (T.L..T.R): about 4, 5, then 6 coins across.
 const FUNNEL_BACK=110, FUNNEL_D1=225, FUNNEL_D2=315, GUARD_END=FUNNEL_D2+116; // CP-21: side wall to here (two rows of 53, plus 10)
 function tableHalfAt(y){const hw=(T.R-T.L)/2;return y<=FUNNEL_D1?FUNNEL_BACK:y>=FUNNEL_D2?hw:FUNNEL_BACK+(hw-FUNNEL_BACK)*(y-FUNNEL_D1)/(FUNNEL_D2-FUNNEL_D1);}
-const PUSH_HALF=FUNNEL_BACK, LEDGE_BACK=205;
-let PUSH_MIN = 205, PUSH_MAX = 275, PUSH_PERIOD = 3.2;
+const PUSH_HALF=FUNNEL_BACK, LEDGE_BACK=135;
+let PUSH_MIN = 135, PUSH_MAX = 205, PUSH_PERIOD = 3.2;
 const COIN_R = 26, LUCKY_R = 28, ITEM_R = 30; // big coins: more action per coin, and fewer for the phone to simulate
 const COIN_HALF = 2, LUCKY_HALF = 3.5, ITEM_HALF = 9; // half thicknesses
 // CP-21: coin side colours, bottom to just under the face (silver coins share the gold sides).
@@ -200,7 +200,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = '2026.10.26 UAT 5';
+const BUILD = '2026.10.26 UAT 6';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -423,7 +423,7 @@ const TABLE_LAYERS = 3, TONGUE_LAYERS = 2;
 function prefill() {
  // CP-21: an ordered start. Straight rows, one coin layer, no towers; prizes rest on top.
  const d=COIN_R*2+1,START_CLEAR=70; // keep the front rows this far from the edge
- for(let y=PUSH_MIN+COIN_R+2;y+COIN_R<=T.FRONT-START_CLEAR;y+=d){
+ for(let y=205+COIN_R+2;y+COIN_R<=T.FRONT-START_CLEAR;y+=d){
   const n=Math.floor(2*Math.min(tableHalfAt(y-COIN_R),tableHalfAt(y+COIN_R))/d);
   for(let i=0;i<n;i++)addCoin(seededRandom()<.25?'silver':'coin',null,200+(i-(n-1)/2)*d,COIN_HALF+.2,y,yawTurn(0));
  }
