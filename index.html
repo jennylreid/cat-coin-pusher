@@ -53,8 +53,8 @@ const PUSH_BACK = -25, TONGUE_H = 18, TONGUE_LEN = 300;
 // steadily from depth FUNNEL_D1 to FUNNEL_D2 to the full width (T.L..T.R): about 4, 5, then 6 coins across.
 const FUNNEL_BACK=110, FUNNEL_D1=225, FUNNEL_D2=315, GUARD_END=FUNNEL_D2+116; // CP-21: side wall to here (two rows of 53, plus 10)
 function tableHalfAt(y){const hw=(T.R-T.L)/2;return y<=FUNNEL_D1?FUNNEL_BACK:y>=FUNNEL_D2?hw:FUNNEL_BACK+(hw-FUNNEL_BACK)*(y-FUNNEL_D1)/(FUNNEL_D2-FUNNEL_D1);}
-const PUSH_HALF=FUNNEL_BACK, LEDGE_BACK=135;
-let PUSH_MIN = 135, PUSH_MAX = 205, PUSH_PERIOD = 3.2;
+const PUSH_HALF=FUNNEL_BACK, LEDGE_BACK=190;
+let PUSH_MIN = 190, PUSH_MAX = 260, PUSH_PERIOD = 3.2;
 const COIN_R = 26, LUCKY_R = 28, ITEM_R = 30; // big coins: more action per coin, and fewer for the phone to simulate
 const COIN_HALF = 2, LUCKY_HALF = 3.5, ITEM_HALF = 9; // half thicknesses
 // CP-21: coin side colours, bottom to just under the face (silver coins share the gold sides).
@@ -200,7 +200,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = '2026.10.26 UAT 6';
+const BUILD = '2026.10.26 UAT 7';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -422,8 +422,8 @@ const TOWERS = [
 const TABLE_LAYERS = 3, TONGUE_LAYERS = 2;
 function prefill() {
  // CP-21: an ordered start. Straight rows, one coin layer, no towers; prizes rest on top.
- const d=COIN_R*2+1,START_CLEAR=70; // keep the front rows this far from the edge
- for(let y=205+COIN_R+2;y+COIN_R<=T.FRONT-START_CLEAR;y+=d){
+ const d=COIN_R*2+1,START_CLEAR=20; // keep the front rows this far from the edge
+ for(let y=PUSH_MAX+COIN_R+2;y+COIN_R<=T.FRONT-START_CLEAR;y+=d){
   const n=Math.floor(2*Math.min(tableHalfAt(y-COIN_R),tableHalfAt(y+COIN_R))/d);
   for(let i=0;i<n;i++)addCoin(seededRandom()<.25?'silver':'coin',null,200+(i-(n-1)/2)*d,COIN_HALF+.2,y,yawTurn(0));
  }
@@ -2036,14 +2036,14 @@ aimFromScreen=function(sx){const p=__plane(DROP_Y),lookX=Math.max(T.L,Math.min(T
 function __quad(points){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(const p of points.slice(1))ctx.lineTo(p.x,p.y);ctx.closePath();}
 drawTongue=function(){
  const cm=ctx.getTransform();__camera=[cm.a,cm.b,cm.c,cm.d,cm.e,cm.f];ctx.save();ctx.fillStyle='#231c10';ctx.strokeStyle='#846127';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(198-__slotHalf,218,2*__slotHalf+4,11,3);ctx.fill();ctx.stroke();
- const back=T.BACK,left=200-PUSH_HALF,right=200+PUSH_HALF,ftl=screenOf(left,tongueDrawY,TONGUE_H),ftr=screenOf(right,tongueDrawY,TONGUE_H),fbl=screenOf(left,tongueDrawY,0),fbr=screenOf(right,tongueDrawY,0),btl=screenOf(left,back,TONGUE_H),btr=screenOf(right,back,TONGUE_H);
+ const back=-60,left=200-PUSH_HALF,right=200+PUSH_HALF,ftl=screenOf(left,tongueDrawY,TONGUE_H),ftr=screenOf(right,tongueDrawY,TONGUE_H),fbl=screenOf(left,tongueDrawY,0),fbr=screenOf(right,tongueDrawY,0),btl=screenOf(left,back,TONGUE_H),btr=screenOf(right,back,TONGUE_H);
  ctx.save();ctx.fillStyle='rgba(8,21,17,.65)';__quad([ftl,ftr,{x:fbr.x,y:fbr.y+2},{x:fbl.x,y:fbl.y+2}]);ctx.fill();ctx.restore();
  const points=[btl,btr,ftr,ftl];ctx.save();__quad(points);ctx.clip();const g=ctx.createLinearGradient(0,btl.y,0,ftl.y);g.addColorStop(0,'#f9d46d');g.addColorStop(.45,'#d7a844');g.addColorStop(.7,'#f6cf67');g.addColorStop(1,'#b77d24');ctx.fillStyle=g;ctx.fillRect(btl.x-30,btl.y-2,ftr.x-btl.x+60,ftl.y-btl.y+5);
  if(typeof __brassTexture!=='undefined'){const crop=__brassCrop;ctx.globalAlpha=.62;const full=screenOf(left,tongueDrawY-TONGUE_LEN,TONGUE_H);ctx.drawImage(__brassTexture,crop[0],crop[1],crop[2],crop[3],fbl.x,full.y,fbr.x-fbl.x,ftl.y-full.y);ctx.globalAlpha=1;}
  ctx.restore();ctx.strokeStyle='#ffe9a1';ctx.lineWidth=1.2;__quad(points);ctx.stroke();
  const edge=ctx.createLinearGradient(0,ftl.y,0,fbl.y);edge.addColorStop(0,'#bf8b2b');edge.addColorStop(.3,'#edc45b');edge.addColorStop(1,'#765016');ctx.fillStyle=edge;__quad([ftl,ftr,fbr,fbl]);ctx.fill();ctx.strokeStyle='#805613';ctx.lineWidth=1;ctx.stroke();ctx.strokeStyle='#fff0b3';ctx.beginPath();ctx.moveTo(ftl.x,ftl.y);ctx.lineTo(ftr.x,ftr.y);ctx.stroke();
  // Rear housing occludes the plate's rear edge, making the fixed stroke emerge from a slot.
- ctx.strokeStyle='#3d2b14';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(199-__slotHalf,221);ctx.lineTo(201+__slotHalf,221);ctx.stroke();ctx.restore();
+ ctx.restore();
 };
 function __fallDisplay(b,age,c){
  const top=-VIEW.y/VIEW.zy-14;

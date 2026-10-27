@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261026205627,
+    "displayName":  "2026.10.26 UAT 6",
+    "apkVersion":  4,
+    "baselineJSONSHA256":  "4a525064fbf2c3f3eea3d912ebcbf493707fc56d53d9a73ddf795e8d6f50c472",
+    "stagedJSONSHA256":  "7570c308641863d3708e19dfbe18102c4e9cc030da302044458cc35d1c75c334",
+    "backup":  "uat/backups/before-CP-21-UAT6-20261026205627",
+    "authorization":  "Jenny, Oct 26: just put it in UAT so I can see it (pusher-back trial)",
+    "releaseHTMLSHA256":  "1aa2c6ca7344d679a38b82de6de6ec5574aea8a7f0a8b9287b50924f9682a40a",
+    "reviewHTMLSHA256":  "6c8193a4da4af4cd2d9f1b96569f6a0d14d471f679701b55bc55e2ef23d53133",
+    "changedFiles":  [
+                         "index.html"
+                     ],
+    "addedFiles":  [
+
+                   ],
+    "selection":  "CP-21 UAT 6 trial: pusher moved back toward the cat by its stroke; start coins unchanged",
+    "localPublication":  "verified"
+}
