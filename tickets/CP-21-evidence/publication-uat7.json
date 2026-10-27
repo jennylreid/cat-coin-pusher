@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261026211828,
+    "displayName":  "2026.10.26 UAT 7",
+    "apkVersion":  4,
+    "baselineJSONSHA256":  "7570c308641863d3708e19dfbe18102c4e9cc030da302044458cc35d1c75c334",
+    "stagedJSONSHA256":  "9311b8f5229393361eca2e778a8815495ee0d98a5d572fa1be32c9a417ac551c",
+    "backup":  "uat/backups/before-CP-21-UAT7-20261026211828",
+    "authorization":  "Jenny, Oct 26: I will try this one ... go ahead and add coins underneath the shrimp",
+    "releaseHTMLSHA256":  "ff5a25a186a9d0031471c8b2c6e7e5b3c75ec7b8bff6c5350ad7802bf15fec58",
+    "reviewHTMLSHA256":  "3f0a9d6a36f85396a337069b9791ac19ff80f629d9478558c38540f6cb261ce2",
+    "changedFiles":  [
+                         "index.html"
+                     ],
+    "addedFiles":  [
+
+                   ],
+    "selection":  "CP-21 UAT 7: pusher starts at the chin and pushes down (no gap above it); opening rows just past its reach, 9 rows",
+    "localPublication":  "verified"
+}

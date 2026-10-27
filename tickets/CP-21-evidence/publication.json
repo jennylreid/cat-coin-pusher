@@ -1,19 +1,19 @@
 ﻿{
-    "version":  20261026211828,
-    "displayName":  "2026.10.26 UAT 7",
+    "version":  20261027113731,
+    "displayName":  "2026.10.27 UAT 8",
     "apkVersion":  4,
-    "baselineJSONSHA256":  "7570c308641863d3708e19dfbe18102c4e9cc030da302044458cc35d1c75c334",
-    "stagedJSONSHA256":  "9311b8f5229393361eca2e778a8815495ee0d98a5d572fa1be32c9a417ac551c",
-    "backup":  "uat/backups/before-CP-21-UAT7-20261026211828",
-    "authorization":  "Jenny, Oct 26: I will try this one ... go ahead and add coins underneath the shrimp",
-    "releaseHTMLSHA256":  "ff5a25a186a9d0031471c8b2c6e7e5b3c75ec7b8bff6c5350ad7802bf15fec58",
-    "reviewHTMLSHA256":  "3f0a9d6a36f85396a337069b9791ac19ff80f629d9478558c38540f6cb261ce2",
+    "baselineJSONSHA256":  "9311b8f5229393361eca2e778a8815495ee0d98a5d572fa1be32c9a417ac551c",
+    "stagedJSONSHA256":  "144b731fa4db9fae7bb467d99eb23cb64b00c28019e997eda6ef6716b5c7de49",
+    "backup":  "uat/backups/before-CP-21-UAT8-20261027113731",
+    "authorization":  "Jenny, Oct 27: yes (put the solid-coins fix in UAT as UAT 8)",
+    "releaseHTMLSHA256":  "c1c87f7c6609bfc4211b0fea3ac26c9cd4f708b554767a355fe7f6679786c568",
+    "reviewHTMLSHA256":  "9bd716a01b1d48d31b11ac6e016ca733e10abdb516358210159c672f0b5c605d",
     "changedFiles":  [
                          "index.html"
                      ],
     "addedFiles":  [
 
                    ],
-    "selection":  "CP-21 UAT 7: pusher starts at the chin and pushes down (no gap above it); opening rows just past its reach, 9 rows",
+    "selection":  "CP-21 UAT 8: solid coins - physics coins as thick as drawn (COIN_HALF 4, COIN_LOOK 1), same weight, so dropped coins push and stack instead of sinking through",
     "localPublication":  "verified"
 }

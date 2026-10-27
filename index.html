@@ -56,7 +56,7 @@ function tableHalfAt(y){const hw=(T.R-T.L)/2;return y<=FUNNEL_D1?FUNNEL_BACK:y>=
 const PUSH_HALF=FUNNEL_BACK, LEDGE_BACK=190;
 let PUSH_MIN = 190, PUSH_MAX = 260, PUSH_PERIOD = 3.2;
 const COIN_R = 26, LUCKY_R = 28, ITEM_R = 30; // big coins: more action per coin, and fewer for the phone to simulate
-const COIN_HALF = 2, LUCKY_HALF = 3.5, ITEM_HALF = 9; // half thicknesses
+const COIN_HALF = 4, LUCKY_HALF = 3.5, ITEM_HALF = 9; // half thicknesses
 // CP-21: coin side colours, bottom to just under the face (silver coins share the gold sides).
 const RIM={coin:[[74,40,4],[160,98,14]]};RIM.silver=RIM.coin; // silver coins use the gold face art, so the gold side too
 function __rimColour(kind,t){const [a,b]=RIM[kind];return 'rgb('+a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')+')';}
@@ -64,7 +64,7 @@ function __rimColour(kind,t){const [a,b]=RIM[kind];return 'rgb('+a.map((v,i)=>Ma
 const QUAKE_THICK = 8, QUAKE_R = 1.2, QUAKE_CONTRAST = 1.8, QUAKE_SATURATE = 1.4;
 // the side's blue band: the face ring's blue after the boost (measured: rgb(0,12,255)), a touch darker at its lowest edge
 const QUAKE_BLUE = ['rgb(0,10,215)','rgb(0,12,255)'];
-const COIN_LOOK = 2; // CP-21: how many times thicker coins are drawn than they are in the physics
+const COIN_LOOK = 1; // CP-21: how many times thicker coins are drawn than they are in the physics
 // Bonus chips: big, thick, coloured, with a scalloped edge and their value (5x, 10x) printed on them.
 const BONUS = { x5: { r: 36, half: 3.5, value: 5 }, x10: { r: 40, half: 4, value: 10 } };
 // Flat and boxy things on the table (half sizes across, up, deep): arcade ticket strips, dollar bills, Rubik's cubes.
@@ -200,7 +200,7 @@ let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, las
 // test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
 const perf = { step: 0, fps: 60 };
 // when this version was published (publish_game.ps1 fills it in), shown in the readout
-const BUILD = '2026.10.26 UAT 7';
+const BUILD = '2026.10.27 UAT 8';
 
 function initPhysics() {
   // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
@@ -267,7 +267,7 @@ function addCoin(kind, id, x, h, y, rot, linvel, angvel) {
     .setFriction(kind === 'item' || bx ? TOY_GRIP : COIN_FRICTION).setRestitution(COIN_BOUNCE)
     // Grip between coins supports piles; the lower surface coefficient keeps the shelf and pusher slippery.
     .setFrictionCombineRule(RAPIER.CoefficientCombineRule.Min)
-    .setDensity(bx ? bx.density * 2 : kind === 'item' ? 1.6 : kind === 'power' ? 1 : 3), rb);
+    .setDensity(bx ? bx.density * 2 : kind === 'item' ? 1.6 : kind === 'power' ? 1 : kind === 'coin' || kind === 'silver' ? 1.5 : 3), rb); // CP-21: coins twice as thick, same weight
   // quest: a toy the quest is about; sortK, uid: drawing order (see draw)
   const b = { rb, kind, id: id || null, r, half, dead: false, vy: 0, fresh: false, quest: false, sortK: null, uid: ++uids };
   bodies.push(b);
