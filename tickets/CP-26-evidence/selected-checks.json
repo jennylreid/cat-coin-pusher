@@ -1,0 +1,18 @@
+{
+  "asset": {
+    "canvas": [
+      1536,
+      1024
+    ],
+    "changedPixels": 113794,
+    "changedOutsideMouth": 0,
+    "pixelsDifferentFromRest": 872299,
+    "originalWaitingHashRetained": true
+  },
+  "runtime": {
+    "normalGameplayUsesCalm": true,
+    "normalGameplayKeepsExistingMittPose": true,
+    "boardClearRestScreenshotIdentical": true
+  },
+  "publishedUATUnchanged": true
+}

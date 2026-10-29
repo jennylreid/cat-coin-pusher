@@ -1,0 +1,8 @@
+Use case: precise-object-edit. Edit target is the supplied actual CatCoin Board 1 screenshot, 1080x2400. Return the identical full screenshot canvas. Change ONLY interior expression of the black and white cat's Waiting face. Preserve exact head silhouette, head size and position, ears, markings, pink nose, whiskers, eye yellow colour, black ink line weight, palette. Preserve every pixel of mitts, UI, board, coins, prizes, pusher and background. Do not tilt or move head or ears. Remove the toothy open grin and tongue, replacing with white muzzle fur and requested mouth. No new text or details. Expression direction: 
+
+A — Calm and expectant: keep the current bright open yellow eyes looking gently toward the coins, relaxed brows, small symmetrical closed-mouth cat smile, no teeth or tongue.
+
+B — Curious: open yellow eyes glancing slightly downward toward the drop point, one upper eyelid raised slightly more than the other, a tiny closed rounded cat mouth with a short central line under the nose. Alert inquisitive expression. Keep head and ears absolutely fixed.
+
+C — Sly and smug: half-lidded yellow eyes, black vertical pupils retained, relaxed confident expression, small asymmetric closed-mouth knowing smile, one corner slightly lifted. No teeth or tongue. Keep the original nose and white muzzle shape.
+

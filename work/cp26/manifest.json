@@ -1,0 +1,16 @@
+{
+  "baselineVersion": 20261029183045,
+  "baselineJSONSHA256": "a850234fdf653caa91434cd159158c0a9306911605778981772a97bb02c99c4d",
+  "baselineHTMLSHA256": "966773f84413ad36f21f135a8795172e47219756859ee833c729ce1f01b6bafa",
+  "chosen": "A2 Calm",
+  "restIsSeparateAsset": true,
+  "originalWaitingSHA256": "b06863627841f0c89f36e2ff5f6e37f5555aab69502572a7832c4d5825fa62e7",
+  "mouthMapping": {
+    "sx": 0.6939844042062759,
+    "sy": 0.6555421650409698,
+    "ox": 7.019962310791016,
+    "oy": 286.19995307922363
+  },
+  "localPreviewOnly": true,
+  "published": false
+}

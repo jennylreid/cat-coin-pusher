@@ -1,3 +1,7 @@
+## CP-25 compact Inventory/doily published (October 29, 2026)
+
+Current UAT13/APK4 (20261029183045) integrates Jenny's approved small treat/power thumbnails with corner count badges; no Collections wording/link inside Inventory. Existing Quake/Paw Sweep counters shown, no economy change. Cream/gold doily Collections tile contrasts background and clears table; footer beside Inventory on tall phone layout, compact header fallback when needed. Satchel remains bottom Inventory. Paw pickup, collection scenes/rewards, required-prize failure/retry/save recovery and direct renderer retained. Phone UAT/FPS reading pending. Report: tickets/CP-25.md. Earlier checkpoints below are historical.
+
 # CP-21 PUBLISHED — 20261027113731 / APK4 (2026.10.27 UAT 8; UAT 7 20261026211828, UAT 6 trial 20261026205627, UAT 5 20261026163104, UAT 4 20261026141443, UAT 3 20261026134357, UAT 2 20261026113204, UAT 1 20261026100613)
 
 Layout lock. The locked numbers are in "Locked layout (CP-21)" below and supersede older board geometry. Source: work/cp21/release.html. Report: tickets/CP-21.md. Phone UAT pending.
@@ -142,12 +146,25 @@ Layout first, art second: new art fills this layout and does not change it. Temp
 - **Pusher and opening (UAT 7, Jenny):** the pusher starts at the chin and only pushes down toward the coins; no gap ever shows between the chin and the pusher. Stroke 190 to 260 (pulled back = the table's back edge, under the chin; was 205 to 275), LEDGE_BACK 190, the plate's top drawn from depth -60 so it runs up under the chin. The opening rows start just past the pusher's reach (first row at 288), so a strip of bare table shows and no start coin moves until dropped coins reach them. 9 rows, START_CLEAR 20 (front row's edge 22 from the front). UAT 6's trial (stroke 135 to 205) is superseded.
 - **Next (art pass, not layout):** rounder cat head or chin fluff to fill the gap between chin and ledge; ledge look; Jenny prefers the Rest face to the Waiting face, so Waiting will change later.
 
+## Coin action (CP-22 October 28 UAT 1, pending phone sign-off)
+
+Keep Jenny's **0.35-second** ordinary tap limit. Extra taps are free, acknowledged and unqueued. Coins should feel heavy: no ordinary board-crossing bounces. Dissipate accelerated delivery energy at first impact and damp residual ordinary contact launches; preserve Quake/sweep behavior and natural payout falls. Prior coin/treat separation and correct overlap ordering remain required. Artwork, placement, dimensions and locked layout remain fixed. Desktop 18 no-power checks pass; phone acceptance pending. See `tickets/CP-22.md`.
+
 ## Coin entry and input
 
-Exactly one immediate coin per ordinary tap. No hold-repeat, no aiming ring. Horizontal aim still chooses among eight existing release lanes, with vertical falls and no visual homing. Production still displays mouth drips. Latest UAT-05 removes the gold feed band, target circle and dotted aim line. Coins fall visibly from the screen top in front of the head/HUD, shedding bright drifting/twinkling gold-white particles throughout the fall; UAT-09 uses crisp grains without radial halos, fading190–290ms and stopping on landing. A cached side matte keeps board currency inside side rails while the front centre is open; visible tipping payout continues from the physical body’s fitted position/rotation. The brass pusher rests on the felt from a rear slot. Underlying release positions, tilt and drop physics remain unchanged to preserve board balance; legacy mouth-exit names remain in code as registration data.
+Exactly one immediate coin per eligible ordinary tap, subject to the CP-22 cooldown above. No hold-repeat, no aiming ring. Horizontal aim still chooses among eight existing release lanes, with vertical falls and no visual homing. Production still displays mouth drips. Latest UAT-05 removes the gold feed band, target circle and dotted aim line. Coins fall visibly from the screen top in front of the head/HUD, shedding bright drifting/twinkling gold-white particles throughout the fall; UAT-09 uses crisp grains without radial halos, fading190–290ms and stopping on landing. A cached side matte keeps board currency inside side rails while the front centre is open; visible tipping payout continues from the physical body’s fitted position/rotation. The brass pusher rests on the felt from a rear slot. Release positions remain registered to the existing lanes; current coin action and timing follow CP-22 above; legacy mouth-exit names remain in code as registration data.
 
 **Shower** is the proposed separate press-and-hold coin-stream power, previously discussed as Coin Shower/Spray. Do not dispense coins from the cat’s mouth. Artwork is approved, but earning, inventory, activation, duration, rate and coin cost remain undefined. No active Shower power is implemented. Ordinary input remains single-tap regardless.
 
+## CP-25 Stage 3 overlay UAT (October 28, 2026)
+
+UAT 5 displays only the opaque collected treat over a translucent 28% dark backdrop: no award text, frame, opaque card or queue counter. A short soft three-note pickup chime plays as each queued item becomes visible, once; replaces the previous immediate treat sound. Two-second display, tap-away consuming the touch, one-at-a-time queue and clear/advance ordering remain. Source: work/cp25/stage3/release.html. Decorative tile, illustrated Water/Cheese scenes and completion payoff are approval work only, not in UAT 5. First tile proposal preserves its 44×44 game bounds; each scene requires its actual-game layout lock before painting and separate art approval before integration. Choices/current status: tickets/CP-25.md.
+## CP-25 Stage 2 UAT (October 28, 2026)
+
+Stage 1 signed off by Jenny. Stage 2 uses a 0.20-second ordinary-drop gap (five per second) for taps and hold-to-drop, overriding the legacy 0.35-second/no-repeat UAT input below. Holding follows horizontal finger position; release/cancel/background/screens stop it without queued drops. CP-22 contact/launch physics stays fixed. Inventory and collection views pause the board. Drag an owned treat from the bottom satchel into its matching silhouette to spend one and place it permanently; tap-to-place is removed. Collections opens from a tile beside the table, fills the screen, and uses a placeholder frame and satchel. Each front-edge treat queues a two-second You got it card with its large sprite/name/flourish; dismissal consumes the touch without dropping a coin. Queued awards finish before clear feedback/board advance. Water requires tuna and shrimp, rewards 100 coins once, and keeps sardine/crab outline slots for future prizes. Cheese requires cheese, rewards 50 once, and keeps a toy-mouse outline slot. Future prizes do not block completion. Existing fanfare, a completion banner and Rest reaction celebrate; placements and paid flags persist. Developer Settings includes Empty purse (zero coins, fresh 20-second refill countdown, board/inventory kept). Source: work/cp25/layout/release.html; report: tickets/CP-25.md. UAT only; phone sign-off pending.
+## CP-25 Stage 1 UAT loop (October 28, 2026)
+
+CP-25 UAT supersedes the legacy per-board allowance/time-limit rules below: a shared persistent purse starts at 220, refills one coin per 20 seconds up to 300, and receives each ordinary front-edge coin. Winnings may exceed the refill cap. Empty waits without losing the board. Offline wall-clock time counts; time at cap is not banked. Treats won off the front enter a persistent cheese/shrimp/tuna inventory once. Side losses do not pay. Inventory pauses the board. After existing clear feedback and a two-second Rest moment, Boards 1–3 repeat. Current board bodies and progress persist on reopening. Collection placement and completion rewards wait for Stage 2 approval. Source: work/cp25/release.html; report: tickets/CP-25.md. These changes are UAT only.
 ## Shared game rules
 
 Two seeded boards: Board 1 has 220 coins/90 seconds; Board 2 has 160 coins/110 seconds. Cheese and shrimp must fall to clear. First ordinary tap starts timer. Coin falls do not refill allowance. Both targets clear the board; Board 1 offers NEXT BOARD, Board 2 ends the two-board session. Replay resets selected board. Time expiry or exhaustion after settling can lose; loss reason remains visible. No ads are required to win.
@@ -200,3 +217,11 @@ Current runtime previews: UAT-rest-preview.png (legacy filename, now Waiting), U
 8. Background music remains off unless Jenny chooses to revisit it. No announcer/voice production is currently requested. Refine effects from phone feedback, especially power roar/impact and coin push/collection.
 
 Do not rebuild from scratch. Current direction is reworking the existing game and preserving approved art/geometry/physics unless the requested change requires adjustment.
+
+
+
+
+
+## CP-26 face selection (October 29; UAT14)
+
+Jenny selected A2 Calm from the tongue options as the default gameplay face and authorized UAT publication. Calm is similar to Rest but a distinct asset; Rest remains its existing board-clear face/pose. Original toothy Waiting is retained for a future power, with no power assignment yet. Locked head canvas/size/position and normal gameplay mitts are unchanged. Source `work/cp26/release.html`; report `tickets/CP-26.md`. UAT14 published; phone UAT pending.

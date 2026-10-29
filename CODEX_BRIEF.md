@@ -1,15 +1,15 @@
 # CoinPusher: current brief
-Updated October 27, 2026. Read this and the assigned ticket; AGENTS.md carries session rules.
+Updated October 28, 2026. Read this and the assigned ticket; AGENTS.md carries session rules.
 
 ## Current releases (recorded in ticket reports)
-- UAT: **2026.10.27 UAT 8 / APK4**, numeric 20261027113731 (solid coins: physics as thick as drawn, so dropped coins push instead of sinking through; boards easier, allowances may need tuning; UAT 7 20261026211828: pusher starts at the chin and pushes down with no gap above it; opening rows just past its reach so they stay still until coins are dropped; 9 rows; UAT 6 20261026205627 was a superseded pusher trial, UAT 5 20261026163104 the seam fix): CP-21 layout lock with ledge fall-through fix, coin colour C, camera tilt 0.75 (UAT 2), plus coins always whole, open side gutters with a low lip, and a rescue for coins squeezed through the table (locked numbers in SPEC.md, "Locked layout (CP-21)"). Source work/cp21/release.html (earlier sources in work/cp21/uat1/, uat2/, uat3/, uat4/, uat5/, uat6/, uat7/; UAT 7–8 are hand-patched from UAT 5 (review12.html, then t-thick2.html), not yet folded into integrate.py); backup and fresh OneDrive cloud hash verified; GitHub 84d9515. Jenny is happy with the proportions (UAT 4); Jenny signed off UAT 8 on Oct 27. See tickets/CP-21.md. Promoted with UAT-16 to 19 to production 2026.10.27 on Jenny's sign-off.
-- Previous UAT: 2026.10.17 UAT 3 / APK4, numeric 20261017204741 (UAT-18), now the CP-21 baseline.
+- UAT: **2026.10.28 UAT 1 / APK4**, numeric 20261028102427 (CP-22 bounce correction). Source `work/cp22/release.html`; builder `revise13.py` + `impact13.js`, pinned to `work/cp22/uat12/release.html`. Swept first-impact energy dissipation plus ordinary contact launch damping; prior coin/treat separation and overlap fixes retained. **Keep 0.35-second taps.** 18/18 no-power checks pass. Published; backup/local hash verified; cloud hash verified. Phone UAT/sign-off pending; CP-22 remains open. See `tickets/CP-22.md`.
+- Previous UAT: **2026.10.27 UAT 12 / APK4**, numeric 20261027174348: Jenny saw improvement but rejected unexpected board-crossing bounces. Archived source/report `work/cp22/uat12/`. Earlier candidates also failed phone UAT.
 - Production: **2026.10.27 / APK16** (numeric 20261027120233), signed-off CP-21 UAT 8 batch with UAT-16, UAT-17, UAT-18 and UAT-19. Game-only promotion; 18/18 board results identical to UAT 8. Source/payload: `work/cp21/promotion`; native baseline: `work/prod04/android`. Verified backup and fresh production cloud SHA-256 match. Phone production receipt pending. See tickets/CP-21.md.
 - Jenny explicitly signed off everything in UAT 20261015195300 for PROD-03: UAT-08 including rework/continuous-fall, UAT-11 rollback, UAT-12 allowance and UAT-13 messages.
 - CP-21 UAT 8 batch promotion explicitly signed off by Jenny Oct 27 and published; future changes need new sign-off. UAT-04 is cancelled; discarded drafts must not ship.
 
 ## Baseline and source traps
-- For new UAT work, start from latest published UAT payload; matching HTML is work/cp21/release.html (UAT 3's was work/uat18/release.html). Visual tickets: read SPEC.md "Locked layout (CP-21)" first. Current coin textures: work/uat18/art/uat18-coin-faces.png and uat18-small-paw.png (older soft texture retained in payload). Native source: work/ops02/android. The external outputs/uat/game directory is older and must not overwrite this release.
+- For new UAT work, start from latest published UAT payload; matching HTML is work/cp22/release.html (CP-21 UAT 8 is pinned in work/cp22/baseline.html). Visual tickets: read SPEC.md "Locked layout (CP-21)" first. Current coin textures: work/uat18/art/uat18-coin-faces.png and uat18-small-paw.png (older soft texture retained in payload). Native source: work/ops02/android. The external outputs/uat/game directory is older and must not overwrite this release.
 - External workspace: C:/Users/jenny/Documents/Codex/2026-10-10/referenced-chatgpt-conversation-this-is-an. Legacy production staging is outputs/board-prototype; Current production source/payload are shared `work/cp21/promotion`; APK16 native source remains `work/prod04/android`. Previous production is retained in `work/prod04/hotfix16`. Native projects/packaging scripts are under external work. Pin the appropriate published payload before editing or promoting.
 - Root index.html and old root build/publish scripts are legacy; do not assume they publish the current source.
 
@@ -32,3 +32,7 @@ Updated October 27, 2026. Read this and the assigned ticket; AGENTS.md carries s
 
 
 
+
+## CP-26 Calm default — UAT14 published (October 29)
+
+Current UAT: **2026.10.29 UAT 14 / APK4**, numeric **20261029191906**. Source `work/cp26/release.html`, baseline UAT13 `work/cp25/inventory-grid/release.html`. Jenny selected A2 Calm as the default gameplay face and requested UAT. Original toothy Waiting remains saved for a future power; Rest remains separate. Normal mitts/board-clear Rest unchanged. Latest CP-25 Inventory/doily and progression/render fixes retained. Backup/local package and fresh cloud bytes verified. Report: `tickets/CP-26.md`. Phone UAT pending; production promotion requires separate sign-off.

@@ -1,0 +1,26 @@
+{
+  "A2": {
+    "dimensions": [
+      1080,
+      2400
+    ],
+    "changedPixels": 43891,
+    "changedPixelsOutsideMouth": 0
+  },
+  "B2": {
+    "dimensions": [
+      1080,
+      2400
+    ],
+    "changedPixels": 47957,
+    "changedPixelsOutsideMouth": 0
+  },
+  "C2": {
+    "dimensions": [
+      1080,
+      2400
+    ],
+    "changedPixels": 53398,
+    "changedPixelsOutsideMouth": 0
+  }
+}

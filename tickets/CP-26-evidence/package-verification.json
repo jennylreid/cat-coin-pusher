@@ -1,0 +1,18 @@
+{
+  "version": 20261029191906,
+  "displayName": "2026.10.29 UAT 14",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "a850234fdf653caa91434cd159158c0a9306911605778981772a97bb02c99c4d",
+  "stagedJSONSHA256": "b37611cfd221ec5819a74c9804d8fd4a44004f6cab7d8c9c0dfba0403018d4c8",
+  "backup": "uat/backups/before-CP-26-20261029191906",
+  "authorization": "Jenny: sent to UAT please; selected A2 Calm as gameplay default; original Waiting preserved for future power",
+  "changedFiles": [
+    "index.html",
+    "img/art/head-calm.png"
+  ],
+  "releaseHTMLSHA256": "15ac99c28d99249c1224317cf7fc34dc563776468d20ac548640ccd96b21aeb4",
+  "otherPackageFieldsPreserved": true,
+  "originalWaitingPreserved": true,
+  "restAssetPreserved": true,
+  "allExistingAssetsPreserved": true
+}

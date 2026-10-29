@@ -1,0 +1,26 @@
+{
+  "A": {
+    "canvas": [
+      1080,
+      2400
+    ],
+    "changedPixels": 51333,
+    "allChangesWithinExpressionRegions": true
+  },
+  "B": {
+    "canvas": [
+      1080,
+      2400
+    ],
+    "changedPixels": 139783,
+    "allChangesWithinExpressionRegions": true
+  },
+  "C": {
+    "canvas": [
+      1080,
+      2400
+    ],
+    "changedPixels": 138602,
+    "allChangesWithinExpressionRegions": true
+  }
+}
