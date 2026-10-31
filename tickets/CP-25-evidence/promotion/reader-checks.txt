@@ -1,0 +1,1 @@
+PASS: exact production APK16 CloudUpdate source reads full staged APK-only envelope, production identity, label, empty files, complete installer SHA256 and unchanged ETag metadata reuse; desktop JVM only, not phone memory evidence

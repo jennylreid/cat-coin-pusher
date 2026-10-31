@@ -1,0 +1,35 @@
+{
+  "oldProductionBoardSaveDisabled": true,
+  "oldProductionLoadResets": true,
+  "firstOpen": {
+    "muted": true,
+    "coins": 220,
+    "boardIndex": 0,
+    "loopKey": "catpusher.loop.v1"
+  },
+  "reopen": {
+    "muted": true,
+    "coins": 219,
+    "boardIndex": 1,
+    "remaining": 219
+  },
+  "normalPlayerDiagnosticWrites": [],
+  "normalSettings": [
+    "#close",
+    "#sound-test",
+    "#devmode"
+  ],
+  "developerSettings": [
+    "#close",
+    "#safe-guides",
+    "#happy-test",
+    "#dance-test",
+    "#sound-test",
+    "#empty-purse",
+    "#tap-areas",
+    "#pickup-style",
+    "#pickup-item",
+    "#pickup-preview",
+    "#devmode"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "UAT24PolicySameAsProductionExceptPackage": true,
+  "versionCodeFix": "BuildConfig.VERSION_CODE",
+  "nativeOneDriveDiagnostics": "omitted",
+  "productionUpdateURIBytesPreserved": true
+}

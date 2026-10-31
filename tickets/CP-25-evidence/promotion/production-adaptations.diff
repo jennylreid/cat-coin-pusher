@@ -1,0 +1,220 @@
+--- UAT24
++++ production-APK17
+@@ -58,7 +58,7 @@
+ 
+ 
+ 
+-<title>Cat Pusher UAT</title>
++<title>CatCoin</title>
+ 
+ 
+ 
+@@ -1126,7 +1126,7 @@
+ 
+ 
+ 
+-const KEY = 'catpusher.uat.board.v1', OLD_KEY = KEY;
++const KEY = 'catpusher.board.v1', OLD_KEY = KEY;
+ 
+ 
+ 
+@@ -2423,7 +2423,7 @@
+ 
+ 
+ const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
+-const BUILD = '2026.10.30 UAT 24';
++const BUILD = '2026.10.31';
+ 
+ 
+ 
+@@ -5364,7 +5364,7 @@
+ 
+ 
+ 
+-const LOOP_KEY='catpusher.uat.loop.v1';
++const LOOP_KEY='catpusher.loop.v1';
+ 
+ 
+ 
+@@ -8762,19 +8762,19 @@
+ 
+ 
+ 
+-try {const audioSettings=JSON.parse(localStorage.getItem('catpusher.uat.audio.v1')||'null');if(audioSettings){S.musicEnabled=false;S.muted=!!audioSettings.muted;}}catch(e){}
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-function saveAudioSettings(){if(S.muted){recordedSfx.stopAll();stopPawDance();}try{localStorage.setItem('catpusher.uat.audio.v1',JSON.stringify({musicEnabled:S.musicEnabled,muted:S.muted}));}catch(e){}}
++try {const audioSettings=JSON.parse(localStorage.getItem('catpusher.audio.v1')||'null');if(audioSettings){S.musicEnabled=false;S.muted=!!audioSettings.muted;}}catch(e){}
++
++
++
++
++
++
++
++
++
++
++
++function saveAudioSettings(){if(S.muted){recordedSfx.stopAll();stopPawDance();}try{localStorage.setItem('catpusher.audio.v1',JSON.stringify({musicEnabled:S.musicEnabled,muted:S.muted}));}catch(e){}}
+ 
+ 
+ 
+@@ -34712,7 +34712,7 @@
+ 
+ 
+ 
+- panel.innerHTML='<button id="close">Close</button><h2>UAT Settings</h2><button id="diag-send-file" class="wide">Send performance log</button><button id="diag-link-file" class="wide">Connect log file to OneDrive</button><button id="diag-share-file" class="wide">Share log file to OneDrive</button><p id="diag-file-status"></p>'
++ panel.innerHTML='<button id="close">Close</button><h2>Settings</h2>'
+ 
+ 
+ 
+@@ -34736,7 +34736,7 @@
+ 
+ 
+ 
+-  +'<button id="safe-guides" class="wide">Show/hide safe-area guides</button><button id="happy-test" class="wide">Preview Happy (6 seconds)</button>'+(S.dev?'<button id="dance-test" class="wide">Preview Dancing pose</button>':'')+'<button id="sound-test" class="wide">Sound effects: '+(S.muted?'off':'on')+'</button>'
++  +(S.dev?'<button id="safe-guides" class="wide">Show/hide safe-area guides</button><button id="happy-test" class="wide">Preview Happy (6 seconds)</button>':'')+(S.dev?'<button id="dance-test" class="wide">Preview Dancing pose</button>':'')+'<button id="sound-test" class="wide">Sound effects: '+(S.muted?'off':'on')+'</button>'
+ 
+ 
+ 
+@@ -34772,7 +34772,7 @@
+ 
+ 
+ 
+-  +'<button id="pickup-style" class="wide">Pickup style: '+PICKUP_NAMES[pickupChoice]+'</button><button id="pickup-item" class="wide">Preview item: '+PRIZE_NAMES[pickupPreviewItem]+'</button><button id="pickup-preview" class="wide">Preview pickup (no reward)</button>'
++  +(S.dev?'<button id="pickup-style" class="wide">Pickup style: '+PICKUP_NAMES[pickupChoice]+'</button><button id="pickup-item" class="wide">Preview item: '+PRIZE_NAMES[pickupPreviewItem]+'</button><button id="pickup-preview" class="wide">Preview pickup (no reward)</button>':'')
+   +'<button id="devmode" class="devswitch">Developer mode: '+(S.dev?'on':'off')+'</button>'
+ 
+ 
+@@ -34785,7 +34785,7 @@
+ 
+ 
+ 
+-  +'<p>Calm is the default gameplay face. Rest is the small smile with raised mitts, used for board clear. The original toothy Waiting face is saved for a future power. Recovery returns from Quake. Happy usage is TBD; preview only.</p>';
++  +(S.dev?'<p>Calm is the default gameplay face. Rest is the small smile with raised mitts, used for board clear. The original toothy Waiting face is saved for a future power. Recovery returns from Quake. Happy usage is TBD; preview only.</p>':'');
+ 
+ 
+ 
+@@ -34821,19 +34821,19 @@
+ 
+ 
+ 
+- panel.querySelector('#safe-guides').onclick=()=>{safeAreaGuides=!safeAreaGuides;panel.style.display='none';};
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+- panel.querySelector('#happy-test').onclick=()=>{if(previewHappy())panel.style.display='none';};
++ const safe_guides=panel.querySelector('#safe-guides');if(safe_guides)safe_guides.onclick=()=>{safeAreaGuides=!safeAreaGuides;panel.style.display='none';};
++
++
++
++
++
++
++
++
++
++
++
++ const happy_test=panel.querySelector('#happy-test');if(happy_test)happy_test.onclick=()=>{if(previewHappy())panel.style.display='none';};
+ 
+ 
+ 
+@@ -34857,14 +34857,9 @@
+ 
+ 
+ 
+- panel.querySelector('#pickup-style').onclick=()=>{cyclePickupChoice();openCredits();};
+- panel.querySelector('#pickup-item').onclick=()=>{cyclePickupPreviewItem();openCredits();};
+- panel.querySelector('#pickup-preview').onclick=previewPickup;
+- panel.querySelector('#diag-send-file').onclick=diagSendFile;
+- panel.querySelector('#diag-link-file').onclick=()=>{diagFlush('link-file');if(diagnosticFileBridge())Android.connectDiagnosticFile();};
+- panel.querySelector('#diag-share-file').onclick=diagShareFile;
+- onDiagnosticStatus(diagnosticFileStatus());
+- diagFlush('settings');
++ const pickup_style=panel.querySelector('#pickup-style');if(pickup_style)pickup_style.onclick=()=>{cyclePickupChoice();openCredits();};
++ const pickup_item=panel.querySelector('#pickup-item');if(pickup_item)pickup_item.onclick=()=>{cyclePickupPreviewItem();openCredits();};
++ const pickup_preview=panel.querySelector('#pickup-preview');if(pickup_preview)pickup_preview.onclick=previewPickup;
+  panel.querySelector('#sound-test').onclick=()=>{S.muted=!S.muted;saveAudioSettings();openCredits();};
+ 
+ 
+@@ -36456,7 +36451,7 @@
+ }
+ 
+ // UAT presentation choices only. Real inventory credit remains in fallOff.
+-const PICKUP_KEY='catpusher.uat.pickup.v1';
++const PICKUP_KEY='catpusher.pickup.v1';
+ const PICKUP_STYLES=['paw','ribbon','satchel'],PICKUP_NAMES={cycle:'Cycle three styles',paw:'Paw reward (paused)',ribbon:'Reward ribbon (keep playing)',satchel:'Satchel bubble (keep playing)'};
+ let pickupChoice='cycle',pickupNext=1,pickupPreviewItem='cheese';
+ try{const pref=JSON.parse(localStorage.getItem(PICKUP_KEY)||'null');if(pref&&(pref.choice==='cycle'||PICKUP_STYLES.includes(pref.choice)))pickupChoice=pref.choice;if(Number.isInteger(pref?.next))pickupNext=((pref.next%3)+3)%3;}catch(e){}
+@@ -36492,7 +36487,7 @@
+ }
+ 
+ // Local UAT diagnostics: bounded numeric data, no network and no gameplay state writes.
+-const DIAG_KEY='catpusher.uat.diagnostics.v1';
++const DIAG_KEY='catpusher.diagnostics.v1';
+ const DIAG_SAMPLE_COLUMNS=['atSec','elapsedMs','frames','fps','physicsMsPerFrame','drawMsPerFrame','maxFrameMs','framesOver25Ms','stepsPerFrame','coins','board','screen','heldFrames','heldElapsedMs','heldPhysicsTotalMs','heldDrawTotalMs','nonActivePlayFrames'];
+ const DIAG_DROP_COLUMNS=['atSec','inputCanvasX','requestedWorldX','releaseWorldX','releaseCanvasX','msSincePointerDelivery','pointerDispatchLagMs'];
+ const diagOrigin=performance.now();
+@@ -36500,27 +36495,27 @@
+ const diagAt=()=>diagRound((performance.now()-diagOrigin)/1000,2);
+ function diagValidSession(s){return s&&typeof s.build==='string'&&Array.isArray(s.samples)&&Array.isArray(s.drops)&&Array.isArray(s.events);}
+ let diagPrevious=null;
+-try{const raw=localStorage.getItem(DIAG_KEY);if(raw&&raw.length<150000){const saved=JSON.parse(raw),recent=saved.current,useful=recent?.drops?.length||recent?.samples?.some(row=>row[12]>0),s=useful?recent:(diagValidSession(saved.previous)?saved.previous:recent);if(diagValidSession(s)){diagPrevious={...s,samples:s.samples.slice(-120),drops:s.drops.slice(-80),events:s.events.slice(-40)};}}}catch(e){}
++try{const raw=S.dev?localStorage.getItem(DIAG_KEY):null;if(raw&&raw.length<150000){const saved=JSON.parse(raw),recent=saved.current,useful=recent?.drops?.length||recent?.samples?.some(row=>row[12]>0),s=useful?recent:(diagValidSession(saved.previous)?saved.previous:recent);if(diagValidSession(s)){diagPrevious={...s,samples:s.samples.slice(-120),drops:s.drops.slice(-80),events:s.events.slice(-40)};}}}catch(e){}
+ const diagSession={build:BUILD,startedAt:new Date().toISOString(),environment:{userAgent:typeof navigator==='object'?navigator.userAgent||'':'',cssWidth:innerWidth,cssHeight:innerHeight,devicePixelRatio:window.devicePixelRatio||1,renderPixelRatio},releaseProjection:'fitted-camera',samples:[],drops:[],events:[]};
+ let diagBin=null,diagPointerX=null,diagPointerNow=null,diagPointerLag=null,diagNeedSave=false,diagLastSave=-Infinity;
+ function diagPush(list,item,max){list.push(item);if(list.length>max)list.splice(0,list.length-max);}
+-function diagEvent(kind,data=null){diagPush(diagSession.events,[diagAt(),kind,data],40);}
+-function diagInput(x,stamp){const now=performance.now();diagPointerX=x;diagPointerNow=now;const lag=now-stamp;diagPointerLag=Number.isFinite(lag)&&lag>=0&&lag<10000?lag:null;}
++function diagEvent(kind,data=null){if(!S.dev)return;diagPush(diagSession.events,[diagAt(),kind,data],40);}
++function diagInput(x,stamp){if(!S.dev)return;const now=performance.now();diagPointerX=x;diagPointerNow=now;const lag=now-stamp;diagPointerLag=Number.isFinite(lag)&&lag>=0&&lag<10000?lag:null;}
+ function diagBeginHold(x,stamp){diagInput(x,stamp);diagEvent('pointer-down',diagRound(x));}
+-function diagEndHold(reason='stop'){if(holding){diagEvent('hold-end',reason);diagNeedSave=true;}}
+-function diagDrop(requested,actual,canvasX){diagPush(diagSession.drops,[diagAt(),diagRound(diagPointerX),diagRound(requested),diagRound(actual),diagRound(canvasX),diagPointerNow===null?null:diagRound(performance.now()-diagPointerNow),diagRound(diagPointerLag)],80);}
++function diagEndHold(reason='stop'){if(!S.dev)return;if(holding){diagEvent('hold-end',reason);diagNeedSave=true;}}
++function diagDrop(requested,actual,canvasX){if(!S.dev)return;diagPush(diagSession.drops,[diagAt(),diagRound(diagPointerX),diagRound(requested),diagRound(actual),diagRound(canvasX),diagPointerNow===null?null:diagRound(performance.now()-diagPointerNow),diagRound(diagPointerLag)],80);}
+ function diagFinishBin(){
+  const b=diagBin;if(!b||!b.frames){diagBin=null;return;}
+  const screen=panel.style.display==='block'?'settings':inventoryOpen?'inventory':pickupBlocksPlay()?'pickup-paused':board.status;
+  diagPush(diagSession.samples,[diagAt(),diagRound(b.ms),b.frames,diagRound(b.frames*1000/b.ms),diagRound(b.physics/b.frames,2),diagRound(b.draw/b.frames,2),diagRound(b.max),b.slow,diagRound(b.steps/b.frames,2),bodies.filter(coinSolid).length,boardIndex+1,screen,b.heldFrames,diagRound(b.heldMs),diagRound(b.heldPhysics,2),diagRound(b.heldDraw,2),b.paused],120);
+  diagBin=null;
+ }
+-function diagPersist(force=false){
++function diagPersist(force=false){if(!S.dev)return;
+  if(!force&&(holding||performance.now()-diagLastSave<5000))return;
+  try{localStorage.setItem(DIAG_KEY,JSON.stringify({schema:1,current:diagSession,previous:diagPrevious}));diagLastSave=performance.now();diagNeedSave=false;}catch(e){diagLastSave=performance.now();diagNeedSave=false;diagSession.storageError=e&&e.name?String(e.name):'unavailable';/* Keep in-memory export available; never retry each frame. */}
+  try{if(diagnosticFileBridge())Android.savePerformanceLog(diagPayload());}catch(e){}
+ }
+-function diagFrame(ms,physics,drawing,steps,wasHolding){
++function diagFrame(ms,physics,drawing,steps,wasHolding){if(!S.dev)return;
+  if(!(ms>0)||!Number.isFinite(ms))return;
+  if(!diagBin)diagBin={ms:0,frames:0,physics:0,draw:0,max:0,slow:0,steps:0,heldFrames:0,heldMs:0,heldPhysics:0,heldDraw:0,paused:0};
+  const b=diagBin;b.ms+=ms;b.frames++;b.physics+=physics;b.draw+=drawing;b.max=Math.max(b.max,ms);b.slow+=ms>25?1:0;b.steps+=steps;
+@@ -36530,7 +36525,7 @@
+  if(b.ms>=1000)diagFinishBin();
+  if(!holding&&diagNeedSave&&performance.now()-diagLastSave>=5000){diagFinishBin();diagPersist();}
+ }
+-function diagFlush(reason){diagFinishBin();diagEvent(reason);diagNeedSave=true;diagPersist(true);}
++function diagFlush(reason){if(!S.dev)return;diagFinishBin();diagEvent(reason);diagNeedSave=true;diagPersist(true);}
+ function diagSummary(s){
+  let frames=0,ms=0,hf=0,hm=0,hp=0,hd=0,max=0,slow=0;
+  for(const row of s.samples){frames+=row[2];ms+=row[1];max=Math.max(max,row[6]);slow+=row[7];hf+=row[12];hm+=row[13];hp+=row[14];hd+=row[15];}

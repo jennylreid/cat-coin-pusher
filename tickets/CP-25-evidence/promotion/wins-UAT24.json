@@ -1,0 +1,242 @@
+[
+  {
+    "source": "UAT24",
+    "seed": 42,
+    "board": 1,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 120,
+    "seconds": 24.3,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 42,
+    "board": 2,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 92,
+    "seconds": 18.7,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 42,
+    "board": 3,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 134,
+    "seconds": 27.15,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 42,
+    "board": 1,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 97,
+    "seconds": 33.97,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 42,
+    "board": 2,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 95,
+    "seconds": 33.23,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 42,
+    "board": 3,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 87,
+    "seconds": 30.47,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 1,
+    "board": 1,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 104,
+    "seconds": 21.18,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 1,
+    "board": 2,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 118,
+    "seconds": 23.98,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 1,
+    "board": 3,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 119,
+    "seconds": 24.2,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 1,
+    "board": 1,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 53,
+    "seconds": 18.53,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 1,
+    "board": 2,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 44,
+    "seconds": 15.12,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 1,
+    "board": 3,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 70,
+    "seconds": 24.5,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 2,
+    "board": 1,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 87,
+    "seconds": 17.68,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 2,
+    "board": 2,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 89,
+    "seconds": 18.18,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 2,
+    "board": 3,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 119,
+    "seconds": 24.03,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 2,
+    "board": 1,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 61,
+    "seconds": 21.12,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 2,
+    "board": 2,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 71,
+    "seconds": 24.6,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "UAT24",
+    "seed": 2,
+    "board": 3,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 89,
+    "seconds": 30.88,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  }
+]

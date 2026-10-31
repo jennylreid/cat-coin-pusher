@@ -1,0 +1,1 @@
+PASS: APK16 automatic offer, decline suppression, manual retry; generated APK17 version, no reoffer automatic/manual, future game-only path, stale rejection

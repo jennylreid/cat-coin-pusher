@@ -1,0 +1,81 @@
+{
+  "version": 20261031103610,
+  "displayName": "2026.10.31",
+  "apkVersion": 17,
+  "oldJSONSHA256": "336aeed9cc7f319e02efc6fb6affa38e244b27c956abb4aa4b226e6ff3573162",
+  "oldAPKSHA256": "2598c25d9d53bd2d144025b719cb8dfa33a2433b59bf34fc3d3256f6443c5d7f",
+  "uatAPKSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "adaptations": [
+    {
+      "before": "const BUILD = '2026.10.30 UAT 24';",
+      "after": "const BUILD = '2026.10.31';"
+    },
+    {
+      "before": "<title>Cat Pusher UAT</title>",
+      "after": "<title>CatCoin</title>"
+    },
+    {
+      "before": "catpusher.uat.",
+      "after": "catpusher."
+    },
+    {
+      "before": "<h2>UAT Settings</h2><button id=\"diag-send-file\" class=\"wide\">Send performance log</button><button id=\"diag-link-file\" class=\"wide\">Connect log file to OneDrive</button><button id=\"diag-share-file\" class=\"wide\">Share log file to OneDrive</button><p id=\"diag-file-status\"></p>",
+      "after": "<h2>Settings</h2>"
+    },
+    {
+      "before": " panel.querySelector('#diag-send-file').onclick=diagSendFile;\n panel.querySelector('#diag-link-file').onclick=()=>{diagFlush('link-file');if(diagnosticFileBridge())Android.connectDiagnosticFile();};\n panel.querySelector('#diag-share-file').onclick=diagShareFile;\n onDiagnosticStatus(diagnosticFileStatus());\n diagFlush('settings');\n",
+      "after": ""
+    },
+    {
+      "before": "panel.querySelector('#safe-guides').onclick=",
+      "after": "const safe_guides=panel.querySelector('#safe-guides');if(safe_guides)safe_guides.onclick="
+    },
+    {
+      "before": "panel.querySelector('#happy-test').onclick=",
+      "after": "const happy_test=panel.querySelector('#happy-test');if(happy_test)happy_test.onclick="
+    },
+    {
+      "before": "panel.querySelector('#pickup-style').onclick=",
+      "after": "const pickup_style=panel.querySelector('#pickup-style');if(pickup_style)pickup_style.onclick="
+    },
+    {
+      "before": "panel.querySelector('#pickup-item').onclick=",
+      "after": "const pickup_item=panel.querySelector('#pickup-item');if(pickup_item)pickup_item.onclick="
+    },
+    {
+      "before": "panel.querySelector('#pickup-preview').onclick=",
+      "after": "const pickup_preview=panel.querySelector('#pickup-preview');if(pickup_preview)pickup_preview.onclick="
+    },
+    {
+      "before": "+'<button id=\"safe-guides\" class=\"wide\">Show/hide safe-area guides</button><button id=\"happy-test\" class=\"wide\">Preview Happy (6 seconds)</button>'",
+      "after": "+(S.dev?'<button id=\"safe-guides\" class=\"wide\">Show/hide safe-area guides</button><button id=\"happy-test\" class=\"wide\">Preview Happy (6 seconds)</button>':'')"
+    },
+    {
+      "before": "+'<button id=\"pickup-style\" class=\"wide\">Pickup style: '+PICKUP_NAMES[pickupChoice]+'</button><button id=\"pickup-item\" class=\"wide\">Preview item: '+PRIZE_NAMES[pickupPreviewItem]+'</button><button id=\"pickup-preview\" class=\"wide\">Preview pickup (no reward)</button>'",
+      "after": "+(S.dev?'<button id=\"pickup-style\" class=\"wide\">Pickup style: '+PICKUP_NAMES[pickupChoice]+'</button><button id=\"pickup-item\" class=\"wide\">Preview item: '+PRIZE_NAMES[pickupPreviewItem]+'</button><button id=\"pickup-preview\" class=\"wide\">Preview pickup (no reward)</button>':'')"
+    },
+    {
+      "before": "+'<p>Calm is the default gameplay face. Rest is the small smile with raised mitts, used for board clear. The original toothy Waiting face is saved for a future power. Recovery returns from Quake. Happy usage is TBD; preview only.</p>'",
+      "after": "+(S.dev?'<p>Calm is the default gameplay face. Rest is the small smile with raised mitts, used for board clear. The original toothy Waiting face is saved for a future power. Recovery returns from Quake. Happy usage is TBD; preview only.</p>':'')"
+    },
+    {
+      "before": "try{const raw=localStorage.getItem(DIAG_KEY);",
+      "after": "try{const raw=S.dev?localStorage.getItem(DIAG_KEY):null;"
+    }
+  ],
+  "productionNativeBaseline": "work/prod04/android",
+  "diagnostics": "Native OneDrive bridge omitted; automatic local hooks Developer-only",
+  "stagedJSONSHA256": "0f4177067aef5fb39f1fa82a8c2bc1e39d70634166f2bcfa3366998b3a9a145b",
+  "stagedAPKSHA256": "df205863d0bf755276f7f4acf301b3c573788ccef09b8f8bc0cd0263121e8e45",
+  "jsonBytes": 49493561,
+  "apkBytes": 37120058,
+  "runtimeFiles": 37,
+  "unchangedNonHTMLRuntimeFiles": 36,
+  "signatureVerified": true,
+  "signerSHA256": "20ddef2a158095a45a176efa2ddffa60ecf0c074d569b7dcd9785b1cfa122dc2",
+  "manifestIdentityVerified": true,
+  "dexStartupVerified": true,
+  "buildAndLint": "passed; fresh outputs, offline, no build cache, all tasks rerun",
+  "envelope": "APK-only: complete installer; empty files; runtime bundled once",
+  "publication": "not published; awaiting first-open save decision"
+}
