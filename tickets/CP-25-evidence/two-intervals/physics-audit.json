@@ -1,0 +1,76 @@
+{
+  "source": "work/cp25/two-intervals/candidate.html",
+  "results": [
+    {
+      "startBoard": 1,
+      "mode": "centre",
+      "seconds": 28,
+      "dropGap": 0.2,
+      "boardsVisited": [
+        1,
+        2
+      ],
+      "substeps": 2590,
+      "confirmedThroughCrossings": 0,
+      "separatedCentreCrossings": 52,
+      "maxPenetration": 0.149999326094985,
+      "deepSamplesOverHalfUnit": 0,
+      "maxPlatePenetration": 0.15516170533373952,
+      "plateSamplesOverHalfUnit": 0,
+      "tableRescues": 0,
+      "flipCrossings": 0,
+      "unearnedFlips": 0,
+      "maxRestTiltStepDegrees": 0.08994798464401355,
+      "restSamples": 45690,
+      "peakPileHeight": 200.04093647003174,
+      "examples": []
+    },
+    {
+      "startBoard": 2,
+      "mode": "sweep",
+      "seconds": 28,
+      "dropGap": 0.2,
+      "boardsVisited": [
+        2,
+        3
+      ],
+      "substeps": 2590,
+      "confirmedThroughCrossings": 0,
+      "separatedCentreCrossings": 104,
+      "maxPenetration": 0.23477477952837944,
+      "deepSamplesOverHalfUnit": 0,
+      "maxPlatePenetration": 0.17215763218700886,
+      "plateSamplesOverHalfUnit": 0,
+      "tableRescues": 0,
+      "flipCrossings": 0,
+      "unearnedFlips": 0,
+      "maxRestTiltStepDegrees": 0.04435126198462379,
+      "restSamples": 45486,
+      "peakPileHeight": 82.71290063858032,
+      "examples": []
+    },
+    {
+      "startBoard": 3,
+      "mode": "left",
+      "seconds": 28,
+      "dropGap": 0.2,
+      "boardsVisited": [
+        3
+      ],
+      "substeps": 3360,
+      "confirmedThroughCrossings": 0,
+      "separatedCentreCrossings": 34,
+      "maxPenetration": 0.26447330601513386,
+      "deepSamplesOverHalfUnit": 0,
+      "maxPlatePenetration": 0.23898719809949398,
+      "plateSamplesOverHalfUnit": 0,
+      "tableRescues": 0,
+      "flipCrossings": 0,
+      "unearnedFlips": 0,
+      "maxRestTiltStepDegrees": 0.09793412385279382,
+      "restSamples": 54628,
+      "peakPileHeight": 237.83190250396729,
+      "examples": []
+    }
+  ]
+}

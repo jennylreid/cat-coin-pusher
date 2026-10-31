@@ -1,0 +1,14 @@
+{
+  "version": 20261029193509,
+  "displayName": "2026.10.29 UAT 15",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "b37611cfd221ec5819a74c9804d8fd4a44004f6cab7d8c9c0dfba0403018d4c8",
+  "stagedJSONSHA256": "5cc26edb773a610178914214c24bc77824bd402c12848e7a64175f15b472487f",
+  "backup": "uat/backups/before-CP-25-pickup-options-20261029193509",
+  "authorization": "Jenny requested cycling pickup options and no tap-to-dismiss; latest UAT14 Calm face preserved; UAT only",
+  "releaseHTMLSHA256": "e6c01ed092f0f9a3c125ff3ebde53540d7aaf6a6ee4fd6cd0c4d1d0e1aaed8d8",
+  "changedFiles": [
+    "index.html"
+  ],
+  "localPublication": "verified"
+}

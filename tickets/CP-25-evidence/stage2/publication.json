@@ -1,0 +1,15 @@
+{
+  "version": 20261028161350,
+  "displayName": "2026.10.28 UAT 3",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "cde427419bcab9c92bd97c4145a5cfe54c83d0cd15853677e73ef1a2b2b1f5a9",
+  "stagedJSONSHA256": "e1b754feb9dd71eb36095ace6198881ea75cde03c48e2470af44b15fd881e998",
+  "backup": "uat/backups/before-CP-25-stage2-20261028161350",
+  "authorization": "Jenny: Stage 1 OK; Stage 2 with sardine/crab/toy mouse, hold to drop, faster drops and Developer Empty purse; UAT only",
+  "releaseHTMLSHA256": "be295246a5a0a767536ce17ec04ab431fa55ca1880da570277ada2080c2cc5e5",
+  "changedFiles": [
+    "index.html"
+  ],
+  "nonHTMLFilesUnchanged": 29,
+  "localPublication": "verified"
+}

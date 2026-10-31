@@ -1,0 +1,106 @@
+{
+  "platform": "Desktop native Canvas,1080x2400; relative cost only, not device FPS",
+  "results": [
+    {
+      "label": "UAT10",
+      "board": 1,
+      "draw": {
+        "meanMs": 23.342726666666685,
+        "p95Ms": 33.54820000000018
+      },
+      "simulation": {
+        "meanMs": 7.295255555555574,
+        "p95Ms": 10.56230000000005
+      },
+      "bodies": 56
+    },
+    {
+      "label": "UAT10",
+      "board": 3,
+      "draw": {
+        "meanMs": 64.83012666666663,
+        "p95Ms": 79.70350000000053
+      },
+      "simulation": {
+        "meanMs": 20.53813999999999,
+        "p95Ms": 26.04910000000018
+      },
+      "bodies": 58
+    },
+    {
+      "label": "UAT10",
+      "componentsMeanMs": {
+        "drawCollectionsTile": 0.017383333333342913,
+        "drawBoardHUD": 0.3953249999999874
+      }
+    },
+    {
+      "label": "UAT11",
+      "board": 1,
+      "draw": {
+        "meanMs": 57.17500000000016,
+        "p95Ms": 71.46469999999863
+      },
+      "simulation": {
+        "meanMs": 18.156982222222318,
+        "p95Ms": 25.34270000000106
+      },
+      "bodies": 56
+    },
+    {
+      "label": "UAT11",
+      "board": 3,
+      "draw": {
+        "meanMs": 71.30610000000007,
+        "p95Ms": 93.04939999999988
+      },
+      "simulation": {
+        "meanMs": 18.201280000000043,
+        "p95Ms": 22.59270000000106
+      },
+      "bodies": 58
+    },
+    {
+      "label": "UAT11",
+      "componentsMeanMs": {
+        "drawCollectionsTile": 0.3761216666666466,
+        "drawPowerButtons": 0.2955199999999725,
+        "drawBoardHUD": 0.6083116666666684
+      }
+    },
+    {
+      "label": "candidate",
+      "board": 1,
+      "draw": {
+        "meanMs": 17.706644444444343,
+        "p95Ms": 21.657599999998638
+      },
+      "simulation": {
+        "meanMs": 19.33421777777783,
+        "p95Ms": 23.030699999999342
+      },
+      "bodies": 56
+    },
+    {
+      "label": "candidate",
+      "board": 3,
+      "draw": {
+        "meanMs": 18.021464444444426,
+        "p95Ms": 25.63010000000213
+      },
+      "simulation": {
+        "meanMs": 18.88669333333326,
+        "p95Ms": 23.185099999998783
+      },
+      "bodies": 58
+    },
+    {
+      "label": "candidate",
+      "componentsMeanMs": {
+        "drawCollectionsTile": 0.2771249999999782,
+        "drawPowerButtons": 0.22190166666665997,
+        "drawBoardHUD": 0.5337666666666944
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "passed": [
+    "900 fixed steps / 75 drops: exact baseline positions, rotations, velocities and sleeping states every 30 steps",
+    "3-second readout: 60 FPS at 16.67 ms; 20 FPS and 60 slow frames at 50 ms; long frames counted without cap"
+  ],
+  "phoneFPS": "pending Jenny device evidence"
+}

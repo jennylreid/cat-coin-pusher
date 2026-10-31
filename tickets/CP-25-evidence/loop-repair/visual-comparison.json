@@ -1,0 +1,29 @@
+{
+  "method": "Same frozen game state, original offscreen renderer versus direct renderer; identical ordering/clipping/source sampling",
+  "results": [
+    {
+      "name": "board1-ready",
+      "differentChannels": 13119,
+      "totalChannels": 10368000,
+      "meanAbsoluteChannelDifference": 0.0012663001543209876,
+      "maxChannelDifference": 2,
+      "physicsUnchanged": true
+    },
+    {
+      "name": "board3-ready",
+      "differentChannels": 12604,
+      "totalChannels": 10368000,
+      "meanAbsoluteChannelDifference": 0.0012164351851851852,
+      "maxChannelDifference": 2,
+      "physicsUnchanged": true
+    },
+    {
+      "name": "board3-quake",
+      "differentChannels": 9830,
+      "totalChannels": 10368000,
+      "meanAbsoluteChannelDifference": 0.0009486882716049382,
+      "maxChannelDifference": 2,
+      "physicsUnchanged": true
+    }
+  ]
+}

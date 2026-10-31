@@ -1,0 +1,27 @@
+{
+  "passed": [
+    "Two-second individual queue and tap-away retained; dismissal charges no coin; one pickup sound per visible item, never per frame",
+    "Award draws one translucent backdrop and opaque existing sprite, with no text, frame, opaque card or queue count",
+    "Actual chime schedules three soft sine notes in under 0.42 seconds and respects mute/hidden state"
+  ],
+  "notes": [
+    {
+      "frequency": 659.25,
+      "at": 0,
+      "start": 0,
+      "stop": 0.2
+    },
+    {
+      "frequency": 830.61,
+      "at": 0.055,
+      "start": 0.055,
+      "stop": 0.28500000000000003
+    },
+    {
+      "frequency": 1318.51,
+      "at": 0.11,
+      "start": 0.11,
+      "stop": 0.41000000000000003
+    }
+  ]
+}

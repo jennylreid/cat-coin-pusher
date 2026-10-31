@@ -1,0 +1,7 @@
+{
+  "passed": [
+    "Modal stops hold, freezes simulation time/body positions, consumes dismissal without dropping, then resumes",
+    "Modal timer/queue/chime continues while scene pauses; front inventory credits once and survives reopen",
+    "Queue closes before clear/advance resumes"
+  ]
+}

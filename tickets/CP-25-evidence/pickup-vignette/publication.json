@@ -1,0 +1,14 @@
+{
+  "version": 20261029110229,
+  "displayName": "2026.10.29 UAT 9",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "b8462b8c359e22cbff433ca9c9468efe4ab022b0196f1b6ff069530c40c9a8cf",
+  "stagedJSONSHA256": "e27e7830418a9a998b839df4ecc2c8af67d9fb50597db4f9306c9bd5e733f981",
+  "backup": "uat/backups/before-CP-25-pickup-vignette-20261029110229",
+  "authorization": "Jenny approved spotlight motion and requested a bigger overlay pattern that dims the scene; UAT only",
+  "releaseHTMLSHA256": "b6316050094448a2a43d5ed83c0e94377b2b5fe9208ee9ba79ab5b89a0af727f",
+  "changedFiles": [
+    "index.html"
+  ],
+  "localPublication": "verified"
+}

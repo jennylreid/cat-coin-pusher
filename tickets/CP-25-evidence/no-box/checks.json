@@ -1,0 +1,8 @@
+{
+  "passed": [
+    "Kitchen tab selects correct scene and display name while keeping existing save key",
+    "Approved painting and two natural slots render in fixed scene bounds",
+    "Actual cheese drag consumes one and pays Kitchen 50 once; mouse stays future",
+    "Saved completion persists and return dance starts"
+  ]
+}

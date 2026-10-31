@@ -1,0 +1,51 @@
+{
+  "source": "work/cp25/log-file/candidate.html",
+  "results": [
+    {
+      "startBoard": 1,
+      "mode": "edge-left",
+      "seconds": 28,
+      "dropGap": 0.2,
+      "boardsVisited": [
+        1
+      ],
+      "substeps": 1680,
+      "confirmedThroughCrossings": 0,
+      "separatedCentreCrossings": 45,
+      "maxPenetration": 0.22303732112050056,
+      "deepSamplesOverHalfUnit": 0,
+      "maxPlatePenetration": 0.1499632722698152,
+      "plateSamplesOverHalfUnit": 0,
+      "tableRescues": 0,
+      "flipCrossings": 0,
+      "unearnedFlips": 0,
+      "maxRestTiltStepDegrees": 0.11748476350866413,
+      "restSamples": 67649,
+      "peakPileHeight": 375.07314682006836,
+      "examples": []
+    },
+    {
+      "startBoard": 3,
+      "mode": "edge-right",
+      "seconds": 28,
+      "dropGap": 0.2,
+      "boardsVisited": [
+        3
+      ],
+      "substeps": 1680,
+      "confirmedThroughCrossings": 0,
+      "separatedCentreCrossings": 23,
+      "maxPenetration": 0.2116267802193761,
+      "deepSamplesOverHalfUnit": 0,
+      "maxPlatePenetration": 0.14988419134169817,
+      "plateSamplesOverHalfUnit": 0,
+      "tableRescues": 0,
+      "flipCrossings": 0,
+      "unearnedFlips": 0,
+      "maxRestTiltStepDegrees": 0.054832908251023244,
+      "restSamples": 67716,
+      "peakPileHeight": 467.94610023498535,
+      "examples": []
+    }
+  ]
+}

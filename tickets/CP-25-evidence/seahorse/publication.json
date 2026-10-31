@@ -1,0 +1,14 @@
+{
+  "version": 20261029070249,
+  "displayName": "2026.10.29 UAT 2",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "db710c3e0ea6d71a72311cd46ce570fad04976022beaabdb2f5639dad1a98a3b",
+  "stagedJSONSHA256": "9a5ce7ba0ee3e86fdd5bea02fd1ac71060c6a8dbfa683f0f7a9d25536d31d29d",
+  "backup": "uat/backups/before-CP-25-seahorse-20261029070249",
+  "authorization": "Jenny explicitly selected Include seahorse now; future outline only; UAT",
+  "releaseHTMLSHA256": "00483c9553366d5b8c2ed782006e879ebfcbd4334da155a49bdd84ef98aa9239",
+  "changedFiles": [
+    "index.html"
+  ],
+  "localPublication": "verified"
+}

@@ -1,0 +1,29 @@
+{
+  "protocol": "Desktop native canvas 400x889 CSS DPR2; real game frame() wall-clock callbacks for six seconds, hold sweeps 130..270 and back; same seed42, Board1. Software rendering, not phone FPS.",
+  "builds": {
+    "uat16": {
+      "readout": {
+        "step": 46.19316050729297,
+        "fps": 6.1862949992726195,
+        "slow": 19
+      },
+      "wallFPS": 14.592477679411726,
+      "frames": 89,
+      "coinsReleased": 17
+    },
+    "candidate": {
+      "readout": {
+        "step": 37.5952736764904,
+        "fps": 7.221316512305011,
+        "slow": 22,
+        "physics": 107.71040454545445,
+        "draw": 24.592500000000076,
+        "coins": 67,
+        "frameSteps": 3
+      },
+      "wallFPS": 7.922921723959763,
+      "frames": 48,
+      "coinsReleased": 12
+    }
+  }
+}

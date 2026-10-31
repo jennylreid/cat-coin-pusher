@@ -1,0 +1,27 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Keep generated Android outputs outside OneDrive when its sync client holds file locks.
+layout.buildDirectory = file(System.getenv('UAT15_BUILD_DIR') ?: 'build')
+
+android {
+    namespace 'com.jenny.catpusher.uat'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.jenny.catpusher.uat'
+        minSdk 26
+        targetSdk 35
+        versionCode 7
+        versionName '2026.10.30 UAT APK7'
+    }
+    buildFeatures { buildConfig true }
+    buildTypes {
+        release { minifyEnabled false }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

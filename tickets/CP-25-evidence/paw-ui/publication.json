@@ -1,0 +1,14 @@
+{
+  "version": 20261029135316,
+  "displayName": "2026.10.29 UAT 11",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "fea80ec0f1446bd1ad42e297f185ace156d5f38c6df99507f2998e58ec461f3e",
+  "stagedJSONSHA256": "4c715880f3388418697a6f9868a20342447f5f9ab6ea2d86b3346ebe9dbb8b0c",
+  "backup": "uat/backups/before-CP-25-paw-ui-20261029135316",
+  "authorization": "Jenny selected B paw medallion, requested matching Collections tile, bottom Inventory satchel and top power buttons; explicitly requested UAT publication",
+  "releaseHTMLSHA256": "c7c9a4f087a3742478905ca4a68260e89474d7693f3ff1e4586333e116e576f1",
+  "changedFiles": [
+    "index.html"
+  ],
+  "localPublication": "verified"
+}

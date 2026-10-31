@@ -1,0 +1,15 @@
+{
+  "version": 20261028202033,
+  "displayName": "2026.10.28 UAT 5",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "b0b4b64e9db70c642d19b27d1b2be55b992dcdde2a57987e033db44e37fb1875",
+  "stagedJSONSHA256": "edc643cc840121297fac0ba504a3fe20aa265dc4fba4638d0dab5bc01925e3a0",
+  "backup": "uat/backups/before-CP-25-stage3-20261028202033",
+  "authorization": "Jenny CP-25 Stage 3: publish item-only translucent overlay and pickup sound first; art/payoff wait for approval; UAT only",
+  "releaseHTMLSHA256": "cd70dad8c2a3577d08d5ef7dc5a870a41af9f439b367144074072a55f2cef512",
+  "changedFiles": [
+    "index.html"
+  ],
+  "nonHTMLFilesUnchanged": 29,
+  "localPublication": "verified"
+}

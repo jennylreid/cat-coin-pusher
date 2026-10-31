@@ -1,0 +1,14 @@
+{
+  "version": 20261029183045,
+  "displayName": "2026.10.29 UAT 13",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "16a60e262b30bbfb6fe64a26407c4d067e55419c82a8d2062dbd8b2632154d3b",
+  "stagedJSONSHA256": "a850234fdf653caa91434cd159158c0a9306911605778981772a97bb02c99c4d",
+  "backup": "uat/backups/before-CP-25-inventory-grid-20261029183045",
+  "authorization": "Jenny approved compact Inventory with power counts and contrasting doily Collections tile; UAT only",
+  "releaseHTMLSHA256": "966773f84413ad36f21f135a8795172e47219756859ee833c729ce1f01b6bafa",
+  "changedFiles": [
+    "index.html"
+  ],
+  "localPublication": "verified"
+}

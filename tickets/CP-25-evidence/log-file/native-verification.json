@@ -1,0 +1,12 @@
+{
+  "apkVersion": 5,
+  "package": "com.jenny.catpusher.uat",
+  "signerSHA256": "20ddef2a158095a45a176efa2ddffa60ecf0c074d569b7dcd9785b1cfa122dc2",
+  "build": "Gradle offline assembleDebug passed",
+  "signature": "apksigner verify passed; same certificate as APK4",
+  "unitTests": [
+    "DiagnosticWriterTest passed: file/format/write/size guards, bounded concurrent coalescing, failure retry",
+    "Apk5PolicyTest passed: APK4 upgrade, matching bundle no reoffer, future game offer, stale rejection"
+  ],
+  "deviceProviderWriteAndSync": "pending"
+}

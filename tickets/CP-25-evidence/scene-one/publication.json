@@ -1,0 +1,15 @@
+{
+  "version": 20261028222309,
+  "displayName": "2026.10.28 UAT 6",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "edc643cc840121297fac0ba504a3fe20aa265dc4fba4638d0dab5bc01925e3a0",
+  "stagedJSONSHA256": "3e8958fa5a20504b7385c90305095161d99bada6289135241f86fbaaa5f26b76",
+  "backup": "uat/backups/before-CP-25-scene-one-20261028222309",
+  "authorization": "Jenny approved satchel tile and selected Scene wakes up payoff; illustrated scenes await separate approval",
+  "releaseHTMLSHA256": "000a446fd6e122cf07e6145f1614262af6b5fd6c49de17e9ca60937130ab50f2",
+  "changedFiles": [
+    "index.html",
+    "img/art/collections-satchel-v1.png"
+  ],
+  "localPublication": "verified"
+}

@@ -1,0 +1,48 @@
+--- UAT17
+
++++ two-interval trial
+
+@@ -200,3 +200,3 @@
+
+ const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
+-const BUILD = '2026.10.30 UAT 17';
++const BUILD = '2026.10.30 UAT 18';
+ function initPhysics() {
+@@ -1009,3 +1009,3 @@
+
+   const quiet=Math.abs(n.y)>.9999&&supported&&plane&&centred&&Math.hypot(v.x,v.y,v.z)<.03&&Math.hypot(av.x,av.y,av.z)<.1;
+-  b.quietCoin=quiet?(b.quietCoin||0)+STEP/4:0;
++  b.quietCoin=quiet?(b.quietCoin||0)+STEP/2:0;
+   const locked=b.quietCoin>.15&&!above;
+@@ -1093,3 +1093,3 @@
+
+   const rb=b.rb,v=rb.linvel();if(v.y>=-1.2)continue;
+-  const c=rb.collider(0),p=rb.translation(),q=rb.rotation();let earliest=STEP/4,found=false;
++  const c=rb.collider(0),p=rb.translation(),q=rb.rotation();let earliest=STEP/2,found=false;
+   world.forEachCollider(other=>{
+@@ -1098,3 +1098,3 @@
+
+    const op=other.translation();if(r.isDynamic()&&(Math.abs(op.x-p.x)>1||Math.abs(op.z-p.z)>1))return;
+-   const hit=c.shape.castShape(p,q,v,other.shape,op,other.rotation(),r.linvel(),.0001,STEP/4,true);
++   const hit=c.shape.castShape(p,q,v,other.shape,op,other.rotation(),r.linvel(),.0001,STEP/2,true);
+    if(hit&&hit.time_of_impact<=earliest){earliest=hit.time_of_impact;found=true;}
+@@ -1170,8 +1170,8 @@
+
+   const t0 = performance.now();
+-  // CP-22: resolve fast delivery and the moving tray at two contact intervals.
++  // CP-25: two contact intervals per tick, approved trial; CCD and repair remain.
+   const trayEnd={x:200*M,y:TONGUE_H/2*M,z:(pusherY-TONGUE_LEN/2)*M};
+   const trayStart={...tongue.translation()};
+-  world.timestep=STEP/4;
+-  for(let sub=1;sub<=4;sub++){
+-    tongue.setNextKinematicTranslation({x:trayEnd.x,y:trayEnd.y,z:trayStart.z+(trayEnd.z-trayStart.z)*sub/4});
++  world.timestep=STEP/2;
++  for(let sub=1;sub<=2;sub++){
++    tongue.setNextKinematicTranslation({x:trayEnd.x,y:trayEnd.y,z:trayStart.z+(trayEnd.z-trayStart.z)*sub/2});
+     coinImpactVel=new Map(bodies.map(b=>[b.rb.handle,b.rb.linvel().y]));
+@@ -3062,3 +3062,3 @@
+
+  ctx.textAlign='center';ctx.font='bold 12px system-ui';ctx.fillStyle='#fff0cc';ctx.fillText('BOARD '+(boardIndex+1)+' / '+BOARDS.length,W-hud.right-77,bottom+8);ctx.font='12px system-ui';const message=saveError?'Save unavailable':S.coins===0?'More coins in '+purseCountdown():board.status==='won'?'Next board soon�':board.status==='lost'?'Retrying this board�':board.status==='ready'?'Tap or hold':'Slide to aim';ctx.fillText(message,W-hud.right-77,bottom+28,130);
+- drawInventoryButton();ctx.fillStyle='rgba(18,11,28,.96)';ctx.fillRect(hud.left+2,hud.settingsY-10,242,22);ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.textAlign='left';ctx.fillText(BUILD,hud.left+8,hud.settingsY);if(S.dev){ctx.fillStyle='rgba(18,11,28,.96)';ctx.fillRect(hud.left+2,hud.settingsY-32,W-hud.left-hud.right-4,15);ctx.fillStyle='#fff';ctx.font='10px system-ui';ctx.fillText(Math.round(perf.fps)+' fps | physics '+perf.physics.toFixed(1)+' ms | draw '+perf.draw.toFixed(1)+' ms | '+bodies.filter(coinSolid).length+' coins',hud.left+8,hud.settingsY-24);}
++ drawInventoryButton();ctx.fillStyle='rgba(18,11,28,.96)';ctx.fillRect(hud.left+2,hud.settingsY-10,242,22);ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.textAlign='left';ctx.fillText(BUILD,hud.left+8,hud.settingsY);if(S.dev){ctx.fillStyle='rgba(18,11,28,.96)';ctx.fillRect(hud.left+2,hud.bottomY-29,W-hud.left-hud.right-4,15);ctx.fillStyle='#fff';ctx.font='10px system-ui';ctx.fillText(Math.round(perf.fps)+' fps | physics '+perf.physics.toFixed(1)+' ms | draw '+perf.draw.toFixed(1)+' ms | '+bodies.filter(coinSolid).length+' coins',hud.left+8,hud.bottomY-21);}
+  ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('Settings',hud.settingsX,hud.settingsY);drawSafeAreaGuides();if(inventoryOpen)drawInventory();

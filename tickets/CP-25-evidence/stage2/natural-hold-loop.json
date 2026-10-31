@@ -1,0 +1,52 @@
+{
+  "mode": "rendered",
+  "dropInterval": 0.2,
+  "rows": [
+    {
+      "board": 1,
+      "used": 105,
+      "purse": 132,
+      "inventory": {
+        "shrimp": 1,
+        "cheese": 1
+      }
+    },
+    {
+      "board": 2,
+      "used": 87,
+      "purse": 108,
+      "inventory": {
+        "shrimp": 2,
+        "cheese": 1
+      }
+    },
+    {
+      "board": 3,
+      "used": 122,
+      "purse": 10,
+      "inventory": {
+        "shrimp": 3,
+        "cheese": 2,
+        "tuna": 1
+      }
+    }
+  ],
+  "nextBoard": 1,
+  "afterPlacement": {
+    "purse": 110,
+    "inventory": {
+      "shrimp": 2,
+      "cheese": 2,
+      "tuna": 0
+    },
+    "placements": {
+      "cheese": true,
+      "shrimp": true,
+      "tuna": true
+    },
+    "rewards": {
+      "water": true,
+      "cheese": true
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "version": 20261029082920,
+  "displayName": "2026.10.29 UAT 7",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "2f406d2fdfa058580beb3ba4943e7a25e08473075ed519d2fdb1f55f8c772370",
+  "stagedJSONSHA256": "34fe70fbd9f0d85bb13ae13519e54ba5d79b9d4c2c481d04b5aaa6fffb6e7b19",
+  "backup": "uat/backups/before-CP-25-pickup-frame-20261029082920",
+  "authorization": "Jenny rejected flight and requested framed collected-item overlay with briefly grayed background; UAT only",
+  "releaseHTMLSHA256": "88c2ba7cc7f75e2ef603893480ba2cec8bdebfa5c8bda73f16e266fbb19121c0",
+  "changedFiles": [
+    "index.html"
+  ],
+  "localPublication": "verified"
+}

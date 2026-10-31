@@ -1,0 +1,12 @@
+{
+  "description": "Existing cheese/shrimp moved to actual front payout, then queued overlays, board advance and real pointer drags; playback real time except drag animation sampling",
+  "paid": {
+    "water": false,
+    "cheese": true
+  },
+  "placements": {
+    "cheese": true,
+    "shrimp": true,
+    "tuna": false
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "passed": [
+    "Actual front win credits/saves once; sound plays once at satchel arrival, never on queue insertion",
+    "Non-modal flight leaves ordinary drops active; multiple pickups take turns; opening inventory pauses presentation without losing credited items",
+    "Flight draws only the original item; no backdrop/card/text; shrinks from bottom play area to exact satchel centre",
+    "Inventory survives reopen; presentation queue is transient and cannot repay rewards",
+    "Arrival uses existing three-note chime; actual audio method honors mute/hidden state",
+    "Queued pickups finish before clear feedback and next-board advance"
+  ]
+}

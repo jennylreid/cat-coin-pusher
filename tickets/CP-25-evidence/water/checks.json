@@ -1,0 +1,8 @@
+{
+  "passed": [
+    "All natural slots fit inside fixed scene and above satchel",
+    "Future outlines reject placement and never block completion",
+    "Real drag matches tuna/shrimp and consumes one each; wrong drag preserves inventory",
+    "Completion pays 100 once and persists placements/purse/paid state"
+  ]
+}

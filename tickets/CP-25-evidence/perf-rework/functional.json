@@ -1,0 +1,8 @@
+{
+  "passed": [
+    "Raw/coalesced samples choose newest timestamp; older samples and other pointers ignored",
+    "Next scheduled coin uses latest finger position; lift stops stream; no drops on movement events",
+    "Developer rolling readout: 50ms intervals -> 20 FPS, 32 physics ms/frame and 11 drawing ms/frame, three ticks/frame"
+  ],
+  "finger13FPSBaseline": "No stale-coordinate bug reproduced; UAT16 discards time and event processing is delayed under main-thread overload"
+}

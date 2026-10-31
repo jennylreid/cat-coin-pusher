@@ -1,0 +1,14 @@
+{
+  "version": 20261029074827,
+  "displayName": "2026.10.29 UAT 5",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "1a9dacb5016ddb864654adbd737e605edd833f8acacd37ed3e6c4925268464cf",
+  "stagedJSONSHA256": "c07c2d52672ff55afbd1904234b8dd12d191f4a49d0f5f46b1c76c8499bb13da",
+  "backup": "uat/backups/before-CP-25-pickup-flight-20261029074827",
+  "authorization": "Jenny requested replacing pickup overlay with item flight to satchel and sound; UAT only",
+  "releaseHTMLSHA256": "5c02cdf224c37b76c03bb458f97150939937b4e34c98630970fc2451f2faad53",
+  "changedFiles": [
+    "index.html"
+  ],
+  "localPublication": "verified"
+}

@@ -1,0 +1,14 @@
+{
+  "version": 20261029110950,
+  "displayName": "2026.10.29 UAT 10",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "e27e7830418a9a998b839df4ecc2c8af67d9fb50597db4f9306c9bd5e733f981",
+  "stagedJSONSHA256": "fea80ec0f1446bd1ad42e297f185ace156d5f38c6df99507f2998e58ec461f3e",
+  "backup": "uat/backups/before-CP-25-pickup-modal-20261029110950",
+  "authorization": "Jenny clarified translucent modal popup with light diagonal stripes and disabled background; UAT only",
+  "releaseHTMLSHA256": "33e1c67eae8ab81b693c0a5242788368fa4adbd2a2f6607c5ff1816e0b5518ed",
+  "changedFiles": [
+    "index.html"
+  ],
+  "localPublication": "verified"
+}

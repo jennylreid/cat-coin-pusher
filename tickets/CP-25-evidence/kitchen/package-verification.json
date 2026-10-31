@@ -1,0 +1,12 @@
+{
+  "version": 20261029073906,
+  "changedFiles": [
+    "index.html",
+    "img/art/cheese-scene-v1.png",
+    "img/art/cheese-outline.png"
+  ],
+  "otherPackageFieldsPreserved": true,
+  "approvedBackgroundBytesMatch": true,
+  "approvedKitchenPresent": true,
+  "sha256": "164d3cc6a62de323d61fe6b11fb7059fbf16281f3db45fa7c49d68d11cb65e30"
+}

@@ -1,0 +1,18 @@
+{
+  "version": 20261030205840,
+  "displayName": "2026.10.30 UAT 24",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "eea9e572e50677a56584d5fe65c68584ac1d9f1ca34a57bdc79f73e3080a2225",
+  "baselineAPKSHA256": "3b2c2918720dcbda4fa8138aba3bc37da5a8cb4f6164aa9e1ad47434db7389b6",
+  "stagedJSONSHA256": "bc51240e8d3d027032d137013689a5673eae4807bf8c69345d3f7abdc5e6fd2b",
+  "stagedAPKSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "ea71632d70088dab37205f17d1ce45383a26dba2183072bc96453c4132c165e3",
+  "backup": "uat/backups/before-CP-25-installer-fix-20261030205840",
+  "jsonBytes": 49506043,
+  "apkBytes": 37129410,
+  "runtimeFilesInAPK": 37,
+  "runtimeFilesInEnvelope": 0,
+  "signerSHA256": "20ddef2a158095a45a176efa2ddffa60ecf0c074d569b7dcd9785b1cfa122dc2",
+  "authorization": "Fix missing-installer error and retained diagnostic tail; self-contained UAT APK7, current clear-order game retained",
+  "localPublication": "verified"
+}

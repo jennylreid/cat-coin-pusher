@@ -1,0 +1,7 @@
+{
+  "passed": [
+    "Doily tile clears the projected tabletop at400-wide portrait heights711/889/1000; footer on tall screens, header fallback on compact screens; separate from Inventory",
+    "Compact thumbnails show owned treat and current power counts; no Inventory-to-Collections link; doily opens collections without dropping; Board3 reads earned Quake"
+  ],
+  "publishedUnchanged": true
+}

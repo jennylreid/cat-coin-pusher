@@ -1,0 +1,15 @@
+{
+  "version": 20261028164442,
+  "displayName": "2026.10.28 UAT 4",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "e1b754feb9dd71eb36095ace6198881ea75cde03c48e2470af44b15fd881e998",
+  "stagedJSONSHA256": "b0b4b64e9db70c642d19b27d1b2be55b992dcdde2a57987e033db44e37fb1875",
+  "backup": "uat/backups/before-CP-25-layout-20261028164442",
+  "authorization": "Jenny: updated CP-25 brief; side Collections tile, full-screen frame and satchel, drag-only placement and queued You got it overlays; UAT only",
+  "releaseHTMLSHA256": "b77ff8e1215dd1c29d6ed8f23e7837964c8fb273d673fe4b9dd959a4bd28037c",
+  "changedFiles": [
+    "index.html"
+  ],
+  "nonHTMLFilesUnchanged": 29,
+  "localPublication": "verified"
+}

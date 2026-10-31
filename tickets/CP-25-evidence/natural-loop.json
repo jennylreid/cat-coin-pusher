@@ -1,0 +1,34 @@
+{
+  "mode": "rendered",
+  "rows": [
+    {
+      "board": 1,
+      "used": 79,
+      "purse": 157,
+      "inventory": {
+        "shrimp": 1,
+        "cheese": 1
+      }
+    },
+    {
+      "board": 2,
+      "used": 78,
+      "purse": 97,
+      "inventory": {
+        "shrimp": 2,
+        "cheese": 2
+      }
+    },
+    {
+      "board": 3,
+      "used": 90,
+      "purse": 28,
+      "inventory": {
+        "shrimp": 3,
+        "cheese": 3,
+        "tuna": 1
+      }
+    }
+  ],
+  "nextBoard": 1
+}

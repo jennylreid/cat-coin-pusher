@@ -1,0 +1,14 @@
+﻿{
+    "version":  20261030124245,
+    "displayName":  "2026.10.30 UAT 18",
+    "apkVersion":  4,
+    "baselineJSONSHA256":  "71914cb4f7cda63e9fe672d8596bfeec800cd05e477fa8f0c54dc6b3527e21d0",
+    "stagedJSONSHA256":  "87088dc70060aa4979e8fc59b0165f03e9f2e5a5c047a893a936e35ad50b6a94",
+    "backup":  "uat/backups/before-CP-25-two-intervals-20261030124245",
+    "authorization":  "Jenny approved trial two collision intervals and CP-22 safety checks; UAT only; pickup work stopped",
+    "releaseHTMLSHA256":  "ea002c0a798965465023246017fafca84b8c82ce35c149213fb8b4b0ab92f399",
+    "changedFiles":  [
+                         "index.html"
+                     ],
+    "localPublication":  "verified"
+}

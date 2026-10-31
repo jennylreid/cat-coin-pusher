@@ -1,0 +1,17 @@
+{
+  "version": 20261029064437,
+  "displayName": "2026.10.29 UAT 1",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "3e8958fa5a20504b7385c90305095161d99bada6289135241f86fbaaa5f26b76",
+  "stagedJSONSHA256": "db710c3e0ea6d71a72311cd46ce570fad04976022beaabdb2f5639dad1a98a3b",
+  "backup": "uat/backups/before-CP-25-water-20261029064437",
+  "authorization": "Jenny approved Water painting and requested clam/kelp future outlines; UAT only",
+  "releaseHTMLSHA256": "3f0358ce91b18a5a08b908fa9ecbada0f60709c55151314832b347cdd92261dc",
+  "changedFiles": [
+    "index.html",
+    "img/art/water-scene-v1.png",
+    "img/art/tuna-outline.png",
+    "img/art/shrimp-outline.png"
+  ],
+  "localPublication": "verified"
+}

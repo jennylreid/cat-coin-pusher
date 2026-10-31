@@ -1,0 +1,10 @@
+{
+  "paddingPassed": true,
+  "phone": "native7 installation and provider write pending",
+  "signatureVerified": true,
+  "signerSHA256": "20ddef2a158095a45a176efa2ddffa60ecf0c074d569b7dcd9785b1cfa122dc2",
+  "policyCases": 12,
+  "build": "offline Gradle assembleDebug passed",
+  "policyPassed": true,
+  "compiledVersion": 7
+}

@@ -1,0 +1,56 @@
+{
+  "sha256": "cc0b30826d9c259af9cc13ef17fc6af27dbc2311331b86f54a370de86fb565fd",
+  "nativeApkVersion": 6,
+  "sessions": [
+    {
+      "session": "current",
+      "build": "2026.10.30 UAT 21",
+      "summary": {
+        "retainedSamples": 49,
+        "visibleFPS": 102.7,
+        "activeHoldFPS": 93.6,
+        "activeHoldSeconds": 20.9,
+        "holdPhysicsMs": 3.92,
+        "holdDrawMs": 4.01,
+        "maxFrameMs": 300.1,
+        "framesOver25Ms": 40
+      },
+      "heldCoinRange": [
+        54,
+        103
+      ],
+      "weightedActiveHoldFPS": 93.58,
+      "heldSeconds": 20.91,
+      "heldBuckets": 26,
+      "worstHeldBucketFPS": 58.5,
+      "dropRows": 80,
+      "nonClampedDrops": 61,
+      "maxNonClampedCanvasGap": 0.0
+    },
+    {
+      "session": "previous",
+      "build": "2026.10.30 UAT 21",
+      "summary": {
+        "retainedSamples": 99,
+        "visibleFPS": 98.8,
+        "activeHoldFPS": 81.2,
+        "activeHoldSeconds": 27,
+        "holdPhysicsMs": 5.74,
+        "holdDrawMs": 4.5,
+        "maxFrameMs": 183.3,
+        "framesOver25Ms": 143
+      },
+      "heldCoinRange": [
+        55,
+        137
+      ],
+      "weightedActiveHoldFPS": 81.22,
+      "heldSeconds": 26.99,
+      "heldBuckets": 45,
+      "worstHeldBucketFPS": 24.67,
+      "dropRows": 80,
+      "nonClampedDrops": 73,
+      "maxNonClampedCanvasGap": 0.0
+    }
+  ]
+}

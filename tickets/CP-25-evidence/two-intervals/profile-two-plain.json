@@ -1,0 +1,125 @@
+{
+  "protocol": "seed42 Board1, 400x889 CSS DPR2, 720 fixed 1/60 steps on Board3; same release request every12 steps (0.2s), horizontal triangular sweep 130..270; draw every step. First360 steps excluded from timings. No hold feature needed, native drop gates preserved. Desktop native canvas, not phone FPS.",
+  "builds": {
+    "two-plain": {
+      "granted": 60,
+      "coinCount": 103,
+      "timings": {
+        "step": {
+          "mean": 18.09416000000003,
+          "p95": 26.61789999999928,
+          "max": 37.106700000000274,
+          "samples": 360
+        },
+        "draw": {
+          "mean": 16.16151833333333,
+          "p95": 22.258200000000215,
+          "max": 32.09729999999945,
+          "samples": 360
+        },
+        "save": {
+          "mean": 0.8673422222224972,
+          "p95": 1.3432000000029802,
+          "max": 1.6517999999996391,
+          "samples": 45
+        },
+        "solidCoinContacts": {
+          "mean": 5.155705972222203,
+          "p95": 8.921900000001187,
+          "max": 13.865299999999479,
+          "samples": 720
+        },
+        "coinRotationContacts": {
+          "mean": 0.8193820833332931,
+          "p95": 1.4201000000011845,
+          "max": 2.4152000000012777,
+          "samples": 720
+        },
+        "deliveryImpact": {
+          "mean": 0.6219108333333389,
+          "p95": 1.0113000000001193,
+          "max": 3.6351000000004206,
+          "samples": 720
+        },
+        "dampCoinImpacts": {
+          "mean": 0.1114290277777185,
+          "p95": 0.20460000000093714,
+          "max": 0.9545000000016444,
+          "samples": 720
+        },
+        "coinPaintOrder": {
+          "mean": 7.214021388888849,
+          "p95": 10.468600000000151,
+          "max": 12.825800000000527,
+          "samples": 360
+        },
+        "nativeWorld": {
+          "mean": 2.095896805555568,
+          "p95": 2.9988000000012107,
+          "max": 5.9746999999988475,
+          "samples": 720
+        }
+      }
+    },
+    "two-grid": {
+      "granted": 60,
+      "coinCount": 103,
+      "timings": {
+        "step": {
+          "mean": 19.73513111111123,
+          "p95": 31.062300000005052,
+          "max": 61.24180000000342,
+          "samples": 360
+        },
+        "draw": {
+          "mean": 17.85036361111106,
+          "p95": 27.23110000000088,
+          "max": 42.839899999999034,
+          "samples": 360
+        },
+        "save": {
+          "mean": 0.9088599999997111,
+          "p95": 1.5417000000015832,
+          "max": 2.0403999999980442,
+          "samples": 45
+        },
+        "solidCoinContacts": {
+          "mean": 5.694560000000188,
+          "p95": 10.20219999999972,
+          "max": 24.678099999997357,
+          "samples": 720
+        },
+        "coinRotationContacts": {
+          "mean": 0.8777731944444238,
+          "p95": 1.6189000000013039,
+          "max": 3.2999999999956344,
+          "samples": 720
+        },
+        "deliveryImpact": {
+          "mean": 0.6732770833331213,
+          "p95": 1.2895000000025902,
+          "max": 2.430399999997462,
+          "samples": 720
+        },
+        "dampCoinImpacts": {
+          "mean": 0.11398444444466299,
+          "p95": 0.21749999999883585,
+          "max": 0.4455999999991036,
+          "samples": 720
+        },
+        "coinPaintOrder": {
+          "mean": 7.856640555555431,
+          "p95": 12.483399999997346,
+          "max": 27.786299999999756,
+          "samples": 360
+        },
+        "nativeWorld": {
+          "mean": 2.255075277777683,
+          "p95": 3.390900000005786,
+          "max": 5.997799999997369,
+          "samples": 720
+        }
+      }
+    }
+  }
+}

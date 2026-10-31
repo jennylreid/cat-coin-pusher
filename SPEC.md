@@ -1,3 +1,7 @@
+## CP-25 pickup trials (October 29, 2026)
+
+Current UAT15/APK4 (20261029193509) removes tap-to-dismiss and offers Settings Cycle/Paw/Ribbon/Satchel plus no-reward preview/item selector. Timed Paw2s is modal; Ribbon2.4s and Satchel2.2s are nonmodal. Queue/chime/credit-once retained; Inventory/Settings pause hidden presentations. Doily/Inventory approved; UAT14 CP-26 Calm face retained. Coin/pusher pace unchanged pending separate tuning of Jenny's latest slow-motion feedback;60FPS phone readout is reported, not proof of smooth pacing. Report: tickets/CP-25.md.
+
 ## CP-25 compact Inventory/doily published (October 29, 2026)
 
 Current UAT13/APK4 (20261029183045) integrates Jenny's approved small treat/power thumbnails with corner count badges; no Collections wording/link inside Inventory. Existing Quake/Paw Sweep counters shown, no economy change. Cream/gold doily Collections tile contrasts background and clears table; footer beside Inventory on tall phone layout, compact header fallback when needed. Satchel remains bottom Inventory. Paw pickup, collection scenes/rewards, required-prize failure/retry/save recovery and direct renderer retained. Phone UAT/FPS reading pending. Report: tickets/CP-25.md. Earlier checkpoints below are historical.

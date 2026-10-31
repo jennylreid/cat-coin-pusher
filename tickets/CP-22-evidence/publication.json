@@ -1,0 +1,15 @@
+﻿{
+    "version":  20261028102427,
+    "displayName":  "2026.10.28 UAT 1",
+    "apkVersion":  4,
+    "baselineJSONSHA256":  "9715a64d62fd2342821ec7367e564b914b8d367e6bd54186f43672c3aa5e1635",
+    "stagedJSONSHA256":  "919bc7704b3052d3fc699d801ca57a552d4e37f26167ed951066fcddd1e9db0e",
+    "backup":  "uat/backups/before-CP-22-20261028-UAT1-20261028102427",
+    "authorization":  "Jenny CP-22: stop unintended coin bouncing/launches; keep 0.35-second taps and contact improvements; UAT only",
+    "releaseHTMLSHA256":  "116677a91c55cb4cbb9da9617e56da725baba840f2c691732a66d26f4ff878e7",
+    "changedFiles":  [
+                         "index.html"
+                     ],
+    "nonHTMLFilesUnchanged":  29,
+    "localPublication":  "verified"
+}

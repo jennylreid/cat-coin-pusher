@@ -1,0 +1,322 @@
+[
+  {
+    "source": "baseline",
+    "seed": 42,
+    "board": 1,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 111,
+    "seconds": 22.55,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "baseline",
+    "seed": 42,
+    "board": 2,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 102,
+    "seconds": 20.75,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "baseline",
+    "seed": 42,
+    "board": 3,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 107,
+    "seconds": 21.68,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "baseline",
+    "seed": 42,
+    "board": 1,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 88,
+    "seconds": 30.55,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "baseline",
+    "seed": 42,
+    "board": 2,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 61,
+    "seconds": 21.23,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "baseline",
+    "seed": 42,
+    "board": 3,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 87,
+    "seconds": 30.43,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 42,
+    "board": 1,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 105,
+    "seconds": 21.35,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 42,
+    "board": 2,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 102,
+    "seconds": 20.75,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 42,
+    "board": 3,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 108,
+    "seconds": 21.93,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 42,
+    "board": 1,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 52,
+    "seconds": 17.92,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 42,
+    "board": 2,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 70,
+    "seconds": 24.22,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 42,
+    "board": 3,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 80,
+    "seconds": 27.9,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 1,
+    "board": 1,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 102,
+    "seconds": 20.75,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 1,
+    "board": 2,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 87,
+    "seconds": 17.78,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 1,
+    "board": 3,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 120,
+    "seconds": 24.37,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 1,
+    "board": 1,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 60,
+    "seconds": 20.97,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 1,
+    "board": 2,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 52,
+    "seconds": 18.18,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 1,
+    "board": 3,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 80,
+    "seconds": 28,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 2,
+    "board": 1,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 76,
+    "seconds": 15.53,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 2,
+    "board": 2,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 73,
+    "seconds": 14.83,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 2,
+    "board": 3,
+    "gap": 0.2,
+    "result": "won",
+    "coinsUsed": 105,
+    "seconds": 21.3,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 2,
+    "board": 1,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 53,
+    "seconds": 18.27,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 2,
+    "board": 2,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 52,
+    "seconds": 18.1,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ]
+  },
+  {
+    "source": "candidate",
+    "seed": 2,
+    "board": 3,
+    "gap": 0.35,
+    "result": "won",
+    "coinsUsed": 80,
+    "seconds": 27.73,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ]
+  }
+]

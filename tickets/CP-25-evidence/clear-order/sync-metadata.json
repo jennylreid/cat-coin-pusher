@@ -1,0 +1,38 @@
+[
+  {
+    "file": "uat/CatCoinPusher-UAT-game.json",
+    "hresult": "0x0",
+    "onDisk": 51303786,
+    "validated": 51303786,
+    "modified": 0,
+    "pin": 0,
+    "inSync": 1
+  },
+  {
+    "file": "uat/CatCoinPusher-UAT.apk",
+    "hresult": "0x0",
+    "onDisk": 37128934,
+    "validated": 37128934,
+    "modified": 0,
+    "pin": 0,
+    "inSync": 1
+  },
+  {
+    "file": "uat/diagnostics/CatCoin-UAT-performance.json",
+    "hresult": "0x0",
+    "onDisk": 27531,
+    "validated": 27531,
+    "modified": 0,
+    "pin": 0,
+    "inSync": 1
+  },
+  {
+    "file": "uat",
+    "hresult": "0x0",
+    "onDisk": 0,
+    "validated": 0,
+    "modified": 0,
+    "pin": 0,
+    "inSync": 1
+  }
+]

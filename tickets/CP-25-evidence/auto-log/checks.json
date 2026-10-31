@@ -1,0 +1,10 @@
+{
+  "passed": [
+    "Automatic one-second samples and exact weighted hold-only summary; long frame retained",
+    "No diagnostic storage writes while holding; recent session survives reopening separately from game save",
+    "Bounded120 samples/80 drops/40 events; no game-save changes; storage failure cannot cause per-frame retries",
+    "Actual Settings Copy performance log handler copies structured data; failed clipboard leaves selectable text",
+    "Real pointer/drop hooks capture moved input and actual release coordinates"
+  ],
+  "phoneClipboard": "Not device-tested; selectable text fallback available"
+}

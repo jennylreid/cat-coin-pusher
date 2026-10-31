@@ -1,0 +1,9 @@
+{
+  "dropInterval": 0.2,
+  "passed": [
+    "Stage 1 save migrates without resetting purse, inventory or current board; nothing placed automatically",
+    "UI selection requires matching slot; placement consumes one; Water +100 and Cheese +50 pay once above cap; persistence blocks repeat reward; future slots cannot be placed",
+    "Tap drops one; hold drops five per second and follows horizontal pointer; lift/cancel/screen opening stop stream with no queued drops",
+    "Developer-only Empty purse button empties and saves immediately, resets countdown, and refill resumes dropping"
+  ]
+}

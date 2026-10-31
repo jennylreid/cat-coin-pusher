@@ -1,0 +1,53 @@
+{
+  "method": "Same frozen world/camera1080x2400, alternating old/direct/direct/old blocks,40 draws per block; no simulation or PNG encoding in timing; desktop only, not device FPS",
+  "results": [
+    {
+      "board": 1,
+      "blocks": [
+        {
+          "renderer": "old",
+          "meanDrawMs": 17.897177500000005
+        },
+        {
+          "renderer": "direct",
+          "meanDrawMs": 5.097202500000003
+        },
+        {
+          "renderer": "direct",
+          "meanDrawMs": 6.313745000000006
+        },
+        {
+          "renderer": "old",
+          "meanDrawMs": 18.427250000000004
+        }
+      ],
+      "oldMeanDrawMs": 18.162213750000006,
+      "directMeanDrawMs": 5.705473750000005,
+      "drawCostReductionPercent": 68.5860224500441
+    },
+    {
+      "board": 3,
+      "blocks": [
+        {
+          "renderer": "old",
+          "meanDrawMs": 20.124085
+        },
+        {
+          "renderer": "direct",
+          "meanDrawMs": 7.228067499999997
+        },
+        {
+          "renderer": "direct",
+          "meanDrawMs": 11.101369999999998
+        },
+        {
+          "renderer": "old",
+          "meanDrawMs": 34.66782499999999
+        }
+      ],
+      "oldMeanDrawMs": 27.395954999999997,
+      "directMeanDrawMs": 9.164718749999997,
+      "drawCostReductionPercent": 66.54718278665592
+    }
+  ]
+}

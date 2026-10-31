@@ -1,0 +1,76 @@
+{
+  "source": "work/cp25/log-file/candidate.html",
+  "results": [
+    {
+      "startBoard": 1,
+      "mode": "centre",
+      "seconds": 28,
+      "dropGap": 0.2,
+      "boardsVisited": [
+        1,
+        2
+      ],
+      "substeps": 1295,
+      "confirmedThroughCrossings": 0,
+      "separatedCentreCrossings": 24,
+      "maxPenetration": 0.41180350817739964,
+      "deepSamplesOverHalfUnit": 0,
+      "maxPlatePenetration": 0.19775917753577232,
+      "plateSamplesOverHalfUnit": 0,
+      "tableRescues": 0,
+      "flipCrossings": 0,
+      "unearnedFlips": 0,
+      "maxRestTiltStepDegrees": 0.046945806736996054,
+      "restSamples": 69136,
+      "peakPileHeight": 400.9507179260254,
+      "examples": []
+    },
+    {
+      "startBoard": 2,
+      "mode": "sweep",
+      "seconds": 28,
+      "dropGap": 0.2,
+      "boardsVisited": [
+        2,
+        3
+      ],
+      "substeps": 1295,
+      "confirmedThroughCrossings": 0,
+      "separatedCentreCrossings": 43,
+      "maxPenetration": 0.5253883544355631,
+      "deepSamplesOverHalfUnit": 1,
+      "maxPlatePenetration": 0.23094110656529665,
+      "plateSamplesOverHalfUnit": 0,
+      "tableRescues": 0,
+      "flipCrossings": 0,
+      "unearnedFlips": 0,
+      "maxRestTiltStepDegrees": 0.07263961063009203,
+      "restSamples": 35546,
+      "peakPileHeight": 160.2939009666443,
+      "examples": []
+    },
+    {
+      "startBoard": 3,
+      "mode": "left",
+      "seconds": 28,
+      "dropGap": 0.2,
+      "boardsVisited": [
+        3
+      ],
+      "substeps": 1680,
+      "confirmedThroughCrossings": 0,
+      "separatedCentreCrossings": 15,
+      "maxPenetration": 0.24885956663638353,
+      "deepSamplesOverHalfUnit": 0,
+      "maxPlatePenetration": 0.16066122334450483,
+      "plateSamplesOverHalfUnit": 0,
+      "tableRescues": 0,
+      "flipCrossings": 0,
+      "unearnedFlips": 0,
+      "maxRestTiltStepDegrees": 0.09364684357483727,
+      "restSamples": 70086,
+      "peakPileHeight": 362.3657464981079,
+      "examples": []
+    }
+  ]
+}

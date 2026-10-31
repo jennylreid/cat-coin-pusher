@@ -1,0 +1,14 @@
+{
+  "version": 20261029074121,
+  "displayName": "2026.10.29 UAT 4",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "164d3cc6a62de323d61fe6b11fb7059fbf16281f3db45fa7c49d68d11cb65e30",
+  "stagedJSONSHA256": "1a9dacb5016ddb864654adbd737e605edd833f8acacd37ed3e6c4925268464cf",
+  "backup": "uat/backups/before-CP-25-no-box-20261029074121",
+  "authorization": "Jenny requested no square highlight when dragging to collection slots; UAT only",
+  "releaseHTMLSHA256": "3a399a46d79c4a1030e4fca211c8882f4f0c549251c1caf6f3e8a8abfe1fa065",
+  "changedFiles": [
+    "index.html"
+  ],
+  "localPublication": "verified"
+}

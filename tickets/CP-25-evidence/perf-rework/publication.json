@@ -1,0 +1,14 @@
+﻿{
+    "version":  20261030105723,
+    "displayName":  "2026.10.30 UAT 17",
+    "apkVersion":  4,
+    "baselineJSONSHA256":  "0ee75b064b5182d6664cce6e0145a761e158eef820cfbcfafa3b122a059f1ad3",
+    "stagedJSONSHA256":  "71914cb4f7cda63e9fe672d8596bfeec800cd05e477fa8f0c54dc6b3527e21d0",
+    "backup":  "uat/backups/before-CP-25-performance17-20261030105723",
+    "authorization":  "Jenny authorized Stage 4 investigation, Developer timing readout, no-feel optimizations and input follow; no solver-frequency or pickup change",
+    "releaseHTMLSHA256":  "c4ca4db7f8b55c37f32e81479066c9b6b7542f3ada6f8c5a52b32d44be65b447",
+    "changedFiles":  [
+                         "index.html"
+                     ],
+    "localPublication":  "verified"
+}

@@ -1,0 +1,14 @@
+{
+  "version": 20261029081406,
+  "displayName": "2026.10.29 UAT 6",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "c07c2d52672ff55afbd1904234b8dd12d191f4a49d0f5f46b1c76c8499bb13da",
+  "stagedJSONSHA256": "2f406d2fdfa058580beb3ba4943e7a25e08473075ed519d2fdb1f55f8c772370",
+  "backup": "uat/backups/before-CP-25-pickup-pop-20261029081406",
+  "authorization": "Jenny confirmed bottom-to-side satchel direction and requested larger-then-smaller delightful movement; UAT only",
+  "releaseHTMLSHA256": "e49b22ae7cf9cf2a6f13052c2c0ef6cf1a5e83b1e00fe128b11b537a5f67c2a9",
+  "changedFiles": [
+    "index.html"
+  ],
+  "localPublication": "verified"
+}

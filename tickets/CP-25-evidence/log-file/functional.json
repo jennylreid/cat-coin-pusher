@@ -1,0 +1,102 @@
+{
+  "passed": [
+    "60 fixed ticks execute exactly60 native steps",
+    "Release projects under the current finger at all three tested tray phases within the existing span; outside positions clamp to116/284",
+    "Actual Settings Send/Connect/Share handlers submit structured logs; no copy/paste control",
+    "No native log calls during held recording; explicit send/pause flushes",
+    "Native pause blocks simulation and resets timing before resume; old APK shows installation requirement"
+  ],
+  "alignment": [
+    {
+      "pusher": 190,
+      "inputCanvasX": 100,
+      "releaseCanvasX": 129.50740684085272,
+      "worldX": 115.99999666213989
+    },
+    {
+      "pusher": 190,
+      "inputCanvasX": 160,
+      "releaseCanvasX": 160.00000113183984,
+      "worldX": 152.3354172706604
+    },
+    {
+      "pusher": 190,
+      "inputCanvasX": 200,
+      "releaseCanvasX": 200,
+      "worldX": 200
+    },
+    {
+      "pusher": 190,
+      "inputCanvasX": 240,
+      "releaseCanvasX": 240.00000887217396,
+      "worldX": 247.66459465026855
+    },
+    {
+      "pusher": 190,
+      "inputCanvasX": 300,
+      "releaseCanvasX": 270.49258315513345,
+      "worldX": 283.99999141693115
+    },
+    {
+      "pusher": 225,
+      "inputCanvasX": 100,
+      "releaseCanvasX": 130.0674754331555,
+      "worldX": 115.99999666213989
+    },
+    {
+      "pusher": 225,
+      "inputCanvasX": 160,
+      "releaseCanvasX": 160.00000058651995,
+      "worldX": 151.9536852836609
+    },
+    {
+      "pusher": 225,
+      "inputCanvasX": 200,
+      "releaseCanvasX": 200,
+      "worldX": 200
+    },
+    {
+      "pusher": 225,
+      "inputCanvasX": 240,
+      "releaseCanvasX": 240.0000093380113,
+      "worldX": 248.04632663726807
+    },
+    {
+      "pusher": 225,
+      "inputCanvasX": 300,
+      "releaseCanvasX": 269.9325146423133,
+      "worldX": 283.99999141693115
+    },
+    {
+      "pusher": 260,
+      "inputCanvasX": 100,
+      "releaseCanvasX": 130.61942341152366,
+      "worldX": 115.99999666213989
+    },
+    {
+      "pusher": 260,
+      "inputCanvasX": 160,
+      "releaseCanvasX": 159.99999515219406,
+      "worldX": 151.57145261764526
+    },
+    {
+      "pusher": 260,
+      "inputCanvasX": 200,
+      "releaseCanvasX": 200,
+      "worldX": 200
+    },
+    {
+      "pusher": 260,
+      "inputCanvasX": 240,
+      "releaseCanvasX": 239.99999500160482,
+      "worldX": 248.42853546142578
+    },
+    {
+      "pusher": 260,
+      "inputCanvasX": 300,
+      "releaseCanvasX": 269.3805667422752,
+      "worldX": 283.99999141693115
+    }
+  ],
+  "phoneProvider": "Android picker, retained permission, Share recipient and OneDrive sync still require phone evidence"
+}

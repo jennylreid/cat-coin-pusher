@@ -1,0 +1,29 @@
+[
+  {
+    "startBoard": 1,
+    "mode": "centre",
+    "peakHorizontalSpeed": 1.4878132390731695,
+    "peakUpwardSpeed": 0.3499999940395355,
+    "onBoardPeakHorizontal": 1.2000000590029438,
+    "onBoardPeakUpward": 0.3499999940395355,
+    "eventsOver2mPerSecond": 0
+  },
+  {
+    "startBoard": 2,
+    "mode": "sweep",
+    "peakHorizontalSpeed": 1.6578688639843224,
+    "peakUpwardSpeed": 0.3499999940395355,
+    "onBoardPeakHorizontal": 1.2000000590069508,
+    "onBoardPeakUpward": 0.3499999940395355,
+    "eventsOver2mPerSecond": 0
+  },
+  {
+    "startBoard": 3,
+    "mode": "left",
+    "peakHorizontalSpeed": 1.7979064010117893,
+    "peakUpwardSpeed": 0.3499999940395355,
+    "onBoardPeakHorizontal": 1.200000060031243,
+    "onBoardPeakUpward": 0.3499999940395355,
+    "eventsOver2mPerSecond": 0
+  }
+]

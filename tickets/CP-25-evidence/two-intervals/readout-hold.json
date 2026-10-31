@@ -1,0 +1,151 @@
+{
+  "protocol": "Board3 seed42,400x889 CSS,DPR2; one continuous triangular hold/slide130..270 for up to20 wall-clock seconds or board clear. Both use existing non-pausing Ribbon preference for this benchmark. Actual game frame(), raw intervals; software canvas, not phone FPS.",
+  "builds": {
+    "baseline": {
+      "seconds": 20.0959585,
+      "wallFPS": 14.132194789315475,
+      "frames": 284,
+      "readout": {
+        "step": 29.42493827455819,
+        "fps": 9.079539031803359,
+        "slow": 28,
+        "physics": 89.48488928571467,
+        "draw": 15.213107142857032,
+        "coins": 106,
+        "frameSteps": 3
+      },
+      "trace": [
+        {
+          "atSeconds": 3.05,
+          "fps": 33.4851222907457,
+          "physics": 16.17136206896551,
+          "draw": 7.554574712643676,
+          "frameSteps": 1.7471264367816093,
+          "coins": 69,
+          "status": "playing"
+        },
+        {
+          "atSeconds": 6.04,
+          "fps": 14.125809651167081,
+          "physics": 56.059274418604666,
+          "draw": 10.17677906976751,
+          "frameSteps": 3,
+          "coins": 79,
+          "status": "playing"
+        },
+        {
+          "atSeconds": 9.07,
+          "fps": 13.125247841594016,
+          "physics": 60.89535999999994,
+          "draw": 10.058820000000036,
+          "frameSteps": 3,
+          "coins": 89,
+          "status": "playing"
+        },
+        {
+          "atSeconds": 12.02,
+          "fps": 10.429614734594665,
+          "physics": 75.70140624999993,
+          "draw": 13.262946874999955,
+          "frameSteps": 3,
+          "coins": 90,
+          "status": "playing"
+        },
+        {
+          "atSeconds": 15.09,
+          "fps": 11.581386739365135,
+          "physics": 68.75969714285695,
+          "draw": 11.236148571428775,
+          "frameSteps": 3,
+          "coins": 98,
+          "status": "playing"
+        },
+        {
+          "atSeconds": 18.1,
+          "fps": 8.639453252865472,
+          "physics": 95.22626538461562,
+          "draw": 14.70954999999965,
+          "frameSteps": 3,
+          "coins": 101,
+          "status": "playing"
+        }
+      ],
+      "coinsReleased": 62,
+      "stopReason": "20s elapsed",
+      "lastBoardStatus": "playing"
+    },
+    "candidate": {
+      "seconds": 20.038004800000003,
+      "wallFPS": 20.411213795098,
+      "frames": 409,
+      "readout": {
+        "step": 19.363810601195883,
+        "fps": 11.674312746990763,
+        "slow": 36,
+        "physics": 60.92794722222202,
+        "draw": 16.355319444445236,
+        "coins": 118,
+        "frameSteps": 3
+      },
+      "trace": [
+        {
+          "atSeconds": 3.02,
+          "fps": 41.90536077656667,
+          "physics": 6.402476635513972,
+          "draw": 7.465488785046834,
+          "frameSteps": 1.3644859813084111,
+          "coins": 69,
+          "status": "playing"
+        },
+        {
+          "atSeconds": 6.02,
+          "fps": 29.598018010294194,
+          "physics": 18.493991011235778,
+          "draw": 9.24826629213481,
+          "frameSteps": 2.0112359550561796,
+          "coins": 84,
+          "status": "playing"
+        },
+        {
+          "atSeconds": 9.01,
+          "fps": 17.905254346624826,
+          "physics": 39.63861851851828,
+          "draw": 11.11977962962973,
+          "frameSteps": 2.8518518518518516,
+          "coins": 89,
+          "status": "playing"
+        },
+        {
+          "atSeconds": 12.03,
+          "fps": 15.659360878845106,
+          "physics": 45.81441249999981,
+          "draw": 12.281597916666366,
+          "frameSteps": 3,
+          "coins": 101,
+          "status": "playing"
+        },
+        {
+          "atSeconds": 15.05,
+          "fps": 14.219775156915235,
+          "physics": 49.09108604651149,
+          "draw": 13.776839534883207,
+          "frameSteps": 3,
+          "coins": 105,
+          "status": "playing"
+        },
+        {
+          "atSeconds": 18.07,
+          "fps": 12.381470230514289,
+          "physics": 60.135871052630954,
+          "draw": 15.466173684210508,
+          "frameSteps": 3,
+          "coins": 112,
+          "status": "playing"
+        }
+      ],
+      "coinsReleased": 79,
+      "stopReason": "20s elapsed",
+      "lastBoardStatus": "playing"
+    }
+  }
+}

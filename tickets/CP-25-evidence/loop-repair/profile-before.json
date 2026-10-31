@@ -1,0 +1,72 @@
+{
+  "platform": "Desktop native Canvas,1080x2400; relative cost only, not device FPS",
+  "results": [
+    {
+      "label": "UAT10",
+      "board": 1,
+      "draw": {
+        "meanMs": 21.651104444444464,
+        "p95Ms": 29.241199999999935
+      },
+      "simulation": {
+        "meanMs": 6.272624444444455,
+        "p95Ms": 8.495700000000397
+      },
+      "bodies": 56
+    },
+    {
+      "label": "UAT10",
+      "board": 3,
+      "draw": {
+        "meanMs": 28.592811111111214,
+        "p95Ms": 38.87159999999949
+      },
+      "simulation": {
+        "meanMs": 8.819020000000101,
+        "p95Ms": 14.06919999999991
+      },
+      "bodies": 58
+    },
+    {
+      "label": "UAT10",
+      "componentsMeanMs": {
+        "drawCollectionsTile": 0.006083333333329695,
+        "drawBoardHUD": 0.1164899999999913
+      }
+    },
+    {
+      "label": "UAT11",
+      "board": 1,
+      "draw": {
+        "meanMs": 26.04817777777775,
+        "p95Ms": 31.928200000000288
+      },
+      "simulation": {
+        "meanMs": 7.0691511111111245,
+        "p95Ms": 11.819799999999304
+      },
+      "bodies": 56
+    },
+    {
+      "label": "UAT11",
+      "board": 3,
+      "draw": {
+        "meanMs": 27.962986666666662,
+        "p95Ms": 36.25749999999971
+      },
+      "simulation": {
+        "meanMs": 7.311993333333198,
+        "p95Ms": 9.777399999999034
+      },
+      "bodies": 58
+    },
+    {
+      "label": "UAT11",
+      "componentsMeanMs": {
+        "drawCollectionsTile": 0.13479999999999565,
+        "drawPowerButtons": 0.09625166666664882,
+        "drawBoardHUD": 0.23659999999999853
+      }
+    }
+  ]
+}

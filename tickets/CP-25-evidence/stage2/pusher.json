@@ -1,0 +1,8 @@
+{
+  "maxPlatePenetration": 0.17555059166625142,
+  "plateSamplesOverHalfUnit": 0,
+  "inputCoinFramesPast330": 21651,
+  "seconds": 20,
+  "rapidTapSeconds": 12,
+  "pauseSeconds": 7
+}

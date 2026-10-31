@@ -1,0 +1,77 @@
+{
+  "collections": {
+    "x": 110,
+    "y": 804.8889999999999,
+    "w": 44,
+    "h": 44,
+    "placement": "footer"
+  },
+  "inventory": {
+    "x": 178,
+    "y": 804.8889999999999,
+    "w": 44,
+    "h": 44
+  },
+  "grid": {
+    "top": 24,
+    "left": 18,
+    "right": 382,
+    "bottom": 870.8889999999999,
+    "entries": [
+      {
+        "id": "cheese",
+        "kind": "treat",
+        "name": "Cheese",
+        "count": 12,
+        "x": 30,
+        "y": 110,
+        "w": 64,
+        "h": 64
+      },
+      {
+        "id": "shrimp",
+        "kind": "treat",
+        "name": "Shrimp",
+        "count": 3,
+        "x": 110,
+        "y": 110,
+        "w": 64,
+        "h": 64
+      },
+      {
+        "id": "tuna",
+        "kind": "treat",
+        "name": "Tuna",
+        "count": 1,
+        "x": 190,
+        "y": 110,
+        "w": 64,
+        "h": 64
+      },
+      {
+        "id": "quake",
+        "kind": "power",
+        "name": "Quake",
+        "count": 4,
+        "x": 30,
+        "y": 270,
+        "w": 64,
+        "h": 64
+      },
+      {
+        "id": "sweep",
+        "kind": "power",
+        "name": "Paw Sweep",
+        "count": 2,
+        "x": 110,
+        "y": 270,
+        "w": 64,
+        "h": 64
+      }
+    ]
+  },
+  "fixtureCounts": "12 cheese,3 shrimp,1 tuna,4 Quake,2 Sweep; layout examples only",
+  "publishedJSONBefore": "16a60e262b30bbfb6fe64a26407c4d067e55419c82a8d2062dbd8b2632154d3b",
+  "publishedJSONAfter": "16a60e262b30bbfb6fe64a26407c4d067e55419c82a8d2062dbd8b2632154d3b",
+  "previewOnly": true
+}

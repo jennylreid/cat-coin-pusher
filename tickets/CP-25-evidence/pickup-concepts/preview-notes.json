@@ -1,0 +1,19 @@
+{
+  "source": "work/cp25/pickup-modal/release.html",
+  "piece": "Pickup popup UI concepts only",
+  "render": "Actual game canvas and original cheese sprite, same scene/sprite scale across all three",
+  "canvas": [
+    1080,
+    2400
+  ],
+  "concepts": [
+    "A-warm-card",
+    "B-paw-medallion",
+    "C-scalloped-badge"
+  ],
+  "publishedJSONBefore": "fea80ec0f1446bd1ad42e297f185ace156d5f38c6df99507f2998e58ec461f3e",
+  "publishedJSONAfter": "fea80ec0f1446bd1ad42e297f185ace156d5f38c6df99507f2998e58ec461f3e",
+  "previewOnly": true,
+  "generatedArt": false,
+  "decision": "Choose a visual direction before animation or publication"
+}

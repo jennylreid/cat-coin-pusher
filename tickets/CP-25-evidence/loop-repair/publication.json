@@ -1,0 +1,14 @@
+{
+  "version": 20261029141116,
+  "displayName": "2026.10.29 UAT 12",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "4c715880f3388418697a6f9868a20342447f5f9ab6ea2d86b3346ebe9dbb8b0c",
+  "stagedJSONSHA256": "16a60e262b30bbfb6fe64a26407c4d067e55419c82a8d2062dbd8b2632154d3b",
+  "backup": "uat/backups/before-CP-25-loop-repair-20261029141116",
+  "authorization": "Jenny reported zero-prize endless board and20FPS; explicitly chose failure/restart of same board; UAT fix/recovery and render optimization",
+  "releaseHTMLSHA256": "78d7f552c7029443811c78906701ead2e8140990f0e4e3f12fdac9068fba1c98",
+  "changedFiles": [
+    "index.html"
+  ],
+  "localPublication": "verified"
+}

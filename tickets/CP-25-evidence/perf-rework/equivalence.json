@@ -1,0 +1,20 @@
+[
+  {
+    "board": 1,
+    "exactSteps": 240,
+    "coinPixelSamples": 4,
+    "identicalOverlapDecisions": 1714
+  },
+  {
+    "board": 2,
+    "exactSteps": 240,
+    "coinPixelSamples": 4,
+    "identicalOverlapDecisions": 1521
+  },
+  {
+    "board": 3,
+    "exactSteps": 240,
+    "coinPixelSamples": 4,
+    "identicalOverlapDecisions": 1880
+  }
+]

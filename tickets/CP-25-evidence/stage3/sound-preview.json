@@ -1,0 +1,26 @@
+{
+  "description": "Mathematical render of the shipped three sine notes, Web Audio exponential envelope and 0.55 master gain; actual game synthesizes the sound",
+  "duration": 0.45,
+  "sampleRate": 44100,
+  "peak": 0.03551015442637176,
+  "notes": [
+    [
+      659.25,
+      0,
+      0.17,
+      0.065
+    ],
+    [
+      830.61,
+      0.055,
+      0.2,
+      0.055
+    ],
+    [
+      1318.51,
+      0.11,
+      0.27,
+      0.05
+    ]
+  ]
+}

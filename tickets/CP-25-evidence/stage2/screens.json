@@ -1,0 +1,15 @@
+{
+  "fixture": "UI-only inventory: cheese 2, shrimp 2, tuna 1; placements use real screen taps",
+  "phonePixels": [
+    1080,
+    2400
+  ],
+  "shortViewport": [
+    400,
+    720
+  ],
+  "safeArea": {
+    "top": 34,
+    "bottom": 20
+  }
+}

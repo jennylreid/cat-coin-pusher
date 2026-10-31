@@ -1,0 +1,21 @@
+{
+  "environment": "Desktop Node VM + native canvas, 400x889 CSS, DPR 2.7; actual frame() with wall clock; not Android/WebView or phone FPS",
+  "baseline": {
+    "inGameReadout": {
+      "fps": 21.082705271102178,
+      "slow": null,
+      "physicsMS": 16.767265425721384
+    },
+    "wallFPS": 25.08928856895864,
+    "frames": 152
+  },
+  "release": {
+    "inGameReadout": {
+      "fps": 19.168087170643933,
+      "slow": 58,
+      "physicsMS": 17.129493377711572
+    },
+    "wallFPS": 26.771748132247637,
+    "frames": 163
+  }
+}

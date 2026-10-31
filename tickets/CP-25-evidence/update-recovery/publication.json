@@ -1,0 +1,18 @@
+{
+  "version": 20261030172415,
+  "displayName": "2026.10.30 UAT 21",
+  "apkVersion": 6,
+  "baselineJSONSHA256": "ce66c40d1805e3747e20c7dd4bdf24603082a93a759e25a5a91c0a9133e89188",
+  "baselineAPKSHA256": "de9f7826ad8b9e9ab83487c8e44234a81db3f5cddb3857be55aa8562e0ac064e",
+  "stagedJSONSHA256": "e5ab1969cc09b9c3c940eeff900aa82962702822ea8fc161a0002ab64f1cc286",
+  "stagedAPKSHA256": "3b2c2918720dcbda4fa8138aba3bc37da5a8cb4f6164aa9e1ad47434db7389b6",
+  "releaseHTMLSHA256": "b231162c392479af8a562629d7c542f68fe227bd73c5fbeb802a91e8b2a44109",
+  "backup": "uat/backups/before-CP-25-update-recovery-20261030172415",
+  "jsonBytes": 49505411,
+  "apkBytes": 37128934,
+  "runtimeFilesInAPK": 37,
+  "runtimeFilesInEnvelope": 0,
+  "signerSHA256": "20ddef2a158095a45a176efa2ddffa60ecf0c074d569b7dcd9785b1cfa122dc2",
+  "authorization": "Repair failed UAT20 app update/crash; APK-only envelope, no gameplay change beyond release label",
+  "localPublication": "verified"
+}

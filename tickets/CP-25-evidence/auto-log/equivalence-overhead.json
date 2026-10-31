@@ -1,0 +1,12 @@
+{
+  "framesCompared": 600,
+  "stateSamples": 20,
+  "gameplayStatesIdentical": true,
+  "fallsIdentical": true,
+  "recorderCalls": 20000,
+  "meanRecorderMs": 0.00036498499999997877,
+  "diagnosticWritesDuringHeldRecording": 0,
+  "diagnosticWritesOnExplicitExport": 1,
+  "exportCharacters": 9329,
+  "environment": "Desktop Node VM, recorder micro-cost only; not phone timing or clipboard evidence"
+}

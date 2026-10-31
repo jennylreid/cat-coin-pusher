@@ -1,0 +1,14 @@
+﻿{
+    "version":  20261030154817,
+    "displayName":  "2026.10.30 UAT 19",
+    "apkVersion":  4,
+    "baselineJSONSHA256":  "87088dc70060aa4979e8fc59b0165f03e9f2e5a5c047a893a936e35ad50b6a94",
+    "stagedJSONSHA256":  "764ad7db94845b024c6026ad25422a4e4d46952d9aa4e1306e4a4856440213db",
+    "backup":  "uat/backups/before-CP-25-auto-log-20261030154817",
+    "authorization":  "Jenny requested automatic diagnostic collection instead of manually reading active-play numbers; local recorder and copy/export; game-only UAT",
+    "releaseHTMLSHA256":  "810741d9ef4c9f91a0313a77ca12cdff63f2bc8f1f81b32c4c33615bc9ffeb00",
+    "changedFiles":  [
+                         "index.html"
+                     ],
+    "localPublication":  "verified"
+}

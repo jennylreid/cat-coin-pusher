@@ -1,0 +1,12 @@
+{
+  "baseline": "UAT11",
+  "steps": "Board1: lose both required treats through gutterOff, then simulate10 seconds",
+  "board": 1,
+  "status": "playing",
+  "remainingTargets": 0,
+  "collected": [],
+  "inventory": {
+    "cheese": 3
+  },
+  "cause": "Side loss removes required target but only front payout can finish the board; no loss/retry or missing-target reconciliation exists"
+}

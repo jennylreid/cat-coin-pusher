@@ -1,0 +1,75 @@
+{
+  "source": "work/cp25/log-file/candidate.html",
+  "results": [
+    {
+      "startBoard": 1,
+      "mode": "centre",
+      "seconds": 28,
+      "dropGap": 0.2,
+      "boardsVisited": [
+        1
+      ],
+      "substeps": 1680,
+      "confirmedThroughCrossings": 0,
+      "separatedCentreCrossings": 51,
+      "maxPenetration": 0.2547537675127387,
+      "deepSamplesOverHalfUnit": 0,
+      "maxPlatePenetration": 0.21474522072821856,
+      "plateSamplesOverHalfUnit": 0,
+      "tableRescues": 0,
+      "flipCrossings": 0,
+      "unearnedFlips": 0,
+      "maxRestTiltStepDegrees": 0.06092202858102894,
+      "restSamples": 62699,
+      "peakPileHeight": 288.17107677459717,
+      "examples": []
+    },
+    {
+      "startBoard": 2,
+      "mode": "sweep",
+      "seconds": 28,
+      "dropGap": 0.2,
+      "boardsVisited": [
+        2,
+        3
+      ],
+      "substeps": 1295,
+      "confirmedThroughCrossings": 0,
+      "separatedCentreCrossings": 32,
+      "maxPenetration": 0.26268926449120045,
+      "deepSamplesOverHalfUnit": 0,
+      "maxPlatePenetration": 0.2158713759854436,
+      "plateSamplesOverHalfUnit": 0,
+      "tableRescues": 0,
+      "flipCrossings": 0,
+      "unearnedFlips": 0,
+      "maxRestTiltStepDegrees": 0.04936405259746207,
+      "restSamples": 48963,
+      "peakPileHeight": 115.15617370605469,
+      "examples": []
+    },
+    {
+      "startBoard": 3,
+      "mode": "left",
+      "seconds": 28,
+      "dropGap": 0.2,
+      "boardsVisited": [
+        3
+      ],
+      "substeps": 1680,
+      "confirmedThroughCrossings": 0,
+      "separatedCentreCrossings": 14,
+      "maxPenetration": 0.2677728421986103,
+      "deepSamplesOverHalfUnit": 0,
+      "maxPlatePenetration": 0.38360145408660173,
+      "plateSamplesOverHalfUnit": 0,
+      "tableRescues": 0,
+      "flipCrossings": 0,
+      "unearnedFlips": 0,
+      "maxRestTiltStepDegrees": 0.21858517638169922,
+      "restSamples": 72667,
+      "peakPileHeight": 368.84567737579346,
+      "examples": []
+    }
+  ]
+}

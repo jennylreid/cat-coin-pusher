@@ -1,0 +1,19 @@
+{
+  "piece": "Collections tile only",
+  "logicalCanvas": [
+    44,
+    44
+  ],
+  "templateCanvas": [
+    512,
+    512
+  ],
+  "gameRect": {
+    "x": 352,
+    "y": 420.15966845336857,
+    "w": 44,
+    "h": 44
+  },
+  "registration": "Keep exact gameRect; no table/camera/paw/head changes. Candidate is approval-only and must not enter the update package.",
+  "scenes": "Water/Cheese layouts must be locked as real-game templates before those pieces are painted."
+}

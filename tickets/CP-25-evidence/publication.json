@@ -1,0 +1,15 @@
+{
+  "version": 20261028152019,
+  "displayName": "2026.10.28 UAT 2",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "919bc7704b3052d3fc699d801ca57a552d4e37f26167ed951066fcddd1e9db0e",
+  "stagedJSONSHA256": "cde427419bcab9c92bd97c4145a5cfe54c83d0cd15853677e73ef1a2b2b1f5a9",
+  "backup": "uat/backups/before-CP-25-stage1-20261028152019",
+  "authorization": "Jenny: CP-25 Stage 1 publish to UAT then wait for OK",
+  "releaseHTMLSHA256": "108434c904aad70b7aab3286f1811d3ec8acde276bf50b5bdc4abae0176a6f0c",
+  "changedFiles": [
+    "index.html"
+  ],
+  "nonHTMLFilesUnchanged": 29,
+  "localPublication": "verified"
+}

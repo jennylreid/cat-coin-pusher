@@ -1,0 +1,9 @@
+{
+  "passed": [
+    "Close/reopen retains purse, board number, all body positions and spent coins",
+    "Offline refill counts whole intervals, caps at 300, and banks no time at cap",
+    "Empty purse waits without loss and resumes at refill",
+    "Front coin pays once above cap; side coin pays nothing; all three treats persist exactly once; Board 3 loops to Board 1",
+    "Inventory pauses board motion while open"
+  ]
+}

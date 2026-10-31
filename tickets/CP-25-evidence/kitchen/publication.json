@@ -1,0 +1,16 @@
+{
+  "version": 20261029073906,
+  "displayName": "2026.10.29 UAT 3",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "9a5ce7ba0ee3e86fdd5bea02fd1ac71060c6a8dbfa683f0f7a9d25536d31d29d",
+  "stagedJSONSHA256": "164d3cc6a62de323d61fe6b11fb7059fbf16281f3db45fa7c49d68d11cb65e30",
+  "backup": "uat/backups/before-CP-25-kitchen-20261029073906",
+  "authorization": "Jenny approved kitchen painting and renamed Cheese collection Kitchen; UAT only",
+  "releaseHTMLSHA256": "eb20440e17bc0d6187006c4715d88277940d11a914bea07f33eee8dcad518c55",
+  "changedFiles": [
+    "index.html",
+    "img/art/cheese-scene-v1.png",
+    "img/art/cheese-outline.png"
+  ],
+  "localPublication": "verified"
+}

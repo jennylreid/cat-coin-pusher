@@ -1,0 +1,50 @@
+{
+  "logicalCanvas": [
+    400,
+    888.889
+  ],
+  "header": {
+    "left": 0,
+    "right": 0,
+    "top": 0,
+    "bottom": 0,
+    "mainY": 47,
+    "bannerY": 84,
+    "headerBottom": 98,
+    "extraTop": 0,
+    "bottomY": 808.8889999999999,
+    "settingsX": 388,
+    "settingsY": 876.8889999999999
+  },
+  "powers": {
+    "sweep": {
+      "x": 148,
+      "y": 54,
+      "w": 42,
+      "h": 42
+    },
+    "quake": {
+      "x": 210,
+      "y": 54,
+      "w": 42,
+      "h": 42
+    }
+  },
+  "collections": {
+    "x": 352,
+    "y": 420.15966845336857,
+    "w": 44,
+    "h": 44
+  },
+  "inventory": {
+    "x": 178,
+    "y": 804.8889999999999,
+    "w": 44,
+    "h": 44
+  },
+  "catTableCamera": "Existing fitView/geometry unchanged",
+  "previewCounts": "Fixture displays 1 Sweep / 2 Quake on Board1; actual buttons read current charges",
+  "publishedJSONBefore": "fea80ec0f1446bd1ad42e297f185ace156d5f38c6df99507f2998e58ec461f3e",
+  "publishedJSONAfter": "fea80ec0f1446bd1ad42e297f185ace156d5f38c6df99507f2998e58ec461f3e",
+  "previewOnly": true
+}

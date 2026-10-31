@@ -1,0 +1,26 @@
+{
+  "status": "approval-only; not integrated or published",
+  "candidateCanvas": [
+    1254,
+    1254
+  ],
+  "logicalCanvas": [
+    44,
+    44
+  ],
+  "gameRect": {
+    "x": 352,
+    "y": 420.15966845336857,
+    "w": 44,
+    "h": 44
+  },
+  "phoneCanvas": [
+    1080,
+    2400
+  ],
+  "transparentCornerAlpha": 0,
+  "changedPixelsInsideTile": 14400,
+  "changedPixelsOutsideTile": 0,
+  "prompt": "work/cp25/stage3/art/tile-prompt.txt",
+  "generator": "built-in imagegen"
+}

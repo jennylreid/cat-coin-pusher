@@ -1,0 +1,9 @@
+{
+  "passed": [
+    "Side tile opens full collection screen without a drop; satchel sits below all slots; tap-tap cannot place",
+    "Only matching drag consumes one item; wrong/cancelled/other-pointer gestures consume nothing; future/filled slots reject; partial/full placement and one-time rewards persist",
+    "Actual front-edge treat credits once and queues popup; board continues beneath it; dismiss tap and release never drop a coin",
+    "Popups display one at a time for about two seconds each; tap advances only one; side loss gives neither popup nor inventory",
+    "Two queued winning treats finish their popups before board-clear feedback and automatic next-board advance"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "passed": [
+    "Waiting for final pickup: no Rest, message queued",
+    "BOARD CLEAR starts before Rest",
+    "Message finishes, then Rest",
+    "Existing two-second Rest interval, then next board",
+    "Restored won board repeats message before Rest"
+  ],
+  "scope": "Real game runtime sequence; no phone timing claim"
+}

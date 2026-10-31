@@ -1,0 +1,156 @@
+{
+  "protocol": "seed42 Board1, 400x889 CSS DPR2, 360 fixed 1/60 steps; same release request every24 steps (0.4s), horizontal triangular sweep 130..270; draw every step. First60 steps excluded from timings. No hold feature needed, native drop gates preserved. Desktop native canvas, not phone FPS.",
+  "builds": {
+    "production": {
+      "granted": 15,
+      "coinCount": 70,
+      "timings": {
+        "step": {
+          "mean": 2.861822333333349,
+          "p95": 4.892200000002049,
+          "max": 6.72729999999865,
+          "samples": 300
+        },
+        "draw": {
+          "mean": 66.98353366666669,
+          "p95": 91.8273999999983,
+          "max": 108.48669999999765,
+          "samples": 300
+        },
+        "save": {
+          "mean": 0.09149999999863212,
+          "p95": 0.09149999999863212,
+          "max": 0.09149999999863212,
+          "samples": 1
+        },
+        "nativeWorld": {
+          "mean": 2.606562333333354,
+          "p95": 4.550599999998667,
+          "max": 6.264900000001944,
+          "samples": 300
+        }
+      }
+    },
+    "cp22": {
+      "granted": 15,
+      "coinCount": 70,
+      "timings": {
+        "step": {
+          "mean": 38.02145133333346,
+          "p95": 66.06009999999515,
+          "max": 86.06259999999747,
+          "samples": 300
+        },
+        "draw": {
+          "mean": 57.898421999999954,
+          "p95": 77.16560000000027,
+          "max": 93.342899999996,
+          "samples": 300
+        },
+        "save": {
+          "mean": 0.05369999999675201,
+          "p95": 0.05369999999675201,
+          "max": 0.05369999999675201,
+          "samples": 1
+        },
+        "solidCoinContacts": {
+          "mean": 4.447477000000184,
+          "p95": 11.991300000001502,
+          "max": 20.105899999995017,
+          "samples": 1200
+        },
+        "coinRotationContacts": {
+          "mean": 0.9552708333333643,
+          "p95": 1.5609000000040396,
+          "max": 5.027099999999336,
+          "samples": 1200
+        },
+        "deliveryImpact": {
+          "mean": 0.7302620833332973,
+          "p95": 1.3584999999984575,
+          "max": 4.417099999998754,
+          "samples": 1200
+        },
+        "dampCoinImpacts": {
+          "mean": 0.2181082500000654,
+          "p95": 0.3797999999951571,
+          "max": 3.1988000000055763,
+          "samples": 1200
+        },
+        "coinPaintOrder": {
+          "mean": 9.089165333333574,
+          "p95": 19.061099999998987,
+          "max": 25.108100000004924,
+          "samples": 300
+        },
+        "nativeWorld": {
+          "mean": 2.734508999999995,
+          "p95": 4.612199999995937,
+          "max": 12.416400000001886,
+          "samples": 1200
+        }
+      }
+    },
+    "uat16": {
+      "granted": 15,
+      "coinCount": 70,
+      "timings": {
+        "step": {
+          "mean": 35.52535100000023,
+          "p95": 63.015299999999115,
+          "max": 85.3408999999956,
+          "samples": 300
+        },
+        "draw": {
+          "mean": 27.279044999999943,
+          "p95": 40.130300000004354,
+          "max": 49.77760000000126,
+          "samples": 300
+        },
+        "save": {
+          "mean": 1.478092307690531,
+          "p95": 2.1453999999939697,
+          "max": 2.1453999999939697,
+          "samples": 13
+        },
+        "solidCoinContacts": {
+          "mean": 4.113239416666759,
+          "p95": 11.609800000005635,
+          "max": 19.791299999997136,
+          "samples": 1200
+        },
+        "coinRotationContacts": {
+          "mean": 0.882808666666527,
+          "p95": 1.461699999999837,
+          "max": 3.763999999995576,
+          "samples": 1200
+        },
+        "deliveryImpact": {
+          "mean": 0.6768551666669069,
+          "p95": 1.2554999999993015,
+          "max": 2.412900000010268,
+          "samples": 1200
+        },
+        "dampCoinImpacts": {
+          "mean": 0.20925574999996266,
+          "p95": 0.3654999999998836,
+          "max": 1.5734000000011292,
+          "samples": 1200
+        },
+        "coinPaintOrder": {
+          "mean": 9.018453000000008,
+          "p95": 18.65790000000561,
+          "max": 22.264000000010128,
+          "samples": 300
+        },
+        "nativeWorld": {
+          "mean": 2.6144867499998266,
+          "p95": 4.327499999999418,
+          "max": 7.380399999994552,
+          "samples": 1200
+        }
+      }
+    }
+  },
+  "note": "query-cache-experiment is rejected allocation/pose reuse experiment, not the final diagnostic candidate; final candidate retains UAT16 physics unchanged."
+}

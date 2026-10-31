@@ -1,0 +1,19 @@
+{
+  "build": "offline Gradle assembleDebug passed",
+  "package": "com.jenny.catpusher.uat",
+  "apkVersion": 6,
+  "signature": "verified; same UAT certificate as APK4 and APK5",
+  "runtimeFiles": 37,
+  "runtimeComparison": "all byte-identical to UAT20 except release label UAT21; version.txt matches envelope",
+  "policyCasesPassed": [
+    "APK4 with UAT19 receives APK6",
+    "APK5 receives APK6",
+    "APK6 matching bundle gets NONE (automatic and manual)",
+    "manual retry after offer gets APK",
+    "future game version gets GAME"
+  ],
+  "protocol": "APK-only envelope: files is an empty object; APK4 CloudUpdate requires object presence, not nonempty; APK branch precedes game branch",
+  "crashCause": "memory pressure is leading hypothesis; no phone stack trace available",
+  "phoneRecovery": "pending",
+  "phoneFailurePhase": "Jenny: crashes trying to offer update window; never gets chance to accept; still UAT19"
+}

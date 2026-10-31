@@ -1,0 +1,8 @@
+{
+  "passed": [
+    "One-at-a-time 1.8-second queue; one chime per overlay; tap-dismiss consumes touch without dropping a coin",
+    "Actual front win credits once and board keeps running underneath",
+    "Neutral saturation layer grays the background; two rounded frame lines; original full-colour item; no text; inventory survives reload",
+    "Queued overlays finish before clear feedback and board advance"
+  ]
+}

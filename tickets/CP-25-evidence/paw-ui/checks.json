@@ -1,0 +1,8 @@
+{
+  "passed": [
+    "Header power hitboxes above head; zero charges do nothing; charged icons consume one existing power with no coin",
+    "Board3 Quake count/action uses earned charges; earning/physics routines retained",
+    "Bottom satchel opens dedicated Inventory; Collections link and side paw tile open collections; no coin dropped"
+  ],
+  "publishedUnchanged": true
+}

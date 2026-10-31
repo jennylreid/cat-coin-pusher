@@ -1,0 +1,8 @@
+{
+  "passed": [
+    "Thirty repeated taps cannot dismiss/shorten any style; Paw pauses/disables board, Ribbon/Satchel permit ordinary drops; timers auto-close",
+    "Cycle assigns distinct styles in order; queued sound plays once per displayed item; selected preference persists separately from game save",
+    "Actual Settings style/preview handlers work; preview neither spends coins nor grants inventory",
+    "Opening Inventory pauses/hides pickup so it is not missed; actual front payouts still credit once"
+  ]
+}

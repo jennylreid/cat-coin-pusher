@@ -1,0 +1,10 @@
+{
+  "passed": [
+    "Any required side-lost prize fails/retries the same board on all3 boards; purse/spent coins and owned treats preserved; no loss payout",
+    "Actual UAT11 zero-prize saved state migrates into same-board retry; purse/inventory/collection flags survive retry and another reopen",
+    "Mixed front win plus side loss retains only actually won treat and retries after its queued pickup; no false board clear",
+    "Genuine all-front collection still clears and advances normally with one inventory credit each",
+    "Ordinary coin side loss does not fail a board; existing target with missing legacy flag is repaired, never duplicated",
+    "Already-collected unfinished legacy save clears/advances without awarding inventory again"
+  ]
+}
