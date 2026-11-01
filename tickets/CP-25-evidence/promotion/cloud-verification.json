@@ -1,0 +1,12 @@
+{
+  "httpStatus": 200,
+  "etag": "\"{578FC2C8-E07A-4447-B0E5-3EBC7EA2C0E6},7\"",
+  "jsonSHA256": "0f4177067aef5fb39f1fa82a8c2bc1e39d70634166f2bcfa3366998b3a9a145b",
+  "embeddedAPKSHA256": "df205863d0bf755276f7f4acf301b3c573788ccef09b8f8bc0cd0263121e8e45",
+  "jsonBytes": 49493561,
+  "apkBytes": 37120058,
+  "version": 20261031103610,
+  "displayName": "2026.10.31",
+  "freshCloudJSONAndInstallerMatchStage": true,
+  "phoneReceipt": "pending Jenny"
+}

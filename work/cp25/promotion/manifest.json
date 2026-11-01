@@ -77,5 +77,7 @@
   "dexStartupVerified": true,
   "buildAndLint": "passed; fresh outputs, offline, no build cache, all tasks rerun",
   "envelope": "APK-only: complete installer; empty files; runtime bundled once",
-  "publication": "not published; awaiting first-open save decision"
+  "publication": "published November 1, 2026; local backup and fresh cloud JSON/embedded APK verified",
+  "migrationApproval": "Jenny November 1: Yes, release with that migration",
+  "backup": "backups/before-CP-25-promotion-20261031103610"
 }

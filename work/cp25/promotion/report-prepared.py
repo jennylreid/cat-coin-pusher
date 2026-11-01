@@ -17,6 +17,6 @@ Jenny confirmed UAT24 installed on October30 and approved CP-22/CP-25/CP-26 prod
 
 ---
 
-'''.replace('VERSION',str(m['version'])).replace('JSONBYTES',str(m['jsonBytes'])).replace('APKBYTES',str(m['apkBytes']))
-if s.startswith('# CP-25 — production promotion prepared'):s=s[s.index('---\n\n')+7:]
+'''.replace('numeric VERSION','numeric '+str(m['version'])).replace('JSONBYTES',str(m['jsonBytes'])).replace('APKBYTES',str(m['apkBytes']))
+if s.startswith('# CP-25 — production promotion prepared'):s=s[s.index('---\n\n')+5:]
 f.write_text(header+s,encoding='utf8')

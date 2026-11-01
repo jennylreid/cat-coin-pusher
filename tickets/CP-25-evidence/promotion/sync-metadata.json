@@ -1,0 +1,29 @@
+[
+  {
+    "file": "phone/CatCoinPusher-game.json",
+    "hresult": "0x0",
+    "onDisk": 49493561,
+    "validated": 49493561,
+    "modified": 0,
+    "pin": 0,
+    "inSync": 1
+  },
+  {
+    "file": "CatCoinPusher.apk",
+    "hresult": "0x0",
+    "onDisk": 37120058,
+    "validated": 37120058,
+    "modified": 0,
+    "pin": 0,
+    "inSync": 1
+  },
+  {
+    "file": "phone",
+    "hresult": "0x0",
+    "onDisk": 0,
+    "validated": 0,
+    "modified": 0,
+    "pin": 0,
+    "inSync": 1
+  }
+]
