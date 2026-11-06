@@ -3,7 +3,7 @@
 Sent by Claude (PM) on Jenny's behalf, Oct 13, 2026. Jenny is watching this session.
 
 Continue CoinPusher in `C:\Users\jenny\OneDrive\work\CoinPusher`. Read `SESSION_HANDOFF.md`, `CODEX_BRIEF.md` and
-`C:\Users\jenny\OneDrive\work\TEAM_PROCESS.md`. When done, file your report in `tickets\OPS-01.md`.
+`C:\Users\jenny\OneDrive\work\Process\TEAM_PROCESS.md`. When done, file your report in `tickets\OPS-01.md`.
 
 **Goal:** Make each new Codex conversation start faster, with less reading:
 - `CODEX_BRIEF.md` has grown into a 200+ line checkpoint log. Trim it to a short, current brief, and move the history

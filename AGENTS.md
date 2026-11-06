@@ -5,7 +5,7 @@
 - Use one engineer conversation per ticket, named "<ID> <title>"; rename when the session supports it. Keep one ticket in progress at a time.
 - tickets/: ticket instructions, reports and adjacent evidence. SPEC.md: design. DEVELOPER.md: engineering. Screenshots/: Jenny's phone evidence.
 - CODEX_BRIEF.md: short current state; replace stale state rather than prepend logs. Archive history separately. SESSION_HANDOFF.md is a legacy log, not required startup reading.
-- Shared process source: ../TEAM_PROCESS.md. The rules below summarize it; consult it for process questions.
+- Shared process source: ../Process/TEAM_PROCESS.md. The rules below summarize it; consult it for process questions.
 
 ## Scope and collaboration
 - Jenny is product owner and phone UAT tester; Claude is PM; Codex is engineer. PM sets what/why and acceptance criteria; engineer chooses implementation. PM proposes; Jenny decides.
