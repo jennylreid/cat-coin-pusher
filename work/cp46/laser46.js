@@ -201,7 +201,7 @@ wildTick=function(dt){
  const paused=inventoryOpen||panel.style.display==='block';
  if(WILD.chaseForce&&WILD.laser&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.chaseForce=false;if(!WILD.chase)WILD.chasePending={f:null,wait:9};}
  if(WILD.chasePending&&!WILD.chase&&!paused){const P=WILD.chasePending;P.wait+=dt;const f=P.f;
-  if(WILD.phase==='play'&&board.status==='playing'&&!WILD.dance&&!WILD.toss&&!W2_YAWN&&sweepTime===0&&catquakeTime===0&&(!f||f.arrived||f.t>=f.tr+f.tm*.5||P.wait>1.2))laserStart();}
+  if(WILD.phase==='play'&&board.status==='playing'&&!WILD.dance&&!WILD.toss&&!W2_YAWN&&!(typeof PAW40_STATE==='object'&&PAW40_STATE&&PAW40_STATE.swipe)&&sweepTime===0&&catquakeTime===0&&(!f||f.arrived||f.t>=f.tr+f.tm*.5||P.wait>1.2))laserStart();}
  if(!WILD.chase||WILD.phase!=='play'){if(WILD.chase&&WILD.phase!=='play'){laserEndLog(WILD.chase);WILD.chase=null;}return __laserTickW(dt);}
  // The round timer, Turbo and the bonus-drop clock pause during the chase; everything else keeps going.
  const left=WILD.left,turbo=WILD.turbo,next=WILD.nextBonus;

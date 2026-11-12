@@ -38292,7 +38292,8 @@ wildExit=function(){const r=__modesExit();WILD.mode=null;return r;};
 // --- the MODES button (header, second row, right; normal board only) and the picker ---
 const MODES_UI={open:false,t:0};
 function modesButton(){const h=hudLayout();return {x:W-Math.max(8,h.right+10)-80,y:h.bannerY-12,w:80,h:24};}
-function modesPickerRects(){const n=WILD_MODE_ORDER.length,top=Math.max(hudLayout().headerBottom+20,120),rows=WILD_MODE_ORDER.map((id,i)=>({id,x:34,y:top+64+i*84,w:332,h:72}));
+// Below the cat's chin, like UAT 43's cards (nothing sits on the cat's face).
+function modesPickerRects(){const n=WILD_MODE_ORDER.length,ch=typeof w43ChinY==='function'?w43ChinY()+6:Math.max(hudLayout().headerBottom+20,120),top=Math.max(40,Math.min(ch,H-(96+n*84+44)-10)),rows=WILD_MODE_ORDER.map((id,i)=>({id,x:34,y:top+64+i*84,w:332,h:72}));
  return {card:{x:20,y:top,w:360,h:96+n*84+44},rows,close:{x:140,y:top+64+n*84+8,w:120,h:30}};}
 function drawModesButton(){
  if(inventoryOpen||WILD.on||!WILD_MODE_ORDER.length)return;const b=modesButton(),pulse=.5+.5*Math.sin(performance.now()/300+.8);
@@ -38302,7 +38303,7 @@ function drawModesButton(){
 function drawModesPicker(){
  if(!MODES_UI.open||WILD.on||inventoryOpen)return;const R=modesPickerRects(),u=Math.min(1,MODES_UI.t/.2),k=.85+.15*(1-Math.pow(1-u,3));
  ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
- ctx.globalAlpha=u;ctx.fillStyle='rgba(12,6,24,.6)';ctx.fillRect(0,0,W,H);
+ ctx.globalAlpha=u;ctx.fillStyle='rgba(12,6,24,.6)';ctx.fillRect(0,R.card.y-10,W,H-R.card.y+10);
  const cy=R.card.y+R.card.h/2;ctx.translate(200,cy);ctx.scale(k,k);ctx.translate(-200,-cy);
  wildPanel(R.card,'#1f4a4e','#0d2224');wildText('GAME MODES',200,R.card.y+34,32,'#5ef0c0','#0b2a2a',6);
  for(const r of R.rows){const m=WILD_MODES[r.id];uiRound(r.x,r.y,r.w,r.h,16,m.colors[2]||'#2a5a5e',m.colors[0],2);

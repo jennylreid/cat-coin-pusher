@@ -1,6 +1,6 @@
 {
- "build": "2026.11.12 UAT 45 proto",
- "base": "uat42",
+ "build": "2026.11.12 UAT 45",
+ "base": "uat44",
  "passed": [
   "board 1 identical to the base build after 25 s",
   "board 2 identical to the base build after 25 s",
@@ -36,12 +36,12 @@
     "fish": 6,
     "rounds": 6,
     "atBonus": [
-     6,
+     3,
      5,
      4,
-     3,
      6,
-     5
+     4,
+     6
     ]
    }
   },
@@ -101,7 +101,7 @@
    "name": "no audio or frame errors with sound on; sounds were made",
    "info": {
     "errs": [],
-    "nodes": 3100
+    "nodes": 1244
    }
   },
   {

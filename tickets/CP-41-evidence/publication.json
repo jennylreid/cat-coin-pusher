@@ -1,0 +1,20 @@
+﻿{
+    "version":  20261112181440,
+    "displayName":  "2026.11.12 UAT 45",
+    "apkVersion":  7,
+    "base":  "uat44",
+    "baselineJSONSHA256":  "dea52567afbbc67226f9f4ff9f51d197fd5456f0bda05afb007a1b75ffac26fb",
+    "stagedJSONSHA256":  "5a78ec6a3e7d8d9db6f51f2073007cf1fec219e5e06a800d54457ed962099bcc",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "0a06aa4563002152476ca9549d65cbecb80bac0533ed563783b1f8e5900824bb",
+    "jsonBytes":  51588593,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT45-20261112181440",
+    "authorization":  "UAT 45: CP-41 Treat toss as its own game mode (MODES picker), Wild 2 unchanged; hackathon, UAT publishing pre-approved by Jenny (relayed by PM, Nov 12); UAT only",
+    "localPublication":  "verified"
+}

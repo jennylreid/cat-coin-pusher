@@ -6,7 +6,7 @@
   "Wild round (40 s, through Turbo) identical to the base build",
   "Wild 2 round (40 s, through Turbo) identical to the base build",
   {
-   "name": "MODES sits under WILD! and WILD 2 without overlapping them",
+   "name": "MODES  sits under WILD! and WILD 2 without overlapping them",
    "info": {
     "x": 260,
     "y": 68,
@@ -66,6 +66,23 @@
     [
      1,
      1
+    ]
+   ]
+  },
+  {
+   "name": "the round timer does not move during a chase",
+   "info": [
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
     ]
    ]
   },
@@ -146,6 +163,17 @@
     "nodes": 0
    }
   },
+  {
+   "name": "one laser coin a round, a second only when the first is never pushed off (10 in 6 rounds where no coins are dropped)",
+   "info": [
+    2,
+    1,
+    1,
+    2,
+    2,
+    2
+   ]
+  },
   "Start laser chase now opens Laser mode and starts a chase after GO",
   {
    "name": "dials are saved and load on the next start",
@@ -168,40 +196,25 @@
     "stop": 8.817
    }
   },
-  "Developer panel shows the Laser chase dials and Start laser chase now"
- ],
- "failed": [
+  "Developer panel shows the Laser chase dials and Start laser chase now",
   {
-   "name": "the round timer does not move during a chase",
-   "info": [
-    [],
-    [
-     0
-    ],
-    [
-     0
-    ],
-    [
-     0
-    ]
-   ]
-  },
-  "about one laser coin a round (10 in 6 rounds that drop no coins)",
-  {
-   "name": "desktop step cost during a chase is close to normal play",
+   "name": "desktop step cost during a chase is close to normal play with coin drops",
    "info": {
-    "normalMs": 1.67,
-    "chaseMs": 4.72
+    "normalMs": 2.29,
+    "chaseMs": 5.05
    }
   }
  ],
+ "failed": [],
  "rounds": [
   {
    "seed": 21,
    "errs": [],
    "laserCoins": 1,
    "chases": 1,
-   "timerDuringChase": [],
+   "timerDuringChase": [
+    0
+   ],
    "end": [
     9.733,
     "end",

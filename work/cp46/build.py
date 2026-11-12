@@ -17,6 +17,7 @@ else:
     s = (p.parent / BASES[base]).read_text(encoding='utf-8', newline='')
 h = hashlib.sha256(s.encode('utf-8')).hexdigest()
 assert pin is None or h == pin, ('base changed', base, h)
+assert base != 'published' or pin, 'a publication build must pin its base'
 old_build = s[s.index("const BUILD = '") + 15:].split("'")[0]
 N = '\r\n'
 
@@ -43,5 +44,8 @@ if 'function registerWildMode(' not in s:
     # registry, the mode's name and wildFeature('dance') already do both
     rep("(WILD.v2?'WILD 2':'WILD BOARD')", "(WILD.laser?'LASER':WILD.v2?'WILD 2':'WILD BOARD')")
     rep("drawWildHud=function(hud){" + N + " __danceHud(hud);" + N, "drawWildHud=function(hud){" + N + " __danceHud(hud);if(WILD.laser)return;" + N)
+if 'function paw40On(){' in s:
+    # CP-40 Paw save: off while a chase runs (the mitts are busy chasing and every touch moves the dot)
+    rep("function paw40On(){return !!(WILD&&WILD.on&&WILD.v2&&", "function paw40On(){return !!(WILD&&WILD.on&&WILD.v2&&!WILD.chase&&")
 (p / 'release.html').write_text(s, encoding='utf-8', newline='')
 print('built', v['displayName'], 'on', base, h[:12], len(s))

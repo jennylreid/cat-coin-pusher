@@ -7386,7 +7386,9 @@ const sfx = (() => {
     // CP-42 Laser chase sounds, built with the same safe helpers as Wild 2 (_mt, _mn always connect to a real node).
     // vol is scaled by the Pickup volume dial; sound off or background = silent. arg: hit count, knocked-off count.
     laser(kind,vol=1,arg=0){
-      const v=vol*(typeof pickupFx==='object'?pickupFx.volume:1);if(!(v>0)||!this._w2ok())return;const t=ac.currentTime;
+      // per-sound trim so the small ones (dot, wiggle, whoosh, miss) carry over the music on a phone speaker (levels.json)
+      const K={start:2.5,dot:3,wind:2.5,pounce:2.5,prize:2,miss:2.5,over:2,end:1.6,none:2}[kind]||1;
+      const v=vol*K*(typeof pickupFx==='object'?pickupFx.volume:1);if(!(v>0)||!this._w2ok())return;const t=ac.currentTime;
       if(kind==='start'){ // a laser "zip" up, a bright buzz, then a cat's chirp ("mrrp?")
         this._mt(220,t,.22,'sawtooth',.05*v,master,2400);this._mt(1760,t+.2,.16,'square',.025*v,master,1700);this._mn(t,.2,.05*v,3200,2);
         this._mt(520,t+.38,.09,'triangle',.11*v,master,760);this._mt(700,t+.48,.16,'triangle',.1*v,master,980);bell(t+.62,1567.98,.05*v,.7);}
