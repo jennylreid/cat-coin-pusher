@@ -1,0 +1,10 @@
+{
+  "version": 20261015214424,
+  "baselineVersion": 20261015213629,
+  "apkVersion": 3,
+  "baselineJSONSHA256": "9f2d703f5edbfffacaf87b1e1354d8b5615caef57d8eb09d5e5c0858e9dab35e",
+  "publishedJSONSHA256": "679d8766dc46d24dd9e745beb4a2380fc391ccb39924ca2b5e9f7d66f4049da3",
+  "apkSHA256": "84ae978229140b14b4572a3b7666b8ddc0c58869cde73e81b339c190b3816fd5",
+  "backup": "uat/backups/before-20261015214424",
+  "scope": "Game version and BUILD label only; manual retry probe"
+}

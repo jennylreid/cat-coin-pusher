@@ -1,0 +1,17 @@
+{
+  "runner": "JDK 17, UpdatePolicyTest.java",
+  "casesPassed": 10,
+  "cases": [
+    "automatic new game",
+    "manual new game",
+    "native release takes precedence",
+    "declined game suppressed after recreation or reboot",
+    "declined native release suppressed after recreation or reboot",
+    "manual retry of declined game",
+    "manual retry of declined native release",
+    "accepted release not offered again",
+    "older release ignored",
+    "later release offered automatically"
+  ],
+  "phoneLifecycleEvidence": "pending"
+}

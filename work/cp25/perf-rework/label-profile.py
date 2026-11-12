@@ -1,0 +1,3 @@
+from pathlib import Path
+import json
+p=Path('tickets/CP-25-evidence/perf-rework');full=json.loads((p/'profile-production.json').read_text());full['builds']['query-cache-experiment']=full['builds'].pop('candidate');full['note']='query-cache-experiment is rejected allocation/pose reuse experiment, not the final diagnostic candidate; final candidate retains UAT16 physics unchanged.';(p/'profile-production.json').write_text(json.dumps(full,indent=2));three={**full,'builds':{k:v for k,v in full['builds'].items() if k!='query-cache-experiment'}};(p/'comparison-three-baselines.json').write_text(json.dumps(three,indent=2))

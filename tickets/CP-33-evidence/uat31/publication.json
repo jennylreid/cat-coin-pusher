@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261111152037,
+    "displayName":  "2026.11.11 UAT 31",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "0e51e6db37ac10e281ee0aa26e531bad0070a89bbd5acb4bab7ee6c2bbca68d6",
+    "stagedJSONSHA256":  "662884e23f067cc83ee191f4339220ea4f0e53cd7ae5b04c82fd8c3d4d7b3305",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "94b70e072bbabb490c355068d16982973e1f752cd4e27af85f4ab0eb7afc47bd",
+    "jsonBytes":  51322778,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-CP-33-UAT31-20261111152037",
+    "authorization":  "Jenny UAT 30 feedback Nov 11, relayed by PM: remove the glow behind the held prize and Quake coin; nothing else changed; UAT only",
+    "localPublication":  "verified"
+}

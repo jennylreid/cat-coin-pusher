@@ -1,0 +1,11 @@
+{
+  "displayName": "2026.10.15 UAT 1",
+  "version": 20261015220458,
+  "apkVersion": 4,
+  "baselineJSONSHA256": "679d8766dc46d24dd9e745beb4a2380fc391ccb39924ca2b5e9f7d66f4049da3",
+  "baselineAPKSHA256": "84ae978229140b14b4572a3b7666b8ddc0c58869cde73e81b339c190b3816fd5",
+  "publishedJSONSHA256": "5e41a6ed012ff75d2977dbfaddabe69500353e9b211787426ac93058721d4915",
+  "apkSHA256": "b14f41a65b01f05e618184262e5daf1c2ed31def5e3e9cd40365206994bef0cc",
+  "backup": "uat/backups/before-OPS-02-20261015220458",
+  "localPublication": "verified"
+}

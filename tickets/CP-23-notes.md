@@ -68,6 +68,77 @@ Status: **Built** = in the game today · **Decided** = Jenny said so · **Propos
 5. Ragdoll's power name; the Bounce coin's symbol.
 6. Giant prize: 5 or 10 failed tries.
 
+## Nov 12: Wild board playtest (UAT 35), Jenny's notes
+- **Best part:** the cat's dance at the end.
+- **Fun:** the opening board full of a variety of items.
+- **Coin rain:** a great concept, but you don't feel coins pouring onto the board. It needs to stand out more.
+- **Rain coins:** the variety of coins looks good, "almost good enough to use".
+- **New prizes** (yarn, duck, mouse, bell): they need to reach the standard of the fish, cheese and shrimp. Refine them.
+- **Missing:** "some feeling that you're collecting something that you need for some other purpose."
+- **PM read:** the board is busy, but the player makes few choices. Nothing builds anticipation, and nothing lasts after the round.
+- **Purpose idea (Jenny):** she loves a cat game where you leave food out, and different foods attract different cats. You leave the game and come back to see which cats visited. Then you take their photo and save it to your collection. The mechanic is inspiration only: our own art, cats and screens.
+- **Decided (Nov 12): the Porch.**
+  - Prizes won on the board are set out on a porch.
+  - They attract visiting cats, and different prizes bring different cats.
+  - You snap the visitors' photos into a **cat album**, which is the long-term collection.
+  - Visits happen both during play and while you're away, so they're a bonus rather than a time wall.
+  - First version: 2 porch spots and 4 visiting cats.
+- **Brainstorm (Jenny, Nov 12, not decided):**
+  - **Recipes.** Prizes are ingredients, such as tuna, carrots, cheese and salmon. Collect a recipe's ingredients, then spend coins to cook that cat's food.
+  - **Boards and cats.** The busy Wild-style boards are for general collecting. Attracting a cat may be what unlocks that cat's own board.
+  - **Dance break.** Pick one of the cat's dances and use it to interrupt a game mid-board, with its music and a timer. While the cat dances, there's something special the player can do. Keep all the dances for later use.
+    - **Decided (Nov 12), option 1:** each tap that lands on the beat banks a gold coin. When the music stops, the banked coins all rain down at once. It could sometimes bank a rain coin too.
+  - **Jenny:** "we need more payoffs, but we have to have goals in order to have payoffs."
+  - **Perfect dance → spinner (prize wheel), Nov 12.**
+    - Good slices: big prizes.
+    - Bad slice: the cat **stretches and yawns**. Its paws extend straight ahead and swipe things off the sides of the table.
+    - Needs new art: a yawn face, and paws stretched forward.
+  - **Cat's head (Nov 12):** the paws are in a good place, but the head should sit higher on the screen, or be rounder and fill more of the space above. This is a layout change, so it needs real-game screenshots to pick from.
+  - **Other UAT 37 notes:**
+    - The beat indicator is "just brilliant".
+    - Coin rain doesn't fall from high enough.
+    - Coins flicker and disappear behind other coins on a full board.
+    - Some coins disappear under the cat's chin.
+    - The pusher feels wrong (a shadow?).
+    - The dance rain's payoff is unclear.
+    - The game needs music throughout.
+    - The cat is too static.
+
+## Nov 12, UAT 40/41: "a super wild experience with the board crammed with prizes, and I liked it"
+A board packed with prizes is a hit. Keep prize density high even if the coin count is capped for speed.
+- **Cascade (Jenny, Nov 12):** "the board went crazy, prizes were falling all over the place... all the notifications were popping up at once... really kind of neat." She didn't know the cause; no log came through. Make it an intentional, rare "jackpot cascade" moment once the trigger is known (suspects: Quake on a crammed board, a Rain 25 or dance pour, turbo).
+  - **Jenny:** during a cascade, coins pile high and many prizes topple off the sides. She wants a power or button to grab something or do something about it (a rescue). (She was imagining this; it didn't actually happen.)
+  - **Decided (Nov 12):**
+    - **Paw save** for cascades: a prize glows as it tips off a side; tap it and the paw flicks it back; a few saves per round.
+    - **Claw:** later, for a still, calculated board (not a moving one).
+    - **Hug** (Ragdoll): later. Both claw and hug are wanted for other games.
+
+## Design principle (Jenny, Nov 12): feel, not just look
+Every change in the game should be felt as well as seen: through sound, rhythm and motion, so it's intuitive. Example: the pusher has a rhythmic sound, and during turbo the beat speeds up, so you know without reading. "It's a vibe, it's a feel, not just a look."
+
+## Game structure idea (Jenny, Nov 12)
+- **Game modes:** different game modes like Wild 2, each with its own goals. You visit them to collect the ingredients for the food that attracts each cat.
+- **Big payoff:** collect enough cats and there's a big payoff, such as a really special cat, or all the cats doing a big cat dance (in the spirit of the old Hamster Dance web page; our own music and art).
+- **Side games:** she wants at least 3 more side games as good as the Dance break.
+  - Order: Treat toss (CP-41, building), then Laser chase, then Pet the cat.
+  - In the final game each mode will probably be run by a different cat. For now, the Tuxedo runs them all.
+
+## Idea (Jenny, Nov 12): tower wall
+Not just single stacks: 4–5 tall coin towers side by side, with prizes perched on top. They often topple sideways, so a prize up there is hard to get. Maybe you have to win it through another mechanic (her message was cut off; candidates: the claw, Laser chase, the Quake, the wheel).
+
+## Design rule (Jenny, Nov 12): never cover the cat's face
+Wheels, cards, banners and pop-ups sit over the board, below the chin. (The win card was moved for the same reason.) Nothing sits on the face for any length of time, **including the visiting cat card**. A brief flash, like a callout passing over, is fine.
+
+## What brings Jenny back (brainstorm, Nov 12): capture all, pick later
+Everything here is inspiration, never a copy. The core genre is the coin pusher; the other concepts are borrowed ideas, built our own way.
+
+1. **Team wars.** She played one game for years because she was on a team. The team would declare war, she had to be available at a set time (a commitment), everyone played their own boards at once, then you saw who won what. Unlikely for CatCoin, but kept as a concept. It kept her engaged for 5+ years: "a small commitment, but steady." She can't remember the game's name. *Hooks: belonging, appointments, social comparison.*
+   - **Teams:** create a team, join one, or request to join. Jenny doesn't want to troubleshoot the server side herself; Claude could probably handle it.
+   - **Needs:** a way to join a team with strangers, since many players won't have friends playing, and a team chat or at least a message board. *Cost note: this needs a server, accounts and moderation, a big step up from today's offline game.*
+2. **Weekly event with set goals** (example: Family Island). You get a week to reach a set of goals. When the week ends, it stops whether or not you finished, resets, and gives you a different board to play. *Hooks: deadline urgency, fresh content every week, a clean restart.* *Fit: a weekly Wild-style event board with its own prize list could suit CatCoin, and it needs no server beyond the update file.*
+3. **Real prizes you take out of the game.** The only one that worked for Jenny: winning screens you could download and use as phone wallpaper. *Hooks: a reward with value outside the game.* *Fit: strong. Cat album photos or finished collections could unlock a wallpaper of that cat to save to the phone.*
+   - **Jenny:** it has to be really nice artwork, not game-themed. Wallpaper you'd actually want. The game: **Neko Atsume: Kitty Collector**, the same game as the food-attracts-cats idea behind the Porch. So both the Porch and wallpapers come from one game she loved. Inspiration only: CatCoin's porch, cats and art must be our own, not a copy of its yard, cats or look.
+
 ## What Jenny enjoys and dislikes (reference)
 - Enjoys: collecting (rubies; Family Island's shovels, picks and keys); keys and chests; small side games; the moment a collection fills in; looking at her inventory; solving a hard board and seeing something new.
 - Doesn't care for: browsing finished collections, storylines, card collections with weak payoffs, games that wall you off by time, constant ads (Coin Dozer, Family Island).

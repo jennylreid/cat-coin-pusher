@@ -1,0 +1,11 @@
+{
+  "version": 20261016235419,
+  "displayName": "2026.10.16 UAT 6",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "3b27a766fa16bf67cf1f05219bb23624af404adfbd2c885cb79a82acef9c95e8",
+  "stagedJSONSHA256": "b518a00ffe6b5e202703e03bb0acb86fa82d881663a759709f9be4e8339d05c9",
+  "backup": "uat/backups/before-UAT-16-rework-20261016235419",
+  "authorization": "Jenny: sent this to uat",
+  "previewSHA256": "e82e96be91f4d0c9c59e5a8eae02b560038578f2bf2189b30870541ffaa79c35",
+  "localPublication": "verified"
+}

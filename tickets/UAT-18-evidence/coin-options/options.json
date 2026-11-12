@@ -1,0 +1,58 @@
+[
+  {
+    "id": "A",
+    "name": "Electric cyan",
+    "desc": "Cyan enamel · gold lightning",
+    "cols": [
+      "#e9ffff",
+      "#00e5ff",
+      "#006d90"
+    ],
+    "bolt": "#ffe14d",
+    "outline": "#7a4a00",
+    "rim": "#007b98",
+    "mode": 0
+  },
+  {
+    "id": "B",
+    "name": "Violet storm",
+    "desc": "Purple enamel · bold white bolt",
+    "cols": [
+      "#e3caff",
+      "#8339ed",
+      "#33125b"
+    ],
+    "bolt": "#ffffff",
+    "outline": "#351264",
+    "rim": "#411477",
+    "mode": 1
+  },
+  {
+    "id": "C",
+    "name": "Hot coral",
+    "desc": "Coral enamel · dark lightning",
+    "cols": [
+      "#ffdac8",
+      "#ff614f",
+      "#ac173f"
+    ],
+    "bolt": "#26144d",
+    "outline": "#fff4c9",
+    "rim": "#9a1d41",
+    "mode": 2
+  },
+  {
+    "id": "D",
+    "name": "Midnight charge",
+    "desc": "Dark face · mint bolt · silver rim",
+    "cols": [
+      "#516273",
+      "#152636",
+      "#050b18"
+    ],
+    "bolt": "#80ffcf",
+    "outline": "#c9fff0",
+    "rim": "#8bb6c4",
+    "mode": 3
+  }
+]

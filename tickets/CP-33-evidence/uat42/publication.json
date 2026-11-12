@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261112160038,
+    "displayName":  "2026.11.12 UAT 42",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "d6b9200cd3f2389e4742140f78c05f87ec6d91728ef49fac3757f8c97e1abf5f",
+    "stagedJSONSHA256":  "e3acac23a40cb6780f77c934b8248cde701456eb21f5847f5827ebf4e5f86911",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "bddb98ab40f0a55dc44acb8c308486868d04f591d85ee794b0c6f4c71c705ad3",
+    "jsonBytes":  51478766,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT42-20261112160038",
+    "authorization":  "UAT 42: CP-33 Pop at 30% from where each prize fell, soft shadow instead of the panel; Jenny relayed by the PM (Nov 12); UAT only",
+    "localPublication":  "verified"
+}

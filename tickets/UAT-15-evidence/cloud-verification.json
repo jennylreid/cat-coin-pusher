@@ -1,0 +1,14 @@
+{
+  "httpStatus": 200,
+  "etag": "\"{5FCB1BAF-F716-4F1D-9283-4B6D9B86F317},4\"",
+  "bytes": 32122216,
+  "sha256": "a6f042f82f7bbc376e6acecb55c967b9763dca9dc1d483dc5e619c26b8d91517",
+  "version": 20261015211014,
+  "sameSharedItemAsBaseline": true,
+  "anonymousDownload": true,
+  "nativeJavaDownloadPassed": true,
+  "nativeRuntimeFilesMatch": true,
+  "unchangedHeadReusesMetadata": true,
+  "changedEtagDownloadsPayload": true,
+  "phoneEvidence": "pending"
+}

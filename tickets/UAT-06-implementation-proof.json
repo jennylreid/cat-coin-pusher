@@ -1,0 +1,21 @@
+{
+  "approvedPNG_SHA256": "27c6f0cb888deaad91a311157b99e7533a5839f7463ae822440980ddb92da155",
+  "waitingWebP_SHA256": "b06863627841f0c89f36e2ff5f6e37f5555aab69502572a7832c4d5825fa62e7",
+  "sharpGrin_SHA256": "54fd9c2513770e46850fdfc34b5e1103860e5a40e8c45cc46f618000eec606e9",
+  "losslessRGBAIdentical": true,
+  "dimensions": [
+    1536,
+    1024
+  ],
+  "sourceChanges": [
+    "index.html: art-loader mapping and reserved headSharp only",
+    "img/art/head-waiting.webp: approved new file"
+  ],
+  "allOtherRuntimeFilesUnchanged": true,
+  "beforeUATVersion": 20261012133717,
+  "beforeAPKVersion": 2,
+  "productionJSONSHA256": "f5e6c67d68d29c08f64c8a4a96d51464d90b31ff4c28773caa46494a90f6b314",
+  "productionAPKSHA256": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+  "uatAPKSHA256": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78",
+  "stagedAPKSHA256": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78"
+}

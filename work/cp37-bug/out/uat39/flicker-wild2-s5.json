@@ -1,0 +1,44 @@
+{
+ "board": "wild2",
+ "seed": 5,
+ "src": "release.html",
+ "frames": 480,
+ "coinFrames": 101575,
+ "flickerEvents": 2,
+ "stillAbaEvents": 6,
+ "stillAbaPx": 33245,
+ "maskToggles": 298,
+ "abaEvents": 1,
+ "abaPerSecond": 0.13,
+ "abaPx": 202000,
+ "abaExamples": [
+  {
+   "frame": 335,
+   "pair": "108:73",
+   "px": 189,
+   "still": false
+  }
+ ],
+ "perSecond": 0.25,
+ "examples": [
+  {
+   "frame": 203,
+   "uid": 164,
+   "base": 149,
+   "dip": 28,
+   "back": 206,
+   "z": 437.1,
+   "h": 28.6
+  },
+  {
+   "frame": 203,
+   "uid": 177,
+   "base": 786,
+   "dip": 289,
+   "back": 1090,
+   "z": 471.7,
+   "h": 36.4
+  }
+ ],
+ "bodies": 228
+}

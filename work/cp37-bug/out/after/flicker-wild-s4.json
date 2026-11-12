@@ -1,0 +1,170 @@
+{
+ "board": "wild",
+ "seed": 4,
+ "src": "fixed.html",
+ "frames": 480,
+ "coinFrames": 109732,
+ "flickerEvents": 13,
+ "stillAbaEvents": 1,
+ "stillAbaPx": 36817,
+ "maskToggles": 386,
+ "abaEvents": 29,
+ "abaPerSecond": 3.63,
+ "abaPx": 249080,
+ "abaExamples": [
+  {
+   "frame": 147,
+   "pair": "104:170",
+   "px": 244,
+   "still": false
+  },
+  {
+   "frame": 147,
+   "pair": "104:132",
+   "px": 844,
+   "still": false
+  },
+  {
+   "frame": 147,
+   "pair": "104:131",
+   "px": 689,
+   "still": false
+  },
+  {
+   "frame": 147,
+   "pair": "103:286",
+   "px": 330,
+   "still": false
+  },
+  {
+   "frame": 147,
+   "pair": "103:296",
+   "px": 528,
+   "still": false
+  },
+  {
+   "frame": 147,
+   "pair": "104:252",
+   "px": 613,
+   "still": false
+  },
+  {
+   "frame": 147,
+   "pair": "103:115",
+   "px": 540,
+   "still": false
+  },
+  {
+   "frame": 147,
+   "pair": "103:116",
+   "px": 1067,
+   "still": false
+  },
+  {
+   "frame": 147,
+   "pair": "103:196",
+   "px": 214,
+   "still": false
+  },
+  {
+   "frame": 147,
+   "pair": "103:57",
+   "px": 261,
+   "still": false
+  }
+ ],
+ "perSecond": 1.63,
+ "examples": [
+  {
+   "frame": 7,
+   "uid": 221,
+   "base": 904,
+   "dip": 248,
+   "back": 836,
+   "z": 383.1,
+   "h": 27.9
+  },
+  {
+   "frame": 8,
+   "uid": 282,
+   "base": 163,
+   "dip": 68,
+   "back": 176,
+   "z": 457.6,
+   "h": 35.9
+  },
+  {
+   "frame": 11,
+   "uid": 173,
+   "base": 189,
+   "dip": 66,
+   "back": 203,
+   "z": 518.7,
+   "h": 33.3
+  },
+  {
+   "frame": 18,
+   "uid": 245,
+   "base": 326,
+   "dip": 182,
+   "back": 286,
+   "z": 342,
+   "h": 25
+  },
+  {
+   "frame": 20,
+   "uid": 238,
+   "base": 537,
+   "dip": 35,
+   "back": 596,
+   "z": 397.7,
+   "h": 35.8
+  },
+  {
+   "frame": 23,
+   "uid": 222,
+   "base": 894,
+   "dip": 387,
+   "back": 769,
+   "z": 447.8,
+   "h": 30.4
+  },
+  {
+   "frame": 28,
+   "uid": 177,
+   "base": 223,
+   "dip": 51,
+   "back": 351,
+   "z": 409.6,
+   "h": 20.1
+  },
+  {
+   "frame": 38,
+   "uid": 245,
+   "base": 310,
+   "dip": 12,
+   "back": 267,
+   "z": 341.5,
+   "h": 24.7
+  },
+  {
+   "frame": 228,
+   "uid": 103,
+   "base": 4847,
+   "dip": 2533,
+   "back": 4849,
+   "z": 715.6,
+   "h": 41
+  },
+  {
+   "frame": 228,
+   "uid": 104,
+   "base": 4265,
+   "dip": 1420,
+   "back": 3990,
+   "z": 689.8,
+   "h": 49.2
+  }
+ ],
+ "bodies": 239
+}

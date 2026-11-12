@@ -1,0 +1,121 @@
+[
+  {
+    "asset": "background",
+    "dimensions": [
+      841,
+      1871
+    ],
+    "old_bytes": 1784375,
+    "new_bytes": 1297974,
+    "art_cleanup": false,
+    "lossless_visible_pixel_roundtrip": true
+  },
+  {
+    "asset": "coin",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "old_bytes": 2378393,
+    "new_bytes": 1542234,
+    "art_cleanup": false,
+    "lossless_visible_pixel_roundtrip": true
+  },
+  {
+    "asset": "head-sweet",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "old_bytes": 1061705,
+    "new_bytes": 429602,
+    "art_cleanup": true,
+    "lossless_visible_pixel_roundtrip": true,
+    "halo_pixels_cleared": 15629,
+    "ghost_stroke_pixels_cleaned": 5832,
+    "pink_pixels_normalized": 102729
+  },
+  {
+    "asset": "head-wild",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "old_bytes": 1397377,
+    "new_bytes": 474992,
+    "art_cleanup": true,
+    "lossless_visible_pixel_roundtrip": true,
+    "halo_pixels_cleared": 575615,
+    "ghost_stroke_pixels_cleaned": 2581,
+    "pink_pixels_normalized": 101438
+  },
+  {
+    "asset": "head",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "old_bytes": 1009943,
+    "new_bytes": 377886,
+    "art_cleanup": true,
+    "lossless_visible_pixel_roundtrip": true,
+    "halo_pixels_cleared": 12345,
+    "ghost_stroke_pixels_cleaned": 5389,
+    "pink_pixels_normalized": 103068
+  },
+  {
+    "asset": "paw",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "old_bytes": 839970,
+    "new_bytes": 392070,
+    "art_cleanup": false,
+    "lossless_visible_pixel_roundtrip": true
+  },
+  {
+    "asset": "pupil",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "old_bytes": 548678,
+    "new_bytes": 308156,
+    "art_cleanup": false,
+    "lossless_visible_pixel_roundtrip": true
+  },
+  {
+    "asset": "snacks",
+    "dimensions": [
+      1774,
+      887
+    ],
+    "old_bytes": 1230216,
+    "new_bytes": 861266,
+    "art_cleanup": false,
+    "lossless_visible_pixel_roundtrip": true
+  },
+  {
+    "asset": "table",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "old_bytes": 2438983,
+    "new_bytes": 1610850,
+    "art_cleanup": false,
+    "lossless_visible_pixel_roundtrip": true
+  },
+  {
+    "asset": "tongue",
+    "dimensions": [
+      1774,
+      887
+    ],
+    "old_bytes": 1364131,
+    "new_bytes": 874312,
+    "art_cleanup": false,
+    "lossless_visible_pixel_roundtrip": true
+  }
+]

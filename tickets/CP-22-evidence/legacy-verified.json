@@ -1,0 +1,26 @@
+[
+  {
+    "board": 1,
+    "tapGap": 0.6,
+    "legacyPairs": 6,
+    "legacyPairsOver10frames": 1,
+    "maxNativePenetrationForFlags": 0.14946971787139773,
+    "nativeSamplesOverHalfUnit": 0
+  },
+  {
+    "board": 2,
+    "tapGap": 0.6,
+    "legacyPairs": 3,
+    "legacyPairsOver10frames": 1,
+    "maxNativePenetrationForFlags": 0.1260486664250493,
+    "nativeSamplesOverHalfUnit": 0
+  },
+  {
+    "board": 3,
+    "tapGap": 0.6,
+    "legacyPairs": 4,
+    "legacyPairsOver10frames": 1,
+    "maxNativePenetrationForFlags": 0.14732660492882133,
+    "nativeSamplesOverHalfUnit": 0
+  }
+]

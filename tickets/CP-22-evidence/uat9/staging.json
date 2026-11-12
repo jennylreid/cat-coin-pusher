@@ -1,0 +1,14 @@
+{
+  "version": 20261027152935,
+  "displayName": "2026.10.27 UAT 9",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "144b731fa4db9fae7bb467d99eb23cb64b00c28019e997eda6ef6716b5c7de49",
+  "stagedJSONSHA256": "0ba7a7f167bfc429d2b8007486738e1730dadedc59df632147b75933b729d82e",
+  "backup": "uat/backups/before-CP-22-20261027152935",
+  "authorization": "Jenny CP-22: publish to UAT only",
+  "releaseHTMLSHA256": "684f818c2e814825195c2a21ee7edf9b20b6c1c27258d6bd31a12c2a82ca777c",
+  "changedFiles": [
+    "index.html"
+  ],
+  "nonHTMLFilesUnchanged": 29
+}

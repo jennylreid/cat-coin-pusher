@@ -1,0 +1,10 @@
+{
+  "immediateSpawnBeforeAnyTick": true,
+  "immediateCoinCost": true,
+  "foregroundAfterHeadAndHUD": true,
+  "brassPusherSourceIdentical": true,
+  "boardAndExitContainmentSourceIdentical": true,
+  "dropWrapperSourceIdentical": true,
+  "displayPlaneAndAimGuideUnchanged": true,
+  "randomCallsAdded": 0
+}

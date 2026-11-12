@@ -1,0 +1,127 @@
+[
+  {
+    "strategy": "targets",
+    "cadence": 0.4,
+    "collection": {
+      "seconds": 22.366666666666667,
+      "status": "playing",
+      "prizesCollected": [],
+      "remaining": 84
+    },
+    "ending": {
+      "status": "won",
+      "used": 140,
+      "remaining": 0,
+      "seconds": 55.81666666666478,
+      "prizes": [
+        "shrimp",
+        "cheese",
+        "tuna"
+      ]
+    }
+  },
+  {
+    "strategy": "center",
+    "cadence": 0.4,
+    "collection": {
+      "seconds": 15.166666666666666,
+      "status": "playing",
+      "prizesCollected": [],
+      "remaining": 102
+    },
+    "ending": {
+      "status": "won",
+      "used": 119,
+      "remaining": 21,
+      "seconds": 47.21666666666527,
+      "prizes": [
+        "shrimp",
+        "tuna",
+        "cheese"
+      ]
+    }
+  },
+  {
+    "strategy": "quake",
+    "cadence": 0.4,
+    "collection": {
+      "seconds": 20.983333333333334,
+      "status": "playing",
+      "prizesCollected": [],
+      "remaining": 87
+    },
+    "ending": {
+      "status": "won",
+      "used": 102,
+      "remaining": 38,
+      "seconds": 40.733333333332304,
+      "prizes": [
+        "shrimp",
+        "cheese",
+        "tuna"
+      ]
+    }
+  },
+  {
+    "strategy": "targets",
+    "cadence": 0.22,
+    "collection": {
+      "seconds": 9,
+      "status": "playing",
+      "prizesCollected": [],
+      "remaining": 99
+    },
+    "ending": {
+      "status": "won",
+      "used": 140,
+      "remaining": 0,
+      "seconds": 31.533333333332823,
+      "prizes": [
+        "shrimp",
+        "tuna",
+        "cheese"
+      ]
+    }
+  },
+  {
+    "strategy": "center",
+    "cadence": 0.22,
+    "collection": {
+      "seconds": 6.05,
+      "status": "playing",
+      "prizesCollected": [],
+      "remaining": 112
+    },
+    "ending": {
+      "status": "lost",
+      "used": 140,
+      "remaining": 0,
+      "seconds": 110.0166666666617,
+      "prizes": [
+        "shrimp",
+        "tuna"
+      ]
+    }
+  },
+  {
+    "strategy": "quake",
+    "cadence": 0.22,
+    "collection": {
+      "seconds": 12.666666666666666,
+      "status": "playing",
+      "prizesCollected": [],
+      "remaining": 82
+    },
+    "ending": {
+      "status": "won",
+      "used": 125,
+      "remaining": 15,
+      "seconds": 27.333333333333062,
+      "prizes": [
+        "shrimp",
+        "cheese",
+        "tuna"
+      ]
+    }
+  }
+]

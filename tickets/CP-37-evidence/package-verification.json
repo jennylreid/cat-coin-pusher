@@ -1,0 +1,18 @@
+{
+  "version": 20261112152030,
+  "displayName": "2026.11.12 UAT 39",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "9243c3f6e197900258cc0bb12017e2e29cb614662187f4123b500ad27ae36eca",
+  "stagedJSONSHA256": "94265e311aad880b6d2044eaa833ca690ecb9fab3d203dd0a4e6cd6629d977fa",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "bf1554ecc3c7a58ffd30a3106df73c6a453ee7f25cd5a369664393d4f3cc57eb",
+  "jsonBytes": 51457906,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-UAT39-20261112152030",
+  "authorization": "UAT 39: CP-37 fix on UAT 38; brief Phase 2 (publish to UAT after CP-38 published), PM message Nov 12: CP-38 published, go straight into Phase 2; UAT only"
+}

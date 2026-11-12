@@ -1,0 +1,8 @@
+{
+  "physicsTrajectoryIdentical": true,
+  "samples": 60,
+  "seconds": 8,
+  "rapidDropsAndQuakeIncluded": true,
+  "frontFixture": "Same actual Rapier coin starts partly over the physical edge, same velocity; only rendering differs",
+  "publication": "none"
+}

@@ -1,0 +1,83 @@
+[
+ {
+  "board": 1,
+  "seed": 1,
+  "status": "won",
+  "used": 78,
+  "paid": 12,
+  "falls": 18,
+  "sec": 18.1
+ },
+ {
+  "board": 1,
+  "seed": 2,
+  "status": "won",
+  "used": 91,
+  "paid": 17,
+  "falls": 25,
+  "sec": 28.2
+ },
+ {
+  "board": 1,
+  "seed": 3,
+  "status": "won",
+  "used": 54,
+  "paid": 15,
+  "falls": 20,
+  "sec": 22.1
+ },
+ {
+  "board": 2,
+  "seed": 1,
+  "status": "won",
+  "used": 90,
+  "paid": 15,
+  "falls": 19,
+  "sec": 20.9
+ },
+ {
+  "board": 2,
+  "seed": 2,
+  "status": "won",
+  "used": 68,
+  "paid": 13,
+  "falls": 18,
+  "sec": 20.8
+ },
+ {
+  "board": 2,
+  "seed": 3,
+  "status": "won",
+  "used": 46,
+  "paid": 10,
+  "falls": 13,
+  "sec": 18.4
+ },
+ {
+  "board": 3,
+  "seed": 1,
+  "status": "won",
+  "used": 91,
+  "paid": 18,
+  "falls": 24,
+  "sec": 21.2
+ },
+ {
+  "board": 3,
+  "seed": 2,
+  "status": "won",
+  "used": 68,
+  "paid": 18,
+  "falls": 23,
+  "sec": 21
+ },
+ {
+  "board": 3,
+  "seed": 3,
+  "status": "won",
+  "used": 74,
+  "paid": 20,
+  "falls": 27,
+  "sec": 30.5
+ }
+]

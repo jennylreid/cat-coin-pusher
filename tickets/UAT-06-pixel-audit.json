@@ -1,0 +1,53 @@
+[
+  {
+    "option": "A",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "outside_mouth_changed_pixels": 0,
+    "alpha_changed_pixels": 0,
+    "changed_pixels": 31765,
+    "changed_bbox": [
+      501,
+      765,
+      1033,
+      923
+    ],
+    "sha256": "84b1626b1da05631e9eb3b50ece97c762ee353b7ff85a1c2d0cd5babd2f557b7"
+  },
+  {
+    "option": "B",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "outside_mouth_changed_pixels": 0,
+    "alpha_changed_pixels": 0,
+    "changed_pixels": 31765,
+    "changed_bbox": [
+      501,
+      765,
+      1033,
+      923
+    ],
+    "sha256": "824c98203dfbc5e3a35590bd865ccb83f0b571ce857921793108efdb98d2ab82"
+  },
+  {
+    "option": "C",
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "outside_mouth_changed_pixels": 0,
+    "alpha_changed_pixels": 0,
+    "changed_pixels": 31765,
+    "changed_bbox": [
+      501,
+      765,
+      1033,
+      923
+    ],
+    "sha256": "2d53412b201073c93aae11b6632e1267f9866e4f70725283d31aca5e0b2fd7ef"
+  }
+]

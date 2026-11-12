@@ -1,0 +1,21 @@
+{
+  "environment": "Headless desktop Edge,1080x2404, draw plus synchronous raster flush; not Pixel FPS",
+  "results": [
+    {
+      "kind": "after",
+      "frames": 120,
+      "bodyCount": 92,
+      "medianDrawMs": 63.80000001192093,
+      "p95DrawMs": 90.2999999821186,
+      "meanDrawMs": 66.91750000069538,
+      "counts": {
+        "lineTo": 48258,
+        "clip": 953,
+        "createRadialGradient": 0,
+        "save": 3197,
+        "restore": 3197
+      },
+      "displayBudget120HzMs": 8.333333333333334
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "version": 20261017160959,
+  "displayName": "2026.10.17 UAT 2",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "c548ecbf5466b47d3ced3282eeebda262713a93a80c5cb057b48e3331dc3fc4d",
+  "stagedJSONSHA256": "50945e0334b3cd391c673a854799edf9d922757f63000fefbdf5630a3697aa9a",
+  "backup": "uat/backups/before-UAT-18-A-20261017160959",
+  "authorization": "Jenny: okay, stick with A and publish to UAT thanks",
+  "previewSHA256": "c11716d421e90a4b9f319a58ca01dcb51f4f09c3cf166fbc3d1593908ef3d31f",
+  "releaseHTMLSHA256": "3d9bbd82bcd33c5eddfda55ca95aae2f6729ec5ee3b5f8694f1945ef5d23542a",
+  "changedFiles": [
+    "index.html"
+  ],
+  "addedFiles": [
+    "img/art/uat18-soft-paw.png"
+  ],
+  "selection": "A: staggered stacks, soft paw, clearer stack rims",
+  "localPublication": "verified"
+}

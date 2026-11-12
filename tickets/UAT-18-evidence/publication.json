@@ -1,0 +1,19 @@
+{
+  "version": 20261017204741,
+  "displayName": "2026.10.17 UAT 3",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "50945e0334b3cd391c673a854799edf9d922757f63000fefbdf5630a3697aa9a",
+  "stagedJSONSHA256": "a72abf38bdd29bf7417b1d61093dc6c42e9f2346a411555dcaa80a58030a6116",
+  "backup": "uat/backups/before-UAT-18-accessible-20261017204741",
+  "authorization": "Jenny: please sent to UAT",
+  "previewSHA256": "c1339d2e6d9cd1962f5aa95df86eb606d35b3c4ed152b2fb46526815d2ea529e",
+  "releaseHTMLSHA256": "28cb3e5a86e558ecce9994477d7b1e8252af2ba19a8eb7def084ada376087a79",
+  "changedFiles": [
+    "index.html"
+  ],
+  "addedFiles": [
+    "img/art/uat18-small-paw.png"
+  ],
+  "selection": "Smaller paws, scattered prizes, front-centre accessible Quake",
+  "localPublication": "verified"
+}

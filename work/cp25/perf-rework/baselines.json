@@ -1,0 +1,20 @@
+{
+  "production": {
+    "version": 20261027120233,
+    "displayName": "2026.10.27",
+    "htmlSHA256": "6d6bbc18e8dd737264f3170f530bd234fbc5a9b59180c1a726516179d199184b",
+    "rapierSHA256": "5b0cd7b03525841806fd8a76b32bea1c548ab7dfd98df6759e9e4f3f0424ec88"
+  },
+  "cp22": {
+    "version": 20261028102427,
+    "displayName": "2026.10.28 UAT 1",
+    "htmlSHA256": "116677a91c55cb4cbb9da9617e56da725baba840f2c691732a66d26f4ff878e7",
+    "rapierSHA256": "5b0cd7b03525841806fd8a76b32bea1c548ab7dfd98df6759e9e4f3f0424ec88"
+  },
+  "uat16": {
+    "version": 20261030100101,
+    "displayName": "2026.10.30 UAT 16",
+    "htmlSHA256": "3b124461ba6b5dedf11072d61d9a075dbf4b824387356665a69bb89163c93eb4",
+    "rapierSHA256": "5b0cd7b03525841806fd8a76b32bea1c548ab7dfd98df6759e9e4f3f0424ec88"
+  }
+}

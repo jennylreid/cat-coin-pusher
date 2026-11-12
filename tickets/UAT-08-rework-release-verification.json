@@ -1,0 +1,84 @@
+{
+  "version": 20261015164930,
+  "baselineVersion": 20261015163000,
+  "apkVersion": 2,
+  "channel": "catpusher-uat",
+  "applicationId": "com.jenny.catpusher.uat",
+  "publishedSHA256": "9544eccc5b12c7a8345b2f5fd78d41f07f43028dd371ce7e623e9a03c2ebad22",
+  "releaseHTMLSHA256": "b1f64795fce5d10e8cec8758bdbb5270f77947cd92e2af901bbfc954835a93aa",
+  "approvedDraftSHA256": "64e5373d36d2b0428524aa0791c48e1f5181b814f922c7b19aafb7c37acdadae",
+  "backup": "uat/backups/before-20261015164930",
+  "runtimeFilesVerified": 23,
+  "onlySourceChanges": "Approved delivery depth calculation and BUILD label",
+  "protectedHashes": {
+    "phone/CatCoinPusher-game.json": "598532495b955f875688b47f5fa6ccbd1c929530e05ca447f3ccfbabe77ca301",
+    "CatCoinPusher.apk": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+    "uat/CatCoinPusher-UAT.apk": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78"
+  },
+  "results": [
+    {
+      "board": 1,
+      "cadence": 0.4,
+      "status": "won",
+      "used": 103,
+      "remaining": 117,
+      "seconds": 40.849999999998964,
+      "budget": 220,
+      "slack": 1.1359223300970873,
+      "targets": [
+        "shrimp",
+        "cheese"
+      ],
+      "idleFalls": 0
+    },
+    {
+      "board": 1,
+      "cadence": 0.22,
+      "status": "won",
+      "used": 118,
+      "remaining": 102,
+      "seconds": 25.86666666666648,
+      "budget": 220,
+      "slack": 0.8644067796610169,
+      "targets": [
+        "shrimp",
+        "cheese"
+      ],
+      "idleFalls": 0
+    },
+    {
+      "board": 2,
+      "cadence": 0.4,
+      "status": "won",
+      "used": 118,
+      "remaining": 42,
+      "seconds": 46.94999999999862,
+      "budget": 160,
+      "slack": 0.35593220338983045,
+      "targets": [
+        "shrimp",
+        "cheese"
+      ],
+      "idleFalls": 0
+    },
+    {
+      "board": 2,
+      "cadence": 0.22,
+      "status": "won",
+      "used": 128,
+      "remaining": 32,
+      "seconds": 28.016666666666357,
+      "budget": 160,
+      "slack": 0.25,
+      "targets": [
+        "shrimp",
+        "cheese"
+      ],
+      "idleFalls": 0
+    }
+  ],
+  "landingCases": 448,
+  "airborneRailContacts": 0,
+  "authorization": "Jenny approved shown motion: That does look good; clarified natural rail contact after landing; then Looks good following explicit UAT publication approval question.",
+  "phoneAcceptance": "pending Jenny UAT"
+}

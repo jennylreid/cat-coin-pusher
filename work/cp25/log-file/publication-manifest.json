@@ -1,0 +1,16 @@
+{
+  "version": 20261030165425,
+  "displayName": "2026.10.30 UAT 20",
+  "apkVersion": 5,
+  "baselineJSONSHA256": "764ad7db94845b024c6026ad25422a4e4d46952d9aa4e1306e4a4856440213db",
+  "baselineAPKSHA256": "b14f41a65b01f05e618184262e5daf1c2ed31def5e3e9cd40365206994bef0cc",
+  "stagedJSONSHA256": "ce66c40d1805e3747e20c7dd4bdf24603082a93a759e25a5a91c0a9133e89188",
+  "stagedAPKSHA256": "de9f7826ad8b9e9ab83487c8e44234a81db3f5cddb3857be55aa8562e0ac064e",
+  "releaseHTMLSHA256": "cff8b8be7f9e90fb3db7038ae5207e83058d2109e12d3a5b6ab6a52c5f9ec607",
+  "backup": "uat/backups/before-CP-25-log-file-20261030165425",
+  "jsonBytes": 100945306,
+  "apkBytes": 37231358,
+  "runtimeFiles": 37,
+  "signerSHA256": "20ddef2a158095a45a176efa2ddffa60ecf0c074d569b7dcd9785b1cfa122dc2",
+  "authorization": "Jenny approved one collision interval and button-based OneDrive file logs; UAT only"
+}

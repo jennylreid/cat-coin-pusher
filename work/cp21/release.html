@@ -1,0 +1,2519 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Cat Pusher UAT</title>
+<style>
+html,body{margin:0;height:100%;background:#064e4a;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;font-family:system-ui,sans-serif}
+canvas{display:block;margin:0 auto}
+#panel{position:absolute;inset:0;background:rgba(14,8,26,.94);display:none;color:#f4ecff;padding:max(20px,var(--safe-top,0px)) max(16px,var(--safe-right,0px)) max(20px,var(--safe-bottom,0px)) max(16px,var(--safe-left,0px));box-sizing:border-box;overflow:auto}
+#panel h2{margin:0 0 12px;font-size:22px}
+.set{background:#2a1f3d;border-radius:12px;padding:12px;margin-bottom:12px}
+.set h3{margin:0 0 8px;font-size:16px;display:flex;justify-content:space-between}
+.items{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.it{background:#3a2d52;border-radius:10px;text-align:center;padding:8px 2px;font-size:12px}
+.it b{display:block;font-size:30px;font-weight:400}
+.it.no{opacity:.3;filter:grayscale(1)}
+.reward{font-size:13px;margin-top:8px;color:#c9b8e8}
+.reward.on{color:#ffd76a}
+#close{position:sticky;top:0;float:right;background:#ffd76a;color:#3a2600;border:0;border-radius:8px;padding:8px 14px;font-size:15px}
+.dev{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.dev button{background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:8px;padding:8px 10px;font-size:14px}
+.dev button.on{border-color:#ffd76a;color:#ffd76a}
+.dev button:active{transform:scale(.94);background:#5a4a7a}
+.dev button.done{background:#ffd76a;color:#3a2600;border-color:#ffd76a}
+.devswitch{display:block;margin:22px auto 4px;background:none;color:#8a7aa8;border:1px solid #4a3d62;border-radius:8px;padding:6px 12px;font-size:12px}
+.wide{display:block;width:100%;margin:4px 0 14px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;padding:12px;font-size:16px}
+.wide:active{transform:scale(.97);background:#5a4a7a}
+#newtable{display:block;width:100%;margin-top:18px;background:#3a2d52;color:#ffd76a;border:1px solid #ffd76a;border-radius:10px;padding:12px;font-size:16px}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="panel"></div>
+<!-- Rapier 3D physics engine (Apache 2.0, lib/RAPIER-LICENSE.txt), wrapped so it sets window.RAPIER. -->
+<script src="lib/rapier.js"></script>
+<script>
+'use strict';
+// The table is simulated in 3D by Rapier: coins are real thin cylinders with weight and friction, the tongue is a
+// moving block, and the table, side walls and the back wall above the tongue are solid. Game units: x across the
+// table (T.L..T.R), y = depth from the back (PUSH_BACK) to the front edge (T.FRONT), h = height above the table.
+// Rapier works in metres (M per unit). Drawing projects everything into the slanted view of Jenny's art (proj()).
+const W = 400;
+let H = 720; // grows on tall phones; the extra height is empty space below the bucket
+const T = { L: 30, R: 370, BACK: 190, FRONT: 760 }; // CP-21: longer table (was 640)
+const PAY_L = 60, PAY_R = 340; // the bucket's edges: coins off the table past these miss it
+// The tongue (pusher) slides between PUSH_MIN and PUSH_MAX; its back runs under the back wall at PUSH_BACK, which
+// scrapes coins off it as it pulls back, so they spill over its front edge onto the table.
+// (a short stroke, so little bare table is left between the tongue and the coins in front of it, and the tongue is
+// never more than a third bare; the back wall sits right under the cat's upper lip, so coins fill the tongue)
+const PUSH_BACK = -25, TONGUE_H = 18, TONGUE_LEN = 300;
+// CP-21 funnel: the table is FUNNEL_BACK either side of centre beside the pusher (about 4 coins across), then widens
+// steadily from depth FUNNEL_D1 to FUNNEL_D2 to the full width (T.L..T.R): about 4, 5, then 6 coins across.
+const FUNNEL_BACK=110, FUNNEL_D1=225, FUNNEL_D2=315, GUARD_END=FUNNEL_D2+116; // CP-21: side wall to here (two rows of 53, plus 10)
+function tableHalfAt(y){const hw=(T.R-T.L)/2;return y<=FUNNEL_D1?FUNNEL_BACK:y>=FUNNEL_D2?hw:FUNNEL_BACK+(hw-FUNNEL_BACK)*(y-FUNNEL_D1)/(FUNNEL_D2-FUNNEL_D1);}
+const PUSH_HALF=FUNNEL_BACK, LEDGE_BACK=190;
+let PUSH_MIN = 190, PUSH_MAX = 260, PUSH_PERIOD = 3.2;
+const COIN_R = 26, LUCKY_R = 28, ITEM_R = 30; // big coins: more action per coin, and fewer for the phone to simulate
+const COIN_HALF = 4, LUCKY_HALF = 3.5, ITEM_HALF = 9; // half thicknesses
+// CP-21: coin side colours, bottom to just under the face (silver coins share the gold sides).
+const RIM={coin:[[74,40,4],[160,98,14]]};RIM.silver=RIM.coin; // silver coins use the gold face art, so the gold side too
+function __rimColour(kind,t){const [a,b]=RIM[kind];return 'rgb('+a.map((v,i)=>Math.round(v+(b[i]-v)*t)).join(',')+')';}
+// CP-21: the Quake coin: drawn thickness (game units; paw coins are 8), width vs a paw coin (physics too), face boost
+const QUAKE_THICK = 8, QUAKE_R = 1.2, QUAKE_CONTRAST = 1.8, QUAKE_SATURATE = 1.4;
+// the side's blue band: the face ring's blue after the boost (measured: rgb(0,12,255)), a touch darker at its lowest edge
+const QUAKE_BLUE = ['rgb(0,10,215)','rgb(0,12,255)'];
+const COIN_LOOK = 1; // CP-21: how many times thicker coins are drawn than they are in the physics
+// Bonus chips: big, thick, coloured, with a scalloped edge and their value (5x, 10x) printed on them.
+const BONUS = { x5: { r: 36, half: 3.5, value: 5 }, x10: { r: 40, half: 4, value: 10 } };
+// Flat and boxy things on the table (half sizes across, up, deep): arcade ticket strips, dollar bills, Rubik's cubes.
+const BOX = {
+  ticket: { hx: 26, hy: 1.2, hz: 11, density: 0.5 },
+  cash: { hx: 32, hy: 1, hz: 14, density: 0.5 },
+  cube: { hx: 12, hy: 12, hz: 12, density: 0.8 },
+};
+// what each thing is worth in coins when it lands in the bucket (tickets count separately)
+const VALUE = { coin: 1, silver: 1, smiley: 2, clover: 3, rainbow: 20, bolt: 1, shower: 1, lucky: 10, x5: 5, x10: 10, toycoin: 2, joker: 5,
+  cash: 25, cube: 15, ticket: 0 };
+const TICKETS_PER_STRIP = 10;
+// how each kind is written in a save (one character each)
+const SAVE_CODE = { coin: 'c', lucky: 'l', item: 'i', power: 'p', x5: '5', x10: 't', stack: 's', silver: 'a', clover: 'o',
+  rainbow: 'b', smiley: 'y', bolt: 'z', shower: 'h', ticket: 'q', cash: 'd', cube: 'u', toycoin: 'g', joker: 'j' };
+// Heavy metal coins: strong gravity, little air drag (COIN_DAMP), stiff contacts, almost no bounce.
+// (some drag is still needed: without it coins never quite come to rest, and resting coins cost nothing to simulate)
+// The table tilts toward the player (TILT_DEG) only while you're playing: from each drop for ACTIVE_SEC, easing
+// back to flat after. Flat, the coins stay put even though the tongue keeps moving (Jenny: "this is not a conveyor
+// belt" — coins move when you drop coins, or shake). Without the tilt pushes make piles instead of payouts.
+const ACTIVE_SEC = 2, IDLE_DAMP = 4, DROP_GRAVITY = 9.81;
+const M = 0.01, GRAVITY = 30, TILT_DEG = 0, STEP = 1 / 60, COIN_DAMP = 0.8, COIN_SPIN_DAMP = 2.5, COIN_BOUNCE = 0;
+// The tongue is slippery like a steel shelf: when it pulls back, coins on it mostly stay put, so the front ones
+// drop off its edge.
+// Min combining keeps the effective coin/shelf (.035) and coin/pusher (.05) grip at their former values.
+const COIN_FRICTION = 0.45, TABLE_FRICTION = 0.035, TONGUE_FRICTION = 0.05, TOY_GRIP = 0.035;
+const GUARD_SEC = 30, START_COINS = 100, REGEN_SEC = 20, REGEN_CAP = 100;
+const KEY = 'catpusher.uat.board.v1', OLD_KEY = KEY;
+// Collection sets. Three are on show at a time (S.active); finishing one pays out and the next set in this list
+// takes its place, so there's always something new to collect.
+const SETS = [
+  { name: 'Cat toys', reward: 'Yarn wallpaper', items: [['yarn', '🧶', 'Yarn ball'], ['mouse', '🐭', 'Toy mouse'], ['feather', '🪶', 'Feather wand'], ['bell', '🔔', 'Jingle bell']] },
+  { name: 'Snacks', reward: 'Fish wallpaper', items: [['fish', '🐟', 'Fish'], ['milk', '🥛', 'Milk'], ['shrimp', '🍤', 'Shrimp'], ['cheese', '🧀', 'Cheese'], ['tuna', '🐟', 'Tuna']] },
+  { name: 'Fancy', reward: 'Royal cat wallpaper', items: [['crown', '👑', 'Crown'], ['bow', '🎀', 'Bow'], ['hat', '🎩', 'Top hat'], ['gem', '💎', 'Gem']] },
+  { name: 'Garden', reward: 'Garden wallpaper', items: [['sunflower', '🌻', 'Sunflower'], ['ladybug', '🐞', 'Ladybug'], ['mushroom', '🍄', 'Mushroom'], ['butterfly', '🦋', 'Butterfly']] },
+  { name: 'Sweets', reward: 'Candy wallpaper', items: [['donut', '🍩', 'Donut'], ['cookie', '🍪', 'Cookie'], ['cupcake', '🧁', 'Cupcake'], ['lollipop', '🍭', 'Lollipop']] },
+  { name: 'Ocean', reward: 'Ocean wallpaper', items: [['octopus', '🐙', 'Octopus'], ['shell', '🐚', 'Shell'], ['crab', '🦀', 'Crab'], ['tropical', '🐠', 'Tropical fish']] },
+  { name: 'Music', reward: 'Jazz cat wallpaper', items: [['guitar', '🎸', 'Guitar'], ['trumpet', '🎺', 'Trumpet'], ['drum', '🥁', 'Drum'], ['keys', '🎹', 'Keyboard']] },
+  { name: 'Space', reward: 'Space cat wallpaper', items: [['rocket', '🚀', 'Rocket'], ['planet', '🪐', 'Planet'], ['moon', '🌙', 'Moon'], ['star', '⭐', 'Star']] },
+  { name: 'Treasure', reward: 'Golden cat wallpaper', items: [['moneybag', '💰', 'Money bag'], ['key', '🗝️', 'Old key'], ['trophy', '🏆', 'Trophy'], ['ring', '💍', 'Ring']] },
+];
+const ITEMS = {};
+for (const s of SETS) for (const [id, emoji, name] of s.items) ITEMS[id] = { emoji, name, set: s };
+const SET_REWARD = { coins: 150, shakes: 2 }; // for finishing a set
+
+function rand(a, b) { return a + Math.random() * (b - a); }
+function activeSets() {
+  if (!Array.isArray(S.active) || !S.active.length) S.active = SETS.slice(0, 3).map(s => s.name);
+  return S.active.map(n => SETS.find(s => s.name === n)).filter(Boolean);
+}
+// a prize from the sets on show, usually one you don't have yet
+function pickItem() {
+  const ids = activeSets().flatMap(s => s.items.map(([i]) => i)), need = ids.filter(i => !S.got[i]);
+  const from = need.length && Math.random() < 0.7 ? need : ids;
+  return from[(Math.random() * from.length) | 0];
+}
+function radius(kind) {
+  if(kind==='quake')return COIN_R*QUAKE_R;
+  if (BOX[kind]) return Math.max(BOX[kind].hx, BOX[kind].hz);
+  return BONUS[kind] ? BONUS[kind].r : kind === 'item' || kind === 'power' ? ITEM_R : kind === 'lucky' ? LUCKY_R : COIN_R;
+}
+function halfOf(kind) {
+  if(kind==='quake')return COIN_HALF*1.3;
+  if (BOX[kind]) return BOX[kind].hy;
+  return BONUS[kind] ? BONUS[kind].half : kind === 'item' || kind === 'power' ? ITEM_HALF : kind === 'lucky' ? LUCKY_HALF : COIN_HALF;
+}
+
+// ---------- perspective ----------
+// Fitted to the table in Jenny's picture: the back edge is 58% the width of the front edge. A unit of height lifts
+// a point LIFT units up the screen; a unit toward the viewer moves it SQUASH units down (both times the depth scale).
+const ART_ZX = 1.2; // how much wider than the picture the machine is drawn (see artX)
+const P_K = 0.73, P_H = 823, P_Y0 = -244, P_X = 0.9 * ART_ZX, SQUASH = 0.6, LIFT = 0.85;
+const FRONT_Y = 579;
+function depthScale(y) { return 1 / (1 + P_K * (1 - (y - T.BACK) / (640 - T.BACK))); } // CP-21: the picture's own table depth
+function proj(x, y) { const s = depthScale(y); return { x: 200 + (x - 200) * s * P_X, y: P_Y0 + P_H * s, s: s * P_X }; }
+function unprojX(sx, y) { return 200 + (sx - 200) / (depthScale(y) * P_X); }
+function screenOf(x, y, h) { const p = proj(x, y); return { x: p.x, y: p.y - h * LIFT * p.s, s: p.s, worldX:x, depth:y, height:h }; }
+// a small 3D direction (x across, y up, z toward the front) as a screen offset at depth scale s
+function projVec(v, s, at) {
+ if(at){
+  // Coin faces use the same local perspective as their board positions.
+  const ds=P_K/(640-T.BACK)*depthScale(at.depth)**2;
+  return {x:v.x*s+(at.worldX-200)*P_X*ds*v.z,
+   y:-v.y*LIFT*s+(P_H-at.height*LIFT*P_X)*ds*v.z};
+ }
+ return { x: v.x * s, y: (v.z * SQUASH - v.y * LIFT) * s };
+}
+function qrot(q, v) {
+  const ix = q.w * v.x + q.y * v.z - q.z * v.y, iy = q.w * v.y + q.z * v.x - q.x * v.z;
+  const iz = q.w * v.z + q.x * v.y - q.y * v.x, iw = -q.x * v.x - q.y * v.y - q.z * v.z;
+  return {
+    x: ix * q.w + iw * -q.x + iy * -q.z - iz * -q.y,
+    y: iy * q.w + iw * -q.y + iz * -q.x - ix * -q.z,
+    z: iz * q.w + iw * -q.z + ix * -q.y - iy * -q.x,
+  };
+}
+// a rotation about the up axis (yaw), tipped by `tilt` radians toward a random direction
+function qmul(a, b) {
+  return {
+    x: a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
+    y: a.w * b.y - a.x * b.z + a.y * b.w + a.z * b.x,
+    z: a.w * b.z + a.x * b.y - a.y * b.x + a.z * b.w,
+    w: a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z,
+  };
+}
+function yawTurn(a) { return { x: 0, y: Math.sin(a / 2), z: 0, w: Math.cos(a / 2) }; }
+function randomTurn(tilt) {
+  const yaw = rand(0, Math.PI * 2), a = rand(0, Math.PI * 2), s = Math.sin(tilt / 2);
+  const t = { x: Math.cos(a) * s, y: 0, z: Math.sin(a) * s, w: Math.cos(tilt / 2) };
+  const y = { x: 0, y: Math.sin(yaw / 2), z: 0, w: Math.cos(yaw / 2) };
+  return { // t * y
+    x: t.w * y.x + t.x * y.w + t.y * y.z - t.z * y.y,
+    y: t.w * y.y - t.x * y.z + t.y * y.w + t.z * y.x,
+    z: t.w * y.z + t.x * y.y - t.y * y.x + t.z * y.w,
+    w: t.w * y.w - t.x * y.x - t.y * y.y - t.z * y.z,
+  };
+}
+
+// ---------- state ----------
+let S = { coins: START_COINS, won: 0, drops: 0, lastRegen: Date.now(), got: {}, sets: {}, muted: false, guard: 0, table: null,
+  active: null, xp: 0, level: 1, shakes: 2, quest: null, questNext: 0, daily: null, tickets: 0 };
+let world = null, tongue = null, tongueContact = null, tongueRest = null, sweepBody=null, sweepCollider=null, bodies = [], falling = [], floats = [], winTimes = [], rings = [];
+let sweepTime=0, pupilAim=200, catquakeTime=0, catquakeHit=false, sweetUntil=0, happyUntil=0;
+const SWEEP_START=PUSH_MIN-12, SWEEP_END=T.FRONT+80, SWEEP_DURATION=2.4;
+let pusherY = PUSH_MIN, tongueDrawY = PUSH_MIN, time = 0, lastDrop = -99, tiltNow = 0, calm = false;
+let pushPhase = 0, pushLoaded = false, pushPending = false;
+// Aiming: you choose only left/right. Coins always drop onto the tongue, on a line near its back just in front of
+// the back wall (DROP_Y), so each new coin lands behind the coins already there and helps push them forward.
+const DROP_Y = PUSH_MAX - 28, DROP_H = 35; // Fixed line just behind the fully extended front.
+let pendingDrops = [], releaseAt = 0;
+let aim = { x: 200, y: DROP_Y }, aimShow = 0, guardAnim = 0;
+let holding = false, holdPos = aim, taps = [], dropTimer = 0, saveTimer = 0, lastChaching = 0;
+// test-build readout at the bottom of the screen: physics time per step (ms) and frames per second, smoothed
+const perf = { step: 0, fps: 60 };
+// when this version was published (publish_game.ps1 fills it in), shown in the readout
+const BUILD = '2026.10.27 UAT 8';
+
+function initPhysics() {
+  // the table tilts gently down toward the player (TILT_DEG): coins at rest stay put, but a push moves them
+  // forward instead of up into piles, so the table builds up and then avalanches over the edge
+  world = new RAPIER.World({ x: 0, y: -GRAVITY, z: 0 }); // flat until you drop (see ACTIVE_SEC)
+  world.timestep = STEP;
+  // Six solver passes keep contacts firm; unchanged by the priority-1 motion work.
+  world.integrationParameters.numSolverIterations = 6;
+  world.integrationParameters.numAdditionalFrictionIterations = 1;
+  // stiffer contacts (Rapier's default lets resting coins sink into each other a little, which looks soft)
+  if ('contact_natural_frequency' in world.integrationParameters) world.integrationParameters.contact_natural_frequency = 60;
+  const fixed = world.createRigidBody(RAPIER.RigidBodyDesc.fixed());
+  const box = (hx, hy, hz, x, h, y, fr) => world.createCollider(
+    RAPIER.ColliderDesc.cuboid(hx * M, hy * M, hz * M).setTranslation(x * M, h * M, y * M).setFriction(fr), fixed);
+  const halfW = (T.R - T.L) / 2;
+  box(halfW + 40, 10, (FUNNEL_D2 + 100) / 2, 200, -10, (FUNNEL_D2 - 100) / 2, TABLE_FRICTION); box(halfW, 10, (T.FRONT - FUNNEL_D2) / 2, 200, -10, (T.FRONT + FUNNEL_D2) / 2, TABLE_FRICTION); // table top: as before beside the funnel walls, then (CP-21) ending at the open side edges
+  // side walls (CP-21 funnel): straight beside the pusher, a slant, then straight to the front
+  const wall=(x0,y0,x1,y1,side)=>{const len=Math.hypot(x1-x0,y1-y0),a=Math.atan2(x1-x0,y1-y0),nx=Math.cos(a)*side,nz=-Math.sin(a)*side;
+   world.createCollider(RAPIER.ColliderDesc.cuboid(10*M,200*M,(len/2+2)*M).setTranslation(((x0+x1)/2+nx*10)*M,190*M,((y0+y1)/2+nz*10)*M)
+    .setRotation({x:0,y:Math.sin(a/2),z:0,w:Math.cos(a/2)}).setFriction(0.2),fixed);};
+  for(const s of [-1,1]){wall(200+s*FUNNEL_BACK,-100,200+s*FUNNEL_BACK,FUNNEL_D1,s);wall(200+s*FUNNEL_BACK,FUNNEL_D1,200+s*halfW,FUNNEL_D2,s);wall(200+s*halfW,FUNNEL_D2,200+s*halfW,GUARD_END,s);}/* CP-21: side wall only along the first two full-width rows, then open gutters */for(const s of [-1,1]){const x=200+s*(halfW+COIN_R*0.9),hh=2,len=T.FRONT+100-GUARD_END;world.createCollider(RAPIER.ColliderDesc.cuboid(2*M,hh*M,len/2*M).setTranslation(x*M,hh*M,(GUARD_END+len/2)*M).setFriction(0.2),fixed);} /* CP-21: low side lip */
+  box(halfW + 40, 150, 12, 200, TONGUE_H + 150, LEDGE_BACK - 12, 0.2); // upper ledge backstop prevents coins retreating into the throat
+  tongue = world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased()
+    .setTranslation(200 * M, TONGUE_H / 2 * M, (pusherY - TONGUE_LEN / 2) * M));
+  tongueContact = world.createCollider(RAPIER.ColliderDesc.cuboid(PUSH_HALF * M, TONGUE_H / 2 * M, TONGUE_LEN / 2 * M)
+    .setFriction(TONGUE_FRICTION).setSensor(false), tongue);
+  // When unloaded, the sliding tongue slips under the resting mat. A stationary backing
+  // supports it at the retracted footprint; the moving tray only transmits a loaded push.
+  tongueRest = box(PUSH_HALF, TONGUE_H / 2, TONGUE_LEN / 2,
+    200, TONGUE_H / 2, PUSH_MIN - TONGUE_LEN / 2, TONGUE_FRICTION);
+  tongueRest.setEnabled(false);
+  sweepBody=world.createRigidBody(RAPIER.RigidBodyDesc.kinematicPositionBased().setTranslation(2,.12,SWEEP_START*M));
+  sweepCollider=world.createCollider(RAPIER.ColliderDesc.cuboid(halfW*M,.12,.08).setFriction(.05),sweepBody);
+  sweepCollider.setEnabled(false);
+}
+
+// The collision shape of a coin: a rounded cylinder (measured fastest and smoothest), or for testing a plain
+// cylinder or a SHAPE_SIDES-sided prism.
+let SHAPE = 'round', SHAPE_SIDES = 10;
+function coinShape(r, half, edge) {
+  if (SHAPE === 'round') return RAPIER.ColliderDesc.roundCylinder((half - edge) * M, (r - edge) * M, edge * M);
+  if (SHAPE === 'cyl') return RAPIER.ColliderDesc.cylinder(half * M, r * M);
+  const pts = [];
+  for (let i = 0; i < SHAPE_SIDES; i++) {
+    const a = i / SHAPE_SIDES * Math.PI * 2;
+    for (const y of [-half, half]) pts.push(Math.cos(a) * r * M, y * M, Math.sin(a) * r * M);
+  }
+  return RAPIER.ColliderDesc.convexHull(new Float32Array(pts));
+}
+
+// A coin (or prize). Position in game units; rot/linvel/angvel optional.
+let uids = 0;
+function addCoin(kind, id, x, h, y, rot, linvel, angvel) {
+  const r = radius(kind), half = halfOf(kind), edge = Math.min(half * 0.6, 1.2);
+  const desc = RAPIER.RigidBodyDesc.dynamic().setTranslation(x * M, h * M, y * M)
+    .setLinearDamping(COIN_DAMP).setAngularDamping(COIN_SPIN_DAMP).setCanSleep(true);
+  if (rot) desc.setRotation(rot);
+  if (linvel) desc.setLinvel(linvel.x, linvel.y, linvel.z);
+  if (angvel) desc.setAngvel(angvel);
+  const rb = world.createRigidBody(desc);
+  const bx = BOX[kind];
+  world.createCollider((bx ? RAPIER.ColliderDesc.cuboid(bx.hx * M, bx.hy * M, bx.hz * M) : coinShape(r, half, edge))
+    // toys are heavy and grippy, so they wedge in and get stuck (that's what shakes are for)
+    .setFriction(kind === 'item' || bx ? TOY_GRIP : COIN_FRICTION).setRestitution(COIN_BOUNCE)
+    // Grip between coins supports piles; the lower surface coefficient keeps the shelf and pusher slippery.
+    .setFrictionCombineRule(RAPIER.CoefficientCombineRule.Min)
+    .setDensity(bx ? bx.density * 2 : kind === 'item' ? 1.6 : kind === 'power' ? 1 : kind === 'coin' || kind === 'silver' ? 1.5 : 3), rb); // CP-21: coins twice as thick, same weight
+  // quest: a toy the quest is about; sortK, uid: drawing order (see draw)
+  const b = { rb, kind, id: id || null, r, half, dead: false, vy: 0, fresh: false, quest: false, sortK: null, uid: ++uids };
+  bodies.push(b);
+  return b;
+}
+
+// One isolated, deterministic board. Campaign and collection economy are deliberately absent.
+const BOARDS = Object.freeze([
+ {id:'snack-shelf',name:'Board 1',seed:42,coins:220,seconds:90,
+  targets:[{id:'cheese',x:140,y:610},{id:'shrimp',x:260,y:690}],
+  towers:[{x:200,y:420,n:10}]},
+ {id:'twin-towers',name:'Board 2',seed:137,coins:160,seconds:110,
+  targets:[{id:'cheese',x:260,y:630},{id:'shrimp',x:132,y:700}],
+  towers:[{x:115,y:465,n:8},{x:285,y:390,n:12}]},
+ // Staggered prize lanes/depths, with an accessible Quake coin toward the front.
+ {id:'tuna-terraces',name:'Board 3',seed:316,coins:160,seconds:110,
+  targets:[{id:'cheese',x:96,y:635},{id:'shrimp',x:288,y:675},{id:'tuna',x:210,y:585}],
+  towers:[{x:130,y:445,n:48},{x:270,y:430,n:36},
+   {x:92,y:365,n:4},{x:126,y:365,n:10},{x:160,y:365,n:4}]}
+]);
+let boardIndex=0, BOARD=BOARDS[0];
+let board = {status:'ready', remaining:BOARD.coins, elapsed:0, collected:[], used:0};
+let boardRandom = BOARD.seed;
+function seededRandom() { boardRandom=boardRandom*16807%2147483647; return (boardRandom-1)/2147483646; }
+function finishBoard(status,reason) {
+ if(board.status==='won'||board.status==='lost')return;
+ board.status=status;board.endReason=reason||'targets'; holding=false; taps=[];pendingDrops=[];
+ if(status==='won') { callout('BOARD CLEAR!', {voice:'quest',color:'#7dff6a',afterCollections:true}); }
+ else {sfx.empty();callouts=[];callout('TRY AGAIN', {color:'#ffb98b',dur:Infinity});}
+}
+function boardTick(dt) {
+ if(board.status!=='playing' && board.status!=='settling')return;
+ board.elapsed+=dt;
+ if(board.elapsed>=BOARD.seconds) {finishBoard('lost','time');return;}
+ if(board.remaining===0) {
+   board.status='settling';
+   const moving=bodies.some(b=>{const v=b.rb.linvel();return Math.hypot(v.x,v.y,v.z)>.01;});
+   board.quiet=(!moving&&!pushLoaded&&!pushPending&&!pendingDrops.length&&sweepTime===0&&catquakeTime===0&&shake===0)?(board.quiet||0)+dt:0;
+   if(board.quiet>=3)finishBoard('lost','coins');
+ }
+}
+function selectBoard(index) {
+ if(!Number.isInteger(index)||index<0||index>=BOARDS.length)return false;
+ boardIndex=index;BOARD=BOARDS[index];resetBoard();return true;
+}
+function nextBoard(){if(board.status!=='won'||boardIndex>=BOARDS.length-1)return false;return selectBoard(boardIndex+1);}
+function resetBoard() {
+ stopPawDance();stopTickle();danceWorldEnd();
+ pushCoinSoundPlayed=false;
+ recordedSfx.reset();
+ for(const b of bodies.slice())removeCoin(b);
+ board={status:'ready',remaining:BOARD.coins,elapsed:0,collected:[],used:0,released:0,sweeps:0,quakes:1,earnedQuakes:0};boardRandom=BOARD.seed;
+ catquakeTime=0;catquakeHit=false;sweetUntil=0;happyUntil=0;shake=0;flash=0;shakeKind='lightning';
+ S.coins=BOARD.coins;S.shakes=0;S.quest=null;S.guard=0;
+ time=0;lastDrop=-99;pushPhase=0;pushLoaded=false;pushPending=false;calm=false;tiltNow=0;
+ pusherY=PUSH_MIN;tongueDrawY=PUSH_MIN;
+ tongue.setTranslation({x:2,y:TONGUE_H/2*M,z:(PUSH_MIN-TONGUE_LEN/2)*M},true);
+ tongueContact.setSensor(false);tongueRest.setEnabled(false);world.gravity={x:0,y:-GRAVITY,z:0};
+ sweepTime=0;sweepCollider.setEnabled(false);sweepBody.setTranslation({x:2,y:.12,z:SWEEP_START*M},true);pupilAim=200;aim={x:200,y:DROP_Y};
+ holding=false;taps=[];toyQueue=[];falling=[];rings=[];floats=[];callouts=[];itemToasts=[];pendingDrops=[];releaseAt=0;
+ showerLeft=0;shake=0;dropTimer=0;saveTimer=0;
+ prefill();for(let i=0;i<180;i++)world.step();
+}
+
+// ---------- towers ----------
+// A tall stack of thin coins can't balance in the physics engine (it wobbles itself over), so a tower is one solid
+// column, drawn as its coins. It stands until something really disturbs it: once it leans past TOWER_BREAK_TILT
+// (or drops off the table) it breaks into individual coins that keep its motion and tumble down.
+// A solid column only slides when shoved, so a tower also gets wobblier the further it's pushed: after a random
+// TOWER_SHOVE distance it tips over in the direction it's moving (then breaks as it leans).
+const STACK_STEP = COIN_HALF * 2 + 0.2, TOWER_BREAK_TILT = Math.cos(14 * Math.PI / 180), TOWER_TWIST = 2.2;
+const TOWER_SHOVE = [15, 45], TOWER_TIP_PUSH = 0.6; // speed (m/s) given to the tower's top to tip it
+function stackHalf(n, top) { return (n * STACK_STEP + (top ? BONUS[top].half * 2 + 0.3 : 0)) / 2; }
+// h = height of the column's centre (null: standing on the table)
+function addStack(x, h, y, rot, n, top, phase) {
+  const half = stackHalf(n, top);
+  const desc = RAPIER.RigidBodyDesc.dynamic().setTranslation(x * M, (h == null ? half + 0.1 : h) * M, y * M)
+    .setLinearDamping(0.15).setAngularDamping(0.5).setCanSleep(true);
+  if (rot) desc.setRotation(rot);
+  const rb = world.createRigidBody(desc);
+  world.createCollider(RAPIER.ColliderDesc.roundCylinder((half - 1) * M, (COIN_R - 1) * M, 1 * M)
+    .setFriction(COIN_FRICTION).setRestitution(0.05).setDensity(0.6), rb); // light, so the coins shove it along
+  const t = rb.translation();
+  const b = { rb, kind: 'stack', id: null, r: COIN_R, half, n, top: top || null, phase: phase == null ? rand(0, 6) : phase,
+    dead: false, vy: 0, fresh: false, quest: false, sortK: null, uid: ++uids, moved: 0, limit: TOWER_SHOVE[0]+seededRandom()*(TOWER_SHOVE[1]-TOWER_SHOVE[0]), lx: t.x, lz: t.z, tipping: false };
+  bodies.push(b);
+  return b;
+}
+// Each coin of a tower: its centre relative to the column's centre (game units) and its own turn.
+function stackParts(b) {
+  const parts = [];
+  for (let i = 0; i < b.n; i++) {
+    const a = b.phase + i * 0.55;
+    parts.push({ kind: 'coin', p: { x: Math.cos(a) * TOWER_TWIST, y: -b.half + COIN_HALF + i * STACK_STEP, z: Math.sin(a) * TOWER_TWIST }, q: yawTurn(i * 0.4) });
+  }
+  if (b.top) parts.push({ kind: b.top, p: { x: 0, y: -b.half + b.n * STACK_STEP + BONUS[b.top].half + 0.3, z: 0 }, q: yawTurn(b.phase) });
+  return parts;
+}
+function breakLegacyStack(b) {
+  const t = b.rb.translation(), q = b.rb.rotation(), lv = b.rb.linvel(), av = b.rb.angvel();
+  removeCoin(b);
+  for (const part of stackParts(b)) {
+    const o = qrot(q, part.p);
+    addCoin(part.kind, null, t.x / M + o.x, t.y / M + o.y, t.z / M + o.z, qmul(q, part.q),
+      { x: lv.x + seededRandom()*.3-.15, y: lv.y, z: lv.z + seededRandom()*.3-.15 }, av);
+  }
+  sfx.tumble(b.n);
+}
+
+function breakStack(b) {
+  if(BOARD.id!=='tuna-terraces')return breakLegacyStack(b);
+  const t = b.rb.translation(), q = b.rb.rotation(), lv = b.rb.linvel(), av = b.rb.angvel();
+  removeCoin(b);
+  for (const part of stackParts(b)) {
+    const o = qrot(q, part.p), cascade=BOARD.id==='tuna-terraces';
+    // A released coin inherits its point velocity along the rotating tower.
+    const spin=cascade?{x:(av.y*o.z-av.z*o.y)*M,y:(av.z*o.x-av.x*o.z)*M,z:(av.x*o.y-av.y*o.x)*M}:{x:0,y:0,z:0};
+    const jitterX=(seededRandom()*.3-.15)*(cascade?4:1),jitterZ=(seededRandom()*.3-.15)*(cascade?2:1);
+    // Small independent spins stop the loose coins moving as one rigid-looking ribbon.
+    const turn=cascade?{x:av.x*.25+(seededRandom()-.5)*3.6,y:av.y*.25+(seededRandom()-.5)*3.6,z:av.z*.25+(seededRandom()-.5)*3.6}:av;
+    const angle=(seededRandom()-.5)*.7,axis=seededRandom()*Math.PI*2;
+    const loose={x:Math.cos(axis)*Math.sin(angle/2),y:0,z:Math.sin(axis)*Math.sin(angle/2),w:Math.cos(angle/2)};
+    addCoin(part.kind, null, t.x / M + o.x, t.y / M + o.y, t.z / M + o.z, qmul(qmul(q, part.q),loose),
+      { x: lv.x*.3 + spin.x*.35 + jitterX, y: lv.y*.3 + spin.y*.35, z: lv.z*.3 + spin.z*.35 + jitterZ }, turn);
+  }
+  // Reuse the existing coin-spill clatter for Board 3's larger cascade.
+  if(BOARD.id==='tuna-terraces'){if(!recordedSfx.play('spill',.8))sfx.tumble(b.n);}
+  else sfx.tumble(b.n);
+}
+
+function removeCoin(b) {
+  b.dead = true;
+  world.removeRigidBody(b.rb);
+  const i = bodies.indexOf(b);
+  if (i >= 0) bodies.splice(i, 1);
+}
+
+// The showpiece towers every new table starts with: a tall centrepiece topped with a 10x chip, a 5x-topped tower
+// either side, and two smaller ones further back. Each coin sits a touch off the one below, turning slowly, like
+// a hand-stacked arcade tower.
+const TOWERS = [
+  { x: 200, y: 470, n: 30, top: 'x10' },
+  { x: 102, y: 525, n: 18, top: 'x5' },
+  { x: 298, y: 525, n: 18, top: 'x5' },
+];
+
+// A new table: the showpiece towers standing on the table, a carpet of coins around them and on the tongue,
+// loose coins heaped over it, and a couple of prizes.
+// A clean board: an even, full spread of coins — TABLE_LAYERS tight layers on the table (right from the tongue's
+// front edge to the table's front edge) and TONGUE_LAYERS on the tongue, each layer sitting in the gaps of the one
+// below — plus the showpiece towers. No toys: they only arrive when a special coin goes over the edge (dropToy).
+const TABLE_LAYERS = 3, TONGUE_LAYERS = 2;
+function prefill() {
+ // CP-21: an ordered start. Straight rows, one coin layer, no towers; prizes rest on top.
+ const d=COIN_R*2+1,START_CLEAR=20; // keep the front rows this far from the edge
+ for(let y=PUSH_MAX+COIN_R+2;y+COIN_R<=T.FRONT-START_CLEAR;y+=d){
+  const n=Math.floor(2*Math.min(tableHalfAt(y-COIN_R),tableHalfAt(y+COIN_R))/d);
+  for(let i=0;i<n;i++)addCoin(seededRandom()<.25?'silver':'coin',null,200+(i-(n-1)/2)*d,COIN_HALF+.2,y,yawTurn(0));
+ }
+ if(BOARD.id==='tuna-terraces')addCoin('quake',null,200,COIN_HALF*2+halfOf('quake')+1,715,yawTurn(0));
+ for(const target of BOARD.targets) {
+  const b=addCoin('item',target.id,target.x,COIN_HALF*2+halfOf('item')+1,target.y,yawTurn(0));
+  b.boardTarget=true;
+ }
+}
+
+function load() { resetBoard(); }
+
+function save() { /* This review prototype never writes the production save. */ }
+
+function regen() {}
+
+// ---------- sound (placeholder synth) ----------
+const sfx = (() => {
+  let ac = null, master = null, noiseBuf = null, lastClink = 0, lastChing = 0;
+  function ready() {
+    if (S.muted) return false;
+    if (!ac) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return false;
+      ac = new AC();
+      master = ac.createGain(); master.gain.value = 0.55; master.connect(ac.destination);
+      noiseBuf = ac.createBuffer(1, ac.sampleRate * 0.5, ac.sampleRate);
+      const d = noiseBuf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+    if (ac.state === 'suspended') ac.resume();
+    return true;
+  }
+  function tone(f, t0, dur, type, vol, fEnd) {
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.type = type; o.frequency.setValueAtTime(f, t0);
+    if (fEnd) o.frequency.exponentialRampToValueAtTime(fEnd, t0 + dur);
+    g.gain.setValueAtTime(0.0001, t0);
+    g.gain.exponentialRampToValueAtTime(vol, t0 + 0.004);
+    g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    o.connect(g); g.connect(master); o.start(t0); o.stop(t0 + dur + 0.03);
+  }
+  function noise(t0, dur, vol, freq, q) {
+    const s = ac.createBufferSource(), f = ac.createBiquadFilter(), g = ac.createGain();
+    s.buffer = noiseBuf; s.loop = true; f.type = 'bandpass'; f.frequency.value = freq; f.Q.value = q || 1;
+    g.gain.setValueAtTime(vol, t0); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+    s.connect(f); f.connect(g); g.connect(master); s.start(t0); s.stop(t0 + dur + 0.02);
+  }
+  // A coin hitting stainless steel: a sharp broadband clack, a short bright ring of inharmonic overtones, and
+  // (settle) the quick rattle of the coin bouncing to rest, each bounce closer and quieter. pitch < 1 is a bigger,
+  // deeper surface such as the bucket.
+  function steelAt(t, v, pitch, settle) {
+    const p = (pitch || 1) * (0.94 + Math.random() * 0.12);
+    noise(t, 0.012, 0.45 * v, 6000, 0.6);
+    noise(t, 0.03, 0.12 * v, 2500 * p, 1.5);
+    for (const [f, a, d] of [[1350, 0.9, 0.09], [2870, 0.6, 0.07], [4230, 0.5, 0.05], [5960, 0.35, 0.04], [7810, 0.22, 0.03]]) {
+      tone(f * p, t, d / Math.sqrt(p), 'sine', 0.09 * v * a);
+    }
+    if (!settle) return;
+    let gap = 0.055, a = 0.45;
+    for (let i = 0, n = 3 + (Math.random() * 2 | 0); i < n; i++) {
+      t += gap; gap *= 0.65; a *= 0.7;
+      noise(t, 0.008, 0.3 * v * a, 5500, 0.8);
+      tone(2870 * p, t, 0.05, 'sine', 0.05 * v * a);
+      tone(4230 * p, t, 0.035, 'sine', 0.04 * v * a);
+    }
+  }
+  function clinkAt(t, v) { steelAt(t, v, 1, false); }
+  // Register bell: inharmonic partials so it rings like a struck bell rather than a beep.
+  function bell(t, f, vol, dur) {
+    [[1, 1], [2, 0.45], [2.76, 0.6], [4.07, 0.3], [5.4, 0.18]].forEach(([m, a]) => tone(f * m, t, dur / Math.sqrt(m), 'sine', vol * a));
+  }
+  return {
+    unlock() { ready(); },
+    clink(v = 1) {
+      if (!ready()) return;
+      const now = ac.currentTime;
+      if (now - lastClink < 0.035) return;
+      lastClink = now; clinkAt(now, v);
+    },
+    land() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      steelAt(t, 0.8, 1, true);
+    },
+    // One coin into the steel bucket: a deeper clang that rattles to rest.
+    ching() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      if (t - lastChing < 0.06) { steelAt(t, 0.35, 0.6, false); return; }
+      lastChing = t;
+      steelAt(t, 0.75, 0.6, true);
+      tone(520, t, 0.25, 'sine', 0.04);
+    },
+    // Full cash register: key clack, ratchet, bell, drawer rolling open, then coins jingling.
+    kaching() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      noise(t, 0.04, 0.4, 1600, 1.2); tone(150, t, 0.07, 'square', 0.07, 70);
+      for (let i = 0; i < 7; i++) noise(t + 0.06 + i * 0.022, 0.016, 0.32, 3400, 4);
+      bell(t + 0.22, 2093, 0.17, 1.8);
+      noise(t + 0.26, 0.3, 0.22, 380, 0.6);
+      tone(95, t + 0.55, 0.14, 'triangle', 0.22, 60);
+      for (let i = 0; i < 5; i++) steelAt(t + 0.58 + i * 0.05 + Math.random() * 0.03, 0.45, 0.6, i === 4);
+    },
+    prize() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      [784, 988, 1175, 1568, 1976].forEach((f, i) => tone(f, t + i * 0.06, 0.16, 'square', 0.05));
+      tone(2637, t + 0.32, 0.6, 'sine', 0.1);
+    },
+    // A soft pop and warm rising chimes: distinct from coin clatter and board clear.
+    special() {
+      if (!ready()) return;
+      const t=ac.currentTime;
+      tone(220,t,.075,'sine',.075,100);
+      [659.25,830.61,987.77].forEach((f,i)=>{
+        tone(f,t+.035+i*.085,.28,'sine',.075);
+        tone(f*2,t+.035+i*.085,.13,'sine',.018);
+      });
+    },
+    fanfare() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      [523, 659, 784, 1047, 784, 1047, 1319].forEach((f, i) => tone(f, t + i * 0.1, 0.22, 'square', 0.05));
+      [1047, 1319, 1568, 2093].forEach(f => tone(f, t + 0.75, 1.2, 'triangle', 0.07));
+    },
+    // a tower falling over: a quick run of clinks, one per coin (up to 8)
+    tumble(n) {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      const k = Math.min(n, 8);
+      for (let i = 0; i < k; i++) steelAt(t + i * 0.045 + Math.random() * 0.02, 0.6 - i * 0.04, 1, i === k - 1);
+    },
+    // a comic-book hit for the big callouts: a punchy kick, a snare-like crack, a brass stab and a cymbal wash
+    bam() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      tone(170, t, 0.32, 'sine', 0.55, 42);
+      noise(t, 0.14, 0.55, 1900, 0.7);
+      noise(t + 0.01, 0.9, 0.12, 7000, 0.5);
+      [392, 494, 587, 784].forEach((f, i) => tone(f, t + 0.03, 0.42, 'sawtooth', 0.045 - i * 0.006));
+      [784, 988].forEach(f => tone(f, t + 0.2, 0.5, 'square', 0.03));
+    },
+    // the cat's growl: a low buzzing rumble that wobbles and sinks
+    growl() {
+      if (!ready()) return;
+      const t = ac.currentTime, o = ac.createOscillator(), f = ac.createBiquadFilter(), g = ac.createGain();
+      const lfo = ac.createOscillator(), depth = ac.createGain();
+      o.type = 'sawtooth'; o.frequency.setValueAtTime(105, t); o.frequency.linearRampToValueAtTime(72, t + 1.1);
+      f.type = 'lowpass'; f.frequency.value = 650; f.Q.value = 3;
+      g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.32, t + 0.12);
+      g.gain.linearRampToValueAtTime(0.26, t + 0.85); g.gain.linearRampToValueAtTime(0.0001, t + 1.2);
+      lfo.frequency.value = 26; depth.gain.value = 0.18; lfo.connect(depth); depth.connect(g.gain); // the rattle
+      o.connect(f); f.connect(g); g.connect(master);
+      o.start(t); lfo.start(t); o.stop(t + 1.25); lfo.stop(t + 1.25);
+      noise(t, 1.1, 0.1, 320, 1.4);
+    },
+    // a shake: a deep rattle of the whole machine, coins jingling
+    rumble() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      for (let i = 0; i < 6; i++) noise(t + i * 0.18, 0.3, 0.3, 140 + i * 15, 0.5);
+      tone(48, t, 1.4, 'sine', 0.3, 38);
+      for (let i = 0; i < 10; i++) steelAt(t + 0.1 + i * 0.12 + Math.random() * 0.05, 0.35, 0.8 + Math.random() * 0.4, false);
+    },
+    // lightning: a sharp crack, then a long low rumble
+    thunder() {
+      if (!ready()) return;
+      const t = ac.currentTime;
+      noise(t, 0.08, 0.6, 3500, 0.5); noise(t + 0.03, 0.12, 0.4, 1800, 0.6);
+      for (let i = 0; i < 4; i++) noise(t + 0.08 + i * 0.25, 0.9, 0.35 - i * 0.06, 110 + i * 25, 0.4);
+      tone(55, t + 0.05, 1.4, 'sine', 0.25, 35);
+    },
+    gutter() { if (!ready()) return; tone(260, ac.currentTime, 0.3, 'triangle', 0.12, 80); },
+    drop() { if (!ready()) return; tone(900, ac.currentTime, 0.08, 'triangle', 0.05, 1500); },
+    empty() { if (!ready()) return; tone(150, ac.currentTime, 0.15, 'square', 0.05, 110); },
+  };
+})();
+
+// Existing project recordings mapped to specific events, with small reusable pools.
+const recordedSfx=(()=>{
+ const definitions={
+  drop:{file:'coin-drop.mp3',volume:.24,pool:4,cooldown:.07,limit:1.1},
+  land:{file:'coin-land.mp3',volume:.25,pool:3,cooldown:.09,limit:.84},
+  push:{file:'pusher.mp3',volume:.24,pool:1,cooldown:1,limit:.84},
+  pushCoins:{file:'coin-roll.mp3',volume:.25,pool:1,cooldown:.9,limit:.6},
+  spill:{file:'coin-spill.mp3',volume:.24,pool:1,cooldown:1.2,limit:1.8},
+  off:{file:'coin-off.mp3',volume:.17,pool:2,cooldown:.18,limit:.85},
+  roll:{file:'coin-roll.mp3',volume:.18,pool:1,cooldown:.5,limit:1.2}
+ };
+ const pools={},last={},cursor={};let edges=[];
+ for(const [name,d]of Object.entries(definitions)){
+  pools[name]=Array.from({length:d.pool},()=>{
+   const a=new Audio('sounds/effects/'+d.file);a.preload='auto';a.volume=d.volume;a.loop=false;a._ready=false;
+   a.oncanplay=a.onloadeddata=()=>{a._ready=true;};a.onerror=()=>{a._ready=false;};
+   a.ontimeupdate=()=>{if(a.currentTime>d.limit)a.pause();};return a;
+  });last[name]=-Infinity;cursor[name]=0;
+ }
+ function stopAll(){for(const list of Object.values(pools))for(const a of list){a.pause();}}
+ function play(name,scale=1){
+  if(S.muted||inBackground||document.visibilityState!=='visible')return true;
+  const d=definitions[name],list=pools[name];if(!d)return false;
+  if(time-last[name]<d.cooldown)return true;
+  if(!list.some(a=>a._ready||a.readyState>=2))return false; // retain synth fallback until recording loads
+  if(Object.values(pools).flat().filter(a=>!a.paused).length>=6)return true;
+  let a=list.find(a=>a.paused&&(a._ready||a.readyState>=2))||list[(cursor[name]++)%list.length];
+  if(!(a._ready||a.readyState>=2))return false;
+  a.pause();a.currentTime=0;a.volume=Math.min(1,d.volume*scale*(board.status==='won'?.35:1));last[name]=time;
+  try{const p=a.play();if(p&&p.catch)p.catch(()=>{a._ready=false;});return true;}catch(e){a._ready=false;return false;}
+ }
+ function edge(){edges=edges.filter(t=>time-t<.3);edges.push(time);play(edges.length>=3?'spill':'off');}
+ function duck(){for(const list of Object.values(pools))for(const a of list)if(!a.paused)a.volume*=.35;}
+ function reset(){stopAll();edges=[];for(const name of Object.keys(last))last[name]=-Infinity;}
+ return {play,edge,reset,stopAll,duck};
+})();
+for(const [method,clip]of [['drop','drop'],['land','land'],['tumble','roll']]){
+ const fallback=sfx[method];sfx[method]=(...args)=>{if(!recordedSfx.play(clip))fallback(...args);};
+}
+
+// ---------- gameplay ----------
+// ---------- the voice ----------
+// Little things are said, not written (text on screen got in the way). Each line is a recorded clip,
+// sounds/voice/<key>.mp3, when Jenny has recorded it; until then the phone's own voice (Android.speak) says the
+// words, or the browser's speech on the PC. One line at a time; a line that comes too soon after another is dropped
+// unless it matters (callouts).
+const VOICE = {
+  got: 'Got it!', set: 'Set completed!', level: 'Level up!', quest: 'Quest complete!', daily: 'Daily challenge won!',
+  dailystart: 'Daily challenge! Go!', dailylost: 'Out of time! Try again!',
+  paw: 'Paws in!', tickets: 'You got tickets!', joker: 'Jack in the box!', cube: "Rubik's cube!", cash: 'Ka-ching!',
+  rainbow: 'Rainbow!', bolt: 'Lightning!', jackpot: 'Jackpot!', shower: 'Coin shower!', rush: 'Coin rush!',
+  toy: 'Here comes a toy!', oops: 'Oops!', timeup: "Time's up!", noshakes: 'No shakes left!', nocoins: 'Out of coins!',
+  table: 'Fresh table!', newquest: 'New quest!',
+};
+const clips = {}; // key → Audio once its file has loaded; false if there's no recording
+for (const k in VOICE) {
+  const a = new Audio(); a.preload = 'auto';
+  a.oncanplaythrough = () => { clips[k] = a; }; a.onerror = () => { clips[k] = false; };
+  a.src = `sounds/voice/${k}.mp3`;
+}
+// Background music: Jenny's pick, "Cute Cat Meow Song" by juncala (Pixabay, free under the Pixabay Content License:
+// fine inside the game, but the file must never be offered on its own). Loops all the time, quietly, and dips while
+// the voice talks. Starts on the first tap (phones don't allow sound before one); follows the 🔊 button.
+const MUSIC_VOL = 0.10;
+const music = new Audio(); // Effects-only until a new music direction is approved.
+music.loop = false; music.volume = 0;
+S.musicEnabled = false;
+try {const audioSettings=JSON.parse(localStorage.getItem('catpusher.uat.audio.v1')||'null');if(audioSettings){S.musicEnabled=false;S.muted=!!audioSettings.muted;}}catch(e){}
+function saveAudioSettings(){if(S.muted){recordedSfx.stopAll();stopPawDance();}try{localStorage.setItem('catpusher.uat.audio.v1',JSON.stringify({musicEnabled:S.musicEnabled,muted:S.muted}));}catch(e){}}
+let musicOK = false, duckUntil = 0, inBackground = false;
+window.appPaused = p => { inBackground = p; if (p){music.pause();recordedSfx.stopAll();} }; // stop recordings in background
+function musicTick() { if(!music.paused)music.pause(); }
+let lastSay = -9;
+function say(key, important) {
+  if (S.muted || !VOICE[key]) return;
+  const now = performance.now() / 1000;
+  if (!important && now - lastSay < 1.4) return;
+  const clip = clips[key];
+  if (!clip) return;
+  lastSay = now; duckUntil = performance.now() + 1600;
+  if (clip) { try { clip.currentTime = 0; clip.play(); } catch (e) { } return; }
+  // Missing recordings stay silent; phone TTS is too artificial for this cat.
+
+}
+// the three small things that still show (briefly): the quest banner flashes red when time's up, the SHAKE
+// button wobbles when you have none, the coin counter flashes when you're out
+let bannerFlash = 0, shakeWobble = 0, coinFlash = 0;
+
+// What the next dropped coin is. Mostly gold or silver; now and then something special, with a cap on how many
+// tickets, bills and cubes are on the table at once so it never gets cluttered.
+// (Toys never come from your taps; they're the reward for getting a special coin over the edge.)
+const DROPS = [ // [kind, chance]
+  ['x10', 0.012], ['x5', 0.028], ['rainbow', 0.006], ['bolt', 0.012], ['shower', 0.015], ['clover', 0.025], ['smiley', 0.025],
+  ['toycoin', 0.02], ['joker', 0.005],
+];
+const DROP_CAP = { ticket: 2, cash: 2, cube: 4 };
+// Toys are rare, so each one is an event: it's announced as it drops in, and a quest starts to win it.
+// They come onto the table only from: a toy coin over the edge (the toy pictured on it), a jack-in-the-box coin
+// (JOKER_TOYS toys), now and then another special coin (toyChance, rarer as you level up), and some quest rewards.
+// At most MAX_TOYS on the table at once. Prizes and the golden paw get rarer as you level up too (toyWeights).
+const SPECIAL = new Set(['x5', 'x10', 'rainbow', 'clover', 'smiley', 'bolt', 'shower', 'lucky']);
+const TOY_KINDS = new Set(['item', 'cube', 'ticket', 'cash', 'power']);
+const TOYS = [['item', 5], ['cube', 2], ['ticket', 2], ['cash', 1], ['power', 1]]; // [kind, weight] for random toys
+const JOKER_TOYS = 3, MAX_TOYS = 3, QUEST_TOY_CHANCE = 0.35; // QUEST_TOY_CHANCE: a finished quest also drops a toy
+function toyChance() { return Math.max(0.1, 0.35 - 0.015 * (S.level - 1)); }
+function toyWeights() {
+  const rare = 1 / (1 + 0.08 * (S.level - 1));
+  return TOYS.map(([k, w]) => [k, k === 'item' || k === 'power' ? w * rare : w]);
+}
+function toysOnTable() { return bodies.filter(b => TOY_KINDS.has(b.kind)).length; }
+let toyQueue = []; // [{ at: time it drops, id: toy (item id, cube, ticket, cash) or null for a random one }]
+// the extra detail a dropped thing needs: which prize, or which toy a toy coin pictures
+function dropId(kind) {
+  if (kind === 'item') return pickItem();
+  if (kind !== 'toycoin') return null;
+  return Math.random() < 0.7 ? pickItem() : ['cube', 'ticket', 'cash'][(Math.random() * 3) | 0]; // pictures a prize or a toy
+}
+function randomToy() {
+  const open = toyWeights().filter(([k]) => !DROP_CAP[k] || bodies.filter(b => b.kind === k).length < DROP_CAP[k]);
+  let r = Math.random() * open.reduce((s, [, w]) => s + w, 0);
+  for (const [k, w] of open) if ((r -= w) < 0) return k === 'item' ? pickItem() : k;
+  return pickItem();
+}
+function toyName(id) {
+  return ITEMS[id] ? `${ITEMS[id].emoji} ${ITEMS[id].name}` : { cube: "Rubik's cube", ticket: '🎟 tickets', cash: '💵 cash', power: '🐾 golden paw' }[id];
+}
+function dropToy(id) {
+  if (toysOnTable() >= MAX_TOYS) return;
+  id = id || randomToy();
+  const kind = ITEMS[id] ? 'item' : id, y = rand(PUSH_MAX + 40, T.FRONT - 90), x = 200 + rand(-1, 1) * (tableHalfAt(y) - 40);
+  const b = addCoin(kind, kind === 'item' ? id : null, x, DROP_H + 40, y, randomTurn(rand(0.2, 0.8)),
+    { x: 0, y: -3, z: 0 }, { x: rand(-4, 4), y: rand(-3, 3), z: rand(-4, 4) });
+  b.fresh = true; b.quest = true;
+  say('toy', true);
+  toyQuest(id);
+}
+// A toy on the table becomes a quest: "Win the 👑 Crown". Whatever quest was running waits (its clock stopped) and
+// carries on afterwards. More toys while it runs join it ("Win 3 toys").
+const TOY_QUEST_SEC = 150;
+function toyQuest(id) {
+  const q = S.quest;
+  if (q && q.kind === 'thistoy') {
+    q.n++; q.text = `Win ${q.n - q.have} toys`; q.ends = Math.max(q.ends, Date.now() + TOY_QUEST_SEC * 1000); q.coins += 20;
+    return;
+  }
+  if (q) S.questPaused = { ...q, left: Math.max(20000, q.ends - Date.now()) };
+  S.quest = { kind: 'thistoy', text: `Win the ${toyName(id)}`, n: 1, have: 0,
+    ends: Date.now() + TOY_QUEST_SEC * 1000, coins: 25 + 5 * S.level, shakes: 1 };
+}
+// a quest is over (won or not): the one that was waiting carries on, or the next starts after the usual gap
+function questOver() {
+  const p = S.questPaused;
+  S.questPaused = null;
+  if (p) { S.quest = { kind: p.kind, text: p.text, n: p.n, have: p.have, ends: Date.now() + p.left, coins: p.coins, shakes: p.shakes }; return; }
+  S.quest = null; S.questNext = Date.now() + QUEST_GAP;
+}
+let forcedDrop = null, devTaps = []; // developer mode: the kind the next tap drops; recent taps on the readout
+const DEV_DROPS = [['bolt', '⚡ Lightning'], ['shower', 'Coin shower'], ['joker', '🤡 Jack-in-the-box'], ['toycoin', 'Toy coin'],
+  ['x10', '10x chip'], ['x5', '5x chip'],
+  ['rainbow', '🌈 Rainbow'], ['clover', '🍀 Clover'], ['smiley', '🙂 Smiley'], ['silver', 'Silver'], ['power', '🐾 Golden paw'],
+  ['item', 'Prize'], ['ticket', '🎟 Ticket'], ['cash', '💵 Cash'], ['cube', 'Rubik\'s cube']];
+function pickDrop() {
+  if (forcedDrop) { const kind = forcedDrop; forcedDrop = null; return { kind, id: dropId(kind) }; }
+  let r = Math.random();
+  for (const [kind, p] of DROPS) {
+    if ((r -= p) >= 0) continue;
+    if (DROP_CAP[kind] && bodies.filter(b => b.kind === kind).length >= DROP_CAP[kind]) break;
+    return { kind, id: dropId(kind) };
+  }
+  return { kind: Math.random() < 0.25 ? 'silver' : 'coin', id: null };
+}
+
+// Drop a coin (or now and then a special coin or prize) from above the drop line; physics does the rest.
+// Individually registered to the crooked grin artwork: source pixels, lip edge and gentle release tilt.
+const MOUTH_EXITS=[
+ {id:'left-corner',sx:518,sy:797,edge:[1,-2,0,2],tip:1.10},
+ {id:'left-pocket',sx:582,sy:840,edge:[-1,2,-3,1],tip:.95},
+ {id:'left-gap',sx:666,sy:863,edge:[2,-1,1,3],tip:1.03},
+ {id:'tongue-left',sx:728,sy:874,edge:[-2,1,3,1],tip:1.12},
+ {id:'tongue-right',sx:803,sy:874,edge:[1,3,0,-2],tip:.99},
+ {id:'right-gap',sx:881,sy:862,edge:[2,-1,2,0],tip:1.06},
+ {id:'right-pocket',sx:947,sy:835,edge:[3,0,-2,1],tip:.94},
+ {id:'right-corner',sx:1009,sy:799,edge:[1,-3,2,0],tip:1.13}
+].map(e=>({...e,x:-10+e.sx*420/1536,y:-25+e.sy*240/1024}));
+function mouthExit(x){return MOUTH_EXITS.reduce((best,e)=>Math.abs(e.x-x)<Math.abs(best.x-x)?e:best);}
+function mouthLipY(x){return mouthExit(x).y;}
+function tryDrop(at=aim) {
+ if(board.status==='won'||board.status==='lost'||sweepTime>0||catquakeTime>0||board.remaining<=0)return false;
+ sweetUntil=0;happyUntil=0;
+ if(board.status==='ready')board.status='playing';
+ // Read the stroke at the tap: retracted releases clear the advancing front;
+ // extended releases catch the upper tier after the existing fall. Both clear the rear rail.
+ const stroke=Math.max(0,Math.min(1,(pusherY-PUSH_MIN)/(PUSH_MAX-PUSH_MIN)));
+ const depth=265-32*stroke;
+ const x=Math.max(200-PUSH_HALF+COIN_R,Math.min(200+PUSH_HALF-COIN_R,at.x)),exit=mouthExit(proj(x,depth).x);
+ board.remaining--;board.used++;board.released++;S.coins=board.remaining;S.drops++;lastDrop=time;
+ // Release from projected lip height, at rest, above the selected lane and clear of the tray.
+ const p=proj(x,depth);
+ const lipY=220,lipHeight=(p.y-exit.y)/(LIFT*p.s);
+ // Start the physical fall at the existing screen-entry point. The display lift is then zero,
+ // avoiding its 0.28-second slowdown as the coin crosses the rear rail.
+ const entry=screenOf(x,depth,0),entryTop=VIEW.dropTop??(-VIEW.y/VIEW.zy-14);
+ const entryHeight=(entry.y-entryTop)/(LIFT*entry.s);
+ const deliveryGravity=DROP_GRAVITY*(entryHeight-TONGUE_H)/(lipHeight-TONGUE_H);
+ const tip={x:Math.sin(exit.tip/2),y:0,z:0,w:Math.cos(exit.tip/2)};
+ const b=addCoin('coin',null,x,entryHeight,depth,tip,{x:0,y:0,z:0},{x:-exit.tip*3.6,y:0,z:0});
+ b.rb.setGravityScale(deliveryGravity/GRAVITY,true);
+ b.deliveryStartHeight=entryHeight;b.rb.enableCcd(true);b.fresh=true;b.input=true;b.mouthAt=time;b.lipY=lipY;b.lipEdge=[0,0,0,0];b.mouthExit=exit.id;sfx.drop();return true;
+}
+
+function collect(id) {
+  const it = ITEMS[id];
+  S.got[id] = (S.got[id] || 0) + 1;
+  say('got', true);
+  progress('toy', 1);
+  const set = it.set;
+  if (!S.sets[set.name] && set.items.every(([i]) => S.got[i])) {
+    // set complete: a reward, and the next set takes its place
+    S.sets[set.name] = true;
+    S.coins += SET_REWARD.coins; S.shakes = (S.shakes || 0) + SET_REWARD.shakes;
+    const i = activeSets().indexOf(set), next = SETS.find(s => !S.sets[s.name] && !S.active.includes(s.name));
+    if (next && i >= 0) S.active[i] = next.name;
+    setTimeout(() => {
+      callout(`${set.name} set complete!`, { voice: 'set', dur: 3, color: '#ff4fa8' });
+      sfx.fanfare();
+    }, 900);
+  }
+}
+
+// A coin that went over the front edge: into the bucket (won) or past it at the corners (lost).
+function fallOff(b, x) {
+ {const t=b.rb.translation(),z=t.z/M;if(Math.abs(x-200)<=(T.R-T.L)/2-2&&z<T.FRONT-30){b.rb.setTranslation({x:(200+(x-200)*.6)*M,y:30*M,z:Math.max(z,PUSH_MAX+COIN_R+4)*M},true);b.rb.setLinvel({x:0,y:0,z:0},true);b.rb.setAngvel({x:0,y:0,z:0},true);return;}} // CP-21: rescue a coin squeezed through the table
+ if(Math.abs(x-200)>(T.R-T.L)/2-2&&b.rb.translation().z/M<T.FRONT-4)return gutterOff(b,x); // CP-21: off a side
+ if(board.quakeStats&&time<=board.quakeStats.until&&['coin','silver'].includes(b.kind))board.quakeStats.fallen++;
+ if(!b.boardTarget)recordedSfx.edge();
+ const p=proj(x,T.FRONT);
+ falling.push({x:p.x,y:p.y+4,vx:0,vy:60,kind:b.kind,id:b.id,won:true,t:0,s:p.s});
+ if(b.kind==='quake'){board.earnedQuakes++;sfx.special();itemToasts.push({text:'QUAKE +1',t:0});}
+ if(b.boardTarget) {
+  if(!board.collected.includes(b.id))board.collected.push(b.id);
+  if(board.collected.length===1)board.sweeps=1;
+  sfx.special();itemToasts.push({text:(ITEMS[b.id]?.name||b.id).toUpperCase()+' COLLECTED!',t:0});
+ }
+ removeCoin(b);
+ if(board.collected.length===BOARD.targets.length)finishBoard('won');
+}
+
+// CP-21: a coin (or prize) that drops off a side edge is lost: it falls out of sight beside the table and does not pay.
+function gutterOff(b,x){
+ const t=b.rb.translation(),at=screenOf(t.x/M,t.z/M,t.y/M);
+ const rotation={...b.rb.rotation()};falling.push({x:at.x,y:at.y,vx:(x<200?-40:40),vy:60,kind:b.kind,id:b.id,won:false,t:0,s:at.s,gutter:true,__screenStart:at,__sourceX:at.x,__sourceY:at.y,__rotation:rotation});
+ removeCoin(b);
+}
+// Lightning coin: a flash, a thunder crack, and the whole machine shakes for SHAKE_SEC.
+const SHAKE_SEC = 1.6, SHAKE_KICK = 0.22; // kick: speed (m/s) of each jolt
+// Coin shower: SHOWER_COINS free coins tumble out of the mouth across the tongue.
+const SHOWER_COINS = 8;
+let shake = 0, flash = 0, showerLeft = 0, showerTimer = 0, shakeKind='lightning';
+function lightning() {
+ shakeKind='lightning';shake = SHAKE_SEC; flash = 1;
+  sfx.thunder(); catGrowl();
+  say('bolt', true);
+}
+
+function usePawSweep() {
+ if(board.sweeps<=0||sweepTime>0||catquakeTime>0||!['playing','settling'].includes(board.status))return false;
+ board.sweeps--;sweepTime=STEP;
+ sweepBody.setTranslation({x:2,y:.12,z:SWEEP_START*M},true);
+ for(const b of bodies)b.rb.enableCcd(true);
+ holding=false;taps=[];sfx.rumble();return true;
+}
+
+const CATQUAKE_HIT=.73,CATQUAKE_DURATION=3.6;
+function useEarnedQuake(){
+ if(board.earnedQuakes<=0||sweepTime>0||catquakeTime>0||['won','lost'].includes(board.status))return false;
+ board.quakes++;const used=useCatquake();if(used)board.earnedQuakes--;else board.quakes--;return used;
+}
+function useCatquake(){
+ if(board.quakes<=0||sweepTime>0||catquakeTime>0||['won','lost'].includes(board.status))return false;
+ if(board.status==='ready')board.status='playing';
+ board.quakes--;catquakeTime=STEP;catquakeHit=false;sweetUntil=0;holding=false;taps=[];
+ board.quakeStats={before:bodies.reduce((n,b)=>n+(b.kind==='stack'?b.n:['coin','silver'].includes(b.kind)?1:0),0),fallen:0,until:time+5};
+ catGrowl();return true;
+}
+function stepCatquake(){
+ if(catquakeTime<=0)return;
+ catquakeTime+=STEP;
+ if(!catquakeHit&&catquakeTime>=CATQUAKE_HIT){
+  catquakeHit=true;shakeKind='catquake';shake=1.15;flash=.12;sfx.rumble();
+  for(const b of bodies){const p=b.rb.translation(),f=Math.max(0,Math.min(1,(p.z/M-T.BACK)/(T.FRONT-T.BACK))),m=b.rb.mass();
+   const targetScale=b.boardTarget?.5:1;
+   b.rb.applyImpulse({x:rand(-.06,.06)*m,y:(.32+f*.16)*m,z:(.3+6*f*f)*m*targetScale},true);
+  }
+  try{navigator.vibrate&&navigator.vibrate([55,30,90]);}catch(e){}
+ }
+ if(catquakeTime>=CATQUAKE_DURATION){catquakeTime=0;sweetUntil=Infinity;}
+}
+function powerFace(){return catquakeTime>0?(catquakeTime>1.25?'sweet':'wild'):time<happyUntil?'happy':board.status==='won'||sweepTime>0||time<sweetUntil||pawDance?'sweet':'normal';}
+
+function previewPawSweep() {
+ if(board.status!=='ready')return false;
+ board.status='playing';board.sweeps=1;
+ return usePawSweep();
+}
+
+function stepPawSweep() {
+ if(sweepTime<=0)return;
+ const p=Math.max(0,Math.min(1,(sweepTime-.2)/1.5));
+ sweepCollider.setEnabled(sweepTime>=.2&&sweepTime<=1.7);
+ const front=SWEEP_START+(SWEEP_END-SWEEP_START)*p;
+ sweepBody.setNextKinematicTranslation({x:2,y:.12,z:front*M});
+ if(sweepTime>=.2&&sweepTime<=1.7)for(const b of bodies){
+  const position=b.rb.translation(),velocity=b.rb.linvel();
+  // Reward assistance catches coins that hop over the moving paw contact.
+  // They still travel and fall through physics; nothing is teleported or removed.
+  if(position.z/M<front+8&&position.z/M<T.FRONT+b.r&&position.y>-.3)
+    b.rb.applyImpulse({x:0,y:0,z:b.rb.mass()*Math.max(0,3.6-velocity.z)},true);
+ }
+ sweepTime+=STEP;
+ if(sweepTime>=SWEEP_DURATION){sweepTime=0;sweetUntil=Infinity;sweepCollider.setEnabled(false);for(const b of bodies)b.rb.enableCcd(false);}
+}
+
+let pushCoinSoundPlayed=false;
+function step() {
+  time += STEP;
+ const finishingSweep=sweepTime>0||catquakeTime>0||shake>0;
+  stepPawSweep();
+ stepCatquake();
+  // Once play ends, finish any earned sweep but stop further board movement and scoring.
+  if((board.status==='won'||board.status==='lost')&&!finishingSweep){stepDanceShake();return;}
+  // Solid physical tray travels continuously. Input controls damping, never contact.
+  const requested = time - lastDrop < ACTIVE_SEC || shake > 0 || showerLeft > 0;
+  pushPhase = (pushPhase + STEP) % PUSH_PERIOD;
+  const phase = pushPhase / PUSH_PERIOD;
+  if(phase<.08||phase>=.53)pushCoinSoundPlayed=false;
+  if(requested&&phase>=.08&&phase<.08+STEP/PUSH_PERIOD)recordedSfx.play('push');
+  pushLoaded=false;pushPending=false;
+  // Constant-speed straight travel and a short dwell at each end: a mechanical slide.
+  const stroke = phase < 0.08 ? 0 : phase < 0.53 ? (phase - 0.08) / 0.45
+    : phase < 0.61 ? 1 : 1 - (phase - 0.61) / 0.39;
+  pusherY = PUSH_MIN + (PUSH_MAX - PUSH_MIN) * stroke;
+  tongueDrawY = pusherY;
+  const active = requested;
+  const wantTilt = active ? 1 : 0;
+  if (Math.abs(wantTilt - tiltNow) > 0.001) {
+    tiltNow += (wantTilt - tiltNow) * (wantTilt ? 0.1 : 0.15);
+    if (Math.abs(wantTilt - tiltNow) < 0.01) tiltNow = wantTilt;
+    const t = TILT_DEG * tiltNow * Math.PI / 180;
+    world.gravity = { x: 0, y: -GRAVITY * Math.cos(t), z: GRAVITY * Math.sin(t) };
+  }
+  // calm for a moment: coins that are only jittering in their piles are put to sleep (still, and free to simulate)
+  if (calm && time - lastDrop > ACTIVE_SEC + 1.5 && Math.round(time / STEP) % 30 === 0)
+    for (const b of bodies) if (!b.rb.isSleeping()) { const v = b.rb.linvel(); if (Math.abs(v.x) + Math.abs(v.z) < 0.05 && Math.abs(v.y) < 0.2) b.rb.sleep(); }
+  if (active === calm) { // just started or stopped playing
+    calm = !active;
+    for (const b of bodies) {
+      b.rb.setLinearDamping(calm ? IDLE_DAMP : b.kind === 'stack' ? 0.15 : COIN_DAMP);
+      b.rb.setAngularDamping(calm ? IDLE_DAMP : COIN_SPIN_DAMP);
+    }
+  }
+  if (S.guard > 0) S.guard = Math.max(0, S.guard - STEP);
+  tongue.setNextKinematicTranslation({ x: 200 * M, y: TONGUE_H / 2 * M, z: (pusherY - TONGUE_LEN / 2) * M });
+  if (shake > 0) { // lightning: the table jolts every few steps, rattling everything toward the front edge
+    shake = Math.max(0, shake - STEP);
+    if (Math.round(time / STEP) % 4 === 0) {
+      for (const b of bodies) {
+ const m = b.rb.mass(), a = (shakeKind==='catquake'?.022:SHAKE_KICK) * (0.4 + shake / SHAKE_SEC);
+        b.rb.applyImpulse({ x: rand(-a, a) * m, y: rand(0, a * 0.7) * m, z: (rand(-a, a) + a * 0.8) * m }, true);
+      }
+    }
+  }
+  const t0 = performance.now();
+  world.step();
+  if(!pushCoinSoundPlayed&&phase>=.08&&phase<.53&&bodies.some(b=>{
+    const t=b.rb.translation(),v=b.rb.linvel();
+    return !b.boardTarget&&t.y<.3&&Math.abs(t.z/M-pusherY)<=b.r+8&&v.z>.015;
+  })){
+    pushCoinSoundPlayed=true;
+    if(!recordedSfx.play('pushCoins'))sfx.clink(.45);
+  }
+  perf.step += (performance.now() - t0 - perf.step) * 0.05;
+  const toBreak = [];
+  for (let i = bodies.length - 1; i >= 0; i--) {
+    const b = bodies[i];
+    if (b.rb.isSleeping()) { b.vy = 0; continue; }
+    const t = b.rb.translation();
+    if (b.kind === 'stack') { // a tower that's tipping (or going over the edge) falls apart into its coins
+      if (qrot(b.rb.rotation(), { x: 0, y: 1, z: 0 }).y < (BOARD.id==='tuna-terraces'?Math.cos(48*Math.PI/180):TOWER_BREAK_TILT) || t.y < 0) { toBreak.push(b); continue; }
+      const dx = t.x - b.lx, dz = t.z - b.lz, d = Math.hypot(dx, dz) / M;
+      b.lx = t.x; b.lz = t.z; b.moved += d;
+      if (!b.tipping && b.moved > b.limit && d > 0.02) {
+        // shoved far enough: a push at the top of the tower, the way it's moving, tips it over its base edge
+        b.tipping = true;
+        const ux = dx / (d * M), uz = dz / (d * M), top = qrot(b.rb.rotation(), { x: 0, y: b.half * M, z: 0 });
+        const k = b.rb.mass() * TOWER_TIP_PUSH * (BOARD.id==='tuna-terraces'?2:1);
+        b.rb.applyImpulseAtPoint({ x: ux * k, y: 0, z: uz * k }, { x: t.x + top.x, y: t.y + top.y, z: t.z + top.z }, true);
+      }
+      continue;
+    }
+    if (t.y < -0.3) { fallOff(b, t.x / M); continue; }          // over the edge and below the table
+    if (t.y > Math.max(5,(b.deliveryStartHeight??0)*M+.1) || t.x < -1 || t.x > 5) { removeCoin(b); continue; } // knocked clean out (shouldn't happen)
+    // a coin that was falling and has just stopped: it hit something, so it sounds (harder hit, louder)
+    const vy = b.rb.linvel().y;
+    if (b.vy < -0.9 && vy > -0.25) {
+      if (b.fresh) {
+        b.fresh = false;
+        if(b.input){b.rb.setGravityScale(1,true);b.rb.enableCcd(false);} // Once landed, match the existing pile physics.
+        const s = screenOf(t.x / M, t.z / M, t.y / M);
+        rings.push({ x: s.x, y: s.y, s: s.s, t: 0 });
+        sfx.land();
+        if (b.kind === 'bolt') lightning();
+        if (b.kind === 'shower') { showerLeft += SHOWER_COINS; say('shower'); }
+      } else sfx.clink(Math.min(1, -b.vy / 3.5));
+    }
+    b.vy = vy;
+  }
+  for (const b of toBreak) breakStack(b);
+}
+
+function update(dt) {
+ tickPawDance();tickTickle();
+ if(itemToasts.length){itemToasts[0].t+=dt;if(itemToasts[0].t>1.1)itemToasts.shift();}
+  pupilAim+=((aim.lookX??aim.x)-pupilAim)*Math.min(1,dt*12);
+  boardTick(dt);
+  regen();
+  guardAnim += ((S.guard > 0 ? 1 : 0) - guardAnim) * Math.min(1, dt * 5);
+  flash = Math.max(0, flash - dt * 3);
+  calloutTick(dt); moodTick(dt); musicTick();
+  while (toyQueue.length && toyQueue[0].at <= time) dropToy(toyQueue.shift().id);
+  // a coin shower drops its free coins one after another across the tongue
+  showerTimer -= dt;
+  if (showerLeft > 0 && showerTimer <= 0) {
+    showerLeft--; showerTimer = 0.09;
+    const b = addCoin(Math.random() < 0.25 ? 'silver' : 'coin', null, rand(200 - PUSH_HALF + 30, 200 + PUSH_HALF - 30), DROP_H, DROP_Y + rand(-3, 10),
+      randomTurn(rand(0.03, 0.15)), { x: 0, y: -3, z: 0 }, { x: rand(-1, 1), y: rand(-3, 3), z: rand(-1, 1) });
+    b.fresh = true;
+  }
+  // Normal input releases once on pointerdown; holding only updates the eyes/aim.
+  if (holding) aim = holdPos;
+  aimShow = holding ? 1 : Math.max(0, aimShow - dt * 1.5);
+  for (let i = falling.length - 1; i >= 0; i--) {
+    const f = falling[i]; f.t += dt; f.vy += 1400 * dt; f.y += f.vy * dt; f.x += f.vx * dt;
+    if (f.t > 0.55) falling.splice(i, 1); // dropped out of sight below the table
+  }
+  for (let i = rings.length - 1; i >= 0; i--) { rings[i].t += dt / 0.45; if (rings[i].t >= 1) rings.splice(i, 1); }
+  for (let i = floats.length - 1; i >= 0; i--) { floats[i].t += dt; if (floats[i].t > 1) floats.splice(i, 1); }
+  bannerFlash = Math.max(0, bannerFlash - dt); shakeWobble = Math.max(0, shakeWobble - dt); coinFlash = Math.max(0, coinFlash - dt);
+  meterBump = Math.max(0, meterBump - dt * 4);
+  saveTimer += dt;
+  if (saveTimer > 5) { saveTimer = 0; save(); }
+}
+
+// ---------- goals: the level gauge, timed quests, the daily challenge, shakes ----------
+// Long term: every coin you drop and every coin you win fills the level gauge; each level pays coins (every fifth
+// also a shake). Short term: there's always a timed quest running or about to start; finish it in time for coins
+// and sometimes a shake. Daily: win DAILY.target coins today. Shakes rattle the whole table for a moment, to free
+// toys that have got stuck; you earn them from quests, the daily challenge, finishing sets and every fifth level.
+function xpFor(level) { return 40 + level * 20; }
+function addXP(n) {
+  S.xp += n;
+  while (S.xp >= xpFor(S.level)) {
+    S.xp -= xpFor(S.level); S.level++;
+    const coins = 15 + S.level * 5, shakes = S.level % 5 === 0 ? 1 : 0;
+    S.coins += coins; S.shakes += shakes;
+    callout(`Level ${S.level}!`, { voice: 'level', color: '#4fc3ff' });
+  }
+}
+const QUESTS = [ // the kinds of timed quest: target range, time range (s), coins per unit of target, chance of a shake
+  { kind: 'push', text: n => `Push ${n} coins over the edge`, n: [25, 60], sec: [120, 210], coins: 2, shake: 0.5 },
+  { kind: 'special', text: n => `Get ${n} special coins over`, n: [2, 3], sec: [180, 240], coins: 30, shake: 1 },
+  { kind: 'drop', text: n => `Drop ${n} coins`, n: [30, 50], sec: [60, 90], coins: 1, shake: 0 },
+]; // (toy quests start by themselves when a toy arrives: toyQuest)
+const QUEST_GAP = 12000; // ms between one quest ending and the next starting
+// The daily challenge runs midnight to midnight. Each try is timed: win DAILY.target coins within DAILY.sec. Run out
+// of time and that try is lost; the next try starts with your next coin, as often as you like, until you win (then
+// it's done for the day). Midnight starts a fresh challenge.
+const DAILY = { target: 150, sec: 600, coins: 200, shakes: 3 };
+function newQuest() {
+  const q = QUESTS[(Math.random() * QUESTS.length) | 0];
+  const n = Math.round(rand(q.n[0], q.n[1])), sec = Math.round(rand(q.sec[0], q.sec[1]) / 10) * 10;
+  S.quest = { kind: q.kind, text: q.text(n), n, have: 0, ends: Date.now() + sec * 1000,
+    coins: Math.max(10, Math.round(n * q.coins / 5) * 5), shakes: Math.random() < q.shake ? 1 : 0 };
+}
+function today() { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; }
+function daily() {
+  if (!S.daily || S.daily.date !== today() || !('tries' in S.daily)) S.daily = { date: today(), won: false, tries: 0, have: 0, ends: 0 };
+  return S.daily;
+}
+function dailyRunning() { const d = daily(); return !d.won && d.ends > Date.now(); }
+// your coin starts a try if none is running
+function dailyStart() {
+  const d = daily();
+  if (d.won || d.ends > Date.now()) return;
+  d.tries++; d.have = 0; d.ends = Date.now() + DAILY.sec * 1000;
+  say('dailystart');
+}
+function dailyTick() {
+  const d = daily();
+  if (!d.won && d.ends && Date.now() > d.ends) { // time's up on this try: lost
+    d.ends = 0; bannerFlash = 1.6; say('dailylost', true);
+  }
+}
+function questDone(q) {
+  S.coins += q.coins; S.shakes += q.shakes;
+  callout('Quest complete!', { voice: 'quest', color: '#7dff6a' });
+  // now and then a finished quest also drops a toy in (which starts its own quest)
+  const toy = q.kind !== 'thistoy' && Math.random() < QUEST_TOY_CHANCE;
+  questOver();
+  if (toy) toyQueue.push({ at: time + 2.5, id: null });
+}
+// something happened that counts toward goals: 'drop' (coins dropped), 'push' (coins over the edge),
+// 'special' (special coins over), 'toy' (toys won), 'won' (coins won)
+function progress(kind, n) {
+  const q = S.quest;
+  if (q && q.kind === kind && q.have < q.n) {
+    q.have = Math.min(q.n, q.have + n); meterBump = 1;
+    if (q.have >= q.n) questDone(q);
+  }
+  if (kind === 'won' && dailyRunning()) {
+    const d = daily();
+    d.have = Math.min(DAILY.target, d.have + n);
+    if (d.have >= DAILY.target) {
+      d.won = true; d.ends = 0; S.coins += DAILY.coins; S.shakes += DAILY.shakes;
+      callout('Daily won!', { voice: 'daily', color: '#ff8a3d', dur: 3 });
+    }
+  }
+}
+function questTick() {
+  dailyTick();
+  const q = S.quest;
+  if (q && Date.now() > q.ends) { say('timeup', true); bannerFlash = 1.6; questOver(); }
+  if (!S.quest && Date.now() > (S.questNext || 0)) { newQuest(); say('newquest'); }
+}
+function useShake() { return; // No carried-in boosts in the baseline board.
+
+  if (shake > 0) return;
+  if (!S.shakes) { say('noshakes', true); shakeWobble = 0.6; sfx.empty(); return; }
+  S.shakes--; shake = SHAKE_SEC;
+  sfx.rumble(); catGrowl();
+  try { navigator.vibrate && navigator.vibrate([60, 40, 60, 40, 80]); } catch (e) { }
+}
+
+// ---------- comic-book callouts ----------
+// Big moments (a prize, a finished set, a quest, a level, a jackpot) get a 1960s TV-style starburst with a big
+// word or two (no sentences, no caption card), a big sound, and a voice line. One at a time; the rest wait.
+let callouts = [], meterBump = 0, itemToasts=[];
+function callout(word, o = {}) {
+  callouts.push({ word: word.toUpperCase(), emoji: o.emoji || '', voice: o.voice || null,
+    afterCollections:!!o.afterCollections,
+    color: o.color || '#ffd23f', t: 0, dur: o.dur || 2.2, rot: rand(-0.12, 0.12), x: 200 + rand(-10, 10), started: false, said: false });
+}
+function calloutTick(dt) {
+  const c = callouts[0];
+  if (!c) return;
+ if(c.afterCollections&&(itemToasts.length||sweepTime>0||catquakeTime>0))return;
+  if (!c.started) {
+    if(c.afterCollections){recordedSfx.duck();sfx.kaching();}
+    c.started = true; sfx.bam();
+    try { navigator.vibrate && navigator.vibrate(45); } catch (e) { }
+  }
+  c.t += dt;
+  if (!c.said && c.t > 0.3) { c.said = true; if (c.voice) say(c.voice, true); } // just after the bam
+  if (c.t > c.dur) callouts.shift();
+}
+// split the words into at most three lines, so a long one ("SNACKS SET COMPLETE!") stacks up big
+function calloutLines(word) {
+  const w = word.split(' ');
+  if (w.length <= 1 || word.length <= 10) return [word];
+  if (w.length === 2) return w;
+  const cut = Math.ceil(w.length / 2);
+  return [w.slice(0, cut).join(' '), w.slice(cut).join(' ')];
+}
+function drawCallout() {
+  const c = callouts[0];
+  if (!c) return;
+ if(c.afterCollections&&(itemToasts.length||sweepTime>0||catquakeTime>0))return;
+  const t = c.t, pop = t < 0.16 ? 0.3 + t / 0.16 * 0.95 : t < 0.3 ? 1.25 - (t - 0.16) / 0.14 * 0.25 : 1 + Math.sin(t * 9) * 0.015;
+  ctx.save();
+  ctx.globalAlpha = Math.max(0, Math.min(1, (c.dur - t) * 3));
+  ctx.translate(c.x, Math.max(VIEW.y + 350 * VIEW.zy, VIEW.y + 215 * VIEW.zy + 130)); ctx.rotate(c.rot); ctx.scale(pop, pop);
+  // the starburst: a jagged ring of points, outlined in heavy black
+  const lines = calloutLines(c.word), font = px => `italic 900 ${px}px Impact, "Arial Black", system-ui`;
+  // as big as fits: up to 64px, shrunk so the widest line is at most 290 wide
+  ctx.font = font(64);
+  const widest = Math.max(...lines.map(l => ctx.measureText(l).width)), size = Math.min(64, 64 * 290 / widest);
+  const lh = size * 1.02, th = lh * lines.length;
+  // just the words (no starburst behind them): the goal's colour with a heavy black outline and a white shine
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+  ctx.font = font(size);
+  lines.forEach((l, i) => {
+    const y = -th / 2 + lh * (i + 0.5);
+    ctx.lineWidth = Math.max(7, size / 5); ctx.strokeStyle = '#111'; ctx.strokeText(l, 0, y);
+    ctx.fillStyle = c.color; ctx.fillText(l, 0, y);
+    ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.fillText(l, -2, y - 3);
+  });
+  ctx.restore();
+}
+
+// ---------- the cat's moods ----------
+// The face bobs and sways gently all the time; now and then (and on lightning, shakes and jack-in-the-box) the cat
+// growls and lunges: the face swells toward you, the brows come down and the pupils narrow. Cartoon-scary.
+let lunge = 0, nextGrowl = 25;
+function catGrowl() { sfx.growl(); lunge = 1; duckUntil=performance.now()+1200; }
+function moodTick(dt) {
+  lunge = Math.max(0, lunge - dt * 1.1);
+  if (time > nextGrowl) { if (lunge === 0) catGrowl(); nextGrowl = time + rand(25, 55); }
+}
+function lungeShape() { return lunge > 0 ? Math.sin((1 - lunge) * Math.PI) : 0; } // 0 → 1 → 0 over the lunge
+
+// ---------- drawing ----------
+const cv = document.getElementById('c'); let ctx = cv.getContext('2d');
+let scale = 1;
+const SPR = 3, sprites = {};
+const EDGE = { quake:'#bd8d32', coin: '#b48a35', lucky: '#a02c86', power: '#8a5c00', x5: '#b8932a', x10: '#b8932a', silver: '#b48a35',
+  clover: '#3b7a2a', smiley: '#b8860b', rainbow: '#8a4fd0', bolt: '#2b2a6a', shower: '#1d7a7a', toycoin: '#6a4a9a', joker: '#7a1030',
+  ticket: '#c46a12', cash: '#2f6b3a', cube: '#111' };
+const CUBE_FACES = ['#ffffff', '#ffd500', '#c41e3a', '#ff5800', '#0051ba', '#009e60']; // +y -y +x -x +z -z
+
+function drawPaw(g, x, y, s, col) {
+  g.fillStyle = col;
+  g.beginPath(); g.ellipse(x, y + s * 0.35, s * 0.55, s * 0.45, 0, 0, 7); g.fill();
+  for (const [dx, dy] of [[-0.62, -0.25], [-0.22, -0.62], [0.22, -0.62], [0.62, -0.25]]) {
+    g.beginPath(); g.arc(x + dx * s, y + dy * s, s * 0.2, 0, 7); g.fill();
+  }
+}
+
+function makeSprite(r, draw) {
+  const size = Math.ceil((r * 2 + 4) * SPR), c = r + 2;
+  const sc = document.createElement('canvas'); sc.width = sc.height = size;
+  const g = sc.getContext('2d'); g.scale(SPR, SPR);
+  draw(g, c, r);
+  return { cv: sc, half: c };
+}
+
+// Satin gold shared by the paw coin and ceramic-inlaid Quake coin.
+// Grain is deterministic and baked once into each sprite, never sampled in the draw loop.
+function craftedGoldSprite(r, quake=false) {
+ return makeSprite(r,(g,c)=>{
+  const disc=(rr,fill)=>{g.fillStyle=fill;g.beginPath();g.arc(c,c,rr,0,Math.PI*2);g.fill();};
+  let gr=g.createLinearGradient(c-r,c-r,c+r,c+r);
+  [[0,'#fff0ac'],[.18,'#efc85e'],[.48,'#b47a21'],[.72,'#f7d97e'],[1,'#825319']].forEach(([p,col])=>gr.addColorStop(p,col));disc(r,gr);
+  gr=g.createLinearGradient(c-r,c-r,c+r,c+r);gr.addColorStop(0,'#f8db89');gr.addColorStop(.48,'#dcb351');gr.addColorStop(1,'#c79738');disc(r*.925,gr);
+  g.save();g.beginPath();g.arc(c,c,r*.92,0,7);g.clip();
+  let seed=731;for(let i=0;i<2400;i++){seed=(seed*1664525+1013904223)>>>0;const x=(seed/4294967296*2-1)*r;seed=(seed*1664525+1013904223)>>>0;const y=(seed/4294967296*2-1)*r;g.fillStyle=i%2?'rgba(255,246,199,.13)':'rgba(108,66,14,.09)';g.fillRect(c+x,c+y,.19,.35);}g.restore();
+  g.strokeStyle='#95621c';g.lineWidth=r*.019;g.beginPath();g.arc(c,c,r*.919,0,7);g.stroke();
+  g.strokeStyle='#ffedb1';g.lineWidth=r*.028;g.beginPath();g.arc(c,c,r*.965,Math.PI*.83,Math.PI*1.91);g.stroke();
+  if(quake){
+   g.strokeStyle='#81521d';g.lineWidth=r*.126;g.beginPath();g.arc(c,c,r*.805,0,7);g.stroke();
+   const blue=g.createLinearGradient(c-r,c-r,c+r,c+r);blue.addColorStop(0,'#799ff6');blue.addColorStop(.28,'#2964cc');blue.addColorStop(.65,'#16429e');blue.addColorStop(1,'#5383df');
+   g.strokeStyle=blue;g.lineWidth=r*.09;g.beginPath();g.arc(c,c,r*.805,0,7);g.stroke();
+   g.strokeStyle='#ffe8a3';g.lineWidth=r*.014;for(const rr of [.744,.865]){g.beginPath();g.arc(c,c,r*rr,0,7);g.stroke();}
+   const bolt=()=>{g.beginPath();const pts=[[.11,-.66],[-.39,.09],[-.07,.09],[-.18,.66],[.4,-.15],[.08,-.15],[.25,-.66]];for(const [x,y]of pts)g.lineTo(c+x*r,c+y*r);g.closePath();};
+   bolt();g.lineJoin='round';g.lineWidth=r*.075;g.strokeStyle='#87571a';g.stroke();g.lineWidth=r*.042;g.strokeStyle='#ffdfa0';g.stroke();g.fillStyle=blue;g.fill();
+   g.save();bolt();g.clip();g.strokeStyle='rgba(208,232,255,.75)';g.lineWidth=r*.025;g.beginPath();g.moveTo(c+r*.13,c-r*.61);g.lineTo(c-r*.34,c+r*.045);g.lineTo(c-r*.075,c+r*.045);g.stroke();g.restore();
+  }else{
+   const paw=()=>{g.beginPath();g.moveTo(c-r*.38,c+r*.31);g.bezierCurveTo(c-r*.42,c+r*.12,c-r*.20,c+r*.05,c-r*.13,c-r*.02);g.bezierCurveTo(c-r*.02,c-r*.12,c+r*.13,c-r*.08,c+r*.20,c+r*.05);g.bezierCurveTo(c+r*.25,c+r*.15,c+r*.43,c+r*.23,c+r*.34,c+r*.38);g.bezierCurveTo(c+r*.24,c+r*.52,c+r*.1,c+r*.38,c,c+r*.40);g.bezierCurveTo(c-r*.16,c+r*.44,c-r*.29,c+r*.48,c-r*.38,c+r*.31);g.closePath();for(const [x,y,rx,ry,a]of [[-.42,-.12,.125,.19,-.45],[-.16,-.37,.13,.20,-.15],[.16,-.37,.13,.20,.15],[.42,-.12,.125,.19,.45]]){g.moveTo(c+x*r+rx*r,c+y*r);g.ellipse(c+x*r,c+y*r,rx*r,ry*r,a,0,7);}};
+   g.save();g.translate(r*.025,r*.043);paw();g.fillStyle='rgba(113,66,11,.7)';g.fill();g.restore();
+   gr=g.createLinearGradient(c-r*.4,c-r*.5,c+r*.4,c+r*.5);gr.addColorStop(0,'#fff0b2');gr.addColorStop(.38,'#efca6d');gr.addColorStop(1,'#c08b2e');paw();g.fillStyle=gr;g.fill();g.strokeStyle='#ac7927';g.lineWidth=r*.018;g.stroke();
+  }
+ });
+}
+
+function coinSprite(r, c1, c2, c3, paw) {
+  return makeSprite(r, (g, c) => {
+    const gr = g.createRadialGradient(c - r * 0.4, c - r * 0.4, r * 0.1, c, c, r);
+    gr.addColorStop(0, c1); gr.addColorStop(0.6, c2); gr.addColorStop(1, c3);
+    g.fillStyle = gr; g.beginPath(); g.arc(c, c, r, 0, 7); g.fill();
+    g.strokeStyle = c3; g.lineWidth = 1.2; g.beginPath(); g.arc(c, c, r * 0.74, 0, 7); g.stroke();
+    if (paw) drawPaw(g, c, c, r * 0.42, paw);
+  });
+}
+
+// A bonus chip: coloured face, a scalloped gold edge with white inlays like a casino chip, and its value in the middle.
+function chipSprite(r, light, dark, label) {
+  return makeSprite(r, (g, c) => {
+    g.fillStyle = '#f3d36a'; // scalloped gold edge
+    g.beginPath();
+    for (let i = 0; i <= 48; i++) {
+      const a = i / 48 * Math.PI * 2, rr = i % 2 ? r : r * 0.93;
+      g.lineTo(c + Math.cos(a) * rr, c + Math.sin(a) * rr);
+    }
+    g.fill();
+    const gr = g.createRadialGradient(c - r * 0.35, c - r * 0.35, r * 0.1, c, c, r * 0.9);
+    gr.addColorStop(0, light); gr.addColorStop(1, dark);
+    g.fillStyle = gr; g.beginPath(); g.arc(c, c, r * 0.86, 0, 7); g.fill();
+    g.fillStyle = 'rgba(255,255,255,.92)'; // white inlays around the rim
+    for (let i = 0; i < 8; i++) {
+      const a = i / 8 * Math.PI * 2;
+      g.save(); g.translate(c + Math.cos(a) * r * 0.76, c + Math.sin(a) * r * 0.76); g.rotate(a);
+      g.fillRect(-r * 0.07, -r * 0.13, r * 0.14, r * 0.26); g.restore();
+    }
+    g.strokeStyle = '#f3d36a'; g.lineWidth = r * 0.05;
+    g.beginPath(); g.arc(c, c, r * 0.6, 0, 7); g.stroke();
+    g.font = `900 ${Math.round(r * (label.length > 2 ? 0.52 : 0.62))}px system-ui,sans-serif`;
+    g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.lineWidth = r * 0.08; g.strokeStyle = 'rgba(30,10,20,.8)'; g.strokeText(label, c, c + r * 0.03);
+    g.fillStyle = '#fff'; g.fillText(label, c, c + r * 0.03);
+  });
+}
+
+// A coin face with a picture on it instead of the paw print.
+function symbolCoin(r, c1, c2, c3, symbol) {
+  return makeSprite(r, (g, c) => {
+    const gr = g.createRadialGradient(c - r * 0.4, c - r * 0.4, r * 0.1, c, c, r);
+    gr.addColorStop(0, c1); gr.addColorStop(0.6, c2); gr.addColorStop(1, c3);
+    g.fillStyle = gr; g.beginPath(); g.arc(c, c, r, 0, 7); g.fill();
+    g.strokeStyle = c3; g.lineWidth = 1.2; g.beginPath(); g.arc(c, c, r * 0.8, 0, 7); g.stroke();
+    symbol(g, c, r);
+  });
+}
+const SYMBOL = {
+  clover(g, c, r) { // four heart-shaped leaves and a stem
+    g.strokeStyle = '#1f5a17'; g.lineWidth = r * 0.07; g.lineCap = 'round';
+    g.beginPath(); g.moveTo(c, c); g.quadraticCurveTo(c + r * 0.15, c + r * 0.35, c + r * 0.3, c + r * 0.5); g.stroke();
+    g.fillStyle = '#2f8f22';
+    for (let k = 0; k < 4; k++) {
+      const a = k * Math.PI / 2 + Math.PI / 4, px = -Math.sin(a), py = Math.cos(a);
+      for (const s of [-1, 1]) {
+        g.beginPath();
+        g.arc(c + Math.cos(a) * r * 0.27 + px * s * r * 0.1, c + Math.sin(a) * r * 0.27 + py * s * r * 0.1, r * 0.16, 0, 7);
+        g.fill();
+      }
+    }
+  },
+  smiley(g, c, r) {
+    g.fillStyle = '#3a2a00';
+    for (const s of [-1, 1]) { g.beginPath(); g.ellipse(c + s * r * 0.24, c - r * 0.15, r * 0.08, r * 0.13, 0, 0, 7); g.fill(); }
+    g.strokeStyle = '#3a2a00'; g.lineWidth = r * 0.08; g.lineCap = 'round';
+    g.beginPath(); g.arc(c, c + r * 0.02, r * 0.4, 0.2 * Math.PI, 0.8 * Math.PI); g.stroke();
+  },
+  rainbow(g, c, r) { // rainbow rings with a sparkle in the middle
+    const cols = ['#ff4d4d', '#ff9a3d', '#ffe14d', '#4dd96b', '#4db3ff', '#9a6bff'];
+    cols.forEach((col, i) => { g.strokeStyle = col; g.lineWidth = r * 0.09; g.beginPath(); g.arc(c, c, r * (0.74 - i * 0.1), 0, 7); g.stroke(); });
+    g.fillStyle = '#fff';
+    g.beginPath();
+    for (let i = 0; i < 8; i++) { const a = i * Math.PI / 4, rr = i % 2 ? r * 0.08 : r * 0.2; g.lineTo(c + Math.cos(a) * rr, c + Math.sin(a) * rr); }
+    g.fill();
+  },
+  bolt(g, c, r) {
+    g.fillStyle = '#ffe14d'; g.strokeStyle = '#7a4a00'; g.lineWidth = r * 0.04;
+    const p = [[0.12, -0.62], [-0.3, 0.06], [-0.02, 0.06], [-0.16, 0.62], [0.32, -0.12], [0.03, -0.12], [0.2, -0.62]];
+    g.beginPath(); for (const [x, y] of p) g.lineTo(c + x * r, c + y * r); g.closePath(); g.fill(); g.stroke();
+  },
+  shower(g, c, r) {
+    g.font = `900 ${Math.round(r * 0.6)}px system-ui,sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.lineWidth = r * 0.08; g.strokeStyle = 'rgba(0,40,40,.7)'; g.strokeText('+' + SHOWER_COINS, c, c + r * 0.04);
+    g.fillStyle = '#fff'; g.fillText('+' + SHOWER_COINS, c, c + r * 0.04);
+  },
+};
+// Pictures for the top faces of flat things and cube faces, drawn over a unit square (-1..1) later.
+function faceSprite(w, h, draw) {
+  const sc = document.createElement('canvas'); sc.width = Math.ceil(w * SPR); sc.height = Math.ceil(h * SPR);
+  const g = sc.getContext('2d'); g.scale(SPR, SPR); draw(g, w, h);
+  return { cv: sc };
+}
+function boxSprite(kind, face) {
+  const key = kind + ':' + (face || '');
+  if (sprites[key]) return sprites[key];
+  const B = BOX[kind];
+  if (kind === 'ticket') sprites[key] = faceSprite(B.hx * 2, B.hz * 2, (g, w, h) => {
+    g.fillStyle = '#ff9a3d'; g.fillRect(0, 0, w, h);
+    g.fillStyle = '#c45a10'; for (const x of [0, w]) { g.beginPath(); g.arc(x, h / 2, h * 0.2, 0, 7); g.fill(); }
+    g.strokeStyle = '#a8460a'; g.lineWidth = 0.8; g.setLineDash([2, 1.5]); g.strokeRect(2, 2, w - 4, h - 4); g.setLineDash([]);
+    g.fillStyle = '#7a2a00'; g.font = `900 ${h * 0.42}px system-ui,sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText('TICKET', w / 2, h / 2 + 0.5);
+  });
+  else if (kind === 'cash') sprites[key] = faceSprite(B.hx * 2, B.hz * 2, (g, w, h) => {
+    g.fillStyle = '#bfe3b0'; g.fillRect(0, 0, w, h);
+    g.strokeStyle = '#2f6b3a'; g.lineWidth = 1.4; g.strokeRect(1.5, 1.5, w - 3, h - 3);
+    g.fillStyle = '#8fc98a'; g.beginPath(); g.ellipse(w / 2, h / 2, w * 0.17, h * 0.36, 0, 0, 7); g.fill();
+    g.fillStyle = '#1f4f2a'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.font = `900 ${h * 0.55}px system-ui,sans-serif`; g.fillText('$', w / 2, h / 2 + 0.5);
+    g.font = `800 ${h * 0.26}px system-ui,sans-serif`; g.fillText(VALUE.cash, w * 0.12, h * 0.25); g.fillText(VALUE.cash, w * 0.88, h * 0.75);
+  });
+  else sprites[key] = faceSprite(24, 24, (g, w) => { // a Rubik's cube face: 3x3 stickers on black
+    g.fillStyle = '#111'; g.fillRect(0, 0, w, w);
+    g.fillStyle = face;
+    for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) {
+      g.beginPath(); g.roundRect ? g.roundRect(1 + i * 7.5, 1 + j * 7.5, 6.5, 6.5, 1.2) : g.rect(1 + i * 7.5, 1 + j * 7.5, 6.5, 6.5); g.fill();
+    }
+  });
+  return sprites[key];
+}
+
+// a coin face with an emoji in the middle (toy coins, the jack-in-the-box coin)
+function emojiCoin(r, c1, c2, c3, emoji) {
+  return symbolCoin(r, c1, c2, c3, (g, c, rr) => {
+    g.font = `${Math.round(rr * 1.05)}px system-ui,"Segoe UI Emoji","Noto Color Emoji"`;
+    g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#000';
+    g.fillText(emoji, c, c + rr * 0.06);
+  });
+}
+// a little Rubik's cube on a toy coin
+function cubeSymbol(g, c, r) {
+  const s = r * 0.24, cols = ['#c41e3a', '#ffd500', '#0051ba', '#009e60', '#ff5800', '#ffffff', '#ffd500', '#c41e3a', '#0051ba'];
+  g.fillStyle = '#111'; g.fillRect(c - s * 1.6, c - s * 1.6, s * 3.2, s * 3.2);
+  cols.forEach((col, i) => { g.fillStyle = col; g.fillRect(c - s * 1.5 + (i % 3) * s * 1.02, c - s * 1.5 + ((i / 3) | 0) * s * 1.02, s * 0.9, s * 0.9); });
+}
+
+function sprite(kind, id) {
+  const key = id ? kind + ':' + id : kind;
+  if (sprites[key]) return sprites[key];
+  if (kind === 'toycoin') {
+    const lav = ['#f4ecff', '#c9b0f0', '#6a4a9a'];
+    sprites[key] = id === 'cube' ? symbolCoin(COIN_R, ...lav, cubeSymbol)
+      : emojiCoin(COIN_R, ...lav, ITEMS[id] ? ITEMS[id].emoji : id === 'ticket' ? '🎟' : '💵');
+    return sprites[key];
+  }
+  if (kind === 'joker') { sprites[key] = emojiCoin(COIN_R, '#ffe0e8', '#e8456a', '#7a1030', '🤡'); return sprites[key]; }
+  if(kind==='coin')return sprites[kind]=craftedGoldSprite(COIN_R);
+  if (kind === 'silver') sprites[kind] = coinSprite(COIN_R, '#ffffff', '#c9cdd8', '#6e7480', 'rgba(70,75,90,.5)');
+  else if (kind === 'clover') sprites[kind] = symbolCoin(COIN_R, '#f4ffe8', '#bfe8a0', '#4f8a3a', SYMBOL.clover);
+  else if (kind === 'smiley') sprites[kind] = symbolCoin(COIN_R, '#fffbd0', '#ffd93a', '#b8860b', SYMBOL.smiley);
+  else if (kind === 'rainbow') sprites[kind] = symbolCoin(COIN_R, '#ffffff', '#f0e8ff', '#8a4fd0', SYMBOL.rainbow);
+  else if(kind==='quake')sprites[kind]=craftedGoldSprite(radius('quake'),true);
+  else if (kind === 'bolt') sprites[kind] = symbolCoin(COIN_R, '#8a8cff', '#3b3aa8', '#1d1c5a', SYMBOL.bolt);
+  else if (kind === 'shower') sprites[kind] = symbolCoin(COIN_R, '#c8fff4', '#3cc8b4', '#1d7a7a', SYMBOL.shower);
+  else if (kind === 'x5') sprites[kind] = chipSprite(BONUS.x5.r, '#5ec8ff', '#0b4f8a', '5x');
+  else if (kind === 'x10') sprites[kind] = chipSprite(BONUS.x10.r, '#ff6a7a', '#8a0a22', '10x');
+  else if (kind === 'lucky') sprites[kind] = coinSprite(LUCKY_R, '#ffe0f4', '#e86ac0', '#8a2a78', 'rgba(255,255,255,.85)');
+  else if (kind === 'power') sprites[kind] = coinSprite(ITEM_R, '#fffbe0', '#ffcf30', '#b07a00', 'rgba(60,40,0,.85)');
+  else sprites[kind] = coinSprite(COIN_R, '#fff4b0', '#f2c230', '#a8740c', 'rgba(150,100,10,.55)');
+  return sprites[kind];
+}
+
+// A coin as Rapier has it: its face is the disc in the coin's own plane (axes u, w), projected into the slanted
+// view; the rim is the back face, offset by the coin's thickness, in the edge colour. We look at whichever face is
+// turned toward the viewer.
+// CP-21: a thick coin's side between heights h0 and h1 above its centre: the hull of the two discs, shaded from col0 at its
+// lowest point on screen to col1 toward the top.
+function __coinSide(c,pn,pu,pw,det,r,h0,h1,col0,col1){
+ const D=h1-h0,A=r*Math.hypot(pu.y,pw.y),inv=(X,Y)=>({x:(pw.y*X-pw.x*Y)/det,y:(pu.x*Y-pu.y*X)/det});
+ const d=inv(pn.x*D,pn.y*D),l=Math.hypot(d.x,d.y)||1e-6,nx=-d.y/l*r,ny=d.x/l*r,g0=inv(0,A),t=Math.min(.9,Math.abs(pn.y)*D/(A+Math.abs(pn.y)*D)+.05);
+ ctx.save();ctx.translate(c.x+pn.x*h0,c.y+pn.y*h0);ctx.transform(pu.x,pu.y,pw.x,pw.y,0,0);
+ const g=ctx.createLinearGradient(g0.x,g0.y,d.x,d.y);g.addColorStop(0,col0);g.addColorStop(t,col1);g.addColorStop(1,col1);ctx.fillStyle=g;
+ ctx.beginPath();ctx.arc(0,0,r,0,7);ctx.fill();ctx.beginPath();ctx.moveTo(nx,ny);ctx.lineTo(nx+d.x,ny+d.y);ctx.lineTo(d.x-nx,d.y-ny);ctx.lineTo(-nx,-ny);ctx.closePath();ctx.fill();
+ ctx.beginPath();ctx.arc(d.x,d.y,r,0,7);ctx.fill();ctx.restore();}
+function drawCoinAt(kind, c, q, id) {
+  let n = qrot(q, { x: 0, y: 1, z: 0 }), u = qrot(q, { x: 1, y: 0, z: 0 }), w = qrot(q, { x: 0, y: 0, z: 1 });
+  if (n.y * LIFT + n.z * SQUASH < 0) { n = { x: -n.x, y: -n.y, z: -n.z }; w = { x: -w.x, y: -w.y, z: -w.z }; }
+  const r = radius(kind), half = halfOf(kind), pn = projVec(n, c.s, c), pu = projVec(u, c.s, c), pw = projVec(w, c.s, c);
+  ctx.fillStyle = EDGE[kind];
+  // CP-21: gold and silver coins are drawn COIN_LOOK times thicker; their bottom stays on what they rest on.
+  const look=kind==='coin'||kind==='silver'?COIN_LOOK:kind==='quake'?QUAKE_THICK/(2*half):1,face=-half+2*half*look,layers=look===1?1:Math.ceil(face/1.5);
+  const det=pu.x*pw.y-pw.x*pu.y;
+  if(look!==1&&Math.abs(det)>1e-6){ // CP-21: the side as smoothly shaded shapes; the Quake coin keeps a blue ceramic band
+    if(kind==='quake'){const D=face+half,g0=__rimColour('coin',0),g1=__rimColour('coin',1);
+     __coinSide(c,pn,pu,pw,det,r,-half,face,g0,g1);__coinSide(c,pn,pu,pw,det,r,-half+.3*D,-half+.62*D,QUAKE_BLUE[0],QUAKE_BLUE[1]);__coinSide(c,pn,pu,pw,det,r,-half+.62*D,face,__rimColour('coin',.55),g1);}
+    else __coinSide(c,pn,pu,pw,det,r,-half,face,__rimColour(kind,0),__rimColour(kind,1));
+  }
+  else for (let i = 0; i <= layers; i++) { const k=(-half+i*face/layers)/half; // darker lower lip separates the satin-gold stack layers
+    if(kind==='coin'||kind==='silver')ctx.fillStyle=look===1?(i===0?'#80551d':'#b98d39'):__rimColour(kind,i/layers);
+    ctx.save(); ctx.translate(c.x + pn.x * half * k, c.y + pn.y * half * k); ctx.transform(pu.x, pu.y, pw.x, pw.y, 0, 0);
+    ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill(); ctx.restore();
+  }
+  if(kind==='quake'&&look===1){
+    if(kind==='quake')for(const k of [-.48,-.12,.28]){ctx.save();ctx.translate(c.x+pn.x*half*k,c.y+pn.y*half*k);ctx.transform(pu.x,pu.y,pw.x,pw.y,0,0);ctx.fillStyle=k===.28?'#d9af51':'#2358b4';ctx.beginPath();ctx.arc(0,0,r,0,7);ctx.fill();ctx.restore();}
+    // Fine gold milling on the visible front half of the physical edge.
+    ctx.strokeStyle='rgba(99,64,18,.55)';ctx.lineWidth=Math.max(.3,c.s*.42);ctx.beginPath();
+    for(let j=0;j<16;j++){const a=j*Math.PI*2/16,ox=(pu.x*Math.cos(a)+pw.x*Math.sin(a))*r,oy=(pu.y*Math.cos(a)+pw.y*Math.sin(a))*r;if(oy<0)continue;ctx.moveTo(c.x+ox-pn.x*half,c.y+oy-pn.y*half);ctx.lineTo(c.x+ox+pn.x*half,c.y+oy+pn.y*half);}
+    ctx.stroke();
+  }
+  const sp = sprite(kind, id);
+  ctx.save(); ctx.translate(c.x + pn.x * face, c.y + pn.y * face); ctx.transform(pu.x, pu.y, pw.x, pw.y, 0, 0);
+  ctx.drawImage(sp.cv, -sp.half, -sp.half, sp.half * 2, sp.half * 2); ctx.restore();
+}
+
+// A prize standing up on whatever it's resting on (the golden paw is a gold medallion on its edge).
+function drawPrize(kind,id,x,y,s) {
+ if(id==='tuna'){const w=radius('item')*s*3.8,h=w*ART.tuna.height/ART.tuna.width;ctx.drawImage(ART.tuna,x-w/2,y-h*.8,w,h);return;}
+ const side=id==='shrimp'?1:0,w=ART.snacks.width/2;
+ const size=radius('item')*s*2.8;
+ ctx.drawImage(ART.snacks,side*w,0,w,ART.snacks.height,x-size/2,y-size*.7,size,size);
+}
+
+// CP-21: drawn height of a body resting on coins: its height above the table (or the pusher top) times COIN_LOOK.
+function __lift(b,y,h){const half=b.half??halfOf(b.kind),onPusher=y<=tongueDrawY+2&&h-half>=TONGUE_H-2,base=onPusher?TONGUE_H:0;
+ return h+Math.max(0,h-half-base)*(COIN_LOOK-1);}
+function drawBody(b) {
+  if(b.input&&b.fresh)return; // Airborne input coins are drawn in front of the mouth below.
+  const t = b.rb.translation(), x = t.x / M, h = t.y / M, y = t.z / M;
+  if (b.kind === 'stack') { // a tower: its coins bottom to top, following the column's lean
+    const q = b.rb.rotation();
+    // Reuse upright Board 3 stack art while its projection and orientation stay visually equal.
+    // Leaning stacks redraw every coin; this never changes the physics.
+    if(BOARD.id==='tuna-terraces'&&qrot(q,{x:0,y:1,z:0}).y>.999){
+      const c=screenOf(x,y,h),density=Math.max(1,Math.min(3,scale*devicePixelRatio*VIEW.z*Math.max(1,VIEW.zy))),key=density+':'+[q.x,q.y,q.z,q.w,c.s].map(v=>Math.round(v*100)).join(',');
+      if(!b.stillArt||b.stillKey!==key){
+        b.stillKey=key;
+        const cv=document.createElement('canvas');cv.width=Math.ceil(160*density);cv.height=Math.ceil(320*density);
+        const main=ctx;ctx=cv.getContext('2d');ctx.scale(density,density);ctx.imageSmoothingQuality='high';ctx.translate(80,240);
+        try{for(const part of stackParts(b)){const o=qrot(q,part.p),p=screenOf(x+o.x,y+o.z,h+o.y);drawCoinAt(part.kind,{...p,x:p.x-c.x,y:p.y-c.y},qmul(q,part.q));}}
+        finally{ctx=main;}
+        b.stillArt=cv;
+      }
+      ctx.drawImage(b.stillArt,c.x-80,c.y-240,160,320);return;
+    }
+    b.stillArt=null;
+    for (const part of stackParts(b)) {
+      const o = qrot(q, part.p);
+      drawCoinAt(part.kind, screenOf(x + o.x, y + o.z, h + o.y), qmul(q, part.q));
+    }
+  } else if (b.kind === 'item' || b.kind === 'power') {
+    const c = screenOf(x, y, __lift(b, y, h) - b.half);
+    drawPrize(b.kind, b.id, c.x, c.y, c.s);
+  } else if (BOX[b.kind]) drawBoxAt(b.kind, x, y, h, b.rb.rotation());
+  else drawCoinAt(b.kind, screenOf(x, y, __lift(b, y, h)), b.rb.rotation(), b.id);
+}
+
+// A ticket strip, bill or Rubik's cube as Rapier has it: each face turned toward the viewer, back faces first,
+// drawn by mapping its picture (or edge colour) onto the face's parallelogram on screen.
+function drawBoxAt(kind, x, y, h, q) {
+  const B = BOX[kind], neg = v => ({ x: -v.x, y: -v.y, z: -v.z });
+  const ex = qrot(q, { x: 1, y: 0, z: 0 }), ey = qrot(q, { x: 0, y: 1, z: 0 }), ez = qrot(q, { x: 0, y: 0, z: 1 });
+  const faces = [ // [normal, its half size, edge 1, half size, edge 2, half size, face number]
+    [ey, B.hy, ex, B.hx, ez, B.hz, 0], [neg(ey), B.hy, ex, B.hx, ez, B.hz, 1],
+    [ex, B.hx, ez, B.hz, ey, B.hy, 2], [neg(ex), B.hx, ez, B.hz, ey, B.hy, 3],
+    [ez, B.hz, ex, B.hx, ey, B.hy, 4], [neg(ez), B.hz, ex, B.hx, ey, B.hy, 5],
+  ];
+  const shown = faces.filter(f => f[0].y * LIFT + f[0].z * SQUASH > 0)
+    .map(f => ({ f, d: f[0].z * f[1] + f[0].y * f[1] * 1.3 })).sort((a, b) => a.d - b.d);
+  for (const { f: [n, dn, t1, e1, t2, e2, i] } of shown) {
+    const c = screenOf(x + n.x * dn, y + n.z * dn, h + n.y * dn), p1 = projVec(t1, c.s), p2 = projVec(t2, c.s);
+    ctx.save(); ctx.translate(c.x, c.y); ctx.transform(p1.x * e1, p1.y * e1, p2.x * e2, p2.y * e2, 0, 0);
+    if (kind === 'cube') ctx.drawImage(boxSprite('cube', CUBE_FACES[i]).cv, -1, -1, 2, 2);
+    else if (i <= 1) ctx.drawImage(boxSprite(kind).cv, -1, -1, 2, 2);
+    else { ctx.fillStyle = EDGE[kind]; ctx.fillRect(-1, -1, 2, 2); }
+    ctx.restore();
+  }
+}
+
+// a coin falling into the bucket (or past it): flat, sinking and fading
+function drawFalling(f) {
+  if (f.kind === 'item' || f.kind === 'power') { drawPrize(f.kind, f.id, f.x, f.y, f.s); return; }
+  const sq = Math.max(0.25, SQUASH - f.t * 1.2);
+  if (BOX[f.kind]) {
+    const B = BOX[f.kind], w = B.hx * 2 * f.s, h = (f.kind === 'cube' ? B.hy : B.hz) * 2 * f.s * (f.kind === 'cube' ? 1 : sq);
+    ctx.drawImage(boxSprite(f.kind, f.kind === 'cube' ? CUBE_FACES[4] : '').cv, f.x - w / 2, f.y - h / 2, w, h);
+    return;
+  }
+  const sp = sprite(f.kind, f.id), r = radius(f.kind) * f.s;
+  ctx.fillStyle = EDGE[f.kind]; ctx.beginPath(); ctx.ellipse(f.x, f.y + 2 * f.s, r, r * sq, 0, 0, 7); ctx.fill();
+  const w = sp.cv.width / SPR * f.s;
+  ctx.drawImage(sp.cv, f.x - sp.half * f.s, f.y - sp.half * f.s * sq, w, w * sq);
+}
+
+function blitFlat(kind, x, y, s = 0.75) {
+  const sp = sprite(kind), w = sp.cv.width / SPR * s;
+  ctx.drawImage(sp.cv, x - sp.half * s, y - sp.half * s, w, w);
+}
+
+function roundRect(x, y, w, h, r) {
+  ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+}
+
+// ---------- machine art ----------
+// Jenny's generated machine picture (img/machine_source.webp, 941x1672) is cut into layers when the game loads:
+// the background (paws painted out, arms extended down past the table, bucket removed), the tongue (stretched
+// in and out as the pusher), one paw (mirrored for the left; bends inward at the wrist with the golden paw),
+// and the bucket (drawn narrower so coins at the front corners can miss it).
+const ART = { src: 'img/machine_source.webp', IW: 941, IH: 1672 };
+const AK = W / ART.IW; // picture pixels -> game units
+const FUR = [25, 26, 35], BG = [6, 78, 74]; // BG: a deep version of the table's green, behind the cat
+const ARM_TOP = 560, HEAD_CUT = 470, MOUTH_TOP = 290; // picture rows: where the arms are cleared from, and the bottom of the head layer
+// the cat's eyes in the picture (pixels): centre and half-size of the yellow
+const EYES = [{ x: 340, y: 249, rx: 48, ry: 42 }, { x: 594, y: 249, rx: 48, ry: 42 }], EYE_YELLOW = [251, 221, 118];
+const TONGUE_BOX = [205, 385, 735, 532], PAW_BOX = [705, 752, 934, 958], TABLE_CUT = 1362;
+const BUCKET_BOX = [56, 1362, 886, 1668], BUCKET_SCALE = 0.72, PAW_SCALE = 0.72;
+const WRIST = { x: 46, y: 1418 }; // left wrist in picture pixels; the right one is mirrored
+
+function newCanvas(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
+
+// CP-21: contrast (around the gold's mid-tone) and saturation boost for a coin sprite, applied once.
+const COIN_CONTRAST=1.3,COIN_SATURATE=0.9;
+function coinClarity(cv,k,sat){const g=cv.getContext('2d'),im=g.getImageData(0,0,cv.width,cv.height),d=im.data,w=cv.width,src=d.slice();
+ // soften the satin grain a little first (half a 3x3 average), so the boost doesn't make it speckly
+ for(let y=1;y<cv.height-1;y++)for(let x=1;x<w-1;x++){const i=(y*w+x)*4;if(!src[i+3])continue;for(let c=0;c<3;c++){let t=0;for(let j=-1;j<=1;j++)for(let m=-1;m<=1;m++)t+=src[i+(j*w+m)*4+c];d[i+c]=(src[i+c]+t/9)/2;}}
+ for(let i=0;i<d.length;i+=4){if(!d[i+3])continue;const l=.3*d[i]+.59*d[i+1]+.11*d[i+2];
+  for(let c=0;c<3;c++){const v=l+(d[i+c]-l)*sat;d[i+c]=Math.max(0,Math.min(255,(v-140)*k+140));}}
+ g.putImageData(im,0,0);}
+async function loadArt() {
+ async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
+ const [head,table,tongue,paw,coin,snacks,pupil,background,headSweet,headWild,headSharp,happyMouth,happyMitt]=await Promise.all(['head-waiting','table','tongue','paw','coin','snacks','pupil','background','head-sweet','head-wild','head','happy-mouth','happy-mitt'].map(n=>image('img/art/'+n+'.webp')));
+ Object.assign(ART,{head,table:__warpTable(table),tongue,paw,coin,snacks,pupil,background,headSweet,headWild,headSharp,happyMouth,happyMitt});
+ ART.tuna=await image('img/art/tuna.png');
+ __brassTexture=await image('img/art/brass-pusher.png');
+ const face=newCanvas(COIN_R*2*SPR,COIN_R*2*SPR);face.getContext('2d').drawImage(coin,21,21,1209,1202,0,0,face.width,face.height);
+ const coinAtlas=await image('img/art/uat18-coin-faces.png');
+ function atlasCoin(rect,r,atlas=coinAtlas){const cv=newCanvas(Math.ceil(r*2*SPR),Math.ceil(r*2*SPR)),g=cv.getContext('2d');g.imageSmoothingEnabled=true;g.imageSmoothingQuality='high';g.drawImage(atlas,...rect,0,0,cv.width,cv.height);return {cv,half:r};}
+ const softPaw=await image('img/art/uat18-small-paw.png');
+ sprites.coin=atlasCoin([55,44,775,765],COIN_R);coinClarity(sprites.coin.cv,COIN_CONTRAST,COIN_SATURATE);sprites.silver=sprites.coin; // CP-21: big raised-paw gold face
+ sprites.quake=atlasCoin([934,45,780,775],radius('quake'));coinClarity(sprites.quake.cv,QUAKE_CONTRAST,QUAKE_SATURATE); // CP-21: as bright as the gold coins
+}
+
+// The machine is drawn zoomed in (VIEW.z) around the screen's centre, so the table fills more of the screen and the
+// arms run partly off the sides; it's placed (VIEW.y) so the bucket sits near the bottom of the screen.
+// On tall phones the machine is also stretched a little taller (VIEW.zy, at most 12% more than its width), which
+// gives more table, and any space still left over is split between above the cat and below the bucket.
+const VIEW = { z: 1, zy: 1, y: 0 };
+// CP-21: zoom in until the table's front edge is FRONT_MARGIN above the buttons (the ears stay just under the HUD).
+// CAM_ZOOM_MAX caps the zoom (a partial zoom leaves some space below the table).
+const HEAD_Z=0.94,CHIN_Y=215,TABLE_W=350,HEAD_DROP=0; // HEAD_DROP: head lowered over the back of the pusher (game units) // CP-21: head size on screen (whole cat in frame), the head row on the table's back edge, widest table front
+const CAM_FILL=true,CAM_ZOOM_MAX=9,FRONT_MARGIN=18;
+const MACHINE_TOP = 34, MACHINE_BOTTOM = 640; // tips of the ears and bottom of the paws, in game units
+function fitView() {
+ // UAT-03: fit the full head and board below the actual HUD, entirely above buttons.
+ const hud=hudLayout(),top=hud.headerBottom+8,bottom=hud.bottomY-8;
+ const upper=-25,lower=600;const z=Math.min(1.08,(bottom-top)/(lower-upper));
+ const z0=Math.min(.98,z);VIEW.hz=HEAD_Z;VIEW.hzy=HEAD_Z*z/z0;const chin=top+(CHIN_Y-upper)*VIEW.hzy;
+ // The table zooms to reach the bottom, but never wider than the screen (front edge at most TABLE_W wide); any height
+ // left over is split above the head and below the table.
+ VIEW.zy=Math.max(z,Math.min((bottom-FRONT_MARGIN-chin)/(__front1-CHIN_Y),TABLE_W/(2*__spanFront)*z/z0));VIEW.z=VIEW.zy*z0/z;
+ const spare=bottom-FRONT_MARGIN-(chin+(__front1-CHIN_Y)*VIEW.zy);VIEW.y=chin-CHIN_Y*VIEW.zy;VIEW.headDown=0; // CP-21: scene up to the HUD
+ // CP-21: the physical drop starts from the pre-lock view's screen top (coins fell through the ledge from lower)
+ {const f1=__top+(__front-__top)*0.65,zy=Math.max(z,Math.min((bottom-FRONT_MARGIN-chin)/(f1-CHIN_Y),330/(2*__spanFront)*z/z0)),sp=bottom-FRONT_MARGIN-(chin+(f1-CHIN_Y)*zy);VIEW.dropTop=-(chin+sp/2-CHIN_Y*zy)/zy-14;} // (camera tilt 0.65, table width 330)
+}
+function screenToGameX(sx) { return (sx - 200) / VIEW.z + 200; }
+// The picture is also drawn ART_ZX times wider than it is (around the centre), so the cat's cheeks reach the
+// screen's edges and the table is wider; the projection (P_X) is widened by the same amount to match.
+function artX(x) { return 200 + (x - 200) * ART_ZX; }
+
+function drawMachine() {
+ ctx.drawImage(ART.table,0,180,400,420);
+ drawTongue();
+}
+
+function drawTrackingPupils() {
+ const gaze=pawGaze(),look=gaze?gaze.x:Math.max(-1,Math.min(1,(pupilAim-200)/140));
+ const sx=420/ART.head.width,sy=240/ART.head.height;
+ for(const e of [{x:500,y:515,rx:118,ry:108},{x:1060,y:532,rx:118,ry:108}]) {
+  const cx=-10+e.x*sx,cy=-25+e.y*sy,w=75*sx,h=180*sy;
+  ctx.save();ctx.beginPath();ctx.ellipse(cx,cy,e.rx*sx,e.ry*sy,0,0,7);ctx.clip();
+  // Upright pupils translate left/right; no rotation, tilt or skew is applied.
+  ctx.drawImage(ART.pupil,483,107,289,1041,cx+look*e.rx*sx*.28-w/2,cy+e.ry*sy*(.24+(gaze?gaze.y:0))-h/2,w,h);
+  ctx.restore();
+ }
+}
+
+// Slit pupils that follow where you're aiming (and glance down at the table), with a blink every few seconds.
+let blinkAt = 3;
+function drawEyes(ls) {
+  const look = Math.max(-1, Math.min(1, (aim.x - 200) / 150));
+  if (time > blinkAt + 0.14) blinkAt = time + rand(2.5, 6);
+  const shut = ls > 0.1 ? 0 : time > blinkAt ? 1 - Math.abs((time - blinkAt) / 0.07 - 1) : 0; // 0 open .. 1 closed
+  for (const e of EYES) {
+    const cx = artX(e.x * AK), cy = e.y * AK, rx = e.rx * AK * ART_ZX * 0.82, ry = e.ry * AK * 0.86;
+    ctx.save();
+    ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, 0, 7); ctx.clip();
+    const px = cx + look * rx * 0.62, py = cy + ry * 0.12;
+    ctx.fillStyle = '#111'; ctx.beginPath(); ctx.ellipse(px, py, rx * (0.2 - 0.1 * ls), ry * 0.78, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = 'rgba(255,255,255,.9)'; ctx.beginPath(); ctx.arc(px + rx * 0.12, py - ry * 0.32, rx * 0.12, 0, 7); ctx.fill();
+    if (shut > 0) { // eyelid coming down
+      ctx.fillStyle = `rgb(${FUR})`;
+      ctx.fillRect(cx - rx, cy - ry, rx * 2, ry * 2 * shut);
+    }
+    ctx.restore();
+    if (ls > 0.05) { // a scowl: a heavy black brow slanting down toward the nose
+      const inward = cx < 200 ? 1 : -1;
+      ctx.save(); ctx.globalAlpha = Math.min(1, ls * 2.5);
+      ctx.fillStyle = '#0c0a10';
+      ctx.beginPath();
+      ctx.moveTo(cx - inward * rx * 1.1, cy - ry * 1.15);
+      ctx.lineTo(cx + inward * rx * 0.9, cy - ry * (0.55 - 0.25 * ls));
+      ctx.lineTo(cx + inward * rx * 0.95, cy - ry * (0.2 - 0.25 * ls));
+      ctx.lineTo(cx - inward * rx * 1.0, cy - ry * 0.85);
+      ctx.closePath(); ctx.fill();
+      ctx.restore();
+    }
+  }
+}
+
+// The tongue is a rigid tray sliding out of the mouth; its artwork never stretches.
+function drawTongue() {
+ const left=screenOf(200-PUSH_HALF,tongueDrawY,0);
+ const right=screenOf(200+PUSH_HALF,tongueDrawY,0);
+ const rear=screenOf(200,tongueDrawY-60,TONGUE_H);
+ // Project the rigid physical tray: fixed height, full contact width, front edge on the shelf.
+ ctx.drawImage(ART.tongue,45,278,1686,391,left.x,rear.y,right.x-left.x,left.y-rear.y);
+}
+
+function bucketRect() {
+  const w = (BUCKET_BOX[2] - BUCKET_BOX[0]) * AK * BUCKET_SCALE * ART_ZX, h = (BUCKET_BOX[3] - BUCKET_BOX[1]) * AK * BUCKET_SCALE;
+  return { x: 200 - w / 2, y: TABLE_CUT * AK, w, h };
+}
+
+function drawBucket() {
+  const b = bucketRect();
+  ctx.drawImage(ART.bucket, b.x, b.y, b.w, b.h);
+  // heap of won coins inside the rim, rising slowly as you win
+  const n = Math.min(90, S.won), cy = BUCKET_TOP;
+  for (let i = 0; i < n; i++) {
+    const a = (i * 137.5) % 360 * Math.PI / 180, rr = ((i * 61) % 100) / 100;
+    const x = 200 + Math.cos(a) * rr * b.w * 0.38, y = cy + Math.sin(a) * rr * 4 - Math.min(5, i / 18);
+    ctx.fillStyle = '#8a5c08'; ctx.beginPath(); ctx.ellipse(x, y + 1.2, 8, 3, 0, 0, 7); ctx.fill();
+    ctx.fillStyle = i % 9 === 0 ? '#fff0a0' : '#f0c030'; ctx.beginPath(); ctx.ellipse(x, y, 8, 3, 0, 0, 7); ctx.fill();
+  }
+  ctx.fillStyle = '#ffd76a'; ctx.font = 'bold 15px system-ui'; ctx.textAlign = 'center';
+  ctx.fillText(`${S.won} won`, 200, b.y + b.h * 0.62);
+}
+
+// The paws rest on the table's front corners beside the bucket, kneading: each slowly spreads open (wider, turned
+// out a little) and closes again, the two out of step. With the golden paw they swing in over the gaps.
+// big paws in the bottom corners: width, how far in from the screen edge their centres sit, how far below the
+// table's front corner, and how far they're turned (radians) so the toes point inward
+const PAW_SIZE = 150, PAW_INSET = 40, PAW_DROP = 38, PAW_TURN = 2.35;
+function isRestPose(){return powerFace()==='sweet'&&sweepTime===0&&catquakeTime===0;}
+function recoveryScale(){if(catquakeTime<=1.25)return 1;const up=Math.min(1,(catquakeTime-1.25)/.55),back=0;return 1-.35*up*(1-back);}
+// UAT-02: Rest-only cuff clipping retains the original palm outline and claws.
+let restPalmTop=null;
+function drawRestMitt(w,blend=1){
+ if(!restPalmTop){const c=document.createElement('canvas');c.width=ART.paw.width;c.height=ART.paw.height;const g=c.getContext('2d');g.drawImage(ART.paw,0,0);const data=g.getImageData(0,0,c.width,c.height).data;restPalmTop=[];for(let x=0;x<c.width;x++){let top=c.height;for(let y=Math.floor(c.height*.15);y<c.height*.7;y++){const k=(y*c.width+x)*4;if(data[k]>220&&data[k+1]>220&&data[k+2]>220&&data[k+3]>128){top=Math.max(0,y-12);break;}}restPalmTop.push(top);}}
+ const h=w*ART.paw.height/ART.paw.width,sx=w/ART.paw.width,sy=h/ART.paw.height;ctx.save();ctx.beginPath();ctx.moveTo(-w/2,h/2);for(let x=0;x<restPalmTop.length;x++)ctx.lineTo(-w/2+x*sx,-h/2+restPalmTop[x]*sy*blend);ctx.lineTo(w/2,h/2);ctx.closePath();ctx.clip();ctx.drawImage(ART.paw,-w/2,-h/2,w,h);ctx.restore();
+}
+function restPoseBlend(){return isRestPose()?1:catquakeTime>1.25?Math.min(1,(catquakeTime-1.25)/.55):0;}
+
+// UAT-17: one cancellable audio/animation session; active only after Board Clear.
+const pawDrums=new Audio('sounds/effects/paw-dance.wav');pawDrums.preload='auto';
+let pawDance=null,pawDanceToken=0;
+function stopPawDance(){pawDance=null;pawDanceToken++;pawDrums.pause();pawDrums.currentTime=0;}
+function pawDanceClock(){return !pawDance?0:pawDance.silent?time-pawDance.started:(pawDrums.currentTime||0);}
+function pawDancePhase(){
+ if(!pawDance)return null;const t=pawDanceClock();
+ if(t<.15)return {intro:true,t:0};
+ if(!pawDance.switched&&t<1.817)return {intro:true,t:t-.15};
+ const elapsed=pawDance.switched?t-pawDance.anchor:t-1.817;
+ const n=Math.floor(Math.max(0,elapsed)/2.2);
+ return {intro:false,index:(pawDance.index+n)%4,t:Math.max(0,elapsed)%2.2};
+}
+function startPawDance(){
+ if(sweepTime>0||catquakeTime>0)return;
+ const token=++pawDanceToken;pawDance={started:time,silent:S.muted,index:0,switched:false,anchor:0};
+ if(!S.muted){pawDrums.currentTime=0;const p=pawDrums.play();if(p)p.catch(()=>{if(token===pawDanceToken)stopPawDance();});}
+}
+function tickPawDance(){if(pawDance&&(!isRestPose()||pawDanceClock()>=62.7||(!pawDance.silent&&S.muted)))stopPawDance();}
+pawDrums.onended=stopPawDance;pawDrums.onerror=stopPawDance;
+function pawGaze(){const p=pawDancePhase();if(!p)return null;
+ if(p.intro){const t=p.t,s=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);};return {x:-1.7*s(t/.18)*(1-s((t-.65)/.25)),y:-.9*s((t-.65)/.25)*(1-s((t-1.25)/.3))};}
+ if(p.index===0){const q=Math.min(1,p.t/2),e=Math.max(0,Math.min(1,q/.12,(1-q)/.12)),b=Math.sin(q*Math.PI*4);return {x:1.7*e*b,y:-.3*e*Math.abs(b)};}return null;
+}
+function pawMotion(side=0){const z={x:0,y:0,r:0},f=pawDancePhase();if(!f||f.intro||f.index===0)return z;
+ const p=Math.max(0,Math.min(1,f.t/1.8)),e=Math.max(0,Math.min(1,p/.12,(1-p)/.15)),beat=p*Math.PI*6;
+ if(f.index===1)return {x:side?-side*12*e:12*e*Math.sin(beat),y:side?-58*e*(.5+.5*Math.sin(beat+side*Math.PI/2)):-15*e*(.5+.5*Math.cos(beat*2)),r:side?.38*e*Math.sin(beat+side*Math.PI/2):.075*e*Math.sin(beat)};
+ if(f.index===2)return {x:(side?22:24)*e*Math.sin(beat),y:side?-24*e*(1+Math.sin(beat+side)):-19*e*Math.abs(Math.sin(beat)),r:(side?.32:.12)*e*Math.sin(beat)};
+ return {x:side?-side*20*e:10*e*Math.sin(beat/2),y:-(side?68:30)*e*Math.abs(Math.sin(p*Math.PI*3)),r:side?side*.32*e*Math.abs(Math.sin(p*Math.PI*3)):.07*e*Math.sin(beat/2)};
+}
+function pawHit(p){const k=tickleState();for(const side of [-1,1]){const d=k?k.paw[side]:{x:0,y:0},x=200+side*135+d.x,y=VIEW.y+180*VIEW.zy+45+d.y;if(((p.x-x)/90)**2+((p.y-y)/68)**2<=1)return side;}return 0;}
+let showTapAreas=false;
+function drawPawTouchGuides(){if(!S.dev||!showTapAreas||board.status!=='won'||!isRestPose())return;const k=tickleState();ctx.save();ctx.strokeStyle='#ffda35';ctx.lineWidth=2;ctx.setLineDash([4,5]);for(const side of [-1,1]){const d=k?k.paw[side]:{x:0,y:0};ctx.beginPath();ctx.ellipse(200+side*135+d.x,VIEW.y+180*VIEW.zy+45+d.y,90,68,0,0,7);ctx.stroke();}ctx.restore();}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopPawDance();});
+addEventListener('pagehide',stopPawDance);
+
+// UAT-19: tickle fight on the resting paws after Board Clear. Each paw tap makes that paw flinch with a giggle;
+// three quick tickles and the other paw bats at the finger twice. Offsets go back to exactly zero, then the session clears.
+const tickleSound=new Audio('sounds/effects/tickle.wav'),swatSound=new Audio('sounds/effects/tickle-swat.wav');tickleSound.preload=swatSound.preload='auto';
+function playTickleSound(a){if(S.muted)return;try{a.currentTime=0;const p=a.play();if(p)p.catch(()=>{});}catch(e){}}
+let tickle=null;
+function stopTickle(){tickle=null;}
+function tkClamp(x){return Math.max(0,Math.min(1,x));}
+function tkSmooth(x){x=tkClamp(x);return x*x*(3-2*x);}
+function startTickle(side){
+ if(board.status!=='won'||!isRestPose())return;
+ stopPawDance();
+ const k=tickle||(tickle={first:time,last:-9,run:0,taps:[],swat:null,words:[],lastWord:-9});
+ k.taps.push({side,t:time});if(k.taps.length>8)k.taps.shift();
+ k.run=k.swat?0:time-k.last<.75?k.run+1:1;k.last=time;
+ if(!k.swat&&k.run>=3){k.swat={from:-side,to:side,at:time+.35};k.run=0;
+  k.words.push({text:'bap!',at:time+.47,x:200+side*110,y:300},{text:'bap!',at:time+.97,x:200+side*125,y:270});}
+ else if(time-k.lastWord>.6){k.lastWord=time;k.words.push({text:'hehe!',at:time+.2,x:200+side*90,y:165});}
+ k.words=k.words.filter(w=>time-w.at<.9);
+ playTickleSound(tickleSound);
+}
+function tickleEnd(k){return Math.max(k.last+.9,k.swat?k.swat.at+1.3:0);}
+function tickTickle(){if(tickle&&(board.status!=='won'||!isRestPose()||time>tickleEnd(tickle)))tickle=null;
+ if(tickle&&tickle.swat&&!tickle.swat.sounded&&time>=tickle.swat.at){tickle.swat.sounded=true;playTickleSound(swatSound);}}
+function tickleState(){
+ const k=tickle;if(!k)return null;
+ const z=()=>({x:0,y:0,r:0,sx:1,sy:1}),o={head:z(),paw:{'-1':z(),'1':z()},squint:0};
+ for(const a of k.taps){const t=time-a.t;if(t<0||t>1.2)continue;const f=Math.exp(-t*9)*tkClamp(t/.04),P=o.paw[a.side];P.y-=34*f;P.r+=a.side*.22*f;P.sy-=.12*f;}
+ if(k.swat){const s=k.swat.to,O=o.paw[k.swat.from],T=o.paw[s];
+  for(const a of [0,.5]){const t=time-k.swat.at-a;if(t<0||t>.5)continue;
+   const up=tkSmooth(t/.12),hit=tkSmooth((t-.12)/.1),back=tkSmooth((t-.3)/.18),u=up*(1-back),h=hit*(1-back);
+   O.x+=s*(150*h+20*u);O.y+=-110*u+70*h;O.r+=s*(.5*u+.45*h);T.y-=20*h;}
+  const t=time-k.swat.at,lean=tkSmooth((t+.15)/.2)*(1-tkSmooth((t-.9)/.35));
+  o.head.x=s*22*lean;o.head.r=s*.07*lean+.03*Math.sin(t*Math.PI*12)*lean;o.head.y=-6*lean;}
+ o.squint=tkSmooth((time-k.first)/.07)*(1-tkSmooth((time-tickleEnd(k)+.25)/.25));
+ return o;
+}
+function drawTickleWords(){
+ const k=tickle;if(!k)return;
+ ctx.save();ctx.textAlign='center';ctx.textBaseline='middle';
+ for(const w of k.words){const t=time-w.at;if(t<0||t>.9)continue;const p=t/.9,pop=1+.35*Math.max(0,1-t/.12);
+  ctx.globalAlpha=1-tkSmooth((p-.6)/.4);ctx.font=`bold ${Math.round(30*pop)}px system-ui`;
+  ctx.lineWidth=6;ctx.strokeStyle='#2a1338';ctx.strokeText(w.text,w.x,w.y-p*30);ctx.fillStyle='#ff9ad8';ctx.fillText(w.text,w.x,w.y-p*30);}
+ ctx.restore();
+}
+// Dancing pose (UAT-17 dance): Developer-mode Settings preview only; paws no longer start it.
+function previewDancingPose(){if(sweepTime>0||catquakeTime>0)return false;stopTickle();stopPawDance();happyUntil=0;startPawDance();return !!pawDance;}
+
+// UAT-19 Dancing pose extra: between games, each paw stomp of the dance jolts the table and makes the coins hop.
+// The hops run in a separate copy of the table (danceWorld); the real physics world never moves, the copy is dropped
+// before the next board, and its own PRNG never touches Math.random, so the next board starts exactly as without it.
+// danceShakesTable: code option. true = the dance shakes the table (only ever between games, after Board Clear).
+// Set false to dance without touching the board, e.g. for a future in-game use.
+let danceShakesTable=true,danceWorld=null,danceJolt=0,danceShakeSeed=1,dancePawLift={'-1':0,'1':0};
+function danceRand(){danceShakeSeed=danceShakeSeed*16807%2147483647;return (danceShakeSeed-1)/2147483646;}
+function danceShakeActive(){return danceShakesTable&&!!pawDance&&board.status==='won'&&sweepTime===0&&catquakeTime===0&&shake===0;}
+function danceWorldStart(){
+ const w=danceWorld=new RAPIER.World({...world.gravity});w.timestep=STEP;
+ w.integrationParameters.numSolverIterations=world.integrationParameters.numSolverIterations;
+ w.integrationParameters.numAdditionalFrictionIterations=world.integrationParameters.numAdditionalFrictionIterations;
+ if('contact_natural_frequency' in w.integrationParameters)w.integrationParameters.contact_natural_frequency=60; // same as initPhysics
+ const fixed=w.createRigidBody(RAPIER.RigidBodyDesc.fixed()),copy=c=>new RAPIER.ColliderDesc(c.shape).setFriction(c.friction()).setRestitution(c.restitution()).setFrictionCombineRule(c.frictionCombineRule());
+ const coins=new Set(bodies.filter(b=>b.kind!=='stack'&&b.rb.isEnabled()&&b.rb.numColliders()===1).map(b=>b.rb.handle));
+ world.forEachCollider(c=>{const p=c.parent();if(!c.isEnabled()||c.isSensor()||p&&coins.has(p.handle))return;
+  const t=c.translation();w.createCollider(copy(c).setTranslation(t.x,t.y,t.z).setRotation(c.rotation()),fixed);});
+ for(const b of bodies)b.danceSortK=b.sortK;
+ for(const b of bodies){if(!coins.has(b.rb.handle))continue;const r=b.rb,v=r.linvel(),a=r.angvel(),t=r.translation();
+  const s=w.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(t.x,t.y,t.z).setRotation(r.rotation()).setLinvel(v.x,v.y,v.z).setAngvel(a)
+   .setLinearDamping(COIN_DAMP).setAngularDamping(COIN_SPIN_DAMP).setCanSleep(true));
+  w.createCollider(copy(r.collider(0)).setDensity(r.collider(0).density()),s);b.realRb=r;b.rb=s;}
+}
+function stepDanceShake(){
+ danceJolt=Math.max(0,danceJolt-STEP*5);
+ if(!danceShakeActive()){dancePawLift={'-1':0,'1':0};return;}
+ if(!danceWorld)danceWorldStart();
+ // A stomp is a paw coming back down after lifting; bigger lifts stomp harder.
+ let stomp=0;for(const side of [-1,1]){const y=pawMotion(side).y;
+  if(y<dancePawLift[side])dancePawLift[side]=y;
+  if(y>-6&&dancePawLift[side]<-20){stomp=Math.max(stomp,Math.min(1,-dancePawLift[side]/60));dancePawLift[side]=0;}}
+ if(stomp>0){danceJolt=Math.max(danceJolt,stomp);
+  for(const b of bodies){if(!b.realRb||b.danceDown)continue;const m=b.rb.mass(),k=.55+.45*danceRand();
+   b.rb.applyImpulse({x:(danceRand()-.5)*.5*stomp*m,y:1.7*stomp*k*m,z:(danceRand()-.62)*.45*stomp*m},true);}}
+ danceWorld.step();
+ // A coin that hops over an edge drops out of sight until the next board.
+ for(const b of bodies){if(!b.realRb||b.danceDown)continue;const t=b.rb.translation();
+  if(t.y<-.3){b.danceDown=true;b.rb.setEnabled(false);const p=proj(t.x/M,T.FRONT);falling.push({x:p.x,y:p.y+4,vx:0,vy:60,kind:b.kind,id:b.id,won:true,t:0,s:p.s});}}
+}
+function danceJoltOffset(){return danceJolt>0?{x:Math.sin(time*70)*2.2*danceJolt,y:5*danceJolt}:{x:0,y:0};}
+// Before the next board clears the table: real bodies back, in the same order as if the dance never moved anything.
+// Drawing re-sorts bodies by on-screen depth; redo that sort from the real (unmoved) coins, as draw() would have.
+function danceWorldEnd(){if(!danceWorld)return;
+ for(const b of bodies)if(b.realRb){b.rb=b.realRb;b.realRb=null;b.danceDown=false;b.sortK=b.danceSortK;}
+ for(const b of bodies){const t=b.rb.translation(),k=t.z/M+(t.y/M-(b.kind==='stack'?b.half:0))*1.3;b.sortK=b.sortK===null||b.sortK===undefined?k:Math.abs(k-b.sortK)>1.5?k:b.sortK;}
+ bodies.sort((a,b)=>a.sortK-b.sortK||a.uid-b.uid);
+ danceWorld.free();danceWorld=null;danceJolt=0;dancePawLift={'-1':0,'1':0};}
+
+// CP-21: where the mitts rest during play (game units; Rest-pose size) and the arm drawn up from each cuff.
+const MITT_X=160,MITT_Y=250,MITT_W=182,MITT_TURN=0,MITT_LIFT=30,MITT_HOOK=30,MITT_D=228,ARM_LEN=0;
+function drawMittArm(w,h){if(ARM_LEN<=0)return;const top=-h/2+.06*h,half=.205*w;ctx.fillStyle='rgb(8,8,7)';ctx.beginPath();ctx.moveTo(-half,top+30);ctx.lineTo(-half,top-ARM_LEN);ctx.lineTo(half,top-ARM_LEN);ctx.lineTo(half,top+30);ctx.closePath();ctx.fill();}
+function drawPaws() {
+ if(isRestPose()){
+  const w=182,h=w*ART.paw.height/ART.paw.width;
+  for(const side of [-1,1]){ctx.save();const d=pawMotion(side),tk=tickleState(),q=tk?tk.paw[side]:null;ctx.translate(200+side*135+d.x+(q?q.x:0),VIEW.y+180*VIEW.zy+45+d.y+(q?q.y:0));ctx.rotate(d.r+(q?q.r:0));if(q)ctx.scale(q.sx,q.sy);if(side>0)ctx.scale(-1,1);ctx.rotate(-.12);drawRestMitt(w);ctx.restore();}return;
+ }
+ const resting=410;
+ let depth=resting,reach=0,quakeLift=0;
+ if(catquakeTime>0){
+  if(catquakeTime<.55){const p=catquakeTime/.55;reach=.42*p;quakeLift=-80*Math.sin(p*Math.PI/2);}
+  else if(catquakeTime<CATQUAKE_HIT){const p=(catquakeTime-.55)/(CATQUAKE_HIT-.55);reach=.42;quakeLift=-80+102*p*p;}
+  else if(catquakeTime<1.25){reach=.42;quakeLift=22;}
+  else {const p=Math.min(1,(catquakeTime-1.25)/(CATQUAKE_DURATION-1.25));reach=.42*(1-p);quakeLift=22*(1-p);}
+ }
+ if(sweepTime>0){
+  if(sweepTime<.2){const p=sweepTime/.2;depth=resting+(SWEEP_START-resting)*p;reach=p;}
+  else if(sweepTime<=1.7){const p=(sweepTime-.2)/1.5;depth=SWEEP_START+(SWEEP_END-SWEEP_START)*p;reach=1;}
+  else {const p=(sweepTime-1.7)/(.7);depth=SWEEP_END+(resting-SWEEP_END)*p;reach=1-p;}
+ }
+ const cy=VIEW.y+proj(200,depth).y*VIEW.zy;
+ const recovering=catquakeTime>1.25;
+ const recoveryUp=recovering?Math.min(1,(catquakeTime-1.25)/.55):0;
+ const recoveryBack=0;
+ const recoveryMix=recoveryUp*(1-recoveryBack);
+ for(const side of [-1,1]) {
+  const base=side<0?-70:W+70,inner=side<0?100:W-100;
+  const idle=1-reach;
+ const oldX=base+(inner-base)*reach,oldY=cy-35*idle+Math.sin(time*2)*2*idle+quakeLift;
+ const raisedX=side<0?65:W-65,raisedY=VIEW.y+180*VIEW.zy+45;
+ const waiting=sweepTime===0&&catquakeTime===0;
+ const __mr=mittRest(side),waitingX=__mr.x,waitingY=__mr.y;
+ ctx.save();ctx.translate(waiting?waitingX:oldX+(raisedX-oldX)*recoveryMix,waiting?waitingY:oldY+(raisedY-oldY)*recoveryMix);
+  if(side>0)ctx.scale(-1,1);
+  // Original inward sweep angle and overlap; a gentle one-degree wobble only at rest.
+  ctx.rotate(waiting?MITT_TURN+Math.sin(time*1.7)*.018:(- .35*reach+Math.sin(time*1.7)*.018*idle)*(1-recoveryMix)-.12*recoveryMix);
+  const w=waiting?MITT_W:280*recoveryScale(),h=w*ART.paw.height/ART.paw.width; // Impact/sweep stay full size; retreat adds perspective.
+  if(waiting)drawMittArm(w,h);
+  if(recoveryMix>0)drawRestMitt(w,recoveryMix);else if(waiting)drawRestMitt(w);else ctx.drawImage(ART.paw,-w/2,-h/2,w,h);ctx.restore(); // CP-21: idle mitts without the cuff
+ }
+}
+
+// A gold ring on the tongue where your coin will land.
+function drawAim() {
+  if (aimShow <= 0) return;
+  const c = screenOf(aim.x, DROP_Y, TONGUE_H), rad = COIN_R * c.s;
+  ctx.globalAlpha = 0.85 * aimShow; ctx.strokeStyle = '#ffe680'; ctx.lineWidth = 2.5;
+  ctx.setLineDash([5, 4]);
+  ctx.beginPath(); ctx.ellipse(c.x, c.y, rad, rad * SQUASH, 0, 0, 7); ctx.stroke();
+  ctx.setLineDash([]); ctx.globalAlpha = 1;
+}
+
+const BUCKET_TOP = 589;
+
+function quakeHeadOffset(){
+ if(catquakeTime<=0)return 0;
+ if(catquakeTime<.73)return 48*Math.min(1,catquakeTime/.73);
+ if(catquakeTime<1.25)return 48;
+ return 48*Math.max(0,1-(catquakeTime-1.25)/2.35);
+}
+function previewHappy(){if(sweepTime>0||catquakeTime>0)return false;happyUntil=time+6;return true;}
+function drawHappyFeatures(){
+ // Native expression overlay on the fixed sweet master; no generated head replacement.
+ ctx.save();ctx.translate(-10,-25);ctx.scale(420/1536,240/1024);
+ ctx.fillStyle='#000';for(const c of [480,1056]){ctx.beginPath();ctx.ellipse(c,525,183,148,0,0,7);ctx.fill();}
+ ctx.strokeStyle='#ffda35';ctx.lineWidth=30;ctx.lineCap='round';for(const side of [-1,1]){const c=768+side*205;ctx.beginPath();ctx.moveTo(c-100,540);ctx.quadraticCurveTo(c,360,c+100,540);ctx.stroke();}
+ ctx.drawImage(ART.happyMouth,0,0);ctx.restore();
+}
+function drawHappyPaws(){for(const side of [-1,1]){ctx.save();ctx.translate(200+side*135,235);if(side>0)ctx.scale(-1,1);ctx.rotate(-.12);const saved=ART.paw;try{ART.paw=ART.happyMitt;drawRestMitt(130);}finally{ART.paw=saved;}ctx.restore();}ctx.fillStyle='#ffe079';for(const side of [-1,1]){const x=200+side*178,y=100+Math.sin(time*4)*3;ctx.beginPath();ctx.moveTo(x,y-10);ctx.lineTo(x+3,y-3);ctx.lineTo(x+10,y);ctx.lineTo(x+3,y+3);ctx.lineTo(x,y+10);ctx.lineTo(x-3,y+3);ctx.lineTo(x-10,y);ctx.lineTo(x-3,y-3);ctx.closePath();ctx.fill();}
+}
+
+const __VARIANT='B';
+let __brassTexture; const __brassCrop=[293.65, 329.88, 1183.6999999999998, 156.8];
+
+// UAT-05 review display layer. Original Rapier, proj/unprojX, spawn/impact/cost/timing remain unchanged.
+const __felt=[[228.125, 112.8906, 286.7188], [229.2188, 112.8906, 287.1094], [230.3125, 112.5, 287.1094], [231.4062, 112.5, 287.5], [232.5, 112.1094, 287.8906], [233.5938, 111.7188, 287.8906], [234.6875, 111.7188, 288.2812], [235.7812, 111.3281, 288.6719], [236.875, 110.9375, 288.6719], [237.9688, 110.9375, 289.0625], [239.0625, 110.5469, 289.0625], [240.1562, 110.5469, 289.4531], [241.25, 110.1562, 289.8438], [242.3438, 109.7656, 289.8438], [243.4375, 109.7656, 290.2344], [244.5312, 109.375, 290.2344], [245.625, 108.9844, 290.625], [246.7188, 108.9844, 291.0156], [247.8125, 108.5938, 291.0156], [248.9062, 108.5938, 291.4062], [250.0, 108.2031, 291.4062], [251.0938, 107.8125, 291.7969], [252.1875, 107.8125, 292.1875], [253.2812, 107.4219, 292.1875], [254.375, 107.0312, 292.5781], [255.4688, 107.0312, 292.5781], [256.5625, 106.6406, 292.9688], [257.6562, 106.6406, 293.3594], [258.75, 106.25, 293.3594], [259.8438, 106.25, 293.75], [260.9375, 105.8594, 293.75], [262.0312, 105.4688, 294.1406], [263.125, 105.4688, 294.5312], [264.2188, 105.0781, 294.5312], [265.3125, 104.6875, 294.9219], [266.4062, 104.6875, 295.3125], [267.5, 104.2969, 295.3125], [268.5938, 103.9062, 295.7031], [269.6875, 103.9062, 295.7031], [270.7812, 103.5156, 296.0938], [271.875, 103.125, 296.4844], [272.9688, 103.125, 296.4844], [274.0625, 102.7344, 296.875], [275.1562, 102.3438, 296.875], [276.25, 102.3438, 297.2656], [277.3438, 101.9531, 297.6562], [278.4375, 101.9531, 297.6562], [279.5312, 101.5625, 298.0469], [280.625, 101.1719, 298.0469], [281.7188, 101.1719, 298.4375], [282.8125, 100.7812, 298.8281], [283.9062, 100.7812, 298.8281], [285.0, 100.3906, 299.2188], [286.0938, 100.0, 299.6094], [287.1875, 100.0, 299.6094], [288.2812, 99.6094, 300.0], [289.375, 99.6094, 300.0], [290.4688, 99.2188, 300.3906], [291.5625, 98.8281, 300.7812], [292.6562, 98.8281, 300.7812], [293.75, 98.4375, 301.1719], [294.8438, 98.0469, 301.5625], [295.9375, 98.0469, 301.5625], [297.0312, 97.6562, 301.9531], [298.125, 97.2656, 302.3438], [299.2188, 97.2656, 302.3438], [300.3125, 96.875, 302.7344], [301.4062, 96.875, 302.7344], [302.5, 96.4844, 303.125], [303.5938, 96.0938, 303.125], [304.6875, 96.0938, 303.5156], [305.7812, 95.7031, 303.9062], [306.875, 95.3125, 303.9062], [307.9688, 95.3125, 304.2969], [309.0625, 94.9219, 304.6875], [310.1562, 94.9219, 304.6875], [311.25, 94.5312, 305.0781], [312.3438, 94.1406, 305.0781], [313.4375, 94.1406, 305.4688], [314.5312, 93.75, 305.8594], [315.625, 93.75, 305.8594], [316.7188, 93.3594, 306.25], [317.8125, 92.9688, 306.25], [318.9062, 92.9688, 306.6406], [320.0, 92.5781, 307.0312], [321.0938, 92.1875, 307.0312], [322.1875, 92.1875, 307.4219], [323.2812, 91.7969, 307.8125], [324.375, 91.7969, 307.8125], [325.4688, 91.4062, 308.2031], [326.5625, 91.0156, 308.2031], [327.6562, 90.625, 308.5938], [328.75, 90.625, 308.9844], [329.8438, 90.2344, 308.9844], [330.9375, 89.8438, 309.375], [332.0312, 89.8438, 309.375], [333.125, 89.4531, 309.7656], [334.2188, 89.4531, 309.7656], [335.3125, 89.0625, 310.1562], [336.4062, 88.6719, 310.5469], [337.5, 88.6719, 310.9375], [338.5938, 88.2812, 310.9375], [339.6875, 87.8906, 311.3281], [340.7812, 87.8906, 311.3281], [341.875, 87.5, 311.7188], [342.9688, 87.5, 312.1094], [344.0625, 87.1094, 312.1094], [345.1562, 86.7188, 312.5], [346.25, 86.7188, 312.5], [347.3438, 86.3281, 312.8906], [348.4375, 86.3281, 313.2812], [349.5312, 85.9375, 313.2812], [350.625, 85.5469, 313.6719], [351.7188, 85.1562, 314.0625], [352.8125, 85.1562, 314.0625], [353.9062, 84.7656, 314.4531], [355.0, 84.7656, 314.8438], [356.0938, 84.375, 314.8438], [357.1875, 83.9844, 315.2344], [358.2812, 83.9844, 315.2344], [359.375, 83.5938, 315.625], [360.4688, 83.2031, 315.625], [361.5625, 83.2031, 316.0156], [362.6562, 82.8125, 316.4062], [363.75, 82.4219, 316.4062], [364.8438, 82.4219, 316.7969], [365.9375, 82.0312, 317.1875], [367.0312, 82.0312, 317.1875], [368.125, 81.6406, 317.5781], [369.2188, 81.6406, 317.5781], [370.3125, 81.25, 317.9688], [371.4062, 80.8594, 318.3594], [372.5, 80.4688, 318.3594], [373.5938, 80.4688, 318.75], [374.6875, 80.0781, 319.1406], [375.7812, 79.6875, 319.1406], [376.875, 79.6875, 319.5312], [377.9688, 79.2969, 319.9219], [379.0625, 79.2969, 319.9219], [380.1562, 78.9062, 320.3125], [381.25, 78.5156, 320.3125], [382.3438, 78.5156, 320.7031], [383.4375, 78.125, 321.0938], [384.5312, 77.7344, 321.0938], [385.625, 77.7344, 321.4844], [386.7188, 77.3438, 321.875], [387.8125, 76.9531, 321.875], [388.9062, 76.9531, 322.2656], [390.0, 76.5625, 322.2656], [391.0938, 76.5625, 322.6562], [392.1875, 76.1719, 323.0469], [393.2812, 75.7812, 323.0469], [394.375, 75.7812, 323.4375], [395.4688, 75.3906, 323.8281], [396.5625, 75.0, 323.8281], [397.6562, 75.0, 324.2188], [398.75, 74.6094, 324.2188], [399.8438, 74.2188, 324.6094], [400.9375, 74.2188, 325.0], [402.0312, 73.8281, 325.0], [403.125, 73.8281, 325.3906], [404.2188, 73.4375, 325.7812], [405.3125, 73.0469, 325.7812], [406.4062, 73.0469, 326.1719], [407.5, 72.6562, 326.5625], [408.5938, 72.2656, 326.5625], [409.6875, 72.2656, 326.9531], [410.7812, 71.875, 326.9531], [411.875, 71.4844, 327.3438], [412.9688, 71.4844, 327.7344], [414.0625, 71.0938, 327.7344], [415.1562, 70.7031, 328.125], [416.25, 70.7031, 328.5156], [417.3438, 70.3125, 328.5156], [418.4375, 69.9219, 328.9062], [419.5312, 69.9219, 328.9062], [420.625, 69.5312, 329.2969], [421.7188, 69.5312, 329.6875], [422.8125, 69.1406, 329.6875], [423.9062, 68.75, 330.0781], [425.0, 68.75, 330.4688], [426.0938, 68.3594, 330.4688], [427.1875, 67.9688, 330.8594], [428.2812, 67.9688, 331.25], [429.375, 67.5781, 331.25], [430.4688, 67.1875, 331.6406], [431.5625, 67.1875, 332.0312], [432.6562, 66.7969, 332.0312], [433.75, 66.7969, 332.4219], [434.8438, 66.4062, 332.4219], [435.9375, 66.0156, 332.8125], [437.0312, 66.0156, 333.2031], [438.125, 65.625, 333.2031], [439.2188, 65.2344, 333.5938], [440.3125, 65.2344, 333.9844], [441.4062, 64.8438, 333.9844], [442.5, 64.4531, 334.375], [443.5938, 64.4531, 334.375], [444.6875, 64.0625, 334.7656], [445.7812, 63.6719, 335.1562], [446.875, 63.6719, 335.1562], [447.9688, 63.2812, 335.5469], [449.0625, 62.8906, 335.9375], [450.1562, 62.8906, 335.9375], [451.25, 62.5, 336.3281], [452.3438, 62.5, 336.3281], [453.4375, 62.1094, 336.7188], [454.5312, 61.7188, 337.1094], [455.625, 61.7188, 337.5], [456.7188, 61.3281, 337.5], [457.8125, 60.9375, 337.8906], [458.9062, 60.9375, 337.8906], [460.0, 60.5469, 338.2812], [461.0938, 60.1562, 338.6719], [462.1875, 60.1562, 339.0625], [463.2812, 59.7656, 339.0625], [464.375, 59.375, 339.4531], [465.4688, 59.375, 339.4531], [466.5625, 58.9844, 339.8438], [467.6562, 58.5938, 340.2344], [468.75, 58.5938, 340.2344], [469.8438, 58.2031, 340.625], [470.9375, 57.8125, 340.625], [472.0312, 57.8125, 341.0156], [473.125, 57.4219, 341.4062], [474.2188, 57.4219, 341.7969], [475.3125, 57.0312, 341.7969], [476.4062, 56.6406, 342.1875], [477.5, 56.6406, 342.1875], [478.5938, 56.25, 342.5781], [479.6875, 55.8594, 342.9688], [480.7812, 55.8594, 342.9688], [481.875, 55.4688, 343.3594], [482.9688, 55.4688, 343.75], [484.0625, 55.0781, 343.75], [485.1562, 54.6875, 344.1406], [486.25, 54.2969, 344.5312], [487.3438, 54.2969, 344.5312], [488.4375, 53.9062, 344.9219], [489.5312, 53.9062, 345.3125], [490.625, 53.5156, 345.3125], [491.7188, 53.125, 345.7031], [492.8125, 53.125, 345.7031], [493.9062, 52.7344, 346.0938], [495.0, 52.3438, 346.4844], [496.0938, 52.3438, 346.4844], [497.1875, 51.9531, 346.875], [498.2812, 51.5625, 346.875], [499.375, 51.5625, 347.2656], [500.4688, 51.1719, 347.6562], [501.5625, 50.7812, 348.0469], [502.6562, 50.7812, 348.0469], [503.75, 50.3906, 348.4375], [504.8438, 50.3906, 348.4375], [505.9375, 50.0, 348.8281], [507.0312, 49.6094, 349.2188], [508.125, 49.6094, 349.6094], [509.2188, 49.2188, 349.6094], [510.3125, 48.8281, 350.0], [511.4062, 48.8281, 350.0], [512.5, 48.4375, 350.3906], [513.5938, 48.0469, 350.7812], [514.6875, 48.0469, 350.7812], [515.7812, 47.6562, 351.1719], [516.875, 47.2656, 351.5625], [517.9688, 47.2656, 351.5625], [519.0625, 46.875, 351.9531], [520.1562, 46.4844, 352.3438], [521.25, 46.4844, 352.3438], [522.3438, 46.0938, 352.7344], [523.4375, 46.0938, 353.125], [524.5312, 45.7031, 353.125], [525.625, 45.3125, 353.5156], [526.7188, 45.3125, 353.9062], [527.8125, 44.9219, 353.9062], [528.9062, 44.9219, 354.2969], [530.0, 44.5312, 354.2969], [531.0938, 44.1406, 354.6875], [532.1875, 43.75, 355.0781], [533.2812, 43.75, 355.0781], [534.375, 43.3594, 355.4688], [535.4688, 43.3594, 355.8594], [536.5625, 42.9688, 356.25], [537.6562, 42.5781, 356.25], [538.75, 42.5781, 356.6406], [539.8438, 42.1875, 357.0312], [540.9375, 41.7969, 357.0312], [542.0312, 41.7969, 357.4219], [543.125, 41.4062, 357.8125], [544.2188, 41.0156, 357.8125], [545.3125, 41.0156, 358.2031], [546.4062, 40.625, 358.2031], [547.5, 41.0156, 358.5938]], __sBack=depthScale(T.BACK), __top=228.2, __front=548, __spanBack=86, __spanFront=157;
+let __camera=[1,0,0,1,0,0],__auditCoinsOnly=false,__activeCoinClip='';const __coinClipStats={board:0,delivery:0,falling:0,unclipped:0};
+const __delivery={from:200,to:200,at:-100,worldX:200,depth:DROP_Y,uid:0};
+function __plane(y){const s=depthScale(y),v=(s-__sBack)/(1-__sBack),py=__top+(__front-__top)*v,gx=(__spanBack+(__spanFront-__spanBack)*v)/170,ds=P_K/(T.FRONT-T.BACK)*s*s,dy=(__front-__top)*ds/(1-__sBack),dg=(__spanFront-__spanBack)*ds/(170*(1-__sBack));return {py,gx,dy,dg};}
+// CP-21 flatter camera. CAM_K is how strongly the table narrows toward the back as drawn (0 = parallel rails, as if
+// seen from straight above; 0.73 = the UAT-18 view). Only the drawing changes: physics and drop lanes are the same.
+// The painted table is re-projected row by row to this camera (__warpTable), so coins, rails and pusher stay in register.
+const CAM_K=Math.max(.01,0.25),__sBack0=__sBack,__spanBack0=__spanBack,__camSB=1/(1+CAM_K);
+// CAM_TILT: how tall the table looks on screen (1 = step 1). Lower = a lower camera, so coins look more side-on.
+const CAM_TILT=0.75,__front1=__top+(__front-__top)*CAM_TILT;
+const __camSpanBack=__spanFront-(__spanFront-__spanBack0)*(1-__camSB)/(1-__sBack0);
+function __camS(u){return 1/(1+CAM_K*(1-u));}
+__plane=function(y){const s=__camS((y-T.BACK)/(640-T.BACK)),v=(s-__camSB)/(1-__camSB),py=__top+(__front1-__top)*v,gx=(__camSpanBack+(__spanFront-__camSpanBack)*v)/170,ds=CAM_K/(640-T.BACK)*s*s,dy=(__front1-__top)*ds/(1-__camSB),dg=(__spanFront-__camSpanBack)*ds/(170*(1-__camSB));return {py,gx,dy,dg};};
+// A row of the painted table at screen y (old camera) -> its y and width factor k under the new camera, and back.
+// Above the back edge and below the front edge (posts, back wall, front rail) keep their painted height.
+function __camFwd(y){if(y<__top||y>__front){const e=y<__top?__top:__front,m=__camFwd(e);return {y:m.y+y-e,k:m.k};}const v0=(y-__top)/(__front-__top),s0=__sBack0+v0*(1-__sBack0),u=1-(1/s0-1)/P_K,v1=(__camS(u)-__camSB)/(1-__camSB);
+ return {y:__top+(__front1-__top)*v1,k:(__camSpanBack+(__spanFront-__camSpanBack)*v1)/(__spanBack0+(__spanFront-__spanBack0)*v0)};}
+function __camBack(y){if(y<__top||y>__front1){const e=y<__top?__top:__front1,m=__camBack(e);return {y:m.y+y-e,k:m.k};}const v1=(y-__top)/(__front1-__top),s1=__camSB+v1*(1-__camSB),u=1-(1/s1-1)/CAM_K,s0=1/(1+P_K*(1-u)),v0=(s0-__sBack0)/(1-__sBack0);
+ return {y:__top+(__front-__top)*v0,k:(__camSpanBack+(__spanFront-__camSpanBack)*v1)/(__spanBack0+(__spanFront-__spanBack0)*v0)};}
+// Step 3: each row is also narrowed to the funnel's width at that row's table depth (posts/back wall: the back's).
+const __slotHalf=__camSpanBack*PUSH_HALF/170;
+function __rowFunnel(y){const v1=Math.max(0,Math.min(1,(y-__top)/(__front1-__top))),s1=__camSB+v1*(1-__camSB);return tableHalfAt(T.BACK+(1-(1/s1-1)/CAM_K)*(640-T.BACK))/((T.R-T.L)/2);}
+const __NF=__plane(T.FRONT).py,__EXT=Math.max(0,__NF-__front1),__GXR=__plane(T.FRONT).gx/__plane(640).gx; // CP-21: longer table, rows keep their size
+const __WARP_Y0=120,__WARP_Y1=680+__EXT;
+function __warpTable(src){const d=src.height/420,c=newCanvas(src.width,Math.round((__WARP_Y1-__WARP_Y0)*d)),g=c.getContext('2d'),dx=src.width/400;
+ for(let r=0;r<c.height;r++){const y0=__WARP_Y0+(r+.5)/d,yo=y0<=__front1-4?y0:y0<__NF-4?__front1-4-((m=>m<50?m:100-m)((y0-__front1+4)%100)):y0-__EXT,wr=y0<=__front1-4?1:y0<__NF-4?1+(__GXR-1)*(y0-__front1+4)/Math.max(1,__EXT):__GXR,m=__camBack(yo),f=__rowFunnel(yo)*wr,sy=Math.floor((m.y-180)*d);if(!(sy>=0&&sy<src.height))continue;
+  g.drawImage(src,0,sy,src.width,1,(200-200*m.k*f)*dx,r,400*m.k*f*dx,1);}return c;}
+for(const r of __felt){const m=__camFwd(r[0]),f=__rowFunnel(m.y);r[0]=m.y;r[1]=200+(r[1]-200)*m.k*f;r[2]=200+(r[2]-200)*m.k*f;}
+screenOf=function(x,y,h){const p=__plane(y);return {x:200+(x-200)*p.gx,y:p.py-h*LIFT*p.gx,s:p.gx,worldX:x,depth:y,height:h,fit:true};};
+const __oldVec=projVec;
+projVec=function(v,s,at){if(!at||!at.fit)return __oldVec(v,s,at);const p=__plane(at.depth);return {x:v.x*p.gx+(at.worldX-200)*p.dg*v.z,y:-v.y*LIFT*p.gx+(p.dy-at.height*LIFT*p.dg)*v.z};};
+let __boardClipPath=null,__skyClipPath=null;
+function __cachedBoardPath(){
+ if(!__boardClipPath){const p=new Path2D();p.moveTo(__felt[0][1]+1,__felt[0][0]);
+  // A small inset polygon follows the traced side rails without retessellating hundreds of points.
+  for(let i=0;i<__felt.length;i+=58){const v=__felt[i];p.lineTo(v[1]+1,v[0]);}
+  const last=__felt[__felt.length-1];p.lineTo(last[1]+1,last[0]);p.lineTo(last[1]+1,H+200);p.lineTo(last[2]-1,H+200);p.lineTo(last[2]-1,last[0]);
+  for(let i=__felt.length-1;i>=0;i-=58){const v=__felt[i];p.lineTo(v[2]-1,v[0]);}p.lineTo(__felt[0][2]-1,__felt[0][0]);p.closePath();__boardClipPath=p;
+ }return __boardClipPath;
+}
+function __cachedSkyPath(){if(!__skyClipPath){const p=new Path2D();p.rect(-1000,218,3000,3000);p.rect(198-__slotHalf,-1000,2*__slotHalf+4,1228);__skyClipPath=p;}return __skyClipPath;}
+function __clipDelivery(){ctx.clip(__cachedSkyPath());}
+const __oldBody=drawBody;
+function __inputInFlight(b){
+ if(!b.input||!b.fresh)return false;
+ const age=time-b.mouthAt,trail=__dustTrails.get(b.uid);
+ if(trail&&trail.ended)return false;
+ const moving=age<.1||(age<1.25&&b.rb.linvel().y<-.15);
+ if(!moving&&trail)trail.ended=true;return moving;
+}
+drawBody=function(b){__oldBody(b.input&&b.fresh&&!__inputInFlight(b)?{...b,fresh:false}:b);};
+let __boardLayer=null,__railMatte=null,__matteRatio=0,__matteH=0;
+function __drawBoardBodies(){
+ const ratio=scale*devicePixelRatio;
+ if(!__boardLayer||__boardLayer.width!==cv.width||__boardLayer.height!==cv.height){__boardLayer=document.createElement('canvas');__boardLayer.width=cv.width;__boardLayer.height=cv.height;}
+ if(!__railMatte||ratio!==__matteRatio||H!==__matteH){__matteRatio=ratio;__matteH=H;__boardClipPath=null;__skyClipPath=null;__railMatte=document.createElement('canvas');__railMatte.width=Math.ceil(W*ratio);__railMatte.height=Math.ceil(H*ratio);const q=__railMatte.getContext('2d');q.setTransform(ratio,0,0,ratio,0,0);q.fillStyle='#fff';q.fillRect(-1000,218,3000,3000);} // CP-21: coins whole everywhere in front of the slot
+ const main=ctx,layer=__boardLayer.getContext('2d');layer.imageSmoothingEnabled=true;layer.imageSmoothingQuality='low';layer.setTransform(1,0,0,1,0,0);layer.clearRect(0,0,__boardLayer.width,__boardLayer.height);layer.setTransform(...__camera);layer.globalAlpha=1;
+ ctx=layer;__activeCoinClip='felt';
+ try{for(const b of bodies)if(!b.danceDown)drawBody(b);layer.globalCompositeOperation='destination-in';layer.drawImage(__railMatte,0,0,W,H);}
+ finally{layer.globalCompositeOperation='source-over';__activeCoinClip='';ctx=main;}
+ ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.drawImage(__boardLayer,0,0);ctx.restore();
+}
+const __oldFallOff=fallOff;
+fallOff=function(b,x){const t=b.rb.translation(),at=screenOf(t.x/M,t.z/M,t.y/M),rotation={...b.rb.rotation()};
+ __oldFallOff(b,x);const f=falling[falling.length-1];if(f){f.__screenStart=at;f.__sourceX=f.x;f.__sourceY=f.y;f.__rotation=rotation;}
+};
+const __oldFalling=drawFalling;
+drawFalling=function(f){
+ const worldX=unprojX(f.x,T.FRONT),start=f.__screenStart||screenOf(worldX,T.FRONT,0),ratio=start.s/f.s;
+ const c={...start,x:start.x+(f.x-(f.__sourceX??f.x))*ratio,y:start.y+(f.y-(f.__sourceY??(proj(worldX,T.FRONT).y+4)))*ratio};
+ __activeCoinClip='front-exit';__coinClipStats.falling++;
+ if((f.kind==='coin'||f.kind==='silver')&&f.__rotation){const a=f.t*3.8,q=qmul(f.__rotation,{x:Math.sin(a/2),y:0,z:0,w:Math.cos(a/2)});drawCoinAt(f.kind,c,q,f.id);}
+ else __oldFalling({...f,x:c.x,y:c.y,s:c.s});
+ __activeCoinClip='';
+};
+// CP-21: the armrests (game units: height above the table, how far they reach back and forward).
+const ARM_H=70,ARM_BACK=T.BACK-40,ARM_FRONT=240,ARM_OUT=330;
+function __armPoint(side,d,outer,h){const x=200+side*(outer?ARM_OUT:tableHalfAt(Math.max(T.BACK,d))+1);return screenOf(x,d,h);}
+function drawArmrests(){
+ for(const side of [-1,1]){
+  const steps=[];for(let i=0;i<=8;i++)steps.push(ARM_BACK+(ARM_FRONT-ARM_BACK)*i/8);
+  const quad=(pts,fill,stroke)=>{ctx.beginPath();ctx.moveTo(pts[0].x,pts[0].y);for(const q of pts.slice(1))ctx.lineTo(q.x,q.y);ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke();}};
+  // inner side (faces the table), then the front, then the brass top
+  const inner=[...steps.map(d=>__armPoint(side,d,false,0)),...steps.slice().reverse().map(d=>__armPoint(side,d,false,ARM_H))];
+  quad(inner,'#0b3a36');
+  const f0=__armPoint(side,ARM_FRONT,false,0),f1=__armPoint(side,ARM_FRONT,true,0),f2=__armPoint(side,ARM_FRONT,true,ARM_H),f3=__armPoint(side,ARM_FRONT,false,ARM_H);
+  const fg=ctx.createLinearGradient(0,f3.y,0,f0.y);fg.addColorStop(0,'#17605a');fg.addColorStop(1,'#0c3f3a');quad([f0,f1,f2,f3],fg);
+  const top=[...steps.map(d=>__armPoint(side,d,false,ARM_H)),...steps.slice().reverse().map(d=>__armPoint(side,d,true,ARM_H))];
+  const tg=ctx.createLinearGradient(0,top[0].y,0,f3.y);tg.addColorStop(0,'#b77d24');tg.addColorStop(.6,'#e2b24c');tg.addColorStop(1,'#f6cf67');quad(top,tg,'#805613');
+  ctx.strokeStyle='#ffe9a1';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(f3.x,f3.y);ctx.lineTo(f2.x,f2.y);ctx.stroke(); // bright brass front edge
+ }
+}
+// Where an idle mitt rests: on its armrest's top, near the front, in screen units.
+function mittRest(side){const d=MITT_D,p=screenOf(200+side*(tableHalfAt(d)+1),d,ARM_H),edge=200+(p.x-200)*VIEW.z; // the armrest's inner front corner
+ return {x:edge+side*(MITT_W/2-MITT_HOOK),y:VIEW.y+p.y*VIEW.zy-MITT_LIFT+(typeof HEAD_DROP==='number'?HEAD_DROP*VIEW.zy:0)};} // mitts move down with the head // claws hook MITT_HOOK over the inner edge
+drawMachine=function(){
+ // Keep original table art except the blocking centre front rail; expose the physical open edge.
+ ctx.save();ctx.beginPath();ctx.rect(0,__WARP_Y0,400,__NF-__WARP_Y0);ctx.rect(0,__NF,40,__WARP_Y1-__NF);ctx.rect(358,__NF,42,__WARP_Y1-__NF);ctx.clip();
+ ctx.clip(__cachedBoardPath());ctx.drawImage(ART.table,0,__WARP_Y0,400,__WARP_Y1-__WARP_Y0);ctx.restore();
+ ctx.fillStyle='#18352c';ctx.fillRect(42,__NF-.5,314,3.5);ctx.fillStyle='#a16b25';ctx.fillRect(42,__NF+2,314,1); // CP-21: trim at the real front edge
+ drawArmrests();drawTongue();
+};
+const __oldTryDrop=tryDrop;
+tryDrop=function(at=aim){const ok=__oldTryDrop(at);if(ok){const b=bodies.reduce((best,b)=>b.input&&(!best||b.uid>best.uid)?b:best,null);if(b){const t=b.rb.translation(),c=screenOf(t.x/M,t.z/M,t.y/M);b.__uat05StartY=c.y;b.__uat05InitialX=t.x/M;b.__uat05InitialDepth=t.z/M;const elapsed=Math.max(0,time-__delivery.at),k=Math.min(1,elapsed/.12),x=__delivery.from+(__delivery.to-__delivery.from)*(k*k*(3-2*k));Object.assign(__delivery,{from:x,to:c.x,at:time,worldX:t.x/M,depth:t.z/M,uid:b.uid});}}return ok;};
+// Aim conversion changes only screen-to-existing-world correspondence. Eight original release lanes stay intact.
+aimFromScreen=function(sx){const p=__plane(DROP_Y),lookX=Math.max(T.L,Math.min(T.R,200+(screenToGameX(sx)-200)/p.gx));return {x:Math.max(200-PUSH_HALF+COIN_R,Math.min(200+PUSH_HALF-COIN_R,lookX)),y:DROP_Y,lookX};};
+function __quad(points){ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);for(const p of points.slice(1))ctx.lineTo(p.x,p.y);ctx.closePath();}
+drawTongue=function(){
+ const cm=ctx.getTransform();__camera=[cm.a,cm.b,cm.c,cm.d,cm.e,cm.f];ctx.save();ctx.fillStyle='#231c10';ctx.strokeStyle='#846127';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(198-__slotHalf,218,2*__slotHalf+4,11,3);ctx.fill();ctx.stroke();
+ const back=-60,left=200-PUSH_HALF,right=200+PUSH_HALF,ftl=screenOf(left,tongueDrawY,TONGUE_H),ftr=screenOf(right,tongueDrawY,TONGUE_H),fbl=screenOf(left,tongueDrawY,0),fbr=screenOf(right,tongueDrawY,0),btl=screenOf(left,back,TONGUE_H),btr=screenOf(right,back,TONGUE_H);
+ ctx.save();ctx.fillStyle='rgba(8,21,17,.65)';__quad([ftl,ftr,{x:fbr.x,y:fbr.y+2},{x:fbl.x,y:fbl.y+2}]);ctx.fill();ctx.restore();
+ const points=[btl,btr,ftr,ftl];ctx.save();__quad(points);ctx.clip();const g=ctx.createLinearGradient(0,btl.y,0,ftl.y);g.addColorStop(0,'#f9d46d');g.addColorStop(.45,'#d7a844');g.addColorStop(.7,'#f6cf67');g.addColorStop(1,'#b77d24');ctx.fillStyle=g;ctx.fillRect(btl.x-30,btl.y-2,ftr.x-btl.x+60,ftl.y-btl.y+5);
+ if(typeof __brassTexture!=='undefined'){const crop=__brassCrop;ctx.globalAlpha=.62;const full=screenOf(left,tongueDrawY-TONGUE_LEN,TONGUE_H);ctx.drawImage(__brassTexture,crop[0],crop[1],crop[2],crop[3],fbl.x,full.y,fbr.x-fbl.x,ftl.y-full.y);ctx.globalAlpha=1;}
+ ctx.restore();ctx.strokeStyle='#ffe9a1';ctx.lineWidth=1.2;__quad(points);ctx.stroke();
+ const edge=ctx.createLinearGradient(0,ftl.y,0,fbl.y);edge.addColorStop(0,'#bf8b2b');edge.addColorStop(.3,'#edc45b');edge.addColorStop(1,'#765016');ctx.fillStyle=edge;__quad([ftl,ftr,fbr,fbl]);ctx.fill();ctx.strokeStyle='#805613';ctx.lineWidth=1;ctx.stroke();ctx.strokeStyle='#fff0b3';ctx.beginPath();ctx.moveTo(ftl.x,ftl.y);ctx.lineTo(ftr.x,ftr.y);ctx.stroke();
+ // Rear housing occludes the plate's rear edge, making the fixed stroke emerge from a slot.
+ ctx.restore();
+};
+function __fallDisplay(b,age,c){
+ const top=-VIEW.y/VIEW.zy-14;
+ const lift=Math.max(0,b.__uat05StartY-top)*Math.max(0,1-age/.28)**2;
+ return {...c,y:c.y-lift};
+}
+const __dustTrails=new Map();
+function __goldDust(b,c){
+ if(__auditCoinsOnly)return;
+ let trail=__dustTrails.get(b.uid);
+ if(!trail){trail={particles:[],last:time,lastX:c.x,lastY:c.y,serial:0,started:false};__dustTrails.set(b.uid,trail);}
+ const grain=n=>{let h=(n+b.uid*7919)|0;h=Math.imul(h^(h>>>16),0x45d9f3b);h=Math.imul(h^(h>>>16),0x45d9f3b);return ((h^(h>>>16))>>>0)/4294967296;};
+ // Follow the actual supporting tier; a table-bound fall must not end its trail at ledge height.
+ const landingDepth=b.__uat05InitialDepth??DROP_Y;
+ const landingHeight=landingDepth<=pusherY?TONGUE_H:0;
+ const landingY=screenOf(b.__uat05InitialX??200,landingDepth,landingHeight).y;
+ const age=time-b.mouthAt,v=b.rb.linvel();
+ const descending=age<.1||v.y<-.15;
+ if(!descending&&age>=.1)trail.ended=true;
+ const emitting=__inputInFlight(b)&&descending&&c.y+COIN_R*c.s<landingY+4;
+ if(emitting&&(!trail.started||time!==trail.last)){
+  const steps=trail.started?Math.min(24,Math.max(1,Math.ceil((time-trail.last)*120))):1;
+  for(let s=1;s<=steps;s++)for(let i=0;i<2;i++){
+   const k=s/steps,born=trail.last+(time-trail.last)*k,px=trail.lastX+(c.x-trail.lastX)*k,py=trail.lastY+(c.y-trail.lastY)*k;
+   const n=trail.serial++,u=grain(n*9+1),v=grain(n*9+2),w=grain(n*9+3);
+   trail.particles.push({born,x:px+(u-.5)*10,y:py-COIN_R*c.s-3-v*6,vx:(u-.5)*22,vy:-4-v*12,life:.19+w*.1,r:1+v*.9,phase:w*6.28,white:w>.55,star:n%4===0});
+  }
+  Object.assign(trail,{last:time,lastX:c.x,lastY:c.y,started:true});
+ }
+ let write=0;
+ for(const p of trail.particles){
+  const dt=time-p.born;if(dt>=p.life)continue;trail.particles[write++]=p;
+  const x=p.x+p.vx*dt,y=p.y+p.vy*dt;if(y>=landingY-2)continue;
+  const k=dt/p.life,twinkle=.45+.55*Math.sin(dt*48+p.phase)**2;
+  ctx.globalAlpha=(1-k)*twinkle;ctx.fillStyle=p.white?'#fffcef':'#ffd65b';
+  const r=p.r*(.7+.3*twinkle);ctx.beginPath();
+  if(p.star){ctx.moveTo(x,y-r*1.8);ctx.lineTo(x+r*.35,y-r*.35);ctx.lineTo(x+r*1.3,y);ctx.lineTo(x+r*.35,y+r*.35);ctx.lineTo(x,y+r*1.8);ctx.lineTo(x-r*.35,y+r*.35);ctx.lineTo(x-r*1.3,y);ctx.lineTo(x-r*.35,y-r*.35);ctx.closePath();}
+  else ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+ }
+ trail.particles.length=write;ctx.globalAlpha=1;
+}
+const __oldResetBoard=resetBoard;resetBoard=function(){__dustTrails.clear();return __oldResetBoard();};
+function drawDeliveryCoins(){
+ const alive=new Set();
+ for(const b of bodies){
+  if(!b.input)continue;alive.add(b.uid);const age=Math.max(0,time-b.mouthAt),airborne=__inputInFlight(b),trail=__dustTrails.get(b.uid);if(!airborne&&(!trail||!trail.particles.length))continue;
+  if(!b.fresh){if(b.__uat05DustLandedAt===undefined)b.__uat05DustLandedAt=time;if(time-b.__uat05DustLandedAt>.36)continue;}
+  const t=b.rb.translation(),raw=screenOf(t.x/M,t.z/M,t.y/M),c=__fallDisplay(b,age,raw);
+  ctx.save();__clipDelivery();__goldDust(b,c);
+  if(airborne){__activeCoinClip='delivery';drawCoinAt(b.kind,c,b.rb.rotation(),b.id);__activeCoinClip='';}
+  ctx.restore();
+ }
+ if(!__auditCoinsOnly)for(const uid of __dustTrails.keys())if(!alive.has(uid))__dustTrails.delete(uid);
+}
+
+const __oldCoinAt=drawCoinAt;drawCoinAt=function(...args){if(!__activeCoinClip){__coinClipStats.unclipped++;throw Error('Coin draw escaped containment clip');}if(__activeCoinClip==='felt')__coinClipStats.board++;else __coinClipStats.delivery++;__oldCoinAt(...args);};
+function __drawCoinAudit(){ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,cv.width,cv.height);ctx.setTransform(...__camera);__auditCoinsOnly=true;__drawBoardBodies();drawDeliveryCoins();for(const f of falling)drawFalling(f);__auditCoinsOnly=false;ctx.restore();}
+
+function draw() {
+  ctx.setTransform(scale * devicePixelRatio, 0, 0, scale * devicePixelRatio, 0, 0);
+  ctx.fillStyle = `rgb(${BG})`; ctx.fillRect(0, 0, W, H);
+  if(ART.background){const cover=Math.max(W/ART.background.width,H/ART.background.height),bw=ART.background.width*cover,bh=ART.background.height*cover;ctx.drawImage(ART.background,(W-bw)/2,(H-bh)/2,bw,bh);}
+  // the machine, zoomed in around the centre (and shaking while lightning strikes)
+  const sh = shake > 0 ? shake * 6 : 0;
+  const dj=danceJoltOffset();ctx.save(); ctx.translate(200 + rand(-sh, sh) + dj.x, VIEW.y + rand(-sh, sh) * 0.5 + dj.y); ctx.scale(VIEW.z, VIEW.zy); ctx.translate(-200, 0);
+  drawMachine();
+  // Idle paws can cover the rail, but coins are painted above them. Sweeping paws are drawn above the board.
+  // Aiming ring removed; tap position still controls drops and pupil tracking.
+  // back to front: further back first, and lower before higher, so piles stack up the right way
+  // (a tower sorts by its base, so coins in front of it still draw over it)
+  // The order is smoothed and only changes when two coins are clearly apart: coins jiggling in a pile used to swap
+  // order every frame, which flickered.
+  for (const b of bodies) {
+    const t = b.rb.translation(), k = t.z / M + (t.y / M - (b.kind === 'stack' ? b.half : 0)) * 1.3;
+    b.sortK = b.sortK === null ? k : Math.abs(k - b.sortK) > 1.5 ? k : b.sortK;
+  }
+  bodies.sort((a, b) => a.sortK - b.sortK || a.uid - b.uid);
+  __drawBoardBodies();
+  // CP-21: idle mitts are the U's arms, drawn above the coins (the head still covers their cuffs).
+ if(sweepTime===0&&catquakeTime===0&&powerFace()!=='happy'&&!isRestPose()){ctx.save();ctx.setTransform(scale*devicePixelRatio,0,0,scale*devicePixelRatio,0,0);drawPaws();ctx.restore();}
+  // Rest-only rail backing closes the cyan seam; no head/board geometry changes.
+ const restBlend=restPoseBlend();if(restBlend>0){ctx.save();ctx.globalAlpha=restBlend;const g=ctx.createLinearGradient(0,199,0,219);g.addColorStop(0,'#bd7b20');g.addColorStop(.5,'#ffc856');g.addColorStop(1,'#b8791c');ctx.fillStyle=g;ctx.fillRect(76,199,248,20);ctx.restore();}
+ // Independent rear coin-entry rail; approved resting geometry stays fixed.
+ // No aim line or target circle: the foreground fall shows the accepted lane.
+ const face=powerFace(),head=face==='wild'?ART.headWild:face==='sweet'||face==='happy'?ART.headSweet:ART.head;
+ const down=quakeHeadOffset();ctx.save();ctx.translate(200,CHIN_Y+HEAD_DROP);ctx.scale(VIEW.hz/VIEW.z,VIEW.hzy/VIEW.zy);ctx.translate(-200,-CHIN_Y);ctx.translate(0,down);const tk=isRestPose()?tickleState():null;if(tk){const h=tk.head;ctx.translate(200+h.x,110+h.y);ctx.rotate(h.r);ctx.translate(-200,-110);}if(isRestPose()&&pawDance){const g=pawGaze(),d=pawMotion();ctx.translate(200+d.x,110+d.y+(g?g.y*19:0));ctx.rotate(d.r+(g?-g.x*.048:0));ctx.translate(-200,-110);}
+ if(face==='wild'&&catquakeTime<.18){ctx.drawImage(ART.head,-10,-25,420,240);ctx.save();ctx.globalAlpha=catquakeTime/.18;ctx.drawImage(head,-10,-25,420,240);ctx.restore();}
+ else ctx.drawImage(head,-10,-25,420,240);
+ if(face==='happy')drawHappyFeatures();else{drawTrackingPupils();if(tk&&tk.squint>0){ctx.save();ctx.globalAlpha=tk.squint;drawHappyFeatures();ctx.restore();}}ctx.restore();
+ if(face==='happy')drawHappyPaws();
+  for (const f of falling) {
+    // tipping over the edge and dropping away, fading as it goes (the ones at the corners go behind the paws)
+    ctx.globalAlpha = Math.max(0, 1 - f.t * 1.9);
+    drawFalling(f);
+    ctx.globalAlpha = 1;
+  }
+  for (const r of rings) {
+    ctx.globalAlpha = 1 - r.t; ctx.strokeStyle = '#fff3b0'; ctx.lineWidth = 2.5 * (1 - r.t) + 0.5;
+    const rad = (14 + r.t * 34) * r.s;
+    ctx.beginPath(); ctx.ellipse(r.x, r.y, rad, rad * SQUASH, 0, 0, 7); ctx.stroke();
+    ctx.globalAlpha = 1;
+  }
+  for (const f of floats) {
+    ctx.globalAlpha = 1 - f.t; ctx.fillStyle = f.big ? '#ff9ad8' : '#ffd76a';
+    ctx.font = `bold ${f.big ? 22 : 16}px system-ui`; ctx.textAlign = 'center';
+    ctx.fillText(f.text, f.x, f.y - f.t * 40); ctx.globalAlpha = 1;
+  }
+  ctx.restore();
+  if (flash > 0) { ctx.fillStyle = `rgba(230,235,255,${flash * 0.6})`; ctx.fillRect(0, 0, W, H); } // lightning flash
+  drawHUD();
+  // Foreground delivery overlays the head and HUD for a continuous top-of-screen fall.
+  ctx.save();ctx.setTransform(...__camera);drawDeliveryCoins();ctx.restore();
+  // Collection messages rise and fade; canvas text never captures taps.
+  const toast=itemToasts[0];
+  if(toast){ctx.save();ctx.globalAlpha=Math.max(0,Math.min(1,(1.1-toast.t)/.2));ctx.textAlign='center';
+    ctx.font='italic 600 32px Impact, "Arial Black", system-ui';ctx.lineJoin='round';ctx.lineWidth=6;
+    const progress=Math.min(1,toast.t/.8),start=H-PAD_B-BOTTOM_H-24,y=start+(Math.min(start,Math.max(VIEW.y+285*VIEW.zy,VIEW.y+215*VIEW.zy+70))-start)*progress;
+    ctx.strokeStyle='#211724';ctx.fillStyle='#ffffff';
+    const lines=[toast.text.replace(/ COLLECTED!$/,''),'COLLECTED!'];
+    lines.forEach((line,i)=>{ctx.strokeText(line,200,y-18+i*35);ctx.fillText(line,200,y-18+i*35);});ctx.restore();}
+  drawCallout();
+}
+
+// ---------- screen layout ----------
+// A border top and bottom (PAD_T, PAD_B) so nothing sits under the phone's rounded corners or camera. Top: the bar
+// (coins, level gauge, collection, sound) and the quest banner under it. Bottom: the daily challenge and the shake button.
+const PAD_T = 26, BAR_H = 44, BANNER_H = 28, PAD_B = 18, BOTTOM_H = 62;
+function shakeButton() { return { x: 200, y: H - PAD_B - BOTTOM_H / 2, r: 26 }; }
+function clock(ms) { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; }
+function bar(x, y, w, h, f, col) {
+  ctx.fillStyle = 'rgba(255,255,255,.14)'; roundRect(x, y, w, h, h / 2); ctx.fill();
+  if (f > 0) { ctx.fillStyle = col; roundRect(x, y, Math.max(h, w * Math.min(1, f)), h, h / 2); ctx.fill(); }
+}
+// The quest meter: a tall tube up the right side of the table that fills toward the quest's goal, with the count
+// in big numbers on top (it bumps each time it goes up).
+function drawQuestMeter() {
+  const q = S.quest;
+  if (!q) return;
+  const sy = z => VIEW.y + VIEW.zy * proj(T.R, z).y; // a table depth → screen y
+  const top = sy(PUSH_MAX) + 34, bot = sy(T.FRONT) - 6, x = W - 22, w = 14, f = q.have / q.n;
+  ctx.fillStyle = 'rgba(18,11,28,.6)'; roundRect(x - w / 2 - 3, top - 3, w + 6, bot - top + 6, (w + 6) / 2); ctx.fill();
+  if (f > 0) {
+    const h = Math.max(w, (bot - top) * f), g = ctx.createLinearGradient(0, bot - h, 0, bot);
+    g.addColorStop(0, '#c8ff9a'); g.addColorStop(1, '#2fbf3a');
+    ctx.fillStyle = g; roundRect(x - w / 2, bot - h, w, h, w / 2); ctx.fill();
+  }
+  const s = 1 + meterBump * 0.45;
+  ctx.save(); ctx.translate(x - 4, top - 22); ctx.scale(s, s);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineJoin = 'round';
+  ctx.font = 'italic 900 26px Impact, "Arial Black", system-ui';
+  ctx.lineWidth = 6; ctx.strokeStyle = '#111'; ctx.strokeText(q.have, 0, 0);
+  ctx.fillStyle = q.have >= q.n ? '#7dff6a' : '#ffe680'; ctx.fillText(q.have, 0, 0);
+  ctx.font = '900 11px system-ui'; ctx.lineWidth = 4; ctx.strokeText('/' + q.n, 2, 18);
+  ctx.fillStyle = '#fff'; ctx.fillText('/' + q.n, 2, 18);
+  ctx.restore();
+}
+// UAT-01: Android physical-pixel insets are mapped into the fixed game canvas.
+let androidSafeArea={}, safeAreaGuides=false;
+window.setAndroidSafeArea=function(value){androidSafeArea=value||{};const k=innerWidth/(androidSafeArea.width||innerWidth);for(const edge of ['left','top','right','bottom'])document.documentElement?.style.setProperty('--safe-'+edge,(Math.max(0,androidSafeArea[edge]||0)*k)+'px');if(world&&typeof fitView==='function')fitView();};
+function hudLayout(){
+ const k=innerWidth/(androidSafeArea.width||innerWidth)/scale;
+ const r=cv.getBoundingClientRect(),offsetX=r.left/scale,offsetY=r.top/scale;
+ const left=Math.max(0,(androidSafeArea.left||0)*k-offsetX),right=Math.max(0,(androidSafeArea.right||0)*k-offsetX);
+ const top=Math.max(0,(androidSafeArea.top||0)*k-offsetY),bottom=Math.max(0,(androidSafeArea.bottom||0)*k-Math.max(0,innerHeight/scale-H-offsetY));
+ const mainY=Math.max(PAD_T+21,top+12),bannerY=Math.max(PAD_T+BAR_H+14,mainY+30);
+ const headerBottom=Math.max(PAD_T+BAR_H+BANNER_H,bannerY+14);
+ return {left,right,top,bottom,mainY,bannerY,headerBottom,extraTop:headerBottom-(PAD_T+BAR_H+BANNER_H),bottomY:Math.min(H-PAD_B-BOTTOM_H,H-bottom-18-BOTTOM_H),settingsX:W-Math.max(8,right+12),settingsY:H-Math.max(6,bottom+12)};
+}
+function drawSafeAreaGuides(){
+ if(!safeAreaGuides)return;const k=innerWidth/(androidSafeArea.width||innerWidth)/scale,r=cv.getBoundingClientRect();ctx.save();ctx.translate(-r.left/scale,-r.top/scale);ctx.scale(k,k);ctx.lineWidth=3/k;ctx.strokeStyle='#ff5252';for(const b of androidSafeArea.cutouts||[])ctx.strokeRect(b.left,b.top,b.right-b.left,b.bottom-b.top);ctx.strokeStyle='#ffe600';for(const c of androidSafeArea.corners||[]){ctx.beginPath();ctx.arc(c.x,c.y,c.radius,0,7);ctx.stroke();}ctx.restore();
+}
+function safeAreaReport(){const h=hudLayout();return {native:androidSafeArea,layout:h,extraTopPhysicalPixels:h.extraTop*scale*(androidSafeArea.width||innerWidth)/innerWidth};}
+try{if(window.Android&&Android.getSafeArea)window.setAndroidSafeArea(JSON.parse(Android.getSafeArea()));}catch(e){}
+
+function drawBoardHUD() {
+ const hud=hudLayout();const by=hud.bannerY-14;
+ ctx.textBaseline='middle';ctx.textAlign='left';
+ ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(0,0,W,hud.headerBottom);
+ ctx.fillStyle='#ffd76a';ctx.font='bold 19px system-ui';ctx.fillText(board.remaining+' coins',hud.left+12,hud.mainY);
+ ctx.textAlign='center';ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText('BOARD '+(boardIndex+1)+' / '+BOARDS.length,(hud.left+W-hud.right)/2-10,hud.mainY);
+ ctx.textAlign='right';ctx.font='22px system-ui';ctx.fillText(S.muted?'🔇':'🔊',W-hud.right-12,hud.mainY);
+ if(S.dev&&window.Android){ctx.font='20px system-ui';ctx.fillText('↻',W-hud.right-66,hud.mainY);}
+ ctx.textAlign='left';ctx.font='bold 12px system-ui';ctx.fillStyle=BOARD.seconds-board.elapsed<20?'#ff7a7a':'#fff';
+ ctx.fillText(clock((BOARD.seconds-board.elapsed)*1000),hud.left+12,hud.bannerY);
+ for(let i=0;i<BOARD.targets.length;i++) {
+  const t=BOARD.targets[i],got=board.collected.includes(t.id);
+  if(BOARD.targets.length>2)ctx.font='bold 11px system-ui';
+  ctx.fillStyle=got?'#7dff6a':'#fff';ctx.fillText((got?'✓ ':'')+ITEMS[t.id].name,Math.max(hud.left+95,95)+i*(BOARD.targets.length>2?96:135),hud.bannerY);
+ }
+ if(sweepTime>0||catquakeTime>0||isRestPose())drawPaws();drawPawTouchGuides();drawTickleWords();
+ const bottom=hud.bottomY;
+ ctx.textAlign='center';ctx.font='bold 12px system-ui';
+ if(['won','lost'].includes(board.status)){
+  ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(100,bottom,200,BOTTOM_H);ctx.fillStyle='#ffe680';
+  ctx.fillText(board.status==='won'?(boardIndex<BOARDS.length-1?'NEXT BOARD':'ALL BOARDS CLEAR'):'TRY AGAIN',200,bottom+18);
+ }else if(!S.dev&&BOARD.id==='tuna-terraces'){
+  if(BOARD.id==='tuna-terraces'){ctx.fillStyle=board.earnedQuakes?'#00d9ee':'rgba(18,11,28,.9)';ctx.fillRect(100,bottom,200,32);ctx.fillStyle=board.earnedQuakes?'#002836':'#b0d7df';ctx.fillText(catquakeTime>0?'QUAKE! · '+board.earnedQuakes+' left':board.earnedQuakes?'USE QUAKE · '+board.earnedQuakes:'QUAKE · 0',200,bottom+17);}
+ }else{
+  ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(20,bottom,178,32);ctx.fillRect(202,bottom,178,32);ctx.fillStyle='#ffe680';
+  ctx.fillText(sweepTime>0?'PAW SWEEP!':board.status==='ready'?'TRY PAW SWEEP':'PAW SWEEP · '+board.sweeps,109,bottom+17);
+  ctx.fillText(catquakeTime>0?'CATQUAKE!':board.status==='ready'?'TRY CATQUAKE':'CATQUAKE · '+board.quakes,291,bottom+17);
+ }
+ ctx.fillStyle='#fff';ctx.font='12px system-ui';ctx.fillText(board.status==='lost'?(board.endReason==='time'?"Time’s up · Tap to retry":"Out of coins · Tap to retry"):board.status==='won'?'Replay board '+(boardIndex+1):board.status==='ready'?(S.dev||BOARD.id!=='tuna-terraces'?'Tap board to play · Powers preview above':'Tap board to play'):'Restart board',200,bottom+42);
+ if(board.quakeStats){const q=board.quakeStats;ctx.fillStyle='#ffe680';ctx.font='11px system-ui';ctx.fillText(q.fallen+' coins spilled · '+Math.round(100*q.fallen/Math.max(1,q.before))+'%',200,bottom-12);}
+ ctx.fillStyle='rgba(18,11,28,.96)';ctx.fillRect(hud.left+2,hud.settingsY-13,246,26);
+ ctx.fillStyle='#ffffff';ctx.font='bold 15px system-ui';ctx.textAlign='left';ctx.fillText(BUILD,hud.left+8,hud.settingsY);
+ if(S.dev){ctx.font='11px system-ui';ctx.fillText(Math.round(perf.fps)+' fps',hud.left+190,hud.settingsY);} 
+ ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('Settings',hud.settingsX,hud.settingsY);drawSafeAreaGuides();
+}
+
+function drawHUD() { drawBoardHUD(); return;
+
+  const y0 = PAD_T, emoji = 'system-ui,"Segoe UI Emoji","Noto Color Emoji"';
+  ctx.textBaseline = 'middle';
+  // top bar
+  ctx.fillStyle = 'rgba(18,11,28,.88)'; ctx.fillRect(0, 0, W, y0 + BAR_H);
+  blitFlat('coin', 22, y0 + 20);
+  // out of coins: the counter flashes red and the refill timer shows bigger
+  const cf = coinFlash > 0 && Math.floor(coinFlash * 6) % 2 === 0;
+  ctx.fillStyle = cf ? '#ff5a5a' : '#ffd76a'; ctx.font = 'bold 21px system-ui'; ctx.textAlign = 'left';
+  ctx.fillText(S.coins, 40, y0 + 18);
+  if (S.coins < REGEN_CAP) {
+    ctx.fillStyle = coinFlash > 0 ? '#ffb0b0' : '#b9a6d6'; ctx.font = coinFlash > 0 ? 'bold 12px system-ui' : '10px system-ui';
+    ctx.fillText(`+1 in ${clock(REGEN_SEC * 1000 - (Date.now() - S.lastRegen))}`, 40, y0 + 35);
+  }
+  // the level gauge: fills as you drop and win coins
+  ctx.fillStyle = '#4fc3ff'; ctx.beginPath(); ctx.arc(128, y0 + 22, 15, 0, 7); ctx.fill();
+  ctx.fillStyle = '#04263a'; ctx.font = '900 13px system-ui'; ctx.textAlign = 'center'; ctx.fillText(S.level, 128, y0 + 23);
+  bar(148, y0 + 15, 140, 14, S.xp / xpFor(S.level), '#4fc3ff');
+  ctx.fillStyle = '#d8ecff'; ctx.font = '700 10px system-ui'; ctx.fillText(`${S.xp} / ${xpFor(S.level)}`, 218, y0 + 22.5);
+  ctx.font = `22px ${emoji}`;
+  ctx.fillText('🎒', W - 76, y0 + 22);
+  ctx.fillText(S.muted ? '🔇' : '🔊', W - 28, y0 + 22);
+  // the quest banner: what to do, how long is left, progress, and the reward
+  const by = y0 + BAR_H, q = S.quest;
+  ctx.fillStyle = 'rgba(18,11,28,.72)'; ctx.fillRect(0, by, W, BANNER_H);
+  if (bannerFlash > 0 && Math.floor(bannerFlash * 5) % 2 === 0) { ctx.fillStyle = 'rgba(232,32,58,.75)'; ctx.fillRect(0, by, W, BANNER_H); } // time's up
+  ctx.textAlign = 'left'; ctx.font = `700 12px ${emoji}`;
+  if (q) {
+    const left = q.ends - Date.now();
+    ctx.fillStyle = left < 20000 ? '#ff7a7a' : '#ffe680';
+    ctx.fillText(`⏱ ${clock(left)}`, 8, by + 10);
+    ctx.fillStyle = '#fff'; ctx.fillText(q.text, 58, by + 10, 210);
+    ctx.textAlign = 'right'; ctx.fillStyle = '#ffd76a';
+    ctx.fillText(`🎁 +${q.coins}${q.shakes ? ' +1 shake' : ''}`, W - 8, by + 10);
+    bar(58, by + 21, 150, 6, q.have / q.n, '#7dff6a');
+    ctx.textAlign = 'left'; ctx.fillStyle = '#c9f7c0'; ctx.font = '700 9px system-ui';
+    ctx.fillText(`${q.have}/${q.n}`, 8, by + 24);
+  } else {
+    ctx.fillStyle = '#b9a6d6'; ctx.fillText(`Next quest in ${clock((S.questNext || 0) - Date.now())}`, 8, by + 10);
+  }
+  // the daily challenge, on the banner's second line, right side
+  const d = daily();
+  ctx.textAlign = 'left'; ctx.fillStyle = '#ffd9b0'; ctx.font = `700 9px ${emoji}`;
+  const live = dailyRunning();
+  ctx.fillStyle = live && d.ends - Date.now() < 60000 ? '#ff7a7a' : '#ffd9b0';
+  ctx.fillText(d.won ? '⭐ Daily won!' : live ? `⭐ ${clock(d.ends - Date.now())} ${d.have}/${DAILY.target}` : '⭐ Daily: drop to start', 220, by + 24, live ? 90 : 170);
+  if (live) bar(312, by + 21, W - 320, 6, d.have / DAILY.target, '#ff8a3d');
+  if (S.guard > 0) {
+    ctx.textAlign = 'center'; ctx.fillStyle = '#ffcf30'; ctx.font = `bold 15px ${emoji}`;
+    ctx.fillText(`🐾 Paws in ${clock(S.guard * 1000)}`, 200, by + BANNER_H + 14);
+  }
+  drawQuestMeter();
+  // bottom bar: the big paws fill the corners; the shake button sits between them
+  const bb = H - PAD_B - BOTTOM_H, sb = shakeButton();
+  if (shakeWobble > 0) sb.x += Math.sin(shakeWobble * 45) * 7 * shakeWobble / 0.6; // no shakes left
+  ctx.fillStyle = 'rgba(18,11,28,.5)'; ctx.fillRect(0, bb, W, H - bb);
+  drawPaws();
+  // the shake button
+  const pressable = S.shakes > 0 && shake <= 0;
+  const gr = ctx.createRadialGradient(sb.x - 8, sb.y - 8, 4, sb.x, sb.y, sb.r);
+  gr.addColorStop(0, pressable ? '#ffd27a' : '#8a8090'); gr.addColorStop(1, pressable ? '#e8620c' : '#4a4252');
+  ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(sb.x, sb.y, sb.r, 0, 7); ctx.fill();
+  ctx.lineWidth = 3; ctx.strokeStyle = '#111'; ctx.stroke();
+  ctx.textAlign = 'center'; ctx.fillStyle = '#fff'; ctx.font = 'italic 900 13px Impact, "Arial Black", system-ui';
+  ctx.fillText('SHAKE', sb.x, sb.y + 1);
+  ctx.fillStyle = '#e8203a'; ctx.beginPath(); ctx.arc(sb.x + 20, sb.y - 18, 10, 0, 7); ctx.fill();
+  ctx.lineWidth = 2; ctx.stroke(); ctx.fillStyle = '#fff'; ctx.font = '900 11px system-ui'; ctx.fillText(S.shakes, sb.x + 20, sb.y - 17.5);
+  // test readout, in the bottom border
+  ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+  ctx.fillStyle = 'rgba(200,190,220,.5)'; ctx.font = '9px system-ui';
+  ctx.fillText(`${BUILD} · physics ${perf.step.toFixed(1)} ms · ${Math.round(perf.fps)} fps · ${bodies.length} coins`, 8, H - 5);
+}
+
+function resize() {
+  H = Math.max(720, Math.min(960, W * innerHeight / innerWidth));
+  scale = Math.min(innerWidth / W, innerHeight / H);
+  cv.style.width = W * scale + 'px'; cv.style.height = H * scale + 'px';
+  cv.width = Math.round(W * scale * devicePixelRatio); cv.height = Math.round(H * scale * devicePixelRatio);
+  fitView();
+}
+
+// ---------- collection panel ----------
+const panel = document.getElementById('panel');
+function openCredits(){
+ holding=false;taps=[];
+ const canCheck=window.Android&&typeof Android.checkUpdates==='function';
+ panel.innerHTML='<button id="close">Close</button><h2>UAT Settings</h2>'
+  +(canCheck?'<button id="checkupd" class="wide">Check for updates</button>':'')
+  +'<button id="safe-guides" class="wide">Show/hide safe-area guides</button><button id="happy-test" class="wide">Preview Happy (6 seconds)</button>'+(S.dev?'<button id="dance-test" class="wide">Preview Dancing pose</button>':'')+'<button id="sound-test" class="wide">Sound effects: '+(S.muted?'off':'on')+'</button>'
+  +(S.dev?'<button id="tap-areas" class="wide">Show tap areas: '+(showTapAreas?'on':'off')+'</button>':'')
+  +'<button id="devmode" class="devswitch">Developer mode: '+(S.dev?'on':'off')+'</button>'
+  +'<p>Waiting is the toothy idle pose. Rest is the small smile with raised mitts, used for board clear. Recovery returns from Quake. Happy usage is TBD; preview only.</p>';
+ panel.style.display='block';
+ panel.querySelector('#close').onclick=()=>panel.style.display='none';
+ panel.querySelector('#safe-guides').onclick=()=>{safeAreaGuides=!safeAreaGuides;panel.style.display='none';};
+ panel.querySelector('#happy-test').onclick=()=>{if(previewHappy())panel.style.display='none';};
+ const dance=panel.querySelector('#dance-test');if(dance)dance.onclick=()=>{if(previewDancingPose())panel.style.display='none';};
+ panel.querySelector('#sound-test').onclick=()=>{S.muted=!S.muted;saveAudioSettings();openCredits();};
+ panel.querySelector('#devmode').onclick=()=>{S.dev=!S.dev;save();openCredits();};
+ const tapAreas=panel.querySelector('#tap-areas');if(tapAreas)tapAreas.onclick=()=>{showTapAreas=!showTapAreas;openCredits();};
+ const check=panel.querySelector('#checkupd');
+ if(check)check.onclick=()=>{save();check.textContent='Checking…';Android.checkUpdates();setTimeout(()=>{check.textContent='Check for updates';},1500);};
+}
+function openPanel() { return;
+
+  let h = '<button id="close">Close</button><h2>🎒 Collection</h2>';
+  // on the phone app: check for a newer game in OneDrive right now
+  if (window.Android && Android.checkUpdates) h += '<button id="checkupd" class="wide">🔄 Check for updates</button>';
+  const dl = daily();
+  h += `<div class="set"><h3><span>Level ${S.level}</span><span>${S.xp} / ${xpFor(S.level)}</span></h3>`
+    + `<div class="reward">Shakes: ${S.shakes} · ⭐ Daily challenge (win ${DAILY.target} coins in ${DAILY.sec / 60} min): ${dl.won ? 'won today!' : dailyRunning() ? `${dl.have} / ${DAILY.target}, ${clock(dl.ends - Date.now())} left` : `${dl.tries} tr${dl.tries === 1 ? 'y' : 'ies'} so far today`}`
+    + `${S.quest ? ` · ⏱ ${S.quest.text}: ${S.quest.have}/${S.quest.n}` : ''}</div>`
+    + '<div class="reward">Finish a set for +' + SET_REWARD.coins + ' coins and +' + SET_REWARD.shakes + ' shakes; a new set takes its place.</div></div>';
+  for (const s of activeSets()) {
+    const n = s.items.filter(([i]) => S.got[i]).length;
+    h += `<div class="set"><h3><span>${s.name}</span><span>${n}/${s.items.length}</span></h3><div class="items">`;
+    for (const [id, emoji, name] of s.items) h += `<div class="it${S.got[id] ? '' : ' no'}"><b>${emoji}</b>${name}${S.got[id] > 1 ? ' ×' + S.got[id] : ''}</div>`;
+    h += `</div><div class="reward${S.sets[s.name] ? ' on' : ''}">${S.sets[s.name] ? 'Unlocked: ' : 'Complete the set to unlock: '}${s.reward}</div></div>`;
+  }
+  const finished = SETS.filter(s => S.sets[s.name]).map(s => s.name);
+  if (finished.length) h += `<div class="reward on">Finished sets: ${finished.join(', ')}</div>`;
+  h += `<div class="reward">Coins won so far: ${S.won} · Tickets: 🎟 ${S.tickets || 0}</div>`;
+  h += '<button id="newtable">Start a new table</button><div class="reward">Keeps your coins and collection.</div>';
+  h += `<button id="devmode" class="devswitch">Developer mode: ${S.dev ? 'on' : 'off'}</button>`;
+  if (S.dev) {
+    h += '<div class="set" style="margin-top:18px"><h3><span>Developer</span><span>for testing</span></h3><div class="dev">'
+      + '<button data-coins="100">+100 coins</button><button data-coins="1000">+1,000 coins</button><button data-coins="0">Set to 0</button>'
+      + '<button data-guard="1">Golden paw now</button><button data-shakes="3">+3 shakes</button><button data-quest="1">New quest</button>'
+      + '<button data-callout="1">Test callout</button></div><div class="reward">Drop next:</div><div class="dev">'
+      + DEV_DROPS.map(([k, label]) => `<button data-drop="${k}"${forcedDrop === k ? ' class="on"' : ''}>${label}</button>`).join('')
+      + '</div></div>';
+  }
+  panel.innerHTML = h; panel.style.display = 'block';
+  // each developer button flashes, says what it did for a moment, and buzzes (where the phone allows it)
+  const done = (b, text) => {
+    try { navigator.vibrate && navigator.vibrate(20); } catch (e) { }
+    const was = b.dataset.label || (b.dataset.label = b.textContent);
+    b.textContent = text; b.classList.add('done');
+    setTimeout(() => { b.textContent = was; b.classList.remove('done'); }, 1100);
+  };
+  for (const b of panel.querySelectorAll('[data-coins]')) b.onclick = () => {
+    const n = +b.dataset.coins; S.coins = n ? S.coins + n : 0; save(); done(b, `✓ ${S.coins.toLocaleString()} coins`);
+  };
+  for (const b of panel.querySelectorAll('[data-guard]')) b.onclick = () => { S.guard += GUARD_SEC; done(b, `✓ paws in ${Math.round(S.guard)} s`); };
+  for (const b of panel.querySelectorAll('[data-shakes]')) b.onclick = () => { S.shakes += 3; save(); done(b, `✓ ${S.shakes} shakes`); };
+  for (const b of panel.querySelectorAll('[data-quest]')) b.onclick = () => { newQuest(); done(b, '✓ new quest'); };
+  for (const b of panel.querySelectorAll('[data-callout]')) b.onclick = () => {
+    panel.style.display = 'none'; callout('Crown!', { voice: 'got', emoji: '👑' }); catGrowl();
+  };
+  for (const b of panel.querySelectorAll('[data-drop]')) b.onclick = () => {
+    forcedDrop = b.dataset.drop; done(b, '✓ next drop');
+    for (const o of panel.querySelectorAll('[data-drop]')) o.classList.toggle('on', o === b);
+  };
+  document.getElementById('close').onclick = () => { panel.style.display = 'none'; };
+  document.getElementById('devmode').onclick = () => { S.dev = !S.dev; save(); openPanel(); if (S.dev) panel.scrollTop = 99999; };
+  const cu = document.getElementById('checkupd');
+  if (cu) cu.onclick = () => { save(); cu.textContent = 'Checking…'; Android.checkUpdates(); setTimeout(() => { cu.textContent = '🔄 Check for updates'; }, 1500); };
+  // two taps, so a stray tap can't wipe the table
+  const nt = document.getElementById('newtable');
+  nt.onclick = () => {
+    if (!nt.dataset.armed) { nt.dataset.armed = '1'; nt.textContent = 'Tap again to clear the table'; return; }
+    panel.style.display = 'none';
+    newTable();
+  };
+}
+
+// A fresh table (heaped coins, towers, prizes), settled before it's shown. Coins in hand and the collection stay.
+function newTable() { resetBoard(); return;
+
+  for (const b of bodies.slice()) removeCoin(b);
+  falling = []; rings = []; floats = []; taps = [];
+  prefill();
+  for (let i = 0; i < 90; i++) world.step();
+  save();
+  say('table', true);
+}
+
+// ---------- input ----------
+function toGame(e) { const r = cv.getBoundingClientRect(); return { x: (e.clientX - r.left) / scale, y: (e.clientY - r.top) / scale }; }
+// The spot on the drop line straight across from where you touch (only left/right comes from the touch).
+function aimFromScreen(sx) {
+  const lookX=Math.max(T.L,Math.min(T.R,unprojX(screenToGameX(sx),DROP_Y)));
+  return { x: Math.max(200-PUSH_HALF+COIN_R, Math.min(200+PUSH_HALF-COIN_R, lookX)), y: DROP_Y, lookX };
+}
+cv.addEventListener('pointerdown', e => {
+  if (!world) return; // still loading
+  sfx.unlock(); musicOK = true; musicTick();
+  const p = toGame(e);
+  if(board.status==='won'&&isRestPose()){const side=pawHit(p);if(side){startTickle(side);return;}}
+  stopPawDance();
+  const hud=hudLayout();
+  if(p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6){openCredits();return;}
+ if(p.y>hud.bottomY&&p.x>=20&&p.x<=380) {
+    if(p.y<hud.bottomY+32&&board.status==='won'){nextBoard();return;}
+    if(p.y<hud.bottomY+32&&!['won','lost'].includes(board.status)){
+      if(!S.dev&&BOARD.id==='tuna-terraces'){if(p.x>=100&&p.x<=300)useEarnedQuake();return;}
+      if(sweepTime>0||catquakeTime>0)return;
+      if(p.x<=200){if(board.status==='ready')previewPawSweep();else usePawSweep();}
+      else useCatquake();return;
+    }
+    resetBoard();return;
+  }
+  // the top bar and quest banner: collection and sound buttons (nothing else up there)
+  if (p.y < hud.headerBottom) {
+    if (p.y > hud.mainY-24 && p.y < hud.mainY+22) {
+      if (p.x > W-hud.right-52) { S.muted = !S.muted; saveAudioSettings();musicTick(); }
+      else if (p.x > W-hud.right-100 && S.dev && window.Android) Android.checkUpdates();
+    }
+    return;
+  }
+  // the shake button; everywhere else (including the bottom of the screen) drops coins
+  if(board.status==='won'||board.status==='lost')return;
+  const sb = shakeButton();
+  if (Math.hypot(p.x - sb.x, p.y - sb.y) < sb.r + 8) { useShake(); return; }
+  cv.setPointerCapture(e.pointerId);
+  holding = true; holdPos = aimFromScreen(p.x); aim = holdPos; aimShow = 1;
+  tryDrop(holdPos);
+});
+cv.addEventListener('pointermove', e => { if (holding) holdPos = aimFromScreen(toGame(e).x); });
+for (const ev of ['pointerup', 'pointercancel']) cv.addEventListener(ev, () => { holding = false; });
+addEventListener('contextmenu', e => e.preventDefault());
+addEventListener('resize', resize);
+document.addEventListener('visibilitychange', () => { if (document.hidden) save(); });
+addEventListener('pagehide', save);
+
+// ---------- main loop ----------
+let last = performance.now(), acc = 0;
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  if (dt > 0) perf.fps += (1 / dt - perf.fps) * 0.05;
+  acc += dt;
+  let n = 0;
+  while (acc >= STEP && n++ < 3) { step(); acc -= STEP; }
+  if (acc > STEP) acc = 0; // a slow phone drops time rather than falling ever further behind
+  update(dt); draw();
+  requestAnimationFrame(frame);
+}
+Promise.all([RAPIER.init(), loadArt()])
+  .then(() => { initPhysics(); load(); regen(); resize(); last = performance.now(); requestAnimationFrame(frame); })
+  .catch(e => { document.body.insertAdjacentHTML('beforeend', `<p style="color:#fff">Could not start: ${e}</p>`); });
+// Test hook: run the game faster than real time, e.g. __game.sim(10, 0.25) = 10 s with a drop every 0.25 s.
+window.__game = {
+  get view(){return {...VIEW};}, hudLayout, safeAreaReport, isRestPose, recoveryScale, previewHappy, quakeHeadOffset, BOARDS, get BOARD(){return BOARD;}, get boardIndex(){return boardIndex;}, previewDancingPose, get tickle(){return tickle;}, selectBoard, nextBoard, get board() { return board; }, resetBoard, usePawSweep, useCatquake, powerFace, get quaking(){return catquakeTime>0;}, get sweeping(){return sweepTime>0;}, draw, resize, loadArt, get perf() { return perf; },
+  S, get bodies() { return bodies; }, get world() { return world; }, tryDrop, save, sfx, prefill,
+  // test helper: start over with a new table using a given collision shape
+  restart(shape, sides) {
+    SHAPE = shape || SHAPE; SHAPE_SIDES = sides || SHAPE_SIDES;
+    for (const b of bodies.slice()) removeCoin(b);
+    prefill();
+  },
+  tick() {step();update(STEP);},
+  sim(sec, every) {
+    let next = 0;
+    for (let t = 0; t < sec; t += STEP) {
+      if (every && t >= next) { tryDrop({ x: rand(T.L + 30, T.R - 30), y: DROP_Y }); next += every; }
+      step(); update(STEP);
+    }
+  },
+};
+</script>
+</body>
+</html>

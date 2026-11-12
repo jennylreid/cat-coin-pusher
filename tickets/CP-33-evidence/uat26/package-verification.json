@@ -1,0 +1,18 @@
+{
+  "version": 20261109211627,
+  "displayName": "2026.11.09 UAT 26",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "09ee41024a70062939f68b4460c87b6d535b906a4f221c6ffedbf15c431f3119",
+  "stagedJSONSHA256": "aa01c028dd6eacee5828454655354c59b5026e5f3dbf82d24106bb4b4429f776",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "c126cf6a9e2e7f83856094fa06d55a5ae3bf661861d783d2b196c96488befe1e",
+  "jsonBytes": 51311170,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-CP-33-UAT26-20261109211627",
+  "authorization": "CP-33 round 2 via PM (Jenny UAT 25 feedback): wider adjustable arc, new defaults, visible sparkles; UAT only"
+}

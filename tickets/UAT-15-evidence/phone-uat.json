@@ -1,0 +1,18 @@
+{
+  "source": "Jenny messages in UAT-15 chat, October 15, 2026",
+  "installedOverExisting": true,
+  "automaticOfferAccepted": true,
+  "noRepeatAfterAcceptance": true,
+  "actualPhoneRebootConfirmed": true,
+  "newOfferAfterReboot": true,
+  "laterDismissed": true,
+  "noRepeatAfterDecline": true,
+  "settingsManualOfferAndAcceptance": true,
+  "activeSettingsControlsVisible": true,
+  "developerRefreshOnOffConfirmed": true,
+  "soundSettingRetained": true,
+  "finalConfirmation": "yes, all good",
+  "actualUninstallReinstallTested": false,
+  "ongoingBoardSave": "Not implemented in approved review baseline; not changed by this ticket",
+  "status": "phone UAT passed; PM review pending"
+}

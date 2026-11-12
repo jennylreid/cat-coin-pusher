@@ -1,0 +1,10 @@
+{
+  "version": 20261015213629,
+  "baselineVersion": 20261015212221,
+  "apkVersion": 3,
+  "baselineJSONSHA256": "889a4faf3f16f3118d343e91a123f8958aefff6788df0588d8cd9003be4816b1",
+  "publishedJSONSHA256": "9f2d703f5edbfffacaf87b1e1354d8b5615caef57d8eb09d5e5c0858e9dab35e",
+  "apkSHA256": "84ae978229140b14b4572a3b7666b8ddc0c58869cde73e81b339c190b3816fd5",
+  "backup": "uat/backups/before-20261015213629",
+  "scope": "Active Settings update button and Developer toggle; BUILD label"
+}

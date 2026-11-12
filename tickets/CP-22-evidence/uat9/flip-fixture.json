@@ -1,0 +1,14 @@
+[
+  {
+    "overheadHit": false,
+    "authorizedFrames": 0,
+    "maxTilt": 17.830654317201954,
+    "flipFrames": 0
+  },
+  {
+    "overheadHit": true,
+    "authorizedFrames": 146,
+    "maxTilt": 17.830654317201954,
+    "flipFrames": 0
+  }
+]

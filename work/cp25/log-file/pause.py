@@ -1,0 +1,3 @@
+from pathlib import Path
+p=Path('work/cp25/log-file/build.py');s=p.read_text(encoding='utf-8').replace("# Native transport shares", "rep('function frame(now){', 'function frame(now){\\n if(diagNativeSuspended){last=now;requestAnimationFrame(frame);return;}')\n# Native transport shares");p.write_text(s,encoding='utf-8')
+p=Path('work/cp25/log-file/android/app/src/main/java/com/jenny/catpusher/uat/MainActivity.java');s=p.read_text(encoding='utf-8').replace("window.diagFlush && diagFlush('native-pause')",'window.diagNativePause && diagNativePause(true)').replace('window.appPaused && appPaused(false)','window.appPaused && appPaused(false); window.diagNativePause && diagNativePause(false)');p.write_text(s,encoding='utf-8')

@@ -1,0 +1,15 @@
+{
+  "folderSharedItemApi": 401,
+  "folderGraphApi": 401,
+  "fileDownload": 401,
+  "fileDownloadWithAnonymousCookies": 401,
+  "fileBrowserLink": {
+    "status": 200,
+    "contentType": "text/html; charset=utf-8",
+    "jsonPayload": false
+  },
+  "accountCredentialsUsed": false,
+  "freshPayloadVerified": true,
+  "publication": "cloud verified; see cloud-verification.json",
+  "resolution": "Anyone sharing confirmed by Jenny; Microsoft direct-download route works without sign-in"
+}

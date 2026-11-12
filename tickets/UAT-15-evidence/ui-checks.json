@@ -1,0 +1,22 @@
+{
+  "rows": [
+    {
+      "developer": false,
+      "refreshDrawn": false,
+      "refreshCalls": 0
+    },
+    {
+      "developer": true,
+      "refreshDrawn": true,
+      "refreshCalls": 1
+    },
+    {
+      "developer": false,
+      "refreshDrawn": false,
+      "refreshCalls": 0
+    }
+  ],
+  "settingsCheckRetained": null,
+  "scope": "Only refresh visibility and hit target changed in game HTML",
+  "settingsCheckLimitation": "Initial assertion inspected inactive collection code; superseded by active-settings-checks.json"
+}

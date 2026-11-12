@@ -1,0 +1,22 @@
+{
+  "mutuallyExclusive": true,
+  "noCoinCost": true,
+  "roarThenSlam": true,
+  "resetClearsPowers": true,
+  "outcomes": [
+    {
+      "board": 1,
+      "coinsBefore": 45,
+      "coinsSpilled": 15,
+      "share": 0.3333333333333333,
+      "status": "playing"
+    },
+    {
+      "board": 2,
+      "coinsBefore": 51,
+      "coinsSpilled": 12,
+      "share": 0.23529411764705882,
+      "status": "won"
+    }
+  ]
+}

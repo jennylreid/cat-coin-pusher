@@ -1,0 +1,77 @@
+{
+ "render": "desktop @napi-rs/canvas, 400x889 CSS at DPR 1.35, real runtime and real payouts, defaults unless stated",
+ "prize": {
+  "kind": "item",
+  "prize": "cheese",
+  "turnDeg": 13,
+  "offCentrePx": {
+   "x": -9,
+   "y": 2
+  },
+  "heldSec": 0.5,
+  "shortened": false
+ },
+ "together": [
+  {
+   "kind": "item",
+   "prize": "shrimp",
+   "turnDeg": -6.8,
+   "offCentrePx": {
+    "x": -10,
+    "y": 12.5
+   },
+   "heldSec": 0.5,
+   "shortened": false
+  },
+  {
+   "kind": "item",
+   "prize": "cheese",
+   "turnDeg": 6.5,
+   "offCentrePx": {
+    "x": -15.3,
+    "y": 13.5
+   },
+   "heldSec": 0.5,
+   "shortened": false
+  }
+ ],
+ "backdrop_default": {
+  "fade": 0.35,
+  "stripes": 0.5,
+  "kind": "item",
+  "prize": "tuna",
+  "turnDeg": -7.5,
+  "offCentrePx": {
+   "x": 7.6,
+   "y": 9.5
+  },
+  "heldSec": 0.5,
+  "shortened": false
+ },
+ "backdrop_stronger": {
+  "fade": 0.6,
+  "stripes": 1,
+  "kind": "item",
+  "prize": "tuna",
+  "turnDeg": -7.5,
+  "offCentrePx": {
+   "x": 7.6,
+   "y": 9.5
+  },
+  "heldSec": 0.5,
+  "shortened": false
+ },
+ "quakeHeldShownCount": 0,
+ "quakeLandedShownCount": 1,
+ "quake": {
+  "kind": "quake",
+  "prize": "quake",
+  "turnDeg": -8.7,
+  "offCentrePx": {
+   "x": 9.6,
+   "y": -11.1
+  },
+  "heldSec": 0.5,
+  "shortened": false
+ }
+}

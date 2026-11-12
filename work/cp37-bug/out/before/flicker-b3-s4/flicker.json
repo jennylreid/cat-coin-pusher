@@ -1,0 +1,11 @@
+{
+ "board": "b3",
+ "seed": 4,
+ "src": "uat37.html",
+ "frames": 180,
+ "stillCoinFrames": 6997,
+ "flickerEvents": 0,
+ "perSecond": 0,
+ "examples": [],
+ "bodies": 147
+}

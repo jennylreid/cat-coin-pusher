@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261112152400,
+    "displayName":  "2026.11.12 UAT 40",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "94265e311aad880b6d2044eaa833ca690ecb9fab3d203dd0a4e6cd6629d977fa",
+    "stagedJSONSHA256":  "99227591581c607430a75e99d8848a221a57d5dd9e685c4c0e7c8cbbfa4c0d94",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "c031ba59cff0c6849a17d86fd36dea750b725b061d0945d27d4ccb213b3c32fe",
+    "jsonBytes":  51458814,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT40-20261112152400",
+    "authorization":  "UAT 40: UAT 38 dance-break freeze fix on UAT 39; PM approved the fix plan and said publish straight away (Nov 12); UAT only",
+    "localPublication":  "verified"
+}

@@ -1,0 +1,9 @@
+{
+  "identicalPhysicsSamples": 60,
+  "seconds": 8,
+  "sparkleTier": {
+    "extended": 18,
+    "retracted": 0
+  },
+  "change": "Only sparkle landing cutoff; emission style and landing contact feedback unchanged"
+}

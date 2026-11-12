@@ -1,0 +1,37 @@
+[
+  {
+    "index": 3,
+    "cadence": 0.22,
+    "status": "won",
+    "remaining": 0,
+    "elapsed": 31.31666666666617,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ],
+    "used": 140,
+    "released": 140,
+    "sweeps": 1,
+    "quakes": 1,
+    "quiet": 0,
+    "endReason": "targets"
+  },
+  {
+    "index": 3,
+    "cadence": 0.4,
+    "status": "won",
+    "remaining": 14,
+    "elapsed": 50.13333333333177,
+    "collected": [
+      "shrimp",
+      "cheese",
+      "tuna"
+    ],
+    "used": 126,
+    "released": 126,
+    "sweeps": 1,
+    "quakes": 1,
+    "endReason": "targets"
+  }
+]

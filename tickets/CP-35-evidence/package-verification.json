@@ -1,0 +1,18 @@
+{
+  "version": 20261111224031,
+  "displayName": "2026.11.11 UAT 35",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "6dd88d90c9e2962b96b982eb8be0eb723d914760cee0681fb6f8c2f42e17bb1b",
+  "stagedJSONSHA256": "04feffa575c6362c9cf27d071c27966b79bcf20f53acc17424126cb9ea6935e3",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "2bc91d5d03961646f13e4820b5c25b360e83cc5aae53c4fc55144c1ae1f5b26a",
+  "jsonBytes": 51373638,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-CP-35-UAT35-20261111224031",
+  "authorization": "CP-35 Wild board prototype; Jenny waived art/sound approvals and preview stops (brief); PM relayed Nov 11: publish to UAT tonight; UAT only"
+}

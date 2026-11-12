@@ -1,0 +1,18 @@
+{
+  "version": 20261017154958,
+  "displayName": "2026.10.17 UAT 1",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "b518a00ffe6b5e202703e03bb0acb86fa82d881663a759709f9be4e8339d05c9",
+  "stagedJSONSHA256": "c548ecbf5466b47d3ced3282eeebda262713a93a80c5cb057b48e3331dc3fc4d",
+  "backup": "uat/backups/before-UAT-18-20261017154958",
+  "authorization": "Jenny: Okay, let's see this one in UAT.",
+  "previewSHA256": "96f7e2dbbddc1367a17347ea0878cd14bd05d905010f595955e5c801105cb8b7",
+  "releaseHTMLSHA256": "5151de4cefeedcde81a8435fe4079ea0def2aff3741d0a85fdc7a81e19fd57f3",
+  "changedFiles": [
+    "index.html"
+  ],
+  "addedFiles": [
+    "img/art/uat18-coin-faces.png"
+  ],
+  "localPublication": "verified"
+}

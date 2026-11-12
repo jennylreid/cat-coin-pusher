@@ -1,0 +1,19 @@
+{
+  "normalAssetLoaderWorks": true,
+  "approvedPhoneFramesPixelIdentical": [
+    {
+      "frame": 0,
+      "differentPixels": 0
+    },
+    {
+      "frame": 10,
+      "differentPixels": 0
+    },
+    {
+      "frame": 23,
+      "differentPixels": 0
+    }
+  ],
+  "aimGuideAbsent": true,
+  "brassAssetUsesOriginalApprovedPNG": true
+}

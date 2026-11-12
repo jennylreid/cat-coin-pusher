@@ -1,0 +1,101 @@
+{
+ "note": "Desktop node + @napi-rs/canvas CPU renderer, same seed and script, 3 alternating runs each; draw time per frame split by whether a pickup is on screen. Not phone evidence.",
+ "summary": {
+  "UAT29": {
+   "withPickupUpAvg": 13.084,
+   "withPickupUpP95": 20.628,
+   "noPickupAvg": 13.351
+  },
+  "UAT30": {
+   "withPickupUpAvg": 12.596,
+   "withPickupUpP95": 20.854,
+   "noPickupAvg": 12.533
+  }
+ },
+ "runs": [
+  {
+   "label": "UAT29",
+   "pickups": 20,
+   "withPickupUp": {
+    "frames": 1382,
+    "drawMsAvg": 14.429,
+    "drawMsP95": 22.025
+   },
+   "noPickup": {
+    "frames": 58,
+    "drawMsAvg": 15.003,
+    "drawMsP95": 21.605
+   }
+  },
+  {
+   "label": "UAT30",
+   "pickups": 20,
+   "withPickupUp": {
+    "frames": 1390,
+    "drawMsAvg": 12.564,
+    "drawMsP95": 21.363
+   },
+   "noPickup": {
+    "frames": 50,
+    "drawMsAvg": 12.953,
+    "drawMsP95": 22.805
+   }
+  },
+  {
+   "label": "UAT29",
+   "pickups": 20,
+   "withPickupUp": {
+    "frames": 1382,
+    "drawMsAvg": 12.333,
+    "drawMsP95": 19.381
+   },
+   "noPickup": {
+    "frames": 58,
+    "drawMsAvg": 12.846,
+    "drawMsP95": 20.968
+   }
+  },
+  {
+   "label": "UAT30",
+   "pickups": 20,
+   "withPickupUp": {
+    "frames": 1390,
+    "drawMsAvg": 12.707,
+    "drawMsP95": 20.579
+   },
+   "noPickup": {
+    "frames": 50,
+    "drawMsAvg": 12.173,
+    "drawMsP95": 19.997
+   }
+  },
+  {
+   "label": "UAT29",
+   "pickups": 20,
+   "withPickupUp": {
+    "frames": 1382,
+    "drawMsAvg": 12.489,
+    "drawMsP95": 20.479
+   },
+   "noPickup": {
+    "frames": 58,
+    "drawMsAvg": 12.203,
+    "drawMsP95": 20.132
+   }
+  },
+  {
+   "label": "UAT30",
+   "pickups": 20,
+   "withPickupUp": {
+    "frames": 1390,
+    "drawMsAvg": 12.517,
+    "drawMsP95": 20.621
+   },
+   "noPickup": {
+    "frames": 50,
+    "drawMsAvg": 12.472,
+    "drawMsP95": 21.772
+   }
+  }
+ ]
+}

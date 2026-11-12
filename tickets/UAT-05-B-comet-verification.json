@@ -1,0 +1,52 @@
+{
+  "physicsTrajectoryHashesIdentical": true,
+  "physicsSamplesPerCase": 60,
+  "physicsSamplingSeconds": 6,
+  "cases": [
+    "baseline",
+    "A",
+    "B"
+  ],
+  "renderContainment": [
+    {
+      "variant": "B",
+      "testedFrames": 300,
+      "rapidTapCadenceSeconds": 0.08333333333333333,
+      "quakeIncluded": true,
+      "coinPixelsChecked": 14658970,
+      "railOverlapPixels": 0,
+      "framesWithOverlap": 0,
+      "clipStats": {
+        "board": 29544,
+        "delivery": 4158,
+        "falling": 1056,
+        "unclipped": 0
+      }
+    }
+  ],
+  "allCoinDrawPathsGuarded": true,
+  "antialiasAllowanceGameUnits": 1,
+  "fieldInsetSourcePixels": 6,
+  "catFunctionsByteIdentical": [
+    "drawRestMitt",
+    "drawPaws",
+    "drawHappyFeatures",
+    "drawHappyPaws",
+    "powerFace",
+    "previewHappy",
+    "quakeHeadOffset"
+  ],
+  "catAndOtherLiveArtUnchanged": true,
+  "globalLayoutUnchanged": true,
+  "physicalPusherHeightAndStrokeUnchanged": true,
+  "visualPusherBaseHeight": 0,
+  "dropPhysicsUnchanged": true,
+  "originalEightLaneReleaseQuantizationUnchanged": true,
+  "visualAimMappingUpdatedToFittedPlane": true,
+  "publishedUATVersion": 20261012184647,
+  "publishedUATJSONSHA256": "8f4991f4b48e693959eb88347ea529d1762c3dd38537eac12e2f506f0affb817",
+  "productionJSONSHA256": "f5e6c67d68d29c08f64c8a4a96d51464d90b31ff4c28773caa46494a90f6b314",
+  "productionAPKSHA256": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+  "runtimeFiles": 22,
+  "publication": "none"
+}

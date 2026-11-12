@@ -1,0 +1,15 @@
+{
+  "version": 20261015211014,
+  "bootstrapVersion": 20261015210806,
+  "baselineVersion": 20261015195300,
+  "apkVersion": 3,
+  "baselineJSONSHA256": "95c80ce98ebdfbb57b95db44db81caecebd47c89f217a61f4ef15f5a90341726",
+  "baselineAPKSHA256": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78",
+  "publishedJSONSHA256": "a6f042f82f7bbc376e6acecb55c967b9763dca9dc1d483dc5e619c26b8d91517",
+  "apkSHA256": "84ae978229140b14b4572a3b7666b8ddc0c58869cde73e81b339c190b3816fd5",
+  "htmlSHA256": "4c6bca95e0075b45f589ecedddffea5e0c4f1ea0016c431ad80323653514a423",
+  "runtimeFilesVerified": 23,
+  "signingCertificateSHA256": "20ddef2a158095a45a176efa2ddffa60ecf0c074d569b7dcd9785b1cfa122dc2",
+  "backup": "uat/backups/before-20261015211014",
+  "localPublication": "verified"
+}

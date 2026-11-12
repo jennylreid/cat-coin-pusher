@@ -1,0 +1,18 @@
+{
+  "version": 20261111122911,
+  "displayName": "2026.11.11 UAT 27",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "aa01c028dd6eacee5828454655354c59b5026e5f3dbf82d24106bb4b4429f776",
+  "stagedJSONSHA256": "c9013b12daf9cc60eecb31cf237a0a609471c1028ee7b29ee51ab2f73a14e672",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "b71e65b77a63f56ab38f2fe7d0443af39982ab689b4a191eb03e81021d10eb36",
+  "jsonBytes": 51316370,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-CP-33-UAT27-20261111122911",
+  "authorization": "Jenny Nov 11 (yes to all, go ahead): CP-33 round 3 prize centre flip + CP-34 Quake flight into Quake button; UAT only"
+}

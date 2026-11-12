@@ -1,0 +1,18 @@
+{
+  "version": 20261109204807,
+  "displayName": "2026.11.09 UAT 25",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "bc51240e8d3d027032d137013689a5673eae4807bf8c69345d3f7abdc5e6fd2b",
+  "stagedJSONSHA256": "09ee41024a70062939f68b4460c87b6d535b906a4f221c6ffedbf15c431f3119",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "5876d8c9df851ce5749bf3cca67b1ef69b1e36c34e38c710032de49b1f1491d5",
+  "jsonBytes": 51310010,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-CP-33-20261109204807",
+  "authorization": "CP-33 brief (Jenny approved design Nov 9): vacuum-arc pickup, lost-prize effect, Developer tuning; UAT only"
+}

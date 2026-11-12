@@ -1,0 +1,5 @@
+const make=require('../runtime.cjs'),path=require('path'),fs=require('fs');
+(async()=>{const g=await make({sourceFile:path.resolve(process.argv[2])}),a=g.c.__game;const mode=process.argv[4]||'sweep';a.selectBoard(+(process.argv[5]||0));let peak=0,up=0,events=[],old=new Map();
+for(let f=0;f<1800;f++){if(f<1200&&f%12===0)a.tryDrop({x:mode==='centre'?200:mode==='left'?140:200+60*Math.sin(f*.037)});g.tick();for(const b of a.bodies){if(!['coin','silver','quake'].includes(b.kind)||b.fresh)continue;const v=b.rb.linvel(),p=b.rb.translation(),speed=Math.hypot(v.x,v.z),prev=old.get(b.uid);peak=Math.max(peak,speed);up=Math.max(up,v.y);if((speed>2||v.y>2)&&events.length<20)events.push({f,id:b.uid,p:{...p},v:{...v},prev});old.set(b.uid,{p:{...p},v:{...v}});}}
+const out={peakHorizontalSpeed:peak,peakUpwardSpeed:up,events};console.log(JSON.stringify(out));if(process.argv[3])fs.writeFileSync(process.argv[3],JSON.stringify(out,null,2));g.close();})();
+

@@ -1,0 +1,18 @@
+{
+  "version": 20261112073248,
+  "displayName": "2026.11.12 UAT 36",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "04feffa575c6362c9cf27d071c27966b79bcf20f53acc17424126cb9ea6935e3",
+  "stagedJSONSHA256": "81de2ae3222ae2ee49ccfb8f03893ef43313e937dc8be3f6ed5d6dd7221b4d19",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "1e7fdf8431f49d2c5d940be9c77140918731369f66df7a44720b3e01a8d35c71",
+  "jsonBytes": 51377162,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-UAT36-20261112073248",
+  "authorization": "UAT 36: CP-35 win card and CP-33 Pop pickup; Jenny approved both (relayed by PM Nov 12); UAT only"
+}

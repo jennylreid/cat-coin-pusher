@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261111141321,
+    "displayName":  "2026.11.11 UAT 28",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "c9013b12daf9cc60eecb31cf237a0a609471c1028ee7b29ee51ab2f73a14e672",
+    "stagedJSONSHA256":  "2f035f392ac90e98b9a4cf11467ba6564240d21768a927d5d5c2ad98497a29bf",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "59e830ce12adb2b2306479fd9d7d336718cdce6dc91e89c7371afbd0b182190f",
+    "jsonBytes":  51319114,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-CP-33-UAT28-20261111141321",
+    "authorization":  "Jenny Nov 11 (Yes, go ahead with round 4), relayed by PM: CP-33 round 4 tumble, settle, prizes take turns; CP-34 unchanged; UAT only",
+    "localPublication":  "verified"
+}

@@ -1,0 +1,25 @@
+{
+ "board": "wild2",
+ "seed": 4,
+ "src": "release.html",
+ "frames": 480,
+ "coinFrames": 97161,
+ "flickerEvents": 0,
+ "stillAbaEvents": 7,
+ "stillAbaPx": 42778,
+ "maskToggles": 240,
+ "abaEvents": 1,
+ "abaPerSecond": 0.13,
+ "abaPx": 223148,
+ "abaExamples": [
+  {
+   "frame": 257,
+   "pair": "217:303",
+   "px": 169,
+   "still": false
+  }
+ ],
+ "perSecond": 0,
+ "examples": [],
+ "bodies": 223
+}

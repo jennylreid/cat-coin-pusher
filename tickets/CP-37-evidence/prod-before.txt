@@ -1,0 +1,2 @@
+0f4177067aef5fb39f1fa82a8c2bc1e39d70634166f2bcfa3366998b3a9a145b *phone/CatCoinPusher-game.json
+df205863d0bf755276f7f4acf301b3c573788ccef09b8f8bc0cd0263121e8e45 *CatCoinPusher.apk

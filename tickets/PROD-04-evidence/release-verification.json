@@ -1,0 +1,20 @@
+{
+  "displayName": "2026.10.15.2",
+  "version": 20261015232124,
+  "apkVersion": 15,
+  "baselineProductionSHA256": "eb470250ad8a26fb88691cd83f78c46340da4c238e5e4ab72089e1da53aeff4a",
+  "baselineAPKSHA256": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+  "uatSHA256": "5e41a6ed012ff75d2977dbfaddabe69500353e9b211787426ac93058721d4915",
+  "uatAPKSHA256": "b14f41a65b01f05e618184262e5daf1c2ed31def5e3e9cd40365206994bef0cc",
+  "productionEnvelope": {
+    "version": 20261015210000,
+    "apkVersion": 14
+  },
+  "jsonSHA256": "c482f58f0f2ede7558081238c979f4f3da7ea4e1c6a9211877f3f30b53852ce3",
+  "apkSHA256": "bcd150918daf9dfcee37564f358ffcdf4544c13091db40a57b1df5ac4d1c08c2",
+  "runtimeFiles": 23,
+  "nonHTMLFilesByteIdentical": 22,
+  "signingCertificateSHA256": "20ddef2a158095a45a176efa2ddffa60ecf0c074d569b7dcd9785b1cfa122dc2",
+  "compileAndLint": "passed",
+  "releaseOfferCases": 10
+}

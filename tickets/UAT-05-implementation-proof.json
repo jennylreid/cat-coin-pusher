@@ -1,0 +1,17 @@
+{
+  "ticket": "UAT-05",
+  "version": 20261012204534,
+  "beforeVersion": 20261012184647,
+  "apkVersion": 2,
+  "runtimeFiles": 23,
+  "artFiles": 14,
+  "newAsset": "img/art/brass-pusher.png",
+  "brassAssetSHA256": "e884b08a7b6454475514debb66626739f7d05e1f5a05b222331b8e1572d7d218",
+  "approvedDisplayExactExceptMaterialLoader": true,
+  "allExistingNonHTMLAssetsUnchanged": true,
+  "uatAPKHash": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78",
+  "productionJSONHash": "f5e6c67d68d29c08f64c8a4a96d51464d90b31ff4c28773caa46494a90f6b314",
+  "productionAPKHash": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+  "backup": "uat/backups/before-20261012204534",
+  "phoneReceiptVerified": false
+}

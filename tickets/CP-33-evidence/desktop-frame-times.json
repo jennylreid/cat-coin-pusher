@@ -1,0 +1,45 @@
+{
+ "note": "Desktop node + @napi-rs/canvas CPU renderer; same seed and script; not phone evidence. Phone FPS comes from the Send performance log.",
+ "runs": [
+  {
+   "label": "UAT24",
+   "frames": 1800,
+   "pickupsFired": 20,
+   "physicsMsAvg": 8.759,
+   "drawMsAvg": 18.47,
+   "drawMsP95": 30.52,
+   "drawMsMax": 152.58,
+   "totalMsAvg": 27.228
+  },
+  {
+   "label": "UAT25",
+   "frames": 1800,
+   "pickupsFired": 20,
+   "physicsMsAvg": 8.608,
+   "drawMsAvg": 18.891,
+   "drawMsP95": 32.688,
+   "drawMsMax": 89.363,
+   "totalMsAvg": 27.499
+  },
+  {
+   "label": "UAT24",
+   "frames": 1800,
+   "pickupsFired": 20,
+   "physicsMsAvg": 9.071,
+   "drawMsAvg": 18.645,
+   "drawMsP95": 35.688,
+   "drawMsMax": 166.444,
+   "totalMsAvg": 27.716
+  },
+  {
+   "label": "UAT25",
+   "frames": 1800,
+   "pickupsFired": 20,
+   "physicsMsAvg": 6.83,
+   "drawMsAvg": 14.111,
+   "drawMsP95": 25.233,
+   "drawMsMax": 373.401,
+   "totalMsAvg": 20.941
+  }
+ ]
+}

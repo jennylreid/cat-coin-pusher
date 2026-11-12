@@ -1,0 +1,125 @@
+{
+  "ticket": "UAT-07",
+  "status": "Preview only; awaiting OK",
+  "mouthBase": "original head-sweet.webp",
+  "outsideLowerMouthChangedPixels": 0,
+  "originalUpperLipChangedPixels": 0,
+  "mouthChangedPixels": 3335,
+  "upperMittOriginalPixelsChanged": 0,
+  "ivoryClawPixels": 0,
+  "eyesDrawingByteIdentical": true,
+  "renderedEyeBandChangedPixels": 0,
+  "happyMittsHeadIntersectionPixels": 0,
+  "topHappyMittScreenY": 971,
+  "headAssetUnchanged": true,
+  "pawBase": "original paw.webp; lower claw area edited, upper795 rows exact",
+  "happyMittFullSpriteWidth": 130,
+  "restMittFullSpriteWidth": 182,
+  "mittPosition": {
+    "centersX": [
+      65,
+      335
+    ],
+    "centerY": 235,
+    "inwardAngleRadians": 0.12
+  },
+  "view": {
+    "z": 0.98,
+    "zy": 1.0622814814814814,
+    "y": 151.29777777777775
+  },
+  "happyTimerSeconds": 6,
+  "happyReturnsToRestAfterPreview": true,
+  "runtime": [
+    {
+      "file": "img/art/background.webp",
+      "identical": true
+    },
+    {
+      "file": "img/art/coin.webp",
+      "identical": true
+    },
+    {
+      "file": "img/art/head-sweet.webp",
+      "identical": true
+    },
+    {
+      "file": "img/art/head-waiting.webp",
+      "identical": true
+    },
+    {
+      "file": "img/art/head-wild.webp",
+      "identical": true
+    },
+    {
+      "file": "img/art/head.webp",
+      "identical": true
+    },
+    {
+      "file": "img/art/paw.webp",
+      "identical": true
+    },
+    {
+      "file": "img/art/pupil.webp",
+      "identical": true
+    },
+    {
+      "file": "img/art/snacks.webp",
+      "identical": true
+    },
+    {
+      "file": "img/art/table.webp",
+      "identical": true
+    },
+    {
+      "file": "img/art/tongue.webp",
+      "identical": true
+    },
+    {
+      "file": "index.html",
+      "identical": true,
+      "buildLabelOnlyNormalized": true
+    },
+    {
+      "file": "lib/RAPIER-LICENSE.txt",
+      "identical": true
+    },
+    {
+      "file": "lib/rapier.js",
+      "identical": true
+    },
+    {
+      "file": "sounds/effects/coin-drop.mp3",
+      "identical": true
+    },
+    {
+      "file": "sounds/effects/coin-land.mp3",
+      "identical": true
+    },
+    {
+      "file": "sounds/effects/coin-off.mp3",
+      "identical": true
+    },
+    {
+      "file": "sounds/effects/coin-roll.mp3",
+      "identical": true
+    },
+    {
+      "file": "sounds/effects/coin-spill.mp3",
+      "identical": true
+    },
+    {
+      "file": "sounds/effects/pusher.mp3",
+      "identical": true
+    }
+  ],
+  "publishedUATVersion": 20261012180042,
+  "publishedUATJSONSHA256": "81a7e58f92659c6accf782899c1d03c8f102c448ad67693378d71261ed97d0ab",
+  "productionJSONSHA256": "f5e6c67d68d29c08f64c8a4a96d51464d90b31ff4c28773caa46494a90f6b314",
+  "productionAPKSHA256": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+  "originalTongueInteriorAndCleftChangedPixels": 0,
+  "originalBottomLipCenterLastDarkPixel": 870,
+  "proposedBottomLipCenterLastDarkPixel": 878,
+  "bottomLipLoweredSourcePixels": 8,
+  "restPalmClippingProfileDifferentColumns": 0
+}

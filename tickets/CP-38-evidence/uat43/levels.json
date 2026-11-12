@@ -1,0 +1,26 @@
+{
+ "Classic 100% (default)": {
+  "rmsDb": -34.2,
+  "peakDb": -9.4,
+  "peak": 0.34,
+  "phoneBandRms": 0.0145
+ },
+ "Classic 200%": {
+  "rmsDb": -28.2,
+  "peakDb": -3.3,
+  "peak": 0.681,
+  "phoneBandRms": 0.0291
+ },
+ "Kawaii pop 100%": {
+  "rmsDb": -28.6,
+  "peakDb": -8.8,
+  "peak": 0.364,
+  "phoneBandRms": 0.025
+ },
+ "UAT 40 Classic at its 50% default": {
+  "rmsDb": -40.2,
+  "peakDb": -15.4,
+  "peak": 0.17,
+  "phoneBandRms": 0.0073
+ }
+}

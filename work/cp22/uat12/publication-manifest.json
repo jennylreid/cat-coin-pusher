@@ -1,0 +1,14 @@
+{
+  "version": 20261027174348,
+  "displayName": "2026.10.27 UAT 12",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "89ddf4da2c2c3cc0f70446f0880bb75430e1f92dc8e6ca34aa4f75a1e2b8e7bd",
+  "stagedJSONSHA256": "9715a64d62fd2342821ec7367e564b914b8d367e6bd54186f43672c3aa5e1635",
+  "backup": "uat/backups/before-CP-22-UAT12-20261027174348",
+  "authorization": "Jenny CP-22: prevent coin/treat pass-through and sinking; retain 0.35-second taps; UAT only",
+  "releaseHTMLSHA256": "4cad192c4ad54572c0984c5c7c61374e1e40237fc23d782b7f87d742225d8085",
+  "changedFiles": [
+    "index.html"
+  ],
+  "nonHTMLFilesUnchanged": 29
+}

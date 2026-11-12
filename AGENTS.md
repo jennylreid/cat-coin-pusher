@@ -1,4 +1,6 @@
-# CoinPusher session instructions
+# CatCoin (was Cat Coin Pusher) session instructions
+
+The game is called **CatCoin** from Oct 20, 2026; the folder, app IDs, file names and the GitHub repo keep their current names.
 
 ## Start and locations
 - Work in C:/Users/jenny/OneDrive/work/CoinPusher. Read CODEX_BRIEF.md and tickets/<ID>-ticket.md first; open other docs/history only when the ticket needs them.
@@ -12,8 +14,18 @@
 - Follow the assigned ticket's goal, "Don't touch" and acceptance criteria. Preserve approved art and geometry unless the requested change needs them. Do not rebuild from scratch.
 - Test and report only what the ticket changes. Do not re-verify or mention untouched files unless a safety check fails. Balance numbers are needed only for physics or landing changes.
 - Tickets and reports stay short and complete. Use standard terms: ticket, scope, acceptance criteria, baseline, regression, UAT, sign-off, promotion, cherry-pick, hotfix, backlog, on-model.
+- Close-out (Jenny, Oct 20): every ticket ends with a commit and a push to GitHub. Bring the ticket's source changes into C:/Users/jenny/GitHub/cat-coin-pusher, commit with a message naming the ticket, and push. Never commit other games' reference images (Screenshots/ibear-*, Screenshots/ref-*) or anything the repo's .gitignore excludes.
+- After publishing a UAT, run `python work/checkpoint.py`. (WIP checkpoint on branch `wip/uat`; main stays sign-off only.)
 - Write tickets/<ID>.md with changes, relevant validation, limits and any pending decision before saying done. Place useful screenshots/evidence beside it; Claude reviews the report and Jenny tests on her phone.
 - Keep technical docs current. Review fixes go first; wait if Jenny's approval or a dependent review is still needed. Do not ask again for actions already authorized.
+
+## Art and layout (Jenny, Oct 26; from "Cat Coin - Art Process Plan")
+- Layout first, art second. Art fills a fixed, locked layout; it never decides the layout.
+- Layout changes (camera, table shape and size, cat and paw positions, coin size and count) are made in the real game and shown as real-game screenshots. Never use generated images for layout work.
+- Image generation is only for painting new art over a locked layout, one piece at a time (table, cat body, or paws; never several at once), on the same canvas so layers line up.
+- Approved art is frozen: the cat's faces and poses (Waiting, Rest, Sweet, Sharp Grin, Happy, Dancing pose, tickle), the big front mitts, the coins and Quake coin (as approved in CP-21), the treats (cheese, shrimp, tuna) and the pusher. Do not redraw, regenerate, resize or restyle them; build around them. Only Jenny reopens an approved asset, and then only that asset.
+- No full redraws to fix a detail. Change only the piece in question.
+- The locked layout's numbers and template screenshot live in SPEC.md (from CP-21). Read them before any visual ticket.
 
 ## Channels and publication
 - Keep production and UAT separate: app IDs, APKs, JSON updates, saves, settings, signing identity and update URI.

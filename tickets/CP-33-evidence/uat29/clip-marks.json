@@ -1,0 +1,90 @@
+{
+ "render": "desktop @napi-rs/canvas, 400x889 CSS at DPR 1.35, real runtime and real payout, Board 1, defaults",
+ "seeds": [
+  7,
+  8
+ ],
+ "single": {
+  "prize": "cheese",
+  "turnDeg": 13,
+  "offCentrePx": {
+   "x": 0,
+   "y": 2
+  },
+  "heldSec": 0.5,
+  "shortened": false
+ },
+ "together": [
+  {
+   "prize": "shrimp",
+   "turnDeg": -6.8,
+   "offCentrePx": {
+    "x": -8,
+    "y": 12.5
+   },
+   "heldSec": 0.5,
+   "shortened": false
+  },
+  {
+   "prize": "cheese",
+   "turnDeg": 6.5,
+   "offCentrePx": {
+    "x": -10.6,
+    "y": 13.5
+   },
+   "heldSec": 0.5,
+   "shortened": false
+  }
+ ],
+ "shots": {
+  "pickupA-a-rising": {
+   "t": -0.167
+  },
+  "pickupA-b-held-start": {
+   "t": 0.05
+  },
+  "pickupA-c-held-end": {
+   "t": 0.4
+  },
+  "pickupA-d-into-bag": {
+   "t": 0.6
+  },
+  "pickupB-a-rising": {
+   "t": -0.167
+  },
+  "pickupB-b-held-start": {
+   "t": 0.05
+  },
+  "waiting": {
+   "secondT": -0.25
+  },
+  "pickupB-c-held-end": {
+   "t": 0.4
+  },
+  "pickupB-d-into-bag": {
+   "t": 0.6
+  }
+ },
+ "compared": {
+  "A": {
+   "prize": "cheese",
+   "turnDeg": 13,
+   "offCentrePx": {
+    "x": 0,
+    "y": 2
+   },
+   "heldSec": 0.5,
+   "shortened": false
+  },
+  "B": {
+   "prize": "shrimp",
+   "turnDeg": -6.8,
+   "offCentrePx": {
+    "x": -8,
+    "y": 12.5
+   },
+   "heldSec": 0.5,
+   "shortened": false
+  }
+ }
+}

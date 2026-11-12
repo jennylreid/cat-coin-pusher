@@ -1,0 +1,37 @@
+{
+ "render": "offline Web Audio stand-in, game sfx helpers, master gain 0.55, 44.1 kHz mono",
+ "ledge-1-jackpot": {
+  "peak": 0.266,
+  "rms": 0.0489,
+  "audibleSec": 0.61
+ },
+ "ledge-2-sparkle": {
+  "peak": 0.514,
+  "rms": 0.0398,
+  "audibleSec": 0.49
+ },
+ "ledge-3-bell": {
+  "peak": 0.537,
+  "rms": 0.0785,
+  "audibleSec": 0.53
+ },
+ "ledge-4-dingding": {
+  "peak": 0.619,
+  "rms": 0.0396,
+  "audibleSec": 0.35
+ },
+ "ledge-5-harp": {
+  "peak": 0.538,
+  "rms": 0.0458,
+  "audibleSec": 0.54
+ },
+ "landing-thump": {
+  "peak": 0.157,
+  "rms": 0.0166,
+  "audibleSec": 0.09
+ },
+ "uat33Sound1Full": {
+  "peak": 0.17,
+  "rms": 0.0195
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "normal": {
+  "avg": 6.2,
+  "p95": 6.72,
+  "max": 83.96
+ },
+ "dance": {
+  "avg": 8.47,
+  "p95": 13.33,
+  "max": 17.48
+ },
+ "danceRain": {
+  "avg": 16.85,
+  "p95": 22.12,
+  "max": 27.69
+ },
+ "existingRain25Reference": {
+  "avg": 20.35,
+  "p95": 28.31,
+  "max": 39.34
+ },
+ "coinsBanked": 16
+}

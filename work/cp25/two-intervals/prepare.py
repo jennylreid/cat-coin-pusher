@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path('work/cp25/two-intervals');s=Path('work/cp25/perf-rework/compare.cjs').read_text(encoding='utf-8').replace('work/cp25/perf-rework/','work/cp25/two-intervals/').replace('CP-25-evidence/perf-rework/','CP-25-evidence/two-intervals/');s=s.replace("label==='candidate'?p+'candidate.html':p+label+'/release.html'","p+label+'.html'");(p/'compare.cjs').write_text(s,encoding='utf-8')

@@ -1,0 +1,11 @@
+{
+ "render": "desktop @napi-rs/canvas, 400x889 CSS at DPR 1.35, real runtime",
+ "pickupSecondsAtFrames": {
+  "start": 0.017,
+  "middle": 0.2,
+  "arrival": 0.4,
+  "bounce": 0.433,
+  "bounceScale": 1.184
+ },
+ "lostBoardStatus": "lost"
+}

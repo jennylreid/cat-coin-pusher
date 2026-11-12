@@ -1,0 +1,303 @@
+{
+ "passed": [
+  "board 1 identical to UAT 42 after 25 s of play",
+  "board 2 identical to UAT 42 after 25 s of play",
+  "board 3 identical to UAT 42 after 25 s of play",
+  "defaults: window ±0.15 s, allowance 0.08 s, auto offset on",
+  {
+   "name": "a player 200 ms late: auto offset off misses most beats; on, it learns from the count-in and hits nearly all",
+   "info": {
+    "off": [
+     4,
+     5
+    ],
+    "on": [
+     16,
+     16
+    ],
+    "learnedMs": 160
+   }
+  },
+  {
+   "name": "a player 120 ms late hits nearly all with the new defaults",
+   "info": {
+    "hits": [
+     16,
+     16
+    ]
+   }
+  },
+  {
+   "name": "every break logs a dance-taps event: offsets from the beat, mean, median, spread, allowance, audio delay",
+   "info": {
+    "meanMs": 146,
+    "medianMs": 193,
+    "sdMs": 155,
+    "taps": 19
+   }
+  },
+  "the learned offset is saved for the next break",
+  "Send log: \"Sending…\" and disabled while the app writes",
+  {
+   "name": "…then \"Log sent ✓ <time>\" in green",
+   "info": {
+    "text": "Log sent ✓ 12:00 PM"
+   }
+  },
+  "…or a red \"Log not sent ✗\" with the app's reason",
+  {
+   "name": "plain coins stop near 130; beyond it gold \"5\" coins stand in for five",
+   "info": {
+    "startPlain": 41,
+    "plainAfter260": 127,
+    "gold5": 20
+   }
+  },
+  {
+   "name": "a gold 5 over the front pays 5 coins",
+   "info": {
+    "paid": 5
+   }
+  },
+  {
+   "name": "CCD only on moving coins: most resting coins have it off",
+   "info": {
+    "on": 5,
+    "all": 158
+   }
+  },
+  "every prize is kept: all 7 prizes on the board",
+  {
+   "name": "Wild 2 picks a star prize from the visitor treats",
+   "info": {
+    "star": "shrimp"
+   }
+  },
+  {
+   "name": "the goal card names it and its visitor",
+   "info": "[\"star\",\"The shrimp is the star prize\",\"win with it and the Siamese visits\"]"
+  },
+  {
+   "name": "only one star prize, placed at the back-most prize spot",
+   "info": {
+    "z": 500,
+    "minZ": 500
+   }
+  },
+  "a lost prize tumbles over the edge, the rail flashes, its icon shakes, a sad sound plays and \"LOST THE DUCK!\" shows",
+  {
+   "name": "a needed prize comes back by bonus drop within 2 s, with \"BONUS DROP INCOMING!\"",
+   "info": {
+    "afterSec": 2
+   }
+  },
+  "the star lost: \"LOST THE STAR!\" and its own sound",
+  {
+   "name": "after the win the star's visitor comes",
+   "info": {
+    "visitor": "siamese",
+    "star": "shrimp"
+   }
+  },
+  {
+   "name": "wheel odds: Rain 25 32%, Rain 10 + Quake 20%, Dance again 16%, Prize 15%, Yawn 12%, Jackpot 5%; no plain coin slices",
+   "info": {
+    "RAIN 25": 1262,
+    "YAWN": 483,
+    "RAIN 10 + QUAKE": 828,
+    "DANCE AGAIN": 675,
+    "PRIZE YOU NEED": 563,
+    "JACKPOT 50": 189
+   }
+  },
+  {
+   "name": "wheel slice RAIN 25: a longer spin (about 5.5 s with the pause) and its event",
+   "info": {
+    "label": "RAIN 25",
+    "spinSec": 6
+   }
+  },
+  {
+   "name": "wheel slice DANCE AGAIN: a longer spin (about 5.5 s with the pause) and its event",
+   "info": {
+    "label": "DANCE AGAIN",
+    "spinSec": 6
+   }
+  },
+  {
+   "name": "wheel slice RAIN 10 + QUAKE: a longer spin (about 5.5 s with the pause) and its event",
+   "info": {
+    "label": "RAIN 10 + QUAKE",
+    "spinSec": 6,
+    "quake": true,
+    "coins": 20
+   }
+  },
+  {
+   "name": "wheel slice PRIZE YOU NEED: a longer spin (about 5.5 s with the pause) and its event",
+   "info": {
+    "label": "PRIZE YOU NEED",
+    "spinSec": 6,
+    "frontmostPrizeZ": 672
+   }
+  },
+  {
+   "name": "wheel slice RAIN 25: a longer spin (about 5.5 s with the pause) and its event",
+   "info": {
+    "label": "RAIN 25",
+    "spinSec": 6
+   }
+  },
+  {
+   "name": "wheel slice JACKPOT 50: a longer spin (about 5.5 s with the pause) and its event",
+   "info": {
+    "label": "JACKPOT 50",
+    "spinSec": 6,
+    "newBodies": 50
+   }
+  },
+  {
+   "name": "wheel slice YAWN: a longer spin (about 5.5 s with the pause) and its event",
+   "info": {
+    "label": "YAWN",
+    "spinSec": 6,
+    "sweptOff": 15
+   }
+  },
+  "Music: Classic by default",
+  "Developer shows the Music switch",
+  "the switch is saved and in the performance log",
+  {
+   "name": "sound on: Wild 2, imperfect — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 13,
+    "nodesCreated": 2429
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: RAIN 25 — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 14,
+    "nodesCreated": 3454
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: DANCE AGAIN — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": false,
+    "gameRunning": true,
+    "liveNodes": 7,
+    "nodesCreated": 3385
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: RAIN 10 + QUAKE — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 138,
+    "nodesCreated": 4059
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: PRIZE — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 15,
+    "nodesCreated": 3483
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: JACKPOT — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 27,
+    "nodesCreated": 4517
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: YAWN — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 23,
+    "nodesCreated": 4057
+   }
+  },
+  {
+   "name": "sound on: Wild, perfect — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 28,
+    "nodesCreated": 2465
+   }
+  },
+  {
+   "name": "sound on: Wild 2 win (visitor) — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "visitor": true,
+    "liveNodes": 0
+   }
+  }
+ ],
+ "failed": [
+  {
+   "name": "the star is re-dropped later, not straight away (after about 12 s)",
+   "info": {
+    "afterSec": 20
+   }
+  },
+  {
+   "name": "Classic at 100% matches Kawaii pop where a phone plays (phone-band RMS within 1.5 dB)",
+   "info": {
+    "Classic 100% (default)": {
+     "rmsDb": -34.2,
+     "peakDb": -9.4,
+     "peak": 0.34,
+     "phoneBandRms": 0.0145
+    },
+    "Classic 200%": {
+     "rmsDb": -28.2,
+     "peakDb": -3.3,
+     "peak": 0.681,
+     "phoneBandRms": 0.0291
+    },
+    "Kawaii pop 100%": {
+     "rmsDb": -28.6,
+     "peakDb": -8.8,
+     "peak": 0.364,
+     "phoneBandRms": 0.025
+    },
+    "UAT 40 Classic at its 50% default": {
+     "rmsDb": -40.2,
+     "peakDb": -15.4,
+     "peak": 0.17,
+     "phoneBandRms": 0.0073
+    }
+   }
+  }
+ ]
+}

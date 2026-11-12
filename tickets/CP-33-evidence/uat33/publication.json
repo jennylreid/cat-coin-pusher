@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261111171638,
+    "displayName":  "2026.11.11 UAT 33",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "4a69c6b72f15ec42fbacf2e7c4c0bd739159eba095ded21c53da7630b03cc93b",
+    "stagedJSONSHA256":  "347642304c2220ee713a3e4f7f336539decb4215805b80d2b94a6059e8df684e",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "897b02162dffd98e639b3ad199972529e2b1670459b22d7029f3a63f5bbb0e8e",
+    "jsonBytes":  51331066,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-CP-33-UAT33-20261111171638",
+    "authorization":  "Jenny approved UAT 33 Nov 11, relayed by PM: prizes spin in and out (Spin dial), 3 generated pickup sounds with picker and volume, Time held 0.7 s; UAT only",
+    "localPublication":  "verified"
+}

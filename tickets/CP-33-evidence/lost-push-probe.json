@@ -1,0 +1,185 @@
+{
+ "note": "Board 1 cheese placed on the table 34 units inside the open side edge at depth 620 (open-gutter stretch, past GUARD_END 431), given a sideways velocity; real physics for 3 s.",
+ "rows": [
+  {
+   "inset": 34,
+   "finalX": 48,
+   "speedMps": 1,
+   "side": "left",
+   "lostToGutter": false,
+   "board": "playing",
+   "reason": null,
+   "lostFxStarted": false
+  },
+  {
+   "inset": 34,
+   "finalX": 353,
+   "speedMps": 1,
+   "side": "right",
+   "lostToGutter": false,
+   "board": "playing",
+   "reason": null,
+   "lostFxStarted": false
+  },
+  {
+   "inset": 20,
+   "finalX": 38,
+   "speedMps": 1,
+   "side": "left",
+   "lostToGutter": false,
+   "board": "playing",
+   "reason": null,
+   "lostFxStarted": false
+  },
+  {
+   "inset": 20,
+   "finalX": 362,
+   "speedMps": 1,
+   "side": "right",
+   "lostToGutter": false,
+   "board": "playing",
+   "reason": null,
+   "lostFxStarted": false
+  },
+  {
+   "inset": 8,
+   "finalX": 38,
+   "speedMps": 1,
+   "side": "left",
+   "lostToGutter": false,
+   "board": "playing",
+   "reason": null,
+   "lostFxStarted": false
+  },
+  {
+   "inset": 8,
+   "finalX": 362,
+   "speedMps": 1,
+   "side": "right",
+   "lostToGutter": false,
+   "board": "playing",
+   "reason": null,
+   "lostFxStarted": false
+  },
+  {
+   "inset": 34,
+   "finalX": 140,
+   "speedMps": 3,
+   "side": "left",
+   "lostToGutter": true,
+   "board": "ready",
+   "reason": null,
+   "lostFxStarted": true
+  },
+  {
+   "inset": 34,
+   "finalX": 140,
+   "speedMps": 3,
+   "side": "right",
+   "lostToGutter": true,
+   "board": "ready",
+   "reason": null,
+   "lostFxStarted": true
+  },
+  {
+   "inset": 20,
+   "finalX": 140,
+   "speedMps": 3,
+   "side": "left",
+   "lostToGutter": true,
+   "board": "ready",
+   "reason": null,
+   "lostFxStarted": true
+  },
+  {
+   "inset": 20,
+   "finalX": 140,
+   "speedMps": 3,
+   "side": "right",
+   "lostToGutter": true,
+   "board": "ready",
+   "reason": null,
+   "lostFxStarted": true
+  },
+  {
+   "inset": 8,
+   "finalX": 38,
+   "speedMps": 3,
+   "side": "left",
+   "lostToGutter": false,
+   "board": "playing",
+   "reason": null,
+   "lostFxStarted": false
+  },
+  {
+   "inset": 8,
+   "finalX": 362,
+   "speedMps": 3,
+   "side": "right",
+   "lostToGutter": false,
+   "board": "playing",
+   "reason": null,
+   "lostFxStarted": false
+  },
+  {
+   "inset": 34,
+   "finalX": 140,
+   "speedMps": 6,
+   "side": "left",
+   "lostToGutter": true,
+   "board": "ready",
+   "reason": null,
+   "lostFxStarted": true
+  },
+  {
+   "inset": 34,
+   "finalX": 140,
+   "speedMps": 6,
+   "side": "right",
+   "lostToGutter": true,
+   "board": "ready",
+   "reason": null,
+   "lostFxStarted": true
+  },
+  {
+   "inset": 20,
+   "finalX": 140,
+   "speedMps": 6,
+   "side": "left",
+   "lostToGutter": true,
+   "board": "ready",
+   "reason": null,
+   "lostFxStarted": true
+  },
+  {
+   "inset": 20,
+   "finalX": 140,
+   "speedMps": 6,
+   "side": "right",
+   "lostToGutter": true,
+   "board": "ready",
+   "reason": null,
+   "lostFxStarted": true
+  },
+  {
+   "inset": 8,
+   "finalX": 38,
+   "speedMps": 6,
+   "side": "left",
+   "lostToGutter": false,
+   "board": "playing",
+   "reason": null,
+   "lostFxStarted": false
+  },
+  {
+   "inset": 8,
+   "finalX": 362,
+   "speedMps": 6,
+   "side": "right",
+   "lostToGutter": false,
+   "board": "playing",
+   "reason": null,
+   "lostFxStarted": false
+  }
+ ]
+}

@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UAT-17 all dances and continuous drums</title>
+<style>body{margin:12px auto;max-width:440px;background:#150f20;color:#fff;font:16px system-ui}button{font:inherit;padding:8px}#stage{position:relative;width:min(100%,400px);margin:auto}video{display:block;width:100%}video[hidden]{display:none}.paw{position:absolute;top:34%;height:17%;width:39%;background:transparent;border:2px dashed #ffda3588;border-radius:45%;cursor:pointer}.left{left:0}.right{right:0}p,h2{padding:0 12px}#status{min-height:3em}</style>
+<h2>Hear the drums, then dance</h2><p>Tap either outlined paw once: the drums start, the cat tilts its head left, then lifts its head to look up, then starts dancing. Side-to-side head bop → paw pumps → shimmy → hops repeat until the music ends. Extra paw taps switch to the next dance without restarting the drums. Tap outside the paws to stop and return to rest. Concept preview only.</p>
+<div id="stage"><video src="head-bop.mp4" playsinline muted preload="auto"></video><video hidden src="bigger-1.mp4" playsinline muted preload="auto"></video><video src="bigger-2.mp4" playsinline muted preload="auto" hidden></video><video src="bigger-3.mp4" playsinline muted preload="auto" hidden></video><video id="intro" src="look-intro-tilt.mp4" playsinline muted preload="auto" hidden></video><button class="paw left" aria-label="Tickle left paw"></button><button class="paw right" aria-label="Tickle right paw"></button></div>
+<p><button id="stop">Stop drums</button> <span id="count">0 taps</span></p><p id="status" role="status">Ready. Tap either paw.</p>
+<script>
+const intro=document.querySelector('#intro');
+const clips=[...document.querySelectorAll('video')],status=document.querySelector('#status'),audio=new Audio('lets-dance-trimmed.wav'),names=['Head bop','Paw pumps','Shimmy','Happy hops'];let taps=0,active=clips[0],index=0,running=false,generation=0,waitingForBeat=false;
+audio.preload='auto';audio.load();
+function stopDrums(){running=false;waitingForBeat=false;generation++;audio.pause();audio.currentTime=0;clips.forEach(v=>{v.pause();v.currentTime=0;});status.textContent='Resting. Tap a paw to dance again.';}
+function playDance(){if(!running)return;clips.forEach(v=>{v.pause();v.hidden=true;});active=clips[index];active.hidden=false;active.currentTime=index===0?0:.35;active.play().catch(e=>{if(e.name==='AbortError')return;stopDrums();status.textContent='Video could not play. Tap again.';});status.textContent=names[index]+' · automatically cycling all four dances. Tap outside to stop.';}
+async function tap(){document.querySelector('#count').textContent=(++taps)+' taps';if(running){if(!waitingForBeat&&active!==intro){index=(index+1)%4;playDance();}return;}running=true;waitingForBeat=true;const token=++generation;index=0;audio.currentTime=0;status.textContent='The cat hears the drums…';try{await audio.play();if(token!==generation&&!running)audio.pause();}catch(e){if(token===generation){stopDrums();status.textContent='Audio could not play. Tap again.';}}}
+function listenForBeat(){if(running&&waitingForBeat&&!audio.paused&&audio.currentTime>=.15){waitingForBeat=false;clips.forEach(v=>{v.pause();v.hidden=true;});active=intro;intro.hidden=false;intro.currentTime=0;intro.play().catch(()=>stopDrums());status.textContent='Hearing the drums… head tilt, head lift…';}requestAnimationFrame(listenForBeat);}requestAnimationFrame(listenForBeat);
+document.querySelectorAll('.paw').forEach(p=>p.onclick=tap);
+document.addEventListener('pointerdown',e=>{if(!e.target.closest('.paw'))stopDrums();});
+document.querySelector('#stop').onclick=stopDrums;
+clips.forEach(v=>v.onended=()=>{if(v===active&&running){index=v===intro?0:(index+1)%4;playDance();}});
+audio.onended=()=>{stopDrums();status.textContent='Track finished; resting. Tap a paw to dance again.';};
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopDrums();});
+</script></html>

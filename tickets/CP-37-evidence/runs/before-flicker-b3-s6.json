@@ -1,0 +1,31 @@
+{
+ "board": "b3",
+ "seed": 6,
+ "src": "uat37.html",
+ "frames": 480,
+ "coinFrames": 90387,
+ "flickerEvents": 0,
+ "stillAbaEvents": 4,
+ "stillAbaPx": 49558,
+ "maskToggles": 263,
+ "abaEvents": 2,
+ "abaPerSecond": 0.25,
+ "abaPx": 176513,
+ "abaExamples": [
+  {
+   "frame": 153,
+   "pair": "268:273",
+   "px": 225,
+   "still": false
+  },
+  {
+   "frame": 153,
+   "pair": "267:273",
+   "px": 188,
+   "still": false
+  }
+ ],
+ "perSecond": 0,
+ "examples": [],
+ "bodies": 200
+}

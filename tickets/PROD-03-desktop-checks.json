@@ -1,0 +1,14 @@
+{
+  "developerGatesPassed": true,
+  "renderTiming": {
+    "production": {
+      "medianDrawMs": 8.87720000000013,
+      "p95DrawMs": 11.901699999999892
+    },
+    "uat": {
+      "medianDrawMs": 11.054200000000037,
+      "p95DrawMs": 18.482199999999466
+    }
+  },
+  "phoneFPS": "requires phone evidence"
+}

@@ -1,0 +1,46 @@
+﻿FAIL board 1 identical to UAT 37 after 25 s of play {"chars":1980}
+FAIL board 2 identical to UAT 37 after 25 s of play {"chars":2393}
+FAIL board 3 identical to UAT 37 after 25 s of play {"chars":4297}
+FAIL Wild (1) round identical to UAT 37: drops, rain coin, prizes and a dance break {"chars":4166}
+PASS a WILD 2 button sits beside WILD!, not over the mute button
+PASS WILD 2 opens the Wild board in Wild 2 mode with the goal card
+PASS every beat hit: PERFECT! first
+PASS then the total, "+N COINS!", before anything falls
+PASS the pour: every banked coin starts above the screen (falling past the cat), none in physics yet {"sky":16,"bank":13,"rc":3}
+PASS no confetti burst on Wild 2
+PASS all banked coins land on the board {"landed":16}
+PASS a perfect dance spins the prize wheel; it stops on its chosen slice
+PASS the round timer stays paused until the wheel is done, then runs
+PASS one beat missed: no PERFECT!, straight to the total
+PASS …and no wheel
+PASS EXIT leaves Wild 2
+PASS WILD! still opens the original Wild board
+PASS wheel slice +10 pays out {"label":"+10","added":10}
+PASS wheel slice +15 pays out {"label":"+15","added":15}
+PASS wheel slice RAIN 25 pays out {"label":"RAIN 25"}
+PASS wheel slice +10 pays out {"label":"+10","added":10}
+PASS wheel slice QUAKE pays out {"label":"QUAKE"}
+PASS wheel slice +20 pays out {"label":"+20","added":20}
+PASS wheel slice PRIZE pays out {"label":"PRIZE","items":8}
+PASS wheel slice YAWN pays out {"label":"YAWN","sweptOff":18}
+PASS wheel odds: mostly small coin slices; RAIN 25, QUAKE and PRIZE are rare; YAWN about 1 in 12 {"+10":885,"+20":266,"YAWN":184,"RAIN 25":111,"+15":375,"QUAKE":113,"PRIZE":66}
+PASS Wild 2 rain coins: the rain falls from above the screen
+PASS …and lands on the table as real coins {"landed":8}
+PASS after a Wild 2 win a visitor comes: the cat whose treat came first (shrimp → Siamese)
+PASS tapping closes the visitor card; the end card works after
+PASS the next win brings a cat not seen yet (tuna → Orange cat)
+PASS the visitors-seen list is kept on the phone
+PASS …and reloads
+PASS no visitor on the original Wild board
+PASS Board 1: the background music plays (eighth notes, 112 BPM) {"notes":56}
+PASS Board 1: the pusher slide sounds twice a stroke (forward, quieter back) {"slides":4,"seconds":6.4}
+PASS sound off: no music, no pusher sound
+PASS Music volume and Pusher sound at 0: silent
+PASS Wild 2: music plays
+PASS the dance music takes over: no background notes during the dance break
+PASS …and the background music comes back after
+PASS Developer mode shows Music volume, Pusher sound and the wheel buttons
+PASS dial values are saved and in the performance log
+PASS "Wheel lands on YAWN" opens Wild 2 and spins straight away
+PASS …and lands on YAWN
+exit -1073740791
