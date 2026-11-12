@@ -13,7 +13,8 @@ function wildFeature(f){const m=wildMode();return m?!!(m.features&&m.features[f]
 function wildModeName(){const m=wildMode();return m?m.name:'WILD 2';}
 function wildModeColor(i){const m=wildMode();return m?m.colors[i]:['#a6ff6a','#10301a'][i];}
 function wildModePanel(){const m=wildMode();return m&&m.panel?m.panel:['#4b1f6e','#1d0f33'];}
-function wildCardLines(){const m=wildMode();return m?m.cardLines:W2_CARD_LINES;}
+// A mode's 'visitor' line becomes Wild 2's star-prize line when the round has a star prize (UAT 43).
+function wildCardLines(){const m=wildMode();if(!m)return W2_CARD_LINES;return m.cardLines.map(l=>l[0]==='visitor'&&WILD.star&&W2_CARD_LINES[3]&&W2_CARD_LINES[3][0]==='star'?W2_CARD_LINES[3]:l);}
 function wildModeEnter(id){
  if(!WILD_MODES[id])return false;MODES_UI.open=false;
  if(WILD.on)wildExit();

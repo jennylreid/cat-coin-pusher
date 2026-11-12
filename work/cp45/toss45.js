@@ -2,7 +2,8 @@
 // A fish coin ("TREATS", a code-drawn coin like the music-note coin) arrives as a bonus drop about once a round.
 // Push it off and Treat toss starts: the round timer pauses and the cat flips treats up from behind the board in arcs
 // (the approved treat sprites as they are). Tap a treat in the air to catch it (snap and chomp, a pop, it flies to the
-// bag); a tap on empty air or a treat that falls back gets a soft whiff and a small cross. It ramps up: a few treats,
+// bag); a tap on empty air gets UAT 43's miss (a red cross that pops, the muted bonk) plus a soft whiff; a treat that
+// falls back gets a smaller red cross and a soft plop. It ramps up: a few treats,
 // then more and faster, on the music's eighth-note grid. At the end, "+N TREATS!": treats the goal needs tick off the
 // collection, spares go to the pantry, and catching every one is PERFECT! (a RAIN 10 coin drops from the sky).
 // A win waits until the toss is finished. It runs only in a mode that features it (wildFeature('toss')); Wild 1 and
@@ -86,7 +87,7 @@ function tossTap(e,p){
   try{diagEvent('toss','catch '+best.id+' d='+bd.toFixed(0)+' streak='+D.streak);}catch(e){}
   return;}
  // a tap on empty air
- D.whiffs++;D.streak=0;sfx.toss('whiff',1);D.fx.push({cross:true,x:p.x,y:p.y,t:0});
+ D.whiffs++;D.streak=0;sfx.toss('whiff',.8);if(sfx.wild43)sfx.wild43('bonk',.9);D.fx.push({cross:true,x:p.x,y:p.y,t:0});
  tossLog(D,['whiff',+p.x.toFixed(0),+p.y.toFixed(0),best?+bd.toFixed(1):null]);
 }
 function tossTick(dt,paused){
@@ -203,9 +204,10 @@ function tossDraw(){
  for(const f of D.fx){
   if(f.spark){ctx.globalAlpha=Math.max(0,1-f.t/.45);uiCircle(f.x,f.y,3.2,'#fff3b0');continue;}
   if(f.ring){const u=f.t/.35;ctx.globalAlpha=Math.max(0,1-u);ctx.strokeStyle='#fff3b0';ctx.lineWidth=4*(1-u)+1;ctx.beginPath();ctx.arc(f.x,f.y,18+38*u,0,7);ctx.stroke();continue;}
-  if(f.cross){const u=f.t/.7,a=Math.max(0,1-u),r=(f.small?9:11)*(1+.25*Math.min(1,u*4));ctx.globalAlpha=a;ctx.save();ctx.translate(f.x,f.y-u*10);ctx.lineCap='round';
-   ctx.strokeStyle='rgba(20,6,30,.8)';ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(-r,-r);ctx.lineTo(r,r);ctx.moveTo(r,-r);ctx.lineTo(-r,r);ctx.stroke();
-   ctx.strokeStyle='#c9b6e6';ctx.lineWidth=3.6;ctx.stroke();ctx.restore();continue;}
+  if(f.cross){const u=f.t/.7,a=Math.max(0,1-Math.max(0,u-.4)/.6),pu=f.t/.55,sc=(pu<.15?.6+pu/.15*.6:1.2-.2*Math.min(1,(pu-.15)/.2))*(f.small?.7:1),r=13;
+   ctx.globalAlpha=a;ctx.save();ctx.translate(f.x,f.y-u*8);ctx.scale(sc,sc);ctx.lineCap='round';
+   ctx.strokeStyle='#2a0010';ctx.lineWidth=11;ctx.beginPath();ctx.moveTo(-r,-r);ctx.lineTo(r,r);ctx.moveTo(r,-r);ctx.lineTo(-r,r);ctx.stroke();
+   ctx.strokeStyle='#ff4b4b';ctx.lineWidth=7;ctx.stroke();ctx.restore();continue;}
   ctx.globalAlpha=Math.max(0,1-f.t/.9);ctx.font='900 '+(f.text.length>3?20:24)+'px Impact, "Arial Black", system-ui';ctx.lineWidth=4;ctx.strokeStyle='#2a0b3e';ctx.strokeText(f.text,f.x,f.y-f.t*30);ctx.fillStyle=f.color;ctx.fillText(f.text,f.x,f.y-f.t*30);}
  ctx.globalAlpha=1;
  // the end: +N TREATS!, what they did, PERFECT!

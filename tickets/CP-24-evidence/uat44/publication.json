@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261112181000,
+    "displayName":  "2026.11.12 UAT 44",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "a92ee108c1e7df9dc0004fc0bd141d0eb65b4710e08ffaf8f222dc55d022443f",
+    "stagedJSONSHA256":  "dea52567afbbc67226f9f4ff9f51d197fd5456f0bda05afb007a1b75ffac26fb",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "0048b96e965fcf545bdb56ed7cbe6875b040ca0515a2d393409c0968c46a9d81",
+    "jsonBytes":  51547038,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT44-20261112181000",
+    "authorization":  "UAT 44: CP-24 prizes tip off the sides + CP-40 Paw save (Wild 2) on UAT 43; Phase 1 approved by PM, UAT publishing pre-approved by Jenny (relayed by PM, Nov 12); UAT only",
+    "localPublication":  "verified"
+}

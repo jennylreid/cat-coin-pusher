@@ -5,7 +5,7 @@ eval(fs.readFileSync(path.join(__dirname,'strict-audio.part'),'utf8'));
 const {run:play}=require('./play45.cjs');
 const OUT=path.resolve(__dirname,'../../tickets/CP-41-evidence');fs.mkdirSync(OUT,{recursive:true});
 const v=JSON.parse(fs.readFileSync(path.join(__dirname,'release-version.json'),'utf8'));
-const BASE_SRC={uat42:'../cp42/release.html',uat44:'../cp44/release.html'}[v.base];
+const BASE_SRC={uat44:'../cp44/release.html'}[v.base];
 const NEW=path.resolve(__dirname,'release.html'),OLD=path.resolve(__dirname,BASE_SRC);
 const passed=[],failed=[];function check(name,ok,info){(ok?passed:failed).push(info===undefined?name:{name,info});console.log((ok?'PASS ':'FAIL ')+name+(info!==undefined?' '+JSON.stringify(info):''));}
 const bodiesJSON="JSON.stringify(bodies.filter(b=>!b.dead).map(b=>[b.kind,b.id,+(b.rb.translation().x/M).toFixed(3),+(b.rb.translation().z/M).toFixed(3)]))";

@@ -1,11 +1,11 @@
 # UAT 45 (CP-41): builds release.html from a pinned base. Adds game modes (modes45.js: registry, MODES picker, goal-card
 # hooks), the Treat toss side game (toss45.js, toss-sounds.js) and the Treat toss mode (mode-treats45.js).
 # Wild 1, Wild 2 and Boards 1-3 are unchanged.
-# Prototype base: UAT 42 (work/cp42/release.html). For publication the base is UAT 44 (release-version.json "base").
+# Base: published UAT 44 (work/cp44/release.html, pinned by hash). (Prototyped on UAT 42.)
 from pathlib import Path
 import json, hashlib
 p = Path(__file__).parent
-BASES = {'uat42': ('cp42/release.html', '0' * 64)}
+BASES = {'uat44': ('cp44/release.html', '0048b96e965fcf545bdb56ed7cbe6875b040ca0515a2d393409c0968c46a9d81')}
 v = json.loads((p / 'release-version.json').read_text())
 base = v.get('base', 'uat42')
 src, pin = BASES[base]
@@ -33,10 +33,10 @@ rep("function danceFill(n,x){", "function danceFill(n,x){if(!wildFeature('dance'
 rep("if(!wildMissing().length&&((WILD.noteN===0", "if(wildFeature('dance')&&!wildMissing().length&&((WILD.noteN===0")
 rep("drawWildHud=function(hud){" + N + " __danceHud(hud);" + N, "drawWildHud=function(hud){" + N + " __danceHud(hud);if(!wildFeature('dance'))return;" + N)
 rep("(WILD.v2?'WILD 2':'WILD BOARD')", "(WILD.v2?wildModeName():'WILD BOARD')")
-rep(" wildPanel(R,'#4b1f6e','#1d0f33');" + N + " wildText('WILD 2'", " wildPanel(R,...wildModePanel());" + N + " wildText('WILD 2'")
-rep("wildText('WILD 2',200,R.y+40,46,'#a6ff6a','#10301a',8);", "wildText(wildModeName(),200,R.y+40,46,wildModeColor(0),wildModeColor(1),8);")
-rep("W2_CARD_LINES.length", "wildCardLines().length", 3)
-rep(" W2_CARD_LINES.forEach(", " wildCardLines().forEach(")
+# the goal card (UAT 43's compact card, the last drawWild2Card): the mode's name, colours and lines
+rep(" wildPanel(R,'#4b1f6e','#1d0f33');" + N + " wildText('WILD 2',200,R.y+28,36,'#a6ff6a','#10301a',7);",
+    " wildPanel(R,...wildModePanel());" + N + " wildText(wildModeName(),200,R.y+28,36,wildModeColor(0),wildModeColor(1),7);")
+rep("const [ic,a,b]=W2_CARD_LINES[i],", "const [ic,a,b]=wildCardLines()[i],")
 a = s.index('// Local UAT diagnostics:')
 s = s[:a] + mod('modes45.js') + mod('toss45.js') + mod('mode-treats45.js') + s[a:]
 rep("danceTuning:{...DANCE},", "danceTuning:{...DANCE},tossTuning:{...TOSS},tossTuningDefaults:TOSS_DEFAULTS,tossLog:TOSS_LOG,pantry:{...PANTRY},")
