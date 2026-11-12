@@ -8,7 +8,7 @@ async function G(o={}){const g=await game({src:SRC,...o});const st=strictAudio(g
 function drops(g,sec,every=.4){for(let i=0;i<sec*60;i++){if(i%Math.round(every*60)===0)g.drop();g.tick();}}
 (async()=>{
  // 1. Boards 1-3 and Wild 2 unchanged
- for(const [label,pre,sec] of [['Board 1',"",25],['Board 3',"loadBoard&&0",0],['Wild 2 round',"wild2Enter();wildStartCountdown()",40],['Treat toss mode round',"wildModeEnter('treats');wildStartCountdown()",40]]){
+ for(const [label,pre,sec] of [['Board 1',"",25],['Board 3',"loadBoard&&0",0],['Wild 2 round',"wild2Enter();wildStartCountdown()",40],['Treat toss mode round',"wildModeEnter('treats');wildStartCountdown()",40],['Laser mode round',"wildModeEnter('laser');wildStartCountdown()",40]]){
   if(!sec)continue;const fps=[];for(const src of [BASE,SRC]){const g=await game({src,seed:9});g.run('S.muted=true');if(pre)g.run(pre);drops(g,sec);fps.push(fp(g));g.close();}
   ok(label+' identical to the base after '+sec+' s (same seed and drops)',fps[0]===fps[1],fps.join(' vs '));}
  // 2. MODES picker -> COZY; its card; tap to start; EXIT; Wild 2 and the other modes keep their own

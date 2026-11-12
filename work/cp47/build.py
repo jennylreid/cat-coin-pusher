@@ -10,7 +10,7 @@ BASES = {'uat45proto': ('cp45/release.html', None), 'uat46': ('cp47/base-uat46.h
 v = json.loads((p / 'release-version.json').read_text())
 base = v.get('base', 'uat45proto')
 src, pin = BASES[base]
-pin = v.get('basePin', pin)
+pin = v.get('pin', pin)
 s = (p.parent / src).read_text(encoding='utf-8', newline='')
 h = hashlib.sha256(s.encode('utf-8')).hexdigest()
 assert not pin or h == pin, ('base changed', base, h)
@@ -38,7 +38,7 @@ rep("drawTrackingPupils();if(tk&&tk.squint>0){ctx.save();ctx.globalAlpha=tk.squi
     "drawTrackingPupils();const __sq=Math.max(tk?tk.squint:0,petSquint());if(__sq>0){ctx.save();ctx.globalAlpha=__sq;drawHappyFeatures();ctx.restore();}")
 # strokes: pointer moves and lifts go to the side game first while it's on
 rep("cv.addEventListener('pointermove',e=>{", "cv.addEventListener('pointermove',e=>{if(petPointerMove(e))return;")
-rep("cv.addEventListener(ev,e=>{if(collectionDrag", "cv.addEventListener(ev,e=>{petPointerUp(e);if(collectionDrag")
+rep("cv.addEventListener(ev,e=>{", "cv.addEventListener(ev,e=>{petPointerUp(e);")
 # the Cozy name on the goal card and the board label
 rep("wildText('WILD 2',200,R.y+40,46,'#a6ff6a','#10301a',8);", "wildText(WILD.pet?'COZY':'WILD 2',200,R.y+40,46,WILD.pet?'#ff8ac8':'#a6ff6a',WILD.pet?'#3a0b2a':'#10301a',8);", optional=True)
 # the win/lose card title (and, on a base without modes, the board label): COZY in Cozy, unchanged elsewhere

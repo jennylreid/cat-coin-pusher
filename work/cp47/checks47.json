@@ -7,17 +7,22 @@
  {
   "name": "Wild 2 round identical to the base after 40 s (same seed and drops)",
   "pass": true,
-  "detail": "3f7fb9c288b70f8f vs 3f7fb9c288b70f8f"
+  "detail": "a264a4f99309ccfe vs a264a4f99309ccfe"
  },
  {
   "name": "Treat toss mode round identical to the base after 40 s (same seed and drops)",
   "pass": true,
-  "detail": "6a503cca5e87fbb4 vs 6a503cca5e87fbb4"
+  "detail": "f9ead1c519592af0 vs f9ead1c519592af0"
+ },
+ {
+  "name": "Laser mode round identical to the base after 40 s (same seed and drops)",
+  "pass": true,
+  "detail": "67b22b73cedd343e vs 67b22b73cedd343e"
  },
  {
   "name": "COZY is listed in the MODES picker",
   "pass": true,
-  "detail": "treats, cozy"
+  "detail": "treats, laser, cozy"
  },
  {
   "name": "picking COZY opens the Cozy goal card",
@@ -62,7 +67,7 @@
  {
   "name": "Cozy: heart coin about once a round (4 rounds)",
   "pass": true,
-  "detail": "[{\"seed\":21,\"hearts\":2,\"pets\":2,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":22,\"hearts\":1,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":23,\"hearts\":2,\"pets\":1,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":24,\"hearts\":1,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0}]"
+  "detail": "[{\"seed\":21,\"hearts\":1,\"pets\":1,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":22,\"hearts\":1,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":23,\"hearts\":2,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":24,\"hearts\":2,\"pets\":1,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0}]"
  },
  {
   "name": "Cozy: a heart pushed off starts Pet the cat in at least 2 of 4 auto rounds",
@@ -107,7 +112,7 @@
  {
   "name": "stroking builds the purr (1 s of stroking)",
   "pass": true,
-  "detail": "0.06 -> 0.35"
+  "detail": "0.06 -> 0.37"
  },
  {
   "name": "purr sound live while stroking",
@@ -127,7 +132,7 @@
  {
   "name": "staying off the cat for 0.75 s stops it",
   "pass": true,
-  "detail": "\"{\\\"kind\\\":\\\"early\\\",\\\"score\\\":0.15513455327364406,\\\"L\\\":0.34556086953951254,\\\"over\\\":0,\\\"why\\\":\\\"lift\\\",\\\"coins\\\":3,\\\"pct\\\":35}\""
+  "detail": "\"{\\\"kind\\\":\\\"early\\\",\\\"score\\\":0.17753046805648276,\\\"L\\\":0.36693591917428775,\\\"over\\\":0,\\\"why\\\":\\\"lift\\\",\\\"coins\\\":4,\\\"pct\\\":37}\""
  },
  {
   "name": "coins pour onto the board after the stop",

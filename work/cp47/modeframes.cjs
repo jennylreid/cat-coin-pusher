@@ -1,9 +1,9 @@
-// Frames: the COZY button, the Cozy goal card (tall and 720-high), the heart coin incoming and on the board.
+// Frames: the MODES picker with COZY, the Cozy goal card (tall and 720-high), the heart coin incoming and on the board.
 const {game}=require('./harness.cjs'),fs=require('fs'),path=require('path');
 const O=path.resolve(__dirname,process.env.PET_OUT||'../../tickets/CP-43-evidence');fs.mkdirSync(O,{recursive:true});
 const shot=(g,n)=>{g.c.draw();fs.writeFileSync(path.join(O,n+'.png'),g.c.document.getElementById('cv').toBuffer('image/png'));};
 (async()=>{const src=path.resolve(process.argv[2]||'release.html');
- let g=await game({src,render:true,seed:4});g.ticks(30);shot(g,'10-cozy-button');
+ let g=await game({src,render:true,seed:4});g.ticks(30);g.run('MODES_UI.open=true;MODES_UI.t=0');g.ticks(30);shot(g,'10-modes-picker-cozy');
  g.run('petEnter()');g.ticks(30);shot(g,'11-cozy-goal-card');g.close();
  g=await game({src,render:true,seed:4,height:720});g.run('petEnter()');g.ticks(30);shot(g,'12-cozy-goal-card-720');g.close();
  g=await game({src,render:true,seed:4});g.run('petEnter();wildStartCountdown()');g.ticks(250);
