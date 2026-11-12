@@ -6,7 +6,7 @@ from pathlib import Path
 import json, hashlib
 p = Path(__file__).parent
 # 'published' = index.html inside the published UAT JSON (uat/CatCoinPusher-UAT-game.json), pinned by "pin" (its sha256).
-BASES = {'uat42': 'cp42/release.html', 'uat45proto': 'cp45/release.html', 'published': None}
+BASES = {'uat42': 'cp42/release.html', 'uat45proto': 'cp45/release.html', 'uat45': 'cp45/release.html', 'published': None}
 v = json.loads((p / 'release-version.json').read_text())
 base = v.get('base', 'uat42')
 pin = v.get('pin')
@@ -17,7 +17,7 @@ else:
     s = (p.parent / BASES[base]).read_text(encoding='utf-8', newline='')
 h = hashlib.sha256(s.encode('utf-8')).hexdigest()
 assert pin is None or h == pin, ('base changed', base, h)
-assert base != 'published' or pin, 'a publication build must pin its base'
+assert base not in ('published', 'uat45') or pin, 'a publication build must pin its base'
 old_build = s[s.index("const BUILD = '") + 15:].split("'")[0]
 N = '\r\n'
 

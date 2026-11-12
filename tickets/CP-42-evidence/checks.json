@@ -6,21 +6,21 @@
   "Wild round (40 s, through Turbo) identical to the base build",
   "Wild 2 round (40 s, through Turbo) identical to the base build",
   {
-   "name": "MODES  sits under WILD! and WILD 2 without overlapping them",
+   "name": "MODES (the shared CP-41 picker) sits under WILD! and WILD 2 without overlapping them",
    "info": {
-    "x": 260,
-    "y": 68,
-    "w": 88,
-    "h": 20
+    "x": 310,
+    "y": 72,
+    "w": 80,
+    "h": 24
    }
   },
   "tapping MODES opens the picker",
   {
-   "name": "the picker sits below the cat's chin",
-   "info": {
-    "cardY": 430,
-    "chin": 215
-   }
+   "name": "Laser chase is listed in the shared picker",
+   "info": [
+    "treats",
+    "laser"
+   ]
   },
   "a tap outside closes the picker (nothing else happens)",
   "LASER CHASE in the picker opens Laser mode at its goal card",
@@ -33,10 +33,10 @@
   {
    "name": "the Laser card fits a 720-high screen",
    "info": {
-    "x": 14,
-    "y": 68,
-    "w": 372,
-    "h": 624
+    "x": 10,
+    "y": 318,
+    "w": 380,
+    "h": 396
    }
   },
   {
@@ -60,7 +60,7 @@
      1
     ],
     [
-     1,
+     2,
      1
     ],
     [
@@ -91,30 +91,31 @@
    "info": [
     [
      17,
-     31,
+     27,
      8,
      8
     ],
     [
-     25,
-     30,
+     21,
+     26,
      8,
      8
     ],
     [
-     9,
-     16,
-     9,
-     8
-    ],
-    [
-     16,
+     7,
      18,
-     8,
-     8
+     9,
+     9
+    ],
+    [
+     18,
+     21,
+     9,
+     9
     ]
    ]
   },
+  "Paw save (CP-40) is off while a chase runs",
   {
    "name": "taps during the chase move the dot and drop no coins",
    "info": {
@@ -166,12 +167,12 @@
   {
    "name": "one laser coin a round, a second only when the first is never pushed off (10 in 6 rounds where no coins are dropped)",
    "info": [
-    2,
-    1,
     1,
     2,
     2,
-    2
+    2,
+    2,
+    1
    ]
   },
   "Start laser chase now opens Laser mode and starts a chase after GO",
@@ -200,8 +201,8 @@
   {
    "name": "desktop step cost during a chase is close to normal play with coin drops",
    "info": {
-    "normalMs": 2.29,
-    "chaseMs": 5.05
+    "normalMs": 2.16,
+    "chaseMs": 4.4
    }
   }
  ],
@@ -219,17 +220,17 @@
     9.733,
     "end",
     17,
-    31,
+    27,
     8,
     8,
-    2,
+    5,
     0,
-    "yarn+duck"
+    "shrimp+tuna+duck"
    ],
    "phase": "end",
    "win": true,
    "got": 7,
-   "liveAudio": 167
+   "liveAudio": 142
   },
   {
    "seed": 22,
@@ -242,42 +243,42 @@
    "end": [
     9.733,
     "end",
-    25,
-    30,
+    21,
+    26,
     8,
     8,
-    4,
+    8,
     0,
-    "tuna+shrimp+yarn"
+    "tuna+cheese+yarn+shrimp"
    ],
    "phase": "end",
    "win": false,
    "got": 6,
-   "liveAudio": 44
+   "liveAudio": 39
   },
   {
    "seed": 23,
    "errs": [],
-   "laserCoins": 1,
+   "laserCoins": 2,
    "chases": 1,
    "timerDuringChase": [
     0
    ],
    "end": [
-    9.75,
+    9.8,
     "end",
+    7,
+    18,
     9,
-    16,
     9,
-    8,
-    6,
-    1,
-    "shrimp+duck"
+    9,
+    0,
+    "tuna+duck"
    ],
    "phase": "end",
    "win": false,
    "got": 6,
-   "liveAudio": 56
+   "liveAudio": 38
   },
   {
    "seed": 24,
@@ -288,20 +289,20 @@
     0
    ],
    "end": [
-    9.733,
+    10.017,
     "end",
-    16,
     18,
-    8,
-    8,
+    21,
     9,
+    9,
+    10,
     0,
-    "tuna+bell+mouse+cheese+shrimp"
+    "cheese+duck+mouse+shrimp+duck"
    ],
    "phase": "end",
-   "win": false,
-   "got": 5,
-   "liveAudio": 48
+   "win": true,
+   "got": 7,
+   "liveAudio": 140
   }
  ]
 }

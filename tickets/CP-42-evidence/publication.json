@@ -1,0 +1,21 @@
+﻿{
+    "version":  20261112182118,
+    "displayName":  "2026.11.12 UAT 46",
+    "apkVersion":  7,
+    "base":  "uat45",
+    "pin":  "0a06aa4563002152476ca9549d65cbecb80bac0533ed563783b1f8e5900824bb",
+    "baselineJSONSHA256":  "5a78ec6a3e7d8d9db6f51f2073007cf1fec219e5e06a800d54457ed962099bcc",
+    "stagedJSONSHA256":  "b5457c9c33bfe0d54b2ed75b3306ff917d16c65b911e214d1a4aec368b2523e3",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "ad6cf16c2b6ff5f7ecf4236c2fd302ca434baf0bfe3539cd05b4a0833d03ad35",
+    "jsonBytes":  51634886,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT46-20261112182118",
+    "authorization":  "UAT 46: CP-42 Laser mode (Laser chase side game, MODES picker); hackathon brief from the PM (Nov 12, Jenny away: build and publish to UAT); UAT only",
+    "localPublication":  "verified"
+}

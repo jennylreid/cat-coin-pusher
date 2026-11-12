@@ -185,10 +185,10 @@ wildRainCollected=function(b,x){
  try{diagEvent('laser','laser coin');}catch(e){}
 };
 wildScheduleBonus=function(){
- // About one laser coin a round: it replaces the 2nd or 3rd bonus drop and lands near the front, unless a lost prize needs replacing. If that one
+ // About one laser coin a round: it replaces the 2nd bonus drop and lands near the front, unless a lost prize needs replacing. If that one
  // is lost off a side, a second can come later.
  if(WILD.laser){
-  if(WILD.laserAt==null)WILD.laserAt=2+(Math.random()*2|0);
+  if(WILD.laserAt==null)WILD.laserAt=2;
   if(!wildMissing().length&&!WILD.chase&&((WILD.laserN===0&&WILD.bonusN+1>=WILD.laserAt)||(WILD.laserN===1&&WILD.chases===0&&WILD.bonusN>=WILD.laserAt+2&&Math.random()<.35))){
    const y=rand(625,690),x=200+rand(-1,1)*(tableHalfAt(y)-70); // near the front: it should go over within a few pushes
    WILD.incoming.push({kind:'laser',id:null,x,y,t:.9,t0:.9});WILD.bonusN++;WILD.laserN++;sfx.wild('whistle',1);return;}

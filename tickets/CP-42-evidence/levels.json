@@ -1,23 +1,23 @@
 {
  "start": {
-  "rmsDb": -43.6,
-  "peakDb": -24.4,
-  "peak": 0.06
+  "rmsDb": -36.3,
+  "peakDb": -16.5,
+  "peak": 0.15
  },
  "dot": {
-  "rmsDb": -50.1,
-  "peakDb": -36.6,
-  "peak": 0.015
+  "rmsDb": -41.3,
+  "peakDb": -27.4,
+  "peak": 0.043
  },
  "wind": {
-  "rmsDb": -50.1,
-  "peakDb": -36.1,
-  "peak": 0.016
+  "rmsDb": -42.8,
+  "peakDb": -28.3,
+  "peak": 0.039
  },
  "pounce": {
-  "rmsDb": -43.1,
-  "peakDb": -29.9,
-  "peak": 0.032
+  "rmsDb": -35.2,
+  "peakDb": -22,
+  "peak": 0.079
  },
  "thump": {
   "rmsDb": -29.5,
@@ -25,28 +25,28 @@
   "peak": 0.259
  },
  "prize": {
-  "rmsDb": -36.9,
-  "peakDb": -20.5,
-  "peak": 0.095
+  "rmsDb": -31.3,
+  "peakDb": -14.9,
+  "peak": 0.181
  },
  "miss": {
-  "rmsDb": -46.6,
-  "peakDb": -33.6,
-  "peak": 0.021
+  "rmsDb": -38.8,
+  "peakDb": -25.9,
+  "peak": 0.051
  },
  "over": {
-  "rmsDb": -44.4,
-  "peakDb": -28.4,
-  "peak": 0.038
+  "rmsDb": -38.8,
+  "peakDb": -22.4,
+  "peak": 0.076
  },
  "end": {
-  "rmsDb": -38.5,
-  "peakDb": -20.5,
-  "peak": 0.095
+  "rmsDb": -34.7,
+  "peakDb": -16.5,
+  "peak": 0.149
  },
  "none": {
-  "rmsDb": -45.9,
-  "peakDb": -29.7,
-  "peak": 0.033
+  "rmsDb": -40.3,
+  "peakDb": -23.7,
+  "peak": 0.065
  }
 }

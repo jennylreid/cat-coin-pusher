@@ -27,7 +27,7 @@ function player(g,errs,{seconds=90,drag=true,shots=null}={}){
    if(ch==='end'&&down){g.pointer('pointerup',0,0);down=false;}}
   else{if(R.inChase){R.inChase=false;R.chaseLeft.push(+(R.left0-g.run('WILD.left')).toFixed(3));}
    if(down){g.pointer('pointerup',0,0);down=false;}
-   if(t-last>=.25&&g.run("WILD.phase==='play'")){a.tryDrop({x:200+60*Math.sin(t*1.3),y:g.run('DROP_Y')});last=t;}}
+   if(t-last>=.4&&g.run("WILD.phase==='play'")){a.tryDrop({x:200+60*Math.sin(t*1.3),y:g.run('DROP_Y')});last=t;}}
   if(!frames(g,1,errs))break;t+=1/60;}
  if(R.inChase)R.chaseLeft.push(+(R.left0-g.run('WILD.left')).toFixed(3)); // the round was won as the chase ended
  return R;}
@@ -69,6 +69,7 @@ function player(g,errs,{seconds=90,drag=true,shots=null}={}){
  check('the chase knocks things off the front for a player who drags onto prizes',rounds.every(r=>r.end&&r.end[2]>=1),rounds.map(r=>r.end&&r.end.slice(2,6)));
  // 4. In a chase: no coin drops; the dot follows the finger; a win waits; EXIT; sound off is silent.
  {const g=await game({src:NEW,seed:9});const st=strictAudio(g),errs=[];g.run('S.muted=false');g.run('laserStartNow()');let k=0;while(!g.run('!!WILD.chase&&WILD.chase.phase==="play"')&&k<900){frames(g,1,errs);k++;}
+  if(g.run("typeof paw40On==='function'"))check('Paw save (CP-40) is off while a chase runs',!g.run('paw40On()'));
   const c0=g.run('S.coins');for(let i=0;i<8;i++){g.tap(120+i*20,600);frames(g,6,errs);}
   check('taps during the chase move the dot and drop no coins',g.run('S.coins')===c0&&g.run('pendingDrops.length')===0,{c0,c1:g.run('S.coins')});
   const d=JSON.parse(g.run('JSON.stringify(WILD.chase.dot)')),want=JSON.parse(g.run('JSON.stringify(laserClamp(laserWorld(260,600)))'));check('the dot goes where the finger is',Math.hypot(d.x-want.x,d.y-want.y)<1.5,{d,want});
