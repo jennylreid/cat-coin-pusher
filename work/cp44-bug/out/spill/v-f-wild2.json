@@ -1,0 +1,62 @@
+[
+ {
+  "board": "wild2",
+  "seed": 1,
+  "side": 28,
+  "sidePrize": 0,
+  "front": 86,
+  "frontPrize": 8,
+  "hang": 0,
+  "prizes": {},
+  "used": 258,
+  "coinsLeft": 832
+ },
+ {
+  "board": "wild2",
+  "seed": 2,
+  "side": 39,
+  "sidePrize": 3,
+  "front": 46,
+  "frontPrize": 6,
+  "hang": 0.8,
+  "prizes": {},
+  "used": 258,
+  "coinsLeft": 787
+ },
+ {
+  "board": "wild2",
+  "seed": 3,
+  "side": 25,
+  "sidePrize": 0,
+  "front": 96,
+  "frontPrize": 8,
+  "hang": 0.1,
+  "prizes": {},
+  "used": 258,
+  "coinsLeft": 837
+ },
+ {
+  "board": "wild2",
+  "seed": 4,
+  "side": 41,
+  "sidePrize": 1,
+  "front": 77,
+  "frontPrize": 7,
+  "hang": 0.7,
+  "prizes": {},
+  "used": 258,
+  "coinsLeft": 818
+ },
+ {
+  "board": "wild2",
+  "seed": 5,
+  "side": 27,
+  "sidePrize": 0,
+  "front": 38,
+  "frontPrize": 10,
+  "hang": 0,
+  "prizes": {},
+  "used": 258,
+  "coinsLeft": 794
+ }
+]

@@ -1,0 +1,51 @@
+{
+ "save": {
+  "teeterStarted": true,
+  "before": {
+   "saves": 3,
+   "teeter": true,
+   "swipe": false,
+   "saved": 0,
+   "missed": 0,
+   "lost": null
+  },
+  "after": {
+   "saves": 2,
+   "teeter": false,
+   "swipe": false,
+   "saved": 1,
+   "missed": 0,
+   "lost": null
+  },
+  "prize": {
+   "x": 107.98211097717285,
+   "z": 594.923210144043,
+   "h": 16.948284208774567,
+   "inside": true
+  },
+  "dropsDuringTap": 0
+ },
+ "miss": {
+  "coinDropped": 1,
+  "windowFrames": 29,
+  "after": {
+   "saves": 3,
+   "teeter": false,
+   "swipe": false,
+   "saved": 0,
+   "missed": 1,
+   "lost": null
+  },
+  "prizeFell": true,
+  "lostN": null
+ },
+ "runOut": [
+  2,
+  1,
+  0,
+  "no glow"
+ ],
+ "wild1": {
+  "teeter": false
+ }
+}

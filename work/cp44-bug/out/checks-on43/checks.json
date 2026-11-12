@@ -1,0 +1,129 @@
+{
+ "passed": [
+  {
+   "name": "build label",
+   "info": "2026.11.12 UAT 44"
+  },
+  {
+   "name": "CP-24 tuna centre 25 past the side edge falls",
+   "info": {
+    "dead": true,
+    "errs": []
+   }
+  },
+  {
+   "name": "CP-24 tuna centre 5 past the side edge falls",
+   "info": {
+    "dead": true,
+    "errs": []
+   }
+  },
+  {
+   "name": "CP-24 tuna centre -10 past the side edge stays",
+   "info": {
+    "dead": false,
+    "errs": []
+   }
+  },
+  {
+   "name": "CP-40 tap on the glowing prize saves it (one save used, back on the board, no coin dropped, sounds)",
+   "info": {
+    "glowSound": true,
+    "r": {
+     "saves": 2,
+     "teeter": false,
+     "saved": 1,
+     "missed": 0,
+     "lost": 0
+    },
+    "inside": true,
+    "errs": []
+   }
+  },
+  {
+   "name": "CP-40 a tap elsewhere drops a coin, uses no save; the prize falls into the lost-prize moment after ~0.5 s",
+   "info": {
+    "used": 1,
+    "window": 29,
+    "r": {
+     "saves": 3,
+     "teeter": false,
+     "saved": 0,
+     "missed": 1,
+     "lost": 1
+    },
+    "errs": []
+   }
+  },
+  {
+   "name": "CP-40 three saves per round, then no glow",
+   "info": {
+    "seq": [
+     2,
+     1,
+     0,
+     "no glow"
+    ],
+    "errs": []
+   }
+  },
+  "CP-40 saves reset each round",
+  "CP-40 dial sets saves per round",
+  {
+   "name": "CP-40 not on Wild (only Wild 2)",
+   "info": {
+    "errs": []
+   }
+  },
+  "CP-40 developer: force tip-off button and saves dial",
+  {
+   "name": "30 s of play on Board 1 without errors",
+   "info": {
+    "errs": [],
+    "status": "playing"
+   }
+  },
+  {
+   "name": "30 s of play on Board 2 without errors",
+   "info": {
+    "errs": [],
+    "status": "playing"
+   }
+  },
+  {
+   "name": "30 s of play on Board 3 without errors",
+   "info": {
+    "errs": [],
+    "status": "playing"
+   }
+  },
+  {
+   "name": "30 s of play on Wild 2 without errors",
+   "info": {
+    "errs": [],
+    "status": "playing"
+   }
+  },
+  {
+   "name": "Wild 2 dance break runs to the end",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 142,
+    "nodesCreated": 4355
+   }
+  }
+ ],
+ "failed": [
+  {
+   "name": "CP-24 coin centre 8 past the edge falls; centre 12 inside stays",
+   "info": {
+    "past": false,
+    "inside": false,
+    "errs": []
+   }
+  }
+ ]
+}

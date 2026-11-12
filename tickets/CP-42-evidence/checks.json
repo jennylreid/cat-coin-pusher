@@ -1,0 +1,294 @@
+{
+ "passed": [
+  "board 1 identical to the base build after 25 s of play",
+  "board 2 identical to the base build after 25 s of play",
+  "board 3 identical to the base build after 25 s of play",
+  "Wild round (40 s, through Turbo) identical to the base build",
+  "Wild 2 round (40 s, through Turbo) identical to the base build",
+  {
+   "name": "MODES sits under WILD! and WILD 2 without overlapping them",
+   "info": {
+    "x": 260,
+    "y": 68,
+    "w": 88,
+    "h": 20
+   }
+  },
+  "tapping MODES opens the picker",
+  {
+   "name": "the picker sits below the cat's chin",
+   "info": {
+    "cardY": 430,
+    "chin": 215
+   }
+  },
+  "a tap outside closes the picker (nothing else happens)",
+  "LASER CHASE in the picker opens Laser mode at its goal card",
+  "the timer does not run while the card is up",
+  "no happy meter or music-note coin in Laser mode",
+  "a tap on the card starts 3-2-1",
+  "the timer runs after GO",
+  "EXIT leaves Laser mode",
+  "WILD 2 after Laser mode is plain Wild 2 (meter and note coin back)",
+  {
+   "name": "the Laser card fits a 720-high screen",
+   "info": {
+    "x": 14,
+    "y": 68,
+    "w": 372,
+    "h": 624
+   }
+  },
+  {
+   "name": "no exceptions in 4 Laser rounds with sound on (strict fake audio)",
+   "info": [
+    [],
+    [],
+    [],
+    []
+   ]
+  },
+  {
+   "name": "a laser coin arrives in every round and starts a chase",
+   "info": [
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "the chase knocks things off the front for a player who drags onto prizes",
+   "info": [
+    [
+     17,
+     31,
+     8,
+     8
+    ],
+    [
+     25,
+     30,
+     8,
+     8
+    ],
+    [
+     9,
+     16,
+     9,
+     8
+    ],
+    [
+     16,
+     18,
+     8,
+     8
+    ]
+   ]
+  },
+  {
+   "name": "taps during the chase move the dot and drop no coins",
+   "info": {
+    "c0": 110,
+    "c1": 110
+   }
+  },
+  {
+   "name": "the dot goes where the finger is",
+   "info": {
+    "d": {
+     "x": 261.20042517146214,
+     "y": 556.2908460351173
+    },
+    "want": {
+     "x": 261.20042517146214,
+     "y": 556.2908460351173
+    }
+   }
+  },
+  {
+   "name": "dragging moves the dot with the finger",
+   "info": {
+    "d2": {
+     "x": 247.38098780561938,
+     "y": 681.2316191580612
+    },
+    "w2": {
+     "x": 247.38098780561938,
+     "y": 681.2316191580612
+    }
+   }
+  },
+  "a win during the chase waits (the chase keeps going)",
+  "the round is won once the chase has finished",
+  "the visitor still comes after a Laser win",
+  {
+   "name": "no exceptions (sound on)",
+   "info": []
+  },
+  "EXIT during a chase ends it and leaves cleanly",
+  "both mitts are back at rest after EXIT",
+  {
+   "name": "sound off: the chase makes no sound",
+   "info": {
+    "nodes": 0
+   }
+  },
+  "Start laser chase now opens Laser mode and starts a chase after GO",
+  {
+   "name": "dials are saved and load on the next start",
+   "info": "{\"len\":9.5,\"paw\":1.1,\"swat\":0.9}"
+  },
+  {
+   "name": "the performance log has laserTuning, its defaults and the last chase log",
+   "info": {
+    "t": {
+     "len": 9.5,
+     "paw": 1.1,
+     "swat": 0.9
+    },
+    "n": 1
+   }
+  },
+  {
+   "name": "a 9.5 s dial makes a 9.5 s chase (0.9 s intro + play)",
+   "info": {
+    "stop": 8.817
+   }
+  },
+  "Developer panel shows the Laser chase dials and Start laser chase now"
+ ],
+ "failed": [
+  {
+   "name": "the round timer does not move during a chase",
+   "info": [
+    [],
+    [
+     0
+    ],
+    [
+     0
+    ],
+    [
+     0
+    ]
+   ]
+  },
+  "about one laser coin a round (10 in 6 rounds that drop no coins)",
+  {
+   "name": "desktop step cost during a chase is close to normal play",
+   "info": {
+    "normalMs": 1.67,
+    "chaseMs": 4.72
+   }
+  }
+ ],
+ "rounds": [
+  {
+   "seed": 21,
+   "errs": [],
+   "laserCoins": 1,
+   "chases": 1,
+   "timerDuringChase": [],
+   "end": [
+    9.733,
+    "end",
+    17,
+    31,
+    8,
+    8,
+    2,
+    0,
+    "yarn+duck"
+   ],
+   "phase": "end",
+   "win": true,
+   "got": 7,
+   "liveAudio": 167
+  },
+  {
+   "seed": 22,
+   "errs": [],
+   "laserCoins": 1,
+   "chases": 1,
+   "timerDuringChase": [
+    0
+   ],
+   "end": [
+    9.733,
+    "end",
+    25,
+    30,
+    8,
+    8,
+    4,
+    0,
+    "tuna+shrimp+yarn"
+   ],
+   "phase": "end",
+   "win": false,
+   "got": 6,
+   "liveAudio": 44
+  },
+  {
+   "seed": 23,
+   "errs": [],
+   "laserCoins": 1,
+   "chases": 1,
+   "timerDuringChase": [
+    0
+   ],
+   "end": [
+    9.75,
+    "end",
+    9,
+    16,
+    9,
+    8,
+    6,
+    1,
+    "shrimp+duck"
+   ],
+   "phase": "end",
+   "win": false,
+   "got": 6,
+   "liveAudio": 56
+  },
+  {
+   "seed": 24,
+   "errs": [],
+   "laserCoins": 1,
+   "chases": 1,
+   "timerDuringChase": [
+    0
+   ],
+   "end": [
+    9.733,
+    "end",
+    16,
+    18,
+    8,
+    8,
+    9,
+    0,
+    "tuna+bell+mouse+cheese+shrimp"
+   ],
+   "phase": "end",
+   "win": false,
+   "got": 5,
+   "liveAudio": 48
+  }
+ ]
+}

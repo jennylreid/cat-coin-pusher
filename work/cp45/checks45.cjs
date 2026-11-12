@@ -16,14 +16,29 @@ const steps=(g,n,errs)=>{for(let i=0;i<n;i++){try{g.tick();}catch(e){errs.push(S
 (async()=>{
  // 1. Everything else unchanged: Boards 1-3 and Wild (1) play exactly as the base build.
  for(const bi of [0,1,2]){const a=await trace(OLD,`selectBoard(${bi});S.coins=300;`),b=await trace(NEW,`selectBoard(${bi});S.coins=300;`);check('board '+(bi+1)+' identical to the base build after 25 s',a===b);}
- {const s="wildEnter();wildStartCountdown();";const a=await trace(OLD,s),b=await trace(NEW,s);check('Wild (1) round identical to the base build after 25 s (no fish coin there)',a===b);}
+ {const s="wildEnter();wildStartCountdown();";const a=await trace(OLD,s),b=await trace(NEW,s);check('Wild (1) round identical to the base build after 25 s',a===b);}
+ {const s="S.coins=300;wild2Enter();wildStartCountdown();";const a=await trace(OLD,s),b=await trace(NEW,s);check('Wild 2 round identical to the base build after 25 s (no fish coin, Dance break as before)',a===b);}
+ // The MODES picker: header button (normal board only) opens it; a mode row starts that mode on its own goal card.
+ {const g=await game({seed:4});const B=JSON.parse(g.run('JSON.stringify(modesButton())'));g.tap(B.x+B.w/2,B.y+B.h/2);const open=g.run('MODES_UI.open');
+  const R=JSON.parse(g.run('JSON.stringify(modesPickerRects())'));g.tap(R.rows[0].x+60,R.rows[0].y+30);
+  const st=JSON.parse(g.run("JSON.stringify({on:WILD.on,v2:WILD.v2,mode:WILD.mode,phase:WILD.phase,name:wildModeName(),lines:wildCardLines()[0][0],toss:wildFeature('toss'),dance:wildFeature('dance')})"));
+  g.run('wildExit();wild2Enter()');const w2=JSON.parse(g.run("JSON.stringify({mode:WILD.mode,name:wildModeName(),lines:wildCardLines()[0][0],toss:wildFeature('toss'),dance:wildFeature('dance')})"));g.close();
+  check('MODES button opens the picker; TREAT TOSS starts its own mode on its goal card (Treat toss on, Dance break off)',open&&st.on&&st.v2&&st.mode==='treats'&&st.phase==='card'&&st.name==='TREAT TOSS'&&st.lines==='fish'&&st.toss&&!st.dance,st);
+  check('Wild 2 itself keeps its name, card lines and Dance break, without Treat toss',w2.mode===null&&w2.name==='WILD 2'&&w2.lines==='meter'&&!w2.toss&&w2.dance,w2);}
  // 2. The fish coin: about one a Wild 2 round, as a bonus drop, never the music note's drop.
- {let fish=0,rounds=0;const at=[];for(const seed of [21,22,23,24,25,26]){const g=await game({seed});g.run('S.coins=400;wild2Enter();wildStartCountdown();');let k=0,seen=false;
+ {let fish=0,rounds=0,notes=0;const at=[];for(const seed of [21,22,23,24,25,26]){const g=await game({seed});g.run("S.coins=400;wildModeEnter('treats');wildStartCountdown();");let k=0,seen=false,note=false;
    while(g.run("WILD.phase!=='end'")&&k<60*58){g.tick();k++;g.run('WILD.left=Math.max(WILD.left,5);S.coins=Math.max(S.coins,50);WILD.happy=0;');
-    if(!seen&&g.run("WILD.incoming.some(o=>o.kind==='fish')||bodies.some(b=>!b.dead&&b.kind==='fish')")){seen=true;fish++;at.push(g.run('WILD.bonusN'));}}rounds++;g.close();}
-  check('a fish coin arrives as a bonus drop in each Wild 2 round (3rd to 7th drop)',fish===rounds&&at.every(n=>n>=3&&n<=7),{fish,rounds,atBonus:at});}
+    if(!seen&&g.run("WILD.incoming.some(o=>o.kind==='fish')||bodies.some(b=>!b.dead&&b.kind==='fish')")){seen=true;fish++;at.push(g.run('WILD.bonusN'));}
+    if(g.run("WILD.incoming.some(o=>o.kind==='note')||bodies.some(b=>!b.dead&&b.kind==='note')"))note=true;}rounds++;if(note)notes++;g.close();}
+  check('Treat toss mode: a fish coin arrives as a bonus drop in each round (3rd to 7th drop)',fish===rounds&&at.every(n=>n>=3&&n<=7),{fish,rounds,atBonus:at});
+  check('Treat toss mode: no music-note coin and no happy meter (the Dance break stays in Wild 2)',notes===0,{roundsWithNote:notes});}
+ {let w2fish=0;for(const seed of [21,22,23]){const g=await game({seed});g.run('S.coins=400;wild2Enter();wildStartCountdown();');let k=0;
+   while(g.run("WILD.phase!=='end'")&&k<60*58){g.tick();k++;g.run('WILD.left=Math.max(WILD.left,5);S.coins=Math.max(S.coins,50);WILD.happy=0;');if(g.run("WILD.incoming.some(o=>o.kind==='fish')||bodies.some(b=>!b.dead&&b.kind==='fish')")){w2fish++;break;}}g.close();}
+  check('Wild 2: never a fish coin',w2fish===0,{roundsWithFish:w2fish});}
+ {const g=await game({seed:30});g.run("S.coins=400;wildModeEnter('treats');wildStartCountdown();");g.ticks(60*4);g.run("(()=>{const b=bodies.find(b=>!b.dead&&b.kind==='item');b.rb.setTranslation({x:2,y:-0.5,z:(T.FRONT+6)*M},true);})()");g.ticks(60);
+  check('Treat toss mode: collecting a prize does not fill a happy meter',g.run('WILD.got')>=1&&g.run('WILD.happy')===0&&!g.run('WILD.dancePending'));g.close();}
  // 3. Pushing the fish coin off starts the toss; the timer pauses; every catch, whiff and drop is logged; it ends with +N.
- {const g=await game({seed:8,render:true});const st=strictAudio(g),errs=[];g.run('S.muted=false;wild2Enter();wildStartCountdown();');steps(g,60*4,errs);
+ {const g=await game({seed:8,render:true});const st=strictAudio(g),errs=[];g.run("S.muted=false;wildModeEnter('treats');wildStartCountdown();");steps(g,60*4,errs);
   g.run("(()=>{const b=addCoin('fish',null,200,30,600,yawTurn(0));b.rb.setTranslation({x:2,y:-0.5,z:(T.FRONT+6)*M},true);})()");
   let k=0;while(!g.run('!!WILD.toss')&&k<180&&steps(g,1,errs))k++;
   check('pushing the fish coin off starts Treat toss within 1.2 s (after its pickup pop)',g.run('!!WILD.toss')&&k/60<=1.25,{afterSec:+(k/60).toFixed(2)});
@@ -57,7 +72,7 @@ const steps=(g,n,errs)=>{for(let i=0;i<n;i++){try{g.tick();}catch(e){errs.push(S
   check('EXIT mid-toss goes straight back to the normal board',!g.run('WILD.on')&&!g.run('WILD.toss')&&!errs.length);g.close();}
  // 6. Sound off and Pickup volume 0: the toss makes no sound.
  {const g=await game({seed:12});const st=strictAudio(g),errs=[];g.run('S.muted=true;tossStartNow()');steps(g,60*8,errs);const a=st.created;g.run('pickupFx.volume=0;S.muted=false;');const b0=st.created;
-  g.run("sfx.toss('catch',1,3);sfx.toss('whiff',1);sfx.toss('start',1)");check('Treat toss sounds are silent with sound off or Pickup volume 0',a===0||!errs.length&&st.created===b0,{nodesMuted:a});g.close();}
+  g.run("sfx.toss('catch',1,3);sfx.toss('whiff',1);sfx.toss('start',1)");check('Treat toss sounds are silent with sound off or Pickup volume 0',a===0&&!errs.length&&st.created===b0,{nodesMuted:a,nodesVol0:st.created-b0});g.close();}
  // 7. Developer dials: step, saved across a restart, reset.
  {const storage={};const g=await game({seed:2,storage});g.run("stepTossDial('len',1);stepTossDial('count',-1);stepTossDial('speed',1);stepTossDial('tapR',1)");const html=g.run('tossDevHtml()');g.close();
   const g2=await game({seed:2,storage});const kept=JSON.parse(g2.run('JSON.stringify(TOSS)'));g2.close();

@@ -29,7 +29,7 @@ function rnd(seed){let s=seed>>>0;return ()=>{s=(s*1664525+1013904223)>>>0;retur
  {const g=await game({src:NEW,seed:4});g.run('wild2Enter();wildStartCountdown()');g.ticks(240);g.run('WILD.left=170;DANCE.auto=0;danceStartNow()');g.until("!!WILD.dance&&WILD.dance.phase==='dance'",400);
   g.run("window.__b=0;{const f=sfx.wild43&&sfx.wild43.bind(sfx);sfx.wild43=(...a)=>{if(a[0]==='bonk')window.__b++;return f&&f(...a);};}");
   const tapAt=(k,off)=>{const at=g.run(`WILD.dance.p0+${k}*WILD.dance.beat+WILD.dance.latency`)+off;while(g.ms()/1000<at-1/120)g.tick();g.tap();};
-  tapAt(0,.02);tapAt(2,-.21);tapAt(5,.23);tapAt(6,0);g.tap();
+  tapAt(0,.02);tapAt(2,-.21);tapAt(5,.23);tapAt(7,0);g.tap(); // beat 6 is the one the late miss costs
   const fb=JSON.parse(g.run('JSON.stringify(WILD.dance.fb.map(f=>({hit:f.hit,count:f.count,off:+f.off.toFixed(3)})))'));
   check('every tap shows an outcome: a hit, an early miss (left), a late miss (right), and a second tap on a banked beat (✕ too)',fb.length===5&&fb[0].hit&&!fb[1].hit&&fb[1].off<-.1&&!fb[2].hit&&fb[2].off>.1&&fb[3].hit&&!fb[4].hit,fb);
   check('…and every tap that banks nothing plays the bonk',g.run('window.__b')===3,{bonks:g.run('window.__b')});
@@ -39,8 +39,8 @@ function rnd(seed){let s=seed>>>0;return ()=>{s=(s*1664525+1013904223)>>>0;retur
   const n=g.run('WILD.dance.n');let wonAt=null,heldOk=true,wheel=false;
   for(let k=0;k<n;k++){const at=g.run(`WILD.dance.p0+${k}*WILD.dance.beat+WILD.dance.latency`);while(g.ms()/1000<at-1/120)g.tick();g.tap();
    if(k===4){g.run("for(const id of WILD_COLLECTION.slice(1))if(!WILD.have[id]){WILD.have[id]=true;WILD.got++;(WILD.order||(WILD.order=[])).push(id);}delete WILD.have.cheese;WILD.got=WILD_GOAL-1;(()=>{const b=bodies.find(b=>!b.dead&&b.kind==='item'&&b.id==='cheese')||addCoin('item','cheese',200,30,600,yawTurn(0));b.rb.setTranslation({x:2,y:-.5,z:(T.FRONT+6)*M},true);})()");}
-   if(k>4&&g.run("WILD.phase!=='play'"))heldOk=false;}
-  const hits=g.run('WILD.dance?WILD.dance.hits:-1');let k=0;while(g.run('!!WILD.dance')&&k<60*25){g.tick();k++;if(g.run("WILD.phase!=='play'"))heldOk=false;if(g.run('!!(WILD.dance&&WILD.dance.wheel)'))wheel=true;}
+   if(k>4&&g.run("WILD.phase!=='play'&&!!WILD.dance"))heldOk=false;}
+  const hits=g.run('WILD.dance?WILD.dance.hits:-1');let k=0;while(g.run('!!WILD.dance')&&k<60*25){g.tick();k++;if(g.run("WILD.phase!=='play'&&!!WILD.dance"))heldOk=false;if(g.run('!!(WILD.dance&&WILD.dance.wheel)'))wheel=true;}
   g.ticks(10);check((v2?'Wild 2':'Wild')+': the last prize during a dance break holds the win; the break (all 16 beats'+(v2?', the payoff and the wheel':', the pour')+') plays out; then the win',heldOk&&hits===16&&(!v2||wheel)&&g.run("WILD.phase==='end'&&WILD.win&&WILD.got===WILD_GOAL"),{heldOk,hits,wheel,phase:g.run('WILD.phase'),win:g.run('WILD.win')});g.close();}
  // 3. Send performance log feedback (a fake app bridge).
  {const g=await game({src:NEW,seed:3});const els={};const el=id=>els[id]||(els[id]={id,textContent:'',style:{},disabled:false});g.c.__el=el;g.run("panel.querySelector=s=>window.__el(s.replace('#',''));");

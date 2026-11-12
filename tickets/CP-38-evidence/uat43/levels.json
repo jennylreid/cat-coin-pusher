@@ -1,15 +1,15 @@
 {
  "Classic 100% (default)": {
-  "rmsDb": -34.2,
-  "peakDb": -9.4,
-  "peak": 0.34,
-  "phoneBandRms": 0.0145
+  "rmsDb": -29.5,
+  "peakDb": -4.7,
+  "peak": 0.585,
+  "phoneBandRms": 0.025
  },
  "Classic 200%": {
-  "rmsDb": -28.2,
-  "peakDb": -3.3,
-  "peak": 0.681,
-  "phoneBandRms": 0.0291
+  "rmsDb": -23.5,
+  "peakDb": -1,
+  "peak": 0.89,
+  "phoneBandRms": 0.0497
  },
  "Kawaii pop 100%": {
   "rmsDb": -28.6,

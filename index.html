@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.12 UAT 42';
+const BUILD = '2026.11.12 UAT 43';
 
 
 
@@ -7329,7 +7329,11 @@ const sfx = (() => {
     // CP-38 sounds, generated here. The background music runs through its own bus (Music volume dial) so it can fade in
     // and out cleanly; the pusher slide uses the Pusher sound dial. Sound off or background = silent.
     _w2ok(){return !(inBackground||document.hidden)&&ready();},
-    _bus(){if(!this.__bus){this.__bus=ac.createGain();this.__bus.gain.value=0;this.__bus.connect(master);}return this.__bus;},
+    _bus(){if(!this.__bus){this.__bus=ac.createGain();this.__bus.gain.value=0;
+      // UAT 43: soft limiter: bus -> x0.4 -> curve (straight up to 0.5, then rounds off towards 0.65) -> x2.5 -> master
+      const pre=ac.createGain(),sh=ac.createWaveShaper(),post=ac.createGain(),n=1025,c=new Float32Array(n);
+      for(let i=0;i<n;i++){const u=i/(n-1)*2-1,a=Math.abs(u);c[i]=Math.sign(u)*(a<=.5?a:.5+.15*Math.tanh((a-.5)/.15));}
+      sh.curve=c;pre.gain.value=.4;post.gain.value=2.5;this.__bus.connect(pre);pre.connect(sh);sh.connect(post);post.connect(master);}return this.__bus;},
     _mt(f,t0,dur,type,vol,dest,fEnd){const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(f,t0);if(fEnd)o.frequency.exponentialRampToValueAtTime(fEnd,t0+dur);
       g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(vol,t0+.006);g.gain.exponentialRampToValueAtTime(.0001,t0+dur);o.connect(g);g.connect(dest&&dest.connect?dest:master);o.start(t0);o.stop(t0+dur+.03);},
     _mn(t0,dur,vol,freq,q,dest,attack){const s=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();s.buffer=noiseBuf;s.loop=true;f.type='bandpass';f.frequency.value=freq;f.Q.value=q||1;
@@ -7383,6 +7387,22 @@ const sfx = (() => {
       else if(kind==='sweep'){this._mn(t,.8,.12*v,900,.6,master,.1);for(let i=0;i<8;i++)steelAt(t+.1+i*.08,.25*v,.9+Math.random()*.4,false);}
       else if(kind==='visitor'){[783.99,987.77,1174.66,1567.98].forEach((f,i)=>bell(t+i*.11,f,.06*v,.9));this._mt(600,t+.5,.25,'triangle',.06*v,master,900);this._mt(900,t+.68,.3,'triangle',.05*v,master,520);}
     },
+    // UAT 43 sounds: a lost prize (a sad plop and a descending "aww"), a lost star (plus a falling sting), the wheel's
+    // slice, jackpot and uh-oh. Pickup volume dial; sound off or background = silent.
+    wild43(kind,vol=1){
+      const v=vol*(typeof pickupFx==='object'?pickupFx.volume:1);if(!(v>0)||!this._w2ok())return;const t=ac.currentTime;
+      if(kind==='lost'||kind==='lostStar'){
+        this._mt(220,t,.18,'sine',.3*v,master,90);noise(t,.06,.15*v,500,1);
+        const o=ac.createOscillator(),f=ac.createBiquadFilter(),g=ac.createGain();o.type='sawtooth';o.frequency.setValueAtTime(520,t+.12);o.frequency.exponentialRampToValueAtTime(260,t+.9);
+        f.type='bandpass';f.frequency.setValueAtTime(1100,t+.12);f.frequency.linearRampToValueAtTime(700,t+.9);f.Q.value=2;
+        g.gain.setValueAtTime(.0001,t+.12);g.gain.linearRampToValueAtTime(.09*v,t+.22);g.gain.linearRampToValueAtTime(.0001,t+.95);o.connect(f);f.connect(g);g.connect(master);o.start(t+.12);o.stop(t+1);
+        if(kind==='lostStar'){this._mt(110,t,.9,'sawtooth',.06*v,master,55);[392,349.23,311.13,261.63].forEach((fr,i)=>this._mt(fr,t+.25+i*.16,.3,'triangle',.08*v));}
+      }
+      else if(kind==='slice'){[783.99,987.77,1174.66].forEach((f,i)=>this._mt(f,t+i*.06,.3,'triangle',.09*v));bell(t+.18,1568,.06*v,.8);}
+      else if(kind==='jackpot'){[523.25,659.25,783.99,1046.5,1318.5,1567.98,2093].forEach((f,i)=>{this._mt(f,t+i*.06,.45,'square',.04*v);bell(t+i*.06,f*2,.04*v,.6);});noise(t+.4,1.2,.1*v,6000,.5);}
+      else if(kind==='bonk'){this._mt(240,t,.14,'sine',.32*v,master,110);this._mn(t,.05,.16*v,420,1.2);this._mt(120,t+.01,.1,'triangle',.12*v,master,80);}
+      else if(kind==='uhoh'){this._mt(392,t,.22,'triangle',.1*v,master,370);this._mt(311.13,t+.25,.45,'triangle',.1*v,master,280);}
+    },
     fanfare() {
 
 
@@ -37131,12 +37151,12 @@ function wildDraw(){
    ctx.globalAlpha=1;ctx.fillStyle='#fff';ctx.font='900 '+Math.round(26*p.s)+'px Impact, system-ui';ctx.fillText('!',p.x,p.y-4);}
   ctx.restore();}
  // big countdown in the last 10 seconds
- if(WILD.phase==='play'&&WILD.left<=10){const s=Math.ceil(WILD.left),k=1+.25*(1-(WILD.left%1));ctx.save();ctx.globalAlpha=.55;ctx.translate(200,H*.3);ctx.scale(k,k);wildText(String(s),0,0,110,'#ff4b4b','#2a0010',10);ctx.restore();}
+ if(WILD.phase==='play'&&WILD.left<=10){const s=Math.ceil(WILD.left),k=1+.25*(1-(WILD.left%1));ctx.save();ctx.globalAlpha=.55;ctx.translate(200,w43ChinY()+70);ctx.scale(k,k);wildText(String(s),0,0,110,'#ff4b4b','#2a0010',10);ctx.restore();}
  for(const c of WILD.confetti){ctx.save();ctx.translate(c.x,c.y);ctx.rotate(c.a);if(c.gold){ctx.scale(Math.cos(c.a*1.7),1);uiCircle(0,0,c.r,'#f5c632','#a8740c',1.2);uiCircle(0,0,c.r*.55,'#ffe78a');}else{ctx.fillStyle=c.c;ctx.fillRect(-c.r*.6,-c.r*.3,c.r*1.2,c.r*.6);}ctx.restore();}
  if(WILD.phase==='card'&&!WILD.v2){
   const R=wildCardRects(),pop=Math.min(1,WILD.cardT/.25),k=.7+.3*(1-Math.pow(1-pop,3));
-  ctx.fillStyle='rgba(12,6,24,'+(.62*pop)+')';ctx.fillRect(0,0,W,H);
-  ctx.save();ctx.translate(200,H*.47);ctx.scale(k,k);ctx.translate(-200,-H*.47);
+  ctx.fillStyle='rgba(12,6,24,'+(.62*pop)+')';ctx.fillRect(0,w43ChinY(),W,H);
+  ctx.save();ctx.translate(200,R.card.y+175);ctx.scale(k,k);ctx.translate(-200,-(R.card.y+175));
   wildPanel(R.card,'#4b1f6e','#1d0f33');
   wildText(WILD.v2?'WILD 2':'WILD BOARD',200,R.card.y+44,44,'#ffd23f','#2a0b3e',8);
   ctx.fillStyle='#fff';ctx.font='bold 21px system-ui';ctx.fillText('Collect all '+WILD_GOAL+' prizes',200,R.card.y+88);
@@ -37148,8 +37168,8 @@ function wildDraw(){
   ctx.textAlign='center';wildButtonDraw(R.go,'GO!','#3ccf4e','#0c3a12',30);
   ctx.fillStyle='#d8c8ee';ctx.font='13px system-ui';ctx.fillText('Back to the game',200,R.back.y+R.back.h/2);ctx.restore();
  }else if(WILD.phase==='count'){
-  const s=Math.ceil(WILD.count),u=1-(WILD.count%1||1),k=1.5-.5*Math.min(1,u*4);ctx.save();ctx.translate(200,H*.42);ctx.scale(k,k);ctx.globalAlpha=Math.min(1,(1-u)*3);wildText(String(s),0,0,120,'#ffd23f','#2a0b3e',12);ctx.restore();
- }else if(WILD.phase==='play'&&(WILD.goT||0)<.8){const u=WILD.goT/.8;ctx.save();ctx.globalAlpha=1-u;ctx.translate(200,H*.42);ctx.scale(1+u*.6,1+u*.6);wildText('GO!',0,0,120,'#7dff6a','#0c3a12',12);ctx.restore();}
+  const s=Math.ceil(WILD.count),u=1-(WILD.count%1||1),k=1.5-.5*Math.min(1,u*4);ctx.save();ctx.translate(200,w43ChinY()+90);ctx.scale(k,k);ctx.globalAlpha=Math.min(1,(1-u)*3);wildText(String(s),0,0,120,'#ffd23f','#2a0b3e',12);ctx.restore();
+ }else if(WILD.phase==='play'&&(WILD.goT||0)<.8){const u=WILD.goT/.8;ctx.save();ctx.globalAlpha=1-u;ctx.translate(200,w43ChinY()+90);ctx.scale(1+u*.6,1+u*.6);wildText('GO!',0,0,120,'#7dff6a','#0c3a12',12);ctx.restore();}
  else if(WILD.phase==='end'){
   const u=Math.min(1,WILD.endT/.35),R=wildEndRects(),show=WILD.endT>.9;
   // the big word first, then the card with the buttons
@@ -37191,7 +37211,7 @@ function wildDevBind(panel){const box=panel.querySelector&&panel.querySelector('
 // pauses and the cat does its Dancing pose (one move, looped) to a beat generated in code. Each tap on the beat banks a
 // gold coin (sometimes a rain coin); off-beat taps bank nothing and cost the next beat. When the music stops, the cat
 // roars, the screen shakes and everything banked pours onto the board. Wild board only; Boards 1-3 never reach this.
-const DANCE_DEFAULTS=Object.freeze({notches:4,len:9,bpm:109,window:.13,latency:.05,rainChance:.12,move:1});
+const DANCE_DEFAULTS=Object.freeze({notches:4,len:9,bpm:109,window:.15,latency:.08,rainChance:.12,move:1,auto:1}); // UAT 43: window and allowance up; auto offset on
 const DANCE={...DANCE_DEFAULTS},DANCE_KEY='catpusher.uat.dance.v1';
 // [min, max, step, label, unit]
 const DANCE_DIALS={notches:[2,8,1,'Prizes per happy meter',''],len:[5,15,.5,'Dance length',' s'],bpm:[80,140,3,'Beat tempo',' BPM'],
@@ -37419,7 +37439,7 @@ function danceDraw(){
   // count-in numbers
   if(x<.5){const u=Math.min(1,(time-D.started)/.3),k=(.6+.4*(1-Math.pow(1-u,3)))*(1+.04*Math.sin(time*9));ctx.save();ctx.globalAlpha=fade*Math.min(1,(.5-x)*2);ctx.translate(200,Y-62);ctx.scale(k,k);ctx.rotate(-.05);wildText('DANCE BREAK!',0,0,46,'#ff7ad5','#2a0b3e',8);ctx.restore();ctx.globalAlpha=fade;}
   if(x<0){const c=Math.ceil(-x);ctx.globalAlpha=fade*Math.min(1,(1-(c+x))*3+.2);wildText(String(c),200,Y-2,40,'#ffd23f','#2a0b3e',6);ctx.globalAlpha=fade;}
-  else{ctx.font='bold 11px system-ui';ctx.fillStyle='#ffe0f4';ctx.fillText('TAP ON THE BEAT',200,Y-24);}
+  ctx.font='bold 11px system-ui';ctx.fillStyle='#ffe0f4';ctx.fillText(x<0?'TAP ALONG WITH THE COUNT':'TAP ON THE BEAT',200,Y-24); // UAT 43: count-in taps teach the offset
   // the dance timer: a bar along the bottom of the lane and the seconds left
   const total=D.n*D.beat,left=Math.max(0,Math.min(total,D.p0+total-now));
   uiRound(36,Y+36,328,7,3.5,'rgba(0,0,0,.45)');if(left>0)uiRound(36,Y+36,328*left/total,7,3.5,'#ff7ad5');
@@ -37471,11 +37491,11 @@ WILD.v2=false;
 
 // --- dials and saved data ---
 const W2_KEY='catpusher.uat.wild2.v1',W2_VISITOR_KEY='catpusher.uat.visitors.v1';
-const W2_DEFAULTS=Object.freeze({music:1,pusher:.5}),W2_MAX={music:2,pusher:1},W2_MUSIC_KEY='catpusher.uat.music.v2',MUSIC_BASE=1;
+const W2_DEFAULTS=Object.freeze({music:1,pusher:.5,track:'classic'}),W2_MAX={music:2,pusher:1},W2_MUSIC_KEY='catpusher.uat.music.v2',MUSIC_BASE=1;
 const W2={...W2_DEFAULTS};
 try{const d=JSON.parse(localStorage.getItem(W2_KEY)||'null');if(d&&Number.isFinite(+d.pusher))W2.pusher=Math.min(1,Math.max(0,+d.pusher));
- const m=JSON.parse(localStorage.getItem(W2_MUSIC_KEY)||'null');if(m&&Number.isFinite(+m.music))W2.music=Math.min(2,Math.max(0,+m.music));}catch(e){}
-function w2Save(){try{localStorage.setItem(W2_KEY,JSON.stringify({pusher:W2.pusher}));localStorage.setItem(W2_MUSIC_KEY,JSON.stringify({music:W2.music}));}catch(e){}}
+ const m=JSON.parse(localStorage.getItem(W2_MUSIC_KEY)||'null');if(m&&Number.isFinite(+m.music))W2.music=Math.min(2,Math.max(0,+m.music));if(m&&(m.track==='classic'||m.track==='kawaii'))W2.track=m.track;}catch(e){}
+function w2Save(){try{localStorage.setItem(W2_KEY,JSON.stringify({pusher:W2.pusher}));localStorage.setItem(W2_MUSIC_KEY,JSON.stringify({music:W2.music,track:W2.track}));}catch(e){}}
 let W2_SEEN={};try{W2_SEEN=JSON.parse(localStorage.getItem(W2_VISITOR_KEY)||'{}')||{};}catch(e){W2_SEEN={};}
 
 // --- background music: 112 BPM, eight bars (F Dm Bb C F Am Bb C), scheduled ahead in eighth notes ---
@@ -37501,13 +37521,18 @@ function bgmStep(i,d){
  if(i===BGM_STEPS-2)sfx.bgm('meow',d,698.46);
 }
 function bgmTick(){
- const want=bgmWanted(),now=danceNow();
- if(want&&!BGM.playing){BGM.playing=true;BGM.i=0;BGM.t0=now+.1;BGM.level=-1;} // from the top of the loop
+ const want=bgmWanted(),now=danceNow();if(BGM.playing&&BGM.track!==W2.track){BGM.playing=false;sfx.bgmBus(0,.15);} // switched track: restart
+ if(want&&!BGM.playing){BGM.playing=true;BGM.track=W2.track;BGM.i=0;BGM.t0=now+.1;BGM.step=0;BGM.next=now+.1;BGM.level=-1;} // from the top of the loop
  if(!want&&BGM.playing){BGM.playing=false;BGM.level=-1;sfx.bgmBus(0,.25);}
  if(!BGM.playing)return;
- if(BGM.level!==W2.music){BGM.level=W2.music;sfx.bgmBus(W2.music*MUSIC_BASE,.35);}
+ if(BGM.level!==W2.music){BGM.level=W2.music;sfx.bgmBus(W2.music*MUSIC_BASE*(BGM.track==='kawaii'?1:CLASSIC_GAIN),.35);}
+ if(BGM.track==='kawaii'){
  const E=KAWAII.ev;if(BGM.t0+(BGM.i<E.length?E[BGM.i].t:KAWAII.len)<now-.3){BGM.t0=now+.05;BGM.i=0;} // after a stall: from the top, no catch-up burst
  for(let n=0;n<400;n++){if(BGM.i>=E.length){BGM.i=0;BGM.t0+=KAWAII.len;continue;}const e=E[BGM.i],at=BGM.t0+e.t;if(at-now>=.25)break;if(at>=now-.05)sfx.mus(e,at-now);BGM.i++;}
+ }else{ // UAT 43: Classic, the UAT 38-40 loop
+ if(BGM.next<now-.3)BGM.next=now+.05;
+ while(BGM.next-now<.2){bgmStep(BGM.step,BGM.next-now);BGM.step=(BGM.step+1)%BGM_STEPS;BGM.next+=BGM_STEP;}
+ }
 }
 // --- the pusher slide: once forward (phase .08-.53), quieter back (.61-1), on every board while it plays ---
 let w2PushLast=-1;
@@ -37618,7 +37643,7 @@ function w2YawnTick(dt){
    if(!Y.pushed.has(b))Y.pushed.set(b,x<200?-1:1);const v=b.rb.linvel();b.rb.setLinvel({x:Y.pushed.get(b)*Math.max(Math.abs(v.x),rand(5,7.5)),y:Math.max(v.y,rand(.8,1.6)),z:v.z},true);}}
  if(Y.t>=2.8){W2_YAWN=null;if(pawDance&&pawDance.yawn)stopPawDance();}
 }
-function yawnText(){if(!W2_YAWN)return;const t=W2_YAWN.t;if(t>1.3)return;ctx.save();ctx.globalAlpha=Math.min(1,t*4)*(1-Math.max(0,(t-1)/.3));ctx.translate(200,150);ctx.rotate(-.06);wildText('YAAAWN…',0,0,40,'#d8c8ee','#2a1a3e',7);ctx.restore();}
+function yawnText(){if(!W2_YAWN)return;const t=W2_YAWN.t;if(t>1.3)return;ctx.save();ctx.globalAlpha=Math.min(1,t*4)*(1-Math.max(0,(t-1)/.3));ctx.translate(200,w43ChinY()+34);ctx.rotate(-.06);wildText('YAAAWN…',0,0,40,'#d8c8ee','#2a1a3e',7);ctx.restore();}
 
 // --- the visiting cat after a Wild 2 win (placeholder pictures drawn in code; no new cat art) ---
 const W2_VISITORS={orange:{name:'Orange cat',treat:'tuna',fur:'#f29a3a',dark:'#c0621a',eye:'#7ad65a',mood:'Goofy, orange cat energy'},
@@ -37703,8 +37728,8 @@ function w2DanceDraw(){
   const rc=D.bank.rain5+D.bank.rain10;if(rc){let x=200-(rc-1)*14;for(const k of ['rain10','rain5'])for(let i=0;i<D.bank[k];i++){const sp=sprite(k);ctx.drawImage(sp.cv,x-12,y-size*.5-22,24,24);x+=28;}}
   return;}
  const st=D.stage,t=D.st;ctx.save();
- if(st==='perfect'){const k=Math.min(1,t/.25);ctx.fillStyle='rgba(12,6,24,'+(.35*k)+')';ctx.fillRect(0,0,W,H);ctx.translate(200,H*.36);ctx.scale(.5+.6*k+.04*Math.sin(t*12),.5+.6*k+.04*Math.sin(t*12));ctx.rotate(-.06);wildText('PERFECT!',0,0,64,'#7dff6a','#0c3a12',10);ctx.font='bold 16px system-ui';ctx.fillStyle='#fff';ctx.fillText('every beat!',0,48);}
- else if(st==='total'||(st==='pour'&&t<.5)){const k=st==='total'?Math.min(1,t/.2):1-t/.5;ctx.globalAlpha=Math.max(0,k);ctx.translate(200,H*.36);ctx.scale(.6+.5*Math.min(1,t/.2),.6+.5*Math.min(1,t/.2));
+ if(st==='perfect'){const k=Math.min(1,t/.25);ctx.fillStyle='rgba(12,6,24,'+(.35*k)+')';ctx.fillRect(0,w43ChinY(),W,H);ctx.translate(200,w43ChinY()+80);ctx.scale(.5+.6*k+.04*Math.sin(t*12),.5+.6*k+.04*Math.sin(t*12));ctx.rotate(-.06);wildText('PERFECT!',0,0,64,'#7dff6a','#0c3a12',10);ctx.font='bold 16px system-ui';ctx.fillStyle='#fff';ctx.fillText('every beat!',0,48);}
+ else if(st==='total'||(st==='pour'&&t<.5)){const k=st==='total'?Math.min(1,t/.2):1-t/.5;ctx.globalAlpha=Math.max(0,k);ctx.translate(200,w43ChinY()+80);ctx.scale(.6+.5*Math.min(1,t/.2),.6+.5*Math.min(1,t/.2));
   if(D.coins+D.rainCoins){wildText('+'+D.coins+' COINS!',0,0,D.coins>=10?54:60,'#ffd23f','#3a1a00',10);if(D.rainCoins){ctx.font='bold 17px system-ui';ctx.fillStyle='#fff';ctx.fillText('+ '+D.rainCoins+' rain coin'+(D.rainCoins>1?'s':''),0,44);}}
   else wildText('MISSED THE BEAT!',0,0,40,'#b9a6d6','#2a0b3e',8);}
  else if(st==='wheel'&&D.wheel)w2WheelDraw(D);
@@ -37866,6 +37891,356 @@ function drawWild2Card(){
 }
 const __c41Draw=wildDraw;
 wildDraw=function(){__c41Draw();if(WILD.on&&WILD.v2&&WILD.phase==='card'&&!inventoryOpen){ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);drawWild2Card();ctx.restore();}};
+// ---------- UAT 43: dance taps are logged, and the player's tap offset is learned ----------
+// Every dance tap records its signed offset from the nearest beat (raw, before any allowance) and whether it banked.
+// At the end of the break a 'dance-taps' event goes in the performance log: the offsets (ms), mean, median, spread,
+// the allowance used, and the device's reported audio output delay. With "Auto tap offset" on (default), the game
+// learns the player's offset from their taps, from the count-in on: after 3 taps near a beat, the allowance becomes the
+// median of the last 6 (clamped -0.05..0.30 s) from the next tap on, and the break's median is saved for the next one.
+const DANCE_OFFSET_KEY='catpusher.uat.danceoffset.v1';
+let DANCE_LEARNED=null;try{const raw=localStorage.getItem(DANCE_OFFSET_KEY);if(raw!==null&&Number.isFinite(+raw))DANCE_LEARNED=+raw;}catch(e){}
+DANCE_DIALS.auto=[0,1,1,'Auto tap offset',''];DANCE.auto=1;
+try{const d=JSON.parse(localStorage.getItem(DANCE_KEY)||'null');if(d&&(d.auto===0||d.auto===1))DANCE.auto=d.auto;}catch(e){}
+function danceMedian(a){const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2;}
+function danceClampOffset(x){return Math.max(-.05,Math.min(.3,x));}
+const __d43Start=danceStart,__d43Tap=danceTap,__d43Finale=danceFinale,__d43DialText=danceDialText,__d43DevHtml=danceDevHtml,__d43Bind=wildDevBind;
+danceStart=function(){
+ __d43Start();const D=WILD.dance;if(!D)return;
+ D.offsets=[];D.tapLog=[];if(DANCE.auto&&DANCE_LEARNED!=null)D.latency=DANCE_LEARNED;D.latency0=D.latency;
+};
+danceTap=function(e){
+ const D=WILD.dance;if(!D||D.phase==='finale'||!D.offsets)return __d43Tap(e);
+ const now=danceNow(),stamp=e&&Number.isFinite(e.timeStamp)&&e.timeStamp>0&&Math.abs(performance.now()-e.timeStamp)<500?e.timeStamp/1000:now;
+ const k0=Math.round((stamp-D.p0)/D.beat),raw=stamp-(D.p0+k0*D.beat),h0=D.hits,m0=D.misses;
+ __d43Tap(e);
+ const res=D.hits>h0?'hit':D.misses>m0?'miss':k0<0?'count':'-';
+ if(D.tapLog.length<80)D.tapLog.push([k0,Math.round(raw*1000),res]);
+ if(Math.abs(raw)<=.3&&k0>=-DANCE_COUNT_IN&&k0<D.n){D.offsets.push(raw);
+  if(DANCE.auto&&D.offsets.length>=3)D.latency=danceClampOffset(danceMedian(D.offsets.slice(-6)));}
+};
+danceFinale=function(D){
+ try{
+  const o=D.offsets||[],ms=o.map(x=>Math.round(x*1000)),mean=o.length?o.reduce((s,x)=>s+x,0)/o.length:0,sd=o.length>1?Math.sqrt(o.reduce((s,x)=>s+(x-mean)*(x-mean),0)/(o.length-1)):0;
+  if(o.length>=4&&DANCE.auto){DANCE_LEARNED=danceClampOffset(danceMedian(o));try{localStorage.setItem(DANCE_OFFSET_KEY,String(+DANCE_LEARNED.toFixed(3)));}catch(e){}}
+  diagEvent('dance-taps',JSON.stringify({hits:D.hits,beats:D.n,taps:(D.tapLog||[]).length,offsetsMs:ms,meanMs:Math.round(mean*1000),medianMs:o.length?Math.round(danceMedian(o)*1000):null,sdMs:Math.round(sd*1000),
+   allowanceStartMs:Math.round((D.latency0??D.latency)*1000),allowanceEndMs:Math.round(D.latency*1000),windowMs:Math.round(D.window*1000),learnedMs:DANCE_LEARNED==null?null:Math.round(DANCE_LEARNED*1000),
+   audioOutMs:Math.round(sfx.danceLatency()*1000),auto:!!DANCE.auto,log:(D.tapLog||[]).slice(0,40)}));
+ }catch(e){}
+ return __d43Finale(D);
+};
+danceDialText=function(k){if(k==='auto')return 'Auto tap offset: '+(DANCE.auto?'on':'off')+(DANCE_LEARNED==null?' (nothing learned yet)':' (learned '+Math.round(DANCE_LEARNED*1000)+' ms)');return __d43DialText(k);};
+danceDevHtml=function(){return __d43DevHtml().replace('<button id="dance-dev-reset" class="wide">','<button id="dance-forget-offset" class="wide">Forget the learned tap offset</button><button id="dance-dev-reset" class="wide">');};
+wildDevBind=function(panel){__d43Bind(panel);const b=panel.querySelector&&panel.querySelector('#dance-forget-offset');if(b)b.onclick=()=>{DANCE_LEARNED=null;try{localStorage.removeItem(DANCE_OFFSET_KEY);}catch(e){}const top=panel.scrollTop;openCredits();panel.scrollTop=top;};};
+
+// --- every tap has an outcome you can see and hear (Jenny: "can't tell a miss from a tap that didn't register") ---
+// A banked beat keeps its effect (the notes join, the ring flashes gold, the coin chime). A tap that banks nothing gets
+// the same-size negative: the two notes crack apart, a red ✕ pops at the ring and a muted "bonk" plays. Every tap also
+// leaves a tick on the lane where it landed: left of the ring = early, right = late (gold for a hit, red for a miss,
+// white for a count-in tap), so the player can see their timing and the auto offset at work.
+const __d43TapFb=danceTap,__d43Draw=danceDraw;
+danceTap=function(e){
+ const D=WILD.dance;if(!D||D.phase==='finale')return __d43TapFb(e);
+ const h0=D.hits;const before=D.tapLog?D.tapLog.length:0;__d43TapFb(e);
+ const last=D.tapLog&&D.tapLog.length>before?D.tapLog[D.tapLog.length-1]:null,k0=last?last[0]:0,rawMs=last?last[1]:0;
+ // offset shown against the beat the player was aiming at, after the allowance (what the judge used)
+ const b=D.beat,o=rawMs/1000-D.latency,off=((o+b/2)%b+b)%b-b/2,hit=D.hits>h0,count=k0<0&&!hit; // within ±half a beat, as the judge sees it
+ (D.fb||(D.fb=[])).push({t:0,hit,count,off});if(D.fb.length>12)D.fb.shift();
+ if(!hit&&!count)sfx.wild43&&sfx.wild43('bonk',1);else if(count)sfx.dance('count',.5,0,900);
+};
+danceDraw=function(){
+ __d43Draw();const D=WILD.dance;if(!D||!D.fb||D.phase==='finale')return;const Y=DANCE_LANE_Y;
+ ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
+ const now=performance.now();if(D.fbT===undefined)D.fbT=now;const dt=Math.min(.1,(now-D.fbT)/1000);D.fbT=now;
+ let fresh=0;
+ for(const f of D.fb){f.t+=dt;const px=Math.max(-62,Math.min(62,f.off/D.beat*68)),a=Math.max(.25,1-f.t/1.6);
+  ctx.globalAlpha=a;ctx.fillStyle=f.hit?'#ffd23f':f.count?'#ffffff':'#ff5a5a';ctx.fillRect(200+px-1.5,Y+11,3,10);if(f.t<1.2)fresh++;}
+ ctx.globalAlpha=1;
+ if(fresh){ctx.font='bold 9px system-ui';ctx.fillStyle='rgba(255,224,244,.75)';ctx.fillText('EARLY',148,Y+16);ctx.fillText('LATE',252,Y+16);}
+ const m=[...D.fb].reverse().find(f=>!f.hit&&!f.count);
+ if(m&&m.t<.55){const u=m.t/.55,s=u<.15?.6+u/.15*.6:1.2-.2*Math.min(1,(u-.15)/.2);
+  // the two notes crack apart from the ring
+  ctx.globalAlpha=1-u;for(const side of [-1,1]){ctx.save();ctx.translate(200+side*(16+46*u),Y-4*u);ctx.rotate(side*u*1.2);danceNoteGlyph(0,0,.9,'#ff7a7a');ctx.restore();}
+  ctx.strokeStyle='#ff5a5a';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(196,Y-18);ctx.lineTo(202,Y-6);ctx.lineTo(197,Y+4);ctx.lineTo(203,Y+16);ctx.stroke();
+  // and a red ✕ pops at the ring
+  ctx.save();ctx.translate(200,Y);ctx.scale(s,s);ctx.lineCap='round';ctx.strokeStyle='#2a0010';ctx.lineWidth=11;ctx.beginPath();ctx.moveTo(-13,-13);ctx.lineTo(13,13);ctx.moveTo(13,-13);ctx.lineTo(-13,13);ctx.stroke();
+  ctx.strokeStyle='#ff4b4b';ctx.lineWidth=7;ctx.stroke();ctx.restore();}
+ ctx.restore();
+};
+// ---------- UAT 43: Wild 2 speed, star prize, obvious lost prizes, a bigger wheel ----------
+
+// --- 1. Speed: a plain-coin budget on the Wild boards, gold "5" coins beyond it, CCD only while a coin falls ---
+// Rain, pours and sky coins check the budget: while the table holds W43_COIN_CAP plain coins or more, every fifth
+// surplus coin lands as one gold "5" coin (worth 5 when it goes over the front) and the other four are not made, so the
+// rain still looks thick from above but the physics doesn't grow. Prizes, rain coins and the Quake are never capped.
+const W43_COIN_CAP=130;
+RAIN.gold5={n:5,gold:true,r:Math.round(COIN_R*1.3),half:COIN_HALF*1.15,face:['#fff6c8','#ffc93c','#9a6a00'],edge:'#8a5c00'};
+EDGE.gold5=RAIN.gold5.edge;PRIZE_OPAQUE.gold5=.95;PRIZE_ASPECT.gold5=1;
+const __w43RainFace=rainFace;
+rainFace=function(g,c,r,kind){
+ if(!RAIN[kind]||!RAIN[kind].gold)return __w43RainFace(g,c,r,kind);
+ let gr=g.createRadialGradient(c-r*.35,c-r*.4,r*.1,c,c,r);gr.addColorStop(0,'#fff8d0');gr.addColorStop(.55,'#f5c632');gr.addColorStop(1,'#8a5c00');
+ g.fillStyle=gr;g.beginPath();g.arc(c,c,r,0,7);g.fill();g.lineWidth=r*.12;g.strokeStyle='#fff3b0';g.beginPath();g.arc(c,c,r*.84,0,7);g.stroke();
+ g.font='900 '+Math.round(r*1.15)+'px Impact, "Arial Black", system-ui';g.textAlign='center';g.textBaseline='middle';g.lineJoin='round';g.lineWidth=r*.18;g.strokeStyle='#6a4200';g.strokeText('5',c,c+r*.06);g.fillStyle='#fffbe8';g.fillText('5',c,c+r*.06);
+};
+let w43Surplus=0;
+function w43PlainCount(){let n=0;for(const b of bodies)if(!b.dead&&(b.kind==='coin'||b.kind==='silver'))n++;return n;}
+// returns the kind to make for one more plain coin: 'coin' / 'silver' under the budget, then 'gold5' once per 5, else null
+function w43Budget(kind){if(!WILD.on||w43PlainCount()<W43_COIN_CAP)return kind;w43Surplus++;if(w43Surplus>=5){w43Surplus=0;WILD.gold5=(WILD.gold5||0)+1;return 'gold5';}return null;}
+// Wild 1 rain (wildSpawnRainCoin) and dance pour (danceSpawn), Wild 2 sky coins (skyDrop) go through the budget.
+const __w43Spawn=wildSpawnRainCoin,__w43DanceSpawn=danceSpawn;
+// Sky coins are all scheduled at once by a pour, so they're budgeted when they land: they all fall (the rain looks just as
+// thick), and past the budget four in five vanish into the pile as they touch down while every fifth lands as a gold 5.
+const __w43SkyLand=skyLand;
+skyLand=function(s){if(s.kind==='coin'||s.kind==='silver'){const k=w43Budget(s.kind);if(!k)return;if(k!==s.kind)s={...s,kind:k};}return __w43SkyLand(s);};
+wildSpawnRainCoin=function(){
+ if(WILD.v2||w43PlainCount()<W43_COIN_CAP)return __w43Spawn(); // Wild 2 goes through skyDrop
+ const k=w43Budget('coin');if(k!=='gold5')return;const y=rand(PUSH_MAX+30,T.FRONT-150),x=200+rand(-1,1)*(tableHalfAt(y)-COIN_R-8),h=rand(240,330);
+ const b=addCoin('gold5',null,x,h,y,randomTurn(rand(.05,.3)),{x:0,y:-2,z:0},{x:0,y:rand(-3,3),z:0});b.rb.enableCcd(true);b.deliveryStartHeight=h;b.w43At=time;sfx.wild('drip',1);
+};
+danceSpawn=function(kind){if(kind!=='coin')return __w43DanceSpawn(kind);const k=w43Budget('coin');if(!k)return;if(k==='coin')return __w43DanceSpawn('coin');
+ const y=rand(PUSH_MAX+30,T.FRONT-120),x=200+rand(-1,1)*(tableHalfAt(y)-COIN_R-8),b=addCoin('gold5',null,x,300,y,randomTurn(rand(.05,.3)),{x:0,y:-3,z:0},{x:0,y:0,z:0});b.rb.enableCcd(true);b.deliveryStartHeight=300;b.w43At=time;};
+// A gold 5 over the front pays 5 coins into the Wild bank; over a side it's lost like a coin.
+const __w43Rain=wildRainCollected;
+wildRainCollected=function(b,x){if(b.kind!=='gold5')return __w43Rain(b,x);S.coins+=5;board.remaining=S.coins;WILD.lastPay=time;const p=proj(x,T.FRONT);floats.push({text:'+5',x:p.x,y:p.y-10,t:0,big:true});try{sfx.kaching();}catch(e){}};
+// CCD only while a coin is falling or flying: every half second on the Wild boards, slow coins on the table switch it
+// off, fast ones (a Quake, the yawn sweep, a fall) switch it back on.
+let w43CcdT=0;
+function w43CcdTick(dt){
+ if(!WILD.on)return;w43CcdT+=dt;if(w43CcdT<.5)return;w43CcdT=0;
+ const busy=catquakeTime>0||sweepTime>0||(typeof W2_YAWN!=='undefined'&&W2_YAWN);
+ for(const b of bodies){if(b.dead||b.kind==='stack')continue;const v=b.rb.linvel(),sp=Math.abs(v.x)+Math.abs(v.y)+Math.abs(v.z),on=b.rb.isCcdEnabled();
+  if(busy||sp>1.2){if(!on)b.rb.enableCcd(true);}else if(on)b.rb.enableCcd(false);}
+}
+// The budget also covers the player's own drops: while the table holds more than W43_COIN_CAP plain coins, twice a
+// second five resting coins close together near the back become one gold 5 in their place (worth the same 5 coins),
+// with a glint and a soft chime. Prizes, rain coins and the Quake coin are never merged.
+let w43MergeT=0;const W43_GLINTS=[];
+function w43MergeTick(dt){
+ if(!WILD.on||WILD.phase!=='play')return;w43MergeT+=dt;if(w43MergeT<.5)return;w43MergeT=0;
+ let plain=[];for(const b of bodies){if(b.dead||(b.kind!=='coin'&&b.kind!=='silver'))continue;const v=b.rb.linvel();if(Math.abs(v.x)+Math.abs(v.y)+Math.abs(v.z)>.6)continue;const p=b.rb.translation();plain.push({b,x:p.x/M,y:p.y/M,z:p.z/M});}
+ const total=w43PlainCount();if(total<=W43_COIN_CAP||plain.length<5)return;
+ plain.sort((a,b)=>a.z-b.z); // from the back
+ for(let tries=0;tries<Math.min(6,plain.length);tries++){
+  const c=plain[tries],near=plain.filter(q=>q!==c&&Math.hypot(q.x-c.x,q.z-c.z)<COIN_R*3.2).sort((a,b)=>Math.hypot(a.x-c.x,a.z-c.z)-Math.hypot(b.x-c.x,b.z-c.z)).slice(0,4);
+  if(near.length<4)continue;const grp=[c,...near],x=grp.reduce((s,q)=>s+q.x,0)/5,z=grp.reduce((s,q)=>s+q.z,0)/5,y=Math.max(...grp.map(q=>q.y));
+  for(const q of grp)removeCoin(q.b);
+  const g=addCoin('gold5',null,x,y+2,z,randomTurn(rand(0,.2)),{x:0,y:0,z:0},{x:0,y:0,z:0});g.w43At=time;WILD.merged=(WILD.merged||0)+1;
+  const e=skyScreen(x,z,y);W43_GLINTS.push({x:e.x,y:e.y,s:e.s,t:0});try{sfx.wild('drip',.5);}catch(err){}
+  return;}
+}
+function w43GlintDraw(dt){for(let i=W43_GLINTS.length-1;i>=0;i--){const G=W43_GLINTS[i];G.t+=dt;if(G.t>.6){W43_GLINTS.splice(i,1);continue;}const u=G.t/.6;ctx.save();ctx.globalAlpha=1-u;ctx.strokeStyle='#fff3b0';ctx.lineWidth=2;ctx.beginPath();ctx.arc(G.x,G.y,(10+30*u)*G.s,0,7);ctx.stroke();ctx.restore();}}
+// Fewer starting rows of plain coins on Wild 2: the front-most row of the prefill is left out (prizes stay).
+const __w43Prefill=wildPrefill;
+wildPrefill=function(){
+ __w43Prefill();if(!WILD.v2)return;
+ let maxZ=-1;for(const b of bodies)if(!b.dead&&(b.kind==='coin'||b.kind==='silver'))maxZ=Math.max(maxZ,b.rb.translation().z/M);
+ for(const b of [...bodies])if(!b.dead&&(b.kind==='coin'||b.kind==='silver')&&b.rb.translation().z/M>maxZ-COIN_R)removeCoin(b);
+ w43PlaceStar();
+};
+
+// --- 2. The star prize: one prize per Wild 2 round brings that round's visitor ---
+const W43_STAR_TREATS={tuna:'orange',cheese:'ragdoll',shrimp:'siamese',mouse:'tortie'};
+function w43PickStar(){const ks=Object.keys(W43_STAR_TREATS),fresh=ks.filter(id=>!W2_SEEN[W43_STAR_TREATS[id]]),pool=fresh.length?fresh:ks;return pool[Math.random()*pool.length|0];}
+// It swaps places with the yarn ball, the back-most prize, so it starts far from the front.
+function w43PlaceStar(){
+ const star=WILD.star;if(!star)return;const sb=bodies.find(b=>!b.dead&&b.kind==='item'&&b.id===star),yb=bodies.find(b=>!b.dead&&b.kind==='item'&&b.id==='yarn');
+ if(!sb||!yb||sb===yb)return;const a=sb.rb.translation(),c=yb.rb.translation();sb.rb.setTranslation(c,true);yb.rb.setTranslation(a,true);
+}
+const __w43Reset=wildReset;
+wildReset=function(){WILD.star=null;w43Surplus=0;const v2=WILD.v2;if(v2)WILD.star=w43PickStar();const r=__w43Reset();WILD.winHeld=false;WILD.starBackAt=0;WILD.iconShake={};WILD.gold5=0;WILD.lostN=0;return r;};
+// wildEnter sets v2 after the reset, so Wild 2 picks its star on entry here
+const __w43Enter2=wild2Enter;
+wild2Enter=function(){const r=__w43Enter2();if(r&&WILD.v2&&!WILD.star){wildReset();}return r;};
+// The star's visitor comes after the win.
+const __w43PickVisitor=w2PickVisitor;
+w2PickVisitor=function(){if(WILD.v2&&WILD.star&&WILD.have[WILD.star])return W43_STAR_TREATS[WILD.star];return __w43PickVisitor();};
+// Only one star on the board: a random bonus prize never brings a second one.
+const __w43Bonus=wildScheduleBonus;
+wildScheduleBonus=function(){const n=WILD.incoming.length,missing=wildMissing();const r=__w43Bonus();const o=WILD.incoming[n]; // what was missing before this drop
+ if(o&&o.kind==='item'&&WILD.star&&o.id===WILD.star&&!missing.includes(WILD.star)){const others=WILD_COLLECTION.filter(id=>id!==WILD.star);o.id=others[Math.random()*others.length|0];}
+ if(o&&o.kind==='item'&&missing.includes(o.id))callout(o.id===WILD.star?'THE STAR IS BACK!':'BONUS DROP INCOMING!',{color:o.id===WILD.star?'#ffd23f':'#7dff6a',dur:1.2});
+ return r;};
+// A lost star comes back later (12 s), not straight away.
+const __w43Missing=wildMissing;
+function w43Missing(){return __w43Missing();}
+wildMissing=function(){const m=__w43Missing();return WILD.star&&time<WILD.starBackAt?m.filter(id=>id!==WILD.star):m;};
+
+// --- 3. Lost prizes you notice: tumble over the edge, rail flash, icon shake, sounds, "Lost the duck!" ---
+const W43_LOST=[];
+const __w43Gutter=gutterOff;
+gutterOff=function(b,x){
+ if(!(WILD.on&&WILD.v2&&b.kind==='item')||b.dead)return __w43Gutter(b,x);
+ const t=b.rb.translation(),side=x<200?-1:1,z=Math.max(PUSH_MAX,Math.min(T.FRONT,t.z/M)),need=!WILD.have[b.id],star=b.id===WILD.star;
+ W43_LOST.push({id:b.id,side,z,t:0,star});WILD.iconShake[b.id]=0;WILD.lostN++;
+ sfx.wild43&&sfx.wild43(star?'lostStar':'lost',1);
+ if(star){WILD.starBackAt=time+12;callout('LOST THE STAR!',{color:'#ff4b4b',dur:1.6});}
+ else if(need)callout('LOST THE '+String(WILD_PRIZE_NAMES[b.id]||b.id).replace(/^(Toy|Rubber|Cat) /,'').toUpperCase()+'!',{color:'#ff8a6a',dur:1.1});
+ try{diagEvent('wild2','lost '+b.id+(star?' (star)':''));}catch(e){}
+ removeCoin(b);reconcileBoardTargets();
+};
+function w43LostTick(dt){for(let i=W43_LOST.length-1;i>=0;i--){const L=W43_LOST[i];L.t+=dt;if(L.t>1.4)W43_LOST.splice(i,1);}for(const k in WILD.iconShake){WILD.iconShake[k]+=dt;if(WILD.iconShake[k]>.8)delete WILD.iconShake[k];}}
+function w43LostDraw(){
+ for(const L of W43_LOST){
+  // the side rail flashes along its length
+  const fl=Math.max(0,1-L.t/.7),ex=L.side<0?T.L:T.R;if(fl>0){const a=skyScreen(ex,PUSH_MAX+10,0),b=skyScreen(ex,T.FRONT,0);ctx.save();ctx.globalAlpha=fl*(.6+.4*Math.sin(L.t*40));ctx.strokeStyle=L.star?'#ffd23f':'#ff5a5a';ctx.lineWidth=7;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.restore();}
+  // the prize tumbles over the edge: out, down and spinning, fading as it drops away
+  const u=Math.min(1,L.t/1.1),e=skyScreen(ex,L.z,0),x=e.x+L.side*(18+60*u),y=e.y+260*u*u-24*Math.sin(u*Math.PI),s=e.s*(1-.35*u);
+  ctx.save();ctx.globalAlpha=1-u*u;ctx.translate(x,y);ctx.rotate(L.side*u*5);drawPrize('item',L.id,0,0,s);ctx.restore();
+  if(L.star){ctx.save();ctx.globalAlpha=1-u;w43Star(x,y-30*s,14,'#ffd23f');ctx.restore();}
+ }
+}
+// The collection icon of a lost prize shakes; the star prize's icon has a gold star.
+const __w43Icon=wildIcon;
+wildIcon=function(id,x,y,w,got){const k=WILD.on&&WILD.iconShake?WILD.iconShake[id]:undefined;if(k!==undefined)x+=Math.sin(k*45)*5*(1-k/.8);__w43Icon(id,x,y,w,got);
+ if(WILD.on&&WILD.v2&&WILD.star===id)w43Star(x+w*.36,y-w*.05,Math.max(6,w*.24),'#ffd23f');};
+function w43Star(x,y,r,fill){ctx.save();ctx.translate(x,y);ctx.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r*.45:r;ctx.lineTo(Math.cos(a)*rr,Math.sin(a)*rr);}ctx.closePath();ctx.fillStyle=fill;ctx.fill();ctx.lineWidth=Math.max(1.2,r*.16);ctx.strokeStyle='#5a3a00';ctx.stroke();ctx.restore();}
+// The star prize on the board: a gold star bobbing over it.
+function w43StarOnBoard(){
+ if(!WILD.v2||!WILD.star||WILD.have[WILD.star]||WILD.phase==='card'||(WILD.dance&&WILD.dance.phase==='finale'))return;const b=bodies.find(b=>!b.dead&&b.kind==='item'&&b.id===WILD.star);if(!b)return;
+ const p=b.rb.translation(),e=skyScreen(p.x/M,p.z/M,p.y/M),bob=Math.sin(performance.now()/220)*3;ctx.save();ctx.globalAlpha=.9;w43Star(e.x,e.y-radius('item')*e.s*1.7+bob,16+5*e.s,'#ffd23f');ctx.restore();
+}
+
+// --- 4. The bigger wheel: near full width, a longer spin with a pause before it lands; every slice is an event ---
+W2_WHEEL.length=0;
+W2_WHEEL.push({label:'RAIN 25',kind:'rain25',w:.16,c:'#ff5a2c'},{label:'DANCE AGAIN',kind:'again',w:.16,c:'#ff7ad5'},{label:'RAIN 10 + QUAKE',kind:'r10q',w:.2,c:'#4f8bff'},
+ {label:'PRIZE YOU NEED',kind:'prize',w:.15,c:'#7dff6a'},{label:'RAIN 25',kind:'rain25',w:.16,c:'#ff8a3c'},{label:'JACKPOT 50',kind:'jackpot',w:.05,c:'#ffd23f'},{label:'YAWN',kind:'yawn',w:.12,c:'#6a6a7a'});
+const W43_SPIN=4.6,W43_PAUSE=.55,W43_CREEP=.4,W43_WAIT=8;
+function w43StartSpin(D,tapped){const Wh=D.wheel;if(!Wh||!Wh.waiting)return;Wh.waiting=false;Wh.spinAt=D.st;Wh.a0=Wh.a;Wh.tapped=tapped;
+ let end=Wh.end;while(end<Wh.a0+Math.PI*2*7)end+=Math.PI*2;while(end>Wh.a0+Math.PI*2*8)end-=Math.PI*2;const seg=Math.PI*2/W2_WHEEL.length;Wh.end=end;Wh.stop=end-seg*.62;
+ sfx.wild2('whoosh',1);try{diagEvent('dance','wheel spin '+(tapped?'tapped':'auto'));}catch(e){}}
+// her tap on the waiting wheel starts it
+const __w43TapWheel=danceTap;
+danceTap=function(e){const D=WILD.dance;if(D&&WILD.v2&&D.phase==='finale'&&D.stage==='wheel'&&D.wheel&&D.wheel.waiting&&D.st>=.5){w43StartSpin(D,true);return;}return __w43TapWheel(e);};
+const __w43DanceTick=danceTick;
+danceTick=function(dt,paused){
+ const D=WILD.dance;
+ if(D&&WILD.v2&&D.phase==='finale'&&D.stage==='wheel'&&!paused){
+  D.finT+=dt;D.st+=dt;WILD.lastPay=time;
+  if(!D.wheel){const i=w2PickSlice(),seg=Math.PI*2/W2_WHEEL.length,a0=Math.random()*Math.PI*2;let end=-Math.PI/2-(i+.5+rand(-.25,.25))*seg;while(end<a0+Math.PI*2*7)end+=Math.PI*2;
+   D.wheel={i,a0,end,a:a0,lastSeg:null,result:false,stop:end-seg*.62,waiting:true,spinAt:null};try{diagEvent('dance','wheel '+W2_WHEEL[i].label);}catch(e){}}
+  // UAT 43: the wheel waits for her tap (TAP TO SPIN!), gently rocking; after W43_WAIT s it spins by itself. The slice was
+  // already drawn from the odds, so how and when she taps doesn't change the outcome.
+  const Wh=D.wheel;if(Wh.waiting){Wh.a=Wh.a0+Math.sin(D.st*2.4)*.06;if(D.st>=.5+W43_WAIT)w43StartSpin(D,false);return;}
+  const t=D.st-Wh.spinAt;
+  // spin down to just short of the slice, hold a breath, then creep over into it
+  if(t<W43_SPIN){const u=t/W43_SPIN;Wh.a=Wh.a0+(Wh.stop-Wh.a0)*(1-Math.pow(1-u,3.4));}
+  else if(t<W43_SPIN+W43_PAUSE)Wh.a=Wh.stop+Math.sin((t-W43_SPIN)*30)*.004;
+  else{const u=Math.min(1,(t-W43_SPIN-W43_PAUSE)/W43_CREEP),e=u*u*(3-2*u);Wh.a=Wh.stop+(Wh.end-Wh.stop)*e;}
+  aim.lookX=200+Math.cos(Wh.a*3)*130; // the cat watches the wheel go round
+  const seg=Math.PI*2/W2_WHEEL.length,under=Math.floor((((-Math.PI/2-Wh.a)%(Math.PI*2))+Math.PI*4)%(Math.PI*2)/seg);
+  if(under!==Wh.lastSeg){Wh.lastSeg=under;sfx.wild2('tick',.9);}
+  if(t>=W43_SPIN+W43_PAUSE+W43_CREEP&&!Wh.result){Wh.result=true;Wh.at=D.st;const s=W2_WHEEL[Wh.i];sfx.wild43&&sfx.wild43(s.kind==='yawn'?'uhoh':s.kind==='jackpot'?'jackpot':'slice',1);w2ApplySlice(s,D);}
+  if(Wh.result&&D.st-Wh.at>=(W2_WHEEL[Wh.i].kind==='jackpot'?2.2:1.6)){const k=W2_WHEEL[Wh.i].kind;D.stage=k==='yawn'?'yawn':'settle';D.st=0;delete aim.lookX;}
+  return;
+ }
+ const again=D&&D.again;__w43DanceTick(dt,paused);
+ if(again&&!WILD.dance&&WILD.phase==='play'){WILD.happy=DANCE.notches;WILD.dancePending={f:null,wait:9};} // Dance again: straight into another break
+};
+w2ApplySlice=function(s,D){
+ const front=()=>({x:200+rand(-80,80),y:rand(590,650)});
+ if(s.kind==='rain25'){const p=front();skyDrop('rain25',p.x,p.y,{dur:1});return;}
+ if(s.kind==='r10q'){w2Rain(10,.06);D.quakeAt=time+1.6;WILD.pendingQuake=time+1.6;return;}
+ if(s.kind==='prize'){const need=WILD_COLLECTION.filter(id=>!WILD.have[id]),id=need.length?need[Math.random()*need.length|0]:WILD_COLLECTION[Math.random()*WILD_GOAL|0];skyDrop('item',200+rand(-60,60),T.FRONT-42,{id,dur:1,h:24});return;}
+ if(s.kind==='jackpot'){w2Rain(50,.035);sfx.wild('win',1);return;}
+ if(s.kind==='again'){D.again=true;return;}
+};
+// Rain 10 + Quake: once the ten coins have landed the board shakes (a free Quake).
+function w43QuakeTick(){if(WILD.pendingQuake&&time>=WILD.pendingQuake&&sweepTime===0&&catquakeTime===0&&board.status==='playing'){WILD.pendingQuake=0;board.quakes++;if(!useCatquake())board.quakes--;}}
+w2WheelDraw=function(D){
+ const ch=w43ChinY(),R=Math.max(120,Math.min(175,(H-4-96-(ch+58))/2)),Wh=D.wheel,t=D.st,pop=Math.min(1,t/.35),cx=200,cy=ch+58+R,n=W2_WHEEL.length,seg=Math.PI*2/n,st=Wh.waiting?-1:t-Wh.spinAt,stopT=W43_SPIN+W43_PAUSE+W43_CREEP;
+ ctx.fillStyle='rgba(12,6,24,'+(.6*pop)+')';ctx.fillRect(0,ch,W,H-ch);
+ ctx.save();ctx.translate(cx,cy);ctx.scale(.55+.45*pop,.55+.45*pop);
+ wildText('PERFECT SPIN!',0,-R-38,34,'#7dff6a','#0c3a12',7);
+ // light bulbs round the rim, chasing while it spins
+ for(let i=0;i<28;i++){const a=i/28*Math.PI*2,on=(Math.floor(t*12)+i)%3===0||Wh.result;uiCircle(Math.cos(a)*(R+10),Math.sin(a)*(R+10),4,on?'#fff6c0':'#6a5020');}
+ ctx.save();ctx.rotate(Wh.a);
+ W2_WHEEL.forEach((s,i)=>{const lit=Wh.result&&i===Wh.i&&Math.sin(t*14)>-.3;ctx.fillStyle=lit?'#ffffff':s.c;ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,R,i*seg,(i+1)*seg);ctx.closePath();ctx.fill();ctx.strokeStyle='#2a0b3e';ctx.lineWidth=4;ctx.stroke();
+  ctx.save();ctx.rotate((i+.5)*seg);ctx.translate(R*.6,0);ctx.rotate(Math.PI/2);const dark=s.kind==='yawn'||s.kind==='r10q';ctx.fillStyle=dark?'#fff':'#2a0b3e';ctx.textAlign='center';ctx.textBaseline='middle';
+  const words=s.label.split(' '),l1=words.length>2?words.slice(0,-1).join(' '):words[0],l2=words.length>2?words[words.length-1]:words.slice(1).join(' ');
+  ctx.font='900 '+(Math.max(l1.length,l2.length)>6?15:19)+'px Impact, "Arial Black", system-ui';ctx.fillText(l1,0,-34);if(l2)ctx.fillText(l2,0,-15);
+  if(s.kind==='rain25'||s.kind==='r10q'){const sp=sprite(s.kind==='r10q'?'rain10':'rain25');ctx.drawImage(sp.cv,-17,6,34,34);}
+  if(s.kind==='r10q'){const sp=sprite('quake');ctx.drawImage(sp.cv,4,26,24,24);}
+  if(s.kind==='prize')drawPrize('item','bell',0,30,.42);
+  if(s.kind==='jackpot'){for(let j=0;j<5;j++)uiCircle(-10+j*5,30-j*4,9,'#f5c632','#8a5c00',1.2);}
+  if(s.kind==='again'){danceNoteGlyph(-8,24,1.3,'#2a0b3e');danceNoteGlyph(10,22,1.3,'#2a0b3e');}
+  if(s.kind==='yawn'){ctx.font='900 18px Impact, system-ui';ctx.fillText('z z z',0,24);}
+  ctx.restore();});
+ ctx.restore();
+ uiCircle(0,0,R+2,null,'#ffe08a',6);uiCircle(0,0,30,'#ffd23f','#3a1a00',3);ctx.fillStyle='#3a1a00';ctx.font='900 15px Impact, system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('SPIN',0,1);
+ if(Wh.waiting&&t>=.4){const k=1+.07*Math.sin(t*7);ctx.save();ctx.translate(0,R+46);ctx.scale(k,k);wildText('TAP TO SPIN!',0,0,40,'#ffd23f','#2a0b3e',8);ctx.restore();
+  ctx.font='bold 13px system-ui';ctx.fillStyle='rgba(255,240,200,.85)';ctx.textAlign='center';ctx.fillText('spins by itself in '+Math.max(1,Math.ceil(.5+W43_WAIT-t))+' s',0,R+80);}
+ const wob=Wh.result||Wh.waiting?0:Math.sin(t*60)*.06*(st<stopT?1:0);ctx.save();ctx.translate(0,-R-4);ctx.rotate(wob);ctx.fillStyle='#fff';ctx.strokeStyle='#2a0b3e';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-18,-16);ctx.lineTo(18,-16);ctx.lineTo(0,22);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
+ if(Wh.result){const s=W2_WHEEL[Wh.i],txt={rain25:'RAIN 25!',r10q:'RAIN 10 + QUAKE!',prize:'A PRIZE YOU NEED!',jackpot:'JACKPOT 50!',again:'DANCE AGAIN!',yawn:'UH OH… YAWN'}[s.kind];
+  ctx.save();ctx.translate(0,R+44);const k=1+.08*Math.sin(t*10)+(s.kind==='jackpot'?.15:0);ctx.scale(k,k);wildText(txt,0,0,s.kind==='jackpot'?44:36,s.kind==='yawn'?'#d8c8ee':'#ffd23f','#2a0b3e',7);ctx.restore();}
+ ctx.restore();
+};
+
+// --- 5. The goal card names this round's star prize and its visitor ---
+const __w43CardIcon=w2CardIcon,__w43CardDraw=drawWild2Card;
+w2CardIcon=function(kind,x,y){if(kind!=='star'||!WILD.star)return __w43CardIcon(kind,x,y);drawPrize('item',WILD.star,x,y+9,30/(radius('item')*2.8));w43Star(x+13,y-12,9,'#ffd23f');};
+drawWild2Card=function(){
+ if(WILD.star){const V=W2_VISITORS[W43_STAR_TREATS[WILD.star]];W2_CARD_LINES[3]=['star','The '+String(WILD_PRIZE_NAMES[WILD.star]).toLowerCase()+' is the star prize','win with it and the '+V.name+' visits'];}
+ __w43CardDraw();
+};
+
+// --- 6. A win during a dance break waits for the break to finish (Wild and Wild 2) ---
+// The taps, the payoff, the pour, a perfect dance's wheel and a yawn all play out; then the win sequence runs. The round
+// timer is paused during the break as before, so the wait can't lose the round. A "Dance again" slice is skipped (the
+// round is already won).
+const __w43Finish=wildFinish;
+wildFinish=function(win,reason){
+ if(win&&WILD.on&&WILD.dance){if(!WILD.winHeld){WILD.winHeld=true;callout('ALL '+WILD_GOAL+'! FINISH THE DANCE!',{color:'#7dff6a',dur:1.4});try{diagEvent('wild','win held for the dance');}catch(e){}}return;}
+ WILD.winHeld=false;return __w43Finish(win,reason);
+};
+function w43WinTick(){if(WILD.winHeld&&!WILD.dance&&WILD.phase==='play'){WILD.dancePending=null;wildFinish(true);}}
+
+// --- hooks: ticks and drawing ---
+const __w43Tick=wildTick,__w43Draw=wildDraw;
+wildTick=function(dt){__w43Tick(dt);if(!WILD.on)return;const paused=inventoryOpen||panel.style.display==='block';if(paused)return;w43LostTick(dt);w43CcdTick(dt);w43MergeTick(dt);if(WILD.v2)w43QuakeTick();w43WinTick();};
+wildDraw=function(){__w43Draw();if(!WILD.on||inventoryOpen)return;ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);if(WILD.v2){w43StarOnBoard();w43LostDraw();}w43GlintDraw(1/60);ctx.restore();};
+
+// --- 7. Nothing stays on the cat's face (Jenny, UAT 43): cards, banners and the wheel sit below the chin line ---
+function w43ChinY(){return VIEW.y+(CHIN_Y+HEAD_DROP)*VIEW.zy;}
+// Wild 1 goal card: the same card, moved down below the chin (only the board under it is dimmed).
+const __w43CardRects=wildCardRects;
+wildCardRects=function(){if(WILD.v2)return __w43CardRects();const y=Math.min(w43ChinY()+6,H-356);return {card:{x:30,y,w:340,h:350},go:{x:110,y:y+253,w:180,h:58},back:{x:140,y:y+317,w:120,h:28}};};
+// Wild 2 goal card: compact, from the chin to the bottom of the screen. Tall screens show all six lines; short ones
+// the four that matter most (meter, beat, wheel, star).
+w2CardLayout=function(){
+ const bottom=H-6,room0=bottom-(w43ChinY()+4),n=room0>=276+6*36?6:4,row=Math.max(30,Math.min(52,(room0-276)/n)),h=276+row*n,top=Math.min(w43ChinY()+4,bottom-h),room=bottom-top,y=top+(room-h)/2; // a short screen lifts it just enough to fit
+ const linesY=y+146,s=linesY+row*n+22;return {card:{x:10,y,w:380,h},row,n,linesY,start:{x:56,y:s,w:288,h:60},back:{x:120,y:s+68,w:160,h:28}};
+};
+drawWild2Card=function(){
+ if(WILD.star){const V=W2_VISITORS[W43_STAR_TREATS[WILD.star]];W2_CARD_LINES[3]=['star','The '+String(WILD_PRIZE_NAMES[WILD.star]).toLowerCase()+' is the star prize','win with it and the '+V.name+' visits'];}
+ const L=w2CardLayout(),R=L.card,pop=Math.min(1,WILD.cardT/.25),k=.7+.3*(1-Math.pow(1-pop,3)),cy=R.y+R.h/2,ch=w43ChinY();
+ ctx.fillStyle='rgba(12,6,24,'+(.7*pop)+')';ctx.fillRect(0,ch,W,H-ch);
+ ctx.save();ctx.translate(200,cy);ctx.scale(k,k);ctx.translate(-200,-cy);ctx.textAlign='center';ctx.textBaseline='middle';
+ wildPanel(R,'#4b1f6e','#1d0f33');
+ wildText('WILD 2',200,R.y+28,36,'#a6ff6a','#10301a',7);
+ ctx.fillStyle='#ffd23f';ctx.font='900 21px Impact, "Arial Black", system-ui';ctx.fillText('GOAL: COLLECT ALL '+WILD_GOAL+' PRIZES',200,R.y+60,356);
+ WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(WILD_GOAL-1)/2)*44,R.y+74,34,false));
+ ctx.fillStyle='#fff';ctx.font='bold 15px system-ui';ctx.fillText('before the '+WILD_SECONDS+' s timer or your coins run out',200,R.y+128,360);
+ const two=L.row>=36;
+ for(let i=0;i<L.n;i++){const [ic,a,b]=W2_CARD_LINES[i],y=L.linesY+i*L.row+L.row/2;
+  w2CardIcon(ic,52,y);ctx.textAlign='left';ctx.fillStyle='#fff';
+  if(two){ctx.font='bold 16px system-ui';ctx.fillText(a,86,y-9,296);ctx.fillStyle='#ffe08a';ctx.font='bold 14px system-ui';ctx.fillText(b,86,y+10,296);}
+  else{ctx.font='bold 15px system-ui';ctx.fillText(a+' '+b,86,y,298);}ctx.textAlign='center';}
+ const s=L.start,pulse=1+.04*Math.sin(performance.now()/180);ctx.save();ctx.translate(s.x+s.w/2,s.y+s.h/2);ctx.scale(pulse,pulse);ctx.translate(-(s.x+s.w/2),-(s.y+s.h/2));
+ wildButtonDraw(s,'TAP TO START','#3ccf4e','#0c3a12',30);ctx.restore();
+ ctx.fillStyle='#e8dcff';ctx.font='bold 13px system-ui';ctx.fillText('The timer starts after 3, 2, 1, GO!',200,s.y-11);
+ uiRound(L.back.x,L.back.y,L.back.w,L.back.h,14,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 14px system-ui';ctx.fillText('Back to the game',200,L.back.y+L.back.h/2+1);
+ ctx.restore();
+};
+// The visitor card goes below the chin too (over the win card until it's closed).
+w2VisitorRect=function(){return {x:40,y:Math.min(w43ChinY()+8,H-306),w:320,h:300};};
+// ---------- UAT 43: Music: Classic (the UAT 38-40 loop) / Kawaii pop, a Developer switch; Classic is the default ----------
+// Both play at the same level where a phone speaker plays: Classic at Music volume 100% runs its bus at 1.72x its old
+// "100%", about 0.025 RMS above 250 Hz, like Kawaii pop at 100%. Saved with the music volume; the
+// performance log shows it in soundTuning.track.
+const CLASSIC_GAIN=1.72; // Classic's bus at Music volume 100% (its old 100% x1.72 = Kawaii pop's phone-band level)
+const __m43DevHtml=wildDevHtml,__m43Bind=wildDevBind;
+wildDevHtml=function(){return __m43DevHtml().replace('<div class="set" id="w2-dev"><h3><span>Wild 2 and sound</span><span>tuning</span></h3>','<div class="set" id="w2-dev"><h3><span>Wild 2 and sound</span><span>tuning</span></h3><button id="w2-track" class="wide">Music: '+(W2.track==='kawaii'?'Kawaii pop':'Classic')+' (tap to switch)</button>');};
+wildDevBind=function(panel){__m43Bind(panel);const b=panel.querySelector&&panel.querySelector('#w2-track');if(b)b.onclick=()=>{W2.track=W2.track==='kawaii'?'classic':'kawaii';w2Save();try{diagEvent('w2-tuning','track='+W2.track);}catch(e){}const top=panel.scrollTop;openCredits();panel.scrollTop=top;};};
 // Local UAT diagnostics: bounded numeric data, no network and no gameplay state writes.
 const DIAG_KEY='catpusher.uat.diagnostics.v1';
 const DIAG_SAMPLE_COLUMNS=['atSec','elapsedMs','frames','fps','physicsMsPerFrame','drawMsPerFrame','maxFrameMs','framesOver25Ms','stepsPerFrame','coins','board','screen','heldFrames','heldElapsedMs','heldPhysicsTotalMs','heldDrawTotalMs','nonActivePlayFrames'];
@@ -37945,6 +38320,31 @@ function diagCopyLog(){
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden)diagFlush('background');else diagEvent('foreground');});
 addEventListener('pagehide',()=>diagFlush('pagehide'));
+// ---------- UAT 43 (CP-39): "Send performance log" says what happened ----------
+// The app writes the log on its own thread and reports back through onDiagnosticStatus (state text and savedAt). The
+// button now shows "Sending…" while it waits, then "Log sent ✓ 3:54 PM" (green), or the app's error in red. A
+// "Log sent ✓" toast shows in the game too. If the app doesn't answer in 8 s it says so and suggests Share log.
+let diagSend=null; // {at: ms when tapped, timer}
+function diagSendButton(text,color,disabled){const b=panel.querySelector&&panel.querySelector('#diag-send-file');if(!b)return;b.textContent=text;b.style.background=color||'';b.style.color=color?'#fff':'';b.disabled=!!disabled;}
+function diagClock(ms){const d=new Date(ms);let h=d.getHours(),m=d.getMinutes();const ap=h<12?'AM':'PM';h=h%12||12;return h+':'+String(m).padStart(2,'0')+' '+ap;}
+const __s43Status=onDiagnosticStatus;
+onDiagnosticStatus=function(status){
+ __s43Status(status);
+ if(!diagSend||!status)return;const st=String(status.state||'');
+ if(/could not|unavailable|cancel|not writable|no saved log/i.test(st)){clearTimeout(diagSend.timer);diagSend=null;diagSendButton('Log not sent ✗ (tap to try again)','#b3261e',false);
+  const t=panel.querySelector&&panel.querySelector('#diag-file-status');if(t){t.textContent=st;t.style.color='#ff8a80';}try{diagEvent('send-file-failed',st.slice(0,80));}catch(e){}return;}
+ if(status.savedAt&&status.savedAt>=diagSend.at-1000){clearTimeout(diagSend.timer);const when=diagClock(status.savedAt);diagSend=null;
+  diagSendButton('Log sent ✓ '+when,'#2e7d32',false);const t=panel.querySelector&&panel.querySelector('#diag-file-status');if(t){t.textContent=st;t.style.color='#b9f6ca';}
+  try{floats.push({text:'LOG SENT ✓',x:200,y:H*.4,t:0,big:true});}catch(e){}}
+};
+diagSendFile=function(){
+ if(!diagnosticFileBridge()){diagSendButton('Log can’t be sent from this app version','#b3261e',false);return;}
+ const status=diagnosticFileStatus();
+ if(!status.connected){Android.connectDiagnosticFile();return;} // the app asks for the OneDrive file first
+ if(diagSend)return; // already sending
+ diagSend={at:Date.now(),timer:setTimeout(()=>{if(!diagSend)return;diagSend=null;diagSendButton('No answer from the app ✗ (try again, or Share log)','#b3261e',false);},8000)};
+ diagSendButton('Sending…','#6a5a8a',true);diagFlush('send-file');
+};
 diagEvent('session-start');
 
 

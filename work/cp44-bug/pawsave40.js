@@ -40,7 +40,7 @@ function paw40Pointer(p){const S40=PAW40_STATE,T40=S40.teeter;if(!T40||T40.savin
 // The mitt's offset during a save: slides out to the prize (ease in), a short flick, then back (the yawn's easing).
 function paw40Offset(side,rest){const W=PAW40_STATE.swipe;if(!W||W.side!==side)return null;
  const s=x=>{x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);},t=W.t,go=s(t/PAW40.slide),ret=s((t-PAW40.slide-PAW40.hold)/PAW40.back),f=go*(1-ret);
- const e=W.b.dead?W.to:paw40Screen(W.b);W.to=e;const tx=e.x+side*40-rest.x,ty=e.y-30-rest.y;
+ const e=W.b.dead?W.to:paw40Screen(W.b);W.to=e;const cx=Math.max(70,Math.min(400-70,e.x+side*10)),tx=cx-rest.x,ty=e.y-34-rest.y; // the mitt over the prize, its centre kept on screen
  const flick=t>PAW40.slide&&t<PAW40.slide+PAW40.hold?Math.sin((t-PAW40.slide)/PAW40.hold*Math.PI):0;
  return {x:tx*f-side*14*flick,y:ty*f,r:-side*(.35*f+.25*flick)};}
 const __paw40MittRest=mittRest;

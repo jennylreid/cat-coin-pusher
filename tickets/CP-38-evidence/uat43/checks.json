@@ -37,6 +37,7 @@
    }
   },
   "the learned offset is saved for the next break",
+  "the off-beat cost stays: an early miss costs the next beat",
   "Send log: \"Sending…\" and disabled while the app writes",
   {
    "name": "…then \"Log sent ✓ <time>\" in green",
@@ -93,6 +94,12 @@
   },
   "the star lost: \"LOST THE STAR!\" and its own sound",
   {
+   "name": "the star is re-dropped later, not straight away (after about 12 s)",
+   "info": {
+    "afterSec": 14
+   }
+  },
+  {
    "name": "after the win the star's visitor comes",
    "info": {
     "visitor": "siamese",
@@ -114,21 +121,21 @@
    "name": "wheel slice RAIN 25: a longer spin (about 5.5 s with the pause) and its event",
    "info": {
     "label": "RAIN 25",
-    "spinSec": 6
+    "spinSec": 14
    }
   },
   {
    "name": "wheel slice DANCE AGAIN: a longer spin (about 5.5 s with the pause) and its event",
    "info": {
     "label": "DANCE AGAIN",
-    "spinSec": 6
+    "spinSec": 14
    }
   },
   {
    "name": "wheel slice RAIN 10 + QUAKE: a longer spin (about 5.5 s with the pause) and its event",
    "info": {
     "label": "RAIN 10 + QUAKE",
-    "spinSec": 6,
+    "spinSec": 14,
     "quake": true,
     "coins": 20
    }
@@ -137,7 +144,7 @@
    "name": "wheel slice PRIZE YOU NEED: a longer spin (about 5.5 s with the pause) and its event",
    "info": {
     "label": "PRIZE YOU NEED",
-    "spinSec": 6,
+    "spinSec": 14,
     "frontmostPrizeZ": 672
    }
   },
@@ -145,14 +152,14 @@
    "name": "wheel slice RAIN 25: a longer spin (about 5.5 s with the pause) and its event",
    "info": {
     "label": "RAIN 25",
-    "spinSec": 6
+    "spinSec": 14
    }
   },
   {
    "name": "wheel slice JACKPOT 50: a longer spin (about 5.5 s with the pause) and its event",
    "info": {
     "label": "JACKPOT 50",
-    "spinSec": 6,
+    "spinSec": 14,
     "newBodies": 50
    }
   },
@@ -160,130 +167,58 @@
    "name": "wheel slice YAWN: a longer spin (about 5.5 s with the pause) and its event",
    "info": {
     "label": "YAWN",
-    "spinSec": 6,
-    "sweptOff": 15
+    "spinSec": 14,
+    "sweptOff": 14
+   }
+  },
+  "the wheel waits (gently rocking) with TAP TO SPIN!, the round timer paused; her tap starts it with a whoosh",
+  {
+   "name": "untouched, it spins by itself after about 8 s",
+   "info": {
+    "at": 8.5
+   }
+  },
+  {
+   "name": "H 889: goal cards, visitor card, win/lose card and the wheel (with its title) start below the chin line (355)",
+   "info": {
+    "w1": 360.6204081632653,
+    "w2": 358.6204081632653,
+    "w2bottom": 870.8889999999999,
+    "vis": 362.6204081632653,
+    "end": 446,
+    "wheelTop": 373,
+    "chin": 355
+   }
+  },
+  {
+   "name": "H 720: goal cards, visitor card, win/lose card and the wheel (with its title) start below the chin line (332)",
+   "info": {
+    "w1": 337.59999999999997,
+    "w2": 318,
+    "w2bottom": 702,
+    "vis": 339.59999999999997,
+    "end": 446,
+    "wheelTop": 350,
+    "chin": 332
    }
   },
   "Music: Classic by default",
   "Developer shows the Music switch",
   "the switch is saved and in the performance log",
   {
-   "name": "sound on: Wild 2, imperfect — no exception, the game keeps running",
-   "info": {
-    "errs": [],
-    "ended": true,
-    "gameRunning": true,
-    "stage": null,
-    "liveNodes": 13,
-    "nodesCreated": 2429
-   }
-  },
-  {
-   "name": "sound on: Wild 2 wheel: RAIN 25 — no exception, the game keeps running",
-   "info": {
-    "errs": [],
-    "ended": true,
-    "gameRunning": true,
-    "stage": null,
-    "liveNodes": 14,
-    "nodesCreated": 3454
-   }
-  },
-  {
-   "name": "sound on: Wild 2 wheel: DANCE AGAIN — no exception, the game keeps running",
-   "info": {
-    "errs": [],
-    "ended": false,
-    "gameRunning": true,
-    "liveNodes": 7,
-    "nodesCreated": 3385
-   }
-  },
-  {
-   "name": "sound on: Wild 2 wheel: RAIN 10 + QUAKE — no exception, the game keeps running",
-   "info": {
-    "errs": [],
-    "ended": true,
-    "gameRunning": true,
-    "stage": null,
-    "liveNodes": 138,
-    "nodesCreated": 4059
-   }
-  },
-  {
-   "name": "sound on: Wild 2 wheel: PRIZE — no exception, the game keeps running",
-   "info": {
-    "errs": [],
-    "ended": true,
-    "gameRunning": true,
-    "stage": null,
-    "liveNodes": 15,
-    "nodesCreated": 3483
-   }
-  },
-  {
-   "name": "sound on: Wild 2 wheel: JACKPOT — no exception, the game keeps running",
-   "info": {
-    "errs": [],
-    "ended": true,
-    "gameRunning": true,
-    "stage": null,
-    "liveNodes": 27,
-    "nodesCreated": 4517
-   }
-  },
-  {
-   "name": "sound on: Wild 2 wheel: YAWN — no exception, the game keeps running",
-   "info": {
-    "errs": [],
-    "ended": true,
-    "gameRunning": true,
-    "stage": null,
-    "liveNodes": 23,
-    "nodesCreated": 4057
-   }
-  },
-  {
-   "name": "sound on: Wild, perfect — no exception, the game keeps running",
-   "info": {
-    "errs": [],
-    "ended": true,
-    "gameRunning": true,
-    "stage": null,
-    "liveNodes": 28,
-    "nodesCreated": 2465
-   }
-  },
-  {
-   "name": "sound on: Wild 2 win (visitor) — no exception, the game keeps running",
-   "info": {
-    "errs": [],
-    "visitor": true,
-    "liveNodes": 0
-   }
-  }
- ],
- "failed": [
-  {
-   "name": "the star is re-dropped later, not straight away (after about 12 s)",
-   "info": {
-    "afterSec": 20
-   }
-  },
-  {
    "name": "Classic at 100% matches Kawaii pop where a phone plays (phone-band RMS within 1.5 dB)",
    "info": {
     "Classic 100% (default)": {
-     "rmsDb": -34.2,
-     "peakDb": -9.4,
-     "peak": 0.34,
-     "phoneBandRms": 0.0145
+     "rmsDb": -29.5,
+     "peakDb": -4.7,
+     "peak": 0.585,
+     "phoneBandRms": 0.025
     },
     "Classic 200%": {
-     "rmsDb": -28.2,
-     "peakDb": -3.3,
-     "peak": 0.681,
-     "phoneBandRms": 0.0291
+     "rmsDb": -23.5,
+     "peakDb": -1,
+     "peak": 0.89,
+     "phoneBandRms": 0.0497
     },
     "Kawaii pop 100%": {
      "rmsDb": -28.6,
@@ -298,6 +233,159 @@
      "phoneBandRms": 0.0073
     }
    }
+  },
+  {
+   "name": "sound on: Wild 2, imperfect — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 13,
+    "nodesCreated": 2432
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: RAIN 25 — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 64,
+    "nodesCreated": 3806
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: DANCE AGAIN — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": false,
+    "gameRunning": true,
+    "liveNodes": 7,
+    "nodesCreated": 3572
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: RAIN 10 + QUAKE — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 183,
+    "nodesCreated": 4356
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: PRIZE — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 15,
+    "nodesCreated": 3666
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: JACKPOT — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 21,
+    "nodesCreated": 4740
+   }
+  },
+  {
+   "name": "sound on: Wild 2 wheel: YAWN — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 28,
+    "nodesCreated": 4315
+   }
+  },
+  {
+   "name": "sound on: Wild, perfect — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 28,
+    "nodesCreated": 2468
+   }
+  },
+  {
+   "name": "sound on: Wild 2 win (visitor) — no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "visitor": true,
+    "liveNodes": 0
+   }
+  },
+  {
+   "name": "every tap shows an outcome: a hit, an early miss (left), a late miss (right), and a second tap on a banked beat (✕ too)",
+   "info": [
+    {
+     "hit": true,
+     "count": false,
+     "off": 0.019
+    },
+    {
+     "hit": false,
+     "count": false,
+     "off": -0.216
+    },
+    {
+     "hit": false,
+     "count": false,
+     "off": 0.233
+    },
+    {
+     "hit": true,
+     "count": false,
+     "off": -0.001
+    },
+    {
+     "hit": false,
+     "count": false,
+     "off": -0.001
+    }
+   ]
+  },
+  {
+   "name": "…and every tap that banks nothing plays the bonk",
+   "info": {
+    "bonks": 3
+   }
+  },
+  {
+   "name": "Wild 2: the last prize during a dance break holds the win; the break (all 16 beats, the payoff and the wheel) plays out; then the win",
+   "info": {
+    "heldOk": true,
+    "hits": 16,
+    "wheel": true,
+    "phase": "end",
+    "win": true
+   }
+  },
+  {
+   "name": "Wild: the last prize during a dance break holds the win; the break (all 16 beats, the pour) plays out; then the win",
+   "info": {
+    "heldOk": true,
+    "hits": 16,
+    "wheel": false,
+    "phase": "end",
+    "win": true
+   }
   }
- ]
+ ],
+ "failed": [],
+ "note": "Sections 2b (tap outcomes) and 2c (win held for the dance) were re-run with corrected checks (the first run expected a hit on a beat the off-beat cost blocks, and flagged the frame where the held win fires); results merged here."
 }

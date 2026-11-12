@@ -1,11 +1,12 @@
 // ---------- CP-41 Treat toss: a second side game on Wild 2 (UAT 45) ----------
-// A fish coin ("TREATS", a code-drawn coin like the music-note coin) arrives as a bonus drop about once a Wild 2 round.
+// A fish coin ("TREATS", a code-drawn coin like the music-note coin) arrives as a bonus drop about once a round.
 // Push it off and Treat toss starts: the round timer pauses and the cat flips treats up from behind the board in arcs
 // (the approved treat sprites as they are). Tap a treat in the air to catch it (snap and chomp, a pop, it flies to the
 // bag); a tap on empty air or a treat that falls back gets a soft whiff and a small cross. It ramps up: a few treats,
 // then more and faster, on the music's eighth-note grid. At the end, "+N TREATS!": treats the goal needs tick off the
 // collection, spares go to the pantry, and catching every one is PERFECT! (a RAIN 10 coin drops from the sky).
-// A win waits until the toss is finished. Wild 2 only; nothing else changes. Every catch and miss goes in the log.
+// A win waits until the toss is finished. It runs only in a mode that features it (wildFeature('toss')); Wild 1 and
+// Wild 2 never see a fish coin. Every catch and miss goes in the log.
 const TOSS_DEFAULTS=Object.freeze({len:8.5,count:16,speed:1,tapR:44});
 const TOSS={...TOSS_DEFAULTS},TOSS_KEY='catpusher.uat.treattoss.v1',TOSS_LOG_KEY='catpusher.uat.tosslog.v1',PANTRY_KEY='catpusher.uat.pantry.v1';
 // [min, max, step, label, unit]
@@ -116,7 +117,7 @@ function tossFinish(D){
  if(D.perfect){sfx.wild2('perfect',1);const x=200+rand(-60,60),y=rand(560,630);skyDrop('rain10',x,y,{dur:1,delay:.6});}
  tossLog(D,['end',D.caught,D.n,D.whiffs,D.dropped,D.best,D.perfect?1:0,D.newIds.length,D.pantry]);
  try{diagEvent('toss','end caught='+D.caught+'/'+D.n+' whiffs='+D.whiffs+' best='+D.best+(D.perfect?' perfect':'')+' new='+D.newIds.length+' pantry='+D.pantry);}catch(e){}
- TOSS_LOG.push({at:new Date().toISOString(),board:WILD.v2?'wild2':'wild',dials:{...TOSS},events:D.log});while(TOSS_LOG.length>3)TOSS_LOG.shift();
+ TOSS_LOG.push({at:new Date().toISOString(),board:WILD.mode||(WILD.v2?'wild2':'wild'),dials:{...TOSS},events:D.log});while(TOSS_LOG.length>3)TOSS_LOG.shift();
  try{localStorage.setItem(TOSS_LOG_KEY,JSON.stringify(TOSS_LOG));}catch(e){}
 }
 
@@ -142,9 +143,9 @@ wildRainCollected=function(b,x){
 wildScheduleBonus=function(){
  // About one fish coin a Wild 2 round: it replaces one bonus drop (the 3rd to 6th, never the music note's), unless a lost
  // prize needs replacing. If that one is lost off a side, a second can come later.
- if(WILD.v2){
-  if(WILD.fishAt==null){WILD.fishAt=3+(Math.random()*4|0);if(WILD.fishAt===WILD.noteAt)WILD.fishAt++;}
-  const noteDue=WILD.noteN===0&&WILD.bonusN+1>=WILD.noteAt;
+ if(wildFeature('toss')){
+  if(WILD.fishAt==null){WILD.fishAt=3+(Math.random()*4|0);if(wildFeature('dance')&&WILD.fishAt===WILD.noteAt)WILD.fishAt++;}
+  const noteDue=wildFeature('dance')&&WILD.noteN===0&&WILD.bonusN+1>=WILD.noteAt; // only where the music note exists
   if(!noteDue&&!wildMissing().length&&!WILD.toss&&((WILD.fishN===0&&WILD.bonusN+1>=WILD.fishAt)||(WILD.fishN===1&&WILD.tosses===0&&WILD.bonusN>=WILD.fishAt+2&&Math.random()<.25))){
    const y=rand(430,620),x=200+rand(-1,1)*(tableHalfAt(y)-50);
    WILD.incoming.push({kind:'fish',id:null,x,y,t:.9,t0:.9});WILD.bonusN++;WILD.fishN++;sfx.wild('whistle',1);return;}
@@ -155,7 +156,7 @@ wildLandBonus=function(o){__tossLand(o);if(o.kind==='fish'&&floats.length)floats
 wildTick=function(dt){
  if(!WILD.on)return __tossTickW(dt);
  const paused=inventoryOpen||panel.style.display==='block';
- if(WILD.tossForce&&WILD.v2&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.tossForce=false;if(!WILD.toss)WILD.tossPending={f:null,wait:9};}
+ if(WILD.tossForce&&wildFeature('toss')&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.tossForce=false;if(!WILD.toss)WILD.tossPending={f:null,wait:9};}
  if(WILD.tossPending&&!WILD.toss&&!paused){const P=WILD.tossPending;P.wait+=dt;const f=P.f;
   if(WILD.phase==='play'&&board.status==='playing'&&!WILD.dance&&!W2_YAWN&&sweepTime===0&&catquakeTime===0&&(!f||f.arrived||f.t>=f.tr+f.tm*.5||P.wait>1.2))tossStart();}
  if(!WILD.toss||WILD.phase!=='play'){if(WILD.toss&&WILD.phase!=='play')WILD.toss=null;return __tossTickW(dt);}
@@ -219,13 +220,13 @@ function tossDraw(){
 // --- Developer dials (Settings > Developer mode > Treat toss), saved on this phone; values go in the performance log ---
 function tossDialText(k){const [,,,label,unit]=TOSS_DIALS[k],x=TOSS[k];if(k==='speed')return label+': '+x.toFixed(1)+unit;return label+': '+(+x.toFixed(2))+unit;}
 function tossDevHtml(){const b='min-width:52px;min-height:44px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;font-size:22px';
- return '<div class="set" id="toss-dev"><h3><span>Treat toss (Wild 2)</span><span>tuning</span></h3><button id="toss-now" class="wide">Start treat toss now</button>'+
+ return '<div class="set" id="toss-dev"><h3><span>Treat toss (side game)</span><span>tuning</span></h3><button id="toss-now" class="wide">Start treat toss now</button>'+
   Object.keys(TOSS_DIALS).map(k=>'<div style="display:flex;align-items:center;gap:8px;margin:6px 0"><button data-toss="'+k+'" data-dir="-1" style="'+b+'">−</button><span style="flex:1;text-align:center">'+tossDialText(k)+'</span><button data-toss="'+k+'" data-dir="1" style="'+b+'">+</button></div>').join('')+
   '<p style="margin:4px 0;font-size:13px;opacity:.8">Pantry: '+(Object.keys(PANTRY).map(k=>(WILD_PRIZE_NAMES[k]||k)+' '+PANTRY[k]).join(', ')||'empty')+'.</p>'+
   '<button id="toss-dev-reset" class="wide">Treat toss defaults</button></div>';}
 function stepTossDial(k,dir){const [lo,hi,st]=TOSS_DIALS[k];TOSS[k]=Math.min(hi,Math.max(lo,Math.round((TOSS[k]+dir*st)*1000)/1000));tossSave();}
 function tossStartNow(){
- if(!WILD.on||!WILD.v2){if(WILD.on)wildExit();wild2Enter();}
+ if(!wildFeature('toss')){const id=WILD_MODE_ORDER.find(k=>WILD_MODES[k].features.toss);if(!id||!wildModeEnter(id))return;}
  if(WILD.phase==='card'||WILD.phase==='end'){if(WILD.phase==='end')wildReset();WILD.tossForce=true;wildStartCountdown();}
  else if(!WILD.toss)WILD.tossForce=true;
  panel.style.display='none';try{diagEvent('toss-tuning','start-now');}catch(e){}

@@ -36596,7 +36596,7 @@ function drawBoardHUD(){
  ctx.textAlign='left';ctx.font='bold 12px system-ui';ctx.fillStyle='#fff';if(WILD&&WILD.on)drawWildHud(hud);else ctx.fillText(S.coins<REGEN_CAP?'+1 '+purseCountdown():'Purse full',hud.left+12,hud.bannerY);
  if(sweepTime>0||catquakeTime>0||isRestPose())drawPaws();drawPawTouchGuides();drawTickleWords();drawPowerButtons();
  const bottom=hud.bottomY;ctx.textAlign='left';ctx.font='12px system-ui';for(let i=0;i<BOARD.targets.length;i++){const item=BOARD.targets[i],got=board.collected.includes(item.id);ctx.fillStyle=got?'#7dff6a':'#fff0d0';ctx.fillText((got?'✓ ':'')+ITEMS[item.id].name,hud.left+20,bottom+7+i*17);}
- ctx.textAlign='center';ctx.font='bold 12px system-ui';ctx.fillStyle='#fff0cc';ctx.fillText(WILD&&WILD.on?(WILD.v2?'WILD 2':'WILD BOARD'):'BOARD '+(boardIndex+1)+' / '+BOARDS.length,W-hud.right-77,bottom+8);ctx.font='12px system-ui';const message=WILD&&WILD.on?wildMessage():saveError?'Save unavailable':S.coins===0?'More coins in '+purseCountdown():board.status==='won'?'Next board soon…':board.status==='lost'?'Retrying this board…':board.status==='ready'?'Tap or hold':'Slide to aim';ctx.fillText(message,W-hud.right-77,bottom+28,130);
+ ctx.textAlign='center';ctx.font='bold 12px system-ui';ctx.fillStyle='#fff0cc';ctx.fillText(WILD&&WILD.on?(WILD.v2?wildModeName():'WILD BOARD'):'BOARD '+(boardIndex+1)+' / '+BOARDS.length,W-hud.right-77,bottom+8);ctx.font='12px system-ui';const message=WILD&&WILD.on?wildMessage():saveError?'Save unavailable':S.coins===0?'More coins in '+purseCountdown():board.status==='won'?'Next board soon…':board.status==='lost'?'Retrying this board…':board.status==='ready'?'Tap or hold':'Slide to aim';ctx.fillText(message,W-hud.right-77,bottom+28,130);
  drawWildButton();drawInventoryButton();ctx.fillStyle='rgba(18,11,28,.96)';ctx.fillRect(hud.left+2,hud.settingsY-10,242,22);ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.textAlign='left';ctx.fillText(BUILD,hud.left+8,hud.settingsY);if(S.dev){ctx.fillStyle='rgba(18,11,28,.96)';ctx.fillRect(hud.left+2,hud.bottomY-29,W-hud.left-hud.right-4,15);ctx.fillStyle='#fff';ctx.font='10px system-ui';ctx.fillText(Math.round(perf.fps)+' fps | physics '+perf.physics.toFixed(1)+' ms | draw '+perf.draw.toFixed(1)+' ms | '+bodies.filter(coinSolid).length+' coins',hud.left+8,hud.bottomY-21);}
  ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('Settings',hud.settingsX,hud.settingsY);drawSafeAreaGuides();if(inventoryOpen)drawInventory();
 }
@@ -37346,7 +37346,7 @@ function danceSpawn(kind){
  b.rb.enableCcd(true);b.deliveryStartHeight=h;b.wildBonus=true;b.wildLandAt=time;
  const p=screenOf(x,y,0);rings.push({x:p.x,y:p.y,t:0,s:p.s});sfx.wild('thud',.8);
 }
-function danceFill(n,x){
+function danceFill(n,x){if(!wildFeature('dance'))return; // CP-41: modes without the Dance break
  const before=WILD.happy;WILD.happy=Math.min(DANCE.notches,WILD.happy+n);if(WILD.happy===before)return;WILD.happyT=0;
  if(WILD.happy>=DANCE.notches){sfx.dance('full',1);if(!WILD.dancePending)WILD.dancePending={f:treatAwards[treatAwards.length-1]||null,wait:0};}
  else sfx.dance('notch',1,0,WILD.happy);
@@ -37365,7 +37365,7 @@ wildRainCollected=function(b,x){
 };
 wildScheduleBonus=function(){
  // About one music-note coin a round: it replaces one bonus drop (between the 2nd and 5th), unless a lost prize needs replacing.
- if(!wildMissing().length&&((WILD.noteN===0&&WILD.bonusN+1>=WILD.noteAt)||(WILD.noteN===1&&Math.random()<.06))){
+ if(wildFeature('dance')&&!wildMissing().length&&((WILD.noteN===0&&WILD.bonusN+1>=WILD.noteAt)||(WILD.noteN===1&&Math.random()<.06))){
   const y=rand(430,620),x=200+rand(-1,1)*(tableHalfAt(y)-50);
   WILD.incoming.push({kind:'note',id:null,x,y,t:.9,t0:.9});WILD.bonusN++;WILD.noteN++;sfx.wild('whistle',1);return;
  }
@@ -37394,7 +37394,7 @@ wildPointer=function(e,p){
 };
 const DANCE_LANE_Y=468;
 drawWildHud=function(hud){
- __danceHud(hud);
+ __danceHud(hud);if(!wildFeature('dance'))return;
  // the happy meter, right of the power buttons
  const n=DANCE.notches,full=WILD.happy>=n||!!WILD.dance,x0=W-Math.max(8,hud.right+10)-124,y=hud.bannerY,w=124,seg=(w-24)/n;
  ctx.save();ctx.textBaseline='middle';ctx.textAlign='left';
@@ -37834,8 +37834,8 @@ const __c41CardRects=wildCardRects;
 function w2CardLayout(){
  // fits the screen: taller screens get more room per line, a 720-tall screen still fits
  const top=Math.max(hudLayout().headerBottom-30,40),bottom=H-Math.max(28,hudLayout().bottom+24),room=bottom-top;
- const row=Math.max(38,Math.min(60,(room-334)/W2_CARD_LINES.length)),h=Math.min(room,334+row*W2_CARD_LINES.length),y=top+(room-h)/2;
- const linesY=y+190,s=linesY+row*W2_CARD_LINES.length+30;
+ const row=Math.max(38,Math.min(60,(room-334)/wildCardLines().length)),h=Math.min(room,334+row*wildCardLines().length),y=top+(room-h)/2;
+ const linesY=y+190,s=linesY+row*wildCardLines().length+30;
  return {card:{x:14,y,w:372,h},row,linesY,start:{x:46,y:s,w:308,h:70},back:{x:120,y:s+80,w:160,h:30}};
 }
 wildCardRects=function(){if(!WILD.v2)return __c41CardRects();const L=w2CardLayout();return {card:L.card,go:L.card,back:L.back};};
@@ -37861,14 +37861,14 @@ function drawWild2Card(){
  const L=w2CardLayout(),R=L.card,pop=Math.min(1,WILD.cardT/.25),k=.7+.3*(1-Math.pow(1-pop,3)),cy=R.y+R.h/2;
  ctx.fillStyle='rgba(12,6,24,'+(.7*pop)+')';ctx.fillRect(0,0,W,H);
  ctx.save();ctx.translate(200,cy);ctx.scale(k,k);ctx.translate(-200,-cy);ctx.textAlign='center';ctx.textBaseline='middle';
- wildPanel(R,'#4b1f6e','#1d0f33');
- wildText('WILD 2',200,R.y+40,46,'#a6ff6a','#10301a',8);
+ wildPanel(R,...wildModePanel());
+ wildText(wildModeName(),200,R.y+40,46,wildModeColor(0),wildModeColor(1),8);
  ctx.fillStyle='#ffd23f';ctx.font='900 24px Impact, "Arial Black", system-ui';ctx.fillText('GOAL: COLLECT ALL '+WILD_GOAL+' PRIZES',200,R.y+84,350);
  WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(WILD_GOAL-1)/2)*44,R.y+112,38,false));
  ctx.fillStyle='#fff';ctx.font='bold 16px system-ui';ctx.fillText('before the '+WILD_SECONDS+' s timer or your coins run out',200,R.y+166,350);
  // one line per idea, icon on the left
  const big=L.row>=44;
- W2_CARD_LINES.forEach(([ic,a,b],i)=>{const y=L.linesY+i*L.row+L.row/2;if(i===4){ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(44,y-L.row/2);ctx.lineTo(356,y-L.row/2);ctx.stroke();}
+ wildCardLines().forEach(([ic,a,b],i)=>{const y=L.linesY+i*L.row+L.row/2;if(i===4){ctx.strokeStyle='rgba(255,255,255,.18)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(44,y-L.row/2);ctx.lineTo(356,y-L.row/2);ctx.stroke();}
   w2CardIcon(ic,62,y);ctx.textAlign='left';ctx.fillStyle='#fff';ctx.font='bold '+(big?18:16)+'px system-ui';
   if(big){ctx.fillText(a,96,y-10,280);ctx.fillStyle='#ffe08a';ctx.font='bold 16px system-ui';ctx.fillText(b,96,y+11,280);}
   else{ctx.fillText(a+' '+b,96,y,282);}
@@ -37882,14 +37882,79 @@ function drawWild2Card(){
 }
 const __c41Draw=wildDraw;
 wildDraw=function(){__c41Draw();if(WILD.on&&WILD.v2&&WILD.phase==='card'&&!inventoryOpen){ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);drawWild2Card();ctx.restore();}};
+// ---------- CP-41 Game modes (UAT 45): a pattern for modes built on Wild 2 ----------
+// A mode is a set of settings on top of Wild 2 (its goal card, timer, rain coins, bonus drops, towers, Turbo, music, win
+// and lose cards and the visitor): a name and colours, its goal-card lines, and which side games it features. Side games
+// are self-contained pieces that check wildFeature('<name>'). Wild 1 and Wild 2 have no mode and keep exactly what they
+// had (the Dance break); a mode turns on only what it lists. Modes are started from the MODES picker in the header.
+// To add a mode: registerWildMode({id, name, button, colors, features:{...}, cardLines:[[icon,line1,line2],...], icon(x,y)}).
+const WILD_MODES={},WILD_MODE_ORDER=[];
+function registerWildMode(m){if(!WILD_MODES[m.id])WILD_MODE_ORDER.push(m.id);WILD_MODES[m.id]=m;}
+WILD.mode=null;
+function wildMode(){return WILD.on&&WILD.mode?WILD_MODES[WILD.mode]||null:null;}
+// No mode (Wild 1, Wild 2): the Dance break only. A mode: exactly the side games it lists.
+function wildFeature(f){const m=wildMode();return m?!!(m.features&&m.features[f]):f==='dance';}
+function wildModeName(){const m=wildMode();return m?m.name:'WILD 2';}
+function wildModeColor(i){const m=wildMode();return m?m.colors[i]:['#a6ff6a','#10301a'][i];}
+function wildModePanel(){const m=wildMode();return m&&m.panel?m.panel:['#4b1f6e','#1d0f33'];}
+function wildCardLines(){const m=wildMode();return m?m.cardLines:W2_CARD_LINES;}
+function wildModeEnter(id){
+ if(!WILD_MODES[id])return false;MODES_UI.open=false;
+ if(WILD.on)wildExit();
+ if(!wild2Enter())return false;WILD.mode=id;
+ try{diagEvent('mode','enter '+id);}catch(e){}return true;
+}
+const __modesExit=wildExit;
+wildExit=function(){const r=__modesExit();WILD.mode=null;return r;};
+
+// --- the MODES button (header, second row, right; normal board only) and the picker ---
+const MODES_UI={open:false,t:0};
+function modesButton(){const h=hudLayout();return {x:W-Math.max(8,h.right+10)-80,y:h.bannerY-12,w:80,h:24};}
+function modesPickerRects(){const n=WILD_MODE_ORDER.length,top=Math.max(hudLayout().headerBottom+20,120),rows=WILD_MODE_ORDER.map((id,i)=>({id,x:34,y:top+64+i*84,w:332,h:72}));
+ return {card:{x:20,y:top,w:360,h:96+n*84+44},rows,close:{x:140,y:top+64+n*84+8,w:120,h:30}};}
+function drawModesButton(){
+ if(inventoryOpen||WILD.on||!WILD_MODE_ORDER.length)return;const b=modesButton(),pulse=.5+.5*Math.sin(performance.now()/300+.8);
+ ctx.save();uiRound(b.x,b.y,b.w,b.h,12,MODES_UI.open?'#5ef0c0':'rgba(20,60,60,.92)','rgba(94,240,192,'+(.55+.45*pulse)+')',2);
+ ctx.fillStyle=MODES_UI.open?'#0b2a2a':'#d8fff2';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 13px Impact, "Arial Black", system-ui';ctx.fillText('MODES',b.x+b.w/2-7,b.y+b.h/2+1);const tx=b.x+b.w-15,ty=b.y+b.h/2;ctx.beginPath();ctx.moveTo(tx-5,ty-2.5);ctx.lineTo(tx+5,ty-2.5);ctx.lineTo(tx,ty+3.5);ctx.closePath();ctx.fill();ctx.restore();
+}
+function drawModesPicker(){
+ if(!MODES_UI.open||WILD.on||inventoryOpen)return;const R=modesPickerRects(),u=Math.min(1,MODES_UI.t/.2),k=.85+.15*(1-Math.pow(1-u,3));
+ ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
+ ctx.globalAlpha=u;ctx.fillStyle='rgba(12,6,24,.6)';ctx.fillRect(0,0,W,H);
+ const cy=R.card.y+R.card.h/2;ctx.translate(200,cy);ctx.scale(k,k);ctx.translate(-200,-cy);
+ wildPanel(R.card,'#1f4a4e','#0d2224');wildText('GAME MODES',200,R.card.y+34,32,'#5ef0c0','#0b2a2a',6);
+ for(const r of R.rows){const m=WILD_MODES[r.id];uiRound(r.x,r.y,r.w,r.h,16,m.colors[2]||'#2a5a5e',m.colors[0],2);
+  if(m.icon)m.icon(r.x+38,r.y+r.h/2);ctx.textAlign='left';wildText(m.name,r.x+76,r.y+24,24,m.colors[0],m.colors[1],5);
+  ctx.textAlign='left';ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText(m.blurb,r.x+76,r.y+52,r.w-90);ctx.textAlign='center';}
+ uiRound(R.close.x,R.close.y,R.close.w,R.close.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 14px system-ui';ctx.fillText('Close',200,R.close.y+R.close.h/2+1);
+ ctx.restore();
+}
+const __modesBtn=drawWildButton,__modesDraw=draw,__modesPointer=wildPointer,__modesUpdate=update,__modesIcon=w2CardIcon;
+drawWildButton=function(){__modesBtn();drawModesButton();};
+draw=function(){__modesDraw();try{drawModesPicker();}catch(e){}};
+update=function(dt){__modesUpdate(dt);if(MODES_UI.open)MODES_UI.t+=dt;};
+wildPointer=function(e,p){
+ if(!WILD.on&&world&&!inventoryOpen){
+  if(MODES_UI.open){const R=modesPickerRects();for(const r of R.rows)if(contains(r,p)){sfx.wild('beep',1);wildModeEnter(r.id);return true;}
+   MODES_UI.open=false;return true;} // Close, or a tap anywhere else, closes it
+  if(WILD_MODE_ORDER.length&&contains(modesButton(),p)){MODES_UI.open=true;MODES_UI.t=0;sfx.wild('beep',.6);return true;}
+ }
+ return __modesPointer(e,p);
+};
+// Goal-card icons a mode can use besides Wild 2's (the fish coin is drawn by its own module).
+w2CardIcon=function(kind,x,y){
+ const m=wildMode();if(m&&m.cardIcon&&m.cardIcon(kind,x,y))return;
+ return __modesIcon(kind,x,y);
+};
 // ---------- CP-41 Treat toss: a second side game on Wild 2 (UAT 45) ----------
-// A fish coin ("TREATS", a code-drawn coin like the music-note coin) arrives as a bonus drop about once a Wild 2 round.
+// A fish coin ("TREATS", a code-drawn coin like the music-note coin) arrives as a bonus drop about once a round.
 // Push it off and Treat toss starts: the round timer pauses and the cat flips treats up from behind the board in arcs
 // (the approved treat sprites as they are). Tap a treat in the air to catch it (snap and chomp, a pop, it flies to the
 // bag); a tap on empty air or a treat that falls back gets a soft whiff and a small cross. It ramps up: a few treats,
 // then more and faster, on the music's eighth-note grid. At the end, "+N TREATS!": treats the goal needs tick off the
 // collection, spares go to the pantry, and catching every one is PERFECT! (a RAIN 10 coin drops from the sky).
-// A win waits until the toss is finished. Wild 2 only; nothing else changes. Every catch and miss goes in the log.
+// A win waits until the toss is finished. It runs only in a mode that features it (wildFeature('toss')); Wild 1 and
+// Wild 2 never see a fish coin. Every catch and miss goes in the log.
 const TOSS_DEFAULTS=Object.freeze({len:8.5,count:16,speed:1,tapR:44});
 const TOSS={...TOSS_DEFAULTS},TOSS_KEY='catpusher.uat.treattoss.v1',TOSS_LOG_KEY='catpusher.uat.tosslog.v1',PANTRY_KEY='catpusher.uat.pantry.v1';
 // [min, max, step, label, unit]
@@ -38000,7 +38065,7 @@ function tossFinish(D){
  if(D.perfect){sfx.wild2('perfect',1);const x=200+rand(-60,60),y=rand(560,630);skyDrop('rain10',x,y,{dur:1,delay:.6});}
  tossLog(D,['end',D.caught,D.n,D.whiffs,D.dropped,D.best,D.perfect?1:0,D.newIds.length,D.pantry]);
  try{diagEvent('toss','end caught='+D.caught+'/'+D.n+' whiffs='+D.whiffs+' best='+D.best+(D.perfect?' perfect':'')+' new='+D.newIds.length+' pantry='+D.pantry);}catch(e){}
- TOSS_LOG.push({at:new Date().toISOString(),board:WILD.v2?'wild2':'wild',dials:{...TOSS},events:D.log});while(TOSS_LOG.length>3)TOSS_LOG.shift();
+ TOSS_LOG.push({at:new Date().toISOString(),board:WILD.mode||(WILD.v2?'wild2':'wild'),dials:{...TOSS},events:D.log});while(TOSS_LOG.length>3)TOSS_LOG.shift();
  try{localStorage.setItem(TOSS_LOG_KEY,JSON.stringify(TOSS_LOG));}catch(e){}
 }
 
@@ -38026,9 +38091,9 @@ wildRainCollected=function(b,x){
 wildScheduleBonus=function(){
  // About one fish coin a Wild 2 round: it replaces one bonus drop (the 3rd to 6th, never the music note's), unless a lost
  // prize needs replacing. If that one is lost off a side, a second can come later.
- if(WILD.v2){
-  if(WILD.fishAt==null){WILD.fishAt=3+(Math.random()*4|0);if(WILD.fishAt===WILD.noteAt)WILD.fishAt++;}
-  const noteDue=WILD.noteN===0&&WILD.bonusN+1>=WILD.noteAt;
+ if(wildFeature('toss')){
+  if(WILD.fishAt==null){WILD.fishAt=3+(Math.random()*4|0);if(wildFeature('dance')&&WILD.fishAt===WILD.noteAt)WILD.fishAt++;}
+  const noteDue=wildFeature('dance')&&WILD.noteN===0&&WILD.bonusN+1>=WILD.noteAt; // only where the music note exists
   if(!noteDue&&!wildMissing().length&&!WILD.toss&&((WILD.fishN===0&&WILD.bonusN+1>=WILD.fishAt)||(WILD.fishN===1&&WILD.tosses===0&&WILD.bonusN>=WILD.fishAt+2&&Math.random()<.25))){
    const y=rand(430,620),x=200+rand(-1,1)*(tableHalfAt(y)-50);
    WILD.incoming.push({kind:'fish',id:null,x,y,t:.9,t0:.9});WILD.bonusN++;WILD.fishN++;sfx.wild('whistle',1);return;}
@@ -38039,7 +38104,7 @@ wildLandBonus=function(o){__tossLand(o);if(o.kind==='fish'&&floats.length)floats
 wildTick=function(dt){
  if(!WILD.on)return __tossTickW(dt);
  const paused=inventoryOpen||panel.style.display==='block';
- if(WILD.tossForce&&WILD.v2&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.tossForce=false;if(!WILD.toss)WILD.tossPending={f:null,wait:9};}
+ if(WILD.tossForce&&wildFeature('toss')&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.tossForce=false;if(!WILD.toss)WILD.tossPending={f:null,wait:9};}
  if(WILD.tossPending&&!WILD.toss&&!paused){const P=WILD.tossPending;P.wait+=dt;const f=P.f;
   if(WILD.phase==='play'&&board.status==='playing'&&!WILD.dance&&!W2_YAWN&&sweepTime===0&&catquakeTime===0&&(!f||f.arrived||f.t>=f.tr+f.tm*.5||P.wait>1.2))tossStart();}
  if(!WILD.toss||WILD.phase!=='play'){if(WILD.toss&&WILD.phase!=='play')WILD.toss=null;return __tossTickW(dt);}
@@ -38103,13 +38168,13 @@ function tossDraw(){
 // --- Developer dials (Settings > Developer mode > Treat toss), saved on this phone; values go in the performance log ---
 function tossDialText(k){const [,,,label,unit]=TOSS_DIALS[k],x=TOSS[k];if(k==='speed')return label+': '+x.toFixed(1)+unit;return label+': '+(+x.toFixed(2))+unit;}
 function tossDevHtml(){const b='min-width:52px;min-height:44px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;font-size:22px';
- return '<div class="set" id="toss-dev"><h3><span>Treat toss (Wild 2)</span><span>tuning</span></h3><button id="toss-now" class="wide">Start treat toss now</button>'+
+ return '<div class="set" id="toss-dev"><h3><span>Treat toss (side game)</span><span>tuning</span></h3><button id="toss-now" class="wide">Start treat toss now</button>'+
   Object.keys(TOSS_DIALS).map(k=>'<div style="display:flex;align-items:center;gap:8px;margin:6px 0"><button data-toss="'+k+'" data-dir="-1" style="'+b+'">−</button><span style="flex:1;text-align:center">'+tossDialText(k)+'</span><button data-toss="'+k+'" data-dir="1" style="'+b+'">+</button></div>').join('')+
   '<p style="margin:4px 0;font-size:13px;opacity:.8">Pantry: '+(Object.keys(PANTRY).map(k=>(WILD_PRIZE_NAMES[k]||k)+' '+PANTRY[k]).join(', ')||'empty')+'.</p>'+
   '<button id="toss-dev-reset" class="wide">Treat toss defaults</button></div>';}
 function stepTossDial(k,dir){const [lo,hi,st]=TOSS_DIALS[k];TOSS[k]=Math.min(hi,Math.max(lo,Math.round((TOSS[k]+dir*st)*1000)/1000));tossSave();}
 function tossStartNow(){
- if(!WILD.on||!WILD.v2){if(WILD.on)wildExit();wild2Enter();}
+ if(!wildFeature('toss')){const id=WILD_MODE_ORDER.find(k=>WILD_MODES[k].features.toss);if(!id||!wildModeEnter(id))return;}
  if(WILD.phase==='card'||WILD.phase==='end'){if(WILD.phase==='end')wildReset();WILD.tossForce=true;wildStartCountdown();}
  else if(!WILD.toss)WILD.tossForce=true;
  panel.style.display='none';try{diagEvent('toss-tuning','start-now');}catch(e){}
@@ -38121,6 +38186,20 @@ wildDevBind=function(panel){__tossDevBind(panel);const box=panel.querySelector&&
  for(const btn of box.querySelectorAll('[data-toss]'))btn.onclick=()=>{stepTossDial(btn.dataset.toss,+btn.dataset.dir);try{diagEvent('toss-tuning',btn.dataset.toss+'='+TOSS[btn.dataset.toss]);}catch(e){}reopen();};
  box.querySelector('#toss-now').onclick=tossStartNow;
  box.querySelector('#toss-dev-reset').onclick=()=>{Object.assign(TOSS,TOSS_DEFAULTS);try{localStorage.removeItem(TOSS_KEY);}catch(e){}reopen();};};
+// ---------- CP-41 the Treat toss mode (UAT 45) ----------
+// Wild 2's board and goal with Treat toss as its featured side game instead of the Dance break (no happy meter, no
+// music-note coin). The fish coin starts it. The Tuxedo runs it for now (no new cat art).
+registerWildMode({id:'treats',name:'TREAT TOSS',blurb:'Catch treats the cat flips into the air',
+ colors:['#5ef0c0','#0b2a2a','#173f42'],panel:['#1f5a5c','#0b2224'],features:{toss:true},
+ cardLines:[['fish','Push the fish coin off','and the cat tosses treats!'],['catch','Tap treats in the air','to catch them'],['perfect','Catch every one','for a RAIN 10 coin'],
+  ['visitor','Win','and a cat comes to visit'],['rain10','Rain coins pour','5, 10 or 25 coins'],['!','Bonus drops','fall from the sky']],
+ icon(x,y){const sp=sprite('fish');ctx.drawImage(sp.cv,x-24,y-24,48,48);},
+ cardIcon(kind,x,y){
+  if(kind==='fish'){const sp=sprite('fish');ctx.drawImage(sp.cv,x-17,y-17,34,34);return true;}
+  if(kind==='catch'){const g=tossGlow();ctx.drawImage(g,x-22,y-22,44,44);drawPrize('item','shrimp',x,y+6,30/prizeWidth('shrimp',1));ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x+12,y-10,6,0,7);ctx.stroke();return true;}
+  if(kind==='perfect'){wildText('×16',x,y,18,'#7dff6a','#0c3a12',4);return true;}
+  return false;}
+});
 // Local UAT diagnostics: bounded numeric data, no network and no gameplay state writes.
 const DIAG_KEY='catpusher.uat.diagnostics.v1';
 const DIAG_SAMPLE_COLUMNS=['atSec','elapsedMs','frames','fps','physicsMsPerFrame','drawMsPerFrame','maxFrameMs','framesOver25Ms','stepsPerFrame','coins','board','screen','heldFrames','heldElapsedMs','heldPhysicsTotalMs','heldDrawTotalMs','nonActivePlayFrames'];
@@ -38293,7 +38372,7 @@ window.__game = {
 
 
 
-  get inventoryOpen(){return inventoryOpen;}, openInventory(){openLoopScreen('inventory');}, closeInventory(){closeCollectionScreen();}, openLoopScreen, screenTap, placeItem, get collectionPayoff(){return collectionPayoff;}, get collectionDance(){return collectionDance;}, get pendingCollectionDance(){return pendingCollectionDance;}, collectionPurseDisplay, screenLayout, collectionGeometry, collectionsTile, inventoryGrid, inventoryButton, powerButtons, powerCount, powerEnabled, reconcileBoardTargets, retryBoard, queueTreatAward, queueLostPrize, previewPickup, previewLostPrize, previewQuakePickup, quakeButtonScale, quakeTarget, pickupCentre, shownPowerCount, quakeInFlight, get quakeBounceT(){return quakeBounceT;}, pickupFx, stepPickupFx, resetPickupFx, inventoryTileScale, pickupPoint, pickupTarget, prizeWidth, backdropLevel, bigQuakeSprite, panelHalf, PANEL, PANEL_MARGIN, get tileBounceT(){return tileBounceT;}, get sparkles(){return sparkles;}, get lostFx(){return lostFx;}, get treatAwards(){return treatAwards;}, PICKUP_FX_DEFAULTS, PICKUP_FX_ORDER, TOSS, tossStartNow, tossTap, tossPos, get TOSS_LOG(){return TOSS_LOG;}, get PANTRY(){return PANTRY;}, popPoint, POP_RISE, popSpot, sfx, get WILD(){return WILD;}, wildEnter, wildExit, wildReset, wildStartCountdown, wildFinish, wildPointer, wildButton, wildCardRects, wildEndRects, RAIN, get collectionDrag(){return collectionDrag;}, placements, collectionPaid, emptyPurse, get streamPointer(){return streamPointer;}, get dropInterval(){return DROP_INTERVAL;}, regen, load, fallOff, gutterOff,
+  get inventoryOpen(){return inventoryOpen;}, openInventory(){openLoopScreen('inventory');}, closeInventory(){closeCollectionScreen();}, openLoopScreen, screenTap, placeItem, get collectionPayoff(){return collectionPayoff;}, get collectionDance(){return collectionDance;}, get pendingCollectionDance(){return pendingCollectionDance;}, collectionPurseDisplay, screenLayout, collectionGeometry, collectionsTile, inventoryGrid, inventoryButton, powerButtons, powerCount, powerEnabled, reconcileBoardTargets, retryBoard, queueTreatAward, queueLostPrize, previewPickup, previewLostPrize, previewQuakePickup, quakeButtonScale, quakeTarget, pickupCentre, shownPowerCount, quakeInFlight, get quakeBounceT(){return quakeBounceT;}, pickupFx, stepPickupFx, resetPickupFx, inventoryTileScale, pickupPoint, pickupTarget, prizeWidth, backdropLevel, bigQuakeSprite, panelHalf, PANEL, PANEL_MARGIN, get tileBounceT(){return tileBounceT;}, get sparkles(){return sparkles;}, get lostFx(){return lostFx;}, get treatAwards(){return treatAwards;}, PICKUP_FX_DEFAULTS, PICKUP_FX_ORDER, TOSS, tossStartNow, tossTap, tossPos, wildModeEnter, modesButton, modesPickerRects, get MODES_UI(){return MODES_UI;}, get TOSS_LOG(){return TOSS_LOG;}, get PANTRY(){return PANTRY;}, popPoint, POP_RISE, popSpot, sfx, get WILD(){return WILD;}, wildEnter, wildExit, wildReset, wildStartCountdown, wildFinish, wildPointer, wildButton, wildCardRects, wildEndRects, RAIN, get collectionDrag(){return collectionDrag;}, placements, collectionPaid, emptyPurse, get streamPointer(){return streamPointer;}, get dropInterval(){return DROP_INTERVAL;}, regen, load, fallOff, gutterOff,
 
 
 

@@ -1,0 +1,26 @@
+[
+ {
+  "board": "b2",
+  "seed": 4,
+  "side": 18,
+  "sidePrize": 0,
+  "front": 61,
+  "frontPrize": 2,
+  "hang": 0,
+  "prizes": {},
+  "used": 258,
+  "coinsLeft": 802
+ },
+ {
+  "board": "b2",
+  "seed": 5,
+  "side": 10,
+  "sidePrize": 0,
+  "front": 48,
+  "frontPrize": 2,
+  "hang": 0,
+  "prizes": {},
+  "used": 258,
+  "coinsLeft": 789
+ }
+]
