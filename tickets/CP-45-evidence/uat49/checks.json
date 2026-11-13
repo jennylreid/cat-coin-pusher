@@ -1,0 +1,497 @@
+{
+ "passed": [
+  {
+   "name": "build label",
+   "info": "2026.11.13 UAT 49"
+  },
+  {
+   "name": "the game opens on Home; a new save has only the Tuxedo board, level 1",
+   "info": {
+    "screen": "home",
+    "on": false,
+    "level": 1,
+    "open": {
+     "tuxedo": 1
+    },
+    "order": [
+     "tuxedo"
+    ]
+   }
+  },
+  "a locked door (Kitchen, level 2) stays shut and says so",
+  "tapping the cat: it reacts (sweet face, hearts, a meow)",
+  {
+   "name": "Home draws without errors",
+   "info": []
+  },
+  {
+   "name": "UAT 48 save: 500 coins and 12 tuna become 9 tuna (cap) + 3 × 15 coins",
+   "info": {
+    "coins": 545,
+    "items": {
+     "cheese": 2,
+     "shrimp": 0,
+     "tuna": 9
+    },
+    "m": {
+     "coins": 500,
+     "extra": 45,
+     "at": "2026-10-10T16:00:00.016Z"
+    }
+   }
+  },
+  {
+   "name": "each cat board drops 2 prizes no other board drops (map section 4) plus the 5 shared ones",
+   "info": {
+    "tuxedo": [
+     "bowtie",
+     "notes",
+     "biscuit",
+     "milk",
+     "egg",
+     "feather",
+     "sardine"
+    ],
+    "orange": [
+     "tuna",
+     "yarn",
+     "biscuit",
+     "milk",
+     "egg",
+     "feather",
+     "sardine"
+    ],
+    "ragdoll": [
+     "cheese",
+     "cushion",
+     "biscuit",
+     "milk",
+     "egg",
+     "feather",
+     "sardine"
+    ],
+    "siamese": [
+     "shrimp",
+     "bell",
+     "biscuit",
+     "milk",
+     "egg",
+     "feather",
+     "sardine"
+    ],
+    "tortie": [
+     "mouse",
+     "duck",
+     "biscuit",
+     "milk",
+     "egg",
+     "feather",
+     "sardine"
+    ]
+   }
+  },
+  {
+   "name": "every recipe needs a prize from another cat's board (or the Shop)",
+   "info": [
+    {
+     "id": "tunadish",
+     "cat": "orange",
+     "other": [
+      "notes"
+     ]
+    },
+    {
+     "id": "cheeseplate",
+     "cat": "ragdoll",
+     "other": [
+      "yarn"
+     ]
+    },
+    {
+     "id": "skewers",
+     "cat": "siamese",
+     "other": [
+      "notes"
+     ]
+    },
+    {
+     "id": "fishpie",
+     "cat": "tortie",
+     "other": [
+      "bell"
+     ]
+    },
+    {
+     "id": "supper",
+     "cat": "tuxedo",
+     "other": [
+      "cushion"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "board matching: Tuxedo Wild 2, Orange Treat toss, Ragdoll Cozy, Siamese Laser, Tortie Tower wall",
+   "info": {
+    "tuxedo": null,
+    "orange": "treats",
+    "ragdoll": "cozy",
+    "siamese": "laser",
+    "tortie": "towers"
+   }
+  },
+  {
+   "name": "round lists are 5-7 prizes and lean toward what the recipe needs (notes, biscuit, milk) over the rest",
+   "info": {
+    "cnt": {
+     "milk": 289,
+     "notes": 289,
+     "biscuit": 286,
+     "egg": 140,
+     "bowtie": 217,
+     "sardine": 136,
+     "feather": 143
+    },
+    "lens": [
+     5,
+     6,
+     7
+    ]
+   }
+  },
+  {
+   "name": "PLAY opens the Tuxedo board (Wild 2) with a 5-prize list from its pool and the star on the list",
+   "info": {
+    "screen": "board",
+    "on": true,
+    "v2": true,
+    "mode": null,
+    "list": [
+     "bowtie",
+     "notes",
+     "biscuit",
+     "egg",
+     "milk"
+    ],
+    "goal": 5,
+    "star": "notes"
+   }
+  },
+  "the goal card has no visitor line; the stars line instead",
+  {
+   "name": "a round gives XP, coins to the jar and its prizes to the pantry",
+   "info": {
+    "res": {
+     "stars": 0,
+     "xp": 26,
+     "coins": 44,
+     "nip": 0,
+     "level": 0,
+     "lv": 1
+    },
+    "got": 4,
+    "have": {
+     "bowtie": true,
+     "egg": true,
+     "biscuit": true,
+     "milk": true
+    },
+    "items": {
+     "cheese": 0,
+     "shrimp": 0,
+     "tuna": 0,
+     "bowtie": 2,
+     "egg": 1,
+     "biscuit": 1,
+     "milk": 1
+    },
+    "coins": 264,
+    "xp": 26,
+    "level": 1,
+    "rounds": 1
+   }
+  },
+  "no visiting-cat card after the round",
+  "the end card's Home button goes Home; the board's art is the original again",
+  {
+   "name": "XP levels up (level 2 opens Kitchen, Porch, Shop and the Tuna dish)",
+   "info": {
+    "level": 3,
+    "recipes": {
+     "tunadish": 1,
+     "cheeseplate": 1
+    }
+   }
+  },
+  {
+   "name": "round and Home: no errors with sound on",
+   "info": {
+    "errs": [],
+    "nodes": 14811
+   }
+  },
+  "stars: win with 10 s left = 1, 25 s = 2, 25 s and a perfect dance = 3, a loss = 0",
+  "the Kitchen door opens the Kitchen",
+  "COOK starts the pot with 4 ingredients on the shelf",
+  {
+   "name": "tapping each ingredient drops it in the pot (plop), then STIR",
+   "info": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "stirring in circles cooks it: DING, a Tuna dish; ingredients used and the recipe used up",
+   "info": {
+    "stage": "ding",
+    "dishes": {
+     "tunadish": 1
+    },
+    "items": {
+     "tuna": 0,
+     "notes": 0,
+     "biscuit": 1,
+     "milk": 0
+    },
+    "recipe": 0
+   }
+  },
+  "SET IT ON THE PORCH goes to the Porch with the dish picker open",
+  "picking the dish sets it on spot 1",
+  {
+   "name": "Kitchen and Porch: no errors with sound on",
+   "info": []
+  },
+  "during a round: \"Someone ate the tuna 🐾\" below the cat's chin",
+  "the Porch door has a paw print while a cat is there",
+  {
+   "name": "📷: shutter, flash, the photo flies to the Album; the Orange coin can now drop",
+   "info": {
+    "photos": {
+     "orange": 1
+    },
+    "ready": {
+     "orange": 1
+    },
+    "state": "photo",
+    "fly": true
+   }
+  },
+  {
+   "name": "a visit missed (window passed while away): paw prints, food gone",
+   "info": [
+    null,
+    {
+     "dish": "tunadish",
+     "cat": "orange",
+     "setAt": 1791648000050,
+     "eatAt": 1791648008050,
+     "leaveAt": 1791648068050,
+     "state": "missed",
+     "arrive": 3.099999999999994
+    }
+   ]
+  },
+  "tapping the paw prints tidies the spot",
+  "the visit window is hidden and real-time: 20 min to 2 h when the dial is off",
+  {
+   "name": "Porch and Album: no errors",
+   "info": []
+  },
+  "the Orange cat coin drops on the Tuxedo board",
+  {
+   "name": "pushing it off opens the Orange's board with a big moment (cat, fanfare, confetti)",
+   "info": {
+    "open": {
+     "tuxedo": 1,
+     "orange": 1
+    },
+    "moment": "orange",
+    "current": "orange",
+    "newest": "orange"
+   }
+  },
+  "the round timer holds during the moment",
+  "with two boards, PLAY opens the board picker",
+  "before level 5 the older board is locked (\"Level 5\"); the newest plays",
+  "the Orange's board is Treat toss with the Orange's recoloured copy of the art",
+  "from level 5, switching is free",
+  {
+   "name": "cat coin chain: no errors with sound on",
+   "info": []
+  },
+  "selling a fish biscuit: +8 coins, one fewer",
+  {
+   "name": "the Shop sells only what no open board drops (8 exclusives at the start)",
+   "info": [
+    "tuna",
+    "yarn",
+    "cheese",
+    "cushion",
+    "shrimp",
+    "bell",
+    "mouse",
+    "duck"
+   ]
+  },
+  "buying a tuna: -60 coins (till)",
+  "not enough coins: nothing bought",
+  "caps: 12 tuna keep 9; the 3 extra become 45 coins at once",
+  "the cap dial changes the cap (3)",
+  {
+   "name": "Shop: no errors",
+   "info": []
+  },
+  "a full cat page (3 photos) stamps and gives 3 Catnip",
+  "every cat photographed and every board open: YOU WON",
+  {
+   "name": "Album and win: no errors",
+   "info": []
+  },
+  {
+   "name": "each dance picks one of the 4 moves, never the same twice in a row",
+   "info": [
+    3,
+    0,
+    2,
+    3,
+    1,
+    0,
+    3,
+    2,
+    1,
+    0,
+    3,
+    2
+   ]
+  },
+  {
+   "name": "the win dance holds one move (game-time clock) for the whole dance",
+   "info": {
+    "moves": [
+     1
+    ],
+    "seen": 505
+   }
+  },
+  {
+   "name": "Wild 2 dance break runs to the end (UAT 48 test)",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 14,
+    "nodesCreated": 3892
+   }
+  },
+  {
+   "name": "a Wild 2 win: no visitor card",
+   "info": {
+    "errs": [],
+    "visitor": false,
+    "liveNodes": 0
+   }
+  },
+  {
+   "name": "tuxedo's board plays 30 s (sound on), its list from its own pool",
+   "info": {
+    "s": {
+     "mode": null,
+     "list": [
+      "notes",
+      "feather",
+      "milk",
+      "biscuit",
+      "sardine",
+      "egg",
+      "bowtie"
+     ],
+     "cat": "tuxedo"
+    },
+    "errs": []
+   }
+  },
+  {
+   "name": "orange's board plays 30 s (sound on), its list from its own pool",
+   "info": {
+    "s": {
+     "mode": "treats",
+     "list": [
+      "tuna",
+      "feather",
+      "milk",
+      "biscuit",
+      "sardine",
+      "egg",
+      "yarn"
+     ],
+     "cat": "orange"
+    },
+    "errs": []
+   }
+  },
+  {
+   "name": "ragdoll's board plays 30 s (sound on), its list from its own pool",
+   "info": {
+    "s": {
+     "mode": "cozy",
+     "list": [
+      "biscuit",
+      "sardine",
+      "milk",
+      "cushion",
+      "feather",
+      "egg",
+      "cheese"
+     ],
+     "cat": "ragdoll"
+    },
+    "errs": []
+   }
+  },
+  {
+   "name": "siamese's board plays 30 s (sound on), its list from its own pool",
+   "info": {
+    "s": {
+     "mode": "laser",
+     "list": [
+      "biscuit",
+      "sardine",
+      "milk",
+      "bell",
+      "feather",
+      "egg",
+      "shrimp"
+     ],
+     "cat": "siamese"
+    },
+    "errs": []
+   }
+  },
+  {
+   "name": "tortie's board plays 30 s (sound on), its list from its own pool",
+   "info": {
+    "s": {
+     "mode": "towers",
+     "list": [
+      "duck",
+      "biscuit",
+      "milk",
+      "sardine",
+      "mouse",
+      "egg",
+      "feather"
+     ],
+     "cat": "tortie"
+    },
+    "errs": []
+   }
+  },
+  "Developer: visit window, XP speed, item cap, give all cat coins, reset, cat visits now, MODES",
+  "XP speed 5× multiplies XP"
+ ],
+ "failed": []
+}

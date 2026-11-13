@@ -7,6 +7,8 @@ CP-xx tickets on the CoinPusher Board. Open questions stay at the bottom until J
 
 Status marks: **Built** = in a UAT build now · **Decided** = Jenny agreed · **Proposed** = PM suggestion · **Open**.
 Working notes with everything Jenny said: `tickets/CP-23-notes.md`.
+**Jenny reviewed this section Nov 13 ("you caught the right vibe").** How the pieces fit (screens, chain, goals,
+winning): `GAMEPLAY_MAP.md` (draft Nov 13).
 
 ### 1. Pitch
 A busy, noisy coin pusher where every board is a short, wild round with a clear goal. Short side games break in
@@ -91,7 +93,7 @@ Needs new art: the yawn face and stretched paws.
 Team wars (a team, a set time, comparing results; needs a server; kept as a concept), weekly events with set goals
 that reset, real prizes such as wallpapers, and "a small commitment, but steady".
 
-### 9. Open questions
+### 9. Open questions (superseded Nov 13: GAMEPLAY_MAP.md answers these; its section 10 holds the live questions)
 1. Do recipes stay a step, or do prizes go straight onto the porch?
 2. Does a cat's visit unlock a mode, a power, or both?
 3. Which mode is home, and what happens to normal Boards 1–3?

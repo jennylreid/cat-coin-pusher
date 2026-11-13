@@ -1,0 +1,140 @@
+{
+ "passed": [
+  {
+   "name": "TOWER WALL is listed in the MODES picker after the UAT 45-47 modes",
+   "info": [
+    "treats",
+    "laser",
+    "cozy",
+    "towers"
+   ]
+  },
+  {
+   "name": "the picker fits the screen with four modes",
+   "info": {
+    "bottom": 836.6204081632653,
+    "H": 888.8889999999999,
+    "errs": []
+   }
+  },
+  {
+   "name": "tapping TOWER WALL opens it on its goal card",
+   "info": {
+    "mode": "towers",
+    "phase": "card"
+   }
+  },
+  {
+   "name": "five standing towers (13/18/23/18/13 coins) with a prize on each, the star on the middle one",
+   "info": {
+    "towers": [
+     {
+      "slot": 0,
+      "n": 13,
+      "up": 1,
+      "x": 84
+     },
+     {
+      "slot": 1,
+      "n": 18,
+      "up": 1,
+      "x": 142
+     },
+     {
+      "slot": 2,
+      "n": 23,
+      "up": 1,
+      "x": 200
+     },
+     {
+      "slot": 3,
+      "n": 18,
+      "up": 1,
+      "x": 258
+     },
+     {
+      "slot": 4,
+      "n": 13,
+      "up": 1,
+      "x": 316
+     }
+    ],
+    "tops": [
+     {
+      "id": "tuna",
+      "x": 316,
+      "h": 115
+     },
+     {
+      "id": "cheese",
+      "x": 84,
+      "h": 115
+     },
+     {
+      "id": "shrimp",
+      "x": 258,
+      "h": 156
+     },
+     {
+      "id": "duck",
+      "x": 142,
+      "h": 156
+     },
+     {
+      "id": "mouse",
+      "x": 200,
+      "h": 197
+     }
+    ],
+    "star": "mouse",
+    "mode": "towers",
+    "v2": true
+   }
+  },
+  {
+   "name": "60 s of Tower wall play without errors (sound on), the wall topples",
+   "info": {
+    "errs": [],
+    "towersStanding": 3,
+    "audioNodes": 13031
+   }
+  },
+  {
+   "name": "a right-hand wall tower that starts to tip leans right (toward the side)",
+   "info": {
+    "twSide": true,
+    "dx": 6.4,
+    "broke": false
+   }
+  },
+  {
+   "name": "Paw save works the same in Tower wall as on Wild 2 (CP-40 flick)",
+   "info": {
+    "tw": 2.6,
+    "w2": 2.6
+   }
+  },
+  "Wild 2 without a mode has no wall",
+  "treats mode has no wall",
+  "laser mode has no wall",
+  "cozy mode has no wall",
+  "Developer: Tower wall dial and start button",
+  {
+   "name": "Wild 2 dance break runs to the end",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 140,
+    "nodesCreated": 4339
+   }
+  }
+ ],
+ "failed": [
+  {
+   "name": "build label",
+   "info": "2026.11.13 UAT 49"
+  }
+ ]
+}

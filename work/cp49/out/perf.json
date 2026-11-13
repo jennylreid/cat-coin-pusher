@@ -1,0 +1,35 @@
+{
+ "uat48_0": {
+  "tickMs": 26.593,
+  "drawMs": 48.195,
+  "bodies": 158
+ },
+ "uat49_0": {
+  "tickMs": 22.66,
+  "drawMs": 41.901,
+  "bodies": 161,
+  "overlayMsPerDraw": 0.085
+ },
+ "uat48_1": {
+  "tickMs": 21.8,
+  "drawMs": 38.729,
+  "bodies": 158
+ },
+ "uat49_1": {
+  "tickMs": 23.397,
+  "drawMs": 41.683,
+  "bodies": 161,
+  "overlayMsPerDraw": 0.077
+ },
+ "uat48_2": {
+  "tickMs": 25.225,
+  "drawMs": 44.961,
+  "bodies": 158
+ },
+ "uat49_2": {
+  "tickMs": 24.527,
+  "drawMs": 46.514,
+  "bodies": 161,
+  "overlayMsPerDraw": 0.088
+ }
+}

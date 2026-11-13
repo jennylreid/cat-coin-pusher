@@ -142,3 +142,43 @@ Everything here is inspiration, never a copy. The core genre is the coin pusher;
 ## What Jenny enjoys and dislikes (reference)
 - Enjoys: collecting (rubies; Family Island's shovels, picks and keys); keys and chests; small side games; the moment a collection fills in; looking at her inventory; solving a hard board and seeing something new.
 - Doesn't care for: browsing finished collections, storylines, card collections with weak payoffs, games that wall you off by time, constant ads (Coin Dozer, Family Island).
+
+## Nov 13: concept page reviewed; gameplay plan brainstorm (Jenny, raw)
+- Concept page reviewed: "you caught the right vibe". All 4 new side games liked; refine them later. First: the whole gameplay plan, i.e. how the pieces fit.
+- Side games "add layers to the main game board, which desperately needed more layers."
+- Need many avenues to payoffs and goals. Serve quick-play players AND long-haul players who keep discovering things (Family Island: a year before she knew the goals).
+- Cats can't visit the main board: give visits their own screen (a side game with different screens).
+- Board goals, open: always 7 prizes? Do the prizes change? Do goals change per board?
+- Prize economy idea (not married to it): trade extra prizes for coins; some food ingredients only buyable with coins; prizes have hidden value: place them on a collection board; completing it unlocks new cats visiting.
+- Control: Family Island gives little real control and she doesn't love that. Skill should matter.
+- Winning: a way to say "you won", or mastery (clearing side games expertly) earns wild "gorge" boards: collect everything, all payoff.
+
+## Nov 13 (cont.): chain, gorge boards, roles
+- Feel rule applies to EVERY screen (kitchen, porch, album, shop): action, sound, tactile, intuitive.
+- Chain: unlock a recipe -> make the cat food -> attract the cat -> (open: must you attract a cat before you can play its board?) -> each cat's board has things you can't get on Tuxedo's board -> and so on.
+- Expert players who've won everything: really wild boards that go crazy with payoffs, just for fun.
+- Occasional easy "lucky" board where the hard-to-get thing (like Family Island's rubies) suddenly comes in bulk.
+- Roles worry: early on the game needed her heavy involvement; now the base board is a template the team can fill. She wants to steer without overstepping and keep leveraging our ideas.
+- Dropped: the "sealed notion" idea (confusing).
+
+## Nov 13 (cont.): levels, spotting cats, board unlock coin
+- Levels: reaching a level lets you switch between cat boards.
+- Order: make the recipe -> food attracts the cat -> messages say it visited -> but you must SEE it yourself: the cat is only there for a while (player isn't told how long), so players come back to check. Tap a camera button to take an in-game photo; it goes onto the cat collection board (or is added automatically).
+- Cat board unlock: once spotted, the player can win that cat's coin; collecting it opens that cat's board, which you can then switch to, and it has the cat's special power.
+- Old cat powers recalled for her (from the Oct notes): Formal inspection (Tuxedo), Zoomies + Wild tongue (Orange), Hug (Ragdoll), Sonic meow (Siamese), Tortitude (Tortoiseshell).
+- Jenny: "I don't think the tuxedo is all that perfect." (Not reopened yet; candidate art ticket.) Not every cat should do Quake or the Yawn (paws swipe things off the sides). PM: the shared template = position, size, layout; each cat gets its own moves and poses to fit its personality.
+- DECIDED (Jenny, Nov 13): Quake is a coin anyone can win; each cat gets its own moves and poses; the Tuxedo touch-up is a later art ticket.
+- DECIDED (Jenny, Nov 13): placeholder recoloured cats for the prototype; real art later, one cat per ticket, Orange first.
+- Later art tickets (not yet on the board): Tuxedo touch-up; Orange cat art (first new cat); Porch visiting-cat template.
+
+## Nov 13 (cont.): after reading the gameplay map (raw, "more to come")
+- Free-play board idea (not committed): an endless board, no goal; to get a feel, kill time when blocked elsewhere, maybe practise the side games. Rare bulk of something valuable there is good for hardcore players.
+- Missing a visiting cat is GOOD: you must gather ingredients and cook again.
+- Recipes: maybe used up when cooked; memorise it or win it again (coin or prize). Never duplicate copies: one copy of a recipe at a time.
+- Caps on every item count: in testing she collected endless cheese with nothing to do with it. Cap growth of every item.
+- The 2011 team game was Clash of Clans (FYI).
+- Gorge boards: anything can be gorged, but leave a takeaway that helps on other boards (extra Quake, a special power, a special coin).
+- Confusion check: Quake (shake), Yawn (push off the sides), Bounce (every coin hops; decided, not built yet).
+- Cat dance: the Dancing pose has 4 moves; she wants ONE move per dance (not mixed), a different one each time. Build change.
+- DECIDED (Jenny, Nov 13): all 7 map questions as PM picked: win = all cats photographed + boards opened; visit window 20 min-2 h (UAT dial); switching at level 5; rare treasure = Catnip; 1-3 stars; Boards 1-3 retire; no real money for now.
+- More cats: board cats (5) + many Porch-only visitor cats; all join the big dance (PM proposal in GAMEPLAY_MAP 11). Jenny: 'we can start with what we have.' Wants prototyping next.
