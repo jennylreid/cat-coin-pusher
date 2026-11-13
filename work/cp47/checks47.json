@@ -22,7 +22,7 @@
  {
   "name": "COZY is listed in the MODES picker",
   "pass": true,
-  "detail": "treats, laser, cozy"
+  "detail": "treats, laser, cozy, towers"
  },
  {
   "name": "picking COZY opens the Cozy goal card",

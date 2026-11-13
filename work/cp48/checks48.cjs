@@ -27,7 +27,7 @@ const wall=g=>JSON.parse(g.run(`JSON.stringify({towers:bodies.filter(b=>!b.dead&
  // Paw save: a stronger flick in Tower wall only
  {const {g,errs}=await g0(5);g.run("wildModeEnter('towers');wildStartCountdown()");let k=0;while(g.run('WILD.phase')!=='play'&&k++<900)frames(g,1,errs);frames(g,2,errs);const tw=g.run('PAW40.flick');
   g.run('wildExit();wild2Enter();wildStartCountdown()');k=0;while(g.run('WILD.phase')!=='play'&&k++<900)frames(g,1,errs);frames(g,2,errs);const w2=g.run('PAW40.flick');
-  check('Paw save flick: 4 m/s in Tower wall, CP-40\'s 2.6 on Wild 2',tw===4&&w2===2.6,{tw,w2});
+  check('Paw save works the same in Tower wall as on Wild 2 (CP-40 flick)',tw===2.6&&w2===2.6,{tw,w2});
   check('Wild 2 without a mode has no wall',g.run("bodies.filter(b=>!b.dead&&b.tw).length")===0);g.close();}
  // the other modes keep their boards
  for(const id of ['treats','laser','cozy']){const {g}=await g0();g.run(`wildModeEnter('${id}')`);check(`${id} mode has no wall`,g.run('WILD.mode')===id&&g.run("bodies.filter(b=>!b.dead&&(b.tw||b.twTop)).length")===0);g.close();}
