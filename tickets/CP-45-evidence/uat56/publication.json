@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261114235500,
+    "displayName":  "2026.11.14 UAT 56",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "0ce7edced3ed1dbbcf940230db132e77b409dca0590ed8b86bbfcb9b83839d0d",
+    "stagedJSONSHA256":  "a6812a0dc58a63722f6406942f1b846926165b165a79d4274197b809d7dff9bd",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "818a4deceb06920ee3d18b2a986730c7e20dc23dd63372e04dcaf347393dc88d",
+    "jsonBytes":  51863518,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT56-20261114235500",
+    "authorization":  "UAT 56: EXIT renamed Board (back to this board between rounds) and kept clear of the Dance meter on all sizes; Happy Cat renamed Dance meter with a note icon, pulse and a first-time hint; Level = board number on PLAY; cat head at the art proportions; title coin rains 1-4 (Developer, default 2); on UAT 55; Jenny Nov 14 via PM; UAT only",
+    "localPublication":  "verified"
+}
