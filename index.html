@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.14 UAT 51';
+const BUILD = '2026.11.14 UAT 52';
 
 
 
@@ -39859,7 +39859,13 @@ const PG_DOCK_IDS=['kitchen','porch','album','shop','board'],PG_DOCK_LEVEL={kitc
 const PG_DOCK_COL={board:['#ffb23f','#a8400f'],kitchen:['#ff8a5a','#7a2a1a'],porch:['#7ad65a','#1f5a1a'],album:['#d06aff','#4a1a6a'],shop:['#4fd0ff','#0a4a6a']};
 function pgDockName(id){return {kitchen:'Kitchen',porch:'Porch',album:'Album',shop:'Shop',board:'Boards'}[id];}
 function pgRestPhase(){return !!(PG&&!PG_HOME_OFF&&WILD.on&&!inventoryOpen&&PGU.screen==='board'&&(WILD.phase==='card'||(WILD.phase==='end'&&WILD.endT>=.9)));}
-function pgDock(){const h=hudLayout(),top=h.top,bot=Math.max(top+78,h.headerBottom+2),y1=top+15,ty=top+31,th=bot-ty-5,gap=5,tw=(W-12-gap*4)/5;
+// The bar never reaches the cat's ear tips (about 10 px under VIEW.y), whatever the status bar's height: with less
+// than 74 px of room it becomes one compact row (icon buttons, the XP as a ring around the level badge).
+function pgDockLimit(){return (typeof VIEW==='object'&&Number.isFinite(VIEW.y)?VIEW.y:90)+10;}
+function pgDock(){const h=hudLayout(),top=h.top,bot=Math.max(top+40,Math.min(Math.max(top+78,h.headerBottom+2),pgDockLimit()));
+ if(bot-top<74){const rh=bot-top-8,cy=top+3+rh/2,n=S.dev?6:5,x0=42,x1=262,tw=(x1-x0-4*(n-1))/n,rect=i=>({x:x0+i*(tw+4),y:top+3,w:tw,h:rh});
+  return {compact:true,top,bottom:bot,y1:cy,cy,rh,gear:{x:370,y:top+2,w:30,h:rh+2},coll:{x:316,y:top+2,w:26,h:rh+2},inv:{x:342,y:top+2,w:26,h:rh+2},modes:S.dev?rect(5):null,tiles:PG_DOCK_IDS.map((id,i)=>({id,...rect(i),level:PG_DOCK_LEVEL[id]}))};}
+ const y1=top+15,ty=top+31,th=bot-ty-5,gap=5,tw=(W-12-gap*4)/5;
  return {top,bottom:bot,y1,gear:{x:W-40,y:top,w:40,h:30},coll:{x:248,y:top+1,w:30,h:28},inv:{x:280,y:top+1,w:30,h:28},modes:S.dev?{x:314,y:top+4,w:44,h:22}:null,tiles:PG_DOCK_IDS.map((id,i)=>({id,x:6+i*(tw+gap),y:ty,w:tw,h:th,level:PG_DOCK_LEVEL[id]}))};}
 function pgWaiting(id){
  if(id==='kitchen')return PG_RECIPES.some(r=>pgCanCook(r))||PG_RECIPES.some(r=>PG.recipes[r.id]&&PG.seen['r:'+r.id]===0);
@@ -39873,6 +39879,7 @@ function pgDrawDock(){
  ctx.save();ctx.globalAlpha=a;ctx.textBaseline='middle';
  let gr=ctx.createLinearGradient(0,0,0,D.bottom);gr.addColorStop(0,'#160a24');gr.addColorStop(1,'#2c1544');ctx.fillStyle=gr;ctx.fillRect(0,0,W,D.bottom);
  ctx.fillStyle='rgba(0,0,0,.35)';ctx.fillRect(0,D.bottom,W,4);ctx.fillStyle='#ffe08a';ctx.fillRect(0,D.bottom-2,W,2);
+ if(D.compact){pgDrawDockCompact(D,t);ctx.restore();return;}
  // level badge and XP bar
  const y=D.y1,need=pgXPNeed(PG.level),u=Math.min(1,PG.xp/need),bx=40,bw=100;
  uiCircle(21,y,14,'#ffd23f','#fff6d0',2);ctx.fillStyle='#3a1a00';ctx.textAlign='center';ctx.font='900 16px Impact, system-ui';ctx.fillText(PG.level,21,y+1);
@@ -39913,6 +39920,21 @@ function pgDrawPlayGear(){const g=pgPlayGear();uiCircle(g.x+g.w/2,g.y+g.h/2,15,'
 function pgDrawModes(){if(!PGU.modes)return;PGU.modesT+=pgDrawDtM();const on=WILD.on,o=MODES_UI.open,t=MODES_UI.t;WILD.on=false;MODES_UI.open=true;MODES_UI.t=PGU.modesT;try{drawModesPicker();}catch(e){}finally{WILD.on=on;MODES_UI.open=o;MODES_UI.t=t;}}
 function pgDrawDtM(){return 1/60;}
 function pgModesTap(p){const R=modesPickerRects();for(const r of R.rows)if(contains(r,p)){PGU.modes=false;sfx.wild('beep',1);PGU.oldBoards=false;wildModeEnter(r.id);PGU.fade=.3;return;}PGU.modes=false;pgSfx('back');}
+
+// The one-row bar for a tall status bar: level badge with an XP ring, icon buttons, coins and Catnip stacked, Collections,
+// Inventory, Settings (MODES as a sixth button with Developer on).
+function pgDrawDockCompact(D,t){const cy=D.cy,r=Math.min(14,D.rh/2-3),need=pgXPNeed(PG.level),u=Math.min(1,PG.xp/need);
+ ctx.strokeStyle='rgba(255,255,255,.15)';ctx.lineWidth=3;ctx.beginPath();ctx.arc(20,cy,r+3,0,7);ctx.stroke();if(u>0){ctx.strokeStyle='#7dff6a';ctx.beginPath();ctx.arc(20,cy,r+3,-Math.PI/2,-Math.PI/2+u*Math.PI*2);ctx.stroke();}
+ uiCircle(20,cy,r,'#ffd23f','#fff6d0',1.5);ctx.fillStyle='#3a1a00';ctx.textAlign='center';ctx.font='900 '+Math.round(r*1.1)+'px Impact, system-ui';ctx.fillText(PG.level,20,cy+1);
+ for(const b of D.tiles){const id=b.id,col=PG_DOCK_COL[id],locked=b.level&&PG.level<b.level,cx=b.x+b.w/2,pr=PGU.door&&PGU.door.id===id?Math.min(1,PGU.door.t/.24):0,press=1-.1*Math.sin(pr*Math.PI);
+  ctx.save();ctx.translate(cx,cy);ctx.scale(press,press);ctx.translate(-cx,-cy);const g2=ctx.createLinearGradient(0,b.y,0,b.y+b.h);g2.addColorStop(0,col[0]);g2.addColorStop(1,col[1]);uiRound(b.x,b.y,b.w,b.h,9,g2,'#fff6d0',1.2);
+  const k=Math.max(.24,Math.min(.4,(b.h-4)/66));ctx.save();ctx.beginPath();ctx.rect(b.x+1,b.y+1,b.w-2,b.h-2);ctx.clip();ctx.translate(cx,cy+2);ctx.scale(k,k);pgDoorIcon(id,0,0,t);ctx.restore();
+  if(locked){uiRound(b.x,b.y,b.w,b.h,9,'rgba(10,6,20,.6)');pgLock(cx,cy,.6);}
+  else if(pgWaiting(id)){const kk=1+.12*Math.sin(t*6);uiCircle(b.x+b.w-6,b.y+6,7*kk,'#fff','#ff6ab8',1.5);pgPaw(b.x+b.w-6,b.y+7,.16*kk,'#ff3a8a');}
+  ctx.restore();}
+ if(D.modes){const m=D.modes;uiRound(m.x,m.y,m.w,m.h,9,'rgba(20,60,60,.92)','#5ef0c0',1.2);ctx.fillStyle='#d8fff2';ctx.textAlign='center';ctx.font='900 9px Impact, system-ui';ctx.fillText('MODES',m.x+m.w/2,cy+1,m.w-4);}
+ ctx.textAlign='left';ctx.font='bold 12px system-ui';uiCircle(272,cy-8,5,'#f5c632','#a8740c',1);ctx.fillStyle='#ffd76a';ctx.fillText(PG.coins,280,cy-7,34);pgCatnipLeaf(272,cy+11,.5);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,280,cy+8,34);
+ pgCollIcon(D.coll.x+D.coll.w/2,cy);pgInvIcon(D.inv.x+D.inv.w/2,cy);pgGearIcon(D.gear.x+D.gear.w/2,cy,8);}
 function pgDoorIcon(id,x,y,t){
  if(id==='kitchen'){ctx.fillStyle='#3a3a48';ctx.beginPath();ctx.moveTo(x-30,y-8);ctx.lineTo(x+30,y-8);ctx.quadraticCurveTo(x+28,y+22,x,y+24);ctx.quadraticCurveTo(x-28,y+22,x-30,y-8);ctx.fill();ctx.fillStyle='#5a5a6a';ctx.fillRect(x-34,y-12,68,7);
   ctx.fillStyle='rgba(255,255,255,.7)';for(let i=0;i<3;i++){const u=(t*.6+i/3)%1;ctx.globalAlpha=(1-u)*.7;ctx.beginPath();ctx.arc(x-12+i*12+Math.sin(u*6+i)*4,y-18-u*26,4+u*5,0,7);ctx.fill();}ctx.globalAlpha=1;}
