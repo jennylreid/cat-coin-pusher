@@ -1,0 +1,18 @@
+{
+  "version": 20261114180000,
+  "displayName": "2026.11.14 UAT 51",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "4e032eeae5bff3077796bcdb2698be13742587761bd5e2bef115f6795196c636",
+  "stagedJSONSHA256": "5ab8310c1c2182d5079aaad341e583ce93ded977f3604227b205f37565d70cbf",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "4f82b62c67e37ee9dbe0f18394ed68637fea5186cc04392f5cb0585192ac5d6d",
+  "jsonBytes": 51824110,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-UAT51-20261114180000",
+  "authorization": "UAT 51: CP-45 follow-ups on UAT 50 (no buttons in the bottom strip, Developer-off = production view, Developer on by default in UAT, dev-only MODES, floating cat head on the screens); Jenny Nov 14 via PM; UAT only"
+}

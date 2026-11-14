@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.14 UAT 50';
+const BUILD = '2026.11.14 UAT 51';
 
 
 
@@ -36308,7 +36308,7 @@ cv.addEventListener('pointerdown', e => {
 
 
 
-  if(p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6){openCredits();return;}
+  if(!pgOwnHud()&&p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6){openCredits();return;}
 
 
 
@@ -36685,7 +36685,7 @@ function drawBoardHUD(){
  const bottom=hud.bottomY;ctx.textAlign='left';ctx.font='12px system-ui';for(let i=0;i<BOARD.targets.length;i++){const item=BOARD.targets[i],got=board.collected.includes(item.id);ctx.fillStyle=got?'#7dff6a':'#fff0d0';ctx.fillText((got?'✓ ':'')+ITEMS[item.id].name,hud.left+20,bottom+7+i*17);}
  ctx.textAlign='center';ctx.font='bold 12px system-ui';ctx.fillStyle='#fff0cc';ctx.fillText(WILD&&WILD.on?(WILD.v2?wildModeName():'WILD BOARD'):'BOARD '+(boardIndex+1)+' / '+BOARDS.length,W-hud.right-77,bottom+8);ctx.font='12px system-ui';const message=WILD&&WILD.on?wildMessage():saveError?'Save unavailable':S.coins===0?'More coins in '+purseCountdown():board.status==='won'?'Next board soon…':board.status==='lost'?'Retrying this board…':board.status==='ready'?'Tap or hold':'Slide to aim';ctx.fillText(message,W-hud.right-77,bottom+28,130);
  drawWildButton();drawInventoryButton();ctx.fillStyle='rgba(18,11,28,.96)';ctx.fillRect(hud.left+2,hud.settingsY-10,242,22);ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.textAlign='left';ctx.fillText(BUILD,hud.left+8,hud.settingsY);if(S.dev){ctx.fillStyle='rgba(18,11,28,.96)';ctx.fillRect(hud.left+2,hud.bottomY-29,W-hud.left-hud.right-4,15);ctx.fillStyle='#fff';ctx.font='10px system-ui';ctx.fillText(Math.round(perf.fps)+' fps | physics '+perf.physics.toFixed(1)+' ms | draw '+perf.draw.toFixed(1)+' ms | '+bodies.filter(coinSolid).length+' coins',hud.left+8,hud.bottomY-21);}
- ctx.textAlign='right';ctx.font='12px system-ui';ctx.fillText('Settings',hud.settingsX,hud.settingsY);drawSafeAreaGuides();if(inventoryOpen)drawInventory();
+ ctx.textAlign='right';ctx.font='12px system-ui';if(!pgOwnHud())ctx.fillText('Settings',hud.settingsX,hud.settingsY);drawSafeAreaGuides();if(inventoryOpen)drawInventory();
 }
 // Inventory and Collections are separate destinations. Existing counters only.
 function collectionsTile(){const h=hudLayout(),bottom=VIEW.y+screenOf(200,T.FRONT,0).y*VIEW.zy;return h.bottomY-4>bottom+6?{x:W/2-90,y:h.bottomY-4,w:44,h:44,placement:'footer'}:{x:W-h.right-100,y:h.headerBottom-41,w:44,h:44,placement:'header'};}
@@ -37476,7 +37476,7 @@ wildTick=function(dt){
 wildPointer=function(e,p){
  if(!WILD.on||!WILD.dance||WILD.phase!=='play'||inventoryOpen||!world)return __dancePointer(e,p);
  if(contains(wildButton(),p))return __dancePointer(e,p); // EXIT still works
- const hud=hudLayout();if(p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings
+ const hud=hudLayout();if(!pgOwnHud()&&p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings
  danceTap(e);return true; // every other tap is a dance tap: no coin drops during the break
 };
 const DANCE_LANE_Y=468;
@@ -38562,7 +38562,7 @@ wildTick=function(dt){
 wildPointer=function(e,p){
  if(!WILD.on||!WILD.toss||WILD.phase!=='play'||inventoryOpen||!world)return __tossPointer(e,p);
  if(contains(wildButton(),p))return __tossPointer(e,p); // EXIT still works
- const hud=hudLayout();if(p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings
+ const hud=hudLayout();if(!pgOwnHud()&&p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings
  tossTap(e,p);return true; // every other tap is a catch: no coin drops during the toss
 };
 drawWildHud=function(hud){__tossHud(hud);if(WILD.toss){ctx.save();ctx.fillStyle='#bff7e6';ctx.fillRect(hud.left+78,hud.bannerY-6,3.5,12);ctx.fillRect(hud.left+84,hud.bannerY-6,3.5,12);ctx.restore();}};
@@ -38861,7 +38861,7 @@ wildPointer=function(e,p){
  if(!LASER_REG&&!WILD.on&&world&&!inventoryOpen){if(LASER_MODES.open){laserModesTap(p);return true;}if(contains(laserModesButton(),p)){LASER_MODES.open=true;LASER_MODES.t=0;sfx.wild('beep',1);return true;}}
  if(!WILD.on||!WILD.chase||WILD.phase!=='play'||inventoryOpen||!world)return __laserPointer(e,p);
  if(contains(wildButton(),p))return __laserPointer(e,p); // EXIT still works
- const hud=hudLayout();if(p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings
+ const hud=hudLayout();if(!pgOwnHud()&&p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings
  laserDown(e,p);return true; // every other touch moves the dot: no coin drops during the chase
 };
 // The banner (where Wild 2 shows the happy meter): the chase's time left and what it has knocked off.
@@ -39243,7 +39243,7 @@ wildPointer=function(e,p){
  if(!PET_REG&&!WILD.on&&world&&!inventoryOpen&&contains(petButton(),p)){petEnter();return true;}
  if(!WILD.on||!WILD.petGame||WILD.phase!=='play'||inventoryOpen||!world)return __petPointer(e,p);
  if(contains(wildButton(),p))return __petPointer(e,p); // EXIT still works
- const hud=hudLayout();if(p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings
+ const hud=hudLayout();if(!pgOwnHud()&&p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings
  petDown(e,p);return true; // every other touch is for the cat: no coin drops while you pet
 };
 drawWildHud=function(hud){__petHud(hud);if(WILD.petGame){ctx.save();ctx.fillStyle='#ffd0ea';ctx.fillRect(hud.left+78,hud.bannerY-6,3.5,12);ctx.fillRect(hud.left+84,hud.bannerY-6,3.5,12);ctx.restore();}};
@@ -39631,7 +39631,7 @@ const __twDevBind=wildDevBind;wildDevBind=function(panel){__twDevBind(panel);con
 // a cap; extras turn into coins at once. Boards: Tuxedo = Wild 2, Orange = Treat toss, Ragdoll = Cozy,
 // Siamese = Laser chase, Tortoiseshell = Tower wall. Other cats are recoloured COPIES of the Tuxedo art (never changed).
 // Saved on this phone under catpusher.uat.progress.v1 (Developer dials under catpusher.uat.progressdev.v1).
-const PG_KEY='catpusher.uat.progress.v1',PG_DEV_KEY='catpusher.uat.progressdev.v1';
+const PG_KEY='catpusher.uat.progress.v1',PG_DEV_KEY='catpusher.uat.progressdev.v1',PG_DEVON_KEY='catpusher.uat.devdefault.v1';
 const PG_CATS=['tuxedo','orange','ragdoll','siamese','tortie'];
 const PG_CAT={
  tuxedo:{name:'Tuxedo',mode:null,board:'Wild 2',own:['bowtie','notes'],fur:'#16161c',light:'#ffffff',tag:'#3a3a4a',eye:'#ffd21a'},
@@ -39662,7 +39662,7 @@ function pgDevSave(){try{localStorage.setItem(PG_DEV_KEY,JSON.stringify(PG_DEV))
 function pgFresh(){return {v:1,level:1,xp:0,coins:0,catnip:0,items:{},ever:{},recipes:{},dishes:{},porch:[null,null],photos:{},coinReady:{},
  open:{tuxedo:1},openOrder:['tuxedo'],current:'tuxedo',stars:{},rounds:0,stamped:{},lastMove:-1,won:false,wonShown:false,seen:{},newBoard:null,newPhoto:false};}
 let PG=null,PG_INIT=false,PG_HOME_OFF=false;
-const PGU={screen:'title',title:{t:0,coins:[],snd:0},fade:0,warmT:0,reenter:false,oldBoards:false,t:0,T:0,toasts:[],floats:[],fx:[],door:null,pick:false,pickT:0,cat:{tap:-9,hearts:[]},k:{sel:null,cook:null},
+const PGU={modes:false,modesT:0,sc:{at:-9,kind:null,hearts:[]},screen:'title',title:{t:0,coins:[],snd:0},fade:0,warmT:0,reenter:false,oldBoards:false,t:0,T:0,toasts:[],floats:[],fx:[],door:null,pick:false,pickT:0,cat:{tap:-9,hearts:[]},k:{sel:null,cook:null},
  porch:{pick:null,flash:0,fly:null,chirp:3},album:{page:0,flipT:9,dir:1,stampT:9},shop:{tab:'sell',flies:[],jarT:9},moment:null,boardCat:'tuxedo',level:null,win:null,sw:null};
 function pgSave(){try{localStorage.setItem(PG_KEY,JSON.stringify(PG));}catch(e){}}
 function pgNow(){return Date.now();}
@@ -39675,6 +39675,7 @@ function pgInit(){
   PG.coins+=extra;PG.migrated={coins:S.coins|0,extra,at:new Date().toISOString()};pgSave();
   try{diagEvent('progress','new save coins='+PG.coins+' extra='+extra);}catch(e){}}
  PGU.screen=PG_HOME_OFF?'board':'title';PGU.title={t:0,coins:[],snd:0};
+ try{if(/UAT/.test(BUILD)&&!localStorage.getItem(PG_DEVON_KEY)){S.dev=true;save();localStorage.setItem(PG_DEVON_KEY,'1');try{diagEvent('progress','developer on by default (UAT)');}catch(e){}}}catch(e){}
 }
 function pgCap(){return PG_DEV.cap;}
 function pgHave(id){return PG.items[id]|0;}
@@ -39812,11 +39813,22 @@ sfx.pg=function(kind,vol=1){
 function pgTop(){return Math.max(8,hudLayout().top||0);} // under the phone's status bar
 function pgBot(){return H-Math.max(0,hudLayout().bottom||0);} // above the navigation bar
 function pgBack(){const y=pgTop()+44;return {x:12,y:y-20,w:84,h:40};}
-function pgHeader(title,color){const y0=pgTop(),b=pgBack();ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(0,0,W,y0+70);
+function pgScreenCatRect(){const y0=pgTop();return {x:262,y:y0+4,w:128,h:80};}
+function pgScreenReact(kind){PGU.sc.at=PGU.T;PGU.sc.kind=kind;if(kind==='tap'||kind==='happy'||kind==='purr'){const r=pgScreenCatRect();for(let i=0;i<(kind==='purr'?3:5);i++)PGU.sc.hearts.push({x:r.x+r.w/2+rand(-36,36),y:r.y+30,t:-i*.08});}}
+function pgHeart(x,y,s,c){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.fillStyle=c;ctx.beginPath();ctx.moveTo(0,6);ctx.bezierCurveTo(-12,-2,-7,-12,0,-5);ctx.bezierCurveTo(7,-12,12,-2,0,6);ctx.fill();ctx.restore();}
+function pgScreenCat(dt){const r=pgScreenCatRect(),t=PGU.T,S2=PGU.sc,el=t-S2.at,k=S2.kind,cat=PGU.boardCat||PG.current||'tuxedo';
+ let dy=0,rot=0,face='calm',sc2=1;const live=el<1.6;
+ if(live){if(k==='tap'||k==='happy'){face='sweet';dy=-Math.abs(Math.sin(el*9))*9*(1-el/1.6);}else if(k==='perk'){face='sweet';dy=-14*Math.max(0,1-el*2.2);sc2=1+.08*Math.max(0,1-el*2);}
+  else if(k==='purr'){face='sweet';rot=Math.sin(el*24)*.035;}else if(k==='nod'){dy=el<.9?Math.abs(Math.sin(el*Math.PI*2/.45))*6:0;face=el>.3?'sweet':'calm';}}
+ const breathe=Math.sin(t*1.6)*2,cx=r.x+r.w/2,cy=r.y+r.h/2+2;ctx.save();ctx.translate(cx,cy+dy+breathe*.5);ctx.rotate(rot);ctx.scale(sc2*(1+breathe*.004),sc2*(1-breathe*.004));
+ pgHead(cat,0,0,r.w,face,{look:Math.sin(t*.5)*.8,lookY:Math.sin(t*.37),blink:((t+.3)%5.3)<.13?1:0});ctx.restore();
+ for(let i=S2.hearts.length-1;i>=0;i--){const h=S2.hearts[i];h.t+=dt;if(h.t>1.3){S2.hearts.splice(i,1);continue;}if(h.t<0)continue;ctx.save();ctx.globalAlpha=Math.max(0,1-h.t/1.3);pgHeart(h.x+Math.sin(h.t*5)*7,h.y-h.t*50,.9,'#ff6ab8');ctx.restore();}}
+function pgHeader(title,color){const y0=pgTop(),b=pgBack();ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(0,0,W,y0+86);
  uiRound(b.x,b.y,b.w,b.h,14,'rgba(255,255,255,.14)','#ffe08a',1.5);ctx.fillStyle='#fff';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';pgChevron(b.x+17,b.y+b.h/2,-1,'#fff',6);ctx.fillText('Board',b.x+b.w/2+7,b.y+b.h/2+1);
- wildText(title,236,y0+45,30,color||'#ffd23f','#2a0b3e',6);pgCounters(y0+16);}
-function pgCounters(y){ctx.save();ctx.textBaseline='middle';ctx.textAlign='right';ctx.font='bold 13px system-ui';
- const c=PG.coins,n=PG.catnip;ctx.fillStyle='#ffd76a';ctx.fillText(c+' coins',W-14,y);ctx.fillStyle='#8dff9a';ctx.fillText(n+' Catnip',W-14-ctx.measureText(c+' coins').width-14,y);ctx.restore();}
+ ctx.save();ctx.textAlign='left';ctx.font='italic 900 28px Impact, "Arial Black", system-ui';const tz=Math.min(28,28*146/Math.max(1,ctx.measureText(title).width));wildText(title,108,y0+38,tz,color||'#ffd23f','#2a0b3e',6);ctx.restore();
+ pgCounters(y0+76);pgScreenCat(PGU.hdt||.016);}
+function pgCounters(y){ctx.save();ctx.textBaseline='middle';ctx.textAlign='left';ctx.font='bold 13px system-ui';
+ const c=PG.coins,n=PG.catnip;ctx.fillStyle='#ffd76a';ctx.fillText(c+' coins',16,y);ctx.fillStyle='#8dff9a';ctx.fillText(n+' Catnip',16+ctx.measureText(c+' coins').width+14,y);ctx.restore();}
 function pgButton(r,label,fill,text,size,off){ctx.save();if(off)ctx.globalAlpha=.45;wildButtonDraw(r,label,fill,text,size||20);ctx.restore();}
 function pgPrizeIcon(id,x,y,w,a=1){ctx.save();ctx.globalAlpha*=a;drawPrize('item',id,x,y+w*.3,w/(radius('item')*2.8));ctx.restore();}
 function pgPaw(x,y,k,c){uiPaw(x,y,k,c||'#ffe08a');}
@@ -39848,7 +39860,7 @@ const PG_DOCK_COL={board:['#ffb23f','#a8400f'],kitchen:['#ff8a5a','#7a2a1a'],por
 function pgDockName(id){return {kitchen:'Kitchen',porch:'Porch',album:'Album',shop:'Shop',board:'Boards'}[id];}
 function pgRestPhase(){return !!(PG&&!PG_HOME_OFF&&WILD.on&&!inventoryOpen&&PGU.screen==='board'&&(WILD.phase==='card'||(WILD.phase==='end'&&WILD.endT>=.9)));}
 function pgDock(){const h=hudLayout(),top=h.top,bot=Math.max(top+78,h.headerBottom+2),y1=top+15,ty=top+31,th=bot-ty-5,gap=5,tw=(W-12-gap*4)/5;
- return {top,bottom:bot,y1,gear:{x:W-46,y:top,w:46,h:30},tiles:PG_DOCK_IDS.map((id,i)=>({id,x:6+i*(tw+gap),y:ty,w:tw,h:th,level:PG_DOCK_LEVEL[id]}))};}
+ return {top,bottom:bot,y1,gear:{x:W-40,y:top,w:40,h:30},coll:{x:248,y:top+1,w:30,h:28},inv:{x:280,y:top+1,w:30,h:28},modes:S.dev?{x:314,y:top+4,w:44,h:22}:null,tiles:PG_DOCK_IDS.map((id,i)=>({id,x:6+i*(tw+gap),y:ty,w:tw,h:th,level:PG_DOCK_LEVEL[id]}))};}
 function pgWaiting(id){
  if(id==='kitchen')return PG_RECIPES.some(r=>pgCanCook(r))||PG_RECIPES.some(r=>PG.recipes[r.id]&&PG.seen['r:'+r.id]===0);
  if(id==='porch')return PG.porch.some(s=>s&&(s.state==='visit'||s.state==='missed'))||(PG.level>=2&&PG.porch.some(s=>!s)&&Object.values(PG.dishes).some(n=>n>0));
@@ -39862,14 +39874,16 @@ function pgDrawDock(){
  let gr=ctx.createLinearGradient(0,0,0,D.bottom);gr.addColorStop(0,'#160a24');gr.addColorStop(1,'#2c1544');ctx.fillStyle=gr;ctx.fillRect(0,0,W,D.bottom);
  ctx.fillStyle='rgba(0,0,0,.35)';ctx.fillRect(0,D.bottom,W,4);ctx.fillStyle='#ffe08a';ctx.fillRect(0,D.bottom-2,W,2);
  // level badge and XP bar
- const y=D.y1,need=pgXPNeed(PG.level),u=Math.min(1,PG.xp/need),bx=40,bw=128;
+ const y=D.y1,need=pgXPNeed(PG.level),u=Math.min(1,PG.xp/need),bx=40,bw=100;
  uiCircle(21,y,14,'#ffd23f','#fff6d0',2);ctx.fillStyle='#3a1a00';ctx.textAlign='center';ctx.font='900 16px Impact, system-ui';ctx.fillText(PG.level,21,y+1);
  uiRound(bx,y-8,bw,16,8,'rgba(255,255,255,.12)','#ffe08a',1);if(u>0)uiRound(bx+1,y-7,Math.max(14,(bw-2)*u),14,7,'#7dff6a');
- ctx.fillStyle='#fff';ctx.font='bold 10px system-ui';ctx.fillText('LEVEL '+PG.level+' · '+PG.xp+' / '+need+' XP',bx+bw/2,y+1,bw-8);
+ ctx.fillStyle='#fff';ctx.font='bold 10px system-ui';ctx.fillText(PG.xp+' / '+need+' XP',bx+bw/2,y+1,bw-8);
  // coins (the jar) and Catnip
- uiCircle(186,y,8,'#f5c632','#a8740c',1.5);pgPaw(186,y+1,.16,'#a8740c');ctx.textAlign='left';ctx.font='bold 15px system-ui';ctx.fillStyle='#ffd76a';ctx.fillText(PG.coins,198,y+1);
- const cx=198+ctx.measureText(String(PG.coins)).width+18;pgCatnipLeaf(cx,y+7,.72);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,cx+12,y+1);
- // Settings
+ uiCircle(152,y,8,'#f5c632','#a8740c',1.5);pgPaw(152,y+1,.16,'#a8740c');ctx.textAlign='left';ctx.font='bold 15px system-ui';ctx.fillStyle='#ffd76a';ctx.fillText(PG.coins,163,y+1,48);
+ const cx=163+Math.min(48,ctx.measureText(String(PG.coins)).width)+15;pgCatnipLeaf(cx,y+7,.72);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,cx+12,y+1);
+ // Collections and Inventory (moved up from the bottom strip), MODES (Developer only), Settings
+ pgCollIcon(D.coll.x+D.coll.w/2,y);pgInvIcon(D.inv.x+D.inv.w/2,y);
+ if(D.modes){const m=D.modes;uiRound(m.x,m.y,m.w,m.h,10,'rgba(20,60,60,.92)','#5ef0c0',1.5);ctx.fillStyle='#d8fff2';ctx.textAlign='center';ctx.font='900 11px Impact, system-ui';ctx.fillText('MODES',m.x+m.w/2,m.y+m.h/2+1);}
  pgGearIcon(D.gear.x+D.gear.w/2,y,9);
  // the buttons
  for(const r of D.tiles){const id=r.id,col=PG_DOCK_COL[id],locked=r.level&&PG.level<r.level,cxr=r.x+r.w/2,cyr=r.y+r.h/2;
@@ -39882,6 +39896,23 @@ function pgDrawDock(){
   else if(pgWaiting(id)){const px=r.x+r.w-10,py=r.y+10,kk=1+.12*Math.sin(t*6);uiCircle(px,py,10*kk,'#fff','#ff6ab8',2);pgPaw(px,py+1,.24*kk,'#ff3a8a');}
   ctx.restore();}
  ctx.restore();}
+
+// Small code-drawn icons for the bar: Collections (a fan of cards) and Inventory (a satchel).
+function pgCollIcon(x,y){ctx.save();ctx.translate(x,y);for(const [dx,r,c] of [[-5,-.25,'#abd1c8'],[5,.25,'#e4f0df'],[0,0,'#2f7279']]){ctx.save();ctx.translate(dx,1);ctx.rotate(r);uiRound(-6,-9,12,17,2,c,'#f6dfa4',1.2);ctx.restore();}ctx.fillStyle='#f5d58c';ctx.beginPath();ctx.moveTo(-3,-5);ctx.lineTo(3,-5);ctx.lineTo(3,3);ctx.lineTo(0,1);ctx.lineTo(-3,3);ctx.closePath();ctx.fill();ctx.restore();}
+function pgInvIcon(x,y){ctx.save();ctx.translate(x,y);ctx.strokeStyle='#f6dfa4';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,-5,5,Math.PI,0);ctx.stroke();uiRound(-10,-5,20,15,4,'#b0602a','#f6dfa4',1.2);uiRound(-10,-5,20,7,3,'#8a4418');uiCircle(0,1,2.2,'#ffd23f');ctx.restore();}
+// ---- UAT 51: on the cat boards nothing takes taps in the bottom strip (Jenny, Nov 14: "a lot of tapping takes place at
+// the bottom of the screen"). Collections and Inventory move to the top bar between rounds; Settings is a small gear in
+// the top HUD during a round (between EXIT and the sound button). Info-only readouts stay low.
+function pgOwnHud(){return !!(PG&&!PG_HOME_OFF&&WILD.on&&PGU.screen==='board');}
+const PG_OFF={x:-999,y:-999,w:0,h:0};
+const __pgInvBtn=inventoryButton;inventoryButton=function(){return pgOwnHud()?PG_OFF:__pgInvBtn();};
+const __pgCollTile=collectionsTile;collectionsTile=function(){return pgOwnHud()?{...PG_OFF,placement:'off'}:__pgCollTile();};
+function pgPlayGear(){const h=hudLayout();return {x:W-h.right-80,y:h.mainY-17,w:36,h:34};}
+function pgDrawPlayGear(){const g=pgPlayGear();uiCircle(g.x+g.w/2,g.y+g.h/2,15,'rgba(255,255,255,.1)','rgba(232,220,255,.5)',1);pgGearIcon(g.x+g.w/2,g.y+g.h/2,8);}
+// MODES (Developer only): the game's own modes picker, shown over the board.
+function pgDrawModes(){if(!PGU.modes)return;PGU.modesT+=pgDrawDtM();const on=WILD.on,o=MODES_UI.open,t=MODES_UI.t;WILD.on=false;MODES_UI.open=true;MODES_UI.t=PGU.modesT;try{drawModesPicker();}catch(e){}finally{WILD.on=on;MODES_UI.open=o;MODES_UI.t=t;}}
+function pgDrawDtM(){return 1/60;}
+function pgModesTap(p){const R=modesPickerRects();for(const r of R.rows)if(contains(r,p)){PGU.modes=false;sfx.wild('beep',1);PGU.oldBoards=false;wildModeEnter(r.id);PGU.fade=.3;return;}PGU.modes=false;pgSfx('back');}
 function pgDoorIcon(id,x,y,t){
  if(id==='kitchen'){ctx.fillStyle='#3a3a48';ctx.beginPath();ctx.moveTo(x-30,y-8);ctx.lineTo(x+30,y-8);ctx.quadraticCurveTo(x+28,y+22,x,y+24);ctx.quadraticCurveTo(x-28,y+22,x-30,y-8);ctx.fill();ctx.fillStyle='#5a5a6a';ctx.fillRect(x-34,y-12,68,7);
   ctx.fillStyle='rgba(255,255,255,.7)';for(let i=0;i<3;i++){const u=(t*.6+i/3)%1;ctx.globalAlpha=(1-u)*.7;ctx.beginPath();ctx.arc(x-12+i*12+Math.sin(u*6+i)*4,y-18-u*26,4+u*5,0,7);ctx.fill();}ctx.globalAlpha=1;}
@@ -40227,6 +40258,7 @@ const __pgModeEnter2=wildModeEnter;wildModeEnter=function(id){PGU.entering=true;
 function pgGo(screen){if(screen==='board'){PGU.screen='board';PGU.pick=false;PGU.t=0;if(!WILD.on&&!PG_HOME_OFF&&!PGU.oldBoards)pgPlay(pgBoardCatNow());try{diagEvent('progress','screen board');}catch(e){}return;}PGU.screen=screen;PGU.t=0;PGU.pick=false;if(screen==='kitchen'){PGU.k.cook=null;}if(screen==='porch'){PGU.porch.pick=null;PGU.porch.chirp=.6;}if(screen==='album'){PGU.album.flipT=0;}try{diagEvent('progress','screen '+screen);}catch(e){}}
 function pgPointerDown(e,p){
  const sc=PGU.screen;if(PGU.win){if(PGU.win.t>1.5)PGU.win=null;return;}
+ if(['kitchen','porch','album','shop'].includes(sc)&&contains(pgScreenCatRect(),p)){pgScreenReact('tap');pgSfx('meow');pgSfx('purr',.7);return;}
  if(contains(pgBack(),p)&&!(sc==='kitchen'&&PGU.k.cook&&PGU.k.cook.stage==='ding')){pgSfx('back');if(sc==='kitchen'&&PGU.k.cook){PGU.k.cook=null;return;}pgGo('board');return;}
  if(sc==='kitchen'){const C=PGU.k.cook;
   if(!C){const rows=pgKitchenRows();for(const row of rows){const b={x:row.x+row.w-86,y:row.y+row.h/2-20,w:76,h:40};if(contains(b,p)){if(pgCanCook(row.r))pgStartCook(row.r);else{pgSfx('lock');pgToast(PG.recipes[row.r.id]?'Missing ingredients':'Used up: win a recipe coin','#ffe08a');}return;}}return;}
@@ -40258,10 +40290,16 @@ const __pgPetUp=petPointerUp;petPointerUp=function(e){if(!PG_HOME_OFF&&PG&&pgPoi
 function pgBoardPointer(p){
  if(PGU.win){if(PGU.win.t>1.5)PGU.win=null;return true;}
  if(PGU.pick){const R=pgPickRects();for(const r of R.rows)if(contains(r,p)){if(WILD.on&&r.c===PGU.boardCat){PGU.pick=false;pgSfx('back');}else if(pgCanPlay(r.c)){pgSfx('door');pgSwitchBoard(r.c);}else{pgSfx('lock');pgToast(PG.open[r.c]?'Switching boards opens at level '+PG_SWITCH_LEVEL:'Win its cat coin to open this board','#ffe08a');}return true;}PGU.pick=false;pgSfx('back');return true;}
- if(PGU.door)return true;if(!pgRestPhase())return false;
+ if(PGU.modes){pgModesTap(p);return true;}
+ if(PGU.door)return true;
+ if(WILD.on&&!inventoryOpen&&!pgRestPhase()&&contains(pgPlayGear(),p)){openCredits();return true;}
+ if(!pgRestPhase())return false;
  if(WILD.phase==='end'){const R=wildEndRects();if(contains(R.back,p)||(contains(R.again,p)&&!pgCanPlay(PGU.boardCat))){pgSfx('tap');if(!pgCanPlay(PGU.boardCat))pgSwitchBoard(pgPlayCat());else wildReset();return true;}}
  const D=pgDock();if(p.y>D.bottom)return false; // below the bar: the card's own taps
  if(contains(D.gear,p)){openCredits();return true;}
+ if(contains(D.coll,p)){pgSfx('tap');openLoopScreen('water');return true;}
+ if(contains(D.inv,p)){pgSfx('tap');openLoopScreen('inventory');return true;}
+ if(D.modes&&contains(D.modes,p)){pgSfx('tap');PGU.modes=true;PGU.modesT=0;return true;}
  for(const t of D.tiles){if(!contains(t,p))continue;if(t.level&&PG.level<t.level){pgSfx('lock');pgToast(pgDockName(t.id)+' opens at level '+t.level,'#ffe08a');return true;}pgSfx('door');PGU.door={id:t.id,t:0};return true;}
  return true;} // the bar swallows the rest of its taps
 function pgBackText(){return PG_HOME_OFF||!PG?'Back to the game':'New goal';}
@@ -40297,13 +40335,13 @@ draw=function(){
  if(PGU.reenter)pgReenter();
  if(PGU.screen==='board'){__pgDraw();pgBoardOverlay();return;}
  ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';const dt=pgDrawDt();
- try{({title:pgDrawTitle,kitchen:pgDrawKitchen,porch:pgDrawPorch,album:pgDrawAlbum,shop:pgDrawShop}[PGU.screen]||pgDrawTitle)(dt);}catch(e){try{frameError(e);}catch(_){}}
+ PGU.hdt=dt;try{({title:pgDrawTitle,kitchen:pgDrawKitchen,porch:pgDrawPorch,album:pgDrawAlbum,shop:pgDrawShop}[PGU.screen]||pgDrawTitle)(dt);}catch(e){try{frameError(e);}catch(_){}}
  if(PGU.screen!=='title'){pgFloatsDraw();pgToastsDraw();pgLevelDraw();pgWinDraw();}
  ctx.font='10px system-ui';ctx.fillStyle='rgba(255,255,255,.5)';ctx.textAlign='left';ctx.fillText(BUILD,8,pgBot()-6);};
 function pgFloatsDraw(){for(const f of PGU.floats){const u=f.t/1.2;ctx.save();ctx.globalAlpha=1-u*u;ctx.textAlign='center';ctx.font='900 18px Impact, system-ui';ctx.lineWidth=4;ctx.strokeStyle='#2a1a00';ctx.strokeText(f.text,f.x,f.y-u*40);ctx.fillStyle=f.color;ctx.fillText(f.text,f.x,f.y-u*40);ctx.restore();}}
 // Messages: on the board they sit below the cat's chin; elsewhere under the top bar. One at a time.
 function pgToastsDraw(){const T3=PGU.toasts[0];if(!T3)return;const onBoard=PGU.screen==='board',card=onBoard&&WILD.on&&WILD.v2&&WILD.phase==='card'&&!inventoryOpen,L=card?w2CardLayout():null,
- y=card?L.back.y+L.back.h/2:onBoard?(typeof w43ChinY==='function'?w43ChinY():300)+34:PGU.screen==='porch'?pgTop()+104:pgBot()-56,a=Math.min(1,T3.t/.2,(T3.dur-T3.t)/.3);
+ y=card?L.back.y+L.back.h/2:onBoard?(typeof w43ChinY==='function'?w43ChinY():300)+34:PGU.screen==='porch'?pgTop()+104:PGU.screen==='album'?pgBot()-112:pgBot()-56,a=Math.min(1,T3.t/.2,(T3.dur-T3.t)/.3);
  ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.globalAlpha=Math.max(0,a);ctx.font='bold 16px system-ui';const ic=T3.icon==='paw'?26:0,w=Math.min(380,ctx.measureText(T3.text).width+40+ic);
  uiRound(200-w/2,y-17,w,34,17,'rgba(20,10,30,.88)',T3.color,2);ctx.fillStyle=T3.color;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(T3.text,200-ic/2,y+1,w-20-ic);
  if(ic)pgPaw(200+w/2-24,y+1,.3,T3.color);ctx.restore();}
@@ -40321,10 +40359,10 @@ function pgBoardOverlay(){ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0
   ctx.save();ctx.translate(200,y);ctx.scale(.3+.7*(1-Math.pow(1-u,3)),.3+.7*(1-Math.pow(1-u,3)));pgHead(M2.cat,0,0,260,t%1.2<.6?'sweet':'calm');ctx.restore();
   wildText(PG_CAT[M2.cat].name.toUpperCase()+"'S BOARD",200,cy+50,32,'#ffd23f','#3a1a00',6);wildText('IS OPEN!',200,cy+90,34,'#7dff6a','#0c3a12',6);
   ctx.font='bold 14px system-ui';ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(PG_CAT[M2.cat].board+(PG.level>=PG_SWITCH_LEVEL?' · pick it from Boards, up top':' · it plays from the next round'),200,y+100);}
- if(WILD.on&&pgRestPhase())pgDrawDock();
+ if(WILD.on&&pgRestPhase())pgDrawDock();else if(WILD.on&&!inventoryOpen)pgDrawPlayGear();
  ctx.restore();pgToastsDraw();
  const dt=pgDrawDt();ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
- if(PGU.pick)pgDrawBoardPick(dt);pgWinDraw();if(PGU.fade>0){ctx.fillStyle='rgba(10,4,20,'+Math.min(1,PGU.fade/.3)+')';ctx.fillRect(0,0,W,H);}ctx.restore();}
+ if(PGU.pick)pgDrawBoardPick(dt);ctx.restore();pgDrawModes();ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';pgWinDraw();if(PGU.fade>0){ctx.fillStyle='rgba(10,4,20,'+Math.min(1,PGU.fade/.3)+')';ctx.fillRect(0,0,W,H);}ctx.restore();}
 // Music on the Kitchen, Album and Shop; the Porch has garden sounds; the title screen its own jingle.
 const __pgBgm=bgmWanted;bgmWanted=function(){if(!PG_HOME_OFF&&PG&&PGU.screen!=='board'){if(S.muted||!(W2.music>0)||document.hidden||(typeof inBackground!=='undefined'&&inBackground))return false;return PGU.screen!=='porch'&&PGU.screen!=='title';}return __pgBgm();};
 // ---------- Developer ----------
@@ -40351,6 +40389,13 @@ wildDevBind=function(panel){__pgDevBind(panel);const box=panel.querySelector&&pa
   if(id==='home-off'){PGU.oldBoards=true;if(WILD.on)wildExit();PGU.screen='board';return;}PGU.oldBoards=false;PGU.entering=true;try{if(WILD.on)wildExit();}finally{PGU.entering=false;}PGU.screen='board';if(id==='wild2'){PGU.boardCat='tuxedo';if(wild2Enter())pgApplyArt('tuxedo');}else wildModeEnter(id);};};
 // Test hook: the UAT 47/48 suites start on the old board (no title, no cat boards).
 function pgHomeOff(){PG_HOME_OFF=true;PGU.screen='board';}
+
+// The screen cat reacts to what happens on its screen.
+const __pgFinishCook=pgFinishCook;pgFinishCook=function(){const r=__pgFinishCook();pgScreenReact('happy');pgSfx('meow',.8);return r;};
+const __pgPhotoR=pgPhoto;pgPhoto=function(i){const n=PG.porch[i]&&PG.porch[i].state;const r=__pgPhotoR(i);if(n==='visit')pgScreenReact('perk');return r;};
+const __pgPorchTickR=pgPorchTick;pgPorchTick=function(){const v=PG?PG.porch.filter(s=>s&&s.state==='visit').length:0;const r=__pgPorchTickR();if(PG&&PGU.screen==='porch'&&PG.porch.filter(s=>s&&s.state==='visit').length>v){pgScreenReact('perk');pgSfx('meow',.7);}return r;};
+const __pgStampsR=pgCheckStamps;pgCheckStamps=function(){const n=PG?PG.catnip:0;const r=__pgStampsR();if(PG&&PG.catnip>n){pgScreenReact('purr');pgSfx('purr',.9);}return r;};
+const __pgShopTapR=pgShopTap;pgShopTap=function(r){const c=PG.coins;const out=__pgShopTapR(r);if(PG.coins>c)pgScreenReact('nod');return out;};
 
 Promise.all([RAPIER.init(), loadArt()])
 
