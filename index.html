@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.14 UAT 57';
+const BUILD = '2026.11.14 UAT 58';
 
 
 
@@ -39978,14 +39978,13 @@ function pgTitleCoinsTick(T0,dt){const mode=T0.mode||(T0.mode=PG_TC);
    if(T0.clinkT<=0){T0.clinkT=.07;pgSfx('coin',.35);}}}}
 // A coin turning about its vertical axis with its thickness showing: the approved coin face (as it is), plus a gold edge
 // drawn in code beside it, as wide as the coin's thickness times how far it has turned.
-function pgThickCoin(csp,x,y,r,a){const c=Math.cos(a),sn=Math.sin(a),rx=Math.max(.06,Math.abs(c))*r,hs=csp.half*r/COIN_R,d=r*.24*sn;
+function pgThickCoin(csp,x,y,r,a){const c=Math.cos(a),sn=Math.sin(a),rx=Math.max(.06,Math.abs(c))*r,hs=csp.half*r/COIN_R,d=r*.3*sn;
  ctx.save();ctx.translate(x,y);
  if(Math.abs(d)>.4){const g=ctx.createLinearGradient(0,-r,0,r);g.addColorStop(0,'#fff1a8');g.addColorStop(.45,'#d89a1c');g.addColorStop(1,'#7a4c04');ctx.fillStyle=g;
   ctx.beginPath();ctx.ellipse(d,0,rx,r,0,0,7);ctx.fill();ctx.fillRect(Math.min(0,d),-r,Math.abs(d),2*r);
   ctx.strokeStyle='rgba(100,60,0,.45)';ctx.lineWidth=1;ctx.beginPath();for(let k=-r+3;k<r-1;k+=3.5){ctx.moveTo(Math.min(0,d),k);ctx.lineTo(Math.max(0,d),k);}ctx.stroke();}
  ctx.save();ctx.scale(rx/r,1);ctx.drawImage(csp.cv,-hs,-hs,2*hs,2*hs);ctx.restore();
  if(Math.abs(c)<.5){ctx.globalAlpha=(.5-Math.abs(c))*.5;ctx.fillStyle='#3a2200';ctx.beginPath();ctx.ellipse(0,0,rx,r,0,0,7);ctx.fill();ctx.globalAlpha=1;}
- if(c>.9){ctx.globalAlpha=(c-.9)*8;uiCircle(-rx*.35,-r*.35,r*.18,'#fffbe6');ctx.globalAlpha=1;}
  ctx.restore();}
 function pgTitleSkip(){if(PGU.title.t>=PG_TITLE_INTRO){pgSfx('whoosh');pgTitleDone();}}
 function pgTitleDone(){if(PGU.screen!=='title')return;PGU.screen='board';PGU.fade=.3;if(!WILD.on)pgPlay(pgPlayCat());try{diagEvent('progress','title done t='+PGU.title.t.toFixed(2));}catch(e){}}
@@ -40001,8 +40000,7 @@ function pgDrawTitle(){
  if(T0.pile)for(const c of T0.pile){const hs=csp.half*c.r/COIN_R;ctx.save();ctx.translate(c.x,c.y);ctx.rotate(c.tilt);ctx.scale(1,c.f);ctx.fillStyle='#8a5a06';ctx.beginPath();ctx.ellipse(0,c.r*.28/c.f,c.r,c.r,0,0,7);ctx.fill();ctx.drawImage(csp.cv,-hs,-hs,2*hs,2*hs);ctx.restore();}
  if(mode!==1){for(const c of T0.coins)pgThickCoin(csp,c.x,c.y,c.r,c.s+t*c.vs);}
  else for(const c of T0.coins){const fl=Math.cos(c.s+t*c.vs),k=c.r/COIN_R,hs=csp.half*k;ctx.save();ctx.translate(c.x,c.y);
-  ctx.globalAlpha=.35;ctx.fillStyle='#ffd76a';ctx.beginPath();ctx.ellipse(0,0,c.r*1.25*Math.max(.3,Math.abs(fl)),c.r*1.25,0,0,7);ctx.fill();ctx.globalAlpha=1; // a soft glow so it reads on the dark sky
-  ctx.scale(Math.max(.18,Math.abs(fl)),1);ctx.drawImage(csp.cv,-hs,-hs,2*hs,2*hs);if(fl>.9){ctx.globalAlpha=(fl-.9)*8;uiCircle(-c.r*.35,-c.r*.35,c.r*.18,'#fffbe6');}ctx.restore();}
+  ctx.scale(Math.max(.18,Math.abs(fl)),1);ctx.drawImage(csp.cv,-hs,-hs,2*hs,2*hs);ctx.restore();} // UAT 58: no glow or glint (Jenny: halos)
  // the Tuxedo pops up from the bottom, then smiles
  const u=Math.min(1,Math.max(0,(t-.1)/.7)),hy=H+150-(H+150-H*.66)*pgEaseBack(u),face=(t>1.1&&t<2.3)||(t>3&&(t%6)<1.2)?'sweet':'calm';
  pgHead('tuxedo',200,hy+Math.sin(t*2.2)*4,340,face,{look:Math.sin(t*1.7)*.7,blink:((t+.5)%3)<.12?1:0});
@@ -40552,7 +40550,9 @@ const __abCountdown=wildStartCountdown;wildStartCountdown=function(){PGU.rules=f
 const PGA={coins:[],seeded:0,pile:null,react:-9,hearts:[]};
 function pgMainRects(){const top=pgDock().bottom,bot=H-Math.max(24,hudLayout().bottom+16),k=Math.max(.72,Math.min(1,(bot-top)/700)); // shorter phones: the cat and gaps shrink so nothing overlaps (rule 11)
  const name=top+268*k,play=Math.max(name+178,bot-165);return {top,bot,head:{x:200,y:top+118*k,w:240*k},name,play,side:pgSideRects(top+48,Math.min(100,(name+150-top-48)/2.4))};}
-function pgMainPile(){if(PGA.pile)return PGA.pile;const a=[];let s=7;const r=()=>(s=(s*16807)%2147483647)/2147483647;for(let row=0;row<4;row++){const n=9-row*2;for(let i=0;i<n;i++)a.push({x:200+(i-(n-1)/2)*44+(r()-.5)*14,y:-row*20+(r()-.5)*6,r:22+r()*6,f:.55+r()*.45,ph:r()*6});}return PGA.pile=a;}
+// UAT 58 (Jenny: "cramped coins at the bottom that look disfigured"): a small, tidy pile, 5 + 3 + 1 coins at their true
+// proportions (round, never squashed), spaced so they don't crowd.
+function pgMainPile(){if(PGA.pile)return PGA.pile;const a=[];[[5,0],[3,1],[1,2]].forEach(([n,row])=>{for(let i=0;i<n;i++)a.push({x:200+(i-(n-1)/2)*62,y:-row*44,r:27});});return PGA.pile=a;}
 function pgDrawMain(dt){const R=pgMainRects(),t=PGU.T,cat=PGU.boardCat||'tuxedo';
  if(ART.background){const cover=Math.max(W/ART.background.width,H/ART.background.height),bw=ART.background.width*cover,bh=ART.background.height*cover;ctx.drawImage(ART.background,(W-bw)/2,(H-bh)/2,bw,bh);}else{ctx.fillStyle='#1d1030';ctx.fillRect(0,0,W,H);}
  let gr=ctx.createLinearGradient(0,0,0,H);gr.addColorStop(0,'rgba(30,10,50,.5)');gr.addColorStop(1,'rgba(20,6,34,.88)');ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
@@ -40561,8 +40561,8 @@ function pgDrawMain(dt){const R=pgMainRects(),t=PGU.T,cat=PGU.boardCat||'tuxedo'
  if(!PGA.seeded){PGA.seeded=1;for(let i=0;i<6;i++)PGA.coins.push(pgTitleCoin(rand(0,H*.7)));}
  if(PGA.coins.length<12&&Math.random()<dt*2.2)PGA.coins.push(pgTitleCoin(-40));const csp=sprite('coin');
  for(let i=PGA.coins.length-1;i>=0;i--){const c=PGA.coins[i];c.y+=c.vy*dt*.8;c.vy=Math.min(c.vy+45*dt,170);c.x+=Math.sin(t*c.wf+c.s)*c.wa*dt;if(c.y>H+50){PGA.coins.splice(i,1);continue;}
-  const fl=Math.cos(c.s+t*c.vs),hs=csp.half*c.r/COIN_R;ctx.save();ctx.translate(c.x,c.y);ctx.globalAlpha=.3;ctx.fillStyle='#ffd76a';ctx.beginPath();ctx.ellipse(0,0,c.r*1.2*Math.max(.3,Math.abs(fl)),c.r*1.2,0,0,7);ctx.fill();ctx.globalAlpha=1;ctx.scale(Math.max(.18,Math.abs(fl)),1);ctx.drawImage(csp.cv,-hs,-hs,2*hs,2*hs);ctx.restore();}
- const py=R.play+150;for(const c of pgMainPile()){const hs=csp.half*c.r/COIN_R;ctx.save();ctx.translate(c.x,py+c.y);ctx.scale(1,c.f);ctx.drawImage(csp.cv,-hs,-hs,2*hs,2*hs);if(((t*.7+c.ph)%5)<.12)uiCircle(-c.r*.3,-c.r*.3,c.r*.2,'#fffbe6');ctx.restore();}
+  pgThickCoin(csp,c.x,c.y,c.r,c.s+t*c.vs*.6);} // UAT 58: solid coins with their gold edge as they turn; no glow
+ const py=R.bot-28;for(const c of pgMainPile()){const hs=csp.half*c.r/COIN_R;ctx.drawImage(csp.cv,c.x-hs,py+c.y-hs,2*hs,2*hs);}
  // the board's cat: floats, blinks, looks around; a tap gets the sweet face, hearts and a meow
  const el=t-PGA.react,live=el<1.4,by=Math.sin(t*1.6)*4-(live?Math.abs(Math.sin(el*9))*10*(1-el/1.4):0);
  pgHead(cat,R.head.x,R.head.y+by,R.head.w,live||(t%7)<1?'sweet':'calm',{look:Math.sin(t*.5)*.8,lookY:Math.sin(t*.37),blink:((t+.3)%4.7)<.13?1:0});

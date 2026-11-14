@@ -1,0 +1,18 @@
+{
+  "version": 20261114235900,
+  "displayName": "2026.11.14 UAT 58",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "5e44215ad0a0765be052c02ff78e048880430c906226520b49964b03d52afbca",
+  "stagedJSONSHA256": "a7de67c65b4c7f89519a08fa07828618dd5795a7ddceb3ac3efb8117e6faf11d",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "2cd622a40d6d4690299a1b3e077bbad4c877f52d8eefb3da0bdc710930eb7853",
+  "jsonBytes": 51862978,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-UAT58-20261114235900",
+  "authorization": "UAT 58: coins on the main screen and title: no glow or halo, solid turning coins with their edge, a tidy pile at true proportions (Jenny UAT 57 feedback, approved polish); on UAT 57; via PM Nov 14; UAT only"
+}
