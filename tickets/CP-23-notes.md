@@ -182,3 +182,7 @@ Everything here is inspiration, never a copy. The core genre is the coin pusher;
 - Cat dance: the Dancing pose has 4 moves; she wants ONE move per dance (not mixed), a different one each time. Build change.
 - DECIDED (Jenny, Nov 13): all 7 map questions as PM picked: win = all cats photographed + boards opened; visit window 20 min-2 h (UAT dial); switching at level 5; rare treasure = Catnip; 1-3 stars; Boards 1-3 retire; no real money for now.
 - More cats: board cats (5) + many Porch-only visitor cats; all join the big dance (PM proposal in GAMEPLAY_MAP 11). Jenny: 'we can start with what we have.' Wants prototyping next.
+- DECIDED (Jenny, Nov 14): always start on the coin board: title screen 'CatCoin' -> Tuxedo coin board; all gameplay linked off the coin board (no Home screen).
+- DECIDED (Jenny, Nov 14): with Developer off, UAT must look exactly like production would: MODES button, debug readouts and test controls only when Developer is on.
+- Jenny (Nov 14): likes UAT 49's floating cat head (Home); keep it, use it elsewhere, not on the landing screen. Placement open.
+- Floating cat head: top of Kitchen, Porch, Album, Shop, reacting to events (Jenny OK'd PM pick, Nov 14).

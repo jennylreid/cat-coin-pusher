@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.13 UAT 49';
+const BUILD = '2026.11.14 UAT 50';
 
 
 
@@ -37249,7 +37249,7 @@ function wildDraw(){
   const lines=[['rain10','Rain coins pour 5, 10 or 25 coins'],['!','Bonus drops fall from the sky']];
   lines.forEach(([ic,t],i)=>{const y=R.card.y+190+i*28;if(RAIN[ic]){const sp=sprite(ic);ctx.drawImage(sp.cv,62-12,y-12,24,24);}else if(ic==='!'){uiCircle(62,y,11,'#ff7ad5');ctx.fillStyle='#fff';ctx.font='900 16px Impact, system-ui';ctx.textAlign='center';ctx.fillText('!',62,y+1);ctx.textAlign='left';ctx.font='14px system-ui';}else{for(let j=0;j<4;j++)uiCircle(62,y+8-j*5,9,'#f5c632','#8a5c00',1);}ctx.fillStyle='#f0e0ff';ctx.fillText(t,82,y+1);});
   ctx.textAlign='center';wildButtonDraw(R.go,'GO!','#3ccf4e','#0c3a12',30);
-  ctx.fillStyle='#d8c8ee';ctx.font='13px system-ui';ctx.fillText('Home',200,R.back.y+R.back.h/2);ctx.restore();
+  ctx.fillStyle='#d8c8ee';ctx.font='13px system-ui';ctx.fillText(pgBackText(),200,R.back.y+R.back.h/2);ctx.restore();
  }else if(WILD.phase==='count'){
   const s=Math.ceil(WILD.count),u=1-(WILD.count%1||1),k=1.5-.5*Math.min(1,u*4);ctx.save();ctx.translate(200,w43ChinY()+90);ctx.scale(k,k);ctx.globalAlpha=Math.min(1,(1-u)*3);wildText(String(s),0,0,120,'#ffd23f','#2a0b3e',12);ctx.restore();
  }else if(WILD.phase==='play'&&(WILD.goT||0)<.8){const u=WILD.goT/.8;ctx.save();ctx.globalAlpha=1-u;ctx.translate(200,w43ChinY()+90);ctx.scale(1+u*.6,1+u*.6);wildText('GO!',0,0,120,'#7dff6a','#0c3a12',12);ctx.restore();}
@@ -37263,7 +37263,7 @@ function wildDraw(){
    if(!pgEndText(R)){ctx.font='14px system-ui';ctx.fillStyle='#f0e0ff';ctx.fillText(WILD.win?wildClock()+' to spare'+(WILD.best!=null&&WILD.best===WILD.left&&WILD.runs>1?' · best yet!':''):(WILD.reason==='coins'?'The coins ran out. One more go?':'The timer ran out. One more go?'),200,R.card.y+142);
    ctx.font='12px system-ui';ctx.fillText(WILD.rained+' coins rained · '+WILD.toppled+' towers toppled · '+WILD.bonusN+' bonus drops',200,R.card.y+160);}
    wildButtonDraw(R.again,'PLAY AGAIN','#ffd23f','#3a1a00',24);
-   uiRound(R.back.x,R.back.y,R.back.w,R.back.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.fillText('Home',200,R.back.y+R.back.h/2);ctx.restore();}
+   uiRound(R.back.x,R.back.y,R.back.w,R.back.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.fillText(pgBackText(),200,R.back.y+R.back.h/2);ctx.restore();}
   ctx.save();ctx.translate(200,R.card.y+33);const k=WILD.endT<.35?.4+.9*u:1.15-.15*Math.min(1,(WILD.endT-.35)/.25)+.03*Math.sin(WILD.endT*6);ctx.scale(k,k);ctx.rotate(-.04);
   if(WILD.win)wildText('YOU WIN!',0,0,50,'#ffd23f','#3a1a00',9);else wildText(WILD.reason==='coins'?'OUT OF COINS!':"TIME'S UP!",0,0,WILD.reason==='coins'?38:46,'#ff6a4a','#2a0010',9);ctx.restore();
  }
@@ -37935,7 +37935,7 @@ const __c41Pointer=wildPointer;
 wildPointer=function(e,p){
  if(WILD.on&&WILD.v2&&WILD.phase==='card'&&world&&!inventoryOpen){
   if(contains(wildButton(),p)){wildExit();return true;}
-  const L=w2CardLayout();if(contains(L.back,p)){wildExit();return true;}
+  const L=w2CardLayout();if((PG_HOME_OFF||!PG)&&contains(L.back,p)){wildExit();return true;}
   wildStartCountdown();sfx.wild('beep',1);return true; // anywhere else on the screen starts it
  }
  return __c41Pointer(e,p);
@@ -37969,7 +37969,7 @@ function drawWild2Card(){
  const s=L.start,pulse=1+.04*Math.sin(performance.now()/180);ctx.save();ctx.translate(s.x+s.w/2,s.y+s.h/2);ctx.scale(pulse,pulse);ctx.translate(-(s.x+s.w/2),-(s.y+s.h/2));
  wildButtonDraw(s,'TAP TO START','#3ccf4e','#0c3a12',34);ctx.restore();
  ctx.fillStyle='#e8dcff';ctx.font='bold 14px system-ui';ctx.fillText('The timer starts after 3, 2, 1, GO!',200,s.y-14);
- uiRound(L.back.x,L.back.y,L.back.w,L.back.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 14px system-ui';ctx.fillText('Home',200,L.back.y+L.back.h/2+1);
+ uiRound(L.back.x,L.back.y,L.back.w,L.back.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 14px system-ui';ctx.fillText(pgBackText(),200,L.back.y+L.back.h/2+1);
  ctx.restore();
 }
 const __c41Draw=wildDraw;
@@ -38311,7 +38311,7 @@ drawWild2Card=function(){
  const s=L.start,pulse=1+.04*Math.sin(performance.now()/180);ctx.save();ctx.translate(s.x+s.w/2,s.y+s.h/2);ctx.scale(pulse,pulse);ctx.translate(-(s.x+s.w/2),-(s.y+s.h/2));
  wildButtonDraw(s,'TAP TO START','#3ccf4e','#0c3a12',30);ctx.restore();
  ctx.fillStyle='#e8dcff';ctx.font='bold 13px system-ui';ctx.fillText('The timer starts after 3, 2, 1, GO!',200,s.y-11);
- uiRound(L.back.x,L.back.y,L.back.w,L.back.h,14,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 14px system-ui';ctx.fillText('Home',200,L.back.y+L.back.h/2+1);
+ if(PG_HOME_OFF||!PG){uiRound(L.back.x,L.back.y,L.back.w,L.back.h,14,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 14px system-ui';ctx.fillText(pgBackText(),200,L.back.y+L.back.h/2+1);}
  ctx.restore();
 };
 // The visitor card goes below the chin too (over the win card until it's closed).
@@ -39620,9 +39620,11 @@ const __twDevBind=wildDevBind;wildDevBind=function(panel){__twDevBind(panel);con
  for(const btn of box.querySelectorAll('[data-tw]'))btn.onclick=()=>{TW.side=Math.min(3,Math.max(0,Math.round((TW.side+ +btn.dataset.tw*.1)*10)/10));try{localStorage.setItem(TW_KEY,JSON.stringify({side:TW.side}));diagEvent('towerwall-tuning','side='+TW.side);}catch(e){}const top=panel.scrollTop;openCredits();panel.scrollTop=top;};
  box.querySelector('#tw-start').onclick=()=>{panel.style.display='none';wildModeEnter('towers');};};
 
-// ---------- CP-45 Gameplay map prototype (UAT 49) ----------
-// The chain from GAMEPLAY_MAP.md, with placeholder art drawn in code: Home (doors, level bar, coins, Catnip, the current
-// cat) -> a cat's board (Wild 2 or a mode) -> prizes become ingredients -> Kitchen (recipes by level, drop ingredients
+// ---------- CP-45 Gameplay map prototype (UAT 49; UAT 50 rework) ----------
+// UAT 50 (Jenny, Nov 14): the game opens on a short CatCoin title screen, then the Tuxedo's coin board. The board is
+// home: no Home screen; a bar across the top of the board between rounds opens Kitchen, Porch, Album, Shop and Boards.
+// The chain from GAMEPLAY_MAP.md, with placeholder art drawn in code: the coin board (level, coins, Catnip, buttons)
+// -> a cat's board (Wild 2 or a mode) -> prizes become ingredients -> Kitchen (recipes by level, drop ingredients
 // in the pot, stir, ding) -> Porch (2 food spots; a cat eats, stays a hidden while, real time; tap the camera) ->
 // Album (a page per cat, a prize page; a full page stamps and gives Catnip) -> the cat's coin drops now and then on any
 // board -> push it off and that cat's board opens. Shop: sell prizes, buy ingredients you can't win. Every item stops at
@@ -39660,7 +39662,7 @@ function pgDevSave(){try{localStorage.setItem(PG_DEV_KEY,JSON.stringify(PG_DEV))
 function pgFresh(){return {v:1,level:1,xp:0,coins:0,catnip:0,items:{},ever:{},recipes:{},dishes:{},porch:[null,null],photos:{},coinReady:{},
  open:{tuxedo:1},openOrder:['tuxedo'],current:'tuxedo',stars:{},rounds:0,stamped:{},lastMove:-1,won:false,wonShown:false,seen:{},newBoard:null,newPhoto:false};}
 let PG=null,PG_INIT=false,PG_HOME_OFF=false;
-const PGU={screen:'home',t:0,T:0,toasts:[],floats:[],fx:[],door:null,pick:false,pickT:0,cat:{tap:-9,hearts:[]},k:{sel:null,cook:null},
+const PGU={screen:'title',title:{t:0,coins:[],snd:0},fade:0,warmT:0,reenter:false,oldBoards:false,t:0,T:0,toasts:[],floats:[],fx:[],door:null,pick:false,pickT:0,cat:{tap:-9,hearts:[]},k:{sel:null,cook:null},
  porch:{pick:null,flash:0,fly:null,chirp:3},album:{page:0,flipT:9,dir:1,stampT:9},shop:{tab:'sell',flies:[],jarT:9},moment:null,boardCat:'tuxedo',level:null,win:null,sw:null};
 function pgSave(){try{localStorage.setItem(PG_KEY,JSON.stringify(PG));}catch(e){}}
 function pgNow(){return Date.now();}
@@ -39672,7 +39674,7 @@ function pgInit(){
   for(const id of ['cheese','shrimp','tuna']){const n=Math.max(0,(S.got&&S.got[id])|0);const keep=Math.min(n,PG_DEV.cap);PG.items[id]=keep;if(keep)PG.ever[id]=1;extra+=(n-keep)*pgSell(id);}
   PG.coins+=extra;PG.migrated={coins:S.coins|0,extra,at:new Date().toISOString()};pgSave();
   try{diagEvent('progress','new save coins='+PG.coins+' extra='+extra);}catch(e){}}
- if(PG_HOME_OFF)PGU.screen='board';
+ PGU.screen=PG_HOME_OFF?'board':'title';PGU.title={t:0,coins:[],snd:0};
 }
 function pgCap(){return PG_DEV.cap;}
 function pgHave(id){return PG.items[id]|0;}
@@ -39687,9 +39689,9 @@ function pgAddXP(n){PG.xp+=Math.round(n*PG_DEV.xp);const ups=[];while(PG.xp>=pgX
  if(ups.length){PGU.level={L:PG.level,t:0};pgSfx('levelup');}pgSave();return ups;}
 function pgUnlocks(L){for(const r of PG_RECIPES)if(r.level===L&&!PG.recipes[r.id]&&!(PG.photos[r.cat]>0)){PG.recipes[r.id]=1;PG.seen['r:'+r.id]=0;}
  pgToast('LEVEL '+L+'!','#7dff6a');
- if(L===2)pgToast('Kitchen, Porch and Shop are open','#ffe08a');
+ if(L===2)pgToast('Kitchen, Porch and Shop are open: buttons up top','#ffe08a');
  const r=PG_RECIPES.find(r=>r.level===L);if(r)pgToast('New recipe: '+r.name,'#ffe08a');
- if(L===PG_SWITCH_LEVEL)pgToast('You can switch boards now','#ffe08a');}
+ if(L===PG_SWITCH_LEVEL)pgToast('You can switch boards now: Boards, up top','#ffe08a');}
 function pgToast(text,color,icon){PGU.toasts.push({text,color:color||'#fff',t:0,dur:2.6,icon:icon||null});if(PGU.toasts.length>6)PGU.toasts.shift();}
 // --- which recipe the game is steering toward, and what it still needs ---
 function pgRecipeOpen(r){return PG.level>=r.level;}
@@ -39811,7 +39813,7 @@ function pgTop(){return Math.max(8,hudLayout().top||0);} // under the phone's st
 function pgBot(){return H-Math.max(0,hudLayout().bottom||0);} // above the navigation bar
 function pgBack(){const y=pgTop()+44;return {x:12,y:y-20,w:84,h:40};}
 function pgHeader(title,color){const y0=pgTop(),b=pgBack();ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(0,0,W,y0+70);
- uiRound(b.x,b.y,b.w,b.h,14,'rgba(255,255,255,.14)','#ffe08a',1.5);ctx.fillStyle='#fff';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('‹ Home',b.x+b.w/2,b.y+b.h/2+1);
+ uiRound(b.x,b.y,b.w,b.h,14,'rgba(255,255,255,.14)','#ffe08a',1.5);ctx.fillStyle='#fff';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';pgChevron(b.x+17,b.y+b.h/2,-1,'#fff',6);ctx.fillText('Board',b.x+b.w/2+7,b.y+b.h/2+1);
  wildText(title,236,y0+45,30,color||'#ffd23f','#2a0b3e',6);pgCounters(y0+16);}
 function pgCounters(y){ctx.save();ctx.textBaseline='middle';ctx.textAlign='right';ctx.font='bold 13px system-ui';
  const c=PG.coins,n=PG.catnip;ctx.fillStyle='#ffd76a';ctx.fillText(c+' coins',W-14,y);ctx.fillStyle='#8dff9a';ctx.fillText(n+' Catnip',W-14-ctx.measureText(c+' coins').width-14,y);ctx.restore();}
@@ -39819,6 +39821,8 @@ function pgButton(r,label,fill,text,size,off){ctx.save();if(off)ctx.globalAlpha=
 function pgPrizeIcon(id,x,y,w,a=1){ctx.save();ctx.globalAlpha*=a;drawPrize('item',id,x,y+w*.3,w/(radius('item')*2.8));ctx.restore();}
 function pgPaw(x,y,k,c){uiPaw(x,y,k,c||'#ffe08a');}
 function pgLock(x,y,k=1){ctx.save();ctx.translate(x,y);ctx.scale(k,k);ctx.strokeStyle='#fff';ctx.lineWidth=4;ctx.beginPath();ctx.arc(0,-6,8,Math.PI,0);ctx.stroke();uiRound(-12,-6,24,18,4,'#ffd23f','#8a5a00',1.5);uiCircle(0,2,2.6,'#5a3a00');ctx.restore();}
+function pgChevron(x,y,d,c,s){ctx.save();ctx.strokeStyle=c;ctx.lineWidth=Math.max(3,s*.5);ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(x-d*s*.5,y-s);ctx.lineTo(x+d*s*.5,y);ctx.lineTo(x-d*s*.5,y+s);ctx.stroke();ctx.restore();}
+function pgPlayTri(x,y,c){ctx.save();ctx.fillStyle=c;ctx.strokeStyle='#0c3a12';ctx.lineWidth=3;ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(x-9,y-12);ctx.lineTo(x+12,y);ctx.lineTo(x-9,y+12);ctx.closePath();ctx.stroke();ctx.fill();ctx.restore();}
 function pgGearIcon(x,y,r){ctx.save();ctx.translate(x,y);ctx.fillStyle='#e8dcff';for(let i=0;i<8;i++){ctx.rotate(Math.PI/4);ctx.fillRect(-3,-r-3,6,7);}uiCircle(0,0,r,'#e8dcff');uiCircle(0,0,r*.42,'#2a1838');ctx.restore();}
 function pgCatnipLeaf(x,y,s){ctx.save();ctx.translate(x,y);ctx.scale(s,s);ctx.fillStyle='#5fd16a';ctx.strokeStyle='#1f6a28';ctx.lineWidth=1.5;for(const a of [-.6,0,.6]){ctx.save();ctx.rotate(a);ctx.beginPath();ctx.ellipse(0,-9,5,10,0,0,7);ctx.fill();ctx.stroke();ctx.restore();}ctx.restore();}
 // --- dishes, drawn in code ---
@@ -39835,11 +39839,16 @@ function pgDish(id,x,y,s){ctx.save();ctx.translate(x,y);ctx.scale(s,s);
  else if(id==='supper'){pgPrizeIcon('sardine',-4,-18,40);pgPrizeIcon('bowtie',22,-24,22);}
  ctx.restore();}
 // ---------- HOME ----------
-function pgDoors(){const y0=Math.max(pgTop()+380,pgBot()-414),gw=170,gh=118,gap=12;
- return {board:{x:24,y:y0,w:352,h:96,id:'board'},kitchen:{x:24,y:y0+96+gap,w:gw,h:gh,id:'kitchen',level:2},porch:{x:24+gw+gap,y:y0+96+gap,w:gw,h:gh,id:'porch',level:2},
-  album:{x:24,y:y0+96+gap*2+gh,w:gw,h:gh,id:'album',level:1},shop:{x:24+gw+gap,y:y0+96+gap*2+gh,w:gw,h:gh,id:'shop',level:2}};}
-function pgGear(){return {x:W-50,y:pgTop()+38,w:40,h:40};}
-function pgModesChip(){return {x:W-128,y:pgTop()+42,w:72,h:30};}
+// --- the coin board is home (Jenny, Nov 14). Between rounds (goal card, end card) a bar sits across the top of the
+// board, where the round's HUD is, so it never covers the cat's face or the table: level and XP, coins, Catnip,
+// Settings, and buttons for Kitchen, Porch, Album, Shop and Boards (a pink paw when something waits). During a round the
+// normal HUD is back.
+const PG_DOCK_IDS=['kitchen','porch','album','shop','board'],PG_DOCK_LEVEL={kitchen:2,porch:2,album:0,shop:2,board:0};
+const PG_DOCK_COL={board:['#ffb23f','#a8400f'],kitchen:['#ff8a5a','#7a2a1a'],porch:['#7ad65a','#1f5a1a'],album:['#d06aff','#4a1a6a'],shop:['#4fd0ff','#0a4a6a']};
+function pgDockName(id){return {kitchen:'Kitchen',porch:'Porch',album:'Album',shop:'Shop',board:'Boards'}[id];}
+function pgRestPhase(){return !!(PG&&!PG_HOME_OFF&&WILD.on&&!inventoryOpen&&PGU.screen==='board'&&(WILD.phase==='card'||(WILD.phase==='end'&&WILD.endT>=.9)));}
+function pgDock(){const h=hudLayout(),top=h.top,bot=Math.max(top+78,h.headerBottom+2),y1=top+15,ty=top+31,th=bot-ty-5,gap=5,tw=(W-12-gap*4)/5;
+ return {top,bottom:bot,y1,gear:{x:W-46,y:top,w:46,h:30},tiles:PG_DOCK_IDS.map((id,i)=>({id,x:6+i*(tw+gap),y:ty,w:tw,h:th,level:PG_DOCK_LEVEL[id]}))};}
 function pgWaiting(id){
  if(id==='kitchen')return PG_RECIPES.some(r=>pgCanCook(r))||PG_RECIPES.some(r=>PG.recipes[r.id]&&PG.seen['r:'+r.id]===0);
  if(id==='porch')return PG.porch.some(s=>s&&(s.state==='visit'||s.state==='missed'))||(PG.level>=2&&PG.porch.some(s=>!s)&&Object.values(PG.dishes).some(n=>n>0));
@@ -39847,6 +39856,32 @@ function pgWaiting(id){
  if(id==='board')return !!PG.newBoard;
  if(id==='shop'){const m=pgMissing(pgCurrentRecipe());return Object.keys(m).some(i=>!pgWinnable(i)&&PG.coins>=pgBuy(i));}
  return false;}
+function pgDrawDock(){
+ const D=pgDock(),t=PGU.T,a=WILD.phase==='card'?Math.min(1,(WILD.cardT||0)/.2):Math.min(1,((WILD.endT||0)-.9)/.2);if(!(a>0))return;
+ ctx.save();ctx.globalAlpha=a;ctx.textBaseline='middle';
+ let gr=ctx.createLinearGradient(0,0,0,D.bottom);gr.addColorStop(0,'#160a24');gr.addColorStop(1,'#2c1544');ctx.fillStyle=gr;ctx.fillRect(0,0,W,D.bottom);
+ ctx.fillStyle='rgba(0,0,0,.35)';ctx.fillRect(0,D.bottom,W,4);ctx.fillStyle='#ffe08a';ctx.fillRect(0,D.bottom-2,W,2);
+ // level badge and XP bar
+ const y=D.y1,need=pgXPNeed(PG.level),u=Math.min(1,PG.xp/need),bx=40,bw=128;
+ uiCircle(21,y,14,'#ffd23f','#fff6d0',2);ctx.fillStyle='#3a1a00';ctx.textAlign='center';ctx.font='900 16px Impact, system-ui';ctx.fillText(PG.level,21,y+1);
+ uiRound(bx,y-8,bw,16,8,'rgba(255,255,255,.12)','#ffe08a',1);if(u>0)uiRound(bx+1,y-7,Math.max(14,(bw-2)*u),14,7,'#7dff6a');
+ ctx.fillStyle='#fff';ctx.font='bold 10px system-ui';ctx.fillText('LEVEL '+PG.level+' · '+PG.xp+' / '+need+' XP',bx+bw/2,y+1,bw-8);
+ // coins (the jar) and Catnip
+ uiCircle(186,y,8,'#f5c632','#a8740c',1.5);pgPaw(186,y+1,.16,'#a8740c');ctx.textAlign='left';ctx.font='bold 15px system-ui';ctx.fillStyle='#ffd76a';ctx.fillText(PG.coins,198,y+1);
+ const cx=198+ctx.measureText(String(PG.coins)).width+18;pgCatnipLeaf(cx,y+7,.72);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,cx+12,y+1);
+ // Settings
+ pgGearIcon(D.gear.x+D.gear.w/2,y,9);
+ // the buttons
+ for(const r of D.tiles){const id=r.id,col=PG_DOCK_COL[id],locked=r.level&&PG.level<r.level,cxr=r.x+r.w/2,cyr=r.y+r.h/2;
+  const pr=PGU.door&&PGU.door.id===id?Math.min(1,PGU.door.t/.24):0,press=1-.1*Math.sin(pr*Math.PI);
+  ctx.save();ctx.translate(cxr,cyr);ctx.scale(press,press);ctx.translate(-cxr,-cyr);
+  uiRound(r.x,r.y+3,r.w,r.h,12,'rgba(0,0,0,.4)');const g2=ctx.createLinearGradient(0,r.y,0,r.y+r.h);g2.addColorStop(0,col[0]);g2.addColorStop(1,col[1]);uiRound(r.x,r.y,r.w,r.h,12,g2,'#fff6d0',1.5);
+  const k=Math.max(.3,Math.min(.5,(r.h-18)/62));ctx.save();ctx.beginPath();ctx.rect(r.x+2,r.y+2,r.w-4,r.h-16);ctx.clip();ctx.translate(cxr,r.y+(r.h-14)/2+3);ctx.scale(k,k);pgDoorIcon(id,0,0,t);ctx.restore();
+  ctx.textAlign='center';wildText(locked?'LEVEL '+r.level:pgDockName(id).toUpperCase(),cxr,r.y+r.h-9,11,locked?'#ffe08a':'#fff',col[1],3);
+  if(locked){uiRound(r.x,r.y,r.w,r.h,12,'rgba(10,6,20,.55)');pgLock(r.x+r.w-13,r.y+14,.62);wildText('LEVEL '+r.level,cxr,r.y+r.h-9,11,'#ffe08a','#2a1838',3);}
+  else if(pgWaiting(id)){const px=r.x+r.w-10,py=r.y+10,kk=1+.12*Math.sin(t*6);uiCircle(px,py,10*kk,'#fff','#ff6ab8',2);pgPaw(px,py+1,.24*kk,'#ff3a8a');}
+  ctx.restore();}
+ ctx.restore();}
 function pgDoorIcon(id,x,y,t){
  if(id==='kitchen'){ctx.fillStyle='#3a3a48';ctx.beginPath();ctx.moveTo(x-30,y-8);ctx.lineTo(x+30,y-8);ctx.quadraticCurveTo(x+28,y+22,x,y+24);ctx.quadraticCurveTo(x-28,y+22,x-30,y-8);ctx.fill();ctx.fillStyle='#5a5a6a';ctx.fillRect(x-34,y-12,68,7);
   ctx.fillStyle='rgba(255,255,255,.7)';for(let i=0;i<3;i++){const u=(t*.6+i/3)%1;ctx.globalAlpha=(1-u)*.7;ctx.beginPath();ctx.arc(x-12+i*12+Math.sin(u*6+i)*4,y-18-u*26,4+u*5,0,7);ctx.fill();}ctx.globalAlpha=1;}
@@ -39855,58 +39890,52 @@ function pgDoorIcon(id,x,y,t){
  else if(id==='shop'){ctx.fillStyle='rgba(200,230,255,.35)';ctx.strokeStyle='#d8eeff';ctx.lineWidth=2;ctx.beginPath();ctx.roundRect(x-22,y-20,44,44,10);ctx.fill();ctx.stroke();ctx.fillStyle='#b88a4a';ctx.fillRect(x-18,y-26,36,8);
   for(let i=0;i<5;i++){uiCircle(x-12+(i%3)*12,y+16-(i/3|0)*8,6,'#f5c632','#a8740c',1);}}
  else if(id==='board'){uiCircle(x,y,22,'#f5c632','#a8740c',2);pgPaw(x,y+2,.42,'#a8740c');}}
-function pgDrawHome(dt){
- const t=PGU.t,y0=pgTop();
- // backdrop: the game's starry background, then a cosy room floor
+// --- the title screen (Jenny, Nov 14): "CatCoin" drops in letter by letter (a clink each), coins rain, the Tuxedo pops
+// up and meows, a little jingle; about 2.6 s, then the Tuxedo's coin board fades in. A tap skips it.
+const PG_TITLE_DUR=2.6,PG_TITLE_WORD='CatCoin';
+function pgEaseBack(u){const c=1.7;return 1+(c+1)*Math.pow(u-1,3)+c*Math.pow(u-1,2);}
+function pgEaseBounce(u){const n=7.5625,d=2.75;if(u<1/d)return n*u*u;if(u<2/d)return n*(u-=1.5/d)*u+.75;if(u<2.5/d)return n*(u-=2.25/d)*u+.9375;return n*(u-=2.625/d)*u+.984375;}
+function pgTitleTick(dt){const T0=PGU.title;T0.t+=dt;
+ const beats=[...[...PG_TITLE_WORD].map((c,i)=>[.3+i*.09+.3,'coin']),[1.15,'meow'],[1.5,'levelup']];
+ while(T0.snd<beats.length&&T0.t>=beats[T0.snd][0]){pgSfx(beats[T0.snd][1],beats[T0.snd][1]==='coin'?.8:1);T0.snd++;}
+ if(T0.coins.length<40&&Math.random()<dt*16)T0.coins.push({x:rand(14,386),y:-30,vy:rand(170,330),r:rand(10,17),s:rand(0,6),vs:rand(3,8)});
+ for(let i=T0.coins.length-1;i>=0;i--){const c=T0.coins[i];c.y+=c.vy*dt;c.vy+=240*dt;if(c.y>H+40)T0.coins.splice(i,1);}
+ if(T0.t>=PG_TITLE_DUR)pgTitleDone();}
+function pgTitleSkip(){if(PGU.title.t>.15){pgSfx('whoosh');pgTitleDone();}}
+function pgTitleDone(){if(PGU.screen!=='title')return;PGU.screen='board';PGU.fade=.3;if(!WILD.on)pgPlay(pgPlayCat());try{diagEvent('progress','title done t='+PGU.title.t.toFixed(2));}catch(e){}}
+function pgDrawTitle(){
+ const T0=PGU.title,t=T0.t;
  if(ART.background){const cover=Math.max(W/ART.background.width,H/ART.background.height),bw=ART.background.width*cover,bh=ART.background.height*cover;ctx.drawImage(ART.background,(W-bw)/2,(H-bh)/2,bw,bh);}else{ctx.fillStyle='#1d1030';ctx.fillRect(0,0,W,H);}
- const D=pgDoors(),floor=D.board.y-40;let gr=ctx.createLinearGradient(0,floor-120,0,H);gr.addColorStop(0,'rgba(60,30,80,0)');gr.addColorStop(.25,'rgba(60,30,80,.85)');gr.addColorStop(1,'#1a0d26');ctx.fillStyle=gr;ctx.fillRect(0,floor-120,W,H);
- // top bar: level and XP, coins, Catnip, Settings
- ctx.fillStyle='rgba(18,11,28,.82)';ctx.fillRect(0,0,W,y0+84);
- uiCircle(36,y0+40,24,'#ffd23f','#fff6d0',2.5);ctx.fillStyle='#3a1a00';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='bold 10px system-ui';ctx.fillText('LEVEL',36,y0+30);ctx.font='900 20px Impact, system-ui';ctx.fillText(PG.level,36,y0+47);
- const need=pgXPNeed(PG.level),u=Math.min(1,PG.xp/need),bx=68,bw=W-68-150,by=y0+46;uiRound(bx,by-8,bw,16,8,'rgba(255,255,255,.12)','#ffe08a',1.2);if(u>0)uiRound(bx+1,by-7,Math.max(14,(bw-2)*u),14,7,'#7dff6a');
- ctx.fillStyle='#fff';ctx.font='bold 11px system-ui';ctx.fillText(PG.xp+' / '+need+' XP',bx+bw/2,by+1);
- ctx.textAlign='left';ctx.font='bold 12px system-ui';ctx.fillStyle='#ffe08a';ctx.fillText(PG.won?'You won! ♛':PG.level<PG_SWITCH_LEVEL?'Board switching at level '+PG_SWITCH_LEVEL:'All your boards are open to play',bx,y0+24,bw+40);
- // coins and Catnip
- const cx=W-140;uiCircle(cx+10,y0+28,9,'#f5c632','#a8740c',1.5);ctx.fillStyle='#ffd76a';ctx.font='bold 16px system-ui';ctx.fillText(PG.coins,cx+24,y0+29);
- pgCatnipLeaf(cx+10,y0+60,.9);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,cx+24,y0+59);
- const g=pgGear();pgGearIcon(g.x+g.w/2,g.y+g.h/2-12,11);ctx.textAlign='center';
- if(S.dev){const m=pgModesChip();uiRound(m.x,m.y-34,m.w,24,10,'rgba(20,60,60,.92)','#5ef0c0',1.5);ctx.fillStyle='#d8fff2';ctx.font='900 12px Impact, system-ui';ctx.fillText('MODES',m.x+m.w/2,m.y-21);}
- // the current cat lounges; tap it
- const cat=PG.current,tap=t-PGU.cat.tap,bounce=tap<.5?Math.sin(tap/.5*Math.PI)*14:0,breathe=Math.sin(t*1.6)*3,cy=Math.min(300,(y0+84+floor)/2+10)-bounce;
- const cw=Math.min(360,W-30),face=tap<1.3?'sweet':'calm',blink=((t+.3)%5.3)<.13?1:0;
- ctx.save();ctx.translate(200,cy+60);ctx.scale(1+breathe*.004,1-breathe*.004);ctx.translate(-200,-(cy+60));
- if(PG.won){ctx.save();ctx.translate(200,cy-cw*.36);ctx.fillStyle='#ffd23f';ctx.strokeStyle='#8a5a00';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(-34,14);ctx.lineTo(-40,-16);ctx.lineTo(-18,0);ctx.lineTo(0,-24);ctx.lineTo(18,0);ctx.lineTo(40,-16);ctx.lineTo(34,14);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();}
- pgHead(cat,200,cy,cw,face,{look:Math.sin(t*.5)*.8,lookY:Math.sin(t*.37),blink});ctx.restore();
- pgTag(cat,200,cy+cw*.33);
- if(!pgArtReady(cat,'head')){ctx.fillStyle='rgba(255,255,255,.6)';ctx.font='12px system-ui';ctx.fillText('…',200,cy);}
- for(let i=PGU.cat.hearts.length-1;i>=0;i--){const h=PGU.cat.hearts[i];h.t+=dt;if(h.t>1.4){PGU.cat.hearts.splice(i,1);continue;}ctx.save();ctx.globalAlpha=1-h.t/1.4;ctx.translate(h.x+Math.sin(h.t*5)*8,h.y-h.t*70);ctx.fillStyle='#ff6ab8';ctx.font='22px system-ui';ctx.fillText('♥',0,0);ctx.restore();}
- if(t<6&&PG.rounds===0){ctx.fillStyle='rgba(255,255,255,'+(.5+.5*Math.sin(t*4))+')';ctx.font='bold 13px system-ui';ctx.fillText('tap the cat',200,cy+cw*.33+26);}
- // doors
- for(const id of ['board','kitchen','porch','album','shop']){const r=D[id],locked=r.level&&PG.level<r.level,open=PGU.door&&PGU.door.id===id?Math.min(1,PGU.door.t/.28):0;
-  ctx.save();const cxr=r.x+r.w/2,cyr=r.y+r.h/2,press=open>0?1-.04*Math.sin(open*Math.PI):1;ctx.translate(cxr,cyr);ctx.scale(press,press);ctx.translate(-cxr,-cyr);
-  const col={board:['#ffb23f','#a8400f'],kitchen:['#ff8a5a','#7a2a1a'],porch:['#7ad65a','#1f5a1a'],album:['#d06aff','#4a1a6a'],shop:['#4fd0ff','#0a4a6a']}[id];
-  uiRound(r.x,r.y+4,r.w,r.h,18,'rgba(0,0,0,.35)');let g2=ctx.createLinearGradient(0,r.y,0,r.y+r.h);g2.addColorStop(0,col[0]);g2.addColorStop(1,col[1]);uiRound(r.x,r.y,r.w,r.h,18,g2,'#fff6d0',2.5);
-  // the door panel swings open when tapped
-  if(open>0){ctx.fillStyle='rgba(20,8,30,.9)';ctx.fillRect(r.x+8,r.y+8,r.w-16,r.h-16);ctx.save();ctx.translate(r.x+8,0);ctx.scale(1-open*.85,1);let g3=ctx.createLinearGradient(0,r.y,0,r.y+r.h);g3.addColorStop(0,col[0]);g3.addColorStop(1,col[1]);ctx.fillStyle=g3;ctx.fillRect(0,r.y+8,r.w-16,r.h-16);ctx.restore();}
-  const ix=id==='board'?r.x+56:r.x+r.w/2,iy=id==='board'?cyr:r.y+44;pgDoorIcon(id,ix,iy,t);
-  ctx.textAlign=id==='board'?'left':'center';const lab={board:'PLAY',kitchen:'KITCHEN',porch:'PORCH',album:'ALBUM',shop:'SHOP'}[id];
-  if(id==='board'){wildText('PLAY',r.x+94,cyr-12,34,'#fff','#5a1a00',6);ctx.font='bold 14px system-ui';ctx.fillStyle='#fff6d0';const bc=pgPlayCat();ctx.fillText(PG_CAT[bc].name+"'s board · "+PG_CAT[bc].board+(PG.stars[bc]?'  '+'★'.repeat(PG.stars[bc]):''),r.x+96,cyr+20,r.w-110);}
-  else{wildText(lab,r.x+r.w/2,r.y+r.h-22,22,'#fff',col[1],5);}
-  if(locked){uiRound(r.x,r.y,r.w,r.h,18,'rgba(10,6,20,.55)');ctx.textAlign='center';pgLock(r.x+r.w-26,r.y+24,1);uiRound(r.x+r.w/2-40,r.y+r.h/2-26,80,24,12,'rgba(10,6,20,.8)');ctx.font='bold 13px system-ui';ctx.fillStyle='#ffe08a';ctx.fillText('Level '+r.level,r.x+r.w/2,r.y+r.h/2-13);}
-  else if(pgWaiting(id)){const px=r.x+r.w-22,py=r.y+20,k=1+.12*Math.sin(t*6);uiCircle(px,py,17*k,'#fff','#ff6ab8',2.5);pgPaw(px,py+2,.42*k,'#ff3a8a');}
-  ctx.restore();}
- if(PGU.pick)pgDrawBoardPick(dt);}
+ let gr=ctx.createLinearGradient(0,0,0,H);gr.addColorStop(0,'rgba(30,10,50,.55)');gr.addColorStop(1,'rgba(20,6,34,.9)');ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
+ const ty=Math.max(pgTop()+120,H*.27);
+ // slow rays behind the title
+ ctx.save();ctx.translate(200,ty);ctx.rotate(t*.35);for(let i=0;i<12;i++){ctx.rotate(Math.PI/6);ctx.fillStyle=i%2?'rgba(255,210,63,.13)':'rgba(255,122,213,.08)';ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-40,-H);ctx.lineTo(40,-H);ctx.fill();}ctx.restore();
+ // coins raining, spinning
+ for(const c of T0.coins){ctx.save();ctx.translate(c.x,c.y);ctx.scale(Math.max(.15,Math.abs(Math.cos(c.s+t*c.vs))),1);uiCircle(0,0,c.r,'#f5c632','#a8740c',2);pgPaw(0,1,c.r/40,'#a8740c');ctx.restore();}
+ // the Tuxedo pops up from the bottom, then smiles
+ const u=Math.min(1,Math.max(0,(t-.1)/.7)),hy=H+150-(H+150-H*.66)*pgEaseBack(u),face=t>1.1&&t<2.3?'sweet':'calm';
+ pgHead('tuxedo',200,hy+Math.sin(t*2.2)*4,340,face,{look:Math.sin(t*1.7)*.7,blink:((t+.5)%3)<.12?1:0});
+ // the title, letter by letter
+ const size=82;ctx.font='italic 900 '+size+'px Impact, "Arial Black", system-ui';const ws=[...PG_TITLE_WORD].map(ch=>ctx.measureText(ch).width),tot=ws.reduce((a,b)=>a+b,0)+4*(ws.length-1);
+ let x=200-tot/2;ctx.textAlign='center';ctx.textBaseline='middle';
+ [...PG_TITLE_WORD].forEach((ch,i)=>{const lt=t-(.3+i*.09),cx=x+ws[i]/2;x+=ws[i]+4;if(lt<0)return;const d=Math.min(1,lt/.3),y=ty-(1-pgEaseBounce(d))*300+(d>=1?Math.sin(t*3+i*.8)*4:0);
+  const sq=d>=1&&lt<.42?1+.18*Math.sin((lt-.3)/.12*Math.PI):1;ctx.save();ctx.translate(cx,y);ctx.scale(sq,1/sq);ctx.rotate(Math.sin(t*2+i)*.04);
+  wildText(ch,0,0,size,i<3?'#ffd23f':'#ff8ad8',i<3?'#4a1a00':'#3a0b2e',13);ctx.restore();});
+ // "tap to play"
+ if(t>1.3){ctx.save();ctx.globalAlpha=.55+.45*Math.sin(t*5);ctx.font='bold 14px system-ui';ctx.fillStyle='#ffe08a';ctx.fillText('tap to play',200,pgBot()-34);ctx.restore();}
+ ctx.font='10px system-ui';ctx.fillStyle='rgba(255,255,255,.5)';ctx.textAlign='left';ctx.fillText(BUILD,8,pgBot()-6);}
 function pgPlayCat(){return pgCanPlay(PG.current)?PG.current:pgNewest();}
-// --- the board picker (Home's PLAY door when more than one board is open) ---
+// --- the board picker (the Boards button on the board) ---
 function pgPickRects(){const top=Math.max(pgTop()+90,H-640),rows=PG_CATS.map((c,i)=>({c,x:30,y:top+70+i*86,w:340,h:76}));return {card:{x:16,y:top,w:368,h:70+PG_CATS.length*86+60},rows,close:{x:140,y:top+70+PG_CATS.length*86+12,w:120,h:34}};}
-function pgDrawBoardPick(dt){PGU.pickT+=dt;const R=pgPickRects(),u=Math.min(1,PGU.pickT/.2);ctx.save();ctx.globalAlpha=u;ctx.fillStyle='rgba(8,4,16,.72)';ctx.fillRect(0,0,W,H);
+function pgDrawBoardPick(dt){const R=pgPickRects(),u=Math.min(1,PGU.pickT/.2);ctx.save();ctx.globalAlpha=u;ctx.fillStyle='rgba(8,4,16,.72)';ctx.fillRect(0,0,W,H);
  wildPanel(R.card,'#4b1f6e','#1d0f33');wildText('PICK A BOARD',200,R.card.y+38,30,'#ffd23f','#2a0b3e',6);
  for(const r of R.rows){const C=PG_CAT[r.c],open=PG.open[r.c],can=pgCanPlay(r.c);uiRound(r.x,r.y,r.w,r.h,16,open?(can?'rgba(255,255,255,.14)':'rgba(255,255,255,.06)'):'rgba(0,0,0,.3)',open?C.tag:'#554',2);
   if(open)pgHead(r.c,r.x+48,r.y+r.h/2,80,'calm',{noPupils:false});else{ctx.save();ctx.globalAlpha*=.5;ctx.filter='brightness(0)';pgHead(r.c,r.x+48,r.y+r.h/2,80,'calm',{noPupils:true});ctx.restore();ctx.fillStyle='#fff';ctx.font='900 26px Impact, system-ui';ctx.textAlign='center';ctx.fillText('?',r.x+48,r.y+r.h/2+2);}
   ctx.textAlign='left';ctx.fillStyle='#fff';ctx.font='bold 18px system-ui';ctx.fillText(open?C.name:'???',r.x+100,r.y+26);ctx.font='13px system-ui';ctx.fillStyle='#e8dcff';
-  ctx.fillText(open?C.board+(PG.stars[r.c]?'  '+'★'.repeat(PG.stars[r.c]):''):'Win its cat coin to open',r.x+100,r.y+50,r.w-150);
+  ctx.fillText(open?C.board:'Win its cat coin to open',r.x+100,r.y+50,r.w-150);if(open&&PG.stars[r.c]){const tw=Math.min(r.w-150,ctx.measureText(C.board).width);for(let i=0;i<PG.stars[r.c];i++)w43Star(r.x+112+tw+i*17,r.y+49,7,'#ffd23f');}
   if(open&&!can){ctx.textAlign='center';pgLock(r.x+r.w-36,r.y+28,.9);ctx.font='bold 11px system-ui';ctx.fillStyle='#ffe08a';ctx.fillText('Level '+PG_SWITCH_LEVEL,r.x+r.w-36,r.y+52);}
-  else if(open){ctx.textAlign='center';wildText('▶',r.x+r.w-34,r.y+r.h/2,26,'#7dff6a','#0c3a12',4);}}
+  else if(open&&WILD.on&&r.c===PGU.boardCat){ctx.textAlign='center';ctx.font='900 13px Impact, system-ui';ctx.fillStyle='#7dff6a';ctx.fillText('PLAYING',r.x+r.w-38,r.y+r.h/2+1);}
+  else if(open)pgPlayTri(r.x+r.w-34,r.y+r.h/2,'#7dff6a');}
  ctx.textAlign='center';uiRound(R.close.x,R.close.y,R.close.w,R.close.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 14px system-ui';ctx.fillText('Close',200,R.close.y+R.close.h/2+1);ctx.restore();}
 // Starts a cat's board (Wild 2 for the Tuxedo, the mode for the others) with that cat's art.
 function pgPlay(cat){
@@ -39923,7 +39952,7 @@ function pgDrawKitchen(dt){
   if(row.y+row.h>H)break;uiRound(row.x,row.y,row.w,row.h,16,open?'rgba(255,240,220,.92)':'rgba(255,240,220,.25)','#8a4a1a',2);
   if(!open){ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='bold 16px system-ui';ctx.fillText('A new recipe at level '+r.level,214,row.y+row.h/2);pgLock(200-ctx.measureText('A new recipe at level '+r.level).width/2-8,row.y+row.h/2+2,.8);continue;}
   pgDish(r.id,row.x+48,row.y+48+(can?Math.sin(t*3)*2:0),.72);pgHead(r.cat,row.x+48,row.y+86,44,'calm',{noPupils:true});
-  ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#3a1a0a';ctx.font='bold 17px system-ui';ctx.fillText(r.name,row.x+96,row.y+20);ctx.font='12px system-ui';ctx.fillStyle='#7a4a2a';ctx.fillText('for the '+PG_CAT[r.cat].name+(done?' · photographed ✓':''),row.x+96,row.y+38);
+  ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#3a1a0a';ctx.font='bold 17px system-ui';ctx.fillText(r.name,row.x+96,row.y+20);ctx.font='12px system-ui';ctx.fillStyle='#7a4a2a';ctx.fillText('for the '+PG_CAT[r.cat].name+(done?' · photographed':''),row.x+96,row.y+38);
   let ix=row.x+108;for(const id in r.need){const have=pgHave(id),n=r.need[id],ok=have>=n;pgPrizeIcon(id,ix,row.y+60,28,ok?1:.55);ctx.textAlign='center';ctx.font='bold 11px system-ui';ctx.fillStyle=ok?'#1f7a1a':'#c0302a';ctx.fillText(Math.min(have,99)+'/'+n,ix,row.y+88);ix+=40;}
   const b={x:row.x+row.w-86,y:row.y+row.h/2-20,w:76,h:40};row.btn=b;
   if(!held){ctx.textAlign='center';ctx.fillStyle='#7a4a2a';ctx.font='bold 11px system-ui';ctx.fillText('Used up',b.x+b.w/2,b.y+12);ctx.font='10px system-ui';ctx.fillText('win a recipe',b.x+b.w/2,b.y+26);ctx.fillText('coin on a board',b.x+b.w/2,b.y+38);}
@@ -39988,7 +40017,7 @@ function pgSetFood(i,rid){const r=PG_R[rid];if(!r||!(PG.dishes[rid]>0)||PG.porch
 function pgPorchTick(){const now=pgNow();let ch=false;
  PG.porch.forEach((s,i)=>{if(!s)return;
   if(s.state==='food'&&now>=s.eatAt){s.state='visit';s.leaveAt=s.eatAt+pgVisitWindow();s.arrive=PGU.T;ch=true;const dn=PG_R[s.dish].short;
-   pgToast('Someone ate the '+dn+' 🐾','#ffe08a','paw');if(PGU.screen==='porch')pgSfx('bell');try{diagEvent('progress','ate '+s.dish);}catch(e){}}
+   pgToast('Someone ate the '+dn,'#ffe08a','paw');if(PGU.screen==='porch')pgSfx('bell');try{diagEvent('progress','ate '+s.dish);}catch(e){}}
   if(s.state==='visit'&&now>=s.leaveAt){s.state='missed';ch=true;if(PGU.screen==='porch')pgSfx('back');try{diagEvent('progress','missed '+s.cat);}catch(e){}}
   if(s.state==='photo'&&now>=(s.goneAt||0)){PG.porch[i]=null;ch=true;}});
  if(ch)pgSave();}
@@ -40045,7 +40074,7 @@ function pgCheckStamps(){if(!PG)return;let got=0;
  for(const c of PG_CATS)if((PG.photos[c]|0)>=3&&!PG.stamped[c]){PG.stamped[c]=1;PG.catnip+=3;got+=3;pgToast(PG_CAT[c].name+"'s album page is full! +3 Catnip",'#8dff9a');pgSfx('stamp');}
  if(PG_PRIZES.every(id=>PG.ever[id])&&!PG.stamped.prizes){PG.stamped.prizes=1;PG.catnip+=5;got+=5;pgToast('Prize page full! +5 Catnip','#8dff9a');pgSfx('stamp');}
  return got;}
-function pgCheckWin(){if(PG.won)return;if(PG_CATS.every(c=>PG.photos[c]>0&&PG.open[c])){PG.won=true;PGU.win={t:0};pgSfx('fanfare');try{diagEvent('progress','YOU WON');}catch(e){}}}
+function pgCheckWin(){if(PG.won)return;if(PG_CATS.every(c=>PG.photos[c]>0&&PG.open[c])){PG.won=true;try{diagEvent('progress','YOU WON');}catch(e){}}}
 function pgAlbumArrows(){const y=pgBot()-80;return {prev:{x:20,y,w:70,h:56},next:{x:W-90,y,w:70,h:56}};}
 function pgDrawAlbum(dt){
  const A=PGU.album,t=PGU.t;let gr=ctx.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#3a1a4a');gr.addColorStop(1,'#1a0a24');ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
@@ -40066,7 +40095,7 @@ function pgDrawAlbum(dt){
   ctx.fillStyle='#7a5a3a';ctx.font='12px system-ui';ctx.fillText(n?(n<3?'More photos, more poses: feed it again':'Page full!'):'Set out its favourite dish on the Porch',200,top+bh-30,330);
   if(PG.stamped[pid])pgStamp(300,top+bh-80,t);}
  ctx.restore();
- const B=pgAlbumArrows();for(const [k,r] of Object.entries(B)){uiRound(r.x,r.y,r.w,r.h,16,'rgba(255,255,255,.14)','#e8a6ff',2);ctx.fillStyle='#fff';ctx.font='900 30px system-ui';ctx.fillText(k==='prev'?'‹':'›',r.x+r.w/2,r.y+r.h/2);}
+ const B=pgAlbumArrows();for(const [k,r] of Object.entries(B)){uiRound(r.x,r.y,r.w,r.h,16,'rgba(255,255,255,.14)','#e8a6ff',2);ctx.fillStyle='#fff';ctx.font='900 30px system-ui';pgChevron(r.x+r.w/2,r.y+r.h/2,k==='prev'?-1:1,'#fff',11);}
  ctx.fillStyle='#fff';ctx.font='bold 13px system-ui';ctx.fillText((A.page+1)+' / '+pages.length,200,B.prev.y+B.prev.h/2);}
 function pgStamp(x,y,t){ctx.save();ctx.translate(x,y);ctx.rotate(-.25);ctx.globalAlpha=.85;ctx.strokeStyle='#d0302a';ctx.lineWidth=4;ctx.beginPath();ctx.arc(0,0,40,0,7);ctx.stroke();ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,33,0,7);ctx.stroke();ctx.fillStyle='#d0302a';ctx.font='900 15px Impact, system-ui';ctx.textAlign='center';ctx.fillText('COMPLETE',0,-4);pgCatnipLeaf(0,18,.8);ctx.restore();}
 function pgAlbumFlip(d){const n=pgPages().length;PGU.album.page=(PGU.album.page+d+n)%n;PGU.album.flipT=0;pgSfx('flip');}
@@ -40171,7 +40200,7 @@ function pgEndText(R){const P=WILD.pgResult;if(!P||PG_HOME_OFF)return false;cons
  ctx.font='bold 13px system-ui';ctx.fillStyle='#fff6d0';ctx.textAlign='center';ctx.fillText('+'+P.xp+' XP · +'+P.coins+' coins to the jar'+(P.nip?' · +1 Catnip':'')+(P.level?' · LEVEL '+P.level+'!':''),200,y+20,330);
  return true;}
 // Goal-card lines: the visitor and star-visitor lines become the stars line.
-const PG_STAR_LINE=['pgstars','Win ★ · '+PG_STAR2+' s left ★★','and a perfect side game ★★★'];
+const PG_STAR_LINE=['pgstars','Win: 1 star · '+PG_STAR2+' s left: 2 stars','and a perfect side game: 3 stars'];
 function pgFixLines(a){if(!Array.isArray(a))return;for(let i=0;i<a.length;i++)if(a[i]&&(a[i][0]==='visitor'||a[i][0]==='star'))a[i]=PG_STAR_LINE;}
 function pgFixAllLines(){pgFixLines(W2_CARD_LINES);for(const k in WILD_MODES)pgFixLines(WILD_MODES[k].cardLines);if(typeof LASER_CARD_LINES!=='undefined')pgFixLines(LASER_CARD_LINES);if(typeof PET_CARD_LINES!=='undefined')pgFixLines(PET_CARD_LINES);if(typeof PET_W2_LINES!=='undefined')pgFixLines(PET_W2_LINES);}
 const __pgCardIcon=w2CardIcon;
@@ -40185,22 +40214,20 @@ const __pgPhase=pawDancePhase;pawDancePhase=function(){const r=__pgPhase();if(r&
 const __pgW2Enter=wild2Enter;wild2Enter=function(){const r=__pgW2Enter();if(r)PGU.screen='board';return r;};
 const __pgModeEnter=wildModeEnter;wildModeEnter=function(id){if(!PGU.pgPlaying)PGU.boardCat=pgCatOfMode(id);const r=__pgModeEnter(id);return r;};
 const __pgPlay=pgPlay;pgPlay=function(cat){PGU.pgPlaying=true;try{return __pgPlay(cat);}finally{PGU.pgPlaying=false;}};
-const __pgExit=wildExit;wildExit=function(){PGU.moment=null;const r=__pgExit();pgRestoreArt();pgSetList(PG_DEFAULT_LIST);if(r&&!PG_HOME_OFF&&!PGU.entering){PGU.screen='home';PGU.t=0;}return r;};
+// Leaving a board (EXIT during a round) comes straight back to a cat's board and its next goal card, on the next frame
+// (so Developer code that leaves one board for another doesn't bounce).
+const __pgExit=wildExit;wildExit=function(){PGU.moment=null;const r=__pgExit();pgRestoreArt();pgSetList(PG_DEFAULT_LIST);if(r&&PG&&!PG_HOME_OFF&&!PGU.entering&&!PGU.oldBoards){PGU.screen='board';PGU.reenter=true;}return r;};
+function pgBoardCatNow(){return PGU.boardCat&&pgCanPlay(PGU.boardCat)?PGU.boardCat:pgPlayCat();}
+function pgReenter(){PGU.reenter=false;if(!PG||PG_HOME_OFF||PGU.oldBoards||WILD.on)return;PGU.screen='board';pgPlay(pgBoardCatNow());}
+// Switches to another cat's board (its goal card).
+function pgSwitchBoard(cat){PGU.entering=true;try{if(WILD.on)wildExit();}finally{PGU.entering=false;}PGU.pick=false;PGU.reenter=false;const ok=pgPlay(cat);if(ok)PGU.fade=.3;return ok;}
 // wildModeEnter leaves any board first: stay on the board then.
 const __pgModeEnter2=wildModeEnter;wildModeEnter=function(id){PGU.entering=true;try{const r=__pgModeEnter2(id);if(r){PGU.screen='board';pgApplyArt(PGU.boardCat||pgCatOfMode(id));}return r;}finally{PGU.entering=false;}};
 // ---------- input ----------
-function pgGo(screen){PGU.screen=screen;PGU.t=0;PGU.pick=false;if(screen==='kitchen'){PGU.k.cook=null;}if(screen==='porch'){PGU.porch.pick=null;PGU.porch.chirp=.6;}if(screen==='album'){PGU.album.flipT=0;}try{diagEvent('progress','screen '+screen);}catch(e){}}
+function pgGo(screen){if(screen==='board'){PGU.screen='board';PGU.pick=false;PGU.t=0;if(!WILD.on&&!PG_HOME_OFF&&!PGU.oldBoards)pgPlay(pgBoardCatNow());try{diagEvent('progress','screen board');}catch(e){}return;}PGU.screen=screen;PGU.t=0;PGU.pick=false;if(screen==='kitchen'){PGU.k.cook=null;}if(screen==='porch'){PGU.porch.pick=null;PGU.porch.chirp=.6;}if(screen==='album'){PGU.album.flipT=0;}try{diagEvent('progress','screen '+screen);}catch(e){}}
 function pgPointerDown(e,p){
  const sc=PGU.screen;if(PGU.win){if(PGU.win.t>1.5)PGU.win=null;return;}
- if(sc==='home'){
-  if(PGU.pick){const R=pgPickRects();for(const r of R.rows)if(contains(r,p)){if(pgCanPlay(r.c)){pgSfx('door');pgPlay(r.c);}else{pgSfx('lock');pgToast(PG.open[r.c]?'Switching boards opens at level '+PG_SWITCH_LEVEL:'Win its cat coin to open this board','#ffe08a');}return;}PGU.pick=false;pgSfx('back');return;}
-  if(contains(pgGear(),p)){openCredits();return;}
-  if(S.dev){const m=pgModesChip();if(p.x>=m.x&&p.x<=m.x+m.w&&p.y>=m.y-34&&p.y<=m.y-10){pgDevPick=true;MODES_UI.open=true;MODES_UI.t=0;PGU.screen='board';pgSfx('tap');return;}}
-  const D=pgDoors();for(const id in D){const r=D[id];if(!contains(r,p))continue;if(r.level&&PG.level<r.level){pgSfx('lock');pgToast(id[0].toUpperCase()+id.slice(1)+' opens at level '+r.level,'#ffe08a');return;}
-   pgSfx('door');PGU.door={id,t:0};return;}
-  const cw=Math.min(360,W-30);if(Math.abs(p.x-200)<cw*.45&&p.y>pgTop()+90&&p.y<pgDoors().board.y-20){PGU.cat.tap=PGU.t;pgSfx('meow');pgSfx('purr',.7);for(let i=0;i<5;i++)PGU.cat.hearts.push({x:p.x+rand(-40,40),y:p.y-10,t:-i*.08});}
-  return;}
- if(contains(pgBack(),p)&&!(sc==='kitchen'&&PGU.k.cook&&PGU.k.cook.stage==='ding')){pgSfx('back');if(sc==='kitchen'&&PGU.k.cook){PGU.k.cook=null;return;}pgGo('home');return;}
+ if(contains(pgBack(),p)&&!(sc==='kitchen'&&PGU.k.cook&&PGU.k.cook.stage==='ding')){pgSfx('back');if(sc==='kitchen'&&PGU.k.cook){PGU.k.cook=null;return;}pgGo('board');return;}
  if(sc==='kitchen'){const C=PGU.k.cook;
   if(!C){const rows=pgKitchenRows();for(const row of rows){const b={x:row.x+row.w-86,y:row.y+row.h/2-20,w:76,h:40};if(contains(b,p)){if(pgCanCook(row.r))pgStartCook(row.r);else{pgSfx('lock');pgToast(PG.recipes[row.r.id]?'Missing ingredients':'Used up: win a recipe coin','#ffe08a');}return;}}return;}
   if(C.stage==='add'){for(const it of C.items){if(it.in||it.fly)continue;if(Math.hypot(p.x-it.x,p.y-(it.y-20))<34){it.drag=true;it.dx=p.x;it.dy=p.y;it.down=PGU.t;C.drag=it;pgSfx('tap',.6);return;}}return;}
@@ -40215,12 +40242,11 @@ function pgPointerDown(e,p){
   return;}
  if(sc==='album'){const B=pgAlbumArrows();if(contains(B.prev,p))pgAlbumFlip(-1);else if(contains(B.next,p))pgAlbumFlip(1);else{PGU.album.sx=p.x;}return;}
  if(sc==='shop'){const T2=pgShopTabs();for(const k of ['sell','buy'])if(contains(T2[k],p)){PGU.shop.tab=k;pgSfx('tap');return;}for(const r of pgShopRows())if(contains(r.btn,p)||contains(r,p)){pgShopTap(r);return;}return;}}
-let pgDevPick=false;
-function pgPointerMove(e){const sc=PGU.screen;if(WILD.on||sc!=='kitchen')return false;const C=PGU.k.cook;if(!C)return false;const p=toGame(e);
+function pgPointerMove(e){const sc=PGU.screen;if(sc!=='kitchen')return false;const C=PGU.k.cook;if(!C)return false;const p=toGame(e);
  if(C.stage==='add'&&C.drag){C.drag.x=p.x;C.drag.y=p.y+20;return true;}
  if(C.stage==='stir'&&C.down){const py=pgPotY(),a=Math.atan2(p.y-(py-30),p.x-200);if(C.lastA!=null){let d=a-C.lastA;while(d>Math.PI)d-=Math.PI*2;while(d<-Math.PI)d+=Math.PI*2;if(Math.abs(d)<1.2)pgStirAdd(d);}C.lastA=a;return true;}
  return false;}
-function pgPointerUp(e){const sc=PGU.screen;if(WILD.on)return false;
+function pgPointerUp(e){const sc=PGU.screen;if(sc==='board'||sc==='title')return false;
  if(sc==='album'&&PGU.album.sx!=null){const p=toGame(e),dx=p.x-PGU.album.sx;PGU.album.sx=null;if(Math.abs(dx)>50)pgAlbumFlip(dx<0?1:-1);return true;}
  if(sc!=='kitchen')return false;const C=PGU.k.cook;if(!C)return false;C.down=false;C.stirring=false;
  if(C.drag){const it=C.drag,py=pgPotY();C.drag=null;it.drag=false;const moved=Math.hypot(it.x-it.hx,it.y-it.hy);
@@ -40228,13 +40254,25 @@ function pgPointerUp(e){const sc=PGU.screen;if(WILD.on)return false;
  return true;}
 const __pgPetMove=petPointerMove;petPointerMove=function(e){if(!PG_HOME_OFF&&PG&&pgPointerMove(e))return true;return __pgPetMove(e);};
 const __pgPetUp=petPointerUp;petPointerUp=function(e){if(!PG_HOME_OFF&&PG&&pgPointerUp(e))return true;return __pgPetUp(e);};
+// Taps on the board: the YOU WON card, the board picker, and between rounds the top bar and the end card's New goal.
+function pgBoardPointer(p){
+ if(PGU.win){if(PGU.win.t>1.5)PGU.win=null;return true;}
+ if(PGU.pick){const R=pgPickRects();for(const r of R.rows)if(contains(r,p)){if(WILD.on&&r.c===PGU.boardCat){PGU.pick=false;pgSfx('back');}else if(pgCanPlay(r.c)){pgSfx('door');pgSwitchBoard(r.c);}else{pgSfx('lock');pgToast(PG.open[r.c]?'Switching boards opens at level '+PG_SWITCH_LEVEL:'Win its cat coin to open this board','#ffe08a');}return true;}PGU.pick=false;pgSfx('back');return true;}
+ if(PGU.door)return true;if(!pgRestPhase())return false;
+ if(WILD.phase==='end'){const R=wildEndRects();if(contains(R.back,p)||(contains(R.again,p)&&!pgCanPlay(PGU.boardCat))){pgSfx('tap');if(!pgCanPlay(PGU.boardCat))pgSwitchBoard(pgPlayCat());else wildReset();return true;}}
+ const D=pgDock();if(p.y>D.bottom)return false; // below the bar: the card's own taps
+ if(contains(D.gear,p)){openCredits();return true;}
+ for(const t of D.tiles){if(!contains(t,p))continue;if(t.level&&PG.level<t.level){pgSfx('lock');pgToast(pgDockName(t.id)+' opens at level '+t.level,'#ffe08a');return true;}pgSfx('door');PGU.door={id:t.id,t:0};return true;}
+ return true;} // the bar swallows the rest of its taps
+function pgBackText(){return PG_HOME_OFF||!PG?'Back to the game':'New goal';}
 const __pgPointer=wildPointer;
 wildPointer=function(e,p){
- if(!PG_HOME_OFF&&PG&&!WILD.on&&PGU.screen!=='board'){if(PGU.door)return true;pgPointerDown(e,p);return true;}
- if(!PG_HOME_OFF&&PG&&!WILD.on&&PGU.screen==='board'&&pgDevPick&&MODES_UI.open){const R=modesPickerRects();if(!R.rows.some(r=>contains(r,p))){MODES_UI.open=false;pgDevPick=false;PGU.screen='home';return true;}pgDevPick=false;}
+ if(!PG_HOME_OFF&&PG){if(PGU.screen==='title'){pgTitleSkip();return true;}
+  if(PGU.screen!=='board'){if(PGU.door)return true;pgPointerDown(e,p);return true;}
+  if(pgBoardPointer(p))return true;}
  return __pgPointer(e,p);};
-// ---------- the frame: Home screens replace the board (no physics while they show) ----------
-const __pgStep=step;step=function(){if(!PG_HOME_OFF&&PG&&!WILD.on&&PGU.screen!=='board')return;return __pgStep();};
+// ---------- the frame: the title and the Kitchen, Porch, Album and Shop replace the board (no physics while they show) ----------
+const __pgStep=step;step=function(){if(!PG_HOME_OFF&&PG&&PGU.screen!=='board')return;return __pgStep();};
 let pgTickAcc=0;
 const __pgUpdate=update;
 update=function(dt){
@@ -40242,42 +40280,53 @@ update=function(dt){
  PGU.t+=dt;PGU.T+=dt;pgTickAcc+=dt;if(pgTickAcc>=.5){pgTickAcc=0;pgPorchTick();}
  for(let i=PGU.toasts.length-1;i>=0;i--){const T3=PGU.toasts[i];if(i===0||T3.t>0)T3.t+=dt;if(T3.t>T3.dur)PGU.toasts.splice(i,1);}
  for(let i=PGU.floats.length-1;i>=0;i--){PGU.floats[i].t+=dt;if(PGU.floats[i].t>1.2)PGU.floats.splice(i,1);}
- if(PGU.door){PGU.door.t+=dt;if(PGU.door.t>=.32){const id=PGU.door.id;PGU.door=null;if(id==='board'){const n=PG_CATS.filter(c=>PG.open[c]).length;if(n>1){PGU.pick=true;PGU.pickT=0;}else pgPlay(pgPlayCat());}else pgGo(id);}}
+ if(!PG_HOME_OFF&&PGU.screen==='title')pgTitleTick(dt);if(PGU.reenter)pgReenter();if(PGU.fade>0)PGU.fade=Math.max(0,PGU.fade-dt);
+ if(PGU.door){PGU.door.t+=dt;if(PGU.door.t>=.24){const id=PGU.door.id;PGU.door=null;if(id==='board'){PGU.pick=true;PGU.pickT=0;}else pgGo(id);}}
+ if(PGU.pick)PGU.pickT+=dt;
  if(PGU.moment){PGU.moment.t+=dt;if(PGU.moment.t>3.2)PGU.moment=null;}
  if(PGU.level){PGU.level.t+=dt;if(PGU.level.t>2.4)PGU.level=null;}
- if(PGU.win)PGU.win.t+=dt;else if(PG.won&&!PG.wonShown&&!WILD.on){PG.wonShown=true;PGU.win={t:0};pgSfx('fanfare');pgSave();}
- if(!WILD.on&&PGU.screen==='home'&&!PGU.door)pgWarm();};
+ if(PGU.win)PGU.win.t+=dt;else if(PG.won&&!PG.wonShown&&!PG_HOME_OFF&&((PGU.screen!=='board'&&PGU.screen!=='title')||pgRestPhase())){PG.wonShown=true;PGU.win={t:0};pgSfx('fanfare');pgSave();}
+ // the cats' recoloured copies are made one picture at a time, between rounds and on the other screens
+ PGU.warmT-=dt;if(PGU.warmT<=0&&!PGU.door&&((PGU.screen!=='board'&&PGU.screen!=='title')||pgRestPhase())){PGU.warmT=.25;pgWarm();}};
 // The round timer holds while a cat-coin moment plays.
 const __pgTick=wildTick;wildTick=function(dt){if(PGU.moment&&WILD.on&&WILD.phase==='play'){WILD.left+=dt;}return __pgTick(dt);};
 const __pgDraw=draw;
+function pgDrawDt(){const n=performance.now(),dt=Math.min(.05,PGU.lastDraw!=null?(n-PGU.lastDraw)/1000:.016);PGU.lastDraw=n;return Math.max(0,dt);}
 draw=function(){
- if(PG_HOME_OFF||!PG||WILD.on||PGU.screen==='board'){__pgDraw();if(PG&&!PG_HOME_OFF&&WILD.on)pgBoardOverlay();if(PG&&!PG_HOME_OFF&&WILD.on===false&&PGU.screen==='board')pgToastsDraw();return;}
- ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';const dt=Math.min(.05,PGU.lastDraw!=null?(performance.now()-PGU.lastDraw)/1000:.016);PGU.lastDraw=performance.now();
- try{({home:pgDrawHome,kitchen:pgDrawKitchen,porch:pgDrawPorch,album:pgDrawAlbum,shop:pgDrawShop}[PGU.screen]||pgDrawHome)(dt);}catch(e){try{frameError(e);}catch(_){}}
- pgFloatsDraw();pgToastsDraw();pgLevelDraw();pgWinDraw();
+ if(PG_HOME_OFF||!PG){__pgDraw();return;}
+ if(PGU.reenter)pgReenter();
+ if(PGU.screen==='board'){__pgDraw();pgBoardOverlay();return;}
+ ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';const dt=pgDrawDt();
+ try{({title:pgDrawTitle,kitchen:pgDrawKitchen,porch:pgDrawPorch,album:pgDrawAlbum,shop:pgDrawShop}[PGU.screen]||pgDrawTitle)(dt);}catch(e){try{frameError(e);}catch(_){}}
+ if(PGU.screen!=='title'){pgFloatsDraw();pgToastsDraw();pgLevelDraw();pgWinDraw();}
  ctx.font='10px system-ui';ctx.fillStyle='rgba(255,255,255,.5)';ctx.textAlign='left';ctx.fillText(BUILD,8,pgBot()-6);};
 function pgFloatsDraw(){for(const f of PGU.floats){const u=f.t/1.2;ctx.save();ctx.globalAlpha=1-u*u;ctx.textAlign='center';ctx.font='900 18px Impact, system-ui';ctx.lineWidth=4;ctx.strokeStyle='#2a1a00';ctx.strokeText(f.text,f.x,f.y-u*40);ctx.fillStyle=f.color;ctx.fillText(f.text,f.x,f.y-u*40);ctx.restore();}}
 // Messages: on the board they sit below the cat's chin; elsewhere under the top bar. One at a time.
-function pgToastsDraw(){const T3=PGU.toasts[0];if(!T3)return;const onBoard=WILD.on||PGU.screen==='board',y=onBoard?(typeof w43ChinY==='function'?w43ChinY():300)+34:PGU.screen==='home'?pgDoors().board.y-26:PGU.screen==='porch'?pgTop()+104:pgBot()-56,a=Math.min(1,T3.t/.2,(T3.dur-T3.t)/.3);
- ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.globalAlpha=Math.max(0,a);ctx.font='bold 16px system-ui';const w=Math.min(380,ctx.measureText(T3.text).width+40);
- uiRound(200-w/2,y-17,w,34,17,'rgba(20,10,30,.88)',T3.color,2);ctx.fillStyle=T3.color;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(T3.text,200,y+1,w-20);ctx.restore();}
-function pgLevelDraw(){const L=PGU.level;if(!L||WILD.on)return;const u=Math.min(1,L.t/.3),y=H*.42;ctx.save();ctx.globalAlpha=Math.min(1,(2.4-L.t)/.4);ctx.translate(200,y);ctx.scale(.5+.5*u,.5+.5*u);ctx.rotate(-.05);wildText('LEVEL '+L.L+'!',0,0,60,'#7dff6a','#0c3a12',9);ctx.restore();}
+function pgToastsDraw(){const T3=PGU.toasts[0];if(!T3)return;const onBoard=PGU.screen==='board',card=onBoard&&WILD.on&&WILD.v2&&WILD.phase==='card'&&!inventoryOpen,L=card?w2CardLayout():null,
+ y=card?L.back.y+L.back.h/2:onBoard?(typeof w43ChinY==='function'?w43ChinY():300)+34:PGU.screen==='porch'?pgTop()+104:pgBot()-56,a=Math.min(1,T3.t/.2,(T3.dur-T3.t)/.3);
+ ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.globalAlpha=Math.max(0,a);ctx.font='bold 16px system-ui';const ic=T3.icon==='paw'?26:0,w=Math.min(380,ctx.measureText(T3.text).width+40+ic);
+ uiRound(200-w/2,y-17,w,34,17,'rgba(20,10,30,.88)',T3.color,2);ctx.fillStyle=T3.color;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(T3.text,200-ic/2,y+1,w-20-ic);
+ if(ic)pgPaw(200+w/2-24,y+1,.3,T3.color);ctx.restore();}
+function pgLevelDraw(){const L=PGU.level;if(!L||PGU.screen==='board')return;const u=Math.min(1,L.t/.3),y=H*.42;ctx.save();ctx.globalAlpha=Math.min(1,(2.4-L.t)/.4);ctx.translate(200,y);ctx.scale(.5+.5*u,.5+.5*u);ctx.rotate(-.05);wildText('LEVEL '+L.L+'!',0,0,60,'#7dff6a','#0c3a12',9);ctx.restore();}
 function pgWinDraw(){const V=PGU.win;if(!V)return;const t=V.t;ctx.save();ctx.fillStyle='rgba(8,4,16,'+Math.min(.8,t)+')';ctx.fillRect(0,0,W,H);
  PG_CATS.forEach((c,i)=>{const x=60+i*70,y=H*.45+Math.sin(t*8+i*1.3)*18;ctx.save();ctx.translate(x,y);ctx.rotate(Math.sin(t*6+i)*.25);pgHead(c,0,0,110,i%2?'sweet':'calm');ctx.restore();});
  ctx.translate(200,H*.28);const k=1+.06*Math.sin(t*5);ctx.scale(k,k);wildText('YOU WON!',0,0,64,'#ffd23f','#3a1a00',10);ctx.font='bold 16px system-ui';ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText('Every cat photographed, every board open',0,46);ctx.restore();
- if(Math.random()<.2)pgFloat('♪',rand(40,360),H*.6,'#ff7ad5');}
+ if(Math.random()<.03)pgFloat('MEOW!',rand(60,340),H*.62,'#ff7ad5');}
 // On a cat's board: its name tag under the chin, messages, and the big moment when a cat coin opens a board.
-function pgBoardOverlay(){ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);
+function pgBoardOverlay(){ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);if(!WILD.on){ctx.restore();pgToastsDraw();return;}
  const cat=PGU.boardCat||'tuxedo',cy=typeof w43ChinY==='function'?w43ChinY():300;if(WILD.phase==='play'||WILD.phase==='count')pgTag(cat,W-46,cy-14,.8);
  pgFloatsDraw();const M2=PGU.moment;
  if(M2){const t=M2.t,u=Math.min(1,t/.4),a=Math.min(1,(3.2-t)/.4),y=cy+190;ctx.globalAlpha=a;ctx.fillStyle='rgba(12,6,24,.7)';ctx.fillRect(0,cy+20,W,330);
   ctx.save();ctx.translate(200,y);for(let i=0;i<12;i++){ctx.rotate(Math.PI/6);ctx.fillStyle=i%2?'rgba(255,210,63,.25)':'rgba(255,255,255,.12)';ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-30,-220);ctx.lineTo(30,-220);ctx.fill();}ctx.restore();
   ctx.save();ctx.translate(200,y);ctx.scale(.3+.7*(1-Math.pow(1-u,3)),.3+.7*(1-Math.pow(1-u,3)));pgHead(M2.cat,0,0,260,t%1.2<.6?'sweet':'calm');ctx.restore();
   wildText(PG_CAT[M2.cat].name.toUpperCase()+"'S BOARD",200,cy+50,32,'#ffd23f','#3a1a00',6);wildText('IS OPEN!',200,cy+90,34,'#7dff6a','#0c3a12',6);
-  ctx.font='bold 14px system-ui';ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(PG_CAT[M2.cat].board+' · play it from Home',200,y+100);}
- ctx.restore();pgToastsDraw();}
-// Music on Home, Kitchen, Album and Shop; the Porch has garden sounds instead.
-const __pgBgm=bgmWanted;bgmWanted=function(){if(!PG_HOME_OFF&&PG&&!WILD.on&&PGU.screen!=='board'){if(S.muted||!(W2.music>0)||document.hidden||(typeof inBackground!=='undefined'&&inBackground))return false;return PGU.screen!=='porch';}return __pgBgm();};
+  ctx.font='bold 14px system-ui';ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(PG_CAT[M2.cat].board+(PG.level>=PG_SWITCH_LEVEL?' · pick it from Boards, up top':' · it plays from the next round'),200,y+100);}
+ if(WILD.on&&pgRestPhase())pgDrawDock();
+ ctx.restore();pgToastsDraw();
+ const dt=pgDrawDt();ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
+ if(PGU.pick)pgDrawBoardPick(dt);pgWinDraw();if(PGU.fade>0){ctx.fillStyle='rgba(10,4,20,'+Math.min(1,PGU.fade/.3)+')';ctx.fillRect(0,0,W,H);}ctx.restore();}
+// Music on the Kitchen, Album and Shop; the Porch has garden sounds; the title screen its own jingle.
+const __pgBgm=bgmWanted;bgmWanted=function(){if(!PG_HOME_OFF&&PG&&PGU.screen!=='board'){if(S.muted||!(W2.music>0)||document.hidden||(typeof inBackground!=='undefined'&&inBackground))return false;return PGU.screen!=='porch'&&PGU.screen!=='title';}return __pgBgm();};
 // ---------- Developer ----------
 function pgDevHtml(){const b='min-width:52px;min-height:44px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;font-size:22px',
  row=(k,label,val)=>'<div style="display:flex;align-items:center;gap:8px;margin:4px 0"><span style="flex:1">'+label+'</span><button data-pg="'+k+'" data-dir="-1" style="'+b+'">−</button><b style="min-width:64px;text-align:center">'+val+'</b><button data-pg="'+k+'" data-dir="1" style="'+b+'">+</button></div>';
@@ -40285,7 +40334,7 @@ function pgDevHtml(){const b='min-width:52px;min-height:44px;background:#3a2d52;
  return '<div class="set" id="pg-dev"><h3><span>Gameplay map (CP-45)</span><span>level '+(PG?PG.level:1)+'</span></h3>'
  +row('window','Visit window',PG_DEV.window?PG_DEV.window+' s':'real (20 min–2 h)')+row('xp','XP speed',PG_DEV.xp+'×')+row('cap','Item cap',PG_DEV.cap)
  +'<button id="pg-coins" class="wide">Give all cat coins (open every board)</button><button id="pg-cc" class="wide">Drop a cat coin in the next round</button><button id="pg-visit" class="wide">Cat visits now</button><button id="pg-give" class="wide">Give 3 of every prize + 300 coins</button><button id="pg-reset" class="wide">Reset progression</button>'
- +'<h3 style="margin-top:10px"><span>MODES</span><span>test any board</span></h3>'+mb('wild2','Wild 2 (Tuxedo)')+WILD_MODE_ORDER.map(id=>mb(id,WILD_MODES[id].name)).join('')+mb('home-off','Old boards 1–3 (leave Home)')+'</div>';}
+ +'<h3 style="margin-top:10px"><span>MODES</span><span>test any board</span></h3>'+mb('wild2','Wild 2 (Tuxedo)')+WILD_MODE_ORDER.map(id=>mb(id,WILD_MODES[id].name)).join('')+mb('home-off','Old boards 1–3 (leave the cat boards)')+'</div>';}
 const __pgDevHtml=wildDevHtml;wildDevHtml=function(){return pgDevHtml()+__pgDevHtml();};
 const __pgDevBind=wildDevBind;
 wildDevBind=function(panel){__pgDevBind(panel);const box=panel.querySelector&&panel.querySelector('#pg-dev');if(!box)return;const re=()=>{const top=panel.scrollTop;openCredits();panel.scrollTop=top;};
@@ -40297,10 +40346,10 @@ wildDevBind=function(panel){__pgDevBind(panel);const box=panel.querySelector&&pa
  on('pg-visit',()=>{const now=pgNow();let i=PG.porch.findIndex(s=>s&&(s.state==='food'||s.state==='visit'));if(i<0){i=PG.porch.findIndex(s=>!s||s.state==='missed');if(i<0)i=0;const r=pgCurrentRecipe()||PG_RECIPES[0];PG.porch[i]={dish:r.id,cat:r.cat,setAt:now,eatAt:now,leaveAt:0,state:'food'};}
   const s=PG.porch[i];if(s.state==='food')s.eatAt=now;pgPorchTick();});
  on('pg-give',()=>{for(const id of PG_PRIZES){PG.items[id]=Math.min(pgCap(),pgHave(id)+3);PG.ever[id]=1;}PG.coins+=300;pgCheckStamps();});
- on('pg-reset',()=>{PG=pgFresh();PGU.toasts=[];PGU.screen=WILD.on?'board':'home';pgToast('Progression reset','#fff');});
+ on('pg-reset',()=>{PG=pgFresh();PGU.toasts=[];PGU.pick=false;PGU.screen='board';if(WILD.on&&PGU.boardCat!=='tuxedo')pgSwitchBoard('tuxedo');pgToast('Progression reset','#fff');});
  for(const btn of box.querySelectorAll('[data-pgmode]'))btn.onclick=()=>{panel.style.display='none';const id=btn.dataset.pgmode;
-  if(id==='home-off'){if(WILD.on)wildExit();PGU.screen='board';return;}if(WILD.on)wildExit();if(id==='wild2'){PGU.boardCat='tuxedo';if(wild2Enter())pgApplyArt('tuxedo');}else wildModeEnter(id);};};
-// Test hook: the UAT 47/48 suites start on the old board (no Home).
+  if(id==='home-off'){PGU.oldBoards=true;if(WILD.on)wildExit();PGU.screen='board';return;}PGU.oldBoards=false;PGU.entering=true;try{if(WILD.on)wildExit();}finally{PGU.entering=false;}PGU.screen='board';if(id==='wild2'){PGU.boardCat='tuxedo';if(wild2Enter())pgApplyArt('tuxedo');}else wildModeEnter(id);};};
+// Test hook: the UAT 47/48 suites start on the old board (no title, no cat boards).
 function pgHomeOff(){PG_HOME_OFF=true;PGU.screen='board';}
 
 Promise.all([RAPIER.init(), loadArt()])
