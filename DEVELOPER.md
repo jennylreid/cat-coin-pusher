@@ -244,3 +244,17 @@ Nothing else changes the size: not the queue, not randomness, not the board. Onl
 
 ## Design rules (Jenny)
 GAMEPLAY_DESIGN.md "Design rules" 1-12 apply to every ticket. Rules 8-12 (Nov 14): one clear main action per screen; you can always find your way (buttons name their destination, never "Exit"); every element earns its place; nothing overlaps; one word, one meaning.
+
+## Test switches (Jenny, Nov 14, 2026)
+Each UAT build puts the switches Jenny should try in that build in a "Test this build" panel at the top of Settings, with plain names. When she picks an option, remove the losing option and its switch in the next build. Old Developer dials are cleaned up after the sign-off pass.
+
+## Coin and pusher sounds (CP-46, UAT 60, Jenny's picks Nov 14, 2026)
+Module `C46` (`work/cp60/sounds60.js`, applied by `work/cp60/patch.py`). The new coin sounds come from the CP-46 audition's own code (`work/cp60/coins-from-audition.js`, cut from `work/cp46-audition/make-audition.cjs`). They are recorded into note lists at start-up, with the audition's set gains baked in (`tickets/CP-46-evidence/audition/levels.json` `coinGroupGains`). They play a little ahead on the audio clock through `sfx.fx46`, which is `sfx.mus`'s recipe on the effects master; `C46.drain()` runs from `update`.
+- **Coins: added, nothing removed (Jenny).** Each event picks at random from the current sound plus the new variants, never the same pick twice in a row (`C46.pick`).
+  - A coin dropped onto the board: `sfx.land()` or one of 4 drops on pile.
+  - A coin knocking another: `sfx.clink(v)` or one of 4 clinks.
+  - A rain coin's first landing: clink or a drop on pile. A gold coin's first landing: clink, gold drop or gold clink.
+  - Coins over the front edge: a single coin calls `recordedSfx.edge()` as before. 3 within 0.35 s: the current edge sound or one of 4 spills. 10 within 1 s: the current edge sound or one of 3 cascades.
+  - Prizes and other pieces: `recordedSfx.edge()` unchanged. Gold paid at the front: ka-ching, plus the gold shimmer every other time.
+- **Pusher: replaced.** `sfx.slide` is the warm whoosh (audition option w5): band-passed noise only, one per stroke, the return at 35%, 1.2× higher in Turbo. Pusher sound 50% (the default) is the auditioned level, 10 dB under the music above 250 Hz. The recorded `pusher.mp3` no longer plays. `pusherSoundTick`'s timing is unchanged.
+- **Not touched:** the ledge bell and landing thump (frozen pickup), the music, ka-ching, the mouth drop, the coin roll, the stack tumble, and the Board 3 spill recording. `checks-cp46.cjs` compares their code with the base build.

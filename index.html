@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.14 UAT 59';
+const BUILD = '2026.11.14 UAT 60';
 
 
 
@@ -7351,6 +7351,16 @@ const sfx = (() => {
       let out=src;if(o.lp||o.hp||o.bp){const f=ac.createBiquadFilter();f.type=o.lp?'lowpass':o.hp?'highpass':'bandpass';f.frequency.value=o.lp||o.hp||o.bp;f.Q.value=o.q??(o.bp?1:0);src.connect(f);out=f;}
       out.connect(g);g.connect(B);if(e.k===0){src.start(t);src.stop(t+e.dur+.03);}else{src.start(t,e.off);src.stop(t+e.dur+.02);}
     },
+    // UAT CP-46: one note of an effect from a note list (like mus), on the effects master; sc scales its volume
+    fx46(e,delay,sc){
+      if(!this._w2ok())return;const vol=e.vol*sc;if(!(vol>0)||!Number.isFinite(vol))return;const t=ac.currentTime+Math.max(0,delay),o=e.o,a=o.a||.005;let src;
+      if(e.k===0){src=ac.createOscillator();src.type=e.type;src.frequency.setValueAtTime(e.f,t);if(o.fEnd)src.frequency.exponentialRampToValueAtTime(o.fEnd,t+(o.glide||e.dur));}
+      else{src=ac.createBufferSource();src.buffer=noiseBuf;src.loop=true;}
+      const g=ac.createGain();g.gain.setValueAtTime(.0001,t);if(o.lin)g.gain.linearRampToValueAtTime(vol,t+a);else g.gain.exponentialRampToValueAtTime(vol,t+a);
+      if(o.hold)g.gain.exponentialRampToValueAtTime(Math.max(1e-4,vol*(o.sus??1)),t+Math.max(a+.001,o.hold));g.gain.exponentialRampToValueAtTime(.0001,t+e.dur);
+      let out=src;if(o.lp||o.hp||o.bp){const f=ac.createBiquadFilter();f.type=o.lp?'lowpass':o.hp?'highpass':'bandpass';f.frequency.value=o.lp||o.hp||o.bp;f.Q.value=o.q??(o.bp?1:0);src.connect(f);out=f;}
+      out.connect(g);g.connect(master);if(e.k===0){src.start(t);src.stop(t+e.dur+.03);}else{src.start(t,e.off);src.stop(t+e.dur+.02);}
+    },
     bgmBus(level,fade=.3){if(!ready())return;const g=this._bus().gain,t=ac.currentTime;g.cancelScheduledValues(t);g.setValueAtTime(Math.max(.0001,g.value),t);g.linearRampToValueAtTime(Math.max(.0001,level),t+fade);},
     // one note of the background track, on the music bus, delay seconds ahead
     bgm(kind,delay,f){
@@ -11039,7 +11049,7 @@ function fallOff(b, x) {
 
 
 
- if(!b.boardTarget)recordedSfx.edge();
+ if(!b.boardTarget)C46.edge(b);
 
 
 
@@ -13937,7 +13947,7 @@ function step() {
 
 
 
-  if(requested&&phase>=.08&&phase<.08+STEP/PUSH_PERIOD)recordedSfx.play('push');
+  // CP-46: no recorded pusher sound; the warm whoosh (sfx.slide) is the pusher
 
 
 
@@ -15053,7 +15063,7 @@ function step() {
 
 
 
-        sfx.land();
+        C46.land();
 
 
 
@@ -15089,7 +15099,7 @@ function step() {
 
 
 
-      } else sfx.clink(Math.min(1, -b.vy / 3.5));
+      } else C46.hit(b, Math.min(1, -b.vy / 3.5));
 
 
 
@@ -40644,6 +40654,106 @@ wildDevBind=function(panel){__abDevBind56(panel);const box=panel.querySelector&&
  const tc=box.querySelector('#pg-tc');if(tc)tc.onclick=()=>{PG_TC=PG_TC%4+1;try{localStorage.setItem(PG_TC_KEY,String(PG_TC));}catch(e){}try{diagEvent('progress-tuning','titlecoins='+PG_TC);}catch(e){}re();};
  const tl=box.querySelector('#pg-title');if(tl)tl.onclick=()=>{panel.style.display='none';PGU.title={t:0,coins:[],snd:0};PGU.screen='title';};
  const dh=box.querySelector('#pg-dhint');if(dh)dh.onclick=()=>{try{localStorage.removeItem(PG_DHINT_KEY);}catch(e){}pgToast('The hint shows the next time the meter fills','#ffd0f4');re();};};
+
+// ---------- UAT 60 (CP-46, Jenny's picks, Nov 14): more coin sounds in rotation and the warm whoosh pusher ----------
+// The new coin sounds and the pusher whoosh are made by the CP-46 audition's own code (work/cp46-audition/make-audition.cjs
+// and make-round2.cjs; the coin part is copied unchanged below by work/cp60/patch.py). At start-up it runs once into a
+// recorder (no sound), giving each variant's list of notes with the audition's level baked in (/*GAINS*/, from the
+// audition's levels files). The notes play on the audio clock through sfx.fx46 (like sfx.mus, but on the effects master),
+// a little ahead, so a big cascade never creates hundreds of nodes in one frame.
+// Coins: ADDED, nothing removed (Jenny, Nov 14). Each time, one sound is picked at random from the current one plus the
+// new ones (never the same one twice in a row):
+// - A coin dropped onto the board: the current landing (coin-land.mp3, or its synth fallback) or one of the 4 drops on pile.
+// - A coin knocking another: the current clink or one of the 4 new clinks, scaled by how hard it hit as before.
+// - A rain coin's first landing: the current clink or a drop on pile; a gold coin's first landing: the current clink, a
+//   gold drop or a gold clink.
+// - Coins over the front edge: a single coin as now (coin-off). 3 or more within 0.35 s: the current edge sound or one of
+//   the 4 spills; 10 or more within 1 s: the current edge sound or one of the 3 big cascades (a new spill or cascade
+//   covers the coins that follow for a moment; a cascade can follow a spill at once). Prizes and other pieces: as now.
+// - A gold coin paid at the front: its ka-ching as now, and every other time the gold over-the-edge shimmer with it.
+// - The pusher (replaced): the warm whoosh (option w5), one per stroke, the return a faint breath, faster and a little
+//   higher in Turbo. No beat layer and no recorded pusher.mp3. Pusher sound 50% (the default) = the auditioned level.
+// Not touched: the ledge bell and the landing thump (the frozen pickup), the music, the coin roll, the coin drop at the mouth.
+const C46=(()=>{
+ let seedS=4646>>>0;const rand=()=>{seedS=(seedS*1664525+1013904223)>>>0;return seedS/4294967296;};
+ let ev=null;
+ const K={rand,set stem(s){},tone(f,t,dur,type,vol,o={}){if(vol>0)ev.push({t,k:0,f,dur,type,vol,o});},noise(t,dur,vol,o={}){if(vol>0)ev.push({t,k:1,dur,vol,o,off:rand()*.4});}};
+ const hz=m=>440*Math.pow(2,(m-69)/12);
+ function seeded(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+const PARTIALS = [[1350, .9, .09], [2870, .6, .07], [4230, .5, .05], [5960, .35, .04], [7810, .22, .03]];
+function coinKit(K) {
+  const C = {};
+  C.strike = (t, v, p = 1, ring = 1, bright = 1) => {
+    K.noise(t, .01, .4 * v * bright, { bp: 6000, q: .6 }); K.noise(t, .025, .12 * v, { bp: 2500 * p, q: 1.5 });
+    for (const [f, a, d] of PARTIALS) K.tone(f * p, t, d * ring / Math.sqrt(p), 'sine', .09 * v * a);
+  };
+  C.settle = (t, v, p, n, gap = .055) => { let a = .45; for (let i = 0; i < n; i++) { t += gap; gap *= .66; a *= .72; K.noise(t, .008, .3 * v * a, { bp: 5500, q: .8 }); K.tone(2870 * p, t, .05, 'sine', .05 * v * a); K.tone(4230 * p, t, .035, 'sine', .04 * v * a); } };
+  C.thud = (t, v, f = 190) => { K.tone(f, t, .09, 'sine', .3 * v, { fEnd: f * .55 }); K.noise(t, .05, .14 * v, { bp: 750, q: .9 }); };
+  C.tray = (t, v, p = 1) => { C.strike(t, v * .8, p, 1.3); K.tone(610, t, .2, 'sine', .05 * v, { fEnd: 600 }); K.tone(1580, t, .12, 'sine', .03 * v); K.tone(160, t, .07, 'sine', .14 * v, { fEnd: 90 }); };
+  C.gold = (t, v, p = .8) => { C.strike(t, v * 1.1, p, 2.2); K.tone(330, t, .1, 'sine', .14 * v, { fEnd: 220 });
+    [[2093, .05, .9], [2637, .04, .7], [3136, .03, .55]].forEach(([f, a, d], k) => { K.tone(f, t + .03 + k * .05, d, 'sine', a * v); K.tone(f * 2.76, t + .03 + k * .05, d * .4, 'sine', a * .3 * v); }); };
+  return C;
+}
+const COINS = [
+  // coin on coin: a coin knocks another on the pile (short, damped, sometimes a double tap)
+  ...[[1.15, 0, .7], [1.3, .028, .6], [1.0, 0, .9], [1.45, .018, .5]].map(([p, dbl, ring], k) => ({ group: 'clink', file: `coin-1${'abcd'[k]}-clink.wav`, len: .5, play(K, C) {
+    C.strike(.02, .7, p, ring); if (dbl) C.strike(.02 + dbl, .35, p * 1.07, ring * .8); if (k === 2) C.settle(.02, .5, p, 2, .04); } })),
+  // a coin drops onto the pile: dull hit, its ring, neighbours chiming, a little wobble to rest
+  ...[[1.0, 3, [.06, .11]], [.9, 4, [.05]], [1.1, 2, [.07, .1, .16]], [.95, 5, []]].map(([p, n, nb], k) => ({ group: 'pile', file: `coin-2${'abcd'[k]}-drop-on-pile.wav`, len: .8, play(K, C) {
+    C.thud(.02, .8, 170 + k * 15); C.strike(.025, .8, p, .9); nb.forEach((d, j) => C.strike(.025 + d, .3 - j * .06, p * (1.15 + j * .12), .6)); C.settle(.03, .9, p, n); } })),
+  // several coins go over the edge into the tray (3 to 6 coins)
+  ...[[3, .085, 0], [4, .07, 1], [5, .06, 2], [6, .05, 3]].map(([n, gap, seed], k) => ({ group: 'spill', file: `coin-3${'abcd'[k]}-spill-${n}-coins.wav`, len: 1.2, play(K, C) {
+    const r = seeded(50 + seed); K.noise(.02, .09, .06, { bp: 3200, q: .8 });
+    for (let i = 0; i < n; i++) { const t = .06 + i * gap + r() * gap * .5, p = .9 + r() * .4; C.tray(t, .75 + r() * .3, p); if (r() < .5) C.settle(t, .5, p, 2, .04); } } })),
+  // a big cascade: a whole front row pours over (about 25 to 40 coins)
+  ...[[26, 1.4, 1], [34, 1.8, 2], [42, 2.2, 3]].map(([n, span, seed], k) => ({ group: 'cascade', file: `coin-4${'abc'[k]}-big-cascade.wav`, len: span + 1, play(K, C) {
+    const r = seeded(90 + seed); K.noise(.02, span + .3, .05, { bp: 1800, q: .5, a: .15, lin: true, hold: span * .5, sus: .6 }); K.noise(.02, span, .03, { bp: 5000, q: .6, a: .1, lin: true, hold: span * .4, sus: .5 });
+    for (let i = 0; i < 6; i++) C.thud(.03 + i * span / 8 + r() * .05, .5, 140 + r() * 60);
+    for (let i = 0; i < n; i++) { const u = Math.pow(r(), 1.6), t = .04 + u * span, p = .85 + r() * .5, v = (.5 + r() * .5) * (1 - u * .5); r() < .6 ? C.tray(t, v, p) : C.strike(t, v * .8, p, .8); }
+    for (let i = 0; i < 3; i++) C.tray(.04 + span + .1 + i * .13 + r() * .05, .4 - i * .1, 1 + r() * .3); } })),
+  // gold coin: heavier, longer ring with a bright shimmer
+  { group: 'gold', file: 'coin-5a-gold-drop.wav', len: 1.4, play(K, C) { C.thud(.02, 1, 160); C.gold(.025, .9, .78); C.settle(.03, .9, .78, 4, .07); } },
+  { group: 'gold', file: 'coin-5b-gold-over-edge.wav', len: 1.6, play(K, C) { K.noise(.02, .1, .06, { bp: 3200, q: .8 }); C.gold(.09, .9, .82); K.tone(610, .09, .3, 'sine', .06); for (let i = 0; i < 5; i++) K.tone(hz(84 + [0, 4, 7, 12, 16][i]), .35 + i * .06, .5, 'sine', .022); } },
+  { group: 'gold', file: 'coin-5c-gold-clink.wav', len: 1.2, play(K, C) { C.gold(.02, .75, .9); C.strike(.06, .35, 1.2, .7); } },
+];
+ const GAIN={"clink": 1.3619205110596297, "pile": 0.742531937830136, "spill": 0.8003213333188265, "cascade": 0.879883484590881, "gold": 0.5137834895338417},W5_GAIN=4.001831975913724;
+ const CK=coinKit(K),SETS={};
+ for(const c of COINS){ev=[];c.play(K,CK);const g=GAIN[c.group],t0=Math.min(...ev.map(e=>e.t));for(const e of ev){e.t-=t0;e.vol*=g;}ev.sort((a,b)=>a.t-b.t);
+  const key=/gold-over-edge/.test(c.file)?'goldEdge':c.group;(SETS[key]=SETS[key]||[]).push({file:c.file,ev});}
+ ev=null;
+ // round 2, option w5 (make-round2.cjs, unchanged): the warm whoosh
+ const W=(K,t,dur,vol,bp,q,attack,peakAt=.5)=>K.noise(t,dur,vol,{bp,q,a:Math.max(.06,dur*attack),lin:true,hold:Math.max(.07,dur*attack)+dur*Math.max(.05,peakAt-attack),sus:.7});
+ function stroke(K,t,dur,back,turbo){const p=turbo?1.2:1,k=back?.35:1;W(K,t,dur,.075*k,420*p,.8,.45);W(K,t,dur,.035*k,900*p,.7,.45);}
+ const Q=[],last={},stats={plays:{},whooshes:0,dropped:0};let lastLand=-9,lastHit=-9,lastGold=-9,edges=[],block=-9,cascadeBlock=-9;
+ const ok=()=>!S.muted&&!(typeof inBackground!=='undefined'&&inBackground)&&!document.hidden&&sfx._w2ok();
+ function drain(){if(!Q.length)return;if(!ok()){Q.length=0;return;}const now=sfx._pgT();
+  while(Q.length&&Q[0].at-now<.2){const q=Q.shift();if(q.at>=now-.05)sfx.fx46(q.e,q.at-now,q.sc);}}
+ function queue(list,sc){const now=sfx._pgT()+.005;if(Q.length+list.length>1500){stats.dropped++;return;}for(const e of list)Q.push({at:now+e.t,e,sc});Q.sort((a,b)=>a.at-b.at);drain();}
+ // pick: -1 = the current (old) sound, 0.. = a new variant; never the same choice twice in a row
+ function pick(set,withCurrent=true){const L=SETS[set],n=L.length+(withCurrent?1:0);let i=Math.floor(Math.random()*n);if(n>1&&i===last[set])i=(i+1)%n;last[set]=i;return i>=L.length?-1:i;}
+ function playVariant(set,i,sc=1){if(!(sc>0)||!ok())return false;stats.plays[set]=(stats.plays[set]||0)+1;queue(SETS[set][i].ev,sc);return true;}
+ function current(set,fn){stats.plays[set+'Current']=(stats.plays[set+'Current']||0)+1;fn();return true;}
+ function play(set,sc=1,cur){if(!ok())return false;const i=pick(set,!!cur);return i<0?current(set,cur):playVariant(set,i,sc);}
+ function land(){if(!ok())return sfx.land();const t=sfx._pgT();if(t-lastLand<.09)return;lastLand=t;play('pile',1,()=>sfx.land());}
+ function hit(b,v){if(!(v>0)||!ok())return sfx.clink(v);const t=sfx._pgT(),old=()=>sfx.clink(v);
+  if(b&&(b.kind==='gold5')&&!b.c46){b.c46=1;if(t-lastGold<.12)return;lastGold=t;play('gold',Math.max(.5,v),old);return;}
+  if(b&&b.rain&&!b.c46){b.c46=1;if(t-lastLand<.09)return;lastLand=t;play('pile',Math.max(.5,v),old);return;}
+  if(t-lastHit<.035)return;lastHit=t;play('clink',v,old);}
+ function edge(b){if(!b||!(b.kind==='coin'||b.kind==='silver')||!ok()){recordedSfx.edge();return;}
+  const now=time,old=()=>recordedSfx.edge();edges=edges.filter(t=>now-t<1&&t<=now);edges.push(now);
+  if(edges.length>=10&&now>=cascadeBlock){play('cascade',1,old);block=cascadeBlock=now+1.6;return;} // a cascade can follow a spill straight away
+  if(now<block)return;
+  if(edges.filter(t=>now-t<.35).length>=3){play('spill',1,old);block=now+.6;return;}
+  recordedSfx.edge();} // a single coin: exactly as before
+ let goldN=0;function goldPaid(){if(ok()&&(goldN++)%2===1)play('goldEdge',1);} // the shimmer every other gold coin, on top of its ka-ching
+ function whoosh(vol,dur,back,turbo){if(!(vol>0)||!(dur>0)||!ok())return;ev=[];stroke(K,0,dur,back,turbo);const list=ev;ev=null;stats.whooshes++;queue(list,vol/.5*W5_GAIN);}
+ return {SETS,stats,play,pick,land,hit,edge,goldPaid,whoosh,drain,queued:()=>Q.length,stroke,W5_GAIN};
+})();
+sfx.slide=function(vol,dur,back,turbo){C46.whoosh(vol,dur,back,turbo);}; // the pusher: the warm whoosh only
+const __c46Rain=wildRainCollected;
+wildRainCollected=function(b,x){if(b&&b.kind==='gold5')C46.goldPaid();return __c46Rain(b,x);};
+const __c46Update=update;
+update=function(dt){__c46Update(dt);try{C46.drain();}catch(e){}};
 
 Promise.all([RAPIER.init(), loadArt()])
 

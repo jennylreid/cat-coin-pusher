@@ -1,0 +1,20 @@
+{
+  "version": 20261114235945,
+  "displayName": "2026.11.14 UAT 60",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "6b7af876f72eca0c007b9638ed8dfb0b62e23db0176e4bd32886d2d8345dd8e5",
+  "stagedJSONSHA256": "5c195ebdfe6e74566b5b38e604a16bc3125e36dd5259683ff2b443389b861ab0",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "d703cb4794304ca18b8f761ed3dd076636891d24996785f95ea585b61fbacd17",
+  "jsonBytes": 51879522,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.14 UAT 59",
+  "backup": "uat/backups/before-UAT60-20261114235945",
+  "evidence": "tickets/CP-46-evidence/uat60",
+  "authorization": "UAT 60: CP-46 Jenny's picks (Nov 14, via PM): all new coin sound sets ADDED to the rotation alongside the current coin sounds (nothing removed), at the auditioned levels; the warm whoosh (w5) replaces the pusher sound and its beat layer, 10 dB under the music, faster in Turbo; pickup sounds and music untouched; on 2026.11.14 UAT 59; UAT only"
+}

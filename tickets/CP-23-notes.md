@@ -223,3 +223,4 @@ Everything here is inspiration, never a copy. The core genre is the coin pusher;
 - Jenny (Nov 14): levels don't get steadily harder: a mix of easy, hard and really hard (stuck for days), like the Pixel Flow example. No XP concept.
 - Jenny (Nov 14): no player level; boards have levels; things should build higher to a cap, e.g. recipes upgrade (tuna salad -> tuna casserole -> tuna melt). Not in CP-47.
 - CP-46 (Jenny, Nov 14): pusher = w5 warm whoosh; with all new coin sets, building as UAT 59 after UAT 58.
+- DECIDED (Jenny, Nov 14): A/B winner = layout A (PLAY screen). B and its switch removed in CP-47's build.
