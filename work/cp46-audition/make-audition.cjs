@@ -417,6 +417,7 @@ const GROUP_DB = { clink: 0, pile: 0, spill: 3, cascade: 6, gold: 2 };
 const rendered = COINS.map(c => { const ac = makeAC(), master = ac.createGain(); master.gain.value = .55; master.connect(ac.destination); const K = kit(ac, master, seeded(77)); c.play(K, coinKit(K)); return { c, a: render(ac, c.len) }; });
 for (const g of Object.keys(GROUP_DB)) {
   const set = rendered.filter(x => x.c.group === g), avg = set.reduce((s, x) => s + win100(x.a), 0) / set.length, gain = refLand * Math.pow(10, GROUP_DB[g] / 20) / avg;
+  (report.coinGroupGains = report.coinGroupGains || {})[g] = gain;
   for (const x of set) { const a = x.a.map(v => v * gain); wav(path.join(OUT, x.c.file), a); report.coins.push({ file: x.c.file, set: g, lengthSec: x.c.len, peak: r3(peak(a)), loudest100msVsLandDb: dB(win100(a) / refLand) }); }
 }
 

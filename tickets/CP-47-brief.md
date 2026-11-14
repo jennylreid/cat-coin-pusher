@@ -1,4 +1,4 @@
-# CP-47 Levels and cats (DRAFT for Jenny's review; not started)
+# CP-47 Levels and cats (approved by Jenny, Nov 14)
 
 Engineer: Read AGENTS.md, CODEX_BRIEF.md, GAMEPLAY_MAP.md (sections 12–14, and 13's keep list), GAMEPLAY_DESIGN.md
 "Design rules" 1–12, and the top of tickets/CP-45.md (the newest UAT). You are the engineer; Claude PM reviews.
@@ -22,7 +22,7 @@ board she didn't know what she was meant to do. The model she settled on:
 2. **Cats as characters.** Tuxedo: Dance break, prizes bow tie and music notes, power Yawn. Orange: Treat toss,
    tuna and yarn, Zoomies. Ragdoll: Pet the cat, cheese and cushion, Hug. Siamese: Laser chase, shrimp and bell,
    Sonic meow. Tortoiseshell: Tortitude power and toy mouse and duck; its side game is open (Tower wall becomes a
-   level type), so propose one or leave it without. The level's layout stays; the cat's side game, prizes and power
+   level type): propose and build one, as good as the others (short, one gesture, every tap a hit or miss). The level's layout stays; the cat's side game, prizes and power
    come with the cat. **A cat's prizes are never part of a level's preset layout:** they only fall during play (as
    drops from the sky), and only while you play that cat (Jenny, Nov 14). The level's own preset prizes stay the same
    whichever cat you bring. Shared on every level: Quake and other power coins, the wheel, Paw save.
@@ -42,8 +42,8 @@ board she didn't know what she was meant to do. The model she settled on:
 5. **Unlocks hang off levels.** Remove the XP bar and its "level" (the experience points that filled from playing and cooking since UAT 49). Screens appear only when a goal needs them (rule 8),
    e.g. the Kitchen after Level 2 together with the first recipe; the Shop when the recipe needs a bought
    ingredient; the Porch with the first dish. Cooking and cats have their own progress (recipe book, album).
-6. **Visible help:** after 5 failed tries on a level, the cat offers a free Quake (shown, never secret). No hidden
-   rigging of results.
+6. **No help or rigging:** no free Quake after failures (Jenny, Nov 14); help is decided later after she plays the
+   hard levels. No hidden rigging of results.
 7. **Stars** (1–3) stay, per level.
 
 ## Don't touch

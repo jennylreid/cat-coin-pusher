@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.14 UAT 58';
+const BUILD = '2026.11.14 UAT 59';
 
 
 
@@ -40549,10 +40549,12 @@ const __abCountdown=wildStartCountdown;wildStartCountdown=function(){PGU.rules=f
 // ---- A: the main screen ----
 const PGA={coins:[],seeded:0,pile:null,react:-9,hearts:[]};
 function pgMainRects(){const top=pgDock().bottom,bot=H-Math.max(24,hudLayout().bottom+16),k=Math.max(.72,Math.min(1,(bot-top)/700)); // shorter phones: the cat and gaps shrink so nothing overlaps (rule 11)
- const name=top+268*k,play=Math.max(name+178,bot-165);return {top,bot,head:{x:200,y:top+118*k,w:240*k},name,play,side:pgSideRects(top+48,Math.min(100,(name+150-top-48)/2.4))};}
+ const name=top+268*k,play=name+172; /* UAT 59 (Jenny: "a big empty space"): PLAY sits right under How to play; the pile gets the room below */return {top,bot,head:{x:200,y:top+118*k,w:240*k},name,play,side:pgSideRects(top+48,Math.min(100,(name+150-top-48)/2.4))};}
 // UAT 58 (Jenny: "cramped coins at the bottom that look disfigured"): a small, tidy pile, 5 + 3 + 1 coins at their true
 // proportions (round, never squashed), spaced so they don't crowd.
-function pgMainPile(){if(PGA.pile)return PGA.pile;const a=[];[[5,0],[3,1],[1,2]].forEach(([n,row])=>{for(let i=0;i<n;i++)a.push({x:200+(i-(n-1)/2)*62,y:-row*44,r:27});});return PGA.pile=a;}
+function pgMainPile(rows=3){if(PGA.pile&&PGA.pile.rows===rows)return PGA.pile;const a=[];[[5,0],[3,1],[1,2]].slice(0,rows).forEach(([n,row])=>{for(let i=0;i<n;i++)a.push({x:200+(i-(n-1)/2)*62,y:-row*44,r:27});});a.rows=rows;return PGA.pile=a;}
+// the pile sits in the room under PLAY, never touching it: as many rows (up to 3) as fit
+function pgMainPileRows(R){const room=(R.bot-28)-(R.play+78+12)-27;return Math.max(1,Math.min(3,Math.floor(room/44)+1));}
 function pgDrawMain(dt){const R=pgMainRects(),t=PGU.T,cat=PGU.boardCat||'tuxedo';
  if(ART.background){const cover=Math.max(W/ART.background.width,H/ART.background.height),bw=ART.background.width*cover,bh=ART.background.height*cover;ctx.drawImage(ART.background,(W-bw)/2,(H-bh)/2,bw,bh);}else{ctx.fillStyle='#1d1030';ctx.fillRect(0,0,W,H);}
  let gr=ctx.createLinearGradient(0,0,0,H);gr.addColorStop(0,'rgba(30,10,50,.5)');gr.addColorStop(1,'rgba(20,6,34,.88)');ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
@@ -40562,7 +40564,7 @@ function pgDrawMain(dt){const R=pgMainRects(),t=PGU.T,cat=PGU.boardCat||'tuxedo'
  if(PGA.coins.length<12&&Math.random()<dt*2.2)PGA.coins.push(pgTitleCoin(-40));const csp=sprite('coin');
  for(let i=PGA.coins.length-1;i>=0;i--){const c=PGA.coins[i];c.y+=c.vy*dt*.8;c.vy=Math.min(c.vy+45*dt,170);c.x+=Math.sin(t*c.wf+c.s)*c.wa*dt;if(c.y>H+50){PGA.coins.splice(i,1);continue;}
   pgThickCoin(csp,c.x,c.y,c.r,c.s+t*c.vs*.6);} // UAT 58: solid coins with their gold edge as they turn; no glow
- const py=R.bot-28;for(const c of pgMainPile()){const hs=csp.half*c.r/COIN_R;ctx.drawImage(csp.cv,c.x-hs,py+c.y-hs,2*hs,2*hs);}
+ const py=R.bot-28;for(const c of pgMainPile(pgMainPileRows(R))){const hs=csp.half*c.r/COIN_R;ctx.drawImage(csp.cv,c.x-hs,py+c.y-hs,2*hs,2*hs);}
  // the board's cat: floats, blinks, looks around; a tap gets the sweet face, hearts and a meow
  const el=t-PGA.react,live=el<1.4,by=Math.sin(t*1.6)*4-(live?Math.abs(Math.sin(el*9))*10*(1-el/1.4):0);
  pgHead(cat,R.head.x,R.head.y+by,R.head.w,live||(t%7)<1?'sweet':'calm',{look:Math.sin(t*.5)*.8,lookY:Math.sin(t*.37),blink:((t+.3)%4.7)<.13?1:0});

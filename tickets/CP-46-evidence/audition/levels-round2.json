@@ -20,7 +20,7 @@
    "pusherVsMusicDb": -10,
    "steepest10msRise": 0.239,
    "what": "Soft whoosh: one smooth, mid-toned whoosh per stroke; the return is softer and a touch lower",
-   "gain": 3.723,
+   "gain": 3.723228206307137,
    "vsCurrentPusherDb": 13.5
   },
   {
@@ -31,7 +31,7 @@
    "pusherVsMusicDb": -10,
    "steepest10msRise": 0.153,
    "what": "Airy whoosh: lighter and brighter, more \"air\" than body, a slightly longer tail",
-   "gain": 2.736,
+   "gain": 2.736239458882559,
    "vsCurrentPusherDb": 13.5
   },
   {
@@ -42,7 +42,7 @@
    "pusherVsMusicDb": -10,
    "steepest10msRise": 0.284,
    "what": "Sweeping whoosh: rises as the pusher goes forward (\"whooo-sh\"), falls on the way back",
-   "gain": 4.57,
+   "gain": 4.569904021471345,
    "vsCurrentPusherDb": 13.5
   },
   {
@@ -53,7 +53,7 @@
    "pusherVsMusicDb": -10,
    "steepest10msRise": 0.237,
    "what": "Quick whoosh: a shorter \"fwoosh\" at the start of each stroke, so the beat is crisper; return softer",
-   "gain": 4.771,
+   "gain": 4.771225958667149,
    "vsCurrentPusherDb": 13.5
   },
   {
@@ -64,7 +64,7 @@
    "pusherVsMusicDb": -10,
    "steepest10msRise": 0.26,
    "what": "Warm whoosh: rounder and darker (still above phone-speaker bass); the return is only a faint breath",
-   "gain": 4.002,
+   "gain": 4.001831975913724,
    "vsCurrentPusherDb": 13.5
   }
  ]

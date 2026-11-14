@@ -192,7 +192,7 @@ save('pusher-r2-0-current-for-comparison', cur, { what: 'the current pusher (a s
 for (const w of WHOOSHES) {
   const ac = makeAC(), master = ac.createGain(); master.gain.value = .55; master.connect(ac.destination); const K = kit(ac, master, seeded(5));
   demo((t, dur, back, turbo) => w.stroke(K, t, dur, back, turbo)); const raw = render(ac, DEMO_LEN), g = rms(phoneBand(music)) * Math.pow(10, REL_DB / 20) / rms(phoneBand(raw));
-  save(w.file.replace('.wav', ''), raw.map(v => v * g), { what: w.title, gain: r3(g), vsCurrentPusherDb: dB(rms(phoneBand(raw)) * g / refPush) });
+  save(w.file.replace('.wav', ''), raw.map(v => v * g), { what: w.title, gain: g, vsCurrentPusherDb: dB(rms(phoneBand(raw)) * g / refPush) });
 }
 fs.writeFileSync(path.join(OUT, 'levels-round2.json'), JSON.stringify(out, null, 1));
 console.log(JSON.stringify(out, null, 1));
