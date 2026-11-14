@@ -209,3 +209,7 @@ Everything here is inspiration, never a copy. The core genre is the coin pusher;
 - DECIDED direction (Jenny, Nov 14): precision side games earn the powers that help win the board (Quake, Paw grab/save, claw later), making up for the imprecise push. She uses Quake a lot to clear a board but only has it when she wins one.
 - DECIDED (Jenny, Nov 14): Quake uses the same Pop as everything else but flies to the Quake button with its chime.
 - Jenny (Nov 14): loves the title intro; title screen stays open until the player taps to play (no auto-advance). Coin rain there: larger, slower, more prominent.
+- Jenny (Nov 14): approves the board messages (e.g. the recipe message for Tuna dish): keep them. Unclear that EXIT leads to where you cook the dish. Wants a useful/informative message for Quake too.
+- Jenny (Nov 14): likes that there's so much going on it takes a while to absorb everything (supports rule 5, busy is good).
+- Pixel Flow main screen reference saved: Screenshots/ref-pixelflow-main-2026-11-14.webp (private; never commit).
+- DECIDED (Jenny, Nov 14): A/B test: (A) main screen built around cat + coins with a clear hierarchy vs (B) the same hierarchy on the coin board between rounds; Developer switch. 'CatCoin needs to have a cat and coins right away.' Equal-weight buttons were the problem with UAT 49 Home, not the menu itself. Brief: tickets/CP-45-ab-brief.md (UAT 55).
