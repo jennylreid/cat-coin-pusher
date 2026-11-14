@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.14 UAT 56';
+const BUILD = '2026.11.14 UAT 57';
 
 
 
@@ -40524,18 +40524,19 @@ function pgCentre(y,t,o={}){const cat=PGU.boardCat||'tuxedo',L={};
  // "?" how to play
  L.help={x:200-58,y:y+130,w:116,h:26};uiRound(L.help.x,L.help.y,L.help.w,L.help.h,13,'rgba(255,255,255,.1)','rgba(232,220,255,.5)',1);ctx.font='bold 12px system-ui';ctx.fillStyle='#e8dcff';ctx.fillText('? How to play',200,L.help.y+L.help.h/2+1);
  return L;}
-function pgPlayButton(y,t){const k=1+.035*Math.sin(t*4),r={x:78,y,w:244,h:78};ctx.save();ctx.translate(200,y+39);ctx.scale(k,k);ctx.translate(-200,-(y+39));
+function pgPlayButton(y,t,hh=78){const k=1+.035*Math.sin(t*4),r={x:78,y,w:244,h:hh};ctx.save();ctx.translate(200,y+hh/2);ctx.scale(k,k);ctx.translate(-200,-(y+hh/2));
  uiRound(r.x,r.y+6,r.w,r.h,30,'rgba(0,0,0,.4)');const g=ctx.createLinearGradient(0,r.y,0,r.y+r.h);g.addColorStop(0,'#ffe36a');g.addColorStop(.55,'#ffc21f');g.addColorStop(1,'#e8900a');uiRound(r.x,r.y,r.w,r.h,30,g,'#fff6d0',3);
- uiRound(r.x+14,r.y+8,r.w-28,18,9,'rgba(255,255,255,.35)');ctx.textAlign='center';wildText('PLAY',200,r.y+r.h/2+3,46,'#fff','#7a3a00',8);ctx.restore();return r;}
+ uiRound(r.x+14,r.y+8,r.w-28,18,9,'rgba(255,255,255,.35)');ctx.textAlign='center';wildText('PLAY',200,r.y+r.h/2+3,Math.min(46,hh*.6),'#fff','#7a3a00',8);ctx.restore();return r;}
 function pgStartRound(){PGU.rules=false;const L=w2CardLayout();pgSfx('door');__pgPointer({timeStamp:0,preventDefault(){}},{x:200,y:L.start.y+L.start.h/2});}
 
 // ---- B: the board view's between-rounds panel (in place of the goal card) ----
-function pgBLayout(){const ch=w43ChinY(),bot=H-Math.max(24,hudLayout().bottom+16);return {ch,bot,panel:{x:72,y:ch+8,w:256,h:bot-ch-8},play:bot-96,side:pgSideRects(ch+46,Math.min(96,(bot-ch-80)/3))};}
+function pgBLayout(){const h=hudLayout(),ch=w43ChinY(),bot=Math.min(H-Math.max(24,h.bottom+16),h.bottomY-12); // UAT 57: the panel ends above the bottom readouts (rule 11)
+ const py=Math.max(ch+8+194,bot-96),ph=Math.max(50,Math.min(78,bot-6-py));return {ch,bot,panel:{x:72,y:ch+8,w:256,h:bot-ch-8},play:py,playH:ph,side:pgSideRects(ch+46,Math.min(96,(bot-ch-80)/3))};}
 const __abCard=drawWild2Card;
 drawWild2Card=function(){if(!pgABOn()||PG_AB!=='B'||PGU.rules)return __abCard();const B=pgBLayout(),t=PGU.T,pop=Math.min(1,(WILD.cardT||0)/.25);
  ctx.save();ctx.globalAlpha=pop;ctx.fillStyle='rgba(12,6,24,.4)';ctx.fillRect(0,B.ch,W,H-B.ch); // the board keeps moving behind
  uiRound(B.panel.x,B.panel.y,B.panel.w,B.panel.h,20,'rgba(29,15,51,.5)','rgba(255,214,120,.55)',1.5);uiRound(B.panel.x,B.panel.y,B.panel.w,172,20,'rgba(29,15,51,.95)'); // the goal reads clearly; the board shows below itctx.textAlign='center';ctx.textBaseline='middle';
- PGU.bL=pgCentre(B.panel.y+30,t);PGU.bL.play=pgPlayButton(B.play,t);pgDrawSide(B.side,t);ctx.restore();};
+ PGU.bL=pgCentre(B.panel.y+30,t);PGU.bL.play=pgPlayButton(B.play,t,B.playH);pgDrawSide(B.side,t);ctx.restore();};
 const __abBoardPointer=pgBoardPointer;
 pgBoardPointer=function(p){
  if(pgABOn()&&PG_AB==='B'&&!PGU.rules&&!PGU.win&&!PGU.pick&&!PGU.modes&&!PGU.door&&pgRestPhase()&&WILD.phase==='card'){
