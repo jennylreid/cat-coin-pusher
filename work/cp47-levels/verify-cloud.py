@@ -2,7 +2,7 @@ import urllib.request,hashlib,json,time
 from pathlib import Path
 root=Path(__file__).resolve().parents[2];stage=root/'work/cp47-levels'
 url=(root/'work/uat15/download-url.txt').read_text().strip()
-url+=('&' if '?' in url else '?')+'cp61verify='+str(time.time_ns())
+url+=('&' if '?' in url else '?')+'cp62verify='+str(time.time_ns())
 request=urllib.request.Request(url,headers={'Cache-Control':'no-cache, no-store, max-age=0'})
 with urllib.request.urlopen(request,timeout=30) as response:
     digest=hashlib.sha256();size=0

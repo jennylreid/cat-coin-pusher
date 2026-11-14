@@ -1,0 +1,625 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp47-levels\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp60\\release.html",
+ "passed": true,
+ "failed": [],
+ "at": "2026-11-14T20:38:04.325Z",
+ "count": 63,
+ "names": [
+  {
+   "name": "1.1 ten levels, each with a name, goal and tag",
+   "info": [
+    "Normal",
+    "Normal",
+    "Hard",
+    "Normal",
+    "Hard",
+    "Normal",
+    "Super hard",
+    "Hard",
+    "Normal",
+    "Super hard"
+   ]
+  },
+  {
+   "name": "1.2 difficulty mixes (not a steady climb): tags N N H N H N SH H N SH",
+   "info": "Normal, Normal, Hard, Normal, Hard, Normal, Super hard, Hard, Normal, Super hard"
+  },
+  "1.3 no cat's prize is ever in a level's layout",
+  "1.4 each goal is prizes laid out on that level (each kind once)",
+  {
+   "name": "1.5 every level starts the same on every replay (same pieces in the same spots, coins, time, goal)",
+   "info": [
+    {
+     "ok": true,
+     "prizes": 0.07,
+     "coins": 0.1,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.09,
+     "coins": 0.09,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.03,
+     "coins": 0.05,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.4,
+     "coins": 0.33,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.01,
+     "coins": 0.02,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.56,
+     "coins": 0.27,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.13,
+     "coins": 0.03,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.06,
+     "coins": 0.01,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.09,
+     "coins": 0.03,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.07,
+     "coins": 0.04,
+     "coinsOver1": 0
+    }
+   ]
+  },
+  {
+   "name": "1.6 a level's prizes, towers and coins are the same with another cat (Orange vs Tuxedo)",
+   "info": [
+    {
+     "ok": true,
+     "prizes": 0.01,
+     "coins": 0.02,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0,
+     "coins": 0,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.02,
+     "coins": 0.21,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.4,
+     "coins": 0.33,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.02,
+     "coins": 0.03,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.34,
+     "coins": 0.25,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.08,
+     "coins": 0.03,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.06,
+     "coins": 0.01,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.09,
+     "coins": 0.06,
+     "coinsOver1": 0
+    },
+    {
+     "ok": true,
+     "prizes": 0.07,
+     "coins": 0.08,
+     "coinsOver1": 0
+    }
+   ]
+  },
+  {
+   "name": "1.7 Tower wall level: its five prizes sit on top of the five towers",
+   "info": [
+    [
+     "egg",
+     116
+    ],
+    [
+     "milk",
+     157
+    ],
+    [
+     "sock",
+     198
+    ],
+    [
+     "ball",
+     157
+    ],
+    [
+     "feather",
+     116
+    ]
+   ]
+  },
+  {
+   "name": "1.8 PLAY screen: \"LEVEL 1\", its tag, and the goal line with the level name",
+   "info": [
+    "LEVEL 1",
+    "NORMAL",
+    "First push: collect these 4"
+   ]
+  },
+  "1.9 no XP anywhere on the PLAY screen or its bar",
+  {
+   "name": "1.10 no frame errors",
+   "info": []
+  },
+  {
+   "name": "2.1 winning Level 1 passes it and opens Level 2 (first pass)",
+   "info": {
+    "passed": 1,
+    "sel": 2,
+    "stars": {
+     "1": 2
+    }
+   }
+  },
+  {
+   "name": "2.2 end card: NEXT LEVEL, \"Level 1 passed! Level 2 is open\", the lower button is Main screen",
+   "info": [
+    "NEXT LEVEL",
+    "Main screen"
+   ]
+  },
+  {
+   "name": "2.3 stars stored per level",
+   "info": {
+    "1": 2
+   }
+  },
+  {
+   "name": "2.4 no XP level changes (PG.level untouched)",
+   "info": 1
+  },
+  {
+   "name": "2.5 a loss keeps the level (Level 2, TRY AGAIN)",
+   "info": {
+    "lv": {
+     "passed": 1,
+     "sel": 2,
+     "stars": {
+      "1": 2
+     }
+    },
+    "again": "TRY AGAIN",
+    "eq": 0
+   }
+  },
+  {
+   "name": "2.6 after two losses the level starts as before: no free Quake, nothing moved or added",
+   "info": {
+    "sl": {
+     "ok": true,
+     "prizes": 0.08,
+     "coins": 0.27,
+     "coinsOver1": 0
+    },
+    "q0": 1,
+    "q1": 1,
+    "eq": 0
+   }
+  },
+  {
+   "name": "2.7 PLAY screen arrows: back to a passed level (4 to 3, its own goal); no arrow past the newest level",
+   "info": {
+    "A": {
+     "prev": {
+      "x": 85.06499862670898,
+      "y": 386,
+      "w": 40,
+      "h": 40
+     },
+     "next": null
+    },
+    "sel": 3,
+    "coll": [
+     "sardine",
+     "sock",
+     "biscuit",
+     "egg",
+     "box"
+    ]
+   }
+  },
+  {
+   "name": "2.8 no frame errors",
+   "info": []
+  },
+  {
+   "name": "3.1 a new game shows no side buttons (no screen is needed yet)",
+   "info": []
+  },
+  {
+   "name": "3.2 Level 1 passed: still nothing; Level 2 passed: the Kitchen with the first recipe (Tuna dish)",
+   "info": {
+    "a1": [],
+    "a2": [
+     "kitchen",
+     "shop"
+    ],
+    "rec": {
+     "tunadish": 1
+    }
+   }
+  },
+  {
+   "name": "3.3 the Shop shows when the recipe needs something no cat of yours drops (tuna)",
+   "info": [
+    "kitchen",
+    "shop"
+   ]
+  },
+  {
+   "name": "3.4 the Porch appears with the first dish, the Album with the first photo",
+   "info": {
+    "a3": [
+     "kitchen",
+     "porch",
+     "shop"
+    ],
+    "a4": [
+     "kitchen",
+     "porch",
+     "album",
+     "shop"
+    ]
+   }
+  },
+  "3.5 no Cats button with one cat",
+  {
+   "name": "3.6 a cat coin makes the cat playable at once (no level-5 gate); the Cats button appears",
+   "info": [
+    "kitchen",
+    "porch",
+    "album",
+    "shop",
+    "board"
+   ]
+  },
+  {
+   "name": "3.7 the cat picker switches to Orange (Treat toss) on the same level",
+   "info": {
+    "cat": "orange",
+    "mode": "treats",
+    "sel": 3,
+    "name": "ORANGE",
+    "coll": [
+     "sardine",
+     "sock",
+     "biscuit",
+     "egg",
+     "box"
+    ]
+   }
+  },
+  {
+   "name": "3.8 playing Orange, at least two of Orange's prizes drop from the sky; no other cat's",
+   "info": [
+    "rain5:",
+    "item:tuna",
+    "item:yarn",
+    "rain10:",
+    "fish:",
+    "item:tuna",
+    "quake:"
+   ]
+  },
+  {
+   "name": "3.9 no frame errors",
+   "info": []
+  },
+  {
+   "name": "4.1 a perfect side game earns the cat its power, once the side game is over (Yawn +1)",
+   "info": {
+    "wait": 0,
+    "got": 1
+   }
+  },
+  {
+   "name": "4.2 tap the power button: Yawn (the wheel's yawn) and the count goes down",
+   "info": {
+    "px": "yawn",
+    "yawn": true,
+    "n": 0
+   }
+  },
+  "4.3 the power ends by itself",
+  "4.4 the button shows the playing cat's own count (Tuxedo 0 while the others have 1)",
+  {
+   "name": "4.5 Zoomies: the pusher at double speed for 6 s, then back",
+   "info": {
+    "p0": 3.2,
+    "p1": 1.6,
+    "p2": 3.2
+   }
+  },
+  {
+   "name": "4.6 Hug: the side gutters are blocked (a coin pushed off the side stays on), without it the coin falls",
+   "info": {
+    "without": {
+     "dead": true,
+     "x": null
+    },
+    "withHug": {
+     "dead": false,
+     "x": 56
+    }
+   }
+  },
+  "4.7 Hug ends and the gutters open again",
+  {
+   "name": "4.8 Sonic meow: the pusher reaches twice as far (max stroke 260 -> 330)",
+   "info": {
+    "mx0": 260,
+    "mx1": 330
+   }
+  },
+  {
+   "name": "4.9 Tortitude: a fiery burst shoves a big group of coins forward (coins off the front in the next second vs the second before)",
+   "info": {
+    "shoved": 56,
+    "before": 0,
+    "after": 19
+   }
+  },
+  {
+   "name": "4.10 no frame errors; sounds played with sound on (strict audio)",
+   "info": {
+    "errs": [],
+    "nodes": 7241
+   }
+  },
+  "5.1 the mouse coin comes as one of the bonus drops (Tortoiseshell only)",
+  {
+   "name": "5.2 tap the mice: every one caught is PERFECT; the round timer holds during the pounce",
+   "info": {
+    "c": 14,
+    "n": 14,
+    "perfect": true,
+    "left": 49.200000000000045
+   }
+  },
+  "5.3 a win during the pounce waits for it to finish",
+  {
+   "name": "5.4 PERFECT earns the Tortoiseshell a Tortitude; the bank pours as a coin rain",
+   "info": {
+    "t": 1,
+    "rained": 42
+   }
+  },
+  "5.5 a tap on nothing is a miss (red cross)",
+  {
+   "name": "5.6 no frame errors",
+   "info": []
+  },
+  {
+   "name": "6.720 PLAY screen at 720 px: arrows, How to play, PLAY and the side buttons never touch",
+   "info": []
+  },
+  {
+   "name": "6.720b the cat picker fits on screen",
+   "info": {
+    "y": 78,
+    "h": 572
+   }
+  },
+  {
+   "name": "6.889 PLAY screen at 889 px: arrows, How to play, PLAY and the side buttons never touch",
+   "info": []
+  },
+  {
+   "name": "6.889b the cat picker fits on screen",
+   "info": {
+    "y": 238.8889999999999,
+    "h": 572
+   }
+  },
+  {
+   "name": "6.960 PLAY screen at 960 px: arrows, How to play, PLAY and the side buttons never touch",
+   "info": []
+  },
+  {
+   "name": "6.960b the cat picker fits on screen",
+   "info": {
+    "y": 310,
+    "h": 572
+   }
+  },
+  {
+   "name": "7.1 the frozen pickup and the side games' own code are byte-identical to UAT 60",
+   "info": {
+    "queueTreatAward": true,
+    "pickupTarget": true,
+    "pickupEase": true,
+    "drawPrize": true,
+    "w2StartYawn": true,
+    "danceStart": true,
+    "tossStart": true,
+    "laserStart": true,
+    "petStart": true
+   }
+  },
+  {
+   "name": "7.2 audio: every sound function is UAT 60's (sfx.wild2 only gets a pass-through hook that notes a perfect)",
+   "info": []
+  },
+  {
+   "name": "7.3 Developer MODES plays the old modes as before (CP-45 prize list on Wild 2 spots, no levels)",
+   "info": {
+    "n": 5,
+    "lvl": false,
+    "coll": 5
+   }
+  },
+  "7.4 playing a cat brings levels back",
+  "7.5 the title screen and its keys are untouched",
+  {
+   "name": "8.6 Level 6: a tower block of five stacks packed together, standing, same start every replay",
+   "info": {
+    "st": [
+     [
+      200,
+      417,
+      41,
+      0
+     ],
+     [
+      147,
+      470,
+      41,
+      0
+     ],
+     [
+      200,
+      470,
+      53,
+      0
+     ],
+     [
+      253,
+      470,
+      41,
+      0
+     ],
+     [
+      200,
+      523,
+      41,
+      0
+     ]
+    ],
+    "same": {
+     "ok": true,
+     "prizes": 0.94,
+     "coins": 0.19,
+     "coinsOver1": 0
+    }
+   }
+  },
+  {
+   "name": "8.9 Level 9: a tower block of five stacks packed together, standing, same start every replay",
+   "info": {
+    "st": [
+     [
+      173,
+      415,
+      37,
+      0
+     ],
+     [
+      227,
+      415,
+      37,
+      0
+     ],
+     [
+      173,
+      468,
+      37,
+      0
+     ],
+     [
+      227,
+      468,
+      37,
+      0
+     ],
+     [
+      200,
+      370,
+      49,
+      0
+     ]
+    ],
+    "same": {
+     "ok": true,
+     "prizes": 0.09,
+     "coins": 0.09,
+     "coinsOver1": 0
+    }
+   }
+  },
+  {
+   "name": "8.6b the feather sits on top of the block",
+   "info": 116
+  },
+  {
+   "name": "8.6c pushed, the block topples and spills (fewer standing stacks after 45 s of drops)",
+   "info": 4
+  },
+  {
+   "name": "8.1 \"Test this build\" sits right under the Settings title: Title coins, Start on level, Give all cats, Give powers, Mouse pounce",
+   "info": "   Test this build  UAT 62    Title coins  2 faster, coin edge   Show the title screen again   Start on level  −  6 · Tower block  +   Give all cats  Give powers (3 each)  Start Mouse pounce now  Back"
+  },
+  {
+   "name": "8.2 its switches work: Start on level + moves the level on, Give all cats opens every cat",
+   "info": {
+    "sel": 7,
+    "cats": 5
+   }
+  },
+  "8.3 layout A only: no Home layout switch in Developer, B never shows",
+  {
+   "name": "8.4 the hiss face holds about 2.2 s (was 1.1 s)",
+   "info": {
+    "seen": true,
+    "held": 2.2
+   }
+  },
+  {
+   "name": "8.5 no frame errors",
+   "info": []
+  }
+ ]
+}

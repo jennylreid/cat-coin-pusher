@@ -45,16 +45,20 @@ const PGL_LEVELS=[
   towers:'default',rain:[['rain10',200,435]],quake:null},
  {name:'Tower wall',tag:'Hard',coins:110,secs:60,goal:['egg','milk','sock','ball','feather'],star:'sock',
   top:[['egg',0],['milk',1],['sock',2],['ball',3],['feather',4]],p:[],wall:[13,18,23,18,13],rain:[['rain10',200,650],['rain5',200,718]],quake:[290,610]},
- {name:'Coin rain',tag:'Normal',coins:110,secs:60,goal:['biscuit','box','egg','sardine','milk','feather'],star:'feather',
-  p:[['biscuit',100,520],['feather',200,505],['box',300,520],['egg',150,600],['sardine',250,600],['milk',200,690]],towers:'default',
-  rain:[['rain25',200,440],['rain10',80,625],['rain10',320,625],['rain5',310,700]],quake:[95,700]},
+ {name:'Tower block',tag:'Normal',coins:110,secs:60,goal:['feather','biscuit','box','egg','sardine','milk'],star:'feather',
+  // one chunky block: five stacks packed into a plus, the feather on top of the middle one
+  blocks:[[[200,417,10],[147,470,10],[200,470,13],[253,470,10],[200,523,10]]],btop:[['feather',0,2]],towers:[],
+  p:[['biscuit',90,575],['box',310,575],['egg',140,650],['sardine',260,650],['milk',200,688]],
+  rain:[['rain25',200,345],['rain10',78,470],['rain10',322,470]],quake:[95,705]},
  {name:'Edge of the table',tag:'Super hard',coins:80,secs:60,goal:['sock','ball','egg','box','feather','milk','sardine'],star:'sardine',
   p:[['sock',62,425],['ball',338,425],['egg',58,560],['box',342,560],['feather',62,655],['milk',338,655],['sardine',200,350]],towers:'default',rain:[['rain5',200,640]],quake:null},
  {name:'Wall and back',tag:'Hard',coins:120,secs:70,goal:['milk','egg','box','ball','biscuit','sardine'],star:'box',
   top:[['milk',0],['egg',1],['box',2],['ball',3],['biscuit',4]],p:[['sardine',200,365]],wall:[13,18,23,18,13],rain:[['rain10',200,650]],quake:[110,640]},
  {name:'Prize party',tag:'Normal',coins:110,secs:60,goal:['ball','sock','egg','milk','sardine'],star:null,
-  p:[['ball',80,450],['sock',150,440],['egg',250,440],['milk',320,450],['sardine',110,520],['box',200,510],['feather',290,520],['biscuit',80,595],['ball',160,590],['egg',240,590],['sock',320,595],['milk',120,665],['sardine',200,660],['box',280,665]],
-  towers:[],rain:[['rain10',200,720]],quake:[200,370]},
+  // a block of four stacks with one more behind, packed together at the back
+  blocks:[[[173,415,9],[227,415,9],[173,468,9],[227,468,9],[200,370,12]]],towers:[],
+  p:[['ball',75,455],['milk',325,455],['sock',90,380],['egg',310,380],['sardine',110,520],['box',200,540],['feather',290,520],['biscuit',80,595],['ball',160,590],['egg',240,590],['sock',320,595],['milk',120,665],['sardine',200,660],['box',280,665]],
+  rain:[['rain10',130,725]],quake:[270,725]},
  {name:'The vault',tag:'Super hard',coins:65,secs:55,goal:['egg','milk','box','ball','feather','sock','biscuit','sardine'],star:'sock',
   top:[['egg',0],['milk',1],['box',2],['ball',3],['feather',4]],p:[['sock',200,312],['biscuit',66,345],['sardine',334,345]],wall:[16,21,23,21,16],rain:[],quake:null}];
 const PGL_N=PGL_LEVELS.length;
@@ -102,7 +106,9 @@ wildPrefill=function(){
  if(!keepDefault){const d=COIN_R*2+1;for(let y=PUSH_MAX+COIN_R+2;y+COIN_R<=T.FRONT-20-d;y+=d){const n=Math.floor(2*Math.min(tableHalfAt(y-COIN_R),tableHalfAt(y+COIN_R))/d);
   for(let i=0;i<n;i++){const x=200+(i-(n-1)/2)*d;if([[140,430],[260,430]].some(([tx,ty])=>Math.hypot(tx-x,ty-y)<COIN_R*1.6)&&pglFree(x,y,COIN_R*1.2)&&!(L.wall&&Math.abs(y-TW.z)<COIN_R*2.2))addCoin(seededRandom()<.25?'silver':'coin',null,x,COIN_HALF+.2,y,yawTurn(0));}}}
  if(Array.isArray(L.towers))for(const t of L.towers){pglClearAt(t.x,t.y,COIN_R*1.6);const s=addStack(t.x,null,t.y,null,t.n,null,seededRandom()*6);s.limit=5+seededRandom()*6;}
+ for(const [bi,B] of (L.blocks||[]).entries())B.forEach(([x,y,n],si)=>{pglClearAt(x,y,COIN_R*1.6);const s=addStack(x,null,y,null,n,null,seededRandom()*6);s.limit=4+seededRandom()*4;s.pglBlock=[bi,si];});
  const top=COIN_HALF*2+halfOf('item')+1;
+ for(const [id,bi,si] of L.btop||[]){const [x,y]=L.blocks[bi][si];const b=addCoin('item',id,x,top,y+120,yawTurn(0));b.wild=true;b.pglOn=[bi,si];}
  for(const [id,x,y] of L.p){const b=addCoin('item',id,x,top,y,yawTurn(0));b.wild=true;}
  if(L.top)for(const [id,slot] of L.top){const b=addCoin('item',id,200+(slot-2)*TW.gap,top,TW.z+90,yawTurn(0));b.wild=true;b.pglTop=slot;} // lifted onto its tower once the board settles
  for(const [k,x,y] of L.rain||[])addCoin(k,null,x,COIN_HALF*2+RAIN[k].half+1,y,yawTurn(seededRandom()*6)).rb.enableCcd(true);
@@ -118,7 +124,12 @@ twPlacePrizes=function(){const L=pglOn();if(!L||!L.top)return __pglTwPlace();
   b.rb.setTranslation({x:p.x,y:p.y+(t.half+halfOf('item')+.6)*M,z:p.z},true);b.rb.setLinvel({x:0,y:0,z:0},true);b.rb.setAngvel({x:0,y:0,z:0},true);b.rb.setRotation(yawTurn(0),true);b.twTop=true;}};
 // The level's coins and time.
 const __pglReset=wildReset;
-wildReset=function(){const r=__pglReset();const L=pglOn();if(L){S.coins=L.coins;board.remaining=S.coins;WILD.left=L.secs;WILD.pglLevel=pglSel();WILD.pglCatDrops=0;WILD.pglSched=0;}return r;};
+function pglStandBlocks(L){if(!L.blocks)return;const st=bodies.filter(b=>!b.dead&&b.kind==='stack'&&b.pglBlock);
+ for(const t of st){const [x,y]=L.blocks[t.pglBlock[0]][t.pglBlock[1]];t.rb.setTranslation({x:x*M,y:(t.half+.1)*M,z:y*M},true);t.rb.setRotation({x:0,y:0,z:0,w:1},true);t.rb.setLinvel({x:0,y:0,z:0},true);t.rb.setAngvel({x:0,y:0,z:0},true);
+  const p=t.rb.translation();t.lx=p.x;t.lz=p.z;t.moved=0;t.tipping=false;}
+ for(const b of bodies){if(b.dead||b.kind!=='item'||!b.pglOn)continue;const t=st.find(t=>t.pglBlock[0]===b.pglOn[0]&&t.pglBlock[1]===b.pglOn[1]);if(!t)continue;const p=t.rb.translation();
+  b.rb.setTranslation({x:p.x,y:p.y+(t.half+halfOf('item')+.6)*M,z:p.z},true);b.rb.setLinvel({x:0,y:0,z:0},true);b.rb.setAngvel({x:0,y:0,z:0},true);b.rb.setRotation(yawTurn(0),true);}}
+wildReset=function(){const r=__pglReset();const L=pglOn();if(L){pglStandBlocks(L);S.coins=L.coins;board.remaining=S.coins;WILD.left=L.secs;WILD.pglLevel=pglSel();WILD.pglCatDrops=0;WILD.pglSched=0;}return r;};
 
 // --- a cat's prizes fall from the sky during play, only while you play that cat ---
 const __pglBonus=wildScheduleBonus;
@@ -252,3 +263,29 @@ wildDevBind=function(panel){__pglDevBind(panel);const box=panel.querySelector&&p
  on('pgl-pass',()=>{const lv=pglLv();if(lv.passed<PGL_N){lv.passed++;pglUnlocks(lv.passed);}lv.sel=Math.min(PGL_N,lv.passed+1);});
  on('pgl-all',()=>{const lv=pglLv();for(let n=lv.passed+1;n<=PGL_N;n++)pglUnlocks(n);lv.passed=PGL_N;lv.sel=PGL_N;});
  on('pgl-reset',()=>{PG.lv={passed:0,sel:1,stars:{}};});};
+
+// ---------- UAT 62 additions (PM, Jenny's picks Nov 14) ----------
+// Layout A is how the game works (Jenny picked A): layout B and the "Home layout" switch are gone.
+PG_AB='A';
+// "Test this build": the switches Jenny should try in this build, at the top of Settings (Developer on), plain names.
+// When she picks an option, the losing option and its switch go in the next build. Everything else stays in Developer.
+const __pglOpenCredits=openCredits;
+openCredits=function(){const r=__pglOpenCredits.apply(this,arguments);try{pglTestPanel();}catch(e){}return r;};
+function pglTestPanel(){if(!S.dev||!PG||PG_HOME_OFF||typeof panel!=='object')return;const h2=panel.querySelector('h2');if(!h2||panel.querySelector('#pgt'))return;
+ const lv=pglLv(),names=['','1 faster','2 faster, coin edge','3 fountain','4 pile-up'],b='min-width:52px;min-height:44px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;font-size:22px';
+ const n=lv.sel,L=pglLevel(n);
+ h2.insertAdjacentHTML('afterend','<div class="set" id="pgt" style="border:2px solid #ffd23f"><h3><span>Test this build</span><span>UAT 62</span></h3>'
+  +'<div style="display:flex;align-items:center;gap:8px;margin:4px 0"><span style="flex:1">Title coins</span><button id="pgt-tc" style="min-height:44px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;padding:0 10px">'+names[PG_TC]+'</button></div>'
+  +'<button id="pgt-title" class="wide">Show the title screen again</button>'
+  +'<div style="display:flex;align-items:center;gap:8px;margin:4px 0"><span style="flex:1">Start on level</span><button data-pgt="-1" style="'+b+'">−</button><b style="min-width:120px;text-align:center">'+n+' · '+L.name+'</b><button data-pgt="1" style="'+b+'">+</button></div>'
+  +'<button id="pgt-cats" class="wide">Give all cats</button><button id="pgt-powers" class="wide">Give powers (3 each)</button><button id="pgt-pounce" class="wide">Start Mouse pounce now</button><button id="pgt-reset" class="wide">Back to Level 1 (levels only)</button></div>');
+ const re=()=>{const top=panel.scrollTop;openCredits();panel.scrollTop=top;},box=panel.querySelector('#pgt'),on=(id,f)=>{const el=box.querySelector('#'+id);if(el)el.onclick=f;};
+ on('pgt-tc',()=>{PG_TC=PG_TC%4+1;try{localStorage.setItem(PG_TC_KEY,String(PG_TC));}catch(e){}try{diagEvent('test-panel','titlecoins='+PG_TC);}catch(e){}re();});
+ on('pgt-title',()=>{panel.style.display='none';PGU.title={t:0,coins:[],snd:0};PGU.screen='title';});
+ for(const btn of box.querySelectorAll('[data-pgt]'))btn.onclick=()=>{const lv=pglLv(),k=Math.max(1,Math.min(PGL_N,lv.sel+ +btn.dataset.pgt));for(let m=lv.passed+1;m<k;m++)pglUnlocks(m);lv.passed=Math.max(lv.passed,k-1);lv.sel=k;pglCheckScreens(true);pgSave();if(WILD.on&&WILD.phase==='card')wildReset();try{diagEvent('test-panel','level='+k);}catch(e){}re();};
+ on('pgt-cats',()=>{for(const c of PG_CATS)if(!PG.open[c]){PG.open[c]=1;PG.openOrder.push(c);}pglCheckScreens(true);pgSave();pgToast('Every cat is yours: Cats, between rounds','#ffd23f');re();});
+ on('pgt-powers',()=>{if(!PG.powers)PG.powers={};for(const c of PG_CATS)PG.powers[c]=Math.min(9,((PG.powers[c])|0)+3);pgSave();re();});
+ on('pgt-pounce',()=>{const s=panel.querySelector('#pgp-pounce');if(s)s.onclick();});
+ on('pgt-reset',()=>{PG.lv={passed:0,sel:1,stars:{}};pgSave();if(WILD.on&&WILD.phase==='card')wildReset();re();});}
+// the Home layout row leaves Developer (A is the game now)
+const __pglDevHtml62=pgDevHtml;pgDevHtml=function(){return __pglDevHtml62().replace(/<div style="display:flex;align-items:center;gap:8px;margin:4px 0"><span style="flex:1">Home layout<\/span><button id="pg-ab"[^>]*>[^<]*<\/button><\/div>/,'');};

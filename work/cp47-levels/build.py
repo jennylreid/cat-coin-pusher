@@ -36,6 +36,10 @@ rep("Gameplay map (CP-45)</span><span>level '+(PG?PG.level:1)+'</span></h3>'", "
 if v.get('powers'):
     # Sonic meow: the pusher's stroke times pglReach() (1 except during a Sonic meow, so every other frame is unchanged)
     rep("pusherY = PUSH_MIN + (PUSH_MAX - PUSH_MIN) * stroke;", "pusherY = PUSH_MIN + (PUSH_MAX - PUSH_MIN) * stroke * (typeof pglReach==='function'?pglReach():1);")
+# UAT 62 (Jenny, Nov 14): the hiss in Pet the cat reads longer: the Sharp Grin face held about twice as long (1.1 s -> 2.2 s),
+# the head's jolt eased out over 2 s instead of 1 (same quick start). Nothing else in Pet the cat changes.
+rep("if(D.hissT>=0&&D.hissT<1.1)return ART.headWild||img;", "if(D.hissT>=0&&D.hissT<2.2)return ART.headWild||img;")
+rep("if(D.hissT>=0&&D.hissT<1){const u=D.hissT;", "if(D.hissT>=0&&D.hissT<2){const u=D.hissT<.6?D.hissT:.6+(D.hissT-.6)*.4/1.4;")
 anchor = "Promise.all([RAPIER.init(), loadArt()])"
 mods = ['levels47.js'] + (['powers47.js'] if (p / 'powers47.js').exists() and v.get('powers') else [])
 code = N.join((p / m).read_text(encoding='utf-8').replace('\r\n', '\n').replace('\n', N) for m in mods)

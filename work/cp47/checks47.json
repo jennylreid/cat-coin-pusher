@@ -67,11 +67,11 @@
  {
   "name": "Cozy: heart coin about once a round (4 rounds)",
   "pass": true,
-  "detail": "[{\"seed\":21,\"hearts\":2,\"pets\":1,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":22,\"hearts\":1,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":23,\"hearts\":1,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":24,\"hearts\":1,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0}]"
+  "detail": "[{\"seed\":21,\"hearts\":2,\"pets\":1,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":22,\"hearts\":2,\"pets\":1,\"notes\":9,\"fish\":9,\"won\":\"lost\",\"errs\":0},{\"seed\":23,\"hearts\":2,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":24,\"hearts\":2,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0}]"
  },
  {
   "name": "Cozy: a heart pushed off starts Pet the cat in at least 2 of 4 auto rounds",
-  "pass": false,
+  "pass": true,
   "detail": ""
  },
  {

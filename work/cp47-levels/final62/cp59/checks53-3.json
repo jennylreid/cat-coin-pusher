@@ -1,0 +1,41 @@
+{
+ "passed": [
+  {
+   "name": "real rounds on all five cat boards: every prize and coin collected (the Quake coin included) uses the Pop",
+   "info": {
+    "tuxedo": "rain10,quake,egg,sardine,milk,quake,biscuit",
+    "orange": "rain10,quake,fish,feather,egg,rain10,milk,ball,box",
+    "ragdoll": "rain10,rain5,cushion,rain10,rain5,rain5,heart,cheese,box,egg,biscuit,sock,rain5",
+    "siamese": "rain10,rain5,laser,rain5,rain10,rain25,egg,sock,box,bell",
+    "tortie": "rain10,rain5,rain5,mouse,biscuit,rain5,box,rain5"
+   }
+  },
+  "no pinstriped box in any round",
+  {
+   "name": "rounds: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "the old boards (Developer) too: every pickup there uses the Pop",
+   "info": [
+    [
+     "shrimp",
+     1
+    ],
+    [
+     "cheese",
+     1
+    ],
+    [
+     "shrimp",
+     1
+    ],
+    [
+     "cheese",
+     1
+    ]
+   ]
+  }
+ ],
+ "failed": []
+}
