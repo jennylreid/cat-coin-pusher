@@ -44,19 +44,19 @@ const PGL_LEVELS=[
   p:[['egg',90,485],['milk',160,480],['feather',240,480],['ball',310,485],['sock',120,560],['biscuit',200,555],['sardine',280,560],['milk',90,640],['box',160,635],['egg',240,635],['ball',310,640],['feather',200,705]],
   towers:'default',rain:[['rain10',200,435]],quake:null},
  {name:'Tower wall',tag:'Hard',coins:110,secs:60,goal:['egg','milk','sock','ball','feather'],star:'sock',
-  top:[['egg',0],['milk',1],['sock',2],['ball',3],['feather',4]],p:[],wall:[13,18,23,18,13],rain:[['rain10',200,650],['rain5',110,600]],quake:[290,610]},
+  top:[['egg',0],['milk',1],['sock',2],['ball',3],['feather',4]],p:[],wall:[13,18,23,18,13],rain:[['rain10',200,650],['rain5',200,718]],quake:[290,610]},
  {name:'Coin rain',tag:'Normal',coins:110,secs:60,goal:['biscuit','box','egg','sardine','milk','feather'],star:'feather',
   p:[['biscuit',100,520],['feather',200,505],['box',300,520],['egg',150,600],['sardine',250,600],['milk',200,690]],towers:'default',
   rain:[['rain25',200,440],['rain10',80,625],['rain10',320,625],['rain5',310,700]],quake:[95,700]},
- {name:'Edge of the table',tag:'Super hard',coins:90,secs:60,goal:['sock','ball','egg','box','feather','milk','sardine'],star:'sardine',
-  p:[['sock',62,425],['ball',338,425],['egg',58,560],['box',342,560],['feather',62,690],['milk',338,690],['sardine',200,350]],towers:'default',rain:[['rain5',200,640]],quake:null},
+ {name:'Edge of the table',tag:'Super hard',coins:80,secs:60,goal:['sock','ball','egg','box','feather','milk','sardine'],star:'sardine',
+  p:[['sock',62,425],['ball',338,425],['egg',58,560],['box',342,560],['feather',62,655],['milk',338,655],['sardine',200,350]],towers:'default',rain:[['rain5',200,640]],quake:null},
  {name:'Wall and back',tag:'Hard',coins:120,secs:70,goal:['milk','egg','box','ball','biscuit','sardine'],star:'box',
   top:[['milk',0],['egg',1],['box',2],['ball',3],['biscuit',4]],p:[['sardine',200,365]],wall:[13,18,23,18,13],rain:[['rain10',200,650]],quake:[110,640]},
  {name:'Prize party',tag:'Normal',coins:110,secs:60,goal:['ball','sock','egg','milk','sardine'],star:null,
   p:[['ball',80,450],['sock',150,440],['egg',250,440],['milk',320,450],['sardine',110,520],['box',200,510],['feather',290,520],['biscuit',80,595],['ball',160,590],['egg',240,590],['sock',320,595],['milk',120,665],['sardine',200,660],['box',280,665]],
   towers:[],rain:[['rain10',200,720]],quake:[200,370]},
- {name:'The vault',tag:'Super hard',coins:70,secs:55,goal:['egg','milk','box','ball','feather','sock','biscuit','sardine'],star:'sock',
-  top:[['egg',0],['milk',1],['box',2],['ball',3],['feather',4]],p:[['sock',200,312],['biscuit',66,345],['sardine',334,345]],wall:[18,24,28,24,18],rain:[],quake:null}];
+ {name:'The vault',tag:'Super hard',coins:65,secs:55,goal:['egg','milk','box','ball','feather','sock','biscuit','sardine'],star:'sock',
+  top:[['egg',0],['milk',1],['box',2],['ball',3],['feather',4]],p:[['sock',200,312],['biscuit',66,345],['sardine',334,345]],wall:[16,21,23,21,16],rain:[],quake:null}];
 const PGL_N=PGL_LEVELS.length;
 const PGL={dev:false};
 function pglLv(){if(!PG)return {passed:0,sel:1,stars:{}};if(!PG.lv||typeof PG.lv!=='object')PG.lv={passed:0,sel:1,stars:{}};const L=PG.lv;L.passed=Math.max(0,Math.min(PGL_N,L.passed|0));L.sel=Math.max(1,Math.min(PGL_N,L.sel|0||1,L.passed+1));if(!L.stars)L.stars={};return L;}
@@ -86,7 +86,7 @@ const __pglModesTap=pgModesTap;pgModesTap=function(p){PGL.dev=true;return __pglM
 const __pglPlay=pgPlay;pgPlay=function(cat){PGL.dev=false;return __pglPlay(cat);};
 
 // --- the board: the level's own layout on Wild 2's start rows ---
-pgRoundList=function(cat){const L=pglActive()?pglLevel():null;if(L)return L.goal.slice();return [...PG_CAT[cat].own,...PG_COMMON].slice(0,5);};
+const __pglRoundList=pgRoundList;pgRoundList=function(cat){const L=pglActive()?pglLevel():null;if(L)return L.goal.slice();return __pglRoundList(cat);}; // old modes keep CP-45's list
 const __pglPickStar=w43PickStar;w43PickStar=function(){const L=pglActive()&&WILD.v2?pglLevel():null;if(L)return L.star||null;return __pglPickStar();};
 function pglClearAt(x,y,r){for(const b of [...bodies]){if(b.dead||(b.kind!=='coin'&&b.kind!=='silver'))continue;const q=b.rb.translation();if(Math.hypot(q.x/M-x,q.z/M-y)<r)removeCoin(b);}}
 function pglFree(x,y,r){return !bodies.some(b=>{if(b.dead)return false;const q=b.rb.translation();return Math.hypot(q.x/M-x,q.z/M-y)<r;});}

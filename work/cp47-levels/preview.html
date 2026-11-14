@@ -40440,7 +40440,7 @@ function pgDevHtml(){const b='min-width:52px;min-height:44px;background:#3a2d52;
  const mb=(id,l)=>'<button data-pgmode="'+id+'" class="wide" style="margin:3px 0">'+l+'</button>';
  return '<div class="set" id="pg-dev"><h3><span>Gameplay map (CP-45, CP-47)</span><span>Level '+(PG&&PG.lv?PG.lv.sel:1)+'</span></h3>'
  +row('window','Visit window',PG_DEV.window?PG_DEV.window+' s':'real (20 min–2 h)')+row('cap','Item cap',PG_DEV.cap)
- +'<button id="pg-coins" class="wide">Give all cat coins (open every board)</button><button id="pg-cc" class="wide">Drop a cat coin in the next round</button><button id="pg-visit" class="wide">Cat visits now</button><button id="pg-give" class="wide">Give 3 of every prize + 300 coins</button><button id="pg-reset" class="wide">Reset progression</button>'
+ +'<button id="pg-coins" class="wide">Give all cat coins (every cat playable)</button><button id="pg-cc" class="wide">Drop a cat coin in the next round</button><button id="pg-visit" class="wide">Cat visits now</button><button id="pg-give" class="wide">Give 3 of every prize + 300 coins</button><button id="pg-reset" class="wide">Reset progression</button>'
  +'<h3 style="margin-top:10px"><span>MODES</span><span>test any board</span></h3>'+mb('wild2','Tuxedo')+WILD_MODE_ORDER.map(id=>mb(id,WILD_MODES[id].name)).join('')+mb('home-off','Old boards 1–3 (leave the cat boards)')+'</div>';}
 const __pgDevHtml=wildDevHtml;wildDevHtml=function(){return pgDevHtml()+__pgDevHtml();};
 const __pgDevBind=wildDevBind;
@@ -40801,12 +40801,12 @@ const PGL_LEVELS=[
   p:[['egg',90,485],['milk',160,480],['feather',240,480],['ball',310,485],['sock',120,560],['biscuit',200,555],['sardine',280,560],['milk',90,640],['box',160,635],['egg',240,635],['ball',310,640],['feather',200,705]],
   towers:'default',rain:[['rain10',200,435]],quake:null},
  {name:'Tower wall',tag:'Hard',coins:110,secs:60,goal:['egg','milk','sock','ball','feather'],star:'sock',
-  top:[['egg',0],['milk',1],['sock',2],['ball',3],['feather',4]],p:[],wall:[13,18,23,18,13],rain:[['rain10',200,650],['rain5',110,600]],quake:[290,610]},
+  top:[['egg',0],['milk',1],['sock',2],['ball',3],['feather',4]],p:[],wall:[13,18,23,18,13],rain:[['rain10',200,650],['rain5',200,718]],quake:[290,610]},
  {name:'Coin rain',tag:'Normal',coins:110,secs:60,goal:['biscuit','box','egg','sardine','milk','feather'],star:'feather',
   p:[['biscuit',100,520],['feather',200,505],['box',300,520],['egg',150,600],['sardine',250,600],['milk',200,690]],towers:'default',
   rain:[['rain25',200,440],['rain10',80,625],['rain10',320,625],['rain5',310,700]],quake:[95,700]},
  {name:'Edge of the table',tag:'Super hard',coins:90,secs:60,goal:['sock','ball','egg','box','feather','milk','sardine'],star:'sardine',
-  p:[['sock',62,425],['ball',338,425],['egg',58,560],['box',342,560],['feather',62,690],['milk',338,690],['sardine',200,350]],towers:'default',rain:[['rain5',200,640]],quake:null},
+  p:[['sock',62,425],['ball',338,425],['egg',58,560],['box',342,560],['feather',62,655],['milk',338,655],['sardine',200,350]],towers:'default',rain:[['rain5',200,640]],quake:null},
  {name:'Wall and back',tag:'Hard',coins:120,secs:70,goal:['milk','egg','box','ball','biscuit','sardine'],star:'box',
   top:[['milk',0],['egg',1],['box',2],['ball',3],['biscuit',4]],p:[['sardine',200,365]],wall:[13,18,23,18,13],rain:[['rain10',200,650]],quake:[110,640]},
  {name:'Prize party',tag:'Normal',coins:110,secs:60,goal:['ball','sock','egg','milk','sardine'],star:null,
@@ -40843,7 +40843,7 @@ const __pglModesTap=pgModesTap;pgModesTap=function(p){PGL.dev=true;return __pglM
 const __pglPlay=pgPlay;pgPlay=function(cat){PGL.dev=false;return __pglPlay(cat);};
 
 // --- the board: the level's own layout on Wild 2's start rows ---
-pgRoundList=function(cat){const L=pglActive()?pglLevel():null;if(L)return L.goal.slice();return [...PG_CAT[cat].own,...PG_COMMON].slice(0,5);};
+const __pglRoundList=pgRoundList;pgRoundList=function(cat){const L=pglActive()?pglLevel():null;if(L)return L.goal.slice();return __pglRoundList(cat);}; // old modes keep CP-45's list
 const __pglPickStar=w43PickStar;w43PickStar=function(){const L=pglActive()&&WILD.v2?pglLevel():null;if(L)return L.star||null;return __pglPickStar();};
 function pglClearAt(x,y,r){for(const b of [...bodies]){if(b.dead||(b.kind!=='coin'&&b.kind!=='silver'))continue;const q=b.rb.translation();if(Math.hypot(q.x/M-x,q.z/M-y)<r)removeCoin(b);}}
 function pglFree(x,y,r){return !bodies.some(b=>{if(b.dead)return false;const q=b.rb.translation();return Math.hypot(q.x/M-x,q.z/M-y)<r;});}
@@ -41211,7 +41211,7 @@ function pounceDraw(){const D=WILD.pounce,Y=POUNCE_HUD_Y;ctx.save();ctx.setTrans
   ctx.restore();ctx.globalAlpha=1;}
  ctx.restore();}
 // the mouse coin's goal-card icon
-const __pounceCardIcon=w2CardIcon;w2CardIcon=function(kind,x,y){if(kind==='mousecoin'){const sp=sprite('mousecoin');ctx.drawImage(sp.cv,x-17,y-17,34,34);return;}if(kind==='mouse'){drawPrize('item','mouse',x,y+8,30/prizeWidth('mouse',1));return;}return __pounceCardIcon(kind,x,y);};
+const __pounceCardIcon=w2CardIcon;w2CardIcon=function(kind,x,y){if(kind==='mousecoin'){const sp=sprite('mousecoin');ctx.drawImage(sp.cv,x-17,y-17,34,34);return;}if(kind==='mouse'){drawPrize('item','mouse',x,y+8,30/prizeWidth('mouse',1));return;}if(WILD.mode==='pounce'&&kind==='paw'){const w=34,h=w*ART.paw.height/ART.paw.width;ctx.drawImage(ART.paw,x-w/2,y-h/2,w,h);return;}if(WILD.mode==='pounce'&&kind==='perfect'){wildText('×'+POUNCE.count,x,y,18,'#7dff6a','#0c3a12',4);return;}return __pounceCardIcon(kind,x,y);};
 WILD_MODES.pounce.cardLines=[['mousecoin','Push the mouse coin off','and the toy mice run!'],['mouse','Tap the mice','the mitt pounces'],['perfect','Catch every one','for a RAIN 10 and a Tortitude'],
  ['paw','Prizes topple off the sides','Tap the glow to Paw save'],['rain10','Rain coins pour','5, 10 or 25 coins'],['!','Bonus drops','fall from the sky']];
 try{pgFixAllLines();}catch(e){}

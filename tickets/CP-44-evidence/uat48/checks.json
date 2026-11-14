@@ -1,22 +1,9 @@
 {
  "passed": [
   {
-   "name": "build label",
-   "info": "2026.11.12 UAT 48"
-  },
-  {
-   "name": "TOWER WALL is listed in the MODES picker after the UAT 45-47 modes",
-   "info": [
-    "treats",
-    "laser",
-    "cozy",
-    "towers"
-   ]
-  },
-  {
    "name": "the picker fits the screen with four modes",
    "info": {
-    "bottom": 836.6204081632653,
+    "bottom": 878.8889999999999,
     "H": 888.8889999999999,
     "errs": []
    }
@@ -99,8 +86,8 @@
    "name": "60 s of Tower wall play without errors (sound on), the wall topples",
    "info": {
     "errs": [],
-    "towersStanding": 3,
-    "audioNodes": 13031
+    "towersStanding": 1,
+    "audioNodes": 34820
    }
   },
   {
@@ -130,10 +117,25 @@
     "ended": true,
     "gameRunning": true,
     "stage": null,
-    "liveNodes": 140,
-    "nodesCreated": 4339
+    "liveNodes": 153,
+    "nodesCreated": 4355
    }
   }
  ],
- "failed": []
+ "failed": [
+  {
+   "name": "build label",
+   "info": "2026.11.14 UAT 61"
+  },
+  {
+   "name": "TOWER WALL is listed in the MODES picker after the UAT 45-47 modes",
+   "info": [
+    "treats",
+    "laser",
+    "cozy",
+    "towers",
+    "pounce"
+   ]
+  }
+ ]
 }

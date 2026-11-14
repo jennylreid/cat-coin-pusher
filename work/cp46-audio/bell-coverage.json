@@ -1,0 +1,202 @@
+{
+ "code": {
+  "ledgeBell": {
+   "same58_59": true,
+   "same59_60": true
+  },
+  "pickupLandSound": {
+   "same58_59": true,
+   "same59_60": true
+  },
+  "String(sfx.pickup)": {
+   "same58_59": true,
+   "same59_60": true
+  },
+  "JSON.stringify(pickupFx.volume)": {
+   "same58_59": true,
+   "same59_60": true
+  },
+  "String(sfx.bgm)": {
+   "same58_59": true,
+   "same59_60": true
+  },
+  "pickupVolume": 1,
+  "ledgeBellSource": "function ledgeBell(){const now=time*1000;if(nextLedgeBell-now>LEDGE_BELL_GAP*LEDGE_BELL_LEVEL.length)nextLedgeBell=-9; // game time restarts with a board\r\n const wait=Math.max(0,nextLedgeBell-now),n=Math.round(wait/LEDGE_BELL_GAP);if(n>=LEDGE_BELL_LEVEL.length)return false;\r\n nextLedgeBell=now+wait+LEDGE_BELL_GAP;sfx.pickup('bell',pickupFx.volume*LEDGE_BELL_LEVEL[n],wait/1000);return true;}"
+ },
+ "rounds": {
+  "uat58": {
+   "bell": 11,
+   "bellCalls": 11,
+   "thump": 7,
+   "drops": 300,
+   "dropSound": 166,
+   "dropSkip": 134,
+   "lands": 298,
+   "landSound": 181,
+   "landSkip": 117,
+   "landQueued": 0,
+   "edgeCoins": 48,
+   "edgeSound": 13,
+   "edgeSkip": 35,
+   "edgeGroup": 0,
+   "rec": {
+    "drop": {
+     "calls": 300,
+     "started": 166,
+     "fallback": 0,
+     "skipped": 134
+    },
+    "push": {
+     "calls": 19,
+     "started": 4,
+     "fallback": 0,
+     "skipped": 15
+    },
+    "land": {
+     "calls": 298,
+     "started": 181,
+     "fallback": 0,
+     "skipped": 117
+    },
+    "pushCoins": {
+     "calls": 19,
+     "started": 0,
+     "fallback": 0,
+     "skipped": 19
+    },
+    "roll": {
+     "calls": 1,
+     "started": 0,
+     "fallback": 0,
+     "skipped": 1
+    }
+   },
+   "__edgeOld": 1,
+   "__edgeCall": 50,
+   "__edgeStarted": 0
+  },
+  "uat59": {
+   "bell": 11,
+   "bellCalls": 11,
+   "thump": 7,
+   "drops": 300,
+   "dropSound": 166,
+   "dropSkip": 134,
+   "lands": 298,
+   "landSound": 181,
+   "landSkip": 117,
+   "landQueued": 0,
+   "edgeCoins": 48,
+   "edgeSound": 13,
+   "edgeSkip": 35,
+   "edgeGroup": 0,
+   "rec": {
+    "drop": {
+     "calls": 300,
+     "started": 166,
+     "fallback": 0,
+     "skipped": 134
+    },
+    "push": {
+     "calls": 19,
+     "started": 4,
+     "fallback": 0,
+     "skipped": 15
+    },
+    "land": {
+     "calls": 298,
+     "started": 181,
+     "fallback": 0,
+     "skipped": 117
+    },
+    "pushCoins": {
+     "calls": 19,
+     "started": 0,
+     "fallback": 0,
+     "skipped": 19
+    },
+    "roll": {
+     "calls": 1,
+     "started": 0,
+     "fallback": 0,
+     "skipped": 1
+    }
+   },
+   "__edgeOld": 1,
+   "__edgeCall": 50,
+   "__edgeStarted": 0
+  },
+  "uat60": {
+   "bell": 12,
+   "bellCalls": 12,
+   "thump": 11,
+   "drops": 294,
+   "dropSound": 245,
+   "dropSkip": 49,
+   "lands": 292,
+   "landSound": 274,
+   "landSkip": 18,
+   "landQueued": 235,
+   "edgeCoins": 40,
+   "edgeSound": 16,
+   "edgeSkip": 24,
+   "edgeGroup": 5,
+   "rec": {
+    "drop": {
+     "calls": 294,
+     "started": 245,
+     "fallback": 0,
+     "skipped": 49
+    },
+    "pushCoins": {
+     "calls": 19,
+     "started": 17,
+     "fallback": 0,
+     "skipped": 2
+    },
+    "land": {
+     "calls": 46,
+     "started": 39,
+     "fallback": 0,
+     "skipped": 7
+    }
+   },
+   "__edgeOld": 1
+  }
+ },
+ "levels": {
+  "uat58": {
+   "bellLoudest100ms": -16.4,
+   "musicRms": -32.2,
+   "musicLoudest100ms": -23,
+   "pusherStrokeLoudest100ms": -47.4,
+   "bellOverMusicDb": 15.8,
+   "bellOverPusherDb": 31,
+   "bellBand_bell": -24.2,
+   "bellBand_music": -51.6,
+   "bellBand_pusherStroke": -68.1
+  },
+  "uat59": {
+   "bellLoudest100ms": -16.4,
+   "musicRms": -32.2,
+   "musicLoudest100ms": -23,
+   "pusherStrokeLoudest100ms": -47.4,
+   "bellOverMusicDb": 15.8,
+   "bellOverPusherDb": 31,
+   "bellBand_bell": -24.2,
+   "bellBand_music": -51.6,
+   "bellBand_pusherStroke": -68.1
+  },
+  "uat60": {
+   "bellLoudest100ms": -16.4,
+   "musicRms": -32.2,
+   "musicLoudest100ms": -23,
+   "pusherStrokeLoudest100ms": -33.2,
+   "bellOverMusicDb": 15.8,
+   "bellOverPusherDb": 16.8,
+   "bellBand_bell": -24.2,
+   "bellBand_music": -51.6,
+   "bellBand_pusherStroke": -49.1
+  }
+ }
+}

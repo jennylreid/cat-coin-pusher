@@ -1,0 +1,82 @@
+{
+ "passed": [
+  {
+   "name": "Dance break: every move lands on each beat of the tap clock (within one 60 fps frame, 17 ms), with sound on or off",
+   "info": {
+    "move 0 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 1 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 2 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 3 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 0 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 1 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 2 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 3 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ]
+   }
+  }
+ ],
+ "failed": []
+}

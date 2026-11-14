@@ -97,6 +97,7 @@ Needs new art: the yawn face and stretched paws.
 11. **Nothing overlaps.** UI pieces never sit on each other on any phone size; checked before publishing. (Nov 14)
 12. **One word, one meaning.** E.g. "Level" means one thing only; each reward comes from an action that makes sense
     (cooking advances cooking or cats, not the board level). (Nov 14)
+13. **Every sound comes from something you can see happen.** No sound without a matching action on screen. (Nov 14)
 
 ### 8. What brings players back (brainstorm; pick later)
 Team wars (a team, a set time, comparing results; needs a server; kept as a concept), weekly events with set goals

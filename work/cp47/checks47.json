@@ -16,13 +16,13 @@
  },
  {
   "name": "Laser mode round identical to the base after 40 s (same seed and drops)",
-  "pass": true,
-  "detail": "67b22b73cedd343e vs 67b22b73cedd343e"
+  "pass": false,
+  "detail": "dbd5505b879319bc vs 67b22b73cedd343e"
  },
  {
   "name": "COZY is listed in the MODES picker",
   "pass": true,
-  "detail": "treats, laser, cozy, towers"
+  "detail": "treats, laser, cozy, towers, pounce"
  },
  {
   "name": "picking COZY opens the Cozy goal card",
@@ -67,11 +67,11 @@
  {
   "name": "Cozy: heart coin about once a round (4 rounds)",
   "pass": true,
-  "detail": "[{\"seed\":21,\"hearts\":1,\"pets\":1,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":22,\"hearts\":1,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":23,\"hearts\":2,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":24,\"hearts\":2,\"pets\":1,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0}]"
+  "detail": "[{\"seed\":21,\"hearts\":2,\"pets\":1,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":22,\"hearts\":1,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":23,\"hearts\":1,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":24,\"hearts\":1,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0}]"
  },
  {
   "name": "Cozy: a heart pushed off starts Pet the cat in at least 2 of 4 auto rounds",
-  "pass": true,
+  "pass": false,
   "detail": ""
  },
  {

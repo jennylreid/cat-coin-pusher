@@ -29,6 +29,7 @@ rep("+\"'S BOARD\"", "")
 rep("'IS OPEN!'", "'JOINS YOU!'")
 rep("PG_CAT[M2.cat].board+(PG.level>=PG_SWITCH_LEVEL?' · pick it from Boards, up top':' · it plays from the next round')", "pglCatLine(M2.cat)+' · Cats, between rounds'")
 rep("' · only here: '", "' · its prizes: '")
+rep('Give all cat coins (open every board)', 'Give all cat coins (every cat playable)')
 # no XP any more
 rep("+row('xp','XP speed',PG_DEV.xp+'×')", "")
 rep("Gameplay map (CP-45)</span><span>level '+(PG?PG.level:1)+'</span></h3>'", "Gameplay map (CP-45, CP-47)</span><span>Level '+(PG&&PG.lv?PG.lv.sel:1)+'</span></h3>'")

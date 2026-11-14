@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.14 UAT 60';
+const BUILD = '2026.11.14 UAT 61';
 
 
 
@@ -14007,7 +14007,7 @@ function step() {
 
 
 
-  pusherY = PUSH_MIN + (PUSH_MAX - PUSH_MIN) * stroke;
+  pusherY = PUSH_MIN + (PUSH_MAX - PUSH_MIN) * stroke * (typeof pglReach==='function'?pglReach():1);
 
 
 
@@ -37272,7 +37272,7 @@ function wildDraw(){
    ctx.fillStyle='#fff';ctx.font='bold 20px system-ui';ctx.fillText(WILD.got+' of '+WILD_GOAL+' prizes',200,R.card.y+88);WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(WILD_GOAL-1)/2)*38,R.card.y+100,28,!!WILD.have[id]));
    if(!pgEndText(R)){ctx.font='14px system-ui';ctx.fillStyle='#f0e0ff';ctx.fillText(WILD.win?wildClock()+' to spare'+(WILD.best!=null&&WILD.best===WILD.left&&WILD.runs>1?' · best yet!':''):(WILD.reason==='coins'?'The coins ran out. One more go?':'The timer ran out. One more go?'),200,R.card.y+142);
    ctx.font='12px system-ui';ctx.fillText(WILD.rained+' coins rained · '+WILD.toppled+' towers toppled · '+WILD.bonusN+' bonus drops',200,R.card.y+160);}
-   wildButtonDraw(R.again,'PLAY AGAIN','#ffd23f','#3a1a00',24);
+   wildButtonDraw(R.again,pglAgainText(),'#ffd23f','#3a1a00',24);
    uiRound(R.back.x,R.back.y,R.back.w,R.back.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.fillText(pgBackText(),200,R.back.y+R.back.h/2);ctx.restore();}
   ctx.save();ctx.translate(200,R.card.y+33);const k=WILD.endT<.35?.4+.9*u:1.15-.15*Math.min(1,(WILD.endT-.35)/.25)+.03*Math.sin(WILD.endT*6);ctx.scale(k,k);ctx.rotate(-.04);
   if(WILD.win)wildText('YOU WIN!',0,0,50,'#ffd23f','#3a1a00',9);else wildText(WILD.reason==='coins'?'OUT OF COINS!':"TIME'S UP!",0,0,WILD.reason==='coins'?38:46,'#ff6a4a','#2a0010',9);ctx.restore();
@@ -40050,7 +40050,7 @@ function pgDrawKitchen(dt){
  pgHeader('KITCHEN','#ffb07a');
  for(const row of pgKitchenRows()){const r=row.r,open=pgRecipeOpen(r),held=!!PG.recipes[r.id],done=PG.photos[r.cat]>0,can=pgCanCook(r),miss=pgMissing(r);
   if(row.y+row.h>H)break;uiRound(row.x,row.y,row.w,row.h,16,open?'rgba(255,240,220,.92)':'rgba(255,240,220,.25)','#8a4a1a',2);
-  if(!open){ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='bold 16px system-ui';ctx.fillText('A new recipe at level '+r.level,214,row.y+row.h/2);pgLock(200-ctx.measureText('A new recipe at level '+r.level).width/2-8,row.y+row.h/2+2,.8);continue;}
+  if(!open){ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='bold 16px system-ui';ctx.fillText('A new recipe after Level '+r.level,214,row.y+row.h/2);pgLock(200-ctx.measureText('A new recipe after Level '+r.level).width/2-8,row.y+row.h/2+2,.8);continue;}
   pgDish(r.id,row.x+48,row.y+48+(can?Math.sin(t*3)*2:0),.72);pgHead(r.cat,row.x+48,row.y+86,44,'calm',{noPupils:true});
   ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#3a1a0a';ctx.font='bold 17px system-ui';ctx.fillText(r.name,row.x+96,row.y+20);ctx.font='12px system-ui';ctx.fillStyle='#7a4a2a';ctx.fillText('for the '+PG_CAT[r.cat].name+(done?' · photographed':''),row.x+96,row.y+38);
   let ix=row.x+108;for(const id in r.need){const have=pgHave(id),n=r.need[id],ok=have>=n;pgPrizeIcon(id,ix,row.y+60,28,ok?1:.55);ctx.textAlign='center';ctx.font='bold 11px system-ui';ctx.fillStyle=ok?'#1f7a1a':'#c0302a';ctx.fillText(Math.min(have,99)+'/'+n,ix,row.y+88);ix+=40;}
@@ -40187,7 +40187,7 @@ function pgDrawAlbum(dt){
   PG_PRIZES.forEach((id,i)=>{const x=200+((i%cols)-1)*cw,y=top+86+(i/cols|0)*ch;const ever=!!PG.ever[id];pgPrizeIcon(id,x,y,ch*.5,ever?1:.18);ctx.fillStyle=ever?'#3a1a0a':'#b8a890';ctx.font='bold 11px system-ui';ctx.fillText(ever?pgName(id):'?',x,y+ch*.42);
    if(ever){ctx.font='bold 10px system-ui';ctx.fillStyle='#7a5a3a';ctx.fillText('×'+pgHave(id),x+ch*.34,y-ch*.12);}const o=pgOwner(id);if(o){ctx.fillStyle=PG_CAT[o].tag;ctx.beginPath();ctx.arc(x-ch*.32,y-ch*.12,4,0,7);ctx.fill();}});
   if(PG.stamped.prizes)pgStamp(300,top+bh-70,t);}
- else{const C=PG_CAT[pid],n=PG.photos[pid]|0;wildText(C.name.toUpperCase(),200,top+44,30,C.tag,'#fff8ea',2);ctx.font='12px system-ui';ctx.fillStyle='#7a5a3a';ctx.fillText(C.board+' · only here: '+C.own.map(pgName).join(', '),200,top+72,330);
+ else{const C=PG_CAT[pid],n=PG.photos[pid]|0;wildText(C.name.toUpperCase(),200,top+44,30,C.tag,'#fff8ea',2);ctx.font='12px system-ui';ctx.fillStyle='#7a5a3a';ctx.fillText(C.board+' · its prizes: '+C.own.map(pgName).join(', '),200,top+72,330);
   const fh=Math.min(170,(bh-120)/2);PG_POSES.forEach((pose,i)=>{const x=i===2?200:i===0?118:282,y=top+100+(i===2?fh+16:0)+fh/2,w=fh*.86;
    ctx.save();ctx.translate(x,y);ctx.rotate((i-1)*.05);uiRound(-w/2,-fh/2,w,fh,4,'#fff','#ccc',1);ctx.fillStyle=i<n?'#bfe6ff':'#e8e0d0';ctx.fillRect(-w/2+8,-fh/2+8,w-16,fh-36);
    if(i<n){ctx.save();ctx.beginPath();ctx.rect(-w/2+8,-fh/2+8,w-16,fh-36);ctx.clip();pgHead(pid,0,-10,w*1.1,pose);ctx.restore();}else{ctx.fillStyle='#b8a890';ctx.font='900 34px Impact, system-ui';ctx.fillText('?',0,-14);}
@@ -40426,8 +40426,8 @@ function pgBoardOverlay(){ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0
  if(M2){const t=M2.t,u=Math.min(1,t/.4),a=Math.min(1,(3.2-t)/.4),y=cy+190;ctx.globalAlpha=a;ctx.fillStyle='rgba(12,6,24,.7)';ctx.fillRect(0,cy+20,W,330);
   ctx.save();ctx.translate(200,y);for(let i=0;i<12;i++){ctx.rotate(Math.PI/6);ctx.fillStyle=i%2?'rgba(255,210,63,.25)':'rgba(255,255,255,.12)';ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-30,-220);ctx.lineTo(30,-220);ctx.fill();}ctx.restore();
   ctx.save();ctx.translate(200,y);ctx.scale(.3+.7*(1-Math.pow(1-u,3)),.3+.7*(1-Math.pow(1-u,3)));pgHead(M2.cat,0,0,260,t%1.2<.6?'sweet':'calm');ctx.restore();
-  wildText(PG_CAT[M2.cat].name.toUpperCase()+"'S BOARD",200,cy+50,32,'#ffd23f','#3a1a00',6);wildText('IS OPEN!',200,cy+90,34,'#7dff6a','#0c3a12',6);
-  ctx.font='bold 14px system-ui';ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(PG_CAT[M2.cat].board+(PG.level>=PG_SWITCH_LEVEL?' · pick it from Boards, up top':' · it plays from the next round'),200,y+100);}
+  wildText(PG_CAT[M2.cat].name.toUpperCase(),200,cy+50,32,'#ffd23f','#3a1a00',6);wildText('JOINS YOU!',200,cy+90,34,'#7dff6a','#0c3a12',6);
+  ctx.font='bold 14px system-ui';ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(pglCatLine(M2.cat)+' · Cats, between rounds',200,y+100);}
  if(WILD.on&&pgRestPhase())pgDrawDock();else if(WILD.on&&!inventoryOpen)pgDrawPlayGear();
  ctx.restore();pgToastsDraw();
  const dt=pgDrawDt();ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
@@ -40438,9 +40438,9 @@ const __pgBgm=bgmWanted;bgmWanted=function(){if(!PG_HOME_OFF&&PG&&PGU.screen!=='
 function pgDevHtml(){const b='min-width:52px;min-height:44px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;font-size:22px',
  row=(k,label,val)=>'<div style="display:flex;align-items:center;gap:8px;margin:4px 0"><span style="flex:1">'+label+'</span><button data-pg="'+k+'" data-dir="-1" style="'+b+'">−</button><b style="min-width:64px;text-align:center">'+val+'</b><button data-pg="'+k+'" data-dir="1" style="'+b+'">+</button></div>';
  const mb=(id,l)=>'<button data-pgmode="'+id+'" class="wide" style="margin:3px 0">'+l+'</button>';
- return '<div class="set" id="pg-dev"><h3><span>Gameplay map (CP-45)</span><span>level '+(PG?PG.level:1)+'</span></h3>'
- +row('window','Visit window',PG_DEV.window?PG_DEV.window+' s':'real (20 min–2 h)')+row('xp','XP speed',PG_DEV.xp+'×')+row('cap','Item cap',PG_DEV.cap)
- +'<button id="pg-coins" class="wide">Give all cat coins (open every board)</button><button id="pg-cc" class="wide">Drop a cat coin in the next round</button><button id="pg-visit" class="wide">Cat visits now</button><button id="pg-give" class="wide">Give 3 of every prize + 300 coins</button><button id="pg-reset" class="wide">Reset progression</button>'
+ return '<div class="set" id="pg-dev"><h3><span>Gameplay map (CP-45, CP-47)</span><span>Level '+(PG&&PG.lv?PG.lv.sel:1)+'</span></h3>'
+ +row('window','Visit window',PG_DEV.window?PG_DEV.window+' s':'real (20 min–2 h)')+row('cap','Item cap',PG_DEV.cap)
+ +'<button id="pg-coins" class="wide">Give all cat coins (every cat playable)</button><button id="pg-cc" class="wide">Drop a cat coin in the next round</button><button id="pg-visit" class="wide">Cat visits now</button><button id="pg-give" class="wide">Give 3 of every prize + 300 coins</button><button id="pg-reset" class="wide">Reset progression</button>'
  +'<h3 style="margin-top:10px"><span>MODES</span><span>test any board</span></h3>'+mb('wild2','Tuxedo')+WILD_MODE_ORDER.map(id=>mb(id,WILD_MODES[id].name)).join('')+mb('home-off','Old boards 1–3 (leave the cat boards)')+'</div>';}
 const __pgDevHtml=wildDevHtml;wildDevHtml=function(){return pgDevHtml()+__pgDevHtml();};
 const __pgDevBind=wildDevBind;
@@ -40527,7 +40527,7 @@ function pgCentre(y,t,o={}){const cat=PGU.boardCat||'tuxedo',L={};
  ctx.font='italic 900 22px Impact, "Arial Black", system-ui';const lt='LEVEL '+pgBoardLevel(),lw=ctx.measureText(lt).width;ctx.font='900 15px Impact, system-ui';const tw=ctx.measureText(pgDiff(cat).toUpperCase()).width+22,tot=lw+10+tw,x0=200-tot/2;
  ctx.textAlign='left';wildText(lt,x0,y+38,22,'#fff','#2a0b3e',5);ctx.textAlign='center';pgDiffPill(x0+lw+10+tw/2,y+37,pgDiff(cat));
  // the goal
- ctx.font='bold 15px system-ui';ctx.fillStyle='#ffe8b0';ctx.fillText('Collect these '+WILD_GOAL,200,y+72);
+ ctx.font='bold 15px system-ui';ctx.fillStyle='#ffe8b0';ctx.fillText(pglGoalText(),200,y+72,300);
  const n=WILD_COLLECTION.length,sp=Math.min(42,238/Math.max(1,n));WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(n-1)/2)*sp,y+98,Math.min(40,sp-2),!!WILD.have[id]));
  // "?" how to play
  L.help={x:200-58,y:y+130,w:116,h:26};uiRound(L.help.x,L.help.y,L.help.w,L.help.h,13,'rgba(255,255,255,.1)','rgba(232,220,255,.5)',1);ctx.font='bold 12px system-ui';ctx.fillStyle='#e8dcff';ctx.fillText('? How to play',200,L.help.y+L.help.h/2+1);
@@ -40754,6 +40754,477 @@ const __c46Rain=wildRainCollected;
 wildRainCollected=function(b,x){if(b&&b.kind==='gold5')C46.goldPaid();return __c46Rain(b,x);};
 const __c46Update=update;
 update=function(dt){__c46Update(dt);try{C46.drain();}catch(e){}};
+
+// ---------- CP-47 Levels and cats (UAT 61; Jenny, Nov 14) ----------
+// Levels are the boards: ten fixed layouts in sequence, each with a goal and an honest difficulty tag. Every replay starts
+// the same (fixed prize spots, towers, rain and Quake coins, same seed). Passing a level opens the next. "Level n" is
+// this number everywhere. Cats are who you play as: a cat brings its side game (its mode), its power and its prizes to any
+// level. A cat's prizes are never in a level's layout: they fall from the sky during play, only while you play that cat.
+// No XP: screens appear when a goal needs them (Kitchen after Level 2 with the first recipe, the Shop when a recipe needs
+// a bought ingredient, the Porch with the first dish, the Album with the first photo, Cats with the second cat).
+// The old boards and modes stay under Developer (MODES and "Old boards 1-3"), untouched by levels.
+// Saved inside the progression save (catpusher.uat.progress.v1): PG.lv = {passed, sel, stars}, PG.shown, PG.powers.
+
+// --- three more everyday prizes, drawn in code like the others (levels need more than five kinds for their goals) ---
+const PGL_NEW=['ball','box','sock'];
+Object.assign(PG_NAMES,{ball:'Toy ball',box:'Box',sock:'Sock'});
+for(const id of PGL_NEW){PG_COMMON.push(id);PG_NEW_PRIZES.push(id);PG_PRIZES.push(id);if(!WILD_PRIZES.includes(id))WILD_PRIZES.push(id);PRIZE_OPAQUE[id]=.86;PRIZE_ASPECT[id]=1;WILD_PRIZE_NAMES[id]=PG_NAMES[id];}
+const __pglPrizeArt=wildPrizeArt;
+wildPrizeArt=function(id){
+ if(!PGL_NEW.includes(id))return __pglPrizeArt(id);if(WILD_ART[id]&&WILD_ART[id].pgl)return WILD_ART[id];
+ const cv=document.createElement('canvas');cv.width=cv.height=128;cv.pgl=1;const g=cv.getContext('2d');WILD_ART[id]=cv;g.lineJoin='round';g.lineCap='round';
+ g.fillStyle='rgba(0,0,0,.18)';g.beginPath();g.ellipse(64,112,40,9,0,0,7);g.fill();
+ if(id==='ball'){g.save();g.beginPath();g.arc(64,64,42,0,7);g.clip();g.fillStyle='#ffffff';g.fillRect(0,0,128,128);g.fillStyle='#e8343c';g.fillRect(0,0,128,48);g.fillStyle='#2a6ae0';g.fillRect(0,80,128,48);
+  const gr=g.createRadialGradient(46,44,6,64,64,46);gr.addColorStop(0,'rgba(255,255,255,.55)');gr.addColorStop(1,'rgba(0,0,0,.22)');g.fillStyle=gr;g.fillRect(0,0,128,128);g.restore();
+  g.strokeStyle='#5a1a1a';g.lineWidth=4;g.beginPath();g.arc(64,64,42,0,7);g.stroke();uiStar(g,64,64,11,'#ffd23f');}
+ else if(id==='box'){g.fillStyle='#c98a4a';g.strokeStyle='#6a4018';g.lineWidth=4;g.beginPath();g.moveTo(20,52);g.lineTo(64,40);g.lineTo(108,52);g.lineTo(108,100);g.lineTo(64,112);g.lineTo(20,100);g.closePath();g.fill();g.stroke();
+  g.fillStyle='#e0a868';g.beginPath();g.moveTo(20,52);g.lineTo(64,64);g.lineTo(108,52);g.lineTo(64,40);g.closePath();g.fill();g.stroke();
+  g.beginPath();g.moveTo(64,64);g.lineTo(64,112);g.stroke();g.fillStyle='#a8682a';g.beginPath();g.moveTo(20,52);g.lineTo(6,36);g.lineTo(50,26);g.lineTo(64,40);g.closePath();g.fill();g.stroke();
+  g.beginPath();g.moveTo(108,52);g.lineTo(122,36);g.lineTo(78,26);g.lineTo(64,40);g.closePath();g.fill();g.stroke();}
+ else if(id==='sock'){g.strokeStyle='#5a2a6a';g.lineWidth=4;g.beginPath();g.moveTo(44,14);g.lineTo(84,14);g.lineTo(84,70);g.quadraticCurveTo(86,84,104,88);g.quadraticCurveTo(122,96,110,110);g.lineTo(62,110);g.quadraticCurveTo(42,108,44,84);g.closePath();
+  g.fillStyle='#ff9ad8';g.fill();g.save();g.clip();g.fillStyle='#8a4ad8';for(let y=24;y<100;y+=22)g.fillRect(0,y,128,10);g.fillStyle='#fff6d0';g.fillRect(40,10,48,12);g.restore();g.stroke();}
+ return cv;};
+function uiStar(g,x,y,r,c){g.save();g.fillStyle=c;g.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r*.45:r;g.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);}g.closePath();g.fill();g.restore();}
+
+// --- the levels ---
+// p: [id, x, depth] prize spots (x 30..370 across, depth 288 back .. 740 front). goal: the prizes to collect (each kind once;
+// extra copies on the board are bonus prizes). top: [id, slot] for prizes on a tower wall (slot 0..4, left to right).
+// towers: 'default' (Wild 2's two) or a list {x,y,n}; wall: a tower wall (heights); rain: [kind,x,y]; quake: [x,y] or null.
+const PGL_LEVELS=[
+ {name:'First push',tag:'Normal',coins:110,secs:60,goal:['egg','milk','sardine','biscuit'],star:'biscuit',
+  p:[['egg',200,630],['milk',108,600],['sardine',292,600],['biscuit',250,520]],towers:'default',rain:[['rain10',200,705],['rain5',200,440]],quake:[140,545]},
+ {name:'Line up',tag:'Normal',coins:110,secs:60,goal:['feather','ball','egg','milk','box'],star:'egg',
+  p:[['feather',80,560],['ball',140,560],['egg',200,560],['milk',260,560],['box',320,560]],towers:'default',rain:[['rain10',110,690],['rain5',200,440]],quake:[200,660]},
+ {name:'At the back',tag:'Hard',coins:90,secs:50,goal:['sardine','sock','biscuit','egg','box'],star:'sock',
+  p:[['sardine',100,365],['sock',200,345],['biscuit',300,365],['egg',150,440],['box',250,440]],towers:[],rain:[['rain10',200,650],['rain5',110,580],['rain5',290,580]],quake:null},
+ {name:'Crammed',tag:'Normal',coins:110,secs:60,goal:['egg','milk','feather','ball','sock','biscuit'],star:'sock',
+  p:[['egg',90,485],['milk',160,480],['feather',240,480],['ball',310,485],['sock',120,560],['biscuit',200,555],['sardine',280,560],['milk',90,640],['box',160,635],['egg',240,635],['ball',310,640],['feather',200,705]],
+  towers:'default',rain:[['rain10',200,435]],quake:null},
+ {name:'Tower wall',tag:'Hard',coins:110,secs:60,goal:['egg','milk','sock','ball','feather'],star:'sock',
+  top:[['egg',0],['milk',1],['sock',2],['ball',3],['feather',4]],p:[],wall:[13,18,23,18,13],rain:[['rain10',200,650],['rain5',200,718]],quake:[290,610]},
+ {name:'Coin rain',tag:'Normal',coins:110,secs:60,goal:['biscuit','box','egg','sardine','milk','feather'],star:'feather',
+  p:[['biscuit',100,520],['feather',200,505],['box',300,520],['egg',150,600],['sardine',250,600],['milk',200,690]],towers:'default',
+  rain:[['rain25',200,440],['rain10',80,625],['rain10',320,625],['rain5',310,700]],quake:[95,700]},
+ {name:'Edge of the table',tag:'Super hard',coins:80,secs:60,goal:['sock','ball','egg','box','feather','milk','sardine'],star:'sardine',
+  p:[['sock',62,425],['ball',338,425],['egg',58,560],['box',342,560],['feather',62,655],['milk',338,655],['sardine',200,350]],towers:'default',rain:[['rain5',200,640]],quake:null},
+ {name:'Wall and back',tag:'Hard',coins:120,secs:70,goal:['milk','egg','box','ball','biscuit','sardine'],star:'box',
+  top:[['milk',0],['egg',1],['box',2],['ball',3],['biscuit',4]],p:[['sardine',200,365]],wall:[13,18,23,18,13],rain:[['rain10',200,650]],quake:[110,640]},
+ {name:'Prize party',tag:'Normal',coins:110,secs:60,goal:['ball','sock','egg','milk','sardine'],star:null,
+  p:[['ball',80,450],['sock',150,440],['egg',250,440],['milk',320,450],['sardine',110,520],['box',200,510],['feather',290,520],['biscuit',80,595],['ball',160,590],['egg',240,590],['sock',320,595],['milk',120,665],['sardine',200,660],['box',280,665]],
+  towers:[],rain:[['rain10',200,720]],quake:[200,370]},
+ {name:'The vault',tag:'Super hard',coins:65,secs:55,goal:['egg','milk','box','ball','feather','sock','biscuit','sardine'],star:'sock',
+  top:[['egg',0],['milk',1],['box',2],['ball',3],['feather',4]],p:[['sock',200,312],['biscuit',66,345],['sardine',334,345]],wall:[16,21,23,21,16],rain:[],quake:null}];
+const PGL_N=PGL_LEVELS.length;
+const PGL={dev:false};
+function pglLv(){if(!PG)return {passed:0,sel:1,stars:{}};if(!PG.lv||typeof PG.lv!=='object')PG.lv={passed:0,sel:1,stars:{}};const L=PG.lv;L.passed=Math.max(0,Math.min(PGL_N,L.passed|0));L.sel=Math.max(1,Math.min(PGL_N,L.sel|0||1,L.passed+1));if(!L.stars)L.stars={};return L;}
+function pglSel(){return pglLv().sel;}
+function pglLevel(n){return PGL_LEVELS[(n||pglSel())-1];}
+// Levels apply to a cat's board (not to Developer modes, the old boards or the test suites' old board).
+function pglActive(){return !!(PG&&!PG_HOME_OFF&&!PGU.oldBoards&&!PGL.dev);}
+function pglOn(){return pglActive()&&WILD.on&&WILD.v2?pglLevel():null;}
+
+const __pglFresh=pgFresh;pgFresh=function(){return {...__pglFresh(),lv:{passed:0,sel:1,stars:{}},shown:{},seenScr:{},powers:{}};};
+
+// --- cats: the side game each brings (its mode), its power and its prizes ---
+const PGL_CATINFO={tuxedo:{game:'Dance break',power:'Yawn'},orange:{game:'Treat toss',power:'Zoomies'},ragdoll:{game:'Pet the cat',power:'Hug'},
+ siamese:{game:'Laser chase',power:'Sonic meow'},tortie:{game:'Mouse pounce',power:'Tortitude'}};
+for(const c of PG_CATS){PG_CAT[c].board=PGL_CATINFO[c].game;}
+PG_CAT.tortie.mode='pounce'; // Tower wall is a level type now; the Tortoiseshell brings Mouse pounce (UAT 62)
+if(!WILD_MODES.pounce)registerWildMode({id:'pounce',name:'MOUSE POUNCE',blurb:'Tap the toy mice before they get away',colors:['#ff8a3c','#3a1400','#4a2410'],panel:['#5c2a14','#240e06'],
+ features:{pounce:true},cardLines:[['paw','Prizes topple off the sides','Tap the glow to Paw save'],['rain10','Rain coins pour','5, 10 or 25 coins'],['!','Bonus drops','fall from the sky']],icon(x,y){uiPaw(x,y,.6,'#ffb27a');}});
+pgCanPlay=function(cat){return !!PG.open[cat];}; // no level-5 gate: any cat you have, between rounds
+function pglCatCount(){return PG_CATS.filter(c=>PG.open[c]).length;}
+// A level's tower wall comes from the level, whichever cat plays it.
+const __pglFeature=wildFeature;wildFeature=function(f){if(f==='towerwall'){const L=pglOn();if(L)return !!L.wall;}return __pglFeature(f);};
+// The name on the PLAY screen and the goal card is the cat's.
+const __pglModeName=wildModeName;wildModeName=function(){if(pglOn())return PG_CAT[PGU.boardCat||'tuxedo'].name.toUpperCase();return __pglModeName();};
+// Developer's MODES picker plays the old modes as they were (no levels); playing a cat brings levels back.
+const __pglModesTap=pgModesTap;pgModesTap=function(p){PGL.dev=true;return __pglModesTap(p);};
+const __pglPlay=pgPlay;pgPlay=function(cat){PGL.dev=false;return __pglPlay(cat);};
+
+// --- the board: the level's own layout on Wild 2's start rows ---
+const __pglRoundList=pgRoundList;pgRoundList=function(cat){const L=pglActive()?pglLevel():null;if(L)return L.goal.slice();return __pglRoundList(cat);}; // old modes keep CP-45's list
+const __pglPickStar=w43PickStar;w43PickStar=function(){const L=pglActive()&&WILD.v2?pglLevel():null;if(L)return L.star||null;return __pglPickStar();};
+function pglClearAt(x,y,r){for(const b of [...bodies]){if(b.dead||(b.kind!=='coin'&&b.kind!=='silver'))continue;const q=b.rb.translation();if(Math.hypot(q.x/M-x,q.z/M-y)<r)removeCoin(b);}}
+function pglFree(x,y,r){return !bodies.some(b=>{if(b.dead)return false;const q=b.rb.translation();return Math.hypot(q.x/M-x,q.z/M-y)<r;});}
+const __pglPrefill=wildPrefill;
+wildPrefill=function(){
+ const L=pglOn();if(!L)return __pglPrefill();
+ const H0=TW.heights.slice();if(L.wall)TW.heights.splice(0,5,...L.wall);
+ try{__pglPrefill();}finally{TW.heights.splice(0,5,...H0);}
+ // the level replaces Wild 2's own prizes, rain coins, Quake and (unless it keeps them) its two towers
+ const keepDefault=L.towers==='default';
+ for(const b of [...bodies]){if(b.dead)continue;if(b.kind==='item'||RAIN[b.kind]||b.kind==='quake'||(b.kind==='stack'&&!b.tw&&!keepDefault))removeCoin(b);}
+ // fill the start rows where Wild 2's towers stood (same rows and spacing as the prefill)
+ if(!keepDefault){const d=COIN_R*2+1;for(let y=PUSH_MAX+COIN_R+2;y+COIN_R<=T.FRONT-20-d;y+=d){const n=Math.floor(2*Math.min(tableHalfAt(y-COIN_R),tableHalfAt(y+COIN_R))/d);
+  for(let i=0;i<n;i++){const x=200+(i-(n-1)/2)*d;if([[140,430],[260,430]].some(([tx,ty])=>Math.hypot(tx-x,ty-y)<COIN_R*1.6)&&pglFree(x,y,COIN_R*1.2)&&!(L.wall&&Math.abs(y-TW.z)<COIN_R*2.2))addCoin(seededRandom()<.25?'silver':'coin',null,x,COIN_HALF+.2,y,yawTurn(0));}}}
+ if(Array.isArray(L.towers))for(const t of L.towers){pglClearAt(t.x,t.y,COIN_R*1.6);const s=addStack(t.x,null,t.y,null,t.n,null,seededRandom()*6);s.limit=5+seededRandom()*6;}
+ const top=COIN_HALF*2+halfOf('item')+1;
+ for(const [id,x,y] of L.p){const b=addCoin('item',id,x,top,y,yawTurn(0));b.wild=true;}
+ if(L.top)for(const [id,slot] of L.top){const b=addCoin('item',id,200+(slot-2)*TW.gap,top,TW.z+90,yawTurn(0));b.wild=true;b.pglTop=slot;} // lifted onto its tower once the board settles
+ for(const [k,x,y] of L.rain||[])addCoin(k,null,x,COIN_HALF*2+RAIN[k].half+1,y,yawTurn(seededRandom()*6)).rb.enableCcd(true);
+ if(L.quake)addCoin('quake',null,L.quake[0],COIN_HALF*2+halfOf('quake')+1,L.quake[1],yawTurn(0));
+};
+// Tower-wall levels: each prize goes on its own tower (the star prize on the middle one).
+const __pglTwPlace=twPlacePrizes;
+twPlacePrizes=function(){const L=pglOn();if(!L||!L.top)return __pglTwPlace();
+ const towers=bodies.filter(b=>!b.dead&&b.kind==='stack'&&b.tw);const xs=[-2,-1,0,1,2].map(i=>200+i*TW.gap);
+ for(const t of towers){t.rb.setTranslation({x:xs[t.twSlot]*M,y:(t.half+.1)*M,z:TW.z*M},true);t.rb.setRotation({x:0,y:0,z:0,w:1},true);t.rb.setLinvel({x:0,y:0,z:0},true);t.rb.setAngvel({x:0,y:0,z:0},true);
+  const p=t.rb.translation();t.lx=p.x;t.lz=p.z;t.moved=0;t.tipping=false;t.twSide=false;}
+ for(const b of bodies){if(b.dead||b.kind!=='item'||b.pglTop==null)continue;const t=towers.find(t=>t.twSlot===b.pglTop);if(!t)continue;const p=t.rb.translation();
+  b.rb.setTranslation({x:p.x,y:p.y+(t.half+halfOf('item')+.6)*M,z:p.z},true);b.rb.setLinvel({x:0,y:0,z:0},true);b.rb.setAngvel({x:0,y:0,z:0},true);b.rb.setRotation(yawTurn(0),true);b.twTop=true;}};
+// The level's coins and time.
+const __pglReset=wildReset;
+wildReset=function(){const r=__pglReset();const L=pglOn();if(L){S.coins=L.coins;board.remaining=S.coins;WILD.left=L.secs;WILD.pglLevel=pglSel();WILD.pglCatDrops=0;WILD.pglSched=0;}return r;};
+
+// --- a cat's prizes fall from the sky during play, only while you play that cat ---
+const __pglBonus=wildScheduleBonus;
+wildScheduleBonus=function(){const L=pglOn(),miss=L?wildMissing():[],n0=WILD.incoming.length;const r=__pglBonus();
+ if(L&&WILD.incoming.length>n0){const o=WILD.incoming[WILD.incoming.length-1],own=PG_CAT[PGU.boardCat||'tuxedo'].own;
+  if(o.kind==='item'&&!miss.includes(o.id)&&(Math.random()<.5||(!WILD.pglCatDrops&&WILD.bonusN>=3))){o.id=own[(WILD.pglCatDrops|0)%own.length];WILD.pglCatDrops=(WILD.pglCatDrops|0)+1;}}
+ return r;};
+// and two of them for sure each round (about 10 s and 32 s after GO), a marker and a whistle first like any bonus drop
+const PGL_CAT_DROPS=[10,32];
+const __pglTick=wildTick;
+wildTick=function(dt){const r=__pglTick(dt);const L=pglOn();
+ if(L&&WILD.phase==='play'&&board.status==='playing'){const k=WILD.pglSched|0,t=WILD.goT||0;
+  if(k<PGL_CAT_DROPS.length&&t>=PGL_CAT_DROPS[k]){WILD.pglSched=k+1;const own=PG_CAT[PGU.boardCat||'tuxedo'].own,id=own[(WILD.pglCatDrops|0)%own.length],y=rand(450,620),x=200+rand(-1,1)*(tableHalfAt(y)-50);
+   WILD.incoming.push({kind:'item',id,x,y,t:.9,t0:.9});WILD.pglCatDrops=(WILD.pglCatDrops|0)+1;sfx.wild('whistle',1);}}
+ return r;};
+// A cat's prize isn't on the goal list: it shows its name instead of "REPEAT".
+const __pglCollected=wildPrizeCollected;
+wildPrizeCollected=function(b,x){const f0=floats.length;const r=__pglCollected(b,x);
+ if(pglOn()&&pgOwner(b.id)&&!WILD_COLLECTION.includes(b.id))for(let i=floats.length-1;i>=f0;i--)if(floats[i].text==='REPEAT +5 COINS'){floats[i].text=pgName(b.id).toUpperCase()+'!';floats[i].big=true;break;}
+ return r;};
+
+// --- no XP: levels unlock things ---
+pgAddXP=function(){return [];};
+for(const k in PG_DOCK_LEVEL)PG_DOCK_LEVEL[k]=0;
+pgRecipeOpen=function(r){return pglLv().passed>=r.level||(PG.recipes&&r.id in PG.recipes)||(PG.dishes[r.id]|0)>0;};
+const PGL_SCR_NAME={kitchen:'The Kitchen',porch:'The Porch',album:'The Album',shop:'The Shop',board:'Cats'};
+function pglScreenNeed(id){const lv=pglLv();
+ if(id==='kitchen')return lv.passed>=2||PG_RECIPES.some(r=>r.id in PG.recipes)||Object.values(PG.dishes).some(n=>n>0);
+ if(id==='porch')return Object.values(PG.dishes).some(n=>n>0)||PG.porch.some(s=>s);
+ if(id==='album')return PG_CATS.some(c=>PG.photos[c]>0);
+ if(id==='shop'){const m=pgMissing(pgCurrentRecipe());return !!PG.shown.kitchen&&Object.keys(m).some(i=>!pgWinnable(i));}
+ if(id==='board')return pglCatCount()>=2;
+ return false;}
+function pglShown(id){return !!(PG&&PG.shown&&PG.shown[id]);}
+function pglCheckScreens(quiet){if(!PG)return;if(!PG.shown)PG.shown={};let ch=false;
+ for(const id of ['kitchen','shop','porch','album','board'])if(!PG.shown[id]&&pglScreenNeed(id)){PG.shown[id]=1;ch=true;if(!quiet)pgToast(id==='board'?'Cats: pick who you play as':PGL_SCR_NAME[id]+' is open','#ffe08a');}
+ if(ch)pgSave();}
+// buttons appear only once their screen is needed; a "!" shows until it's first visited
+pgSideRects=function(y0,gap){const r=[];PG_SIDE_L.filter(pglShown).forEach((id,i)=>r.push({id,x:36,y:y0+i*gap,r:25}));PG_SIDE_R.filter(pglShown).forEach((id,i)=>r.push({id,x:W-36,y:y0+i*gap,r:25}));
+ return r.map(b=>({...b,level:0,hit:{x:b.x-32,y:b.y-30,w:64,h:68}}));};
+const __pglWaiting=pgWaiting;pgWaiting=function(id){if(PG&&PG.shown&&PG.shown[id]&&!(PG.seenScr&&PG.seenScr[id]))return true;return __pglWaiting(id);};
+const __pglDockName=pgDockName;pgDockName=function(id){return id==='board'?'Cats':__pglDockName(id);};
+const __pglGo=pgGo;pgGo=function(screen){if(PG&&screen!=='board'){if(!PG.seenScr)PG.seenScr={};if(!PG.seenScr[screen]){PG.seenScr[screen]=1;pgSave();}}return __pglGo(screen);};
+// passing a level
+function pglUnlocks(n){for(const r of PG_RECIPES)if(r.level===n&&!(r.id in PG.recipes)&&!(PG.photos[r.cat]>0)){PG.recipes[r.id]=1;PG.seen['r:'+r.id]=0;pgToast('New recipe: '+r.name,'#ffe08a');}}
+const __pglRoundEnd=pgRoundEnd;
+pgRoundEnd=function(win){const done=WILD.pgDone;__pglRoundEnd(win);if(done||!PG||PG_HOME_OFF)return;const P=WILD.pgResult;if(!P)return;const L=pglOn();
+ if(!L){pgSave();return;}const lv=pglLv(),n=WILD.pglLevel||lv.sel;P.lvl=n;
+ if(win){const first=n>lv.passed;if(first){lv.passed=n;pglUnlocks(n);}P.first=first;if((P.stars|0)>(lv.stars[n]|0))lv.stars[n]=P.stars;lv.sel=Math.min(PGL_N,lv.passed+1);P.next=lv.sel>n?lv.sel:0;}
+ pglCheckScreens();pgSave();try{diagEvent('levels','level '+n+' '+(win?'passed':'lost')+' stars='+(P.stars|0)+' passed='+lv.passed);}catch(e){}};
+// End card: stars, coins, and the level passed.
+pgEndText=function(R){const P=WILD.pgResult;if(!P||PG_HOME_OFF)return false;const y=R.card.y+140;
+ for(let i=0;i<3;i++)w43Star(200+(i-1)*34,y-2,13,i<P.stars?'#ffd23f':'rgba(255,255,255,.18)');
+ ctx.font='bold 13px system-ui';ctx.fillStyle='#fff6d0';ctx.textAlign='center';
+ const lead=P.lvl&&P.stars?(P.first?'Level '+P.lvl+' passed! ':'')+(P.next?'Level '+P.next+' is open · ':''):'';
+ ctx.fillText(lead+'+'+P.coins+' coins'+(P.nip?' · +1 Catnip':''),200,y+20,330);return true;};
+function pglAgainText(){if(!pglOn()||!WILD.pgResult)return 'PLAY AGAIN';return WILD.pgResult.next?'NEXT LEVEL':WILD.win?'PLAY AGAIN':'TRY AGAIN';}
+const __pglBackText=pgBackText;pgBackText=function(){return pglActive()?'Main screen':__pglBackText();};
+
+// --- the PLAY screen: Level n and its tag, the level's name with the goal, stars, and arrows for passed levels ---
+pgBoardLevel=function(){return pglActive()?pglSel():(PG&&PG.passed|0)+1;};
+const __pglDiff=pgDiff;pgDiff=function(cat){if(pglActive())return pglLevel().tag;return __pglDiff(cat);};
+const __pglCentre=pgCentre;
+pgCentre=function(y,t,o={}){
+ if(!pglActive())return __pglCentre(y,t,o);
+ const L=__pglCentre(y,t,o),lv=pglLv(),n=lv.sel,lev=pglLevel(n);
+ // earned stars, small, under "Level n"
+ const st=lv.stars[n]|0;if(st)for(let i=0;i<3;i++)w43Star(200+(i-1)*16,y+56,6,i<st?'#ffd23f':'rgba(255,255,255,.22)');
+ // arrows to replay passed levels (and back to the newest)
+ ctx.font='italic 900 22px Impact, "Arial Black", system-ui';const lw=ctx.measureText('LEVEL '+n).width;ctx.font='900 15px Impact, system-ui';const tw=ctx.measureText(lev.tag.toUpperCase()).width+22,tot=lw+10+tw;
+ const ax=200-tot/2-24,bx=200+tot/2+24,can=Math.min(PGL_N,lv.passed+1);
+ L.prev=n>1?{x:ax-20,y:y+38-20,w:40,h:40}:null;L.next=n<can?{x:bx-20,y:y+38-20,w:40,h:40}:null;
+ for(const [r,d] of [[L.prev,-1],[L.next,1]])if(r){uiCircle(r.x+20,r.y+20,13,'rgba(255,255,255,.14)','rgba(255,232,176,.7)',1.5);pgChevron(r.x+20+d*1.5,r.y+20,d,'#fff',5);}
+ return L;};
+// the goal line names the level (the build points pgCentre's goal line here)
+function pglGoalText(){return pglActive()&&WILD.v2?pglLevel().name+': collect these '+WILD_GOAL:'Collect these '+WILD_GOAL;}
+function pglPickLevel(d){const lv=pglLv(),can=Math.min(PGL_N,lv.passed+1),n=Math.max(1,Math.min(can,lv.sel+d));if(n===lv.sel)return false;lv.sel=n;pgSave();pgSfx('tap');
+ if(WILD.on&&WILD.phase==='card')wildReset();try{diagEvent('levels','select '+n);}catch(e){}return true;}
+const __pglMainTap=pgMainTap;
+pgMainTap=function(p){const L=PGA.L;if(pglActive()&&L&&!PGU.win&&!PGU.pick&&!PGU.modes&&!PGU.door){if(L.prev&&contains(L.prev,p)){pglPickLevel(-1);return;}if(L.next&&contains(L.next,p)){pglPickLevel(1);return;}}return __pglMainTap(p);};
+const __pglBoardPointer=pgBoardPointer;
+pgBoardPointer=function(p){const L=PGU.bL;if(pglActive()&&PG_AB==='B'&&L&&!PGU.rules&&!PGU.win&&!PGU.pick&&!PGU.modes&&!PGU.door&&pgRestPhase()&&WILD.phase==='card'){if(L.prev&&contains(L.prev,p)){pglPickLevel(-1);return true;}if(L.next&&contains(L.next,p)){pglPickLevel(1);return true;}}return __pglBoardPointer(p);};
+
+// --- the top bar without the XP level ---
+const __pglDrawDock=pgDrawDock;
+pgDrawDock=function(){if(!pglActive()||!pgABOn())return __pglDrawDock();
+ const D=pgDock(),a=WILD.phase==='card'?Math.min(1,(WILD.cardT||0)/.2):Math.min(1,((WILD.endT||0)-.9)/.2);if(!(a>0))return;
+ ctx.save();ctx.globalAlpha=a;ctx.textBaseline='middle';
+ let gr=ctx.createLinearGradient(0,0,0,D.bottom);gr.addColorStop(0,'#160a24');gr.addColorStop(1,'#2c1544');ctx.fillStyle=gr;ctx.fillRect(0,0,W,D.bottom);
+ ctx.fillStyle='rgba(0,0,0,.35)';ctx.fillRect(0,D.bottom,W,4);ctx.fillStyle='#ffe08a';ctx.fillRect(0,D.bottom-2,W,2);
+ const y=D.y1;uiCircle(24,y,10,'#f5c632','#a8740c',1.5);pgPaw(24,y+1,.2,'#a8740c');ctx.textAlign='left';ctx.font='bold 17px system-ui';ctx.fillStyle='#ffd76a';ctx.fillText(PG.coins,40,y+1,70);
+ const cx=40+Math.min(70,ctx.measureText(String(PG.coins)).width)+18;pgCatnipLeaf(cx,y+8,.8);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,cx+13,y+1);
+ pgCollIcon(D.coll.x+D.coll.w/2,y);pgInvIcon(D.inv.x+D.inv.w/2,y);
+ if(D.modes){const m=D.modes;uiRound(m.x,m.y,m.w,m.h,10,'rgba(20,60,60,.92)','#5ef0c0',1.5);ctx.fillStyle='#d8fff2';ctx.textAlign='center';ctx.font='900 11px Impact, system-ui';ctx.fillText('MODES',m.x+m.w/2,m.y+m.h/2+1);}
+ pgGearIcon(D.gear.x+D.gear.w/2,y,9);ctx.restore();};
+
+// --- the cat picker (the Cats button, once you have two cats) ---
+function pglPickRects(){const top=Math.max(pgTop()+70,H-650),rows=PG_CATS.map((c,i)=>({c,x:24,y:top+66+i*90,w:352,h:82}));return {card:{x:12,y:top,w:376,h:66+PG_CATS.length*90+56},rows,close:{x:140,y:top+66+PG_CATS.length*90+10,w:120,h:34}};}
+pgPickRects=pglPickRects;
+pgDrawBoardPick=function(dt){const R=pglPickRects(),u=Math.min(1,PGU.pickT/.2);ctx.save();ctx.globalAlpha=u;ctx.fillStyle='rgba(8,4,16,.72)';ctx.fillRect(0,0,W,H);
+ wildPanel(R.card,'#4b1f6e','#1d0f33');wildText('PICK A CAT',200,R.card.y+36,30,'#ffd23f','#2a0b3e',6);
+ for(const r of R.rows){const C=PG_CAT[r.c],I=PGL_CATINFO[r.c],open=!!PG.open[r.c],cur=r.c===PGU.boardCat;uiRound(r.x,r.y,r.w,r.h,16,open?(cur?'rgba(125,255,106,.16)':'rgba(255,255,255,.14)'):'rgba(0,0,0,.3)',open?C.tag:'#554',2);
+  if(open)pgHead(r.c,r.x+46,r.y+r.h/2,78,'calm');else{ctx.save();ctx.globalAlpha*=.5;ctx.filter='brightness(0)';pgHead(r.c,r.x+46,r.y+r.h/2,78,'calm',{noPupils:true});ctx.restore();ctx.fillStyle='#fff';ctx.font='900 26px Impact, system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('?',r.x+46,r.y+r.h/2+2);}
+  ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#fff';ctx.font='bold 17px system-ui';ctx.fillText(open?C.name:'???',r.x+94,r.y+20,170);
+  ctx.font='12px system-ui';ctx.fillStyle='#e8dcff';
+  if(open){ctx.fillText(I.game+' · power: '+I.power,r.x+94,r.y+42,250);ctx.fillText('Prizes:',r.x+94,r.y+63);const px=r.x+94+ctx.measureText('Prizes: ').width;C.own.forEach((id,i)=>pgPrizeIcon(id,px+14+i*30,r.y+60,24));
+   const pw=(PG.powers&&PG.powers[r.c])|0;if(pw){ctx.textAlign='right';ctx.fillStyle='#ffe08a';ctx.font='bold 12px system-ui';ctx.fillText(I.power+' ×'+pw,r.x+r.w-14,r.y+63);}}
+  else ctx.fillText('Photograph it on the Porch, then win its cat coin',r.x+94,r.y+44,250);
+  ctx.textAlign='center';if(open&&cur){ctx.font='900 13px Impact, system-ui';ctx.fillStyle='#7dff6a';ctx.fillText('PLAYING',r.x+r.w-40,r.y+22);}else if(open)pgPlayTri(r.x+r.w-30,r.y+24,'#7dff6a');}
+ ctx.textAlign='center';uiRound(R.close.x,R.close.y,R.close.w,R.close.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 14px system-ui';ctx.fillText('Close',200,R.close.y+R.close.h/2+1);ctx.restore();};
+// switching cats keeps the level; the board rebuilds with that cat's side game
+const __pglBP2=pgBoardPointer;
+pgBoardPointer=function(p){if(PGU.pick&&pglActive()){const R=pglPickRects();for(const r of R.rows)if(contains(r,p)){if(!PG.open[r.c]){pgSfx('lock');pgToast('Photograph it on the Porch, then win its cat coin','#ffe08a');return true;}
+   if(WILD.on&&r.c===PGU.boardCat){PGU.pick=false;pgSfx('back');return true;}pgSfx('door');pgSwitchBoard(r.c);try{diagEvent('levels','cat '+r.c);}catch(e){}return true;}PGU.pick=false;pgSfx('back');return true;}
+ return __pglBP2(p);};
+// a cat coin makes the cat playable
+function pglCatLine(cat){return PGL_CATINFO[cat].game+' · power: '+PGL_CATINFO[cat].power;}
+
+// screens appear as soon as they're needed, on any screen; a short message says so
+const __pglUpdate=update;update=function(dt){__pglUpdate(dt);if(!PG||PG_HOME_OFF)return;PGL.chk=(PGL.chk||0)-dt;if(PGL.chk<=0&&!(WILD.on&&PGU.screen==='board'&&(WILD.phase==='play'||WILD.phase==='count'))){PGL.chk=.5;pglCheckScreens(!PGL.started);PGL.started=true;}};
+
+// --- Developer: levels ---
+const __pglDevHtml=pgDevHtml;
+pgDevHtml=function(){let h=__pglDevHtml().replace(/<div style="display:flex;align-items:center;gap:8px;margin:4px 0"><span style="flex:1">Difficulty: [^<]*<\/span><button data-pgdiff="[a-z]+"[^>]*>[^<]*<\/button><\/div>/g,'');
+ const lv=PG?pglLv():{passed:0,sel:1};
+ const rows='<h3 style="margin-top:10px"><span>Levels (CP-47)</span><span>passed '+lv.passed+' / '+PGL_N+'</span></h3><button id="pgl-pass" class="wide">Pass the next level</button><button id="pgl-all" class="wide">Open every level</button><button id="pgl-reset" class="wide">Reset levels to Level 1</button>';
+ return h.replace('<h3 style="margin-top:10px"><span>MODES',rows+'<h3 style="margin-top:10px"><span>MODES');};
+const __pglDevBind=wildDevBind;
+wildDevBind=function(panel){__pglDevBind(panel);const box=panel.querySelector&&panel.querySelector('#pg-dev');if(!box)return;const re=()=>{const top=panel.scrollTop;openCredits();panel.scrollTop=top;};
+ const on=(id,f)=>{const el=box.querySelector('#'+id);if(el)el.onclick=()=>{if(!PG)pgInit();f();pglCheckScreens();pgSave();if(WILD.on&&WILD.phase==='card')wildReset();re();};};
+ on('pgl-pass',()=>{const lv=pglLv();if(lv.passed<PGL_N){lv.passed++;pglUnlocks(lv.passed);}lv.sel=Math.min(PGL_N,lv.passed+1);});
+ on('pgl-all',()=>{const lv=pglLv();for(let n=lv.passed+1;n<=PGL_N;n++)pglUnlocks(n);lv.passed=PGL_N;lv.sel=PGL_N;});
+ on('pgl-reset',()=>{PG.lv={passed:0,sel:1,stars:{}};});};
+
+// ---------- CP-47 Powers and Mouse pounce (UAT 62; Jenny, Nov 14) ----------
+// Each cat's power is earned by playing its side game perfectly (a perfect Dance break, every treat caught, the peak
+// purr, a laser chase with no misses, every mouse pounced). It's stored with a count on the button beside Quake (the old
+// paw-sweep slot, empty on these boards) and used with a tap, on any level, while you play that cat. Quake stays a coin
+// anyone wins. Every power is big, loud and felt; the sounds are the game's existing ones (audio is CP-46's), the
+// visuals are drawn in code, and approved art is only moved, never redrawn.
+//  Yawn (Tuxedo): the cat stretches and its paws swipe things off the sides (the wheel's Yawn).
+//  Zoomies (Orange): the pusher at double speed for 6 s, kittens zip across the board nudging coins forward.
+//  Hug (Ragdoll): the Ragdoll flops over the board and blocks both side gutters for 6 s.
+//  Sonic meow (Siamese): a meow that shakes the board; the pusher reaches twice as far for 5 s.
+//  Tortitude (Tortoiseshell): a fiery burst shoves a big group of coins forward.
+// Mouse pounce (the Tortoiseshell's side game): push the mouse coin off; toy mice scurry across the board for about 8 s;
+// tap one and the mitt pounces on it (+3 coins to the bank), a tap on nothing is a miss. The bank pours down as a coin
+// rain at the end; every mouse caught is PERFECT! (a RAIN 10 coin and a Tortitude).
+const PGP={tuxedo:{id:'yawn',name:'YAWN',col:'#b8a6ff'},orange:{id:'zoomies',name:'ZOOMIES',col:'#ffb03a'},ragdoll:{id:'hug',name:'HUG',col:'#ff9ad8'},
+ siamese:{id:'sonic',name:'SONIC MEOW',col:'#6ad8ff'},tortie:{id:'tortitude',name:'TORTITUDE',col:'#ff6a2a'}};
+const PGP_CAP=9;
+let PGPX=null; // the power in action: {id,t,dur,...}
+function pgpCat(){return PGU.boardCat||'tuxedo';}
+function pgpCount(cat){return (PG&&PG.powers&&PG.powers[cat||pgpCat()])|0;}
+function pgpSideGame(){return !!(WILD.dance||WILD.toss||WILD.chase||WILD.petGame||WILD.pounce||(typeof W2_YAWN!=='undefined'&&W2_YAWN));}
+function pgpReady(){return !!(pglOn()&&pgpCount()>0&&WILD.phase==='play'&&board.status==='playing'&&!PGPX&&!pgpSideGame()&&sweepTime<=0&&catquakeTime<=0);}
+function pgpAward(cat,why){if(!PG)return;if(!PG.powers)PG.powers={};const n=pgpCount(cat);if(n>=PGP_CAP){return;}PG.powers[cat]=n+1;pgSave();WILD.pgpPulse=time;
+ callout(PGP[cat].name+' +1!',{color:PGP[cat].col,dur:1.6});pgSfx('levelup',.8);try{diagEvent('powers','earned '+PGP[cat].id+' ('+why+') count='+(n+1));}catch(e){}}
+// a perfect side game, played as this cat, earns its power
+const __pgpW2=sfx.wild2;sfx.wild2=function(kind,...a){if(kind==='perfect'&&pglOn())WILD.pgpEarn=(WILD.pgpEarn|0)+1;return __pgpW2.call(this,kind,...a);};
+if(typeof laserEndLog==='function'){const __pgpLaserEnd=laserEndLog;laserEndLog=function(D){if(pglOn()&&D&&!D.logged&&D.misses===0&&D.hits>=3)WILD.pgpEarn=(WILD.pgpEarn|0)+1;return __pgpLaserEnd(D);};}
+
+// --- the button (in the paw-sweep slot) ---
+function pgpButton(){return powerButtons().sweep;}
+function pgpIcon(id,x,y,k,c){ctx.save();ctx.translate(x,y);ctx.scale(k,k);ctx.lineCap='round';ctx.lineJoin='round';
+ if(id==='yawn'){ctx.fillStyle=c;ctx.font='900 15px Impact, system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('Z',-5,4);ctx.font='900 11px Impact, system-ui';ctx.fillText('Z',4,-3);ctx.font='900 8px Impact, system-ui';ctx.fillText('Z',10,-9);}
+ else if(id==='zoomies'){ctx.strokeStyle=c;ctx.lineWidth=2.4;for(const yy of [-6,0,6]){ctx.beginPath();ctx.moveTo(-12,yy);ctx.lineTo(-3+Math.abs(yy)*.5,yy);ctx.stroke();}uiPaw(6,1,.32,c);}
+ else if(id==='hug'){pgHeart(0,1,1.25,c);}
+ else if(id==='sonic'){ctx.strokeStyle=c;ctx.lineWidth=2.4;for(let i=0;i<3;i++){ctx.beginPath();ctx.arc(-7,0,5+i*5,-.8,.8);ctx.stroke();}uiCircle(-8,0,3,c);}
+ else{ctx.fillStyle=c;ctx.beginPath();ctx.moveTo(0,-13);ctx.quadraticCurveTo(10,-2,8,6);ctx.quadraticCurveTo(6,13,0,13);ctx.quadraticCurveTo(-6,13,-8,6);ctx.quadraticCurveTo(-10,-2,0,-13);ctx.fill();
+  ctx.fillStyle='#ffe08a';ctx.beginPath();ctx.moveTo(0,-2);ctx.quadraticCurveTo(5,5,3,9);ctx.quadraticCurveTo(0,12,-3,9);ctx.quadraticCurveTo(-5,5,0,-2);ctx.fill();}
+ ctx.restore();}
+const __pgpDrawPB=drawPowerButtons;
+drawPowerButtons=function(){if(!pglOn())return __pgpDrawPB();
+ const pb=powerButtons;powerButtons=function(){const r=pb();return {quake:r.quake};};try{__pgpDrawPB();}finally{powerButtons=pb;}
+ const b=pgpButton(),x=b.x+b.w/2,y=b.y+b.h/2,P=PGP[pgpCat()],n=pgpCount(),on=pgpReady(),pu=WILD.pgpPulse!=null?time-WILD.pgpPulse:9,k=pu<2.5?1+.12*Math.abs(Math.sin(pu*7)):1;
+ ctx.save();ctx.translate(x,y);ctx.scale(k,k);ctx.globalAlpha=on||n>0?1:.65;uiCircle(0,0,21,'#3a1d50',P.col,1.6);uiCircle(0,0,17,'#5a2d74');if(PGPX)uiCircle(0,0,17,P.col);pgpIcon(P.id,0,0,1,PGPX?'#2a1040':P.col);
+ if(pu<2.5){ctx.globalAlpha=Math.max(0,1-pu/2.5);ctx.strokeStyle=P.col;ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,0,21+pu*10,0,7);ctx.stroke();}
+ ctx.restore();ctx.save();uiCircle(b.x+b.w-2,b.y+9,8.5,'#f6df9b','#835f2e',1);ctx.fillStyle='#243e43';ctx.font='bold 11px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(n,b.x+b.w-2,b.y+9);ctx.restore();};
+const __pgpTap=powerTap;
+powerTap=function(p){if(pglOn()&&contains(pgpButton(),p)){if(pgpReady())pgpUse();else if(!PGPX){pgSfx('lock');if(!pgpCount()&&WILD.phase==='play')floats.push({text:PGP[pgpCat()].name+': '+pgpHow(pgpCat()),x:200,y:hudLayout().headerBottom+40,t:0});}return true;}return __pgpTap(p);};
+function pgpHow(cat){return {tuxedo:'perfect Dance break',orange:'catch every treat',ragdoll:'peak purr',siamese:'laser, no misses',tortie:'catch every mouse'}[cat];}
+
+// --- using a power ---
+function pgpUse(){const cat=pgpCat(),P=PGP[cat];PG.powers[cat]=pgpCount(cat)-1;pgSave();stopDrops();
+ try{diagEvent('powers','use '+P.id+' left='+PG.powers[cat]+' level='+pglSel());}catch(e){}
+ callout(P.name+'!',{color:P.col,dur:1.4});try{navigator.vibrate&&navigator.vibrate([60,40,90]);}catch(e){}
+ if(P.id==='yawn'){w2StartYawn();PGPX={id:'yawn',t:0,dur:2.8};return;}
+ if(P.id==='zoomies'){const base=WILD.turbo>0?WILD_TURBO_PERIOD:WILD_PUSH_PERIOD;wildSetPeriod(base/2);sfx.wild('turbo',1);
+  PGPX={id:'zoomies',t:0,dur:6,kits:Array.from({length:7},(_,i)=>({d:i%2?-1:1,z:rand(330,700),t0:i*.75+rand(0,.3),v:rand(260,360),hit:new Set()}))};return;}
+ if(P.id==='hug'){const len=T.FRONT-GUARD_END+40,z=(GUARD_END+T.FRONT)/2;PGPX={id:'hug',t:0,dur:6,cols:[-1,1].map(s=>world.createCollider(RAPIER.ColliderDesc.cuboid(8*M,40*M,len/2*M).setTranslation((200+s*((T.R-T.L)/2+8))*M,40*M,z*M).setFriction(.2)))};
+  pgSfx('meow',1.2);pgSfx('purr',1);try{sfx.paw40('swipe',1);}catch(e){}return;}
+ if(P.id==='sonic'){PGPX={id:'sonic',t:0,dur:5,next:0};shake=Math.max(shake,1.2);pgSfx('meow',1.6);try{sfx.wild('topple',1);}catch(e){}return;}
+ if(P.id==='tortitude'){PGPX={id:'tortitude',t:0,dur:1.6,flames:[]};let n=0;
+  for(const b of bodies){if(b.dead||b.kind==='stack')continue;const q=b.rb.translation(),z=q.z/M,x=q.x/M;if(z<PUSH_MAX||z>T.FRONT-40||Math.abs(x-200)>150)continue;
+   const k=(b.kind==='coin'||b.kind==='silver'?1:b.kind==='item'?.7:.85)*b.rb.mass()*(1.6+((z-PUSH_MAX)/(T.FRONT-PUSH_MAX))*.8);b.rb.wakeUp();b.rb.applyImpulse({x:(x-200)*.002*k,y:.9*k,z:2.6*k},true);n++;}
+  for(let i=0;i<46;i++)PGPX.flames.push({x:rand(60,340),z:rand(360,T.FRONT-60),t:-rand(0,.5),s:rand(.7,1.4)});
+  shake=Math.max(shake,1);try{sfx.dance('roar',1);}catch(e){}try{sfx.wild('topple',1);}catch(e){}try{wildConfetti(24);}catch(e){}WILD.pgpShoved=n;return;}}
+function pgpEnd(){const X=PGPX;if(!X)return;PGPX=null;
+ if(X.id==='zoomies'){wildSetPeriod(WILD.turbo>0?WILD_TURBO_PERIOD:WILD_PUSH_PERIOD);}
+ if(X.id==='hug'&&X.cols)for(const c of X.cols){try{world.removeCollider(c,true);}catch(e){}}}
+// the pusher's reach (the build multiplies the stroke by this): twice as far during a Sonic meow
+function pglReach(){return PGPX&&PGPX.id==='sonic'&&PGPX.t<PGPX.dur?2:1;}
+function pgpTick(dt){
+ if(WILD.pgpEarn&&!pgpSideGame()&&WILD.on){WILD.pgpEarn=0;if(pglOn())pgpAward(pgpCat(),'perfect');}
+ const X=PGPX;if(!X)return;X.t+=dt;
+ if(X.id==='yawn'){if(X.t>=X.dur||(!W2_YAWN&&X.t>.3))pgpEnd();return;}
+ if(X.id==='zoomies'){for(const k of X.kits){const u=X.t-k.t0;if(u<0)continue;const x=k.d>0?-30+u*k.v:430-u*k.v;if(x<-40||x>440)continue;
+   if(!k.snd){k.snd=1;try{sfx.laser('wind',.7);}catch(e){}}
+   for(const b of bodies){if(b.dead||k.hit.has(b)||(b.kind!=='coin'&&b.kind!=='silver'&&b.kind!=='gold5'))continue;const q=b.rb.translation();if(Math.abs(q.x/M-x)<26&&Math.abs(q.z/M-k.z)<34){k.hit.add(b);const m=b.rb.mass();b.rb.wakeUp();b.rb.applyImpulse({x:k.d*.5*m,y:.4*m,z:1.4*m},true);}}}}
+ if(X.id==='sonic'){shake=Math.max(shake,.35);if(X.t>=X.next){X.next+=1.25;if(X.t>.1)pgSfx('meow',1.1);}}
+ if(X.t>=X.dur)pgpEnd();}
+// Draws the power on the board (in the screen's own coordinates, like the side games).
+function pgpDraw(){const X=PGPX;if(!X&&!WILD.pounce)return;ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);
+ if(X&&X.id==='zoomies'){for(const k of X.kits){const u=X.t-k.t0;if(u<0)continue;const x=k.d>0?-30+u*k.v:430-u*k.v;if(x<-40||x>440)continue;const p=skyScreen(x,k.z,0),s=p.s*.9;pgpKitten(p.x,p.y-10*s,s,k.d,X.t*18+k.t0*5);
+   ctx.save();ctx.globalAlpha=.45;ctx.strokeStyle='#ffd08a';ctx.lineWidth=3*s;for(const dy of [-8,0,8]){ctx.beginPath();ctx.moveTo(p.x-k.d*30*s,p.y-10*s+dy*s);ctx.lineTo(p.x-k.d*70*s,p.y-10*s+dy*s);ctx.stroke();}ctx.restore();}
+  const a=Math.min(1,X.t/.3,(X.dur-X.t)/.4);ctx.globalAlpha=Math.max(0,a);wildText('2× PUSHER',200,w43ChinY()+28,26,'#ffb03a','#3a1400',5);}
+ if(X&&X.id==='hug'){const a=Math.min(1,X.t/.35,(X.dur-X.t)/.5),flop=1-Math.pow(1-Math.min(1,X.t/.35),3);ctx.globalAlpha=Math.max(0,a);
+  for(const s of [-1,1]){const pts=[];for(let z=GUARD_END-10;z<=T.FRONT+10;z+=20){const p=skyScreen(200+s*((T.R-T.L)/2),z,0);pts.push(p);}
+   ctx.save();ctx.lineCap='round';ctx.lineJoin='round';ctx.strokeStyle='#8f7d6e';ctx.lineWidth=34*flop;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x+s*6,p.y):ctx.moveTo(p.x+s*6,p.y));ctx.stroke();
+   ctx.strokeStyle='#fbf6ee';ctx.lineWidth=20*flop;ctx.stroke();ctx.restore();
+   const e=pts[pts.length-1],pw=pgArt('ragdoll','paw');if(pw){const w=74*flop,h=w*pw.height/pw.width;ctx.save();ctx.translate(e.x+s*4,e.y-6);ctx.scale(s,1);ctx.drawImage(pw,-w/2,-h/2,w,h);ctx.restore();}}
+  for(let i=0;i<3;i++){const u=((X.t*.8+i/3)%1);ctx.save();ctx.globalAlpha=Math.max(0,a)*(1-u);pgHeart(200+Math.sin(i*2.1+X.t)*90,w43ChinY()+90-u*60,1.6,'#ff6ab8');ctx.restore();}
+  ctx.globalAlpha=Math.max(0,a);wildText('NO SIDE FALLS',200,w43ChinY()+28,24,'#ff9ad8','#3a0b2e',5);}
+ if(X&&X.id==='sonic'){const a=Math.min(1,(X.dur-X.t)/.4),cy=w43ChinY()-30;ctx.globalAlpha=Math.max(0,a);
+  for(let i=0;i<4;i++){const u=((X.t*1.2+i/4)%1);ctx.save();ctx.globalAlpha=Math.max(0,a)*(1-u)*.9;ctx.strokeStyle=i%2?'#6ad8ff':'#ffffff';ctx.lineWidth=6*(1-u)+1;ctx.beginPath();ctx.ellipse(200,cy+u*260,60+u*190,(60+u*190)*.32,0,0,7);ctx.stroke();ctx.restore();}
+  wildText('2× REACH',200,w43ChinY()+28,26,'#6ad8ff','#0b2a3e',5);}
+ if(X&&X.id==='tortitude'){for(const f of X.flames){const u=(X.t-f.t)/1.1;if(u<0||u>1)continue;const p=skyScreen(f.x,f.z,0),s=p.s*f.s,h=(30+45*Math.sin(u*Math.PI))*s;
+   ctx.save();ctx.globalAlpha=1-u*.8;const g=ctx.createLinearGradient(0,p.y-h,0,p.y);g.addColorStop(0,'rgba(255,240,120,0)');g.addColorStop(.3,'#ffd23f');g.addColorStop(.7,'#ff6a1a');g.addColorStop(1,'#c81e0a');ctx.fillStyle=g;
+   ctx.beginPath();ctx.moveTo(p.x-14*s,p.y);ctx.quadraticCurveTo(p.x-18*s,p.y-h*.5,p.x+Math.sin(u*12+f.x)*6*s,p.y-h);ctx.quadraticCurveTo(p.x+18*s,p.y-h*.5,p.x+14*s,p.y);ctx.closePath();ctx.fill();ctx.restore();}
+  const u=Math.min(1,X.t/.15);ctx.globalAlpha=Math.max(0,.55*(1-X.t/.6));ctx.fillStyle='#ff8a2a';ctx.fillRect(0,0,W,H);ctx.globalAlpha=1;}
+ ctx.restore();}
+function pgpKitten(x,y,s,d,ph){ctx.save();ctx.translate(x,y);ctx.scale(s*d,s);const C=PG_CAT.orange,leg=Math.sin(ph)*6;
+ ctx.strokeStyle=C.fur;ctx.lineWidth=5;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(-14,4);ctx.lineTo(-18-leg,16);ctx.moveTo(-6,4);ctx.lineTo(-4+leg,16);ctx.moveTo(8,4);ctx.lineTo(6-leg,16);ctx.moveTo(14,4);ctx.lineTo(18+leg,16);ctx.stroke();
+ ctx.fillStyle=C.fur;ctx.beginPath();ctx.ellipse(0,0,20,11,0,0,7);ctx.fill();ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-18,-2);ctx.quadraticCurveTo(-32,-10,-30,-22);ctx.stroke();
+ ctx.beginPath();ctx.arc(20,-8,10,0,7);ctx.fill();ctx.beginPath();ctx.moveTo(14,-14);ctx.lineTo(16,-24);ctx.lineTo(21,-16);ctx.moveTo(22,-16);ctx.lineTo(27,-23);ctx.lineTo(28,-12);ctx.fill();
+ ctx.fillStyle=C.light;ctx.beginPath();ctx.ellipse(24,-4,5,4,0,0,7);ctx.fill();ctx.fillStyle='#111';ctx.beginPath();ctx.arc(23,-10,1.8,0,7);ctx.arc(28,-9,1.6,0,7);ctx.fill();ctx.restore();}
+
+// --- hooks: tick, draw, reset, finish ---
+const __pgpTickW=wildTick;wildTick=function(dt){const r=__pgpTickW(dt);if(WILD.on&&!(inventoryOpen||panel.style.display==='block'))pgpTick(dt);return r;};
+const __pgpDrawW=wildDraw;wildDraw=function(){__pgpDrawW();if(WILD.on&&!inventoryOpen)pgpDraw();};
+const __pgpReset=wildReset;wildReset=function(){pgpEnd();WILD.pgpEarn=0;WILD.pgpPulse=null;return __pgpReset();};
+const __pgpExit=wildExit;wildExit=function(){pgpEnd();return __pgpExit();};
+const __pgpFinish=wildFinish;wildFinish=function(win,reason){const r=__pgpFinish(win,reason);if(board.status==='won'||board.status==='lost'){if(WILD.pgpEarn&&!pgpSideGame()){WILD.pgpEarn=0;if(pglOn())pgpAward(pgpCat(),'perfect');}pgpEnd();}return r;};
+
+// ---------- Mouse pounce (the Tortoiseshell's side game) ----------
+const POUNCE={len:8,count:14,tapR:44,coins:3};
+const POUNCE_INTRO=.9,POUNCE_END=2.1,POUNCE_HUD_Y=468;
+RAIN.mousecoin={n:0,pounce:true,r:33,half:4.4,face:['#fff0e0','#ff8a3c','#7a2a06'],edge:'#6a2406'};
+EDGE.mousecoin=RAIN.mousecoin.edge;PRIZE_OPAQUE.mousecoin=.95;PRIZE_ASPECT.mousecoin=1;
+const __pounceFace=rainFace;
+rainFace=function(g,c,r,kind){if(!RAIN[kind]||!RAIN[kind].pounce)return __pounceFace(g,c,r,kind);
+ const [c1,c2,c3]=RAIN[kind].face;let gr=g.createRadialGradient(c-r*.35,c-r*.4,r*.1,c,c,r);gr.addColorStop(0,c1);gr.addColorStop(.5,c2);gr.addColorStop(1,c3);g.fillStyle=gr;g.beginPath();g.arc(c,c,r,0,7);g.fill();
+ g.lineWidth=r*.1;g.strokeStyle='#ffd23f';g.beginPath();g.arc(c,c,r*.86,0,7);g.stroke();
+ const s=r/30;g.save();g.translate(c,c-4*s);g.fillStyle='#e8e2ee';g.strokeStyle='#4a3a52';g.lineWidth=1.6*s;g.beginPath();g.moveTo(-16*s,6*s);g.quadraticCurveTo(-8*s,-10*s,6*s,-8*s);g.quadraticCurveTo(16*s,-6*s,15*s,6*s);g.closePath();g.fill();g.stroke();
+ g.fillStyle='#f6b6cf';g.beginPath();g.arc(-4*s,-9*s,4.5*s,0,7);g.fill();g.stroke();g.fillStyle='#111';g.beginPath();g.arc(-11*s,0,1.6*s,0,7);g.fill();g.strokeStyle='#4a3a52';g.beginPath();g.moveTo(15*s,4*s);g.quadraticCurveTo(22*s,0,20*s,-8*s);g.stroke();g.restore();
+ g.font='bold '+Math.round(r*.19)+'px system-ui';g.textAlign='center';g.textBaseline='middle';g.fillStyle='#fff6d0';g.fillText('POUNCE',c,c+r*.6);};
+function pounceClear(){Object.assign(WILD,{pounce:null,pouncePending:null,pounceForce:false,mouseN:0,mouseAt:null,pounces:0});}
+pounceClear();
+function pounceStart(){const n=POUNCE.count,play=Math.max(3,POUNCE.len-1.6),times=[];for(let i=0;i<n;i++)times.push(i>n*.6&&i%3===0&&times.length?times[times.length-1]+.05:play*Math.pow(i/n,.75)+rand(0,.12)); // a few at first, then faster, pairs late on
+ stopDrops();holding=false;
+ WILD.pounce={t:-POUNCE_INTRO,phase:'intro',n,times,next:0,mice:[],fx:[],slams:[],caught:0,escaped:0,whiffs:0,streak:0,bank:0,perfect:false,winWaiting:false,endT:0,started:time};
+ WILD.pouncePending=null;WILD.pounces++;try{sfx.toss('start',1);}catch(e){}try{navigator.vibrate&&navigator.vibrate(40);}catch(e){}try{diagEvent('pounce','start n='+n);}catch(e){}}
+function pounceLaunch(D,i){const prog=D.n>1?i/(D.n-1):1,d=Math.random()<.5?1:-1,y=rand(500,720),v=(170+240*prog)*rand(.85,1.15);
+ D.mice.push({d,y,x:d>0?-34:434,v,t:0,dart:Math.random()<.35+prog*.3?rand(.3,.8):0,paused:0,state:'run',ft:0});}
+function pounceTap(p){const D=WILD.pounce;if(!D||D.phase!=='play')return;
+ let best=null,bd=1e9;for(const m of D.mice){if(m.state!=='run')continue;const dd=Math.hypot(m.x-p.x,(m.y-14)-p.y);if(dd<bd){bd=dd;best=m;}}
+ D.slams.push({x:best&&bd<=POUNCE.tapR?best.x:p.x,y:best&&bd<=POUNCE.tapR?best.y-6:p.y,t:0});try{sfx.laser('pounce',.9);}catch(e){}
+ if(best&&bd<=POUNCE.tapR){best.state='caught';best.ft=0;D.caught++;D.streak++;D.bank+=POUNCE.coins;try{sfx.toss('catch',1,D.streak);}catch(e){}try{navigator.vibrate&&navigator.vibrate(18);}catch(e){}
+  D.fx.push({ring:true,x:best.x,y:best.y-10,t:0});D.fx.push({text:D.streak>=5&&D.streak%5===0?'POUNCE!':'+'+POUNCE.coins,color:'#ffd23f',x:best.x,y:best.y-40,t:0});
+  for(let j=0;j<6;j++){const a=j/6*Math.PI*2;D.fx.push({spark:true,x:best.x,y:best.y-10,vx:Math.cos(a)*rand(90,150),vy:Math.sin(a)*rand(90,150),t:0});}
+  try{diagEvent('pounce','catch d='+bd.toFixed(0)+' streak='+D.streak);}catch(e){}return;}
+ D.whiffs++;D.streak=0;try{sfx.toss('whiff',.8);}catch(e){}try{sfx.wild43&&sfx.wild43('bonk',.9);}catch(e){}D.fx.push({cross:true,x:p.x,y:p.y,t:0});}
+function pounceTick(dt,paused){const D=WILD.pounce;if(!D||paused)return;WILD.lastPay=time;D.t+=dt;
+ for(let i=D.fx.length-1;i>=0;i--){const f=D.fx[i];f.t+=dt;if(f.spark){f.x+=f.vx*dt;f.y+=f.vy*dt;f.vx*=.9;f.vy=f.vy*.9+300*dt;}if(f.t>(f.cross?.7:f.spark?.45:f.ring?.35:.9))D.fx.splice(i,1);}
+ for(let i=D.slams.length-1;i>=0;i--){D.slams[i].t+=dt;if(D.slams[i].t>.45)D.slams.splice(i,1);}
+ if(D.phase==='intro'){if(D.t>=0)D.phase='play';else return;}
+ if(D.phase==='play'){while(D.next<D.n&&D.t>=D.times[D.next]){pounceLaunch(D,D.next);D.next++;}
+  for(let i=D.mice.length-1;i>=0;i--){const m=D.mice[i];m.t+=dt;
+   if(m.state==='run'){if(m.dart&&m.t>m.dart&&m.paused<.35){m.paused+=dt;}else m.x+=m.d*m.v*(m.paused>=.35&&m.dart?1.6:1)*dt;
+    if(m.x<-40||m.x>440){m.state='gone';D.escaped++;D.streak=0;try{sfx.toss('drop',.8);}catch(e){}D.fx.push({cross:true,small:true,x:Math.max(24,Math.min(376,m.x)),y:m.y-10,t:0});}}
+   else if(m.state==='caught'){m.ft+=dt;if(m.ft>.5)m.state='gone';}
+   if(m.state==='gone')D.mice.splice(i,1);}
+  if(D.next>=D.n&&!D.mice.length)pounceFinish(D);return;}
+ D.endT+=dt;if(D.endT>=POUNCE_END){WILD.pounce=null;if(D.bank>0)wildStartRain(D.bank);if(D.winWaiting||(WILD.got>=WILD_GOAL&&board.status==='playing')){board.status='playing';wildFinish(true);}}}
+function pounceFinish(D){D.phase='end';D.endT=0;D.perfect=D.caught===D.n;
+ if(!D.bank)try{sfx.toss('drop',1);}catch(e){}
+ if(D.caught)wildConfetti(Math.min(60,10+D.caught*3));
+ if(D.perfect){sfx.wild2('perfect',1);skyDrop('rain10',200+rand(-60,60),rand(560,630),{dur:1,delay:.6});}
+ try{diagEvent('pounce','end caught='+D.caught+'/'+D.n+' whiffs='+D.whiffs+' escaped='+D.escaped+(D.perfect?' perfect':''));}catch(e){}}
+// hooks, as Treat toss does them
+const __pounceReset=wildReset,__pounceExit=wildExit,__pounceFinish=wildFinish,__pounceRain=wildRainCollected,__pounceBonus=wildScheduleBonus,__pounceLand=wildLandBonus,__pounceTickW=wildTick,__pouncePointer=wildPointer,__pounceDrawW=wildDraw;
+wildReset=function(){const f=WILD.pounceForce;const r=__pounceReset();pounceClear();WILD.pounceForce=f;return r;};
+wildExit=function(){pounceClear();return __pounceExit();};
+wildFinish=function(win,reason){if(WILD.pounce){if(win&&WILD.phase==='play'){WILD.pounce.winWaiting=true;return;}WILD.pounce=null;}WILD.pouncePending=null;return __pounceFinish(win,reason);};
+wildRainCollected=function(b,x){if(b.kind!=='mousecoin')return __pounceRain(b,x);const f=queueTreatAward(b.kind,x,b);if(WILD.phase==='play'&&board.status==='playing'&&!WILD.pounce)WILD.pouncePending={f,wait:0};try{diagEvent('pounce','mouse coin');}catch(e){}};
+wildScheduleBonus=function(){
+ if(wildFeature('pounce')){if(WILD.mouseAt==null)WILD.mouseAt=3+(Math.random()*3|0);
+  if(!wildMissing().length&&!WILD.pounce&&((WILD.mouseN===0&&WILD.bonusN+1>=WILD.mouseAt)||(WILD.mouseN===1&&WILD.pounces===0&&WILD.bonusN>=WILD.mouseAt+2&&Math.random()<.25))){
+   const y=rand(430,620),x=200+rand(-1,1)*(tableHalfAt(y)-50);WILD.incoming.push({kind:'mousecoin',id:null,x,y,t:.9,t0:.9});WILD.bonusN++;WILD.mouseN++;sfx.wild('whistle',1);return;}}
+ return __pounceBonus();};
+wildLandBonus=function(o){__pounceLand(o);if(o.kind==='mousecoin'&&floats.length)floats[floats.length-1].text='POUNCE!';};
+wildTick=function(dt){if(!WILD.on)return __pounceTickW(dt);const paused=inventoryOpen||panel.style.display==='block';
+ if(WILD.pounceForce&&wildFeature('pounce')&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.pounceForce=false;if(!WILD.pounce)WILD.pouncePending={f:null,wait:9};}
+ if(WILD.pouncePending&&!WILD.pounce&&!paused){const P=WILD.pouncePending;P.wait+=dt;const f=P.f;if(WILD.phase==='play'&&board.status==='playing'&&!W2_YAWN&&!PGPX&&sweepTime===0&&catquakeTime===0&&(!f||f.arrived||f.t>=f.tr+f.tm*.5||P.wait>1.2))pounceStart();}
+ if(!WILD.pounce||WILD.phase!=='play'){if(WILD.pounce&&WILD.phase!=='play')WILD.pounce=null;return __pounceTickW(dt);}
+ const left=WILD.left,turbo=WILD.turbo,next=WILD.nextBonus;__pounceTickW(dt);if(WILD.phase==='play'){WILD.left=left;if(WILD.turbo>0)WILD.turbo=turbo;WILD.nextBonus=next;}
+ if(WILD.pounce)pounceTick(dt,paused);};
+wildPointer=function(e,p){if(!WILD.on||!WILD.pounce||WILD.phase!=='play'||inventoryOpen||!world)return __pouncePointer(e,p);if(contains(wildButton(),p))return __pouncePointer(e,p);pounceTap(p);return true;};
+wildDraw=function(){__pounceDrawW();if(WILD.on&&WILD.pounce&&!inventoryOpen)pounceDraw();};
+function pounceDraw(){const D=WILD.pounce,Y=POUNCE_HUD_Y;ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
+ const fade=D.phase==='end'?Math.max(0,1-D.endT/.4):Math.min(1,(time-D.started)/.25);
+ if(fade>0){ctx.globalAlpha=fade;uiRound(16,Y-20,368,40,18,'rgba(48,16,4,.75)','#ff9a4a',2);
+  ctx.font='900 20px Impact, "Arial Black", system-ui';ctx.textAlign='left';ctx.fillStyle='#ffe78a';ctx.fillText('× '+D.caught,58,Y+1);drawPrize('item','mouse',40,Y+5,22/prizeWidth('mouse',1));
+  const left=D.n-D.next;for(let i=0;i<D.n;i++)uiCircle(130+i*(140/Math.max(1,D.n-1)),Y,3,i<left?'#ffb27a':'rgba(255,255,255,.18)');
+  ctx.textAlign='right';ctx.font='bold 13px system-ui';ctx.fillStyle=D.streak>=3?'#ffd23f':'#ffe8d8';ctx.fillText(D.streak>=2?'streak '+D.streak:'TAP THE MICE',370,Y+1);ctx.textAlign='center';
+  if(D.phase==='intro'){const u=Math.min(1,(D.t+POUNCE_INTRO)/.3),k=(.6+.4*(1-Math.pow(1-u,3)))*(1+.04*Math.sin(time*9));ctx.save();ctx.translate(200,Y+58);ctx.scale(k,k);ctx.rotate(-.05);wildText('MOUSE POUNCE!',0,0,42,'#ffb27a','#3a1400',8);ctx.restore();
+   ctx.font='bold 14px system-ui';ctx.fillStyle='#fff';ctx.fillText('Tap the toy mice before they get away',200,Y+96);}}
+ ctx.globalAlpha=1;
+ for(const m of D.mice){const s=56/prizeWidth('mouse',1);ctx.save();ctx.translate(m.x,m.y);if(m.state==='caught'){const u=Math.min(1,m.ft/.5);ctx.globalAlpha=1-u;ctx.scale(1+u*.3,1-u*.6);}else ctx.translate(0,-Math.abs(Math.sin(m.t*22))*3);
+  ctx.scale(-m.d,1);ctx.fillStyle='rgba(0,0,0,.25)';ctx.beginPath();ctx.ellipse(0,2,24,6,0,0,7);ctx.fill();drawPrize('item','mouse',0,prizeCenterLift('mouse',s)-8,s);ctx.restore();}
+ for(const S2 of D.slams){const u=S2.t/.45,dn=Math.min(1,S2.t/.1),up=Math.max(0,(S2.t-.22)/.23),pw=ART.paw;if(!pw)continue;const w=86*(1.25-.25*dn),h=w*pw.height/pw.width,yy=S2.y-60*(1-dn)-50*up;
+  ctx.save();ctx.globalAlpha=Math.max(0,1-up);ctx.translate(S2.x,yy-h*.25);ctx.drawImage(pw,-w/2,-h/2,w,h);ctx.restore();if(S2.t<.12&&S2.t+.02>.1){shake=Math.max(shake,.25);}}
+ for(const f of D.fx){if(f.spark){ctx.globalAlpha=Math.max(0,1-f.t/.45);uiCircle(f.x,f.y,3.2,'#fff3b0');continue;}
+  if(f.ring){const u=f.t/.35;ctx.globalAlpha=Math.max(0,1-u);ctx.strokeStyle='#fff3b0';ctx.lineWidth=4*(1-u)+1;ctx.beginPath();ctx.arc(f.x,f.y,18+38*u,0,7);ctx.stroke();continue;}
+  if(f.cross){const u=f.t/.7,a=Math.max(0,1-Math.max(0,u-.4)/.6),sc=f.small?.7:1,r=13;ctx.globalAlpha=a;ctx.save();ctx.translate(f.x,f.y-u*8);ctx.scale(sc,sc);ctx.lineCap='round';ctx.strokeStyle='#2a0010';ctx.lineWidth=11;ctx.beginPath();ctx.moveTo(-r,-r);ctx.lineTo(r,r);ctx.moveTo(r,-r);ctx.lineTo(-r,r);ctx.stroke();ctx.strokeStyle='#ff4b4b';ctx.lineWidth=7;ctx.stroke();ctx.restore();continue;}
+  ctx.globalAlpha=Math.max(0,1-f.t/.9);ctx.font='900 22px Impact, "Arial Black", system-ui';ctx.lineWidth=4;ctx.strokeStyle='#2a0b3e';ctx.strokeText(f.text,f.x,f.y-f.t*30);ctx.fillStyle=f.color;ctx.fillText(f.text,f.x,f.y-f.t*30);}
+ ctx.globalAlpha=1;
+ if(D.phase==='end'){const u=Math.min(1,D.endT/.25),out=Math.max(0,(D.endT-(POUNCE_END-.35))/.35);ctx.globalAlpha=1-out;ctx.save();ctx.translate(200,Y+40);ctx.scale(.6+.5*u,.6+.5*u);ctx.rotate(-.05);
+  if(D.caught)wildText('+'+D.caught+' MICE!',0,0,50,'#ffd23f','#3a1a00',9);else wildText('ALL GOT AWAY!',0,0,38,'#c9b6e6','#2a0b3e',8);
+  ctx.font='bold 15px system-ui';ctx.fillStyle='#fff';if(D.bank)ctx.fillText(D.bank+' coins coming down',0,40);
+  if(D.perfect){ctx.translate(0,-62);ctx.scale(1+.05*Math.sin(D.endT*12),1+.05*Math.sin(D.endT*12));wildText('PERFECT!',0,0,40,'#7dff6a','#0c3a12',8);ctx.font='bold 13px system-ui';ctx.fillStyle='#fff';ctx.fillText('every mouse! RAIN 10 and a Tortitude',0,30);}
+  ctx.restore();ctx.globalAlpha=1;}
+ ctx.restore();}
+// the mouse coin's goal-card icon
+const __pounceCardIcon=w2CardIcon;w2CardIcon=function(kind,x,y){if(kind==='mousecoin'){const sp=sprite('mousecoin');ctx.drawImage(sp.cv,x-17,y-17,34,34);return;}if(kind==='mouse'){drawPrize('item','mouse',x,y+8,30/prizeWidth('mouse',1));return;}if(WILD.mode==='pounce'&&kind==='paw'){const w=34,h=w*ART.paw.height/ART.paw.width;ctx.drawImage(ART.paw,x-w/2,y-h/2,w,h);return;}if(WILD.mode==='pounce'&&kind==='perfect'){wildText('×'+POUNCE.count,x,y,18,'#7dff6a','#0c3a12',4);return;}return __pounceCardIcon(kind,x,y);};
+WILD_MODES.pounce.cardLines=[['mousecoin','Push the mouse coin off','and the toy mice run!'],['mouse','Tap the mice','the mitt pounces'],['perfect','Catch every one','for a RAIN 10 and a Tortitude'],
+ ['paw','Prizes topple off the sides','Tap the glow to Paw save'],['rain10','Rain coins pour','5, 10 or 25 coins'],['!','Bonus drops','fall from the sky']];
+try{pgFixAllLines();}catch(e){}
+
+// --- Developer: start a pounce now, give powers ---
+const __pgpDevHtml=pgDevHtml;
+pgDevHtml=function(){const h=__pgpDevHtml();const rows='<h3 style="margin-top:10px"><span>Powers (CP-47)</span><span>'+PG_CATS.map(c=>PGP[c].name.split(' ')[0].toLowerCase()+' '+pgpCount(c)).join(' · ')+'</span></h3><button id="pgp-give" class="wide">Give 3 of every power</button><button id="pgp-pounce" class="wide">Start Mouse pounce now (as the Tortoiseshell)</button>';
+ return h.replace('<h3 style="margin-top:10px"><span>MODES',rows+'<h3 style="margin-top:10px"><span>MODES');};
+const __pgpDevBind=wildDevBind;
+wildDevBind=function(panel){__pgpDevBind(panel);const box=panel.querySelector&&panel.querySelector('#pg-dev');if(!box)return;const re=()=>{const top=panel.scrollTop;openCredits();panel.scrollTop=top;};
+ const g=box.querySelector('#pgp-give');if(g)g.onclick=()=>{if(!PG)pgInit();if(!PG.powers)PG.powers={};for(const c of PG_CATS)PG.powers[c]=Math.min(PGP_CAP,pgpCount(c)+3);pgSave();re();};
+ const s=box.querySelector('#pgp-pounce');if(s)s.onclick=()=>{panel.style.display='none';if(!PG)pgInit();if(!PG.open.tortie){PG.open.tortie=1;PG.openOrder.push('tortie');}if(PGU.boardCat!=='tortie'||!WILD.on)pgSwitchBoard('tortie');
+  if(WILD.phase==='card'||WILD.phase==='end'){if(WILD.phase==='end')wildReset();PGU.screen='board';WILD.pounceForce=true;wildStartCountdown();}else if(!WILD.pounce)WILD.pounceForce=true;};};
 
 Promise.all([RAPIER.init(), loadArt()])
 

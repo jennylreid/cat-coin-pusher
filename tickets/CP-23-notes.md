@@ -224,3 +224,6 @@ Everything here is inspiration, never a copy. The core genre is the coin pusher;
 - Jenny (Nov 14): no player level; boards have levels; things should build higher to a cap, e.g. recipes upgrade (tuna salad -> tuna casserole -> tuna melt). Not in CP-47.
 - CP-46 (Jenny, Nov 14): pusher = w5 warm whoosh; with all new coin sets, building as UAT 59 after UAT 58.
 - DECIDED (Jenny, Nov 14): A/B winner = layout A (PLAY screen). B and its switch removed in CP-47's build.
+- Jenny (Nov 14, UAT 60): music masks the sound effects (since the music change). Phantom coin-drop sound when no coin is dropped: frustrating; every sound must match an action on the board. CP-46 investigating.
+- Jenny (Nov 14): loves the ledge bell but it's too loud now: lower its volume only (explicit exception to the frozen pickup; sound and timing unchanged). Goes in the post-CP-47 mix fix with: pusher loud and steady, original coin sounds heard on every coin, music lower and ducking.
+- Jenny (Nov 14): coin pile sounds are the best sound in the game. Every sound must match something that actually happens (very important). Idea: more towers spilling.

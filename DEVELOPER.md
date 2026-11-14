@@ -243,7 +243,7 @@ Nothing else changes the size: not the queue, not randomness, not the board. Onl
 **Removed in UAT 53 (do not bring back):** the older UAT 34 pickup style (rise to the middle of the screen, 70% size, grey pinstriped panel, 0.7 s hold), which only the Quake coin still used, and its Developer switch.
 
 ## Design rules (Jenny)
-GAMEPLAY_DESIGN.md "Design rules" 1-12 apply to every ticket. Rules 8-12 (Nov 14): one clear main action per screen; you can always find your way (buttons name their destination, never "Exit"); every element earns its place; nothing overlaps; one word, one meaning.
+GAMEPLAY_DESIGN.md "Design rules" 1-12 apply to every ticket. Rules 8-12 (Nov 14): one clear main action per screen; you can always find your way (buttons name their destination, never "Exit"); every element earns its place; nothing overlaps; one word, one meaning; 13: every sound comes from something you can see happen.
 
 ## Test switches (Jenny, Nov 14, 2026)
 Each UAT build puts the switches Jenny should try in that build in a "Test this build" panel at the top of Settings, with plain names. When she picks an option, remove the losing option and its switch in the next build. Old Developer dials are cleaned up after the sign-off pass.
@@ -258,3 +258,12 @@ Module `C46` (`work/cp60/sounds60.js`, applied by `work/cp60/patch.py`). The new
   - Prizes and other pieces: `recordedSfx.edge()` unchanged. Gold paid at the front: ka-ching, plus the gold shimmer every other time.
 - **Pusher: replaced.** `sfx.slide` is the warm whoosh (audition option w5): band-passed noise only, one per stroke, the return at 35%, 1.2× higher in Turbo. Pusher sound 50% (the default) is the auditioned level, 10 dB under the music above 250 Hz. The recorded `pusher.mp3` no longer plays. `pusherSoundTick`'s timing is unchanged.
 - **Not touched:** the ledge bell and landing thump (frozen pickup), the music, ka-ching, the mouth drop, the coin roll, the stack tumble, and the Board 3 spill recording. `checks-cp46.cjs` compares their code with the base build.
+
+## Levels, cats and powers (CP-47, UAT 61, Jenny's model Nov 14, 2026)
+Modules `work/cp47-levels/levels47.js` and `powers47.js`, inserted after the CP-45 module by `work/cp47-levels/build.py` on pinned UAT 60 (plus a few text swaps listed in build.py). Saved inside `catpusher.uat.progress.v1`: `PG.lv = {passed, sel, stars}`, `PG.shown`, `PG.seenScr`, `PG.powers`.
+- **A level is a layout; a cat is a mode.** `PGL_LEVELS` holds the ten levels: prize spots (`p`), tower-wall prizes (`top`, slot 0-4), towers (`'default'`, a list, or a `wall` of heights), rain coins, Quake, coins, seconds, goal (each kind once, common prizes only) and tag. `wildPrefill` builds Wild 2's start rows, then the level replaces the prizes, rain, Quake and towers. A cat's mode (`PG_CAT[cat].mode`) brings its side game; `wildFeature('towerwall')` comes from the level. `pglOn()` is true on a cat's board only: Developer MODES (`PGL.dev`), the old boards and `pgHomeOff` play without levels, as before.
+- **Same start:** the layout is fixed and seeded; the physics settle leaves pieces within about 0.1 units (Level 4 about 0.4) between replays and between cats (`checks61.cjs` 1.5-1.6). Avoid placing rain coins or prizes where the start rows have a gap (they slide during the settle).
+- **A cat's prizes** never sit in a layout: two scheduled sky drops per round (10 s and 32 s after GO, `PGL_CAT_DROPS`) plus about half of the random bonus prize drops that aren't replacing a lost goal prize.
+- **Unlocks:** no XP (`pgAddXP` is a no-op). Recipes open after Level `r.level`. A side button appears when its screen is needed (`pglScreenNeed`) and stays; "!" until first visited.
+- **Powers:** the button is the paw-sweep slot (`powerButtons().sweep`, empty on Wild boards). A perfect side game (`sfx.wild2('perfect')`, or a laser chase with no misses) sets `WILD.pgpEarn`; the power is awarded once no side game is running. Sonic meow multiplies the pusher stroke by `pglReach()` (1 otherwise, so every other frame is unchanged). Hug adds two world colliders along the open gutters and removes them after 6 s. Every power uses existing sounds only.
+- **Mouse pounce** (`WILD.pounce`, the Tortoiseshell's mode `pounce`) follows Treat toss's pattern: a mouse coin replaces one bonus drop, the timer holds, a win waits, taps go to the pounce.

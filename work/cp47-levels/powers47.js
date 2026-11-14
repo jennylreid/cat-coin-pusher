@@ -199,7 +199,7 @@ function pounceDraw(){const D=WILD.pounce,Y=POUNCE_HUD_Y;ctx.save();ctx.setTrans
   ctx.restore();ctx.globalAlpha=1;}
  ctx.restore();}
 // the mouse coin's goal-card icon
-const __pounceCardIcon=w2CardIcon;w2CardIcon=function(kind,x,y){if(kind==='mousecoin'){const sp=sprite('mousecoin');ctx.drawImage(sp.cv,x-17,y-17,34,34);return;}if(kind==='mouse'){drawPrize('item','mouse',x,y+8,30/prizeWidth('mouse',1));return;}return __pounceCardIcon(kind,x,y);};
+const __pounceCardIcon=w2CardIcon;w2CardIcon=function(kind,x,y){if(kind==='mousecoin'){const sp=sprite('mousecoin');ctx.drawImage(sp.cv,x-17,y-17,34,34);return;}if(kind==='mouse'){drawPrize('item','mouse',x,y+8,30/prizeWidth('mouse',1));return;}if(WILD.mode==='pounce'&&kind==='paw'){const w=34,h=w*ART.paw.height/ART.paw.width;ctx.drawImage(ART.paw,x-w/2,y-h/2,w,h);return;}if(WILD.mode==='pounce'&&kind==='perfect'){wildText('×'+POUNCE.count,x,y,18,'#7dff6a','#0c3a12',4);return;}return __pounceCardIcon(kind,x,y);};
 WILD_MODES.pounce.cardLines=[['mousecoin','Push the mouse coin off','and the toy mice run!'],['mouse','Tap the mice','the mitt pounces'],['perfect','Catch every one','for a RAIN 10 and a Tortitude'],
  ['paw','Prizes topple off the sides','Tap the glow to Paw save'],['rain10','Rain coins pour','5, 10 or 25 coins'],['!','Bonus drops','fall from the sky']];
 try{pgFixAllLines();}catch(e){}
