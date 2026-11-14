@@ -1,0 +1,71 @@
+{
+ "note": "Round 2. Whoosh-only pusher options at the game timing (3 normal strokes, 4 Turbo, 1 normal); each scaled to -10 dB against the music (phone band, averaged over the whole file); the current pusher is left as the game plays it at its 50% default. Mixes: the same file over the current music (Classic, Music volume 100%), both rendered from the game code (UAT 54). steepest10msRise: the biggest jump of the loudness envelope in 10 ms, as a share of its peak; a drum, click or thump shows as a big jump.",
+ "musicPhoneBandRms": 0.0249,
+ "currentPusherPhoneBandRms": 0.0017,
+ "options": [
+  {
+   "file": "pusher-r2-0-current-for-comparison.wav",
+   "mix": "pusher-r2-0-current-for-comparison-under-music.wav",
+   "peak": 0.159,
+   "mixPeak": 0.586,
+   "pusherVsMusicDb": -23.5,
+   "steepest10msRise": 0.892,
+   "what": "the current pusher (a slide plus a beat layer), 50% default"
+  },
+  {
+   "file": "pusher-w1-soft-whoosh.wav",
+   "mix": "pusher-w1-soft-whoosh-under-music.wav",
+   "peak": 0.075,
+   "mixPeak": 0.585,
+   "pusherVsMusicDb": -10,
+   "steepest10msRise": 0.239,
+   "what": "Soft whoosh: one smooth, mid-toned whoosh per stroke; the return is softer and a touch lower",
+   "gain": 3.723,
+   "vsCurrentPusherDb": 13.5
+  },
+  {
+   "file": "pusher-w2-airy-whoosh.wav",
+   "mix": "pusher-w2-airy-whoosh-under-music.wav",
+   "peak": 0.066,
+   "mixPeak": 0.585,
+   "pusherVsMusicDb": -10,
+   "steepest10msRise": 0.153,
+   "what": "Airy whoosh: lighter and brighter, more \"air\" than body, a slightly longer tail",
+   "gain": 2.736,
+   "vsCurrentPusherDb": 13.5
+  },
+  {
+   "file": "pusher-w3-sweeping-whoosh.wav",
+   "mix": "pusher-w3-sweeping-whoosh-under-music.wav",
+   "peak": 0.068,
+   "mixPeak": 0.586,
+   "pusherVsMusicDb": -10,
+   "steepest10msRise": 0.284,
+   "what": "Sweeping whoosh: rises as the pusher goes forward (\"whooo-sh\"), falls on the way back",
+   "gain": 4.57,
+   "vsCurrentPusherDb": 13.5
+  },
+  {
+   "file": "pusher-w4-quick-whoosh.wav",
+   "mix": "pusher-w4-quick-whoosh-under-music.wav",
+   "peak": 0.121,
+   "mixPeak": 0.585,
+   "pusherVsMusicDb": -10,
+   "steepest10msRise": 0.237,
+   "what": "Quick whoosh: a shorter \"fwoosh\" at the start of each stroke, so the beat is crisper; return softer",
+   "gain": 4.771,
+   "vsCurrentPusherDb": 13.5
+  },
+  {
+   "file": "pusher-w5-warm-whoosh.wav",
+   "mix": "pusher-w5-warm-whoosh-under-music.wav",
+   "peak": 0.083,
+   "mixPeak": 0.585,
+   "pusherVsMusicDb": -10,
+   "steepest10msRise": 0.26,
+   "what": "Warm whoosh: rounder and darker (still above phone-speaker bass); the return is only a faint breath",
+   "gain": 4.002,
+   "vsCurrentPusherDb": 13.5
+  }
+ ]
+}

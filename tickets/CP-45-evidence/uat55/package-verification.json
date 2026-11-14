@@ -1,0 +1,18 @@
+{
+  "version": 20261114235000,
+  "displayName": "2026.11.14 UAT 55",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "d3e1267b16a25f65b510f161ab49f8933267ea590a663434b44a81ba43f4e3ad",
+  "stagedJSONSHA256": "0ce7edced3ed1dbbcf940230db132e77b409dca0590ed8b86bbfcb9b83839d0d",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "d562af42a5d98c605691d69efbb2b098fa052f46c16df374d7ca0a564554d34c",
+  "jsonBytes": 51851794,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-UAT55-20261114235000",
+  "authorization": "UAT 55: A/B of the between-rounds layout (A main screen, B board view; Developer switch, default A): one big PLAY, Level and a difficulty tag, the goal, small side buttons with ! badges; on UAT 54; Jenny Nov 14 via PM (CP-45-ab-brief.md); UAT only"
+}

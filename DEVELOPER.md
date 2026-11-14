@@ -241,3 +241,6 @@ Nothing else changes the size: not the queue, not randomness, not the board. Onl
 - **On the Wild boards** each prize also shows its board text ("2 / 5", "REPEAT +5 COINS", "COLLECTION!"); a rain coin starts its rain once its pickup is 60% through the hold.
 
 **Removed in UAT 53 (do not bring back):** the older UAT 34 pickup style (rise to the middle of the screen, 70% size, grey pinstriped panel, 0.7 s hold), which only the Quake coin still used, and its Developer switch.
+
+## Design rules (Jenny)
+GAMEPLAY_DESIGN.md "Design rules" 1-12 apply to every ticket. Rules 8-12 (Nov 14): one clear main action per screen; you can always find your way (buttons name their destination, never "Exit"); every element earns its place; nothing overlaps; one word, one meaning.

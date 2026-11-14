@@ -80,7 +80,7 @@ Needs new art: the yawn face and stretched paws.
 | Siamese | Loud, clever, wants attention | Shrimp | Cat bell |
 | Tortoiseshell | Fiery, independent | Toy mouse | Rubber duck |
 
-### 7. Design rules (Decided)
+### 7. Design rules (Decided; 8-12 added Nov 14)
 1. **Feel, not just look.** Every change is felt through sound, rhythm and motion. Text is the backup.
 2. **Never cover the cat's face** for more than a moment: cards, the wheel and the visitor card go below the chin.
 3. **Every tap has an outcome** you can see and hear, hit or miss.
@@ -88,6 +88,15 @@ Needs new art: the yawn face and stretched paws.
 5. **Busy is good:** a board crammed with prizes is fun. Cut plain coins, not prizes, when the phone needs it.
 6. **Inspiration, never copies:** the coin pusher is the genre; ideas borrowed from other games are built our own way.
 7. **Build fast, then react:** prototype boards first, polish what Jenny likes.
+8. **One clear main action per screen.** Everything else visibly secondary but easy to find; never goal + start +
+   navigation at equal weight. (Nov 14)
+9. **You can always find your way.** The main places are one obvious tap away from any screen; buttons name their
+   destination ("Board", "Kitchen"), never "Exit"; no dead ends. (Nov 14)
+10. **Every element earns its place.** A meter, label or button that doesn't make its purpose clear through play gets
+    clearer or goes. (Nov 14)
+11. **Nothing overlaps.** UI pieces never sit on each other on any phone size; checked before publishing. (Nov 14)
+12. **One word, one meaning.** E.g. "Level" means one thing only; each reward comes from an action that makes sense
+    (cooking advances cooking or cats, not the board level). (Nov 14)
 
 ### 8. What brings players back (brainstorm; pick later)
 Team wars (a team, a set time, comparing results; needs a server; kept as a concept), weekly events with set goals
