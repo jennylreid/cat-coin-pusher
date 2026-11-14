@@ -1,0 +1,136 @@
+{
+ "passed": [
+  {
+   "name": "the default pickup (Pop) is unchanged: every prize and coin that used it traces frame for frame the same as UAT 52",
+   "info": [
+    [
+     "cheese",
+     true
+    ],
+    [
+     "shrimp",
+     true
+    ],
+    [
+     "tuna",
+     true
+    ],
+    [
+     "duck",
+     true
+    ],
+    [
+     "bowtie",
+     true
+    ],
+    [
+     "milk",
+     true
+    ],
+    [
+     "rain5",
+     true
+    ],
+    [
+     "rain25",
+     true
+    ],
+    [
+     "note",
+     true
+    ],
+    [
+     "fish",
+     true
+    ],
+    [
+     "laser",
+     true
+    ],
+    [
+     "heart",
+     true
+    ]
+   ]
+  },
+  {
+   "name": "UAT 52 for comparison: the Quake coin went to the middle of the screen at 70% (280 px) on its own path",
+   "info": {
+    "pop": false,
+    "w": 280,
+    "peak": {
+     "x": 189.60224336114797,
+     "y": 451.0303424237731
+    }
+   }
+  },
+  {
+   "name": "the Quake coin now pops from where it fell, to the same size (120 px, 30%), with the same timings as the prizes",
+   "info": {
+    "w": 120,
+    "start": [
+     133.5071,
+     770.6891
+    ],
+    "x0": 133.50711107233224,
+    "peak": {
+     "x": 117.6804077902591,
+     "y": 570.2588110123218
+    },
+    "t": [
+     0.2,
+     0.25,
+     0.45
+    ],
+    "prize": [
+     0.2,
+     0.25,
+     0.45
+    ]
+   }
+  },
+  {
+   "name": "it still ends at the Quake button (the count goes up there)",
+   "info": {
+    "end": [
+     231,
+     75
+    ],
+    "button": {
+     "x": 231,
+     "y": 75
+    }
+   }
+  },
+  {
+   "name": "build label",
+   "info": "2026.11.14 UAT 53"
+  },
+  {
+   "name": "no pinstriped box; sounds: the ledge bell like every piece, then its own chime at the button (no thump)",
+   "info": {
+    "pb": 0,
+    "snd": [
+     "bell",
+     "special"
+    ]
+   }
+  },
+  {
+   "name": "an old saved setting (the UAT 34 box style) can no longer bring the box back",
+   "info": {
+    "pb": 0,
+    "pops": [
+     true,
+     true
+    ]
+   }
+  },
+  {
+   "name": "pieces: no errors with sound on",
+   "info": []
+  },
+  "Developer: no pickup style switch; only the Pop's own dials remain"
+ ],
+ "failed": []
+}

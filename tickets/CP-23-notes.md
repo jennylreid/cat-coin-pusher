@@ -186,3 +186,26 @@ Everything here is inspiration, never a copy. The core genre is the coin pusher;
 - DECIDED (Jenny, Nov 14): with Developer off, UAT must look exactly like production would: MODES button, debug readouts and test controls only when Developer is on.
 - Jenny (Nov 14): likes UAT 49's floating cat head (Home); keep it, use it elsewhere, not on the landing screen. Placement open.
 - Floating cat head: top of Kitchen, Porch, Album, Shop, reacting to events (Jenny OK'd PM pick, Nov 14).
+- DECIDED (Jenny, Nov 14, UAT 52): every prize uses the new code-drawn prizes' pickup (pops up where it is, sparkle, jumps off screen); replaces CP-33's Pop pickup (kept under a Developer switch). Prize art stays frozen.
+- Update (Jenny): same effect for all old pieces incl. Quake and special coins (whatever the new prizes and new coins do); old 30% Pop pickup removed entirely, no switch.
+- DECIDED (Jenny, Nov 14): drop the name 'Wild'/'Wild 2' from player view; Wild 2 is the accepted baseline. PM pick: it's called 'Tuxedo's board'.
+
+## Nov 14: gameplay map "not really working" (Jenny, after UAT 52)
+- Good components, but very few feel good. Unsure whether to refine screens (Kitchen pot etc.) or fix the flow; she's not enjoying the flow.
+- On the Tuxedo board: "I have no idea what I'm supposed to be doing. I can't really tell what's going on."
+- The Kitchen: you're prompted there, or end up there, before you know what you need it for.
+- "There need to be clear goals, and then the player, as they play, will start to figure out how to achieve those goals."
+- "It all needs to be pretty intuitive, but it can't be super easy... so easy it's boring."
+- "It can't be like coloring in a coloring book. It needs to challenge someone's puzzle solving skills."
+- First screen should say "Level 1"; Tuxedo is the default board; opening other boards is an achievement.
+- Questions attracting so few cats to open boards: attracting cats should be its own goal with far more cats; maybe not only cats.
+- Asks: is wallpaper the only real prize? Any player fear about being prompted to download a wallpaper?
+- Jenny (Nov 14): old pieces (Quake etc.) still show a pinstriped box and centre on screen when collected. Remove all their special collection effects; same path as the new pieces, from where they fell. Gameplay effects (Quake shake) stay.
+- Jenny (Nov 14): boards are numbered in sequence (Board 1, 2, 3...). Each board has a goal (e.g. collect all 6 prizes); replay until you pass it, then the next board opens.
+- Jenny (Nov 14): Dance break: the cat's dance moves land on the same beat you tap, a visual cue even with sound off.
+- Jenny (Nov 14): the new default pickup is great when lots of prizes drop at once: super active, lots of sounds and visuals, very satisfying. Keep that multi-drop behaviour.
+- Jenny (Nov 14), Pixel Flow inspiration: intro screen -> a main screen with many entries but one main PLAY, the level number and its difficulty shown right there ("extra hard"). Seeing "extra hard" after days stuck explains it; she always gets past eventually by learning the board. Might be better than entering straight onto the coin board (reverses section 12?).
+- Worry: coin pushing is imprecise, so skill-based hard levels may not work and we may need Family Island-style controlled flow, which she'd love to avoid. Asked PM's view.
+- DECIDED direction (Jenny, Nov 14): precision side games earn the powers that help win the board (Quake, Paw grab/save, claw later), making up for the imprecise push. She uses Quake a lot to clear a board but only has it when she wins one.
+- DECIDED (Jenny, Nov 14): Quake uses the same Pop as everything else but flies to the Quake button with its chime.
+- Jenny (Nov 14): loves the title intro; title screen stays open until the player taps to play (no auto-advance). Coin rain there: larger, slower, more prominent.

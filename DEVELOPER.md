@@ -199,3 +199,45 @@ UAT 34: module34.js. Sounds: sfx.pickup('bell'|'thump', vol, delay) from pickup-
 ## Developer off = production view (Jenny, Nov 14, 2026)
 With Developer off, a UAT build must show exactly what a production player would see: no MODES button, debug or performance readouts, test chips or dials. All of it stays reachable with Developer on. Check every screen with Developer off before publishing.
 The UAT app starts with Developer ON by default (her saved choice wins once she changes it). Production never has it on.
+
+## Pickup (frozen, Jenny, Nov 14, 2026)
+The prize and coin pickup that came with the new version (the "Pop", UAT 42 onward; the default in UAT 52) is approved and frozen (AGENTS.md). Do not change its look, sizes, timing, sounds or line without an explicit ticket. Code: `queueTreatAward` (the `f.pop` branch), `popSpot`, `popPoint`, `drawPopShadow`, `ledgeBell`, `pickupLandSound`, `tickTreatAwards` in the game source. From UAT 53 every piece uses it (`f.pop=true` always). `work/cp53/checks53.cjs` sections 1–2 trace it frame for frame against UAT 52; run them after any change near it.
+
+**Which pieces:** all prizes (cheese, shrimp, tuna, yarn, duck, mouse, bell, bowtie, notes, cushion, biscuit, milk, egg, feather, sardine, the star prize), rain coins 5/10/25, the music-note, fish, laser and heart coins, and (from UAT 53) the Quake coin. No pickup animation, by design: cat coins (board-open moment), recipe coins ("RECIPE: …!" banner), the gold 5-coin ("+5", ka-ching) and plain coins.
+
+**One piece, step by step** (screen 400 px wide):
+1. **Ledge bell** the moment it goes over the front edge (`ledgeBell`).
+2. **Rise, 0.2 s** (`POP_RISE`): from where it went over to a spot near it (`popSpot`): up to 28 px sideways, 150–240 px up, tilted 4–15° either way at random, kept 10 px inside the screen and below y 96. It grows from its board size with a slight overshoot; a soft shadow sits under it (no panel or box).
+3. **Hold, 0.25 s** (`popHold`), still.
+4. **Leave, 0.45 s** (`popShrink`): it swoops to its target, spinning flat once (Spin dial, direction by its tilt), shrinking to half its board size (`endScale` .5).
+   - The target is the bag (`pickupTarget`); on the cat boards that is off screen (top-left), so it flies off the screen.
+   - The Quake coin's target is the Quake button, and it shrinks to a 26 px coin there.
+5. **Arrival:**
+   - a prize or coin: the landing thump (`pickupLandSound`, at least 0.12 s apart) and the bag tile's bounce (0.15 s);
+   - the Quake coin: its chime (`sfx.special`), the Quake button bounces and its count goes up.
+6. Total about 0.9 s, plus any wait in line. No glints by default (Burst and Sparkles dials are 0).
+
+**Sizes:** every piece aims for the same peak: visible width = `popPeak` (.3) × 400 = 120 px. Visible width is computed with a fixed "solid share" per art (`PRIZE_OPAQUE`: cheese .87, shrimp .826, tuna .928; the code-drawn prizes .86; coins .87), so what the eye sees varies with each picture's shape. Measured at the peak:
+
+| Piece | Visible width at the peak |
+|---|---|
+| bell, milk, egg | 86 px |
+| duck, notes | 96–98 px |
+| feather, biscuit | 101–110 px |
+| yarn, sardine, shrimp, cushion, tuna | 116–120 px |
+| cheese, bowtie | 122–123 px |
+| mouse | 128 px |
+| every coin (rain, note, fish, laser, heart, Quake) | 120 px |
+
+Nothing else changes the size: not the queue, not randomness, not the board. Only the spot and the tilt are random, from the pickup's own random stream (`popRand`), so the board's physics draws the same numbers with or without pickups.
+
+**Many at once (the busy, noisy feel Jenny approved):**
+- **Bells:** each piece rings as it goes over, spaced 0.1 s apart. The 1st is full volume, the 2nd .7, the 3rd .5; a 4th or later in the same burst is skipped.
+- **The line:** pickups take turns. A new one waits, bobbing on the ledge at board size, until every one ahead has left its peak, then rises.
+  - The next starts rising as the one ahead starts leaving, so up to 3 are in the air at once (one rising, one or two leaving), at spots kept apart (`popSpot` tries up to 8 spots and keeps the farthest from the others).
+  - From the 3rd in line on, the hold is halved (0.125 s), so a pop starts every 0.33 s after the first two (0.45 s each).
+  - Measured, 7 prizes at once: starts at 0, 0.45, 0.9, 1.225, 1.55, 1.875 and 2.2 s; 3 bells; 7 thumps.
+- **Thumps** follow as each one lands, at least 0.12 s apart.
+- **On the Wild boards** each prize also shows its board text ("2 / 5", "REPEAT +5 COINS", "COLLECTION!"); a rain coin starts its rain once its pickup is 60% through the hold.
+
+**Removed in UAT 53 (do not bring back):** the older UAT 34 pickup style (rise to the middle of the screen, 70% size, grey pinstriped panel, 0.7 s hold), which only the Quake coin still used, and its Developer switch.

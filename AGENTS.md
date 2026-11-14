@@ -24,6 +24,7 @@ The game is called **CatCoin** from Oct 20, 2026; the folder, app IDs, file name
 - Layout changes (camera, table shape and size, cat and paw positions, coin size and count) are made in the real game and shown as real-game screenshots. Never use generated images for layout work.
 - Image generation is only for painting new art over a locked layout, one piece at a time (table, cat body, or paws; never several at once), on the same canvas so layers line up.
 - Approved art is frozen: the cat's faces and poses (Waiting, Rest, Sweet, Sharp Grin, Happy, Dancing pose, tickle), the big front mitts, the coins and Quake coin (as approved in CP-21), the treats (cheese, shrimp, tuna) and the pusher. Do not redraw, regenerate, resize or restyle them; build around them. Only Jenny reopens an approved asset, and then only that asset.
+- Approved behavior is frozen too (Jenny, Nov 14, 2026): the prize and coin pickup that came with the new version (UAT 52 default; full description in DEVELOPER.md "Pickup (frozen)"), especially the busy, noisy feel when many prizes drop at once. Do not change its look, sizes, timing, sounds or multi-drop behavior unless the ticket explicitly says so. If a ticket or request would change it as a side effect, stop and ask the PM first. The PM checks every request from Jenny against it and warns her before relaying anything that would alter it.
 - No full redraws to fix a detail. Change only the piece in question.
 - The locked layout's numbers and template screenshot live in SPEC.md (from CP-21). Read them before any visual ticket.
 

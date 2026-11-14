@@ -1,0 +1,427 @@
+{
+ "passed": [
+  {
+   "name": "the default pickup (Pop) is unchanged: every prize and coin that used it traces frame for frame the same as UAT 52",
+   "info": [
+    [
+     "cheese",
+     true
+    ],
+    [
+     "shrimp",
+     true
+    ],
+    [
+     "tuna",
+     true
+    ],
+    [
+     "duck",
+     true
+    ],
+    [
+     "bowtie",
+     true
+    ],
+    [
+     "milk",
+     true
+    ],
+    [
+     "rain5",
+     true
+    ],
+    [
+     "rain25",
+     true
+    ],
+    [
+     "note",
+     true
+    ],
+    [
+     "fish",
+     true
+    ],
+    [
+     "laser",
+     true
+    ],
+    [
+     "heart",
+     true
+    ]
+   ]
+  },
+  {
+   "name": "UAT 52 for comparison: the Quake coin went to the middle of the screen at 70% (280 px) on its own path",
+   "info": {
+    "pop": false,
+    "w": 280,
+    "peak": {
+     "x": 189.60224336114797,
+     "y": 451.0303424237731
+    }
+   }
+  },
+  {
+   "name": "the Quake coin now pops from where it fell, to the same size (120 px, 30%), with the same timings as the prizes",
+   "info": {
+    "w": 120,
+    "start": [
+     133.5071,
+     770.6891
+    ],
+    "x0": 133.50711107233224,
+    "peak": {
+     "x": 117.6804077902591,
+     "y": 570.2588110123218
+    },
+    "t": [
+     0.2,
+     0.25,
+     0.45
+    ],
+    "prize": [
+     0.2,
+     0.25,
+     0.45
+    ]
+   }
+  },
+  {
+   "name": "it still ends at the Quake button (the count goes up there)",
+   "info": {
+    "end": [
+     231,
+     75
+    ],
+    "button": {
+     "x": 231,
+     "y": 75
+    }
+   }
+  },
+  {
+   "name": "build label",
+   "info": "2026.11.14 UAT 53"
+  },
+  {
+   "name": "no pinstriped box; sounds: the ledge bell like every piece, then its own chime at the button (no thump)",
+   "info": {
+    "pb": 0,
+    "snd": [
+     "bell",
+     "special"
+    ]
+   }
+  },
+  {
+   "name": "an old saved setting (the UAT 34 box style) can no longer bring the box back",
+   "info": {
+    "pb": 0,
+    "pops": [
+     true,
+     true
+    ]
+   }
+  },
+  {
+   "name": "pieces: no errors with sound on",
+   "info": []
+  },
+  "Developer: no pickup style switch; only the Pop's own dials remain",
+  {
+   "name": "7 prizes at once behave exactly as in UAT 52: same line (start times, holds), same bells and thumps, same overlap",
+   "info": {
+    "rise": [
+     [
+      "cheese",
+      0,
+      0.25
+     ],
+     [
+      "tuna",
+      0.45,
+      0.25
+     ],
+     [
+      "sardine",
+      0.9,
+      0.125
+     ],
+     [
+      "shrimp",
+      1.225,
+      0.125
+     ],
+     [
+      "bowtie",
+      1.55,
+      0.125
+     ],
+     [
+      "duck",
+      1.875,
+      0.125
+     ],
+     [
+      "milk",
+      2.2,
+      0.125
+     ]
+    ],
+    "air": 3,
+    "sounds": 10
+   }
+  },
+  {
+   "name": "with a Quake coin in the pile it takes a normal turn (same start and hold as a prize there), so the line keeps moving",
+   "info": {
+    "withQuake": [
+     [
+      "cheese",
+      0,
+      0.25
+     ],
+     [
+      "tuna",
+      0.45,
+      0.25
+     ],
+     [
+      "quake",
+      0.9,
+      0.125
+     ],
+     [
+      "shrimp",
+      1.225,
+      0.125
+     ],
+     [
+      "bowtie",
+      1.55,
+      0.125
+     ],
+     [
+      "duck",
+      1.875,
+      0.125
+     ],
+     [
+      "milk",
+      2.2,
+      0.125
+     ]
+    ],
+    "uat52WithQuake": [
+     [
+      "cheese",
+      0,
+      0.25
+     ],
+     [
+      "tuna",
+      0.45,
+      0.25
+     ],
+     [
+      "quake",
+      0.9,
+      0.35
+     ],
+     [
+      "shrimp",
+      1.425,
+      0.125
+     ],
+     [
+      "bowtie",
+      1.75,
+      0.125
+     ],
+     [
+      "duck",
+      2.075,
+      0.125
+     ],
+     [
+      "milk",
+      2.4,
+      0.125
+     ]
+    ]
+   }
+  },
+  {
+   "name": "in the pile: 3 bells at once (each quieter), the rest silent; thumps follow; two pieces in the air at once",
+   "info": {
+    "bells": [
+     [
+      "bell",
+      5,
+      0,
+      1
+     ],
+     [
+      "bell",
+      5,
+      0.1,
+      0.7
+     ],
+     [
+      "bell",
+      5,
+      0.2,
+      0.5
+     ]
+    ],
+    "thumps": 7,
+    "air": 3
+   }
+  },
+  {
+   "name": "real rounds on all five cat boards: every prize and coin collected (the Quake coin included) uses the Pop",
+   "info": {
+    "tuxedo": "rain10,egg,feather,notes,bowtie,sardine,quake,rain5,note,bowtie,rain5",
+    "orange": "rain10,yarn,sardine,milk,biscuit,egg,rain5,rain10,quake,rain10,rain5",
+    "ragdoll": "rain10,cushion,feather,biscuit,cheese,quake,sardine,milk",
+    "siamese": "rain10,milk,biscuit,feather,rain5,quake,shrimp,rain5,laser,feather,egg,egg,laser",
+    "tortie": "rain10,egg,milk,mouse,rain5,quake"
+   }
+  },
+  "no pinstriped box in any round",
+  {
+   "name": "rounds: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "the old boards (Developer) too: every pickup there uses the Pop",
+   "info": [
+    [
+     "shrimp",
+     1
+    ],
+    [
+     "cheese",
+     1
+    ],
+    [
+     "shrimp",
+     1
+    ],
+    [
+     "cheese",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "Developer off: no \"Wild\" drawn anywhere a player looks",
+   "info": {}
+  },
+  {
+   "name": "the Tuxedo's board is TUXEDO (goal card title, board readout) and Tuxedo in the picker; the others keep their mode names",
+   "info": {
+    "titles": {
+     "tuxedo": "TUXEDO",
+     "orange": "TREAT TOSS",
+     "ragdoll": "COZY",
+     "siamese": "LASER CHASE",
+     "tortie": "TOWER WALL"
+    },
+    "pk": "Tuxedo"
+   }
+  },
+  {
+   "name": "the title fits on the goal card",
+   "info": {
+    "tw": 108.18000030517578,
+    "cw": 380
+   }
+  },
+  {
+   "name": "names: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "Dance break: every move lands on each beat of the tap clock (within one 60 fps frame, 17 ms), with sound on or off",
+   "info": {
+    "move 0 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 1 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 2 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 3 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 0 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 1 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 2 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 3 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ]
+   }
+  }
+ ],
+ "failed": []
+}

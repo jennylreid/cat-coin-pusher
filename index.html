@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.14 UAT 52';
+const BUILD = '2026.11.14 UAT 53';
 
 
 
@@ -35028,7 +35028,7 @@ function openCredits(){
 
 
 
-  +(S.dev?'<div class="set" id="pfx"><h3><span>Prize feedback</span><span>tuning</span></h3><button id="pfx-preview" class="wide">Preview pickup (no reward)</button><button id="pfx-quake" class="wide">Preview Quake pickup (no reward)</button><button id="pfx-lost" class="wide">Preview lost prize</button><button id="pfx-style" class="wide">'+pickupFxText('popStyle')+' (tap to switch)</button>'+PICKUP_FX_ORDER.filter(k=>k!=='popStyle').map(k=>'<div style="display:flex;align-items:center;gap:8px;margin:6px 0"><button data-pfx="'+k+'" data-dir="-1" style="min-width:52px;min-height:44px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;font-size:22px">−</button><span style="flex:1;text-align:center">'+pickupFxText(k)+'</span><button data-pfx="'+k+'" data-dir="1" style="min-width:52px;min-height:44px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;font-size:22px">+</button></div>').join('')+'<button id="pfx-reset" class="wide">Reset tuning to defaults</button></div>':'')+(S.dev?wildDevHtml():'')
+  +(S.dev?'<div class="set" id="pfx"><h3><span>Prize feedback</span><span>tuning</span></h3><button id="pfx-preview" class="wide">Preview pickup (no reward)</button><button id="pfx-quake" class="wide">Preview Quake pickup (no reward)</button><button id="pfx-lost" class="wide">Preview lost prize</button>'+PICKUP_FX_ORDER.filter(k=>!['popStyle','rise','size','quakeSize','held','turn','offCentre','fade','stripes','panelPad','toBag','quakeFlight'].includes(k)).map(k=>'<div style="display:flex;align-items:center;gap:8px;margin:6px 0"><button data-pfx="'+k+'" data-dir="-1" style="min-width:52px;min-height:44px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;font-size:22px">−</button><span style="flex:1;text-align:center">'+pickupFxText(k)+'</span><button data-pfx="'+k+'" data-dir="1" style="min-width:52px;min-height:44px;background:#3a2d52;color:#f4ecff;border:1px solid #6b5a8a;border-radius:10px;font-size:22px">+</button></div>').join('')+'<button id="pfx-reset" class="wide">Reset tuning to defaults</button></div>':'')+(S.dev?wildDevHtml():'')
   +'<button id="devmode" class="devswitch">Developer mode: '+(S.dev?'on':'off')+'</button>'
 
 
@@ -35113,7 +35113,7 @@ function openCredits(){
 
 
 
- const pfx=panel.querySelector('#pfx');if(pfx){pfx.querySelector('#pfx-preview').onclick=previewPickup;pfx.querySelector('#pfx-lost').onclick=previewLostPrize;pfx.querySelector('#pfx-quake').onclick=previewQuakePickup;pfx.querySelector('#pfx-style').onclick=()=>{pickupFx.popStyle=pickupFx.popStyle?0:1;savePickupFx();diagEvent('pickup-tuning','popStyle='+pickupFx.popStyle);const top=panel.scrollTop;openCredits();panel.scrollTop=top;};pfx.querySelector('#pfx-reset').onclick=()=>{resetPickupFx();diagEvent('pickup-tuning','reset');openCredits();};for(const btn of pfx.querySelectorAll('[data-pfx]'))btn.onclick=()=>{stepPickupFx(btn.dataset.pfx,+btn.dataset.dir);diagEvent('pickup-tuning',btn.dataset.pfx+'='+pickupFx[btn.dataset.pfx]);const top=panel.scrollTop;openCredits();panel.scrollTop=top;};}wildDevBind(panel);
+ const pfx=panel.querySelector('#pfx');if(pfx){pfx.querySelector('#pfx-preview').onclick=previewPickup;pfx.querySelector('#pfx-lost').onclick=previewLostPrize;pfx.querySelector('#pfx-quake').onclick=previewQuakePickup;(pfx.querySelector('#pfx-style')||{}).onclick=()=>{pickupFx.popStyle=pickupFx.popStyle?0:1;savePickupFx();diagEvent('pickup-tuning','popStyle='+pickupFx.popStyle);const top=panel.scrollTop;openCredits();panel.scrollTop=top;};pfx.querySelector('#pfx-reset').onclick=()=>{resetPickupFx();diagEvent('pickup-tuning','reset');openCredits();};for(const btn of pfx.querySelectorAll('[data-pfx]'))btn.onclick=()=>{stepPickupFx(btn.dataset.pfx,+btn.dataset.dir);diagEvent('pickup-tuning',btn.dataset.pfx+'='+pickupFx[btn.dataset.pfx]);const top=panel.scrollTop;openCredits();panel.scrollTop=top;};}wildDevBind(panel);
  panel.querySelector('#diag-send-file').onclick=diagSendFile;
  panel.querySelector('#diag-link-file').onclick=()=>{diagFlush('link-file');if(diagnosticFileBridge())Android.connectDiagnosticFile();};
  panel.querySelector('#diag-share-file').onclick=diagShareFile;
@@ -36783,13 +36783,13 @@ function queueTreatAward(id,x,body,preview=false,kind='item'){
  // The panel: upright, around the visible art plus padding, clamped inside the screen with PANEL_MARGIN all round.
  {const hw=Math.min(ph[0],SCREEN_W/2-PANEL_MARGIN),hh=Math.min(ph[1],H/2-PANEL_MARGIN);f.pw=2*hw;f.phh=2*hh;f.px=Math.max(PANEL_MARGIN+hw,Math.min(SCREEN_W-PANEL_MARGIN-hw,f.mx));f.py=Math.max(PANEL_MARGIN+hh,Math.min(H-PANEL_MARGIN-hh,f.my));}
  f.spinIn=quake?0:pickupFx.spin;
- if(!quake)ledgeBell(); // the collection moment: the prize has just dropped over the ledge
+ ledgeBell(); // the collection moment: the prize has just dropped over the ledge
  if(quake){const tg=quakeTarget();f.es=Math.min(1,26/(2*radius('quake')*sc.s))*sc.s;f.turns=2;f.cx=f.mx+(f.mx<200?-1:1)*70;f.cy=(f.my+tg.y)/2;}
  else{const tg=pickupTarget();f.es=sc.s*pickupFx.endScale;f.turns=pickupFx.spin;f.cx=(f.mx+tg.x)/2;f.cy=f.my+20;}
- f.pop=!quake&&pickupFx.popStyle>0;
+ f.pop=true;
  if(f.pop){ // UAT 36 Pop: straight to the middle, visible art fills Pop peak size of the screen width, no turn or offset
   f.tr=POP_RISE;f.tm=pickupFx.popHold*k;f.td=pickupFx.popShrink;f.spinIn=0;f.ms=pickupFx.popPeak*SCREEN_W/prizeWidth(id,1);popSpot(f,id);
-  const tg=pickupTarget();f.cx=(f.mx+tg.x)/2;f.cy=f.my+40;f.turns=pickupFx.spin*(f.rot<0?-1:1);}
+  const tg=quake?quakeTarget():pickupTarget();f.cx=(f.mx+tg.x)/2;f.cy=f.my+40;f.turns=pickupFx.spin*(f.rot<0?-1:1);}
  treatAwards.push(f);return f;
 }
 function quadPoint(x0,y0,cx,cy,x2,y2,u,out){const w=1-u;out.x=w*w*x0+2*w*u*cx+u*u*x2;out.y=w*w*y0+2*w*u*cy+u*u*y2;return out;}
@@ -36814,7 +36814,7 @@ const POP_RISE=.2;
 function popPoint(f,t,P){
  if(t<f.tr){const u=Math.min(1,t/f.tr),e=easeOut(u);quadPoint(f.x0,f.y0,f.x0,f.my,f.mx,f.my,e,P);P.s=f.s0+(f.ms-f.s0)*easeOutSoft(u);P.rot=f.rot*e;return P;}
  const lv=f.tr+f.tm+f.ts;if(t<lv){P.x=f.mx;P.y=f.my;P.s=f.ms;P.rot=f.rot;return P;}
- const u=Math.min(1,(t-lv)/f.td),tg=pickupTarget(),e=easeIn(u)*.4+pickupEase(u)*.6;quadPoint(f.mx,f.my,f.cx,f.cy,tg.x,tg.y,e,P);
+ const u=Math.min(1,(t-lv)/f.td),tg=f.kind==='quake'?quakeTarget():pickupTarget(),e=easeIn(u)*.4+pickupEase(u)*.6;quadPoint(f.mx,f.my,f.cx,f.cy,tg.x,tg.y,e,P);
  P.s=f.ms+(f.es-f.ms)*(1-Math.pow(1-u,3));P.rot=f.rot*(1-e)+2*Math.PI*f.turns*e;return P;
 }
 // UAT 42: where a Pop peaks. Near where it went over the ledge: x within POP_JITTER of it, POP_UP units up the screen, a tilt
@@ -39634,7 +39634,7 @@ const __twDevBind=wildDevBind;wildDevBind=function(panel){__twDevBind(panel);con
 const PG_KEY='catpusher.uat.progress.v1',PG_DEV_KEY='catpusher.uat.progressdev.v1',PG_DEVON_KEY='catpusher.uat.devdefault.v1';
 const PG_CATS=['tuxedo','orange','ragdoll','siamese','tortie'];
 const PG_CAT={
- tuxedo:{name:'Tuxedo',mode:null,board:'Wild 2',own:['bowtie','notes'],fur:'#16161c',light:'#ffffff',tag:'#3a3a4a',eye:'#ffd21a'},
+ tuxedo:{name:'Tuxedo',mode:null,board:'Tuxedo',own:['bowtie','notes'],fur:'#16161c',light:'#ffffff',tag:'#3a3a4a',eye:'#ffd21a'},
  orange:{name:'Orange',mode:'treats',board:'Treat toss',own:['tuna','yarn'],fur:'#ee8a2c',light:'#fff1dc',tag:'#d8701a',eye:'#7ad65a'},
  ragdoll:{name:'Ragdoll',mode:'cozy',board:'Cozy',own:['cheese','cushion'],fur:'#8f7d6e',light:'#fbf6ee',tag:'#8a6aa8',eye:'#6aaeff'},
  siamese:{name:'Siamese',mode:'laser',board:'Laser chase',own:['shrimp','bell'],fur:'#4e3626',light:'#f3e6cf',tag:'#3f6fc9',eye:'#4f9bff'},
@@ -40394,7 +40394,7 @@ function pgDevHtml(){const b='min-width:52px;min-height:44px;background:#3a2d52;
  return '<div class="set" id="pg-dev"><h3><span>Gameplay map (CP-45)</span><span>level '+(PG?PG.level:1)+'</span></h3>'
  +row('window','Visit window',PG_DEV.window?PG_DEV.window+' s':'real (20 min–2 h)')+row('xp','XP speed',PG_DEV.xp+'×')+row('cap','Item cap',PG_DEV.cap)
  +'<button id="pg-coins" class="wide">Give all cat coins (open every board)</button><button id="pg-cc" class="wide">Drop a cat coin in the next round</button><button id="pg-visit" class="wide">Cat visits now</button><button id="pg-give" class="wide">Give 3 of every prize + 300 coins</button><button id="pg-reset" class="wide">Reset progression</button>'
- +'<h3 style="margin-top:10px"><span>MODES</span><span>test any board</span></h3>'+mb('wild2','Wild 2 (Tuxedo)')+WILD_MODE_ORDER.map(id=>mb(id,WILD_MODES[id].name)).join('')+mb('home-off','Old boards 1–3 (leave the cat boards)')+'</div>';}
+ +'<h3 style="margin-top:10px"><span>MODES</span><span>test any board</span></h3>'+mb('wild2','Tuxedo')+WILD_MODE_ORDER.map(id=>mb(id,WILD_MODES[id].name)).join('')+mb('home-off','Old boards 1–3 (leave the cat boards)')+'</div>';}
 const __pgDevHtml=wildDevHtml;wildDevHtml=function(){return pgDevHtml()+__pgDevHtml();};
 const __pgDevBind=wildDevBind;
 wildDevBind=function(panel){__pgDevBind(panel);const box=panel.querySelector&&panel.querySelector('#pg-dev');if(!box)return;const re=()=>{const top=panel.scrollTop;openCredits();panel.scrollTop=top;};
@@ -40418,6 +40418,19 @@ const __pgPhotoR=pgPhoto;pgPhoto=function(i){const n=PG.porch[i]&&PG.porch[i].st
 const __pgPorchTickR=pgPorchTick;pgPorchTick=function(){const v=PG?PG.porch.filter(s=>s&&s.state==='visit').length:0;const r=__pgPorchTickR();if(PG&&PGU.screen==='porch'&&PG.porch.filter(s=>s&&s.state==='visit').length>v){pgScreenReact('perk');pgSfx('meow',.7);}return r;};
 const __pgStampsR=pgCheckStamps;pgCheckStamps=function(){const n=PG?PG.catnip:0;const r=__pgStampsR();if(PG&&PG.catnip>n){pgScreenReact('purr');pgSfx('purr',.9);}return r;};
 const __pgShopTapR=pgShopTap;pgShopTap=function(r){const c=PG.coins;const out=__pgShopTapR(r);if(PG.coins>c)pgScreenReact('nod');return out;};
+
+const __pgModeName=wildModeName;wildModeName=function(){return PG&&!PG_HOME_OFF&&!wildMode()?'TUXEDO':__pgModeName();};
+
+function danceBeatX(){const D=WILD.on&&WILD.dance;if(!D||!pawDance||!pawDance.dbreak||D.phase==='finale')return null;const x=(danceNow()-D.p0)/D.beat;return x>=0&&x<D.n?x:null;}
+function danceBeatShape(x){const D=WILD.dance,k=Math.floor(x),ph=x-k;return {k,s:k%2?-1:1,lift:Math.sin(Math.PI*ph),e:Math.max(0,Math.min(1,(D.n-x)/.5,(x+.25)/.25))};}
+const __dbMotion=pawMotion;
+pawMotion=function(side=0){const x=danceBeatX();if(x==null)return __dbMotion(side);const m=WILD.dance.move,{k,s,lift,e}=danceBeatShape(x);
+ if(m===0)return {x:0,y:0,r:0};
+ if(m===1){if(!side)return {x:12*e*s*lift,y:-15*e*lift,r:.075*e*s*lift};const mine=(side>0)===(k%2===0);return {x:-side*12*e,y:-(mine?58:10)*e*lift,r:(mine?.38:.1)*e*side*lift};}
+ if(m===2)return side?{x:22*e*s*lift,y:-24*e*lift*(side>0===(k%2===0)?1.6:.6),r:.32*e*s*lift}:{x:24*e*s*lift,y:-19*e*lift,r:.12*e*s*lift};
+ return side?{x:-side*20*e,y:-68*e*lift,r:side*.32*e*lift}:{x:10*e*s*lift,y:-30*e*lift,r:.07*e*s*lift};};
+const __dbGaze=pawGaze;
+pawGaze=function(){const x=danceBeatX();if(x==null||WILD.dance.move!==0)return __dbGaze();const {e}=danceBeatShape(x),c=Math.cos(Math.PI*x);return {x:1.7*e*c,y:-.3*e*Math.abs(c)};};
 
 Promise.all([RAPIER.init(), loadArt()])
 

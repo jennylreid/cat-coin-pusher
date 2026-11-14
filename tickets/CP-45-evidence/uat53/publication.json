@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261114220000,
+    "displayName":  "2026.11.14 UAT 53",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "5d7f0901cb6c57e682cac07e0de5e10598a3c1d3b95e8db00d96b846710f1472",
+    "stagedJSONSHA256":  "940443a09dc5c5a2ce194daf2a98604fff3f26d0c46dce183f875bd10c130dbb",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "3edf0df6d0acda6fc6923e85b89cb0394661370f56df493470e72760b0c7f532",
+    "jsonBytes":  51829894,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT53-20261114220000",
+    "authorization":  "UAT 53: the Quake coin collected on the frozen default pickup path like every other piece (no centring, 70 percent zoom or pinstriped box; the path itself unchanged), no Wild in player text (Tuxedo board named Tuxedo for now), Dance break cat on the tap beat; Jenny Nov 14 via PM; UAT only",
+    "localPublication":  "verified"
+}
