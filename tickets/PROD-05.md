@@ -39,7 +39,9 @@ read or written. **Parity:** the same scripted rounds on Levels 1, 4 and 6 end w
 UAT 64. Evidence: [checks](PROD-05-evidence/checks.json) (14/14 pass), [package](PROD-05-evidence/package-verification.json),
 [publication](PROD-05-evidence/publication.json), [cloud](PROD-05-evidence/cloud-verification.json).
 
-**GitHub:** COMMIT_RESULT
+**GitHub:** Baseline 1 committed to `main` and pushed: `a24e47e` "Baseline 1 (UAT 64): CP-24, CP-33–38, CP-40–48,
+PROD-05" (UAT 64 checkpoint tree + `work/prod05` + this report and evidence; root index.html = the production build).
+No reference images, keystores, APKs, WAV/MP3 or update JSONs. A follow-up commit adds this hash to the report.
 
 **Limits:** desktop checks don't prove phone receipt, sound or frame rate. The standalone `CatCoinPusher.apk` is still APK17
 with the Oct 31 game bundled; a fresh install from it then offers this game update. UAT untouched.
