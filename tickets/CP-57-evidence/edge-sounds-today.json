@@ -1,0 +1,314 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp71\\release.html",
+ "cases": {
+  "prize (cheese)": {
+   "kind": "item",
+   "id": "cheese",
+   "result": "ok",
+   "sounds": [
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "sfx.dance(notch,1,0,1)",
+    "sfx.pickup(thump,1)"
+   ]
+  },
+  "prize (Jingle bell / Cat bell)": {
+   "kind": "item",
+   "id": "bell",
+   "result": "ok",
+   "sounds": [
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "sfx.dance(notch,1,0,2)",
+    "sfx.pickup(thump,1)"
+   ]
+  },
+  "prize (yarn)": {
+   "kind": "item",
+   "id": "yarn",
+   "result": "ok",
+   "sounds": [
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "sfx.dance(notch,1,0,3)",
+    "sfx.pickup(thump,1)"
+   ]
+  },
+  "plain coin": {
+   "kind": "coin",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "C46.edge",
+    "sfx.wild(whistle,1)",
+    "sfx.wild(thud,1)"
+   ]
+  },
+  "plain rain coin (from a coin rain)": {
+   "kind": "coin",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "C46.edge"
+   ]
+  },
+  "gold 5 rain coin": {
+   "kind": "gold5",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "C46.goldPaid",
+    "sfx.kaching"
+   ]
+  },
+  "Coin rain 5": {
+   "kind": "rain5",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "sfx.wild(rain,1)",
+    "sfx.wild(drip,0.6)",
+    "sfx.bam",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.pickup(thump,1)",
+    "sfx.wild2(land,0.8)"
+   ]
+  },
+  "Coin rain 10": {
+   "kind": "rain10",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "sfx.clink(1)",
+    "sfx.wild(rain,1)",
+    "sfx.wild(drip,0.6)",
+    "sfx.bam",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.pickup(thump,1)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.clink(1)"
+   ]
+  },
+  "Coin rain 25": {
+   "kind": "rain25",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "sfx.wild(whistle,1)",
+    "sfx.clink(0.46)",
+    "sfx.wild(rain,1)",
+    "sfx.wild(drip,0.6)",
+    "sfx.bam",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.pickup(thump,1)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(thud,1)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)"
+   ]
+  },
+  "Quake coin": {
+   "kind": "quake",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "C46.edge",
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.clink(0.31)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.clink(1)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.wild(drip,0.6)",
+    "sfx.special",
+    "sfx.wild2(land,0.8)",
+    "recording pushCoins",
+    "sfx.clink(0.27)"
+   ]
+  },
+  "music note coin (Dance)": {
+   "kind": "note",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "sfx.dance(full,1)",
+    "sfx.bam",
+    "sfx.wild2(land,0.8)",
+    "sfx.clink(0.67)",
+    "sfx.wild2(land,0.8)",
+    "sfx.dance(full,1)",
+    "sfx.clink(0.32)",
+    "sfx.dance(count,1,0.15,1200)",
+    "sfx.dance(hat,0.8,0.43)",
+    "sfx.pickup(thump,1)",
+    "sfx.dance(count,1,0.13,1200)",
+    "sfx.dance(hat,0.8,0.41)"
+   ]
+  },
+  "fish coin": {
+   "kind": "fish",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "sfx.dance(count,1,0.13,1600)",
+    "sfx.dance(hat,0.8,0.41)",
+    "sfx.dance(kick,1,0.13)",
+    "sfx.dance(crash,0.8,0.13)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(bass,1,0.13,130.81)",
+    "recording pushCoins",
+    "sfx.pickup(thump,1)",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(snare,1,0.14)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(bass,1,0.14,196)"
+   ]
+  },
+  "laser coin": {
+   "kind": "laser",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(bass,1,0.14,130.81)",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(snare,1,0.14)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(bass,1,0.14,196)",
+    "sfx.pickup(thump,1)",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(bass,1,0.14,110)",
+    "sfx.dance(lead,1,0.14,440)",
+    "sfx.dance(lead,0.8,0.41,523.25)"
+   ]
+  },
+  "heart coin": {
+   "kind": "heart",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(snare,1,0.14)",
+    "sfx.dance(clap,0.7,0.14)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(bass,1,0.14,164.81)",
+    "sfx.dance(lead,1,0.14,523.25)",
+    "sfx.dance(lead,0.8,0.41,659.25)",
+    "sfx.pickup(thump,1)",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(bass,1,0.14,110)",
+    "sfx.dance(lead,1,0.14,659.25)",
+    "sfx.dance(lead,0.8,0.41,523.25)"
+   ]
+  },
+  "mouse coin (Pounce)": {
+   "kind": "mousecoin",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "ledgeBell",
+    "sfx.pickup(bell,0.5,0)",
+    "recording pushCoins",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(snare,1,0.14)",
+    "sfx.dance(clap,0.7,0.14)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(bass,1,0.14,164.81)",
+    "sfx.dance(lead,1,0.14,523.25)",
+    "sfx.toss(start,1)",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(hat,0.5,0.28)",
+    "sfx.dance(hat,0.5,0.55)",
+    "sfx.dance(bass,1,0.14,87.31)",
+    "sfx.dance(lead,1,0.14,349.23)",
+    "sfx.dance(lead,0.8,0.41,440)",
+    "sfx.pickup(thump,1)",
+    "sfx.growl",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(snare,1,0.14)",
+    "sfx.dance(clap,0.7,0.14)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(hat,0.5,0.28)",
+    "sfx.dance(hat,0.5,0.55)",
+    "sfx.dance(bass,1,0.14,130.81)",
+    "sfx.dance(lead,1,0.14,440)",
+    "sfx.dance(lead,0.8,0.41,523.25)"
+   ]
+  },
+  "recipe coin": {
+   "kind": "recipecoin",
+   "id": null,
+   "result": "ok",
+   "sounds": [
+    "sfx.bam",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(hat,0.5,0.28)",
+    "sfx.dance(hat,0.5,0.55)",
+    "sfx.dance(bass,1,0.14,87.31)",
+    "sfx.dance(lead,1,0.14,523.25)",
+    "sfx.dance(lead,0.8,0.41,440)",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(snare,1,0.14)",
+    "sfx.dance(clap,0.7,0.14)",
+    "sfx.dance(hat,1,0.41)",
+    "sfx.dance(hat,0.5,0.28)",
+    "sfx.dance(hat,0.5,0.55)",
+    "sfx.dance(bass,1,0.14,130.81)",
+    "sfx.dance(lead,1,0.14,440)",
+    "sfx.dance(kick,1,0.14)",
+    "sfx.dance(hat,1,0.42)",
+    "sfx.dance(hat,0.5,0.28)",
+    "sfx.dance(hat,0.5,0.55)",
+    "sfx.dance(bass,1,0.14,98)",
+    "sfx.dance(lead,1,0.14,392)",
+    "sfx.dance(lead,0.8,0.42,987.76)"
+   ]
+  }
+ }
+}

@@ -1,0 +1,67 @@
+{
+  "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp72\\release.html",
+  "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp71\\release.html",
+  "passed": true,
+  "passedN": 15,
+  "failed": [],
+  "coverage": {
+    "album-360x640": [
+      "bowtie",
+      "notes",
+      "yarn",
+      "cushion",
+      "bell",
+      "mouse",
+      "duck",
+      "biscuit",
+      "milk",
+      "egg",
+      "feather",
+      "sardine",
+      "ball",
+      "box",
+      "sock"
+    ],
+    "kitchen-360x640": [
+      "biscuit",
+      "notes",
+      "milk",
+      "yarn",
+      "egg",
+      "sardine",
+      "bell",
+      "bowtie",
+      "cushion"
+    ],
+    "errors-360x640": [],
+    "album-412x915": [
+      "bowtie",
+      "notes",
+      "yarn",
+      "cushion",
+      "bell",
+      "mouse",
+      "duck",
+      "biscuit",
+      "milk",
+      "egg",
+      "feather",
+      "sardine",
+      "ball",
+      "box",
+      "sock"
+    ],
+    "kitchen-412x915": [
+      "biscuit",
+      "notes",
+      "milk",
+      "yarn",
+      "egg",
+      "sardine",
+      "bell",
+      "bowtie",
+      "cushion"
+    ],
+    "errors-412x915": []
+  }
+}

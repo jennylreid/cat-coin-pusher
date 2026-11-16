@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 71';
+const BUILD = '2026.11.16 UAT 72';
 
 
 
@@ -21966,6 +21966,13 @@ async function loadArt() {
 
 
  async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
+ // CP-56: preload approved 128px prize canvases into the existing shared art cache.
+ WILD_ART['sock']=await image('img/art/cp56-sock.png');WILD_ART['sock'].pgl=1;
+ WILD_ART['biscuit']=await image('img/art/cp56-biscuit.png');WILD_ART['biscuit'].pgl=1;
+ WILD_ART['sardine']=await image('img/art/cp56-sardine.png');WILD_ART['sardine'].pgl=1;
+ WILD_ART['egg']=await image('img/art/cp56-egg.png');WILD_ART['egg'].pgl=1;
+ WILD_ART['box']=await image('img/art/cp56-box.png');WILD_ART['box'].pgl=1;
+
  // CP-52: preload approved 128px prize canvases into the existing shared art cache.
  WILD_ART['feather']=await image('img/art/cp52-feather.png');WILD_ART['feather'].pgl=1;
  WILD_ART['ball']=await image('img/art/cp52-ball.png');WILD_ART['ball'].pgl=1;
