@@ -1,0 +1,437 @@
+[
+  {
+    "id": "sock",
+    "option": "a",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 42,
+      "y": 12,
+      "w": 75,
+      "h": 100,
+      "transparent": 10450
+    },
+    "master": {
+      "x": 166,
+      "y": 23,
+      "w": 920,
+      "h": 1217,
+      "transparent": 900360
+    },
+    "output": {
+      "x": 42,
+      "y": 12,
+      "w": 75,
+      "h": 100,
+      "transparent": 11873
+    }
+  },
+  {
+    "id": "sock",
+    "option": "b",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 42,
+      "y": 12,
+      "w": 75,
+      "h": 100,
+      "transparent": 10450
+    },
+    "master": {
+      "x": 215,
+      "y": 60,
+      "w": 816,
+      "h": 1154,
+      "transparent": 989883
+    },
+    "output": {
+      "x": 42,
+      "y": 12,
+      "w": 75,
+      "h": 100,
+      "transparent": 11731
+    }
+  },
+  {
+    "id": "sock",
+    "option": "c",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 42,
+      "y": 12,
+      "w": 75,
+      "h": 100,
+      "transparent": 10450
+    },
+    "master": {
+      "x": 144,
+      "y": 43,
+      "w": 937,
+      "h": 1179,
+      "transparent": 921933
+    },
+    "output": {
+      "x": 42,
+      "y": 12,
+      "w": 75,
+      "h": 100,
+      "transparent": 11952
+    }
+  },
+  {
+    "id": "biscuit",
+    "option": "a",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 14,
+      "y": 32,
+      "w": 100,
+      "h": 64,
+      "transparent": 11433
+    },
+    "master": {
+      "x": 68,
+      "y": 343,
+      "w": 1114,
+      "h": 602,
+      "transparent": 1007585
+    },
+    "output": {
+      "x": 14,
+      "y": 32,
+      "w": 100,
+      "h": 64,
+      "transparent": 11256
+    }
+  },
+  {
+    "id": "biscuit",
+    "option": "b",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 14,
+      "y": 32,
+      "w": 100,
+      "h": 64,
+      "transparent": 11433
+    },
+    "master": {
+      "x": 70,
+      "y": 352,
+      "w": 1119,
+      "h": 568,
+      "transparent": 1085654
+    },
+    "output": {
+      "x": 14,
+      "y": 32,
+      "w": 100,
+      "h": 64,
+      "transparent": 11484
+    }
+  },
+  {
+    "id": "biscuit",
+    "option": "c",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 14,
+      "y": 32,
+      "w": 100,
+      "h": 64,
+      "transparent": 11433
+    },
+    "master": {
+      "x": 44,
+      "y": 310,
+      "w": 1163,
+      "h": 660,
+      "transparent": 1045901
+    },
+    "output": {
+      "x": 14,
+      "y": 32,
+      "w": 100,
+      "h": 64,
+      "transparent": 12006
+    }
+  },
+  {
+    "id": "sardine",
+    "option": "a",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 12,
+      "y": 38,
+      "w": 106,
+      "h": 52,
+      "transparent": 12069
+    },
+    "master": {
+      "x": 33,
+      "y": 476,
+      "w": 1191,
+      "h": 304,
+      "transparent": 1360193
+    },
+    "output": {
+      "x": 12,
+      "y": 38,
+      "w": 106,
+      "h": 52,
+      "transparent": 13133
+    }
+  },
+  {
+    "id": "sardine",
+    "option": "b",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 12,
+      "y": 38,
+      "w": 106,
+      "h": 52,
+      "transparent": 12069
+    },
+    "master": {
+      "x": 22,
+      "y": 489,
+      "w": 1205,
+      "h": 321,
+      "transparent": 1357385
+    },
+    "output": {
+      "x": 12,
+      "y": 38,
+      "w": 106,
+      "h": 52,
+      "transparent": 13287
+    }
+  },
+  {
+    "id": "sardine",
+    "option": "c",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 12,
+      "y": 38,
+      "w": 106,
+      "h": 52,
+      "transparent": 12069
+    },
+    "master": {
+      "x": 36,
+      "y": 510,
+      "w": 1182,
+      "h": 282,
+      "transparent": 1380555
+    },
+    "output": {
+      "x": 12,
+      "y": 38,
+      "w": 106,
+      "h": 52,
+      "transparent": 13188
+    }
+  },
+  {
+    "id": "egg",
+    "option": "a",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 28,
+      "y": 20,
+      "w": 72,
+      "h": 92,
+      "transparent": 10136
+    },
+    "master": {
+      "x": 191,
+      "y": 110,
+      "w": 848,
+      "h": 1096,
+      "transparent": 856906
+    },
+    "output": {
+      "x": 28,
+      "y": 20,
+      "w": 72,
+      "h": 92,
+      "transparent": 11277
+    }
+  },
+  {
+    "id": "egg",
+    "option": "b",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 28,
+      "y": 20,
+      "w": 72,
+      "h": 92,
+      "transparent": 10136
+    },
+    "master": {
+      "x": 204,
+      "y": 94,
+      "w": 823,
+      "h": 1108,
+      "transparent": 856421
+    },
+    "output": {
+      "x": 28,
+      "y": 20,
+      "w": 72,
+      "h": 92,
+      "transparent": 11273
+    }
+  },
+  {
+    "id": "egg",
+    "option": "c",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 28,
+      "y": 20,
+      "w": 72,
+      "h": 92,
+      "transparent": 10136
+    },
+    "master": {
+      "x": 207,
+      "y": 116,
+      "w": 810,
+      "h": 1062,
+      "transparent": 917178
+    },
+    "output": {
+      "x": 28,
+      "y": 20,
+      "w": 72,
+      "h": 92,
+      "transparent": 11332
+    }
+  },
+  {
+    "id": "box",
+    "option": "a",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 4,
+      "y": 24,
+      "w": 120,
+      "h": 90,
+      "transparent": 7817
+    },
+    "master": {
+      "x": 102,
+      "y": 204,
+      "w": 1050,
+      "h": 901,
+      "transparent": 896049
+    },
+    "output": {
+      "x": 4,
+      "y": 24,
+      "w": 120,
+      "h": 90,
+      "transparent": 8649
+    }
+  },
+  {
+    "id": "box",
+    "option": "b",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 4,
+      "y": 24,
+      "w": 120,
+      "h": 90,
+      "transparent": 7817
+    },
+    "master": {
+      "x": 106,
+      "y": 184,
+      "w": 1055,
+      "h": 923,
+      "transparent": 832420
+    },
+    "output": {
+      "x": 4,
+      "y": 24,
+      "w": 120,
+      "h": 90,
+      "transparent": 8885
+    }
+  },
+  {
+    "id": "box",
+    "option": "c",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 4,
+      "y": 24,
+      "w": 120,
+      "h": 90,
+      "transparent": 7817
+    },
+    "master": {
+      "x": 56,
+      "y": 141,
+      "w": 1140,
+      "h": 989,
+      "transparent": 811177
+    },
+    "output": {
+      "x": 4,
+      "y": 24,
+      "w": 120,
+      "h": 90,
+      "transparent": 9073
+    }
+  }
+]

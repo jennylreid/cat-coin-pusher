@@ -1,0 +1,80 @@
+{
+  "method": "Built-in image_gen, one prize/variant per call",
+  "files": [
+    {
+      "id": "sock-a",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One lavender knitted sock, upright cuff at top, heel on left and toe pointing right at bottom. Ribbed cream cuff, cream heel/toe, fine knitted loops, soft folds. Everyday cozy sock, not Christmas decoration. Tall L-shaped silhouette.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-192d8d07-f097-4558-981c-413489d0a2d3.png"
+    },
+    {
+      "id": "sock-b",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One dusty rose wool sock, upright folded ribbed cuff at top, heel left and toe right at bottom. Warm ivory cuff and toe, small cable-knit detail, softly rounded folds. Everyday sock, no holiday symbols. Tall L-shaped silhouette.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-21fb2a2f-4969-426b-a9b1-cf2275aecfde.png"
+    },
+    {
+      "id": "sock-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One teal-blue soft knitted sock, upright cuff top, heel left and toe right bottom. Muted honey ribbed cuff heel toe; subtle woven knit, plump fabric folds. Everyday sock, no holiday symbols. Tall L-shaped silhouette.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-ced7fdd0-8fb1-4e65-9fb6-47f59a9fda62.png"
+    },
+    {
+      "id": "biscuit-a",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One golden-orange fish-shaped baked cracker, head left, fan tail right, horizontal. Plump simple goldfish silhouette, tiny stamped round eye and curved smile, porous toasted surface, thick baked bevel edge. Clearly biscuit, no real scales or fins, no branding.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-2b0d02b6-cf58-49ad-a7a9-a5d9baed628d.png"
+    },
+    {
+      "id": "biscuit-b",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One honey-gold fish-shaped baked biscuit, head left, triangular fan tail right, horizontal. Rounded goldfish body, single stamped eye and small gill curve, subtle tiny docking holes, crisp toasted rim and airy crumb texture. Clearly cracker, no branding.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-6e5c9838-67a2-4868-8e93-bb72ce4a2642.png"
+    },
+    {
+      "id": "biscuit-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One deep cheddar orange fish-shaped cracker, head left, broad fan tail right, horizontal. Puffy curved body, tiny stamped eye and cheerful smile, delicate salt grains and toasted speckling, golden bevelled edge. Not real fish, no branding.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-bc6c1977-c740-42d6-84b1-346c7261348b.png"
+    },
+    {
+      "id": "sardine-a",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One slender whole sardine fish in horizontal side view, tail left, head right. Silvery pearl belly, slate blue back, small fins, forked tail, clear gill plate, glossy dark eye. Fine subtle scales and soft metallic highlights. Long narrow silhouette, not chunky tuna, no can.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-6374a5e5-44a1-4b05-8edd-89f427b84b84.png"
+    },
+    {
+      "id": "sardine-b",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One slender whole sardine fish horizontal side view tail left head right. Smoky indigo back fading to bright silver belly, delicate row of small dark side spots, fine scales, neat forked tail and compact fins, round glossy eye. Long narrow body, no can.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-51567cde-46bb-445d-a355-88b0c54a3334.png"
+    },
+    {
+      "id": "sardine-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One slender whole sardine fish horizontal side view tail left head right. Soft blue-green back, luminous pewter silver sides, warm ivory belly, gently curved long narrow body, finely ribbed little fins and forked tail, clear eye and gill. No can, not tuna.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-c19a8dc1-adad-4c80-b4f7-43d85ec72e0d.png"
+    },
+    {
+      "id": "egg-a",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One whole intact upright hen egg, narrower rounded top, broad bottom. Warm ivory shell, delicate smooth matte texture, cream shadows, broad soft pearly highlight upper left, clear warm brown outline. No face, no crack, no nest.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-bb708ecf-5aa2-4b7c-b132-6e8f4c85c2b6.png"
+    },
+    {
+      "id": "egg-b",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One whole intact upright hen egg, narrow rounded top broad bottom. Light caramel brown shell, delicate natural darker speckles, soft satin highlight, rich warm lower shading, clear dark brown outline. No face, no crack, no nest.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-c530cc87-ad34-4bc1-a0ec-266cb777cd8d.png"
+    },
+    {
+      "id": "egg-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One whole intact upright hen egg, narrow rounded top broad base. Pale creamy eggshell with fine sparse tan freckles, pearly soft upper-left light, gentle beige shadow lower right, tactile matte surface and warm dark outline. No face, no crack, no nest.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-2e1e1ca0-47d5-41a1-8108-e5b209d9e0ea.png"
+    },
+    {
+      "id": "box-a",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One small empty open cardboard box in three-quarter view. Honey kraft corrugated cardboard, four short open flaps, visible dark empty interior, rounded worn edges, fine corrugated cut edges and a short plain packing tape strip on front. Compact square footprint, no text or contents.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-76e162e5-f18a-4391-9f90-1faece920762.png"
+    },
+    {
+      "id": "box-b",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One small empty open cardboard box in three-quarter view. Warm russet kraft cardboard, four slightly uneven open flaps, rich dark interior, subtly folded corners and corrugated cut edges, short beige tape seam front. Compact square silhouette, no text or contents.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-0f8d226c-90f2-4bd9-b60a-1a90e064555b.png"
+    },
+    {
+      "id": "box-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Match approved cheese/shrimp/tuna and feather D, ball C, cushion C seen in conversation: polished full-colour painted casual game item, rich soft dimensional shading, restrained luminous highlights, clear dark coloured outline, tactile material. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. Entire subject visible with transparent margins on square canvas; readable at 32px. One small empty open cardboard box in three-quarter view. Light golden tan kraft cardboard, four broad open flaps, clear empty interior, slightly soft worn corners, corrugated edges, subtle paper grain and pale tape strip front. Compact square silhouette, no text or contents.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e65f-884d-7211-81ed-5ccfa01e4dc2\\exec-1a856e05-c7fb-4401-85da-5379c68b2b9e.png"
+    }
+  ]
+}
