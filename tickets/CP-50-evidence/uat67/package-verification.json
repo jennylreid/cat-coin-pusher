@@ -1,0 +1,20 @@
+{
+  "version": 20261116160000,
+  "displayName": "2026.11.16 UAT 67",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "10f9dd44aa8594c26a3ae176d34a40192977b0eefca731636c7fce802f35ac64",
+  "stagedJSONSHA256": "5cbb044bf12177d70afdf4313e53c6162c2c7d4f9e895a7c34952dc37b8a15b2",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "b110480e7464afb492dab7ad9672748f6831f7bda600b0095e56b72114d066b8",
+  "jsonBytes": 51979226,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.16 UAT 66",
+  "backup": "uat/backups/before-UAT67-20261116160000",
+  "evidence": "tickets/CP-50-evidence/uat67",
+  "authorization": "UAT 67: CP-50 Simple first board (Jenny, Nov 16, via PM; scope closed): Level 1 = shrimp and cheese, no bonus prizes; end-card prize line spacing; bigger full-colour goal icons (and Album/Kitchen); back buttons read Home; goal row above the cat; on 2026.11.16 UAT 66; UAT only"
+}

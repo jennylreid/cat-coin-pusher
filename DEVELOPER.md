@@ -273,6 +273,13 @@ Modules `work/cp47-levels/levels47.js` and `powers47.js`, inserted after the CP-
 - **Mouse pounce** (`WILD.pounce`, the Tortoiseshell's mode `pounce`) follows Treat toss's pattern: a mouse coin replaces one bonus drop, the timer holds, a win waits, taps go to the pounce.
 - **UAT 62:** levels can have tower blocks (`blocks`: stacks packed together, `btop`: a prize on one of them). They're stood back up on their spots after the settle (`pglStandBlocks`). "Test this build" (`pglTestPanel`) is added to Settings after `openCredits` builds it. `PG_AB` is forced to 'A'. The release is built by `make.py` (build.py, then CP-45's pupils patch, then CP-46's fix A).
 
+## Goal icons and the goal row (CP-50, UAT 67, Nov 16, 2026)
+Source `work/cp67/build.py` (text swaps) + `cp50.js` on pinned UAT 66.
+- `wildIcon(id, x, y, w, got)` now takes the circle's **centre and diameter** (`cp50Icon`): the prize at full colour on a cream circle, a green rim and a check top right when collected (no dimming); the star prize's star sits top left (`__w43Icon`). Every goal list goes through it: Home goal line (`cp50HomeRow`), end card (`cp50EndRow`, `CP50_END`), goal cards, the in-round row.
+- In a round on a level, the goal row is drawn by `cp50DrawRow` from a `drawMachine` wrapper: after the machine, **before the cat's head**, so the cat always stays on top. `cp50RowLayout()` fits it between `hudLayout().headerBottom` and the forehead (`VIEW.y + 57*VIEW.zy`, measured on four phone sizes; keep 6 px), and between the ears (x 103..297, wider for a shorter row). 7-8 prizes shrink to about 26/23 px. The bottom-left "Collection n / N" remains only for Developer modes without a level. Check with `work/cp67/headmask.cjs` (head pixel mask) / `checks67.cjs` 6 after any change to the head, HUD or VIEW.
+- Level 1 is the shrimp and cheese (`star: null`); `cp50Lv1()` turns bonus prize drops into a rain 5 (except a lost goal prize coming back) and switches off the cat's sky-drop prizes. The Dance wheel's "PRIZE YOU NEED" slice still works on Level 1.
+- Back buttons that go to the Home screen (`pgHeader` side screens, the round's top button) read "Home".
+
 ## Coin limit and freeze logging (CP-48, UAT 64, Nov 15, 2026)
 - Own-coin limit (Jenny's option A): `cp48Own()` counts the player's dropped coins (`b.input`) still on the board. At `CP48_OWN` = 45, `tryDrop` allows one drop per `CP48_SLOW` = 1 s and shows "Board full" (front float plus `wildMessage`). Grid, tower, rain and prize pieces don't count.
 - Rain budget: `w43Budget` is overridden to start at `CP48_RAIN` = 100 plain coins (rain, pours and sky coins past it land as one gold 5 in five). `W43_COIN_CAP` (merging resting coins) stays 130.
