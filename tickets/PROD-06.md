@@ -43,7 +43,9 @@ rewrites it on reopening. The Oct 31 save path still works as in PROD-05 (201 co
 **Parity:** the same scripted rounds on Levels 1, 4 and 6 end with identical boards in production and UAT 70.
 [checks](PROD-06-evidence/checks.json): 17/17 pass.
 
-**GitHub:** COMMIT_LINE
+**GitHub:** committed to `main` and pushed: `78842a4` "CP-49, CP-50, CP-51, CP-52, PROD-06: UAT 70 promoted to production"
+(UAT 70 checkpoint tree + `work/prod06` + this report and evidence; root index.html = the production build; CP-55's work in
+progress left out). No reference images, keystores, APKs, WAV/MP3 or update JSONs. The repo is back on `wip/uat`.
 
 **Limits:** desktop checks don't prove phone receipt, sound or frame rate. The standalone `CatCoinPusher.apk` is still APK17
 with the Oct 31 game bundled; a fresh install from it then offers this game update. UAT untouched.
