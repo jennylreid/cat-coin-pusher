@@ -1,0 +1,59 @@
+{
+  "base": "work/cp26/art/head-calm.png",
+  "baseSHA256Before": "6f170c8ca9bfe4cf72019ef58d1b22687ebe35bce9c14eb2383751543de7dd49",
+  "baseSHA256After": "6f170c8ca9bfe4cf72019ef58d1b22687ebe35bce9c14eb2383751543de7dd49",
+  "regions": {
+    "eyes": [
+      {
+        "x": 298,
+        "y": 388,
+        "w": 350,
+        "h": 260
+      },
+      {
+        "x": 888,
+        "y": 388,
+        "w": 350,
+        "h": 260
+      }
+    ],
+    "mouth": {
+      "x": 600,
+      "y": 745,
+      "w": 336,
+      "h": 170
+    }
+  },
+  "options": [
+    {
+      "option": "A",
+      "changedPixelsOutsideEyeAndMouthAreas": 0,
+      "eyeOverlayPixelsOutsideEyeAreas": 0,
+      "mouthOverlayPixelsOutsideMouthArea": 0,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "option": "B",
+      "changedPixelsOutsideEyeAndMouthAreas": 0,
+      "eyeOverlayPixelsOutsideEyeAreas": 0,
+      "mouthOverlayPixelsOutsideMouthArea": 0,
+      "canvas": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "option": "C",
+      "changedPixelsOutsideEyeAndMouthAreas": 0,
+      "eyeOverlayPixelsOutsideEyeAreas": 0,
+      "mouthOverlayPixelsOutsideMouthArea": 0,
+      "canvas": [
+        1536,
+        1024
+      ]
+    }
+  ]
+}

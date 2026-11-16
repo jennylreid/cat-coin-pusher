@@ -1,0 +1,20 @@
+{
+  "version": 20261116200000,
+  "displayName": "2026.11.16 UAT 70",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "37809a3955252daffd71a2b22e37bc4fd899ba5c7734831026fa261ead288464",
+  "stagedJSONSHA256": "0307ee8e7909a762c66d96a10c725fc7f121d22d719e2e3980ccc3b5a9104afd",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "8cf3e466bb221d5481ad958380d924e767f9687d549dab0cd09c19135757c91f",
+  "jsonBytes": 52055733,
+  "runtimeFiles": 40,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.16 UAT 69",
+  "backup": "uat/backups/before-UAT70-20261116200000",
+  "evidence": "tickets/CP-51-evidence/uat70",
+  "authorization": "UAT 70: CP-51 fix (Jenny UAT 69 feedback via PM): END ROUND label; Level 1 cheese/shrimp at production spots; UAT only on UAT 69"
+}

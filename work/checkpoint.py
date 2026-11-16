@@ -111,8 +111,9 @@ def main():
         plan[rel.as_posix()] = (ROOT / rel).read_bytes()
 
     plan = {k: v for k, v in plan.items() if not banned(k)}
-    ignored = set(subprocess.run(['git', '-C', str(REPO), 'check-ignore', '--stdin'], input='\n'.join(plan),
-                                 capture_output=True, text=True).stdout.split('\n')) - {''}
+    # -z: in text mode Windows wrote \r\n, so every path but the last carried a \r and no ignore ever matched (CP-51, Nov 16)
+    ignored = set(subprocess.run(['git', '-C', str(REPO), 'check-ignore', '--stdin', '-z'], input='\0'.join(plan),
+                                 capture_output=True, text=True).stdout.split('\0')) - {''}
     changed = {k: v for k, v in plan.items() if k not in ignored and
                (not (REPO / k).is_file() or (REPO / k).read_bytes() != v)}
     big = sorted(changed.items(), key=lambda kv: -len(kv[1]))

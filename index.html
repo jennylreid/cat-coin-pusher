@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 69';
+const BUILD = '2026.11.16 UAT 70';
 
 
 
@@ -40799,7 +40799,7 @@ function uiStar(g,x,y,r,c){g.save();g.fillStyle=c;g.beginPath();for(let i=0;i<10
 // towers: 'default' (Wild 2's two) or a list {x,y,n}; wall: a tower wall (heights); rain: [kind,x,y]; quake: [x,y] or null.
 const PGL_LEVELS=[
  {name:'First push',tag:'Normal',coins:110,secs:60,goal:['shrimp','cheese'],star:null, // CP-50 (Jenny, Nov 16): just the original shrimp and cheese
-  p:[['cheese',110,610],['shrimp',290,575]],towers:[],rain:[['rain10',200,705],['rain5',200,440]],quake:[140,545]},
+  p:[['cheese',140,610],['shrimp',260,690]],towers:[],rain:[['rain10',200,705],['rain5',200,440]],quake:[140,545]},
  {name:'Line up',tag:'Normal',coins:110,secs:60,goal:['feather','ball','egg','milk','box'],star:'egg',
   p:[['feather',80,560],['ball',140,560],['egg',200,560],['milk',260,560],['box',320,560]],towers:'default',rain:[['rain10',110,690],['rain5',200,440]],quake:[200,660]},
  {name:'At the back',tag:'Hard',coins:90,secs:50,goal:['sardine','sock','biscuit','egg','box'],star:'sock',
@@ -41475,7 +41475,7 @@ function cp51DrawPop(){
  wildText('PAUSED',200,y+38,44,'#ffd23f','#3a1a00',8);
  ctx.fillStyle='#f0e0ff';ctx.font='bold 15px system-ui';ctx.fillText(wildClock()+' left · '+WILD.got+' of '+WILD_GOAL+' prizes',200,y+74,300);
  wildButtonDraw(R.resume,'RESUME','#ffd23f','#3a1a00',28);
- wildButtonDraw(R.finish,'FINISH ROUND','#ff9a4a','#3a1400',22);
+ wildButtonDraw(R.finish,'END ROUND','#ff9a4a','#3a1400',22);
  ctx.fillStyle='#f0e0ff';ctx.font='12px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('Ends the round now. You keep your prizes and coins.',200,y+211,300);
  for(const [k,label] of [['sound',S.muted?'Sound: Off':'Sound: On'],['help','How to play'],['home','Home']]){const r=R[k];
   uiRound(r.x,r.y,r.w,r.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,r.x+r.w/2,r.y+r.h/2+1,r.w-8);}}

@@ -1,5 +1,7 @@
 # CP-55 New gameplay face: "Playful" (art only; Jenny, Nov 16)
 
+**PARKED (Jenny, Nov 16):** Sweet stays for now; revisit later with a different approach. Codex: stop work on this ticket.
+
 Name this conversation "CP-55 Playful face". Engineer (Codex): read AGENTS.md (the "Art and layout" rules: approved
 faces are frozen), ART_PROMPTS.md (the approved tuxedo cat's style), CODEX_BRIEF.md and this brief. Jenny will describe
 what she wants in this chat and iterate with you directly. The PM reads `tickets/CP-55.md`.
@@ -9,14 +11,15 @@ what she wants in this chat and iterate with you directly. The PM reads `tickets
   get a little wild looking."
 - Sharp Grin "with pointy teeth just looked too predatory and not just like wildcat fun."
 
+- On round 1 (round pupils, stretched ears, a wide grin): "Our cat is a bit edgy. It's somehow more adult. You're doing
+  artwork for 2-year-olds." Big round pupils are "a big no".
+
 ## Goal
 
-A **new** face for gameplay: playful and a little wild, the look of a cat mid-play. Not predatory. The ideas below are
-to start from; Jenny steers.
-- Big dilated pupils.
-- Ears perked forward or slightly askew.
-- An open, happy mouth: maybe a tiny fang or the tongue, but no row of sharp teeth.
-- Whiskers forward.
+A **new** face for gameplay: playful and a little wild, the look of a cat mid-play. Not predatory. How to get there is
+the artist's call, guided only by Jenny's words above and her feedback in the chat. (The PM's earlier suggestions,
+which were big round pupils, perked ears and an open mouth with a fang or tongue, were removed: Jenny doesn't agree
+with them. Don't use them.)
 
 ## Rules
 
