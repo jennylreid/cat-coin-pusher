@@ -1,6 +1,6 @@
-# CP-52 staging (UAT 68): Drop speed and Pause, on the published UAT 68, as a game-only UAT update
-# for installed APK7 (same recipe: complete 37-file runtime in `files`, no embedded APK; the other 36 runtime files are the
-# base's, byte for byte). Version and name come from release-version.json.
+# CP-52 staging (UAT 69), on published UAT 68: complete 40-file game-only update for installed APK7.
+# Preserve the base's 36 non-HTML assets and add three approved PNGs; no embedded APK.
+# Version and name come from release-version.json.
 from pathlib import Path
 import json,base64,hashlib,zipfile,subprocess
 p=Path(__file__).parent;r=p.parents[1];B=p.parent/'cp68'
