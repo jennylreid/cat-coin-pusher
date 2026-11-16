@@ -1,0 +1,21 @@
+﻿{
+    "version":  20261116180000,
+    "displayName":  "2026.11.16 UAT 68",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "5cbb044bf12177d70afdf4313e53c6162c2c7d4f9e895a7c34952dc37b8a15b2",
+    "stagedJSONSHA256":  "f6edcf665f618e2f354028260aed4389c6890eb2debde10f9a88c7cea5334afb",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "e7aa691b0b996b3863773e8920e03f448ebef37ef7710227e6463979fbfa3231",
+    "jsonBytes":  51990814,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.16 UAT 67",
+    "backup":  "uat/backups/before-UAT68-20261116180000",
+    "evidence":  "tickets/CP-51-evidence/uat68",
+    "authorization":  "UAT 68: CP-51 Drop speed and Pause (Jenny, Nov 16, via PM): slower hold, tap ceiling, 45-coin limit retired (120-piece backstop kept), Pause button and pop-up, auto-pause in the background; add-ons: Level 1 intro board (gold coins only, gold-coin bonus drops), prize bell at half volume; on 2026.11.16 UAT 67; UAT only",
+    "localPublication":  "verified"
+}

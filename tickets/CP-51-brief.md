@@ -24,6 +24,14 @@ half-empty board).
   **Sound** on/off, **How to play**, **Home**.
 - The game pauses on its own when the app goes to the background or the screen turns off, and shows the pop-up on return.
 
+## 3. Add-ons (Jenny, Nov 16, after passing UAT 67)
+- **Level 1 is the intro:** it starts with only gold coins, plus the cheese and shrimp. No Quake coin, no Rain 5, no
+  Rain 10 on the board. Bonus drops on Level 1 are plain gold coins. A goal prize that fell off a side still comes back.
+  Report the bot win rate and time left for Level 1 before and after; it should stay easy.
+- **Prize-collect bell at about half volume.** Jenny: "far too loud". Change only that bell's volume. Everything else in
+  the frozen pickup (look, sizes, timing, other sounds, multi-drop) stays exactly as it is.
+- These two override the Don't-touch list below for Level 1's pieces and that one sound only.
+
 ## Don't touch
 The pickup (frozen), approved art, level layouts and goals (CP-50's work), powers, Settings, sounds.
 

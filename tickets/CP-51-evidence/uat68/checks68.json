@@ -1,0 +1,26 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp68\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp67\\release.html",
+ "passed": true,
+ "passedN": 25,
+ "failed": [],
+ "notes": {
+  "rates": {
+   "UAT 67": {
+    "hold": 5.17,
+    "tap5": 5,
+    "tap8": 4.33,
+    "tap3": 3
+   },
+   "UAT 68": {
+    "hold": 2.67,
+    "tap5": 4.17,
+    "tap8": 4.17,
+    "tap3": 3
+   }
+  },
+  "danceErrs": [],
+  "pickupErrs": [],
+  "l1Errs": []
+ }
+}

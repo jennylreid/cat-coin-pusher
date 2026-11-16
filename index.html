@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 67';
+const BUILD = '2026.11.16 UAT 68';
 
 
 
@@ -10472,7 +10472,7 @@ function tryDrop(at=aim) {
 
 
 
- if(time-lastDrop<DROP_INTERVAL-1e-6){if(time-(tryDrop.feedbackAt??-99)>.7){sfx.clink(.12);const p=screenOf(200,T.FRONT-12,10);floats.push({text:'Easy taps',x:p.x,y:p.y,t:0});tryDrop.feedbackAt=time;}return false;}
+ if(time-lastDrop<CP51.tap-1e-6){if(cp51Queue(at))return false;if(time-(tryDrop.feedbackAt??-99)>.7){sfx.clink(.12);const p=screenOf(200,T.FRONT-12,10);floats.push({text:'Easy taps',x:p.x,y:p.y,t:0});tryDrop.feedbackAt=time;}return false;}
 
 
 
@@ -13815,7 +13815,7 @@ function step() {
 
 
 
- if(holding&&time-lastDrop>=DROP_INTERVAL-1e-6)tryDrop(holdPos);
+ cp51StepDrops(); // CP-51: hold every CP51.hold s; an early tap waits for CP51.tap
 
 
 
@@ -36884,7 +36884,7 @@ function emitSparkle(x,y,vx=0,vy=0,big=1){for(const k of sparkles)if(!k.on){k.on
 const LEDGE_BELL_GAP=100,LEDGE_BELL_LEVEL=[1,.7,.5];
 function ledgeBell(){const now=time*1000;if(nextLedgeBell-now>LEDGE_BELL_GAP*LEDGE_BELL_LEVEL.length)nextLedgeBell=-9; // game time restarts with a board
  const wait=Math.max(0,nextLedgeBell-now),n=Math.round(wait/LEDGE_BELL_GAP);if(n>=LEDGE_BELL_LEVEL.length)return false;
- nextLedgeBell=now+wait+LEDGE_BELL_GAP;sfx.pickup('bell',pickupFx.volume*LEDGE_BELL_LEVEL[n],wait/1000);return true;}
+ nextLedgeBell=now+wait+LEDGE_BELL_GAP;sfx.pickup('bell',pickupFx.volume*LEDGE_BELL_LEVEL[n]*CP51_BELL,wait/1000);return true;}
 function pickupLandSound(){const now=time*1000;if(now<lastPickupLand)lastPickupLand=-9;if(now-lastPickupLand<120)return;lastPickupLand=now;sfx.pickup('thump',pickupFx.volume);}
 // Lost prize: drawn at the table edge where it crossed into the side gutter.
 function queueLostPrize(b,wx,wz){
@@ -36892,7 +36892,7 @@ function queueLostPrize(b,wx,wz){
 }
 function quakeInFlight(){let n=0;for(const f of treatAwards)if(f.kind==='quake'&&!f.arrived&&!f.preview)n++;return n;}
 function tickTreatAwards(dt){
- if(inventoryOpen||panel.style.display==='block')return;
+ if(inventoryOpen||panel.style.display==='block'||cp51Paused)return;
  tickPanel(dt);
  for(const k of sparkles)if(k.on){k.t+=dt;k.x+=k.vx*dt;k.y+=k.vy*dt;const d=Math.max(0,1-dt*3.2);k.vx*=d;k.vy*=d;if(k.t>=k.life)k.on=false;}
  if(tileBounceT>=0){tileBounceT+=dt;if(tileBounceT>=pickupFx.bounceTime)tileBounceT=-1;}
@@ -37147,7 +37147,7 @@ function wildTick(dt){
  if(!WILD.on)return;
  for(let i=WILD.confetti.length-1;i>=0;i--){const c=WILD.confetti[i];c.t+=dt;c.vy+=220*dt;c.x+=c.vx*dt;c.y+=c.vy*dt;c.a+=c.va*dt;if(c.y>H+20)WILD.confetti.splice(i,1);}
  WILD.cardT+=dt;
- const paused=inventoryOpen||panel.style.display==='block';if(paused)return;
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;if(paused)return;
  if(WILD.phase==='count'){
   WILD.count-=dt;const sec=Math.ceil(WILD.count);
   if(sec<WILD.lastSec&&sec>0){WILD.lastSec=sec;sfx.wild('beep',1);}
@@ -37219,13 +37219,13 @@ function drawWildHud(hud){
  const low=WILD.left<=10&&WILD.phase==='play';ctx.save();ctx.textBaseline='middle';ctx.textAlign='left';
  ctx.font='bold 17px system-ui';ctx.fillStyle=low?(Math.sin(performance.now()/90)>0?'#ff5050':'#ffd0d0'):'#fff';
  uiCircle(hud.left+19,hud.bannerY,6.5,null,ctx.fillStyle,1.8);ctx.strokeStyle=ctx.fillStyle;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(hud.left+19,hud.bannerY-4);ctx.lineTo(hud.left+19,hud.bannerY);ctx.lineTo(hud.left+22,hud.bannerY+2);ctx.stroke();ctx.fillText(wildClock(),hud.left+31,hud.bannerY);
- if(WILD.turbo>0){ctx.font='bold 12px system-ui';ctx.fillStyle='#ff9ae8';ctx.fillText('TURBO '+Math.ceil(WILD.turbo),hud.left+92,hud.bannerY);}
+ if(WILD.turbo>0){ctx.font='bold 11px system-ui';ctx.fillStyle='#ff9ae8';ctx.fillText('TURBO '+Math.ceil(WILD.turbo),hud.left+100,hud.bannerY);}
  if(!cp50RowOn()){const bottom=hud.bottomY;ctx.font='bold 12px system-ui';ctx.fillStyle='#fff0d0';ctx.fillText('Collection '+WILD.got+' / '+WILD_GOAL,hud.left+14,bottom+5);
  WILD_COLLECTION.forEach((id,i)=>{const x=hud.left+24+(i%4)*24,y=bottom+22+(i/4|0)*22;wildIcon(id,x,y+6,20,!!WILD.have[id]);});}
  ctx.restore();
 }
 function wildIcon(id,x,y,w,got){cp50Icon(id,x,y,w,got);return;ctx.save();ctx.globalAlpha=got?1:.32;drawPrize('item',id,x,y+w*.3,w/(radius('item')*2.8));ctx.restore();if(got){const cx=x+w*.42,cy=y+w*.3;uiCircle(cx,cy,5,'#7dff6a','#1f6a18',1);ctx.strokeStyle='#0c3a12';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(cx-2.5,cy);ctx.lineTo(cx-.5,cy+2);ctx.lineTo(cx+2.8,cy-2.2);ctx.stroke();}}
-function wildMessage(){return S.coins===0&&WILD.phase==='play'?(board.earnedQuakes>0?'Use your Quake!':'Out of coins!'):WILD.phase==='card'?'Read the goal':WILD.phase==='count'?'Get ready…':WILD.phase==='end'?(WILD.win?'You won!':WILD.reason==='coins'?'Out of coins':"Time's up"):'Collect all '+WILD_GOAL+'!';}
+function wildMessage(){return S.coins===0&&WILD.phase==='play'?(board.earnedQuakes>0?'Use your Quake!':'Out of coins!'):WILD.phase==='card'?'Read the goal':WILD.phase==='count'?'Get ready…':WILD.phase==='end'?(WILD.win?'You won!':WILD.reason==='coins'?'Out of coins':WILD.reason==='finish'?'Round over':"Time's up"):'Collect all '+WILD_GOAL+'!';}
 
 // --- overlays: goal card, countdown, last seconds, end screens, confetti ---
 function wildCardRects(){const cy=H*.47;return {card:{x:30,y:cy-175,w:340,h:350},go:{x:110,y:cy+78,w:180,h:58},back:{x:140,y:cy+142,w:120,h:28}};}
@@ -37270,12 +37270,12 @@ function wildDraw(){
   if(show){const a=Math.min(1,(WILD.endT-.9)/.25);ctx.save();ctx.globalAlpha=a;ctx.fillStyle='rgba(12,6,24,.35)';ctx.fillRect(0,R.card.y-10,W,R.card.h+20);
    wildPanel(R.card,WILD.win?'#2d6a2a':'#5a1f2e',WILD.win?'#123a10':'#2a0f18');
    ctx.fillStyle='#fff';ctx.font='bold 20px system-ui';ctx.fillText(WILD.got+' of '+WILD_GOAL+' prizes',200,R.card.y+CP50_END.count);cp50EndRow(R);
-   if(!pgEndText(R)){ctx.font='14px system-ui';ctx.fillStyle='#f0e0ff';ctx.fillText(WILD.win?wildClock()+' to spare'+(WILD.best!=null&&WILD.best===WILD.left&&WILD.runs>1?' · best yet!':''):(WILD.reason==='coins'?'The coins ran out. One more go?':'The timer ran out. One more go?'),200,R.card.y+142);
+   if(!pgEndText(R)){ctx.font='14px system-ui';ctx.fillStyle='#f0e0ff';ctx.fillText(WILD.win?wildClock()+' to spare'+(WILD.best!=null&&WILD.best===WILD.left&&WILD.runs>1?' · best yet!':''):(WILD.reason==='coins'?'The coins ran out. One more go?':WILD.reason==='finish'?'You ended the round. One more go?':'The timer ran out. One more go?'),200,R.card.y+142);
    ctx.font='12px system-ui';ctx.fillText(WILD.rained+' coins rained · '+WILD.toppled+' towers toppled · '+WILD.bonusN+' bonus drops',200,R.card.y+160);}
    wildButtonDraw(R.again,pglAgainText(),'#ffd23f','#3a1a00',24);
    uiRound(R.back.x,R.back.y,R.back.w,R.back.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.fillText(pgBackText(),200,R.back.y+R.back.h/2);ctx.restore();}
   ctx.save();ctx.translate(200,R.card.y+33);const k=WILD.endT<.35?.4+.9*u:1.15-.15*Math.min(1,(WILD.endT-.35)/.25)+.03*Math.sin(WILD.endT*6);ctx.scale(k,k);ctx.rotate(-.04);
-  if(WILD.win)wildText('YOU WIN!',0,0,50,'#ffd23f','#3a1a00',9);else wildText(WILD.reason==='coins'?'OUT OF COINS!':"TIME'S UP!",0,0,WILD.reason==='coins'?38:46,'#ff6a4a','#2a0010',9);ctx.restore();
+  if(WILD.win)wildText('YOU WIN!',0,0,50,'#ffd23f','#3a1a00',9);else wildText(WILD.reason==='coins'?'OUT OF COINS!':WILD.reason==='finish'?'ROUND OVER':"TIME'S UP!",0,0,WILD.reason==='coins'?38:WILD.reason==='finish'?42:46,'#ff6a4a','#2a0010',9);ctx.restore();
  }
  ctx.restore();
 }
@@ -37471,7 +37471,7 @@ wildScheduleBonus=function(){
 wildLandBonus=function(o){__danceLand(o);if(o.kind==='note'&&floats.length)floats[floats.length-1].text='MUSIC NOTE!';};
 wildTick=function(dt){
  if(!WILD.on)return __danceTickW(dt);
- const paused=inventoryOpen||panel.style.display==='block';
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;
  if(WILD.danceForce&&WILD.phase==='play'&&board.status==='playing'&&!paused){WILD.danceForce=false;if(!WILD.dance)WILD.dancePending={f:null,wait:9};}
  WILD.happyT+=dt;
  if(WILD.dancePending&&!WILD.dance&&!paused){const P=WILD.dancePending;P.wait+=dt;const f=P.f;
@@ -37799,7 +37799,7 @@ wildPointer=function(e,p){
 };
 wildTick=function(dt){
  __w2Tick(dt);if(!WILD.on)return;
- const paused=inventoryOpen||panel.style.display==='block';if(paused)return;
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;if(paused)return;
  skyTick(dt);if(W2_YAWN)w2YawnTick(dt);
  if(WILD.phase==='end'&&WILD.visitAt!=null&&WILD.endT>=WILD.visitAt){WILD.visitAt=null;w2Visit();sfx.wild2('visitor',1);}
  if(WILD.visitor)WILD.visitor.t+=dt;
@@ -38289,7 +38289,7 @@ function w43WinTick(){if(WILD.winHeld&&!WILD.dance&&WILD.phase==='play'){WILD.da
 
 // --- hooks: ticks and drawing ---
 const __w43Tick=wildTick,__w43Draw=wildDraw;
-wildTick=function(dt){__w43Tick(dt);if(!WILD.on)return;const paused=inventoryOpen||panel.style.display==='block';if(paused)return;w43LostTick(dt);w43CcdTick(dt);w43MergeTick(dt);if(WILD.v2)w43QuakeTick();w43WinTick();};
+wildTick=function(dt){__w43Tick(dt);if(!WILD.on)return;const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;if(paused)return;w43LostTick(dt);w43CcdTick(dt);w43MergeTick(dt);if(WILD.v2)w43QuakeTick();w43WinTick();};
 wildDraw=function(){__w43Draw();if(!WILD.on||inventoryOpen)return;ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);if(WILD.v2){w43StarOnBoard();w43LostDraw();}w43GlintDraw(1/60);ctx.restore();};
 
 // --- 7. Nothing stays on the cat's face (Jenny, UAT 43): cards, banners and the wheel sit below the chin line ---
@@ -38558,7 +38558,7 @@ wildScheduleBonus=function(){
 wildLandBonus=function(o){__tossLand(o);if(o.kind==='fish'&&floats.length)floats[floats.length-1].text='TREATS!';};
 wildTick=function(dt){
  if(!WILD.on)return __tossTickW(dt);
- const paused=inventoryOpen||panel.style.display==='block';
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;
  if(WILD.tossForce&&wildFeature('toss')&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.tossForce=false;if(!WILD.toss)WILD.tossPending={f:null,wait:9};}
  if(WILD.tossPending&&!WILD.toss&&!paused){const P=WILD.tossPending;P.wait+=dt;const f=P.f;
   if(WILD.phase==='play'&&board.status==='playing'&&!WILD.dance&&!W2_YAWN&&sweepTime===0&&catquakeTime===0&&(!f||f.arrived||f.t>=f.tr+f.tm*.5||P.wait>1.2))tossStart();}
@@ -38856,7 +38856,7 @@ wildScheduleBonus=function(){
 wildLandBonus=function(o){__laserLand(o);if(o.kind==='laser'&&floats.length)floats[floats.length-1].text='LASER!';};
 wildTick=function(dt){
  if(!WILD.on)return __laserTickW(dt);
- const paused=inventoryOpen||panel.style.display==='block';
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;
  if(WILD.chaseForce&&WILD.laser&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.chaseForce=false;if(!WILD.chase)WILD.chasePending={f:null,wait:9};}
  if(WILD.chasePending&&!WILD.chase&&!paused){const P=WILD.chasePending;P.wait+=dt;const f=P.f;
   if(WILD.phase==='play'&&board.status==='playing'&&!WILD.dance&&!WILD.toss&&!W2_YAWN&&!(typeof PAW40_STATE==='object'&&PAW40_STATE&&PAW40_STATE.swipe)&&sweepTime===0&&catquakeTime===0&&(!f||f.arrived||f.t>=f.tr+f.tm*.5||P.wait>1.2))laserStart();}
@@ -39237,7 +39237,7 @@ wildScheduleBonus=function(){
 wildLandBonus=function(o){__petLand(o);if(o.kind==='heart'&&floats.length)floats[floats.length-1].text='HEART COIN!';};
 wildTick=function(dt){
  if(!WILD.on)return __petTickW(dt);
- const paused=inventoryOpen||panel.style.display==='block';
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;
  if(paused&&WILD.petGame)sfx.purr(0,20);
  if(WILD.petForce&&petMode()&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.petForce=false;if(!WILD.petGame)WILD.petPending={f:null,wait:9};}
  if(WILD.petPending&&!WILD.petGame&&!paused){const P=WILD.petPending;P.wait+=dt;const f=P.f;
@@ -39370,7 +39370,7 @@ function diagFrame(ms,physics,drawing,steps,wasHolding){
  if(!(ms>0)||!Number.isFinite(ms))return;
  if(!diagBin)diagBin={ms:0,frames:0,physics:0,draw:0,max:0,slow:0,steps:0,heldFrames:0,heldMs:0,heldPhysics:0,heldDraw:0,paused:0};
  const b=diagBin;b.ms+=ms;b.frames++;b.physics+=physics;b.draw+=drawing;b.max=Math.max(b.max,ms);b.slow+=ms>25?1:0;b.steps+=steps;
- const paused=inventoryOpen||panel.style.display==='block'||board.status!=='playing';if(paused)b.paused++;
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused||board.status!=='playing';if(paused)b.paused++;
  if(wasHolding&&!paused){b.heldFrames++;b.heldMs+=ms;b.heldPhysics+=physics;b.heldDraw+=drawing;}
  if(wasHolding&&!holding){diagEvent('game-stopped-hold',board.status);diagNeedSave=true;}
  if(b.ms>=1000)diagFinishBin();
@@ -39551,7 +39551,7 @@ function paw40Hud(hud){if(!(WILD.on&&WILD.v2))return;const n=PAW40.perRound;if(!
 const __paw40Hud=drawWildHud;drawWildHud=function(hud){__paw40Hud(hud);paw40Hud(hud);};
 const __paw40Reset=wildReset;wildReset=function(){__paw40Reset();for(const b of bodies)b.paw40Done=0;PAW40_STATE={saves:PAW40.perRound,teeter:null,swipe:null,pops:[],saved:0,missed:0};};
 const __paw40Pointer=wildPointer;wildPointer=function(e,p){if(__paw40Pointer(e,p))return true;return paw40Pointer(p);};
-const __paw40Tick=wildTick;wildTick=function(dt){__paw40Tick(dt);if(!WILD.on||inventoryOpen||panel.style.display==='block')return;paw40Tick(dt);};
+const __paw40Tick=wildTick;wildTick=function(dt){__paw40Tick(dt);if(!WILD.on||inventoryOpen||panel.style.display==='block'||cp51Paused)return;paw40Tick(dt);};
 const __paw40Draw=wildDraw;wildDraw=function(){__paw40Draw();if(!(WILD.on&&WILD.v2))return;ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);paw40Draw();ctx.restore();};
 // Developer: force a tip-off now (a prize placed hanging over a side edge), and the saves-per-round dial.
 function paw40ForceTip(){if(!WILD.on||!WILD.v2){if(WILD.on)wildExit();wild2Enter();}if(WILD.phase!=='play'){if(WILD.phase==='end')wildReset();wildStartCountdown();WILD.paw40Force=true;return;}
@@ -41154,7 +41154,7 @@ function pgpKitten(x,y,s,d,ph){ctx.save();ctx.translate(x,y);ctx.scale(s*d,s);co
  ctx.fillStyle=C.light;ctx.beginPath();ctx.ellipse(24,-4,5,4,0,0,7);ctx.fill();ctx.fillStyle='#111';ctx.beginPath();ctx.arc(23,-10,1.8,0,7);ctx.arc(28,-9,1.6,0,7);ctx.fill();ctx.restore();}
 
 // --- hooks: tick, draw, reset, finish ---
-const __pgpTickW=wildTick;wildTick=function(dt){const r=__pgpTickW(dt);if(WILD.on&&!(inventoryOpen||panel.style.display==='block'))pgpTick(dt);return r;};
+const __pgpTickW=wildTick;wildTick=function(dt){const r=__pgpTickW(dt);if(WILD.on&&!(inventoryOpen||panel.style.display==='block'||cp51Paused))pgpTick(dt);return r;};
 const __pgpDrawW=wildDraw;wildDraw=function(){__pgpDrawW();if(WILD.on&&!inventoryOpen)pgpDraw();};
 const __pgpReset=wildReset;wildReset=function(){pgpEnd();WILD.pgpEarn=0;WILD.pgpPulse=null;return __pgpReset();};
 const __pgpExit=wildExit;wildExit=function(){pgpEnd();return __pgpExit();};
@@ -41217,7 +41217,7 @@ wildScheduleBonus=function(){
    const y=rand(430,620),x=200+rand(-1,1)*(tableHalfAt(y)-50);WILD.incoming.push({kind:'mousecoin',id:null,x,y,t:.9,t0:.9});WILD.bonusN++;WILD.mouseN++;sfx.wild('whistle',1);return;}}
  return __pounceBonus();};
 wildLandBonus=function(o){__pounceLand(o);if(o.kind==='mousecoin'&&floats.length)floats[floats.length-1].text='POUNCE!';};
-wildTick=function(dt){if(!WILD.on)return __pounceTickW(dt);const paused=inventoryOpen||panel.style.display==='block';
+wildTick=function(dt){if(!WILD.on)return __pounceTickW(dt);const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;
  if(WILD.pounceForce&&wildFeature('pounce')&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.pounceForce=false;if(!WILD.pounce)WILD.pouncePending={f:null,wait:9};}
  if(WILD.pouncePending&&!WILD.pounce&&!paused){const P=WILD.pouncePending;P.wait+=dt;const f=P.f;if(WILD.phase==='play'&&board.status==='playing'&&!W2_YAWN&&!PGPX&&sweepTime===0&&catquakeTime===0&&(!f||f.arrived||f.t>=f.tr+f.tm*.5||P.wait>1.2))pounceStart();}
  if(!WILD.pounce||WILD.phase!=='play'){if(WILD.pounce&&WILD.phase!=='play')WILD.pounce=null;return __pounceTickW(dt);}
@@ -41276,7 +41276,7 @@ wildDevBind=function(panel){__pgpDevBind(panel);const box=panel.querySelector&&p
 const CP48_OWN=45,CP48_SLOW=1,CP48_RAIN=100;
 let cp48FullAt=-99,cp48FullLogAt=-99;
 function cp48Own(){let n=0;for(const b of bodies)if(!b.dead&&b.input&&(b.kind==='coin'||b.kind==='silver'))n++;return n;}
-function cp48Full(){return cp48Own()>=CP48_OWN;}
+function cp48Full(){return cp51Pieces()>=CP51_BACKSTOP;} // CP-51 (Jenny, Nov 16): no 45-coin limit; only the 120-piece backstop
 const __cp48TryDrop=tryDrop;
 tryDrop=function(at=aim){
  if(!inventoryOpen&&board.status!=='won'&&board.status!=='lost'&&board.remaining>0&&cp48Full()&&time-lastDrop<CP48_SLOW-1e-6){
@@ -41406,6 +41406,106 @@ const __cp50Bonus=wildScheduleBonus;
 wildScheduleBonus=function(){const lv1=cp50Lv1(),n=WILD.incoming.length,miss=lv1?wildMissing():[];const r=__cp50Bonus();
  if(lv1){const o=WILD.incoming[n];if(o&&o.kind==='item'&&!miss.includes(o.id)){o.kind='rain5';o.id=null;}}return r;};
 const __cp50Reset=wildReset;wildReset=function(){const r=__cp50Reset();if(cp50Lv1())WILD.pglSched=PGL_CAT_DROPS.length;return r;};
+
+// ---------- CP-51 (UAT 68, Jenny Nov 16): drop speed, no 45-coin limit, Pause ----------
+// 1. Drop speed. Since CP-25 UAT 3 (Oct 28) holding and tapping both dropped a coin every 0.20 s (5 a second).
+//    Holding now drops one every CP51.hold s, a slower steady stream. Tapping may go faster, up to one every CP51.tap s;
+//    a tap that comes a little early isn't lost: it waits and drops as soon as the gap opens (one tap at a time; a
+//    second early tap still gets "Easy taps"). The first coin of a press always drops at once.
+var CP51={hold:.40,tap:.25,q:null,view:'menu',why:'',pausedAt:0,n:0};
+var cp51Paused=false;
+function cp51Queue(at){ // tryDrop's gap check: keep one early tap
+ if(CP51.q||!WILD.on||WILD.phase!=='play')return false;CP51.q={x:at.x,y:at.y,t:time};return true;}
+function cp51StepDrops(){ // called from step() in place of the old hold check
+ if(CP51.q&&(time-CP51.q.t>.6||(WILD.on&&WILD.phase!=='play')))CP51.q=null;
+ if(CP51.q&&time-lastDrop>=CP51.tap-1e-6){const q=CP51.q;CP51.q=null;tryDrop(q);return;}
+ if(holding&&time-lastDrop>=CP51.hold-1e-6)tryDrop(holdPos);}
+// 1b. The 45-coin limit is gone. What stays is the far-off safety net: at 120 coin pieces on the board (plain coins plus
+//     gold 5s) drops slow to one a second and "Board full" shows, until coins fall off (CP-48's slow-down, from 120). Rain past 100 still lands as
+//     gold 5s and merging stays at 130 (unchanged).
+const CP51_BACKSTOP=120;
+function cp51Pieces(){let n=0;for(const b of bodies)if(!b.dead&&(b.kind==='coin'||b.kind==='silver'||b.kind==='gold5'))n++;return n;}
+
+// 2. Pause. A pause button around the round timer (clock, time, two bars). Tapping it stops the timer, the physics, drops,
+//    side games and the music, and shows the pop-up: RESUME, FINISH ROUND (end now; prizes and coins are kept, normal end
+//    card), and Sound, How to play, Home. The game pauses by itself when the app goes to the background or the screen
+//    turns off, and the pop-up is there on return.
+function cp51CanPause(){return !!(world&&WILD.on&&WILD.phase==='play'&&board.status==='playing'&&!inventoryOpen&&panel.style.display!=='block'&&(typeof PGU==='undefined'||!PG||PG_HOME_OFF||PGU.screen==='board'));}
+function cp51ShowButton(){return cp51Paused||cp51CanPause();}
+function cp51Btn(hud){hud=hud||hudLayout();return {x:hud.left+5,y:hud.bannerY-15,w:91,h:30};}
+function cp51Hit(){const r=cp51Btn();return {x:r.x-4,y:r.y-5,w:r.w+8,h:r.h+10};}
+function cp51Pause(why){
+ if(cp51Paused||!cp51CanPause())return false;
+ cp51Paused=true;CP51.q=null;CP51.view='menu';CP51.why=why||'button';CP51.pausedAt=time;CP51.n++;
+ stopDrops('pause');taps=[];try{diagEvent('pause',CP51.why);}catch(e){}return true;}
+function cp51Resume(why){
+ if(!cp51Paused)return;cp51Paused=false;CP51.view='menu';last=performance.now();acc=0;
+ try{diagEvent('resume',why||'button');}catch(e){}}
+function cp51Finish(){ // end the round now: normal end card, prizes and coins kept
+ cp51Resume('finish');
+ if(WILD.winHeld||WILD.got>=WILD_GOAL)wildFinish(true);else wildFinish(false,'finish');}
+function cp51Home(){ // exactly what the round's top "Home" button does
+ cp51Resume('home');const b=wildButton();__cp51Pointer({timeStamp:0,pointerId:-1,preventDefault(){}},{x:b.x+b.w/2,y:b.y+b.h/2});}
+function cp51Rects(){const hud=hudLayout(),h=286,top=hud.headerBottom+8,bottom=hud.bottomY-8,y=Math.round(Math.max(top,(top+bottom)/2-h/2));
+ return {card:{x:36,y,w:328,h},resume:{x:66,y:y+92,w:268,h:48},finish:{x:66,y:y+152,w:268,h:40},
+  sound:{x:50,y:y+234,w:94,h:34},help:{x:153,y:y+234,w:94,h:34},home:{x:256,y:y+234,w:94,h:34}};}
+function cp51Tap(){try{pgSfx('tap');}catch(e){}}
+function cp51PopTap(p){
+ if(CP51.view==='rules'){cp51Tap();CP51.view='menu';return;}
+ const R=cp51Rects();
+ if(contains(R.resume,p)){cp51Tap();cp51Resume('button');}
+ else if(contains(R.finish,p)){cp51Tap();cp51Finish();}
+ else if(contains(R.sound,p)){S.muted=!S.muted;saveAudioSettings();musicTick();cp51Tap();}
+ else if(contains(R.help,p)){cp51Tap();CP51.view='rules';WILD.cardT=1;}
+ else if(contains(R.home,p)){cp51Tap();cp51Home();}}
+function cp51DrawPop(){
+ ctx.fillStyle='rgba(12,6,24,.55)';ctx.fillRect(0,0,W,H);
+ if(CP51.view==='rules'){ // the goal card that "? How to play" shows, with BACK in place of TAP TO START
+  const wb=wildButtonDraw,ft=ctx.fillText;
+  wildButtonDraw=function(r,label,...a){if(label==='TAP TO START')return wb(r,'BACK','#ffd23f','#3a1a00',30);return wb(r,label,...a);};
+  ctx.fillText=function(t,...a){if(t==='The timer starts after 3, 2, 1, GO!')t='Paused. Tap anywhere to go back.';return ft.call(ctx,t,...a);};
+  try{drawWild2Card();}finally{wildButtonDraw=wb;ctx.fillText=ft;}return;}
+ const R=cp51Rects(),y=R.card.y;
+ wildPanel(R.card,'#4b1f6e','#1d0f33');
+ wildText('PAUSED',200,y+38,44,'#ffd23f','#3a1a00',8);
+ ctx.fillStyle='#f0e0ff';ctx.font='bold 15px system-ui';ctx.fillText(wildClock()+' left · '+WILD.got+' of '+WILD_GOAL+' prizes',200,y+74,300);
+ wildButtonDraw(R.resume,'RESUME','#ffd23f','#3a1a00',28);
+ wildButtonDraw(R.finish,'FINISH ROUND','#ff9a4a','#3a1400',22);
+ ctx.fillStyle='#f0e0ff';ctx.font='12px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('Ends the round now. You keep your prizes and coins.',200,y+211,300);
+ for(const [k,label] of [['sound',S.muted?'Sound: Off':'Sound: On'],['help','How to play'],['home','Home']]){const r=R[k];
+  uiRound(r.x,r.y,r.w,r.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,r.x+r.w/2,r.y+r.h/2+1,r.w-8);}}
+// the button: a soft pill behind the timer, and two bars after the time (the dance draws its own pink bars there)
+const __cp51Hud=drawWildHud;
+drawWildHud=function(hud){const on=cp51ShowButton();
+ if(on){const r=cp51Btn(hud);ctx.save();uiRound(r.x,r.y,r.w,r.h,r.h/2,cp51Paused?'rgba(255,210,63,.28)':'rgba(255,255,255,.12)','rgba(255,255,255,.6)',1.3);ctx.restore();}
+ __cp51Hud(hud);
+ if(on&&!WILD.dance){ctx.save();ctx.fillStyle='#fff';const x=hud.left+78,y=hud.bannerY;ctx.fillRect(x,y-6,3.5,12);ctx.fillRect(x+6,y-6,3.5,12);ctx.restore();}};
+const __cp51Draw=draw;
+draw=function(){__cp51Draw();if(!cp51Paused)return;ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
+ try{cp51DrawPop();}finally{ctx.restore();}};
+const __cp51Pointer=wildPointer;
+wildPointer=function(e,p){
+ if(cp51Paused){cp51PopTap(p);return true;}
+ if(cp51CanPause()&&contains(cp51Hit(),p)){cp51Tap();cp51Pause('button');return true;}
+ return __cp51Pointer(e,p);};
+// while paused: no physics, no game update; the side games' own pause bookkeeping still runs (wildTick sees cp51Paused)
+const __cp51Step=step;step=function(){if(cp51Paused)return;return __cp51Step();};
+const __cp51Update=update;update=function(dt){if(!cp51Paused)return __cp51Update(dt);try{wildTick(dt);bgmTick();}catch(e){}};
+const __cp51Bgm=bgmWanted;bgmWanted=function(){if(cp51Paused)return false;return __cp51Bgm();};
+// background / screen off: pause (and show the pop-up on return)
+const __cp51AppPaused=window.appPaused;
+window.appPaused=function(p){if(p)cp51Pause('background');return __cp51AppPaused?__cp51AppPaused(p):undefined;};
+function cp51Hidden(){if(document.hidden)cp51Pause('background');}
+document.addEventListener('visibilitychange',cp51Hidden);
+// 3. Add-ons (Jenny, Nov 16, after passing UAT 67).
+// 3a. Level 1 is the intro: only gold coins plus the cheese and shrimp on the board (no Quake coin, no Rain 5 or Rain 10),
+//     and its bonus drops are plain gold coins. A goal prize that fell off a side still comes back by bonus drop.
+PGL_LEVELS[0].rain=[];PGL_LEVELS[0].quake=null;
+const __cp51Bonus=wildScheduleBonus;
+wildScheduleBonus=function(){const lv1=cp50Lv1(),n=WILD.incoming.length,miss=lv1?wildMissing():[];const r=__cp51Bonus();
+ if(lv1){const o=WILD.incoming[n];if(o&&!(o.kind==='item'&&miss.includes(o.id))){o.kind='coin';o.id=null;}}return r;};
+// 3b. The prize bell (the struck bell as a prize drops over the ledge) at half its volume. Nothing else in the pickup changes.
+var CP51_BELL=.5;
 
 Promise.all([RAPIER.init(), loadArt()])
 

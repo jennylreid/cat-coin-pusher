@@ -35,7 +35,16 @@ highlights, and a clear dark outline that reads on the teal board. Match them; d
 - each at board size on the teal table;
 - each at icon size on a dark background and on a light card (Album/Kitchen style).
 
-Then message the PM and **stop**. Jenny picks one per prize or says redo.
+Then write `tickets/CP-52.md` and **stop**. Don't use Claude or message anyone; the PM reads the report file.
+Jenny picks one per prize or says redo.
+
+**Picks and redo (Jenny, Nov 16):**
+- Jenny approved all the ball and cushion art. For the game, the PM picks ball C and cushion C; the other variants are
+  kept.
+- Feather: the fluffy A/B/C were rejected. Redo D/E/F are smooth. PM pick: **D, lavender**. It reads best on the teal
+  board and on the cream icon card; F's blue blends into the teal, and E's pink sits close to the shrimp.
+- A peacock feather is a possible extra prize later (Jenny).
+- Phase B starts after CP-51 has published its UAT (one engineer publishes at a time).
 
 ## Phase B: into the game (only when the PM says go)
 
@@ -69,4 +78,4 @@ At the top of `tickets/CP-52.md`:
 - what each option is;
 - for Phase B: where it changed, validation and limits, then a short UAT test plan ending with a paste line.
 
-Message the PM (session `local_c33de928-2fcf-4e87-9b03-fae33ff1496d`). Don't start other work.
+Don't message the PM (Codex can't reach Claude sessions); the PM checks `tickets/` itself. Don't start other work.

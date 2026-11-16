@@ -46,6 +46,18 @@ Already on the way: Pause with Finish (CP-51), which handles the half-empty boar
 4. **Colour goals** (#2).
 5. Later: the paw grab (#6) and big drop-in coins (#8).
 
+## Jenny's input (Nov 16, before testing UAT 67)
+
+- **Prize goals:** one or two per board at most. Other goals: knock over towers, clear all of a colour, or collect a
+  number of one colour.
+- **Count goals:** "Collect 5 mice" shown as one icon with a number on it. Never list 7–8 prizes during play: "TMI on
+  this tiny board."
+- **Star prize:** what is it for? Today it brings that round's visiting cat (Porch/Album). It's unclear in play.
+- **Bonus prizes:** drop only for a set time after a special coin goes over the edge, with a ticking sound. This could be
+  one board's special rule.
+- **Process:** focus on gameplay one board at a time. Once there are enough approved boards, generate more by mixing
+  actions, consequences and goals.
+
 ## Open questions (after the backbone)
 
 - Which goal types do early levels use?
