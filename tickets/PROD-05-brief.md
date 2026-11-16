@@ -1,38 +1,32 @@
-# PROD-05 Promote UAT 8 to production
+# PROD-05 Promote Baseline 1 (UAT 62) to production
 
-Jenny's sign-off, Oct 27, 2026: "Ship UAT 8 to production." Scope: the game in **2026.10.27 UAT 8** (numeric 20261027113731), which carries CP-21 (layout lock, pusher from the chin, still opening board, solid coins) plus UAT-16 to 19. Production is currently 2026.10.16 / APK16 (20261016005411).
+Name this conversation "PROD-05 Promote Baseline 1". Work in C:\Users\jenny\OneDrive\work\CoinPusher; follow AGENTS.md
+(read "Channels and publication" closely) and CODEX_BRIEF.md.
 
-## Goal
-Production players get exactly the UAT 8 game and art, as a game-only update to the installed APK16. Change only what production identity requires.
+**Sign-off:** Jenny, Nov 15, 2026: "just push it all to production, and anything we perceive as a bug we'll fix
+first." Her sign-off pass is in tickets/SIGNOFF-1.md. Scope: everything in 2026.11.14 UAT 62 (20261114235959),
+which includes CP-24, CP-33 to CP-38, CP-40 to CP-47 (Baseline 1).
 
-## Inputs
-- Approved game: `work/cp21/release.html` (= index.html in `uat/CatCoinPusher-UAT-game.json`, staged hash `144b731f…`). All assets come from that UAT JSON.
-- Production payload: `phone/CatCoinPusher-game.json`. Previous promotion: `work/prod04/prepare.py` and `tickets/PROD-03-adaptations.json`.
+## Do
+1. **Back up production first** (`backups/`, as earlier PROD tickets did). Never touch signing keystores in the
+   shared project.
+2. **Build production from UAT 62's game source** with production identity: app ID com.jenny.catpusher,
+   `phone/CatCoinPusher-game.json`, production update URI, production save keys and settings. Don't copy the UAT
+   JSON wholesale; don't carry any UAT channel identity across. Game version strictly higher than production's.
+   Game-only update if the native app doesn't need to change; if it does, say so and stop for the PM.
+3. **Test tools off in production:** Developer never on (the UAT default-on must not apply), no "Test this build"
+   panel, no MODES, no perf readouts. Verify with Developer off on every screen; this is DEVELOPER.md's
+   "Developer off = production view" rule.
+4. **Save continuity:** the production save (Oct 31 build, Boards 1–3) upgrades cleanly: coins and treats carry
+   over (capped as in CP-45), progression starts at Level 1. Test an upgrade from a copy of an Oct 31 production save.
+5. Verify a fresh cloud download of `phone/CatCoinPusher-game.json` matches what you published. UAT untouched.
+6. **Close-out to GitHub** (C:\Users\jenny\GitHub\cat-coin-pusher): `git switch main` (the repo sits on
+   `wip/uat`), bring in the Baseline 1 source, commit naming "Baseline 1 (UAT 62): CP-24, CP-33–38, CP-40–47,
+   PROD-05", push. Never commit `Screenshots/ibear-*`, `Screenshots/ref-*`, `ref-other-pusher-*`, keystores, APKs,
+   WAVs or anything .gitignore excludes.
 
-## Required production adaptations (and nothing else)
-- Storage keys: `catpusher.uat.board.v1` → `catpusher.board.prototype.v1`, `catpusher.uat.audio.v1` → `catpusher.audio.v1`.
-- Title and Settings labels: no "UAT" wording; BUILD label `2026.10.27`.
-- Powers, safe-area guides, the powers-preview HUD strip and the Dancing-pose preview stay developer-mode only, as in current production. PROD-03 adaptations no longer match the UAT 8 text one-for-one (several `from` strings are gone, and UAT already has partial `S.dev` gating). Re-derive them against UAT 8, and list each final adaptation in the report.
-- Payload: keep the production envelope (`channel` catpusher, `applicationId` com.jenny.catpusher, `apkVersion` 16, the `apk` bytes unchanged). Replace `files` with the UAT 8 file set; production lacks tuna.png, the uat18-* art and the three new sounds. Version strictly above both channels.
-
-## Checks before publishing
-- **Save continuity.** A production save from 2026.10.16 loads into the new build without errors or lost wallet/collection progress, and a board in the old layout resets cleanly. Show how this was tested.
-- **Updater compatibility.** APK16's `CloudUpdate` accepts the payload and installs the added files (check the code path that writes `files`; no APK rebuild expected).
-- **Same game.** Diff the production html against UAT 8: only the listed adaptations differ.
-- **Desktop smoke test.** All three boards start still and are winnable without powers. Powers are hidden with developer mode off.
-
-## Publication
-- Back up `phone/CatCoinPusher-game.json`, `CatCoinPusher.apk` and the docs under `backups/before-PROD-05-<version>` first, and verify the backup.
-- Publish only `phone/CatCoinPusher-game.json`. UAT files and both APKs stay byte-identical.
-- Verify a fresh OneDrive download of the production JSON against the staged hash.
-
-## Close-out
-- Update CODEX_BRIEF.md (production line) and DEVELOPER.md (promotion steps if they changed).
-- Report in `tickets/PROD-05.md` with adaptations, checks and hashes.
-- Commit and push to C:/Users/jenny/GitHub/cat-coin-pusher with a message naming PROD-05, with no reference images.
-- Jenny then confirms on her phone: the update arrives, her save survives, and sound and FPS are fine.
-
-## Don't touch
-- Gameplay, art, balance or layout.
-- UAT channel files.
-- Native code, unless the updater check shows it can't take the payload. In that case stop and report; don't rebuild the APK.
+## Report
+Top of `tickets/PROD-05.md`: what was promoted, the production version, backup path, cloud verification, the
+Developer-off check, the save-upgrade test, the commit hash, and a short phone check for Jenny (what she should see
+in the production app). Then message the PM (session `local_c33de928-2fcf-4e87-9b03-fae33ff1496d`). Don't start
+any other work.

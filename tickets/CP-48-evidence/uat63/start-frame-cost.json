@@ -1,0 +1,62 @@
+{
+ "L1": {
+  "uat63": {
+   "msPerTick": 0.58,
+   "maxTick": 1.5,
+   "bodies": 60
+  },
+  "uat62": {
+   "msPerTick": 0.47,
+   "maxTick": 2.6,
+   "bodies": 50
+  }
+ },
+ "L5": {
+  "uat63": {
+   "msPerTick": 0.57,
+   "maxTick": 1.2,
+   "bodies": 66
+  },
+  "uat62": {
+   "msPerTick": 0.53,
+   "maxTick": 1.6,
+   "bodies": 48
+  }
+ },
+ "L6": {
+  "uat63": {
+   "msPerTick": 1.19,
+   "maxTick": 2.8,
+   "bodies": 68
+  },
+  "uat62": {
+   "msPerTick": 0.69,
+   "maxTick": 1.8,
+   "bodies": 50
+  }
+ },
+ "L9": {
+  "uat63": {
+   "msPerTick": 0.59,
+   "maxTick": 2.5,
+   "bodies": 74
+  },
+  "uat62": {
+   "msPerTick": 0.5,
+   "maxTick": 2.4,
+   "bodies": 60
+  }
+ },
+ "L10": {
+  "uat63": {
+   "msPerTick": 0.53,
+   "maxTick": 2.6,
+   "bodies": 66
+  },
+  "uat62": {
+   "msPerTick": 0.38,
+   "maxTick": 1.4,
+   "bodies": 48
+  }
+ }
+}

@@ -1,0 +1,357 @@
+[
+ {
+  "n": 1,
+  "name": "First push",
+  "start": 53,
+  "grid": 53,
+  "towers": [],
+  "rows": "5,6,6,6,6,6,6,6,6",
+  "onTopAtStart": 0,
+  "towerBottoms": [],
+  "tops": [],
+  "afterGo": {
+   "stacks": 0,
+   "bottoms": [],
+   "tops": 0,
+   "rows": "5,6,6,6,6,6,6,6,6"
+  }
+ },
+ {
+  "n": 2,
+  "name": "Line up",
+  "start": 75,
+  "grid": 53,
+  "towers": [
+   10,
+   12
+  ],
+  "rows": "5,6,6,6,6,6,6,6,6",
+  "onTopAtStart": 0,
+  "towerBottoms": [
+   7.9,
+   7.8
+  ],
+  "tops": [],
+  "afterGo": {
+   "stacks": 2,
+   "bottoms": [
+    7.9,
+    7.9
+   ],
+   "tops": 0,
+   "rows": "5,6,6,6,6,6,6,6,6"
+  }
+ },
+ {
+  "n": 3,
+  "name": "At the back",
+  "start": 53,
+  "grid": 53,
+  "towers": [],
+  "rows": "5,6,6,6,6,6,6,6,6",
+  "onTopAtStart": 0,
+  "towerBottoms": [],
+  "tops": [],
+  "afterGo": {
+   "stacks": 0,
+   "bottoms": [],
+   "tops": 0,
+   "rows": "5,6,6,6,6,6,6,6,6"
+  }
+ },
+ {
+  "n": 4,
+  "name": "Crammed",
+  "start": 75,
+  "grid": 53,
+  "towers": [
+   10,
+   12
+  ],
+  "rows": "5,6,6,6,6,6,6,6,6",
+  "onTopAtStart": 0,
+  "towerBottoms": [
+   7.9,
+   7.8
+  ],
+  "tops": [],
+  "afterGo": {
+   "stacks": 2,
+   "bottoms": [
+    7.9,
+    7.9
+   ],
+   "tops": 0,
+   "rows": "5,6,6,6,6,6,6,6,6"
+  }
+ },
+ {
+  "n": 5,
+  "name": "Tower wall",
+  "start": 78,
+  "grid": 53,
+  "towers": [
+   4,
+   5,
+   7,
+   5,
+   4
+  ],
+  "rows": "5,6,6,6,6,6,6,6,6",
+  "onTopAtStart": 0,
+  "towerBottoms": [
+   7.7,
+   7.7,
+   7.7,
+   7.7,
+   7.7
+  ],
+  "tops": [
+   [
+    "egg",
+    50.1
+   ],
+   [
+    "milk",
+    58.2
+   ],
+   [
+    "sock",
+    76.4
+   ],
+   [
+    "ball",
+    58.1
+   ],
+   [
+    "feather",
+    50.1
+   ]
+  ],
+  "afterGo": {
+   "stacks": 5,
+   "bottoms": [
+    7.9,
+    7.9,
+    7.9,
+    7.9,
+    7.9
+   ],
+   "tops": 5,
+   "rows": "5,6,6,6,6,6,6,6,6"
+  }
+ },
+ {
+  "n": 6,
+  "name": "Tower block",
+  "start": 80,
+  "grid": 53,
+  "towers": [
+   5,
+   5,
+   7,
+   5,
+   5
+  ],
+  "rows": "5,6,6,6,6,6,6,6,6",
+  "onTopAtStart": 0,
+  "towerBottoms": [
+   7.7,
+   7.7,
+   7.7,
+   7.7,
+   7.7
+  ],
+  "tops": [
+   [
+    "feather",
+    74.7
+   ]
+  ],
+  "afterGo": {
+   "stacks": 5,
+   "bottoms": [
+    8,
+    8,
+    7.9,
+    8,
+    8
+   ],
+   "tops": 1,
+   "rows": "5,6,6,6,6,6,6,6,6"
+  }
+ },
+ {
+  "n": 7,
+  "name": "Edge of the table",
+  "start": 75,
+  "grid": 53,
+  "towers": [
+   10,
+   12
+  ],
+  "rows": "5,6,6,6,6,6,6,6,6",
+  "onTopAtStart": 0,
+  "towerBottoms": [
+   7.9,
+   7.8
+  ],
+  "tops": [],
+  "afterGo": {
+   "stacks": 2,
+   "bottoms": [
+    8,
+    7.9
+   ],
+   "tops": 0,
+   "rows": "5,6,6,6,6,6,6,6,6"
+  }
+ },
+ {
+  "n": 8,
+  "name": "Wall and back",
+  "start": 78,
+  "grid": 53,
+  "towers": [
+   4,
+   5,
+   7,
+   5,
+   4
+  ],
+  "rows": "5,6,6,6,6,6,6,6,6",
+  "onTopAtStart": 0,
+  "towerBottoms": [
+   7.7,
+   7.7,
+   7.7,
+   7.7,
+   7.7
+  ],
+  "tops": [
+   [
+    "milk",
+    50.1
+   ],
+   [
+    "egg",
+    58.2
+   ],
+   [
+    "box",
+    76
+   ],
+   [
+    "ball",
+    58.1
+   ],
+   [
+    "biscuit",
+    50.1
+   ]
+  ],
+  "afterGo": {
+   "stacks": 5,
+   "bottoms": [
+    7.9,
+    7.9,
+    8,
+    7.9,
+    7.9
+   ],
+   "tops": 5,
+   "rows": "5,6,6,6,6,6,6,6,6"
+  }
+ },
+ {
+  "n": 9,
+  "name": "Prize party",
+  "start": 80,
+  "grid": 53,
+  "towers": [
+   5,
+   5,
+   5,
+   5,
+   7
+  ],
+  "rows": "5,6,6,6,6,6,6,6,6",
+  "onTopAtStart": 0,
+  "towerBottoms": [
+   7.7,
+   7.7,
+   7.7,
+   7.7,
+   7.7
+  ],
+  "tops": [],
+  "afterGo": {
+   "stacks": 5,
+   "bottoms": [
+    8,
+    8,
+    8,
+    8,
+    8
+   ],
+   "tops": 0,
+   "rows": "5,6,6,6,6,6,6,6,6"
+  }
+ },
+ {
+  "n": 10,
+  "name": "The vault",
+  "start": 80,
+  "grid": 53,
+  "towers": [
+   4,
+   6,
+   7,
+   6,
+   4
+  ],
+  "rows": "5,6,6,6,6,6,6,6,6",
+  "onTopAtStart": 0,
+  "towerBottoms": [
+   7.7,
+   7.7,
+   7.7,
+   7.7,
+   7.7
+  ],
+  "tops": [
+   [
+    "egg",
+    50
+   ],
+   [
+    "milk",
+    67.5
+   ],
+   [
+    "box",
+    74.7
+   ],
+   [
+    "ball",
+    67.5
+   ],
+   [
+    "feather",
+    50
+   ]
+  ],
+  "afterGo": {
+   "stacks": 5,
+   "bottoms": [
+    7.9,
+    8,
+    7.9,
+    7.9,
+    7.9
+   ],
+   "tops": 5,
+   "rows": "5,6,6,6,6,6,6,6,6"
+  }
+ }
+]

@@ -227,3 +227,16 @@ Everything here is inspiration, never a copy. The core genre is the coin pusher;
 - Jenny (Nov 14, UAT 60): music masks the sound effects (since the music change). Phantom coin-drop sound when no coin is dropped: frustrating; every sound must match an action on the board. CP-46 investigating.
 - Jenny (Nov 14): loves the ledge bell but it's too loud now: lower its volume only (explicit exception to the frozen pickup; sound and timing unchanged). Goes in the post-CP-47 mix fix with: pusher loud and steady, original coin sounds heard on every coin, music lower and ducking.
 - Jenny (Nov 14): coin pile sounds are the best sound in the game. Every sound must match something that actually happens (very important). Idea: more towers spilling.
+
+## Nov 15: after sign-off pass 1 (Jenny)
+- Sound mix: think casino sounds.
+- Ideas: a merge game; a side game where you earn coins.
+- Side games need a payoff that helps progress in the main game, to keep interest.
+- Boards must vary enough to keep interest (Pixel Flow: lots of different artwork, fun to pull apart).
+- Family Island lesson: lots of tiny goals (collect the right ingredients to upgrade a building; build to explore the island), small payoffs all along the way; kept her playing well past its best-by date.
+- The merge (Kitchen) must be super cute. Kitchen, Porch, Album, Shop: "it's all about the artwork at this point".
+- One kind of coin only (no separate jar currency).
+- Ongoing board: clear a level and the next one is set up in front of you, like bowling pins resetting.
+- Each new board an interesting configuration; some with smaller coins and many more rows/columns and towers.
+- Towers in different colours making patterns, fun to watch fall apart; a goal like "collect all the red coins".
+- DECIDED (Jenny, Nov 15): Yawn = wheel slice only, not a power. Tuxedo's power = Formal inspection. Wheel for every cat: discuss later.

@@ -1,0 +1,9 @@
+{"seed":1,"n":5,"win":true,"got":5,"goal":5,"left":5,"coins":132,"reason":"","quakes":0,"blocked":0,"peak":134,"ms":33202}
+{"seed":1,"n":8,"win":true,"got":6,"goal":6,"left":23,"coins":135,"reason":"","quakes":0,"blocked":0,"peak":126,"ms":34478}
+{"seed":1,"n":10,"win":false,"got":0,"goal":8,"left":2,"coins":0,"reason":"coins","quakes":0,"blocked":0,"peak":102,"ms":21622}
+{"seed":2,"n":5,"win":true,"got":5,"goal":5,"left":25,"coins":162,"reason":"","quakes":0,"blocked":0,"peak":111,"ms":15621}
+{"seed":2,"n":8,"win":true,"got":6,"goal":6,"left":29,"coins":82,"reason":"","quakes":0,"blocked":0,"peak":122,"ms":22487}
+{"seed":2,"n":10,"win":false,"got":0,"goal":8,"left":8,"coins":0,"reason":"coins","quakes":0,"blocked":0,"peak":107,"ms":20089}
+{"seed":3,"n":5,"win":true,"got":5,"goal":5,"left":8,"coins":97,"reason":"","quakes":0,"blocked":0,"peak":144,"ms":33851}
+{"seed":3,"n":8,"win":true,"got":6,"goal":6,"left":26,"coins":110,"reason":"","quakes":0,"blocked":0,"peak":132,"ms":29542}
+{"seed":3,"n":10,"win":false,"got":1,"goal":8,"left":4,"coins":0,"reason":"coins","quakes":0,"blocked":0,"peak":113,"ms":24525}
