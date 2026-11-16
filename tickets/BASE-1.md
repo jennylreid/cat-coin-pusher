@@ -19,7 +19,9 @@ Still open: CP-23 (design, solo), CP-39 (log without file picker).
 3. Mouse pounce: the big cat's own mitts should pounce, not small paws from another cat.
 4. Cats button: a pop-up to switch cats, greyed with one cat; keep hearts on tap.
 5. PLAY-screen coins: remove the pyramid (no coin field for now) and make the PLAY button smaller (Jenny, Nov 16). In CP-49.
-6. Developer cleanup (MODES and old test tools).
+6. Developer cleanup (MODES and old test tools). Jenny, Nov 16: clean up the Settings screen so it has only useful
+   controls; some settings there were meant to be tested and never were. Next after CP-50; start with a list of every
+   setting for her to mark keep/remove.
 7. Powers: the Yawn works against the player, so it is a wheel slice only, not a power. The Tuxedo's power becomes
    Formal inspection (a monocle highlights the most valuable coins and prizes; the cane sweeps them forward). (Jenny, Nov 15)
 8. Zoomies looks cute but "nothing happens": the kittens should enter at the back and run FORWARD (toward the player),

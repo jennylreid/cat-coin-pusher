@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "failed": [],
+  "passedChecks": [
+    {
+      "name": "1 no player-visible \"Main screen\" string left in the build (UAT 65 had one)",
+      "info": {
+        "before": [
+          "'Main screen'"
+        ],
+        "after": []
+      }
+    },
+    {
+      "name": "2 end card button reads \"Home\" (was \"Main screen\"), same place and size",
+      "info": {
+        "la": "Main screen",
+        "lb": "Home",
+        "ra": {
+          "x": 110,
+          "y": 672,
+          "w": 180,
+          "h": 28
+        },
+        "rb": {
+          "x": 110,
+          "y": 672,
+          "w": 180,
+          "h": 28
+        }
+      }
+    },
+    {
+      "name": "3 tapping Home goes to the Home screen as before; no errors",
+      "info": {
+        "screen": "main",
+        "errs": []
+      }
+    }
+  ],
+  "notes": {
+    "labels": {
+      "before": "Main screen",
+      "after": "Home"
+    }
+  },
+  "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp66\\release.html",
+  "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp65\\release.html"
+}

@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 65';
+const BUILD = '2026.11.16 UAT 66';
 
 
 
@@ -40946,7 +40946,7 @@ pgEndText=function(R){const P=WILD.pgResult;if(!P||PG_HOME_OFF)return false;cons
  const lead=P.lvl&&P.stars?(P.first?'Level '+P.lvl+' passed! ':'')+(P.next?'Level '+P.next+' is open · ':''):'';
  ctx.fillText(lead+'+'+P.coins+' coins'+(P.nip?' · +1 Catnip':''),200,y+20,330);return true;};
 function pglAgainText(){if(!pglOn()||!WILD.pgResult)return 'PLAY AGAIN';return WILD.pgResult.next?'NEXT LEVEL':WILD.win?'PLAY AGAIN':'TRY AGAIN';}
-const __pglBackText=pgBackText;pgBackText=function(){return pglActive()?'Main screen':__pglBackText();};
+const __pglBackText=pgBackText;pgBackText=function(){return pglActive()?'Home':__pglBackText();}; // CP-49 (Jenny, Nov 16): was "Main screen"
 
 // --- the PLAY screen: Level n and its tag, the level's name with the goal, stars, and arrows for passed levels ---
 pgBoardLevel=function(){return pglActive()?pglSel():(PG&&PG.passed|0)+1;};
