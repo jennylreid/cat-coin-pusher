@@ -1,20 +1,20 @@
 {
-  "version": 20261115180000,
-  "displayName": "2026.11.15 UAT 63",
+  "version": 20261115190000,
+  "displayName": "2026.11.15 UAT 64",
   "apkVersion": 7,
-  "baselineJSONSHA256": "7293759556f799f60e1b1b55d21dd490d971682ed821123f2549377bb3dbef7f",
-  "stagedJSONSHA256": "802e76c68d06b625fdccca54931f6cb380a1aaa94e81ea54fd9bcd47ac47c789",
+  "baselineJSONSHA256": "802e76c68d06b625fdccca54931f6cb380a1aaa94e81ea54fd9bcd47ac47c789",
+  "stagedJSONSHA256": "eeb5a40bc486ae10986dcedfe0c878c23ba0e32a2f4c5f50bf4b92c52e317607",
   "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
-  "releaseHTMLSHA256": "18dd75eb487230c1d270d1ddd18dab5fbd348c5f65f6b809d8e95125b7ceb18b",
-  "jsonBytes": 51972342,
+  "releaseHTMLSHA256": "230a9d7ee2b5259820cfe09678f0854524f6228970a4bc27585c66482238987d",
+  "jsonBytes": 51972506,
   "runtimeFiles": 37,
   "changedRuntimeFiles": [
     "index.html"
   ],
   "embeddedAPKBytes": 0,
   "nativeChange": false,
-  "base": "2026.11.14 UAT 62",
-  "backup": "uat/backups/before-UAT63-20261115180000",
-  "evidence": "tickets/CP-48-evidence/uat63",
-  "authorization": "UAT 63: CP-48 (Jenny, Nov 15, via PM): freeze fix (coin cap about 100 via the gold 5 budget, Board full backstop at 120 pieces, better logging), Level 1 = production's 9-row board, and (scope add, Jenny Nov 15) every level on the full grid with towers on top, at most 80 starting coins; on 2026.11.14 UAT 62; UAT only"
+  "base": "2026.11.15 UAT 63",
+  "backup": "uat/backups/before-UAT64-20261115190000",
+  "evidence": "tickets/CP-48-evidence/uat64",
+  "authorization": "UAT 64: CP-48 (Jenny, Nov 15, via PM): option A coin limit (45 of your own coins on the board, then 1 drop a second with Board full; rain past 100 lands as gold 5s), better logging, every level on the full 9-row grid with towers on top and at most 80 starting coins, Level 1 without towers; on 2026.11.15 UAT 63; UAT only"
 }

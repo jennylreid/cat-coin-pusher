@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.15 UAT 63';
+const BUILD = '2026.11.15 UAT 64';
 
 
 
@@ -38065,7 +38065,7 @@ danceDraw=function(){
 // Rain, pours and sky coins check the budget: while the table holds W43_COIN_CAP plain coins or more, every fifth
 // surplus coin lands as one gold "5" coin (worth 5 when it goes over the front) and the other four are not made, so the
 // rain still looks thick from above but the physics doesn't grow. Prizes, rain coins and the Quake are never capped.
-const W43_COIN_CAP=100;
+const W43_COIN_CAP=130;
 RAIN.gold5={n:5,gold:true,r:Math.round(COIN_R*1.3),half:COIN_HALF*1.15,face:['#fff6c8','#ffc93c','#9a6a00'],edge:'#8a5c00'};
 EDGE.gold5=RAIN.gold5.edge;PRIZE_OPAQUE.gold5=.95;PRIZE_ASPECT.gold5=1;
 const __w43RainFace=rainFace;
@@ -41264,25 +41264,25 @@ wildDevBind=function(panel){__pgpDevBind(panel);const box=panel.querySelector&&p
   if(WILD.phase==='card'||WILD.phase==='end'){if(WILD.phase==='end')wildReset();PGU.screen='board';WILD.pounceForce=true;wildStartCountdown();}else if(!WILD.pounce)WILD.pounceForce=true;};};
 
 // ---------- CP-48 (UAT 63, Jenny Nov 15): freeze fix and the simple Level 1 ----------
-// 1a. Coin cap (about 100). The UAT 43 coin budget now starts at 100 plain coins on the board (was 130): above it, twice a
-//     second five resting coins near the back become one gold 5 (worth the same 5 coins), and rain, pours and sky coins
-//     land as one gold 5 in five. That holds the board near 100 coins even under a full-speed hold (desktop: 102-108).
-//     Backstop: at 120 coin pieces (plain coins + gold 5s), a tap or hold drops nothing (the coins stay in the bank) and a
-//     short "Board full" hint shows (front of the board, like "Easy taps", and in the board's message line) until coins
-//     fall off. Normal play never reaches it (bot on all ten levels: peaks 82-118). A hard stop at 100 was tried first: it
-//     made Levels 3, 6, 7 and 10 unwinnable (the board jams at 100 with no new coins). Prizes, rain coins (5/10/25), the
-//     Quake and the pickup are never capped or changed.
-const CP48_CAP=100,CP48_FULL=120;
+// 1a. Coin limit (Jenny's option A, Nov 15). Your own dropped coins still on the board are limited to about 45: at the
+//     limit, drops slow to one a second (taps and holds in between drop nothing; the coins stay in the bank) and a short
+//     "Board full" shows (front of the board, like "Easy taps", and in the board's message line). Grid, tower, rain and
+//     prize pieces don't count, so a flood stops near 100 coins on Level 1 while tower levels play normally. Rain, pours
+//     and sky coins past 100 plain coins land as one gold 5 in five (the UAT 43 budget, from 100 instead of 130); the
+//     gold 5 merging of resting coins stays at 130 as before. Prizes, rain coins (5/10/25), the Quake, powers and the
+//     pickup are never limited or changed.
+const CP48_OWN=45,CP48_SLOW=1,CP48_RAIN=100;
 let cp48FullAt=-99,cp48FullLogAt=-99;
-function cp48Pieces(){let n=0;for(const b of bodies)if(!b.dead&&(b.kind==='coin'||b.kind==='silver'||b.kind==='gold5'))n++;return n;}
-function cp48Full(){return cp48Pieces()>=CP48_FULL;}
+function cp48Own(){let n=0;for(const b of bodies)if(!b.dead&&b.input&&(b.kind==='coin'||b.kind==='silver'))n++;return n;}
+function cp48Full(){return cp48Own()>=CP48_OWN;}
 const __cp48TryDrop=tryDrop;
 tryDrop=function(at=aim){
- if(!inventoryOpen&&board.status!=='won'&&board.status!=='lost'&&board.remaining>0&&cp48Full()){
+ if(!inventoryOpen&&board.status!=='won'&&board.status!=='lost'&&board.remaining>0&&cp48Full()&&time-lastDrop<CP48_SLOW-1e-6){
   if(time-cp48FullAt>.9){cp48FullAt=time;const p=screenOf(200,T.FRONT-12,10);floats.push({text:'Board full',x:p.x,y:p.y,t:0});try{sfx.clink(.12);}catch(e){}}
-  if(time-cp48FullLogAt>5){cp48FullLogAt=time;try{diagEvent('board-full',{plain:w43PlainCount(),pieces:cp48Pieces()});}catch(e){}}
+  if(time-cp48FullLogAt>5){cp48FullLogAt=time;try{diagEvent('board-full',{own:cp48Own(),plain:w43PlainCount()});}catch(e){}}
   return false;}
  return __cp48TryDrop(at);};
+w43Budget=function(kind){if(!WILD.on||w43PlainCount()<CP48_RAIN)return kind;w43Surplus++;if(w43Surplus>=5){w43Surplus=0;WILD.gold5=(WILD.gold5||0)+1;return 'gold5';}return null;};
 const __cp48Msg=wildMessage;
 wildMessage=function(){if(WILD.on&&WILD.phase==='play'&&S.coins>0&&cp48Full())return 'Board full!';return __cp48Msg();};
 
@@ -41308,10 +41308,10 @@ pglStandBlocks=function(L){const r=__cp48Stand(L);if(pglOn()&&L&&L.blocks)cp48Li
 //     while holding (local copy); long frames (over 100 ms) with the screen and coin count; the last 10 taps and what took
 //     them; screen changes; peak coins per session and per round.
 const CP48={taps:[],lastScreen:'',roundPeak:0,errSaved:false,lastLong:-1e9,longSkipped:0,saveMs:0};
-diagSession.taps=CP48.taps;diagSession.peakCoins=0;diagSession.coinCap={merge:CP48_CAP,boardFull:CP48_FULL};
+diagSession.taps=CP48.taps;diagSession.peakCoins=0;diagSession.coinCap={ownLimit:CP48_OWN,slowSec:CP48_SLOW,rainBudget:CP48_RAIN,merge:W43_COIN_CAP};
 function cp48Screen(){try{const pg=PG&&!PG_HOME_OFF;let s=pg?PGU.screen:'old-board';
  if(s==='board'&&WILD.on)s+=':'+WILD.phase;
- if(WILD.on){if(WILD.dance)s+='+dance';if(WILD.pet)s+='+pet';if(WILD.laser)s+='+laser';if(WILD.toss)s+='+toss';if(WILD.pounce)s+='+pounce';if(typeof PGPX!=='undefined'&&PGPX)s+='+'+PGPX.id;}
+ if(WILD.on){if(WILD.dance)s+='+dance';if(WILD.pet)s+='+pet';if(WILD.petGame)s+='+petgame';if(WILD.laser)s+='+laser';if(WILD.toss)s+='+toss';if(WILD.pounce)s+='+pounce';if(typeof PGPX!=='undefined'&&PGPX)s+='+'+PGPX.id;}
  if(panel.style.display==='block')s+='+settings';if(inventoryOpen)s+='+inventory';
  if(pg){if(PGU.pick)s+='+cats';if(PGU.rules)s+='+rules';if(PGU.door)s+='+door';if(PGU.modes)s+='+modes';}
  return s;}catch(e){return 'unknown';}}

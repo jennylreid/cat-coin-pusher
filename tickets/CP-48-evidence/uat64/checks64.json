@@ -1,0 +1,647 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp63\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp47-levels\\release.html",
+ "passed": true,
+ "count": 29,
+ "failed": [],
+ "names": [
+  {
+   "name": "1.1 every level opens on the full grid: 9 rows (5, then 8 x 6) = 53 coins, no gaps",
+   "info": []
+  },
+  {
+   "name": "1.2 every level starts at 80 coins or fewer (grid + tower coins); Level 1 and 3 have no towers",
+   "info": [
+    53,
+    75,
+    53,
+    75,
+    78,
+    80,
+    75,
+    78,
+    80,
+    80
+   ]
+  },
+  {
+   "name": "1.3 towers stand on the grid coins (their base at the grid top), not on the table",
+   "info": []
+  },
+  {
+   "name": "1.4 each level keeps its name, goal, tag, coins, time and star prize",
+   "info": []
+  },
+  {
+   "name": "1.5 towers keep their positions (only shorter); prizes, rain coins and Quake sit at their designed spots",
+   "info": {
+    "pos": [],
+    "pieces": []
+   }
+  },
+  {
+   "name": "1.6 every replay starts the same",
+   "info": []
+  },
+  {
+   "name": "1.7 one second after GO: grid intact, every tower standing, tower-top prizes still on top",
+   "info": [
+    [
+     1,
+     "5,6,6,6,6,6,6,6,6",
+     0,
+     0
+    ],
+    [
+     2,
+     "5,6,6,6,6,6,6,6,6",
+     2,
+     0
+    ],
+    [
+     3,
+     "5,6,6,6,6,6,6,6,6",
+     0,
+     0
+    ],
+    [
+     4,
+     "5,6,6,6,6,6,6,6,6",
+     2,
+     0
+    ],
+    [
+     5,
+     "5,6,6,6,6,6,6,6,6",
+     5,
+     5
+    ],
+    [
+     6,
+     "5,6,6,6,6,6,6,6,6",
+     5,
+     1
+    ],
+    [
+     7,
+     "5,6,6,6,6,6,6,6,6",
+     2,
+     0
+    ],
+    [
+     8,
+     "5,6,6,6,6,6,6,6,6",
+     5,
+     5
+    ],
+    [
+     9,
+     "5,6,6,6,6,6,6,6,6",
+     5,
+     0
+    ],
+    [
+     10,
+     "5,6,6,6,6,6,6,6,6",
+     5,
+     5
+    ]
+   ]
+  },
+  {
+   "name": "1.8 no frame errors",
+   "info": []
+  },
+  {
+   "name": "2.1 Level 1: a hold-flood reaches the 45 own-coin limit, then drops slow to about 1 a second; \"Board full\" shows (front hint and message line); the rest stay in the bank",
+   "info": {
+    "peak": 103,
+    "own": 60,
+    "full": 1123,
+    "msg": 1123,
+    "floatSeen": 1093,
+    "merged": 0,
+    "msPerTick": 8.5,
+    "bank": 64
+   }
+  },
+  {
+   "name": "2.3 Level 1: at the limit a 5 s hold drops about 5 coins (one a second)",
+   "info": {
+    "dropped": 5,
+    "own": 64,
+    "screen": "board:play",
+    "hold0": {
+     "holding": true,
+     "tap": [
+      124.71,
+      200,
+      158,
+      "board",
+      "board:play",
+      "",
+      0,
+      101
+     ],
+     "wild": [
+      "stash",
+      "have",
+      "iconShake",
+      "pgAdded"
+     ],
+     "arr": [
+      "order:1"
+     ],
+     "pgu": [
+      "sc",
+      "title",
+      "cat",
+      "k",
+      "porch",
+      "album",
+      "shop"
+     ],
+     "pending": 0
+    }
+   }
+  },
+  {
+   "name": "2.3b Level 1: under the limit again, a 1 s hold drops at the normal speed",
+   "info": {
+    "dropped": 5
+   }
+  },
+  {
+   "name": "2.5 Level 1: no frame errors; sound on",
+   "info": {
+    "errs": [],
+    "nodes": 9680
+   }
+  },
+  {
+   "name": "2.2 Level 6 as the ragdoll with Hug: a hold-flood reaches the 45 own-coin limit, then drops slow to about 1 a second; \"Board full\" shows (front hint and message line); the rest stay in the bank",
+   "info": {
+    "peak": 103,
+    "own": 55,
+    "full": 1123,
+    "msg": 1123,
+    "floatSeen": 590,
+    "merged": 0,
+    "msPerTick": 9.3,
+    "bank": 69
+   }
+  },
+  {
+   "name": "2.4 Level 6: at the limit a 5 s hold drops about 5 coins (one a second)",
+   "info": {
+    "dropped": 0,
+    "own": 53,
+    "screen": "board:play+petgame",
+    "hold0": {
+     "holding": false,
+     "tap": [
+      106.45,
+      200,
+      158,
+      "board",
+      "board:play+petgame",
+      "",
+      1,
+      98
+     ],
+     "wild": [
+      "stash",
+      "have",
+      "petGame",
+      "iconShake",
+      "pgAdded"
+     ],
+     "arr": [
+      "order:2"
+     ],
+     "pgu": [
+      "sc",
+      "title",
+      "cat",
+      "k",
+      "porch",
+      "album",
+      "shop"
+     ],
+     "pending": 0
+    }
+   }
+  },
+  {
+   "name": "2.4b Level 6: under the limit again, a 1 s hold drops at the normal speed",
+   "info": {
+    "dropped": 5
+   }
+  },
+  {
+   "name": "2.6 Level 6: no frame errors; sound on",
+   "info": {
+    "errs": [],
+    "nodes": 8204
+   }
+  },
+  {
+   "name": "2.7 after the same flood the board holds fewer coins than UAT 62 and costs less (desktop ms per tick)",
+   "info": {
+    "uat64": {
+     "peak": 106,
+     "bodies": 118,
+     "msPerTickWhileFlooding": 8.6,
+     "msPerTickAfter": 7.5
+    },
+    "uat62": {
+     "peak": 133,
+     "bodies": 147,
+     "msPerTickWhileFlooding": 12.3,
+     "msPerTickAfter": 16.2
+    }
+   }
+  },
+  {
+   "name": "2.8 a coin rain past 100 plain coins lands as gold 5s (1 in 5), not 40 more plain coins",
+   "info": {
+    "before": 101,
+    "after": 99,
+    "gold5": 8
+   }
+  },
+  {
+   "name": "3.1 after a flood, end card \"Main screen\" reaches the PLAY screen and every side button and PLAY respond",
+   "info": {
+    "screen": "main",
+    "ms": 161,
+    "buttons": [
+     [
+      "kitchen",
+      "kitchen"
+     ],
+     [
+      "shop",
+      "shop"
+     ],
+     [
+      "board",
+      "main+cats"
+     ]
+    ],
+    "play": true,
+    "taps": [
+     "board",
+     "board",
+     "board",
+     "board",
+     "board",
+     "end:main",
+     "side:kitchen",
+     "side:shop",
+     "side:board",
+     "play"
+    ]
+   }
+  },
+  {
+   "name": "3.2 after a flood, in-round \"Board\" button reaches the PLAY screen and every side button and PLAY respond",
+   "info": {
+    "screen": "main",
+    "ms": 307,
+    "buttons": [
+     [
+      "kitchen",
+      "kitchen"
+     ],
+     [
+      "shop",
+      "shop"
+     ],
+     [
+      "board",
+      "main+cats"
+     ]
+    ],
+    "play": true,
+    "taps": [
+     "board",
+     "board",
+     "board",
+     "board",
+     "board",
+     "board-button",
+     "side:kitchen",
+     "side:shop",
+     "side:board",
+     "play"
+    ]
+   }
+  },
+  "4.1 the event ring keeps the last 200",
+  {
+   "name": "4.2 a frame over 100 ms is logged with its screen and coin count",
+   "info": [
+    {
+     "ms": 150,
+     "physicsMs": 0,
+     "drawMs": 0,
+     "steps": 3,
+     "coins": 53,
+     "bodies": 60,
+     "screen": "board:play",
+     "skippedSince": 0
+    }
+   ]
+  },
+  {
+   "name": "4.3 the last taps are kept (at most 10) with what took them and the screen",
+   "info": [
+    [
+     -49.63,
+     200,
+     700,
+     "title",
+     "title",
+     "board:card",
+     1,
+     53
+    ],
+    [
+     -46.11,
+     200,
+     158,
+     "board",
+     "board:play",
+     "",
+     0,
+     53
+    ]
+   ]
+  },
+  {
+   "name": "4.4 screen changes are logged, and the round end with its peak coins",
+   "info": [
+    [
+     "screen",
+     "start > board:play (53 coins)"
+    ],
+    [
+     "screen",
+     "board:play > board:end (54 coins)"
+    ],
+    [
+     "round-end",
+     {
+      "level": 1,
+      "cat": "tuxedo",
+      "peakCoins": 54,
+      "win": false
+     }
+    ]
+   ]
+  },
+  {
+   "name": "4.5 peak coins for the session",
+   "info": {
+    "peak": 54
+   }
+  },
+  "4.6 the log is saved every 5 s during a round, even while holding",
+  "4.7 the first error saves the log at once, with the state and last taps",
+  {
+   "name": "4.8 the next launch keeps that session (200 events, taps, peak) in the log",
+   "info": {
+    "events": 200,
+    "taps": 3,
+    "peak": 101,
+    "inPayload": true
+   }
+  },
+  "5.1 the source differs from UAT 62 only by the CP-48 module and its listed swaps (build label, Level 1 towers, 5 tower heights, log size) (pickup, art, sounds untouched)"
+ ],
+ "notes": {
+  "levels": [
+   {
+    "level": 1,
+    "name": "First push",
+    "start": 53,
+    "towersBefore": [
+     10,
+     12
+    ],
+    "towersAfter": []
+   },
+   {
+    "level": 2,
+    "name": "Line up",
+    "start": 75,
+    "towersBefore": [
+     10,
+     12
+    ],
+    "towersAfter": [
+     10,
+     12
+    ]
+   },
+   {
+    "level": 3,
+    "name": "At the back",
+    "start": 53,
+    "towersBefore": [],
+    "towersAfter": []
+   },
+   {
+    "level": 4,
+    "name": "Crammed",
+    "start": 75,
+    "towersBefore": [
+     10,
+     12
+    ],
+    "towersAfter": [
+     10,
+     12
+    ]
+   },
+   {
+    "level": 5,
+    "name": "Tower wall",
+    "start": 78,
+    "towersBefore": [
+     13,
+     18,
+     23,
+     18,
+     13
+    ],
+    "towersAfter": [
+     4,
+     5,
+     7,
+     5,
+     4
+    ]
+   },
+   {
+    "level": 6,
+    "name": "Tower block",
+    "start": 80,
+    "towersBefore": [
+     10,
+     10,
+     13,
+     10,
+     10
+    ],
+    "towersAfter": [
+     5,
+     5,
+     7,
+     5,
+     5
+    ]
+   },
+   {
+    "level": 7,
+    "name": "Edge of the table",
+    "start": 75,
+    "towersBefore": [
+     10,
+     12
+    ],
+    "towersAfter": [
+     10,
+     12
+    ]
+   },
+   {
+    "level": 8,
+    "name": "Wall and back",
+    "start": 78,
+    "towersBefore": [
+     13,
+     18,
+     23,
+     18,
+     13
+    ],
+    "towersAfter": [
+     4,
+     5,
+     7,
+     5,
+     4
+    ]
+   },
+   {
+    "level": 9,
+    "name": "Prize party",
+    "start": 80,
+    "towersBefore": [
+     9,
+     9,
+     9,
+     9,
+     12
+    ],
+    "towersAfter": [
+     5,
+     5,
+     5,
+     5,
+     7
+    ]
+   },
+   {
+    "level": 10,
+    "name": "The vault",
+    "start": 80,
+    "towersBefore": [
+     16,
+     21,
+     23,
+     21,
+     16
+    ],
+    "towersAfter": [
+     4,
+     6,
+     7,
+     6,
+     4
+    ]
+   }
+  ],
+  "flood-L1": {
+   "peak": 103,
+   "own": 60,
+   "full": 1123,
+   "msg": 1123,
+   "floatSeen": 1093,
+   "merged": 0,
+   "msPerTick": 8.5,
+   "bank": 64
+  },
+  "flood-L6": {
+   "peak": 103,
+   "own": 55,
+   "full": 1123,
+   "msg": 1123,
+   "floatSeen": 590,
+   "merged": 0,
+   "msPerTick": 9.3,
+   "bank": 69
+  },
+  "frameCost": {
+   "uat64": {
+    "peak": 106,
+    "bodies": 118,
+    "msPerTickWhileFlooding": 8.6,
+    "msPerTickAfter": 7.5
+   },
+   "uat62": {
+    "peak": 133,
+    "bodies": 147,
+    "msPerTickWhileFlooding": 12.3,
+    "msPerTickAfter": 16.2
+   }
+  },
+  "exit-main": {
+   "ms": 161,
+   "buttons": [
+    [
+     "kitchen",
+     "kitchen"
+    ],
+    [
+     "shop",
+     "shop"
+    ],
+    [
+     "board",
+     "main+cats"
+    ]
+   ]
+  },
+  "exit-board": {
+   "ms": 307,
+   "buttons": [
+    [
+     "kitchen",
+     "kitchen"
+    ],
+    [
+     "shop",
+     "shop"
+    ],
+    [
+     "board",
+     "main+cats"
+    ]
+   ]
+  }
+ },
+ "at": "2026-11-16T02:14:37.932Z"
+}

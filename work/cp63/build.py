@@ -25,8 +25,6 @@ rep("wall:[13,18,23,18,13],rain:[['rain10',200,650]],quake:[110,640]", "wall:[4,
 rep("wall:[16,21,23,21,16]", "wall:[4,6,7,6,4]")  # 10 The vault
 rep("blocks:[[[200,417,10],[147,470,10],[200,470,13],[253,470,10],[200,523,10]]]", "blocks:[[[200,417,5],[147,470,5],[200,470,7],[253,470,5],[200,523,5]]]")  # 6 Tower block
 rep("blocks:[[[173,415,9],[227,415,9],[173,468,9],[227,468,9],[200,370,12]]]", "blocks:[[[173,415,5],[227,415,5],[173,468,5],[227,468,5],[200,370,7]]]")  # 9 Prize party
-# 1. The rain/pour budget (UAT 43) starts at the same 100 plain coins as the player's drop cap (was 130).
-rep("const W43_COIN_CAP=130;", "const W43_COIN_CAP=100;")
 # 1. Logging: keep the last 200 events (was 40), also from the previous session's copy.
 rep("diagSession.events,[diagAt(),kind,data],40)", "diagSession.events,[diagAt(),kind,data],200)")
 rep("events:s.events.slice(-40)", "events:s.events.slice(-200),taps:Array.isArray(s.taps)?s.taps.slice(-10):[]")
