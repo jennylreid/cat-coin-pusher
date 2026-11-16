@@ -1,0 +1,72 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp70\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp69\\release.html",
+ "passed": true,
+ "passedN": 8,
+ "failed": [],
+ "notes": {
+  "l1": [
+   "coin",
+   "item",
+   "silver"
+  ],
+  "l1Errs": [],
+  "positions": [
+   [
+    "UAT 69",
+    [
+     [
+      "cheese",
+      110,
+      610
+     ],
+     [
+      "shrimp",
+      290,
+      575
+     ]
+    ],
+    [
+     [
+      "cheese",
+      110,
+      610
+     ],
+     [
+      "shrimp",
+      290,
+      575
+     ]
+    ]
+   ],
+   [
+    "UAT 70",
+    [
+     [
+      "cheese",
+      140,
+      610
+     ],
+     [
+      "shrimp",
+      260,
+      690
+     ]
+    ],
+    [
+     [
+      "cheese",
+      140,
+      610
+     ],
+     [
+      "shrimp",
+      260,
+      690
+     ]
+    ]
+   ]
+  ],
+  "popErrs": []
+ }
+}

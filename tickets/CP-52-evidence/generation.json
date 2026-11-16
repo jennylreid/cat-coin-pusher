@@ -1,0 +1,50 @@
+{
+  "method": "Built-in image_gen, one prize/variant per call",
+  "files": [
+    {
+      "id": "feather-a",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e52c-8bcf-77c1-9c19-6af2ec3b98a1\\exec-3fd2aaed-1bb7-400b-99ee-28e228da2318.png",
+      "prompt": "Use case: stylized-concept. Paint one isolated CatCoin game prize sprite, transparent background, no text, no border or UI, no cast shadow outside object. Match the approved cheese/shrimp/tuna references in this conversation: richly painted full colour, soft dimensional shading, luminous restrained highlights, clear dark coloured outline; polished casual game item, not flat vector. Square canvas. Entire object visible with generous transparent margin. Subject: ONE soft fluffy cat-toy feather, pale lavender with cream down at base. Gently curved shaft runs from lower left to upper right. Wispy split barbs fan out naturally with little gaps and a fluffy base, delicate soft tip. Broad enough to read at 32px; never a leaf, ski or stack of ovals. Fit object within x=20..108,y=16..110 on a conceptual 128x128 canvas. Option feather A."
+    },
+    {
+      "id": "feather-b",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e52c-8bcf-77c1-9c19-6af2ec3b98a1\\exec-a1e358f6-85a7-4a78-8848-6d072db12077.png",
+      "prompt": "Use case: stylized-concept. Paint one isolated CatCoin game prize sprite, transparent background, no text, no border or UI, no cast shadow outside object. Match the approved cheese/shrimp/tuna references in this conversation: richly painted full colour, soft dimensional shading, luminous restrained highlights, clear dark coloured outline; polished casual game item, not flat vector. Square canvas. Entire object visible with generous transparent margin. Subject: ONE soft fluffy cat-toy feather, muted blush pink fading to warm ivory at tip and fluffy downy base. Shaft curves gently from lower left to upper right. Fine separated wispy barbs, airy irregular edges, natural feather structure, fuller rounded vane than option A. Clearly feather at 32px, no leaf, no ovals. Conceptual 128 square footprint x20..108 y16..110. Option feather B."
+    },
+    {
+      "id": "feather-c",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e52c-8bcf-77c1-9c19-6af2ec3b98a1\\exec-eb80e2d0-902a-4cce-ae4c-01d8352d777b.png",
+      "prompt": "Use case: stylized-concept. Paint one isolated CatCoin game prize sprite, transparent background, no text, no border or UI, no cast shadow outside object. Match the approved cheese/shrimp/tuna references in this conversation: richly painted full colour, soft dimensional shading, luminous restrained highlights, clear dark coloured outline; polished casual game item, not flat vector. Square canvas. Entire object visible with generous transparent margin. Subject: ONE soft fluffy cat-toy feather, powder blue with warm ivory fluffy down at base, slate blue edge outline. Gently S curved shaft from lower left to upper right. Slender airy vane with natural wispy split and fanning barbs, fluffy base, fine gaps, soft tip. Feather must read at 32px, not leaf or ski. Footprint conceptual128 square x20..108 y16..110. Option feather C."
+    },
+    {
+      "id": "ball-a",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e52c-8bcf-77c1-9c19-6af2ec3b98a1\\exec-9d71638a-a920-4adb-85ea-3fab4c3d07ee.png",
+      "prompt": "Use case: stylized-concept. Paint one isolated CatCoin game prize sprite, transparent background, no text, no border or UI, no cast shadow outside object. Match the approved cheese/shrimp/tuna references in this conversation: richly painted full colour, soft dimensional shading, luminous restrained highlights, clear dark coloured outline; polished casual game item, not flat vector. Square canvas. Entire object visible with generous transparent margin. Subject ONE red rubber playground four-square ball, spherical perfectly circular silhouette, dense small pebbled rubber texture all over, deeply moulded curved seam lines, slight broad soft shine upper left, rich red shaded to burgundy lower right, dark red outline. Classic four-square rubber ball, not sports leather, no star, no bands, no blue or white panels, no lettering. Option A traditional cross-curving seams. Center64,64 radius42 on conceptual128 canvas."
+    },
+    {
+      "id": "ball-b",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e52c-8bcf-77c1-9c19-6af2ec3b98a1\\exec-1828d41f-e238-4fb6-8884-4ca68ef45805.png",
+      "prompt": "Use case: stylized-concept. Paint one isolated CatCoin game prize sprite, transparent background, no text, no border or UI, no cast shadow outside object. Match the approved cheese/shrimp/tuna references in this conversation: richly painted full colour, soft dimensional shading, luminous restrained highlights, clear dark coloured outline; polished casual game item, not flat vector. Square canvas. Entire object visible with generous transparent margin. Subject ONE red rubber playground four-square ball, perfectly circular spherical silhouette. Option B warm vermilion red with fine dense pebbled rubber stipple all over, recessed curved seams forming broad offset panels, softer satin highlight upper left, dark maroon coloured outline. Cheerful painted game prize, dimensional and tactile. No leather, no star, no bands, no white or blue, no text or logo. Center64,64 radius42 conceptual128 canvas."
+    },
+    {
+      "id": "ball-c",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e52c-8bcf-77c1-9c19-6af2ec3b98a1\\exec-ee6556ae-bbdd-4943-8c2c-098af0e44bcb.png",
+      "prompt": "Use case: stylized-concept. Paint one isolated CatCoin game prize sprite, transparent background, no text, no border or UI, no cast shadow outside object. Match the approved cheese/shrimp/tuna references in this conversation: richly painted full colour, soft dimensional shading, luminous restrained highlights, clear dark coloured outline; polished casual game item, not flat vector. Square canvas. Entire object visible with generous transparent margin. Subject ONE red rubber playground four-square ball, perfectly circular spherical silhouette. Option C deep cherry red, pronounced coarse pebbled rubber texture all over, two rounded recessed curved great-circle seam lines crossing off-centre, slight small shine upper left with soft lit red face. Clear dark burgundy edge. Tactile painted polished casual game prize. No leather, no star, no bands, no white or blue, no text or logo. Center64,64 radius42 conceptual128 canvas."
+    },
+    {
+      "id": "cushion-a",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e52c-8bcf-77c1-9c19-6af2ec3b98a1\\exec-4c633b06-3704-408c-82d0-65fea675cef2.png",
+      "prompt": "Use case: stylized-concept. Paint one isolated CatCoin game prize sprite, transparent background, no text, no border or UI, no cast shadow outside object. Match the approved cheese/shrimp/tuna references in this conversation: richly painted full colour, soft dimensional shading, luminous restrained highlights, clear dark coloured outline; polished casual game item, not flat vector. Square canvas. Entire object visible with generous transparent margin. Subject ONE plump square cat cushion, option A soft lavender plush velvety fabric, puffy softly pointed corners, central round fabric-covered button tuft with four gently gathered folds, neat deeper purple piping around edge. Slightly above front view, broad square top compressed by perspective to width104 height76. Soft bulging stuffed volume, subtle fine fabric pile, soft highlights, dark purple outline. No cat, pattern, tassels or furniture. Footprint conceptual128 square x12..116,y30..106; centre64,68."
+    },
+    {
+      "id": "cushion-b",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e52c-8bcf-77c1-9c19-6af2ec3b98a1\\exec-1ac3ba82-8c32-48aa-a331-81c3823f4530.png",
+      "prompt": "Use case: stylized-concept. Paint one isolated CatCoin game prize sprite, transparent background, no text, no border or UI, no cast shadow outside object. Match the approved cheese/shrimp/tuna references in this conversation: richly painted full colour, soft dimensional shading, luminous restrained highlights, clear dark coloured outline; polished casual game item, not flat vector. Square canvas. Entire object visible with generous transparent margin. Subject ONE plump square cat cushion, option B dusty rose soft woven cotton fabric with fine visible weave, puffy corners, a central round fabric-covered button deeply tufted with four soft gathered folds, burgundy rose piping and dark warm outline. Slightly above front view, square top compressed in perspective to width104 height76, thick stuffed front edge. Soft volume and painted highlights. No cat, pattern, tassels or furniture. Footprint conceptual128 square x12..116,y30..106 centre64,68."
+    },
+    {
+      "id": "cushion-c",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e52c-8bcf-77c1-9c19-6af2ec3b98a1\\exec-0f42cc05-ceee-41a0-b482-7a6d752bda81.png",
+      "prompt": "Use case: stylized-concept. Paint one isolated CatCoin game prize sprite, transparent background, no text, no border or UI, no cast shadow outside object. Match the approved cheese/shrimp/tuna references in this conversation: richly painted full colour, soft dimensional shading, luminous restrained highlights, clear dark coloured outline; polished casual game item, not flat vector. Square canvas. Entire object visible with generous transparent margin. Subject ONE plump square cat cushion, option C warm honey cream brushed fabric with subtle fine textile texture, puffy corners, central round ochre fabric-covered button deeply tufted with four soft gathered folds, warm caramel piping, clear dark brown outline. Slightly above front view, square top compressed in perspective to width104 height76, thick stuffed front edge. Soft volume and painted highlights. No cat, pattern, tassels or furniture. Footprint conceptual128 square x12..116,y30..106 centre64,68."
+    }
+  ]
+}

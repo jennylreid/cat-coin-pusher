@@ -1,0 +1,121 @@
+{
+  "passed": true,
+  "failed": [],
+  "passedChecks": [
+    {
+      "name": "1 both builds open on the Home screen with Developer off",
+      "info": {
+        "a": "main",
+        "b": "main"
+      }
+    },
+    "2 no coin pyramid code or drawing left",
+    {
+      "name": "3 PLAY is 2/3 the size at the same centre",
+      "info": {
+        "before": {
+          "x": 78,
+          "y": 540,
+          "w": 244,
+          "h": 78
+        },
+        "after": {
+          "x": 118.66666666666667,
+          "y": 553,
+          "w": 162.66666666666666,
+          "h": 52
+        }
+      }
+    },
+    "4 Home layout otherwise unchanged (cat, side buttons, level and goal)",
+    "5 title screen code identical to UAT 64 (pgDrawTitle and its coin pile)",
+    {
+      "name": "6 cat, every Home button and PLAY respond; no errors",
+      "info": {
+        "res": [
+          [
+            "cat",
+            "hearts"
+          ],
+          [
+            "coll",
+            "opened water"
+          ],
+          [
+            "inv",
+            "opened inventory"
+          ],
+          [
+            "gear",
+            "settings opened"
+          ],
+          [
+            "how to play",
+            {
+              "screen": "board",
+              "rules": true
+            }
+          ],
+          [
+            "PLAY",
+            "round started"
+          ]
+        ],
+        "errs": []
+      }
+    },
+    "7 tap area matches the drawn button (outside the new edge does not start)"
+  ],
+  "notes": {
+    "play": {
+      "before": {
+        "x": 78,
+        "y": 540,
+        "w": 244,
+        "h": 78
+      },
+      "after": {
+        "x": 118.66666666666667,
+        "y": 553,
+        "w": 162.66666666666666,
+        "h": 52
+      },
+      "scale": 1,
+      "afterCssPx": {
+        "w": 162.7,
+        "h": 52
+      }
+    },
+    "taps": [
+      [
+        "cat",
+        "hearts"
+      ],
+      [
+        "coll",
+        "opened water"
+      ],
+      [
+        "inv",
+        "opened inventory"
+      ],
+      [
+        "gear",
+        "settings opened"
+      ],
+      [
+        "how to play",
+        {
+          "screen": "board",
+          "rules": true
+        }
+      ],
+      [
+        "PLAY",
+        "round started"
+      ]
+    ]
+  },
+  "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp66\\release.html",
+  "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp63\\release.html"
+}

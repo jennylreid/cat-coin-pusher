@@ -1,0 +1,990 @@
+[
+ {
+  "sz": "360x640",
+  "shot": "home L1",
+  "errs": []
+ },
+ {
+  "sz": "360x640",
+  "shot": "home L2",
+  "errs": []
+ },
+ {
+  "sz": "360x640",
+  "shot": "home L10",
+  "errs": []
+ },
+ {
+  "sz": "360x640",
+  "shot": "b-round-L1-0got-360x640",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "sardine",
+   "biscuit"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    630
+   ],
+   [
+    "milk",
+    108,
+    600
+   ],
+   [
+    "sardine",
+    292,
+    600
+   ],
+   [
+    "biscuit",
+    250,
+    520
+   ]
+  ],
+  "chin": 331.59999999999997,
+  "VIEWy": 91.95031847133754,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "360x640",
+  "shot": "b-round-L1-1got-360x640",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "sardine",
+   "biscuit"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    630
+   ],
+   [
+    "milk",
+    108,
+    600
+   ],
+   [
+    "sardine",
+    292,
+    600
+   ],
+   [
+    "biscuit",
+    250,
+    520
+   ]
+  ],
+  "chin": 331.59999999999997,
+  "VIEWy": 91.95031847133754,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "360x640",
+  "shot": "b-round-L2-0got-360x640",
+  "errs": [],
+  "goal": [
+   "feather",
+   "ball",
+   "egg",
+   "milk",
+   "box"
+  ],
+  "items": [
+   [
+    "feather",
+    80,
+    560
+   ],
+   [
+    "ball",
+    140,
+    560
+   ],
+   [
+    "egg",
+    200,
+    560
+   ],
+   [
+    "milk",
+    260,
+    560
+   ],
+   [
+    "box",
+    320,
+    560
+   ]
+  ],
+  "chin": 331.59999999999997,
+  "VIEWy": 91.95031847133754,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "360x640",
+  "shot": "b-round-L2-2got-360x640",
+  "errs": [],
+  "goal": [
+   "feather",
+   "ball",
+   "egg",
+   "milk",
+   "box"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    560
+   ],
+   [
+    "milk",
+    260,
+    560
+   ],
+   [
+    "box",
+    320,
+    560
+   ]
+  ],
+  "chin": 331.59999999999997,
+  "VIEWy": 91.95031847133754,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "360x640",
+  "shot": "b-round-L10-2got-360x640",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "box",
+   "ball",
+   "feather",
+   "sock",
+   "biscuit",
+   "sardine"
+  ],
+  "items": [
+   [
+    "sock",
+    200,
+    312
+   ],
+   [
+    "biscuit",
+    66,
+    345
+   ],
+   [
+    "sardine",
+    334,
+    345
+   ],
+   [
+    "box",
+    200,
+    470
+   ],
+   [
+    "ball",
+    260,
+    470
+   ],
+   [
+    "feather",
+    317,
+    470
+   ]
+  ],
+  "chin": 331.59999999999997,
+  "VIEWy": 91.95031847133754,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "360x640",
+  "shot": "b-end-L1-360x640",
+  "errs": []
+ },
+ {
+  "sz": "360x640",
+  "shot": "b-end-L2-360x640",
+  "errs": []
+ },
+ {
+  "sz": "360x640",
+  "shot": "b-end-L10-360x640",
+  "errs": []
+ },
+ {
+  "sz": "360x640",
+  "shot": "album",
+  "errs": [],
+  "back": {
+   "x": 12,
+   "y": 32,
+   "w": 84,
+   "h": 40
+  }
+ },
+ {
+  "sz": "360x640",
+  "shot": "kitchen",
+  "errs": []
+ },
+ {
+  "sz": "360x780",
+  "shot": "home L1",
+  "errs": []
+ },
+ {
+  "sz": "360x780",
+  "shot": "home L2",
+  "errs": []
+ },
+ {
+  "sz": "360x780",
+  "shot": "home L10",
+  "errs": []
+ },
+ {
+  "sz": "360x780",
+  "shot": "b-round-L1-0got-360x780",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "sardine",
+   "biscuit"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    630
+   ],
+   [
+    "milk",
+    108,
+    600
+   ],
+   [
+    "sardine",
+    292,
+    600
+   ],
+   [
+    "biscuit",
+    250,
+    520
+   ]
+  ],
+  "chin": 353.76097959183676,
+  "VIEWy": 90.57020009532476,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "360x780",
+  "shot": "b-round-L1-1got-360x780",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "sardine",
+   "biscuit"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    630
+   ],
+   [
+    "milk",
+    108,
+    600
+   ],
+   [
+    "sardine",
+    292,
+    600
+   ],
+   [
+    "biscuit",
+    250,
+    520
+   ]
+  ],
+  "chin": 353.76097959183676,
+  "VIEWy": 90.57020009532476,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "360x780",
+  "shot": "b-round-L2-0got-360x780",
+  "errs": [],
+  "goal": [
+   "feather",
+   "ball",
+   "egg",
+   "milk",
+   "box"
+  ],
+  "items": [
+   [
+    "feather",
+    80,
+    560
+   ],
+   [
+    "ball",
+    140,
+    560
+   ],
+   [
+    "egg",
+    200,
+    560
+   ],
+   [
+    "milk",
+    260,
+    560
+   ],
+   [
+    "box",
+    320,
+    560
+   ]
+  ],
+  "chin": 353.76097959183676,
+  "VIEWy": 90.57020009532476,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "360x780",
+  "shot": "b-round-L2-2got-360x780",
+  "errs": [],
+  "goal": [
+   "feather",
+   "ball",
+   "egg",
+   "milk",
+   "box"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    560
+   ],
+   [
+    "milk",
+    260,
+    560
+   ],
+   [
+    "box",
+    320,
+    560
+   ]
+  ],
+  "chin": 353.76097959183676,
+  "VIEWy": 90.57020009532476,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "360x780",
+  "shot": "b-round-L10-2got-360x780",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "box",
+   "ball",
+   "feather",
+   "sock",
+   "biscuit",
+   "sardine"
+  ],
+  "items": [
+   [
+    "sock",
+    200,
+    312
+   ],
+   [
+    "biscuit",
+    66,
+    345
+   ],
+   [
+    "sardine",
+    334,
+    345
+   ],
+   [
+    "box",
+    200,
+    470
+   ],
+   [
+    "ball",
+    260,
+    470
+   ],
+   [
+    "feather",
+    317,
+    470
+   ]
+  ],
+  "chin": 353.76097959183676,
+  "VIEWy": 90.57020009532476,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "360x780",
+  "shot": "b-end-L1-360x780",
+  "errs": []
+ },
+ {
+  "sz": "360x780",
+  "shot": "b-end-L2-360x780",
+  "errs": []
+ },
+ {
+  "sz": "360x780",
+  "shot": "b-end-L10-360x780",
+  "errs": []
+ },
+ {
+  "sz": "360x780",
+  "shot": "album",
+  "errs": [],
+  "back": {
+   "x": 12,
+   "y": 32,
+   "w": 84,
+   "h": 40
+  }
+ },
+ {
+  "sz": "360x780",
+  "shot": "kitchen",
+  "errs": []
+ },
+ {
+  "sz": "393x852",
+  "shot": "home L1",
+  "errs": []
+ },
+ {
+  "sz": "393x852",
+  "shot": "home L2",
+  "errs": []
+ },
+ {
+  "sz": "393x852",
+  "shot": "home L10",
+  "errs": []
+ },
+ {
+  "sz": "393x852",
+  "shot": "b-round-L1-0got-393x852",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "sardine",
+   "biscuit"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    630
+   ],
+   [
+    "milk",
+    108,
+    600
+   ],
+   [
+    "sardine",
+    292,
+    600
+   ],
+   [
+    "biscuit",
+    250,
+    520
+   ]
+  ],
+  "chin": 353.9484231188659,
+  "VIEWy": 90.55852668282762,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "393x852",
+  "shot": "b-round-L1-1got-393x852",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "sardine",
+   "biscuit"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    630
+   ],
+   [
+    "milk",
+    108,
+    600
+   ],
+   [
+    "sardine",
+    292,
+    600
+   ],
+   [
+    "biscuit",
+    250,
+    520
+   ]
+  ],
+  "chin": 353.9484231188659,
+  "VIEWy": 90.55852668282762,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "393x852",
+  "shot": "b-round-L2-0got-393x852",
+  "errs": [],
+  "goal": [
+   "feather",
+   "ball",
+   "egg",
+   "milk",
+   "box"
+  ],
+  "items": [
+   [
+    "feather",
+    80,
+    560
+   ],
+   [
+    "ball",
+    140,
+    560
+   ],
+   [
+    "egg",
+    200,
+    560
+   ],
+   [
+    "milk",
+    260,
+    560
+   ],
+   [
+    "box",
+    320,
+    560
+   ]
+  ],
+  "chin": 353.9484231188659,
+  "VIEWy": 90.55852668282762,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "393x852",
+  "shot": "b-round-L2-2got-393x852",
+  "errs": [],
+  "goal": [
+   "feather",
+   "ball",
+   "egg",
+   "milk",
+   "box"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    560
+   ],
+   [
+    "milk",
+    260,
+    560
+   ],
+   [
+    "box",
+    320,
+    560
+   ]
+  ],
+  "chin": 353.9484231188659,
+  "VIEWy": 90.55852668282762,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "393x852",
+  "shot": "b-round-L10-2got-393x852",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "box",
+   "ball",
+   "feather",
+   "sock",
+   "biscuit",
+   "sardine"
+  ],
+  "items": [
+   [
+    "sock",
+    200,
+    312
+   ],
+   [
+    "biscuit",
+    66,
+    345
+   ],
+   [
+    "sardine",
+    334,
+    345
+   ],
+   [
+    "box",
+    200,
+    470
+   ],
+   [
+    "ball",
+    260,
+    470
+   ],
+   [
+    "feather",
+    317,
+    470
+   ]
+  ],
+  "chin": 353.9484231188659,
+  "VIEWy": 90.55852668282762,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "393x852",
+  "shot": "b-end-L1-393x852",
+  "errs": []
+ },
+ {
+  "sz": "393x852",
+  "shot": "b-end-L2-393x852",
+  "errs": []
+ },
+ {
+  "sz": "393x852",
+  "shot": "b-end-L10-393x852",
+  "errs": []
+ },
+ {
+  "sz": "393x852",
+  "shot": "album",
+  "errs": [],
+  "back": {
+   "x": 12,
+   "y": 32,
+   "w": 84,
+   "h": 40
+  }
+ },
+ {
+  "sz": "393x852",
+  "shot": "kitchen",
+  "errs": []
+ },
+ {
+  "sz": "412x915",
+  "shot": "home L1",
+  "errs": []
+ },
+ {
+  "sz": "412x915",
+  "shot": "home L2",
+  "errs": []
+ },
+ {
+  "sz": "412x915",
+  "shot": "home L10",
+  "errs": []
+ },
+ {
+  "sz": "412x915",
+  "shot": "b-round-L1-0got-412x915",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "sardine",
+   "biscuit"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    630
+   ],
+   [
+    "milk",
+    108,
+    600
+   ],
+   [
+    "sardine",
+    292,
+    600
+   ],
+   [
+    "biscuit",
+    250,
+    520
+   ]
+  ],
+  "chin": 354.6204081632653,
+  "VIEWy": 90.51667749902515,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "412x915",
+  "shot": "b-round-L1-1got-412x915",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "sardine",
+   "biscuit"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    630
+   ],
+   [
+    "milk",
+    108,
+    600
+   ],
+   [
+    "sardine",
+    292,
+    600
+   ],
+   [
+    "biscuit",
+    250,
+    520
+   ]
+  ],
+  "chin": 354.6204081632653,
+  "VIEWy": 90.51667749902515,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "412x915",
+  "shot": "b-round-L2-0got-412x915",
+  "errs": [],
+  "goal": [
+   "feather",
+   "ball",
+   "egg",
+   "milk",
+   "box"
+  ],
+  "items": [
+   [
+    "feather",
+    80,
+    560
+   ],
+   [
+    "ball",
+    140,
+    560
+   ],
+   [
+    "egg",
+    200,
+    560
+   ],
+   [
+    "milk",
+    260,
+    560
+   ],
+   [
+    "box",
+    320,
+    560
+   ]
+  ],
+  "chin": 354.6204081632653,
+  "VIEWy": 90.51667749902515,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "412x915",
+  "shot": "b-round-L2-2got-412x915",
+  "errs": [],
+  "goal": [
+   "feather",
+   "ball",
+   "egg",
+   "milk",
+   "box"
+  ],
+  "items": [
+   [
+    "egg",
+    200,
+    560
+   ],
+   [
+    "milk",
+    260,
+    560
+   ],
+   [
+    "box",
+    320,
+    560
+   ]
+  ],
+  "chin": 354.6204081632653,
+  "VIEWy": 90.51667749902515,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "412x915",
+  "shot": "b-round-L10-2got-412x915",
+  "errs": [],
+  "goal": [
+   "egg",
+   "milk",
+   "box",
+   "ball",
+   "feather",
+   "sock",
+   "biscuit",
+   "sardine"
+  ],
+  "items": [
+   [
+    "sock",
+    200,
+    312
+   ],
+   [
+    "biscuit",
+    66,
+    345
+   ],
+   [
+    "sardine",
+    334,
+    345
+   ],
+   [
+    "box",
+    200,
+    470
+   ],
+   [
+    "ball",
+    260,
+    470
+   ],
+   [
+    "feather",
+    317,
+    470
+   ]
+  ],
+  "chin": 354.6204081632653,
+  "VIEWy": 90.51667749902515,
+  "hb": 98,
+  "row": null
+ },
+ {
+  "sz": "412x915",
+  "shot": "b-end-L1-412x915",
+  "errs": []
+ },
+ {
+  "sz": "412x915",
+  "shot": "b-end-L2-412x915",
+  "errs": []
+ },
+ {
+  "sz": "412x915",
+  "shot": "b-end-L10-412x915",
+  "errs": []
+ },
+ {
+  "sz": "412x915",
+  "shot": "album",
+  "errs": [],
+  "back": {
+   "x": 12,
+   "y": 32,
+   "w": 84,
+   "h": 40
+  }
+ },
+ {
+  "sz": "412x915",
+  "shot": "kitchen",
+  "errs": []
+ }
+]

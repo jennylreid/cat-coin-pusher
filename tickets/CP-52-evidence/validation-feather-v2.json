@@ -1,0 +1,89 @@
+[
+  {
+    "id": "feather",
+    "option": "d",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 20,
+      "y": 13,
+      "w": 92,
+      "h": 101,
+      "transparent": 11932
+    },
+    "master": {
+      "x": 126,
+      "y": 113,
+      "w": 1037,
+      "h": 1045,
+      "transparent": 1144458
+    },
+    "output": {
+      "x": 20,
+      "y": 14,
+      "w": 92,
+      "h": 100,
+      "transparent": 12715
+    }
+  },
+  {
+    "id": "feather",
+    "option": "e",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 20,
+      "y": 13,
+      "w": 92,
+      "h": 101,
+      "transparent": 11932
+    },
+    "master": {
+      "x": 114,
+      "y": 68,
+      "w": 1058,
+      "h": 1121,
+      "transparent": 1004480
+    },
+    "output": {
+      "x": 20,
+      "y": 13,
+      "w": 92,
+      "h": 101,
+      "transparent": 11932
+    }
+  },
+  {
+    "id": "feather",
+    "option": "f",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 20,
+      "y": 13,
+      "w": 92,
+      "h": 101,
+      "transparent": 11932
+    },
+    "master": {
+      "x": 122,
+      "y": 86,
+      "w": 1050,
+      "h": 1079,
+      "transparent": 1212468
+    },
+    "output": {
+      "x": 20,
+      "y": 14,
+      "w": 92,
+      "h": 100,
+      "transparent": 13421
+    }
+  }
+]

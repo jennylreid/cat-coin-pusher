@@ -1,0 +1,1183 @@
+{
+  "passed": true,
+  "failed": [],
+  "passedChecks": [
+    {
+      "name": "1a Level 1 goal is exactly the shrimp and cheese, no star prize; coins, time, rows/towers, rain, Quake, tag unchanged",
+      "info": {
+        "L1": {
+          "name": "First push",
+          "tag": "Normal",
+          "coins": 110,
+          "secs": 60,
+          "goal": [
+            "shrimp",
+            "cheese"
+          ],
+          "star": null,
+          "p": [
+            [
+              "cheese",
+              110,
+              610
+            ],
+            [
+              "shrimp",
+              290,
+              575
+            ]
+          ],
+          "towers": [],
+          "rain": [
+            [
+              "rain10",
+              200,
+              705
+            ],
+            [
+              "rain5",
+              200,
+              440
+            ]
+          ],
+          "quake": [
+            140,
+            545
+          ]
+        },
+        "before": {
+          "name": "First push",
+          "tag": "Normal",
+          "coins": 110,
+          "secs": 60,
+          "goal": [
+            "egg",
+            "milk",
+            "sardine",
+            "biscuit"
+          ],
+          "star": "biscuit",
+          "p": [
+            [
+              "egg",
+              200,
+              630
+            ],
+            [
+              "milk",
+              108,
+              600
+            ],
+            [
+              "sardine",
+              292,
+              600
+            ],
+            [
+              "biscuit",
+              250,
+              520
+            ]
+          ],
+          "towers": [],
+          "rain": [
+            [
+              "rain10",
+              200,
+              705
+            ],
+            [
+              "rain5",
+              200,
+              440
+            ]
+          ],
+          "quake": [
+            140,
+            545
+          ]
+        }
+      }
+    },
+    "1b every other level unchanged",
+    {
+      "name": "1c Home goal line reads \"First push: collect these 2\"",
+      "info": "First push: collect these 2"
+    },
+    {
+      "name": "1d the board has only the two prizes, a few pushes in (depth 575-610; front edge is ~740), Quake and rain coins as before",
+      "info": {
+        "items": [
+          [
+            "cheese",
+            110,
+            610
+          ],
+          [
+            "shrimp",
+            290,
+            575
+          ]
+        ],
+        "quake": 1,
+        "rain": 2
+      }
+    },
+    {
+      "name": "2a Level 1: 60 bonus drops bring no prize (rain / Quake only); the cat's two sky-drop prizes are off",
+      "info": {
+        "kinds": [
+          "rain25",
+          "rain10",
+          "rain5",
+          "note",
+          "quake"
+        ],
+        "catDrops": 0
+      }
+    },
+    {
+      "name": "2b a goal prize lost off a side still comes back by bonus drop (so Level 1 stays winnable)",
+      "info": {
+        "kind": "item",
+        "id": "shrimp",
+        "x": 274.50035135680844,
+        "y": 436.16280658744535,
+        "t": 0.9,
+        "t0": 0.9
+      }
+    },
+    {
+      "name": "2c Level 2 bonus drops unchanged (prizes still come)",
+      "info": [
+        "item",
+        "rain10",
+        "quake",
+        "note",
+        "rain5",
+        "rain25"
+      ]
+    },
+    {
+      "name": "3a pushing the shrimp and cheese off wins Level 1: \"Level 1 passed! Level 2 is open\", NEXT LEVEL; the row still names Level 1",
+      "info": {
+        "P": {
+          "stars": 2,
+          "xp": 48,
+          "coins": 20,
+          "nip": 0,
+          "level": 0,
+          "lv": 1,
+          "lvl": 1,
+          "first": true,
+          "next": 2
+        },
+        "lv": {
+          "passed": 1,
+          "sel": 2,
+          "stars": {
+            "1": 2
+          }
+        },
+        "lines": [
+          "Level 1 · First push",
+          "2 of 2 prizes",
+          "Level 1 passed! Level 2 is open · +20 coins"
+        ]
+      }
+    },
+    {
+      "name": "3b collected treats go to the inventory like other prizes: cheese +1; shrimp at the cap of 9 turns into coins",
+      "info": {
+        "items": {
+          "cheese": 1,
+          "shrimp": 9
+        },
+        "coins": [
+          220,
+          270
+        ]
+      }
+    },
+    "3c Kitchen recipes and the Shop rule untouched (same recipe list; shrimp and cheese still buyable while their cats are locked)",
+    {
+      "name": "3d after the win, Home shows Level 2",
+      "info": {
+        "screen": "main",
+        "sel": 2
+      }
+    },
+    {
+      "name": "4a end card: count text, icon row (with check marks) and stars never touch, 2 to 8 prizes, row inside the card",
+      "info": [
+        {
+          "n": 2,
+          "D": 44,
+          "countBottom": 80,
+          "iconTop": 83,
+          "iconBottom": 127,
+          "starTop": 130,
+          "width": 92,
+          "ok": true
+        },
+        {
+          "n": 3,
+          "D": 44,
+          "countBottom": 80,
+          "iconTop": 83,
+          "iconBottom": 127,
+          "starTop": 130,
+          "width": 140,
+          "ok": true
+        },
+        {
+          "n": 4,
+          "D": 44,
+          "countBottom": 80,
+          "iconTop": 83,
+          "iconBottom": 127,
+          "starTop": 130,
+          "width": 188,
+          "ok": true
+        },
+        {
+          "n": 5,
+          "D": 44,
+          "countBottom": 80,
+          "iconTop": 83,
+          "iconBottom": 127,
+          "starTop": 130,
+          "width": 236,
+          "ok": true
+        },
+        {
+          "n": 6,
+          "D": 44,
+          "countBottom": 80,
+          "iconTop": 83,
+          "iconBottom": 127,
+          "starTop": 130,
+          "width": 284,
+          "ok": true
+        },
+        {
+          "n": 7,
+          "D": 41.7,
+          "countBottom": 80,
+          "iconTop": 84.1,
+          "iconBottom": 125.9,
+          "starTop": 130,
+          "width": 316,
+          "ok": true
+        },
+        {
+          "n": 8,
+          "D": 36,
+          "countBottom": 80,
+          "iconTop": 87,
+          "iconBottom": 123,
+          "starTop": 130,
+          "width": 316,
+          "ok": true
+        }
+      ]
+    },
+    "4b end card Level 1: the board's star marker is not drawn over the card",
+    "4b end card Level 2: the board's star marker is not drawn over the card",
+    "4b end card Level 10: the board's star marker is not drawn over the card",
+    {
+      "name": "5 every back button to the Home screen reads \"Home\" (Kitchen, Porch, Album, Shop, the round's top button) and still goes Home",
+      "info": [
+        [
+          "kitchen",
+          true,
+          "main"
+        ],
+        [
+          "porch",
+          true,
+          "main"
+        ],
+        [
+          "album",
+          true,
+          "main"
+        ],
+        [
+          "shop",
+          true,
+          "main"
+        ],
+        [
+          "round",
+          true,
+          "main"
+        ]
+      ]
+    },
+    {
+      "name": "6 360x640 Level 1 (2 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "360x640",
+        "level": 1,
+        "n": 2,
+        "D": 32.5,
+        "top": 100,
+        "bottom": 149.5,
+        "headerBottom": 98,
+        "left": 165,
+        "right": 235,
+        "clearAboveHead": 5.8,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 360x640 Level 2 (5 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "360x640",
+        "level": 2,
+        "n": 5,
+        "D": 32.5,
+        "top": 100,
+        "bottom": 149.5,
+        "headerBottom": 98,
+        "left": 108.8,
+        "right": 291.2,
+        "clearAboveHead": 5.8,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 360x640 Level 6 (6 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "360x640",
+        "level": 6,
+        "n": 6,
+        "D": 29,
+        "top": 100,
+        "bottom": 146,
+        "headerBottom": 98,
+        "left": 100.5,
+        "right": 299.5,
+        "clearAboveHead": 4.2,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 360x640 Level 7 (7 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "360x640",
+        "level": 7,
+        "n": 7,
+        "D": 25.5,
+        "top": 100,
+        "bottom": 142.5,
+        "headerBottom": 98,
+        "left": 95.8,
+        "right": 304.2,
+        "clearAboveHead": 3.2,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 360x640 Level 10 (8 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "360x640",
+        "level": 10,
+        "n": 8,
+        "D": 22.5,
+        "top": 100,
+        "bottom": 139.5,
+        "headerBottom": 98,
+        "left": 92.6,
+        "right": 307.4,
+        "clearAboveHead": 3.4,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 360x780 Level 1 (2 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "360x780",
+        "level": 1,
+        "n": 2,
+        "D": 37.3,
+        "top": 100,
+        "bottom": 154.3,
+        "headerBottom": 98,
+        "left": 160.2,
+        "right": 239.8,
+        "clearAboveHead": 6.2,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 360x780 Level 2 (5 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "360x780",
+        "level": 2,
+        "n": 5,
+        "D": 34.3,
+        "top": 100,
+        "bottom": 151.3,
+        "headerBottom": 98,
+        "left": 104.1,
+        "right": 295.9,
+        "clearAboveHead": 7.5,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 360x780 Level 6 (6 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "360x780",
+        "level": 6,
+        "n": 6,
+        "D": 30.3,
+        "top": 100,
+        "bottom": 147.3,
+        "headerBottom": 98,
+        "left": 96.5,
+        "right": 303.5,
+        "clearAboveHead": 3.2,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 360x780 Level 7 (7 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "360x780",
+        "level": 7,
+        "n": 7,
+        "D": 26.3,
+        "top": 100,
+        "bottom": 143.3,
+        "headerBottom": 98,
+        "left": 92.8,
+        "right": 307.2,
+        "clearAboveHead": 3.3,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 360x780 Level 10 (8 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "360x780",
+        "level": 10,
+        "n": 8,
+        "D": 23.3,
+        "top": 100,
+        "bottom": 140.3,
+        "headerBottom": 98,
+        "left": 89.1,
+        "right": 310.9,
+        "clearAboveHead": 3.5,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 393x852 Level 1 (2 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "393x852",
+        "level": 1,
+        "n": 2,
+        "D": 37.4,
+        "top": 100,
+        "bottom": 154.4,
+        "headerBottom": 98,
+        "left": 160.1,
+        "right": 239.9,
+        "clearAboveHead": 5.9,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 393x852 Level 2 (5 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "393x852",
+        "level": 2,
+        "n": 5,
+        "D": 34.4,
+        "top": 100,
+        "bottom": 151.4,
+        "headerBottom": 98,
+        "left": 104,
+        "right": 296,
+        "clearAboveHead": 6.9,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 393x852 Level 6 (6 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "393x852",
+        "level": 6,
+        "n": 6,
+        "D": 30.4,
+        "top": 100,
+        "bottom": 147.4,
+        "headerBottom": 98,
+        "left": 96.3,
+        "right": 303.7,
+        "clearAboveHead": 3.2,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 393x852 Level 7 (7 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "393x852",
+        "level": 7,
+        "n": 7,
+        "D": 26.4,
+        "top": 100,
+        "bottom": 143.4,
+        "headerBottom": 98,
+        "left": 92.6,
+        "right": 307.4,
+        "clearAboveHead": 3.7,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 393x852 Level 10 (8 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "393x852",
+        "level": 10,
+        "n": 8,
+        "D": 23.4,
+        "top": 100,
+        "bottom": 140.4,
+        "headerBottom": 98,
+        "left": 89,
+        "right": 311,
+        "clearAboveHead": 2.6,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 412x915 Level 1 (2 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "412x915",
+        "level": 1,
+        "n": 2,
+        "D": 37.5,
+        "top": 100,
+        "bottom": 154.5,
+        "headerBottom": 98,
+        "left": 160,
+        "right": 240,
+        "clearAboveHead": 6.1,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 412x915 Level 2 (5 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "412x915",
+        "level": 2,
+        "n": 5,
+        "D": 34.5,
+        "top": 100,
+        "bottom": 151.5,
+        "headerBottom": 98,
+        "left": 103.7,
+        "right": 296.3,
+        "clearAboveHead": 6.2,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 412x915 Level 6 (6 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "412x915",
+        "level": 6,
+        "n": 6,
+        "D": 30.5,
+        "top": 100,
+        "bottom": 147.5,
+        "headerBottom": 98,
+        "left": 95.9,
+        "right": 304.1,
+        "clearAboveHead": 2.5,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 412x915 Level 7 (7 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "412x915",
+        "level": 7,
+        "n": 7,
+        "D": 26.5,
+        "top": 100,
+        "bottom": 143.5,
+        "headerBottom": 98,
+        "left": 92.1,
+        "right": 307.9,
+        "clearAboveHead": 3.1,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "6 412x915 Level 10 (8 prizes): goal row between the top bar and the cat's head, never over the cat",
+      "info": {
+        "size": "412x915",
+        "level": 10,
+        "n": 8,
+        "D": 23.5,
+        "top": 100,
+        "bottom": 140.5,
+        "headerBottom": 98,
+        "left": 88.4,
+        "right": 311.6,
+        "clearAboveHead": 2.7,
+        "headPixelsChanged": 0
+      }
+    },
+    {
+      "name": "7 Home 360x640 Level 1: icons 52 px clear of the goal text, \"? How to play\" and PLAY",
+      "info": {
+        "R": {
+          "D": 52,
+          "step": 58,
+          "cy": 438.18285714285713,
+          "side": false
+        },
+        "help": {
+          "x": 142,
+          "y": 470.18285714285713,
+          "w": 116,
+          "h": 26
+        },
+        "play": {
+          "x": 118.66666666666667,
+          "y": 513.1828571428571,
+          "w": 162.66666666666666,
+          "h": 52
+        },
+        "name": 328.18285714285713
+      }
+    },
+    {
+      "name": "7 Home 360x640 Level 2: icons 52 px clear of the goal text, \"? How to play\" and PLAY",
+      "info": {
+        "R": {
+          "D": 52,
+          "step": 58,
+          "cy": 438.18285714285713,
+          "side": false
+        },
+        "help": {
+          "x": 142,
+          "y": 470.18285714285713,
+          "w": 116,
+          "h": 26
+        },
+        "play": {
+          "x": 118.66666666666667,
+          "y": 513.1828571428571,
+          "w": 162.66666666666666,
+          "h": 52
+        },
+        "name": 328.18285714285713
+      }
+    },
+    {
+      "name": "7 Home 360x640 Level 4: icons 52 px clear of the goal text, \"? How to play\" and PLAY",
+      "info": {
+        "R": {
+          "D": 51.666666666666664,
+          "step": 57.666666666666664,
+          "cy": 438.18285714285713,
+          "side": false
+        },
+        "help": {
+          "x": 142,
+          "y": 470.18285714285713,
+          "w": 116,
+          "h": 26
+        },
+        "play": {
+          "x": 118.66666666666667,
+          "y": 513.1828571428571,
+          "w": 162.66666666666666,
+          "h": 52
+        },
+        "name": 328.18285714285713
+      }
+    },
+    {
+      "name": "7 Home 360x640 Level 10: icons 37 px clear of the goal text, \"? How to play\" and PLAY",
+      "info": {
+        "R": {
+          "D": 37.25,
+          "step": 43.25,
+          "cy": 438.18285714285713,
+          "side": false
+        },
+        "help": {
+          "x": 142,
+          "y": 470.18285714285713,
+          "w": 116,
+          "h": 26
+        },
+        "play": {
+          "x": 118.66666666666667,
+          "y": 513.1828571428571,
+          "w": 162.66666666666666,
+          "h": 52
+        },
+        "name": 328.18285714285713
+      }
+    },
+    {
+      "name": "7 Home 412x915 Level 1: icons 52 px clear of the goal text, \"? How to play\" and PLAY",
+      "info": {
+        "R": {
+          "D": 52,
+          "step": 58,
+          "cy": 478,
+          "side": false
+        },
+        "help": {
+          "x": 142,
+          "y": 510,
+          "w": 116,
+          "h": 26
+        },
+        "play": {
+          "x": 118.66666666666667,
+          "y": 553,
+          "w": 162.66666666666666,
+          "h": 52
+        },
+        "name": 368
+      }
+    },
+    {
+      "name": "7 Home 412x915 Level 2: icons 52 px clear of the goal text, \"? How to play\" and PLAY",
+      "info": {
+        "R": {
+          "D": 52,
+          "step": 58,
+          "cy": 478,
+          "side": false
+        },
+        "help": {
+          "x": 142,
+          "y": 510,
+          "w": 116,
+          "h": 26
+        },
+        "play": {
+          "x": 118.66666666666667,
+          "y": 553,
+          "w": 162.66666666666666,
+          "h": 52
+        },
+        "name": 368
+      }
+    },
+    {
+      "name": "7 Home 412x915 Level 4: icons 52 px clear of the goal text, \"? How to play\" and PLAY",
+      "info": {
+        "R": {
+          "D": 51.666666666666664,
+          "step": 57.666666666666664,
+          "cy": 478,
+          "side": false
+        },
+        "help": {
+          "x": 142,
+          "y": 510,
+          "w": 116,
+          "h": 26
+        },
+        "play": {
+          "x": 118.66666666666667,
+          "y": 553,
+          "w": 162.66666666666666,
+          "h": 52
+        },
+        "name": 368
+      }
+    },
+    {
+      "name": "7 Home 412x915 Level 10: icons 37 px clear of the goal text, \"? How to play\" and PLAY",
+      "info": {
+        "R": {
+          "D": 37.25,
+          "step": 43.25,
+          "cy": 478,
+          "side": false
+        },
+        "help": {
+          "x": 142,
+          "y": 510,
+          "w": 116,
+          "h": 26
+        },
+        "play": {
+          "x": 118.66666666666667,
+          "y": 553,
+          "w": 162.66666666666666,
+          "h": 52
+        },
+        "name": 368
+      }
+    },
+    "8 production files untouched"
+  ],
+  "notes": {
+    "L1board": [
+      [
+        "cheese",
+        110,
+        610
+      ],
+      [
+        "shrimp",
+        290,
+        575
+      ]
+    ],
+    "errsWin": [],
+    "end": [
+      {
+        "n": 2,
+        "D": 44,
+        "countBottom": 80,
+        "iconTop": 83,
+        "iconBottom": 127,
+        "starTop": 130,
+        "width": 92,
+        "ok": true
+      },
+      {
+        "n": 3,
+        "D": 44,
+        "countBottom": 80,
+        "iconTop": 83,
+        "iconBottom": 127,
+        "starTop": 130,
+        "width": 140,
+        "ok": true
+      },
+      {
+        "n": 4,
+        "D": 44,
+        "countBottom": 80,
+        "iconTop": 83,
+        "iconBottom": 127,
+        "starTop": 130,
+        "width": 188,
+        "ok": true
+      },
+      {
+        "n": 5,
+        "D": 44,
+        "countBottom": 80,
+        "iconTop": 83,
+        "iconBottom": 127,
+        "starTop": 130,
+        "width": 236,
+        "ok": true
+      },
+      {
+        "n": 6,
+        "D": 44,
+        "countBottom": 80,
+        "iconTop": 83,
+        "iconBottom": 127,
+        "starTop": 130,
+        "width": 284,
+        "ok": true
+      },
+      {
+        "n": 7,
+        "D": 41.7,
+        "countBottom": 80,
+        "iconTop": 84.1,
+        "iconBottom": 125.9,
+        "starTop": 130,
+        "width": 316,
+        "ok": true
+      },
+      {
+        "n": 8,
+        "D": 36,
+        "countBottom": 80,
+        "iconTop": 87,
+        "iconBottom": 123,
+        "starTop": 130,
+        "width": 316,
+        "ok": true
+      }
+    ],
+    "rows": [
+      {
+        "size": "360x640",
+        "level": 1,
+        "n": 2,
+        "D": 32.5,
+        "top": 100,
+        "bottom": 149.5,
+        "headerBottom": 98,
+        "left": 165,
+        "right": 235,
+        "clearAboveHead": 5.8,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "360x640",
+        "level": 2,
+        "n": 5,
+        "D": 32.5,
+        "top": 100,
+        "bottom": 149.5,
+        "headerBottom": 98,
+        "left": 108.8,
+        "right": 291.2,
+        "clearAboveHead": 5.8,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "360x640",
+        "level": 6,
+        "n": 6,
+        "D": 29,
+        "top": 100,
+        "bottom": 146,
+        "headerBottom": 98,
+        "left": 100.5,
+        "right": 299.5,
+        "clearAboveHead": 4.2,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "360x640",
+        "level": 7,
+        "n": 7,
+        "D": 25.5,
+        "top": 100,
+        "bottom": 142.5,
+        "headerBottom": 98,
+        "left": 95.8,
+        "right": 304.2,
+        "clearAboveHead": 3.2,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "360x640",
+        "level": 10,
+        "n": 8,
+        "D": 22.5,
+        "top": 100,
+        "bottom": 139.5,
+        "headerBottom": 98,
+        "left": 92.6,
+        "right": 307.4,
+        "clearAboveHead": 3.4,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "360x780",
+        "level": 1,
+        "n": 2,
+        "D": 37.3,
+        "top": 100,
+        "bottom": 154.3,
+        "headerBottom": 98,
+        "left": 160.2,
+        "right": 239.8,
+        "clearAboveHead": 6.2,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "360x780",
+        "level": 2,
+        "n": 5,
+        "D": 34.3,
+        "top": 100,
+        "bottom": 151.3,
+        "headerBottom": 98,
+        "left": 104.1,
+        "right": 295.9,
+        "clearAboveHead": 7.5,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "360x780",
+        "level": 6,
+        "n": 6,
+        "D": 30.3,
+        "top": 100,
+        "bottom": 147.3,
+        "headerBottom": 98,
+        "left": 96.5,
+        "right": 303.5,
+        "clearAboveHead": 3.2,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "360x780",
+        "level": 7,
+        "n": 7,
+        "D": 26.3,
+        "top": 100,
+        "bottom": 143.3,
+        "headerBottom": 98,
+        "left": 92.8,
+        "right": 307.2,
+        "clearAboveHead": 3.3,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "360x780",
+        "level": 10,
+        "n": 8,
+        "D": 23.3,
+        "top": 100,
+        "bottom": 140.3,
+        "headerBottom": 98,
+        "left": 89.1,
+        "right": 310.9,
+        "clearAboveHead": 3.5,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "393x852",
+        "level": 1,
+        "n": 2,
+        "D": 37.4,
+        "top": 100,
+        "bottom": 154.4,
+        "headerBottom": 98,
+        "left": 160.1,
+        "right": 239.9,
+        "clearAboveHead": 5.9,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "393x852",
+        "level": 2,
+        "n": 5,
+        "D": 34.4,
+        "top": 100,
+        "bottom": 151.4,
+        "headerBottom": 98,
+        "left": 104,
+        "right": 296,
+        "clearAboveHead": 6.9,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "393x852",
+        "level": 6,
+        "n": 6,
+        "D": 30.4,
+        "top": 100,
+        "bottom": 147.4,
+        "headerBottom": 98,
+        "left": 96.3,
+        "right": 303.7,
+        "clearAboveHead": 3.2,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "393x852",
+        "level": 7,
+        "n": 7,
+        "D": 26.4,
+        "top": 100,
+        "bottom": 143.4,
+        "headerBottom": 98,
+        "left": 92.6,
+        "right": 307.4,
+        "clearAboveHead": 3.7,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "393x852",
+        "level": 10,
+        "n": 8,
+        "D": 23.4,
+        "top": 100,
+        "bottom": 140.4,
+        "headerBottom": 98,
+        "left": 89,
+        "right": 311,
+        "clearAboveHead": 2.6,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "412x915",
+        "level": 1,
+        "n": 2,
+        "D": 37.5,
+        "top": 100,
+        "bottom": 154.5,
+        "headerBottom": 98,
+        "left": 160,
+        "right": 240,
+        "clearAboveHead": 6.1,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "412x915",
+        "level": 2,
+        "n": 5,
+        "D": 34.5,
+        "top": 100,
+        "bottom": 151.5,
+        "headerBottom": 98,
+        "left": 103.7,
+        "right": 296.3,
+        "clearAboveHead": 6.2,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "412x915",
+        "level": 6,
+        "n": 6,
+        "D": 30.5,
+        "top": 100,
+        "bottom": 147.5,
+        "headerBottom": 98,
+        "left": 95.9,
+        "right": 304.1,
+        "clearAboveHead": 2.5,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "412x915",
+        "level": 7,
+        "n": 7,
+        "D": 26.5,
+        "top": 100,
+        "bottom": 143.5,
+        "headerBottom": 98,
+        "left": 92.1,
+        "right": 307.9,
+        "clearAboveHead": 3.1,
+        "headPixelsChanged": 0
+      },
+      {
+        "size": "412x915",
+        "level": 10,
+        "n": 8,
+        "D": 23.5,
+        "top": 100,
+        "bottom": 140.5,
+        "headerBottom": 98,
+        "left": 88.4,
+        "right": 311.6,
+        "clearAboveHead": 2.7,
+        "headPixelsChanged": 0
+      }
+    ]
+  },
+  "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp67\\release.html",
+  "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp66\\release.html"
+}

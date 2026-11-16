@@ -1,0 +1,20 @@
+{
+  "version": 20261116140000,
+  "displayName": "2026.11.16 UAT 66",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "bde0bfe066dc3e2c8f325eca9e90d7a7b72aa39db38abf7e519b6eb119a503cf",
+  "stagedJSONSHA256": "10f9dd44aa8594c26a3ae176d34a40192977b0eefca731636c7fce802f35ac64",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "522a489dcefd925498dce0ad080ad3a48f3d65c4a92a64b0ae5effc194c64c7f",
+  "jsonBytes": 51972446,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.16 UAT 65",
+  "backup": "uat/backups/before-UAT66-20261116140000",
+  "evidence": "tickets/CP-49-evidence/uat66",
+  "authorization": "UAT 66: CP-49 Clean Home screen (Jenny, Nov 16, via PM): the end card's \"Main screen\" button reads \"Home\" (section 3, added Nov 16); on 2026.11.16 UAT 65; UAT only"
+}

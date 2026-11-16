@@ -1,0 +1,36 @@
+﻿{
+    "displayName":  "2026.11.16",
+    "version":  20261116171500,
+    "apkVersion":  17,
+    "baselineJSONSHA256":  "3b598d444a2fe2d8dad59fbded64215b2dfe392e1a6ec4d555506ed413a4f8dc",
+    "productionAPKSHA256":  "df205863d0bf755276f7f4acf301b3c573788ccef09b8f8bc0cd0263121e8e45",
+    "uat70JSONSHA256":  "0307ee8e7909a762c66d96a10c725fc7f121d22d719e2e3980ccc3b5a9104afd",
+    "stagedJSONSHA256":  "7c39b1e194d88c5d017f1fc2d019fe18bf051dd1c60803a5005d0ecf028b9cc1",
+    "releaseHTMLSHA256":  "828684ac3e42e96a5298999f9724b62c75b244abfdc165d1e4c533d71e88150e",
+    "sourceHTML":  "work/cp70/release.html",
+    "sourceHTMLSHA256":  "8cf3e466bb221d5481ad958380d924e767f9687d549dab0cd09c19135757c91f",
+    "jsonBytes":  52054919,
+    "runtimeFiles":  40,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+                              "img/art/cp52-ball.png",
+                              "img/art/cp52-cushion.png",
+                              "img/art/cp52-feather.png"
+                          ],
+    "addedFilesSHA256":  {
+                             "img/art/cp52-ball.png":  "f40a0b001ba727506115c03f60383ed0112f69e42e51be59385461ec255acbf8",
+                             "img/art/cp52-cushion.png":  "2a35477edf5385daed23b4f06e7225d1476648ccda1a47c8590160a34fdcffcc",
+                             "img/art/cp52-feather.png":  "03234dd011926824b2366091688d1a40a467a226145e7ed0f3ede2583378f542"
+                         },
+    "unchangedRuntimeFilesMatchAPK17AndUAT70":  36,
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "updateURL":  "production (work/prod04/download-url.txt, APK17 assets/update-url.txt)",
+    "backup":  "backups/before-PROD-06-20261116171500",
+    "evidence":  "tickets/PROD-06-evidence",
+    "authorization":  "Jenny, Nov 16, 2026: \"promote CP-49, CP-50, CP-51, CP-52 to production.\" = UAT 70 (20261116200000) on Baseline 1",
+    "localPublication":  "verified",
+    "publishedAt":  "2026-11-16T17:06:03"
+}

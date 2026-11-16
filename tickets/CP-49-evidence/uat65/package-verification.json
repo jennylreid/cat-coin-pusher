@@ -1,0 +1,20 @@
+{
+  "version": 20261116120000,
+  "displayName": "2026.11.16 UAT 65",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "eeb5a40bc486ae10986dcedfe0c878c23ba0e32a2f4c5f50bf4b92c52e317607",
+  "stagedJSONSHA256": "bde0bfe066dc3e2c8f325eca9e90d7a7b72aa39db38abf7e519b6eb119a503cf",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "eaf380f58a1768c695c1bb16451682a44aa5f69cb56fcbea4fe53ec891948ef3",
+  "jsonBytes": 51972398,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.15 UAT 64",
+  "backup": "uat/backups/before-UAT65-20261116120000",
+  "evidence": "tickets/CP-49-evidence/uat65",
+  "authorization": "UAT 65: CP-49 Clean Home screen (Jenny, Nov 16, via PM: \"remove that random pyramid of coins at the bottom of the main screen and make the play button smaller\"): coin pyramid removed, Home PLAY at 2/3 size, same centre; on 2026.11.15 UAT 64; UAT only"
+}

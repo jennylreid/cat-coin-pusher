@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.15';
+const BUILD = '2026.11.16';
 
 
 
@@ -10472,7 +10472,7 @@ function tryDrop(at=aim) {
 
 
 
- if(time-lastDrop<DROP_INTERVAL-1e-6){if(time-(tryDrop.feedbackAt??-99)>.7){sfx.clink(.12);const p=screenOf(200,T.FRONT-12,10);floats.push({text:'Easy taps',x:p.x,y:p.y,t:0});tryDrop.feedbackAt=time;}return false;}
+ if(time-lastDrop<CP51.tap-1e-6){if(cp51Queue(at))return false;if(time-(tryDrop.feedbackAt??-99)>.7){sfx.clink(.12);const p=screenOf(200,T.FRONT-12,10);floats.push({text:'Easy taps',x:p.x,y:p.y,t:0});tryDrop.feedbackAt=time;}return false;}
 
 
 
@@ -13815,7 +13815,7 @@ function step() {
 
 
 
- if(holding&&time-lastDrop>=DROP_INTERVAL-1e-6)tryDrop(holdPos);
+ cp51StepDrops(); // CP-51: hold every CP51.hold s; an early tap waits for CP51.tap
 
 
 
@@ -21952,6 +21952,11 @@ async function loadArt() {
 
 
  async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
+ // CP-52: preload approved 128px prize canvases into the existing shared art cache.
+ WILD_ART['feather']=await image('img/art/cp52-feather.png');WILD_ART['feather'].pgl=1;
+ WILD_ART['ball']=await image('img/art/cp52-ball.png');WILD_ART['ball'].pgl=1;
+ WILD_ART['cushion']=await image('img/art/cp52-cushion.png');WILD_ART['cushion'].pgl=1;
+
 
 
 
@@ -36879,7 +36884,7 @@ function emitSparkle(x,y,vx=0,vy=0,big=1){for(const k of sparkles)if(!k.on){k.on
 const LEDGE_BELL_GAP=100,LEDGE_BELL_LEVEL=[1,.7,.5];
 function ledgeBell(){const now=time*1000;if(nextLedgeBell-now>LEDGE_BELL_GAP*LEDGE_BELL_LEVEL.length)nextLedgeBell=-9; // game time restarts with a board
  const wait=Math.max(0,nextLedgeBell-now),n=Math.round(wait/LEDGE_BELL_GAP);if(n>=LEDGE_BELL_LEVEL.length)return false;
- nextLedgeBell=now+wait+LEDGE_BELL_GAP;sfx.pickup('bell',pickupFx.volume*LEDGE_BELL_LEVEL[n],wait/1000);return true;}
+ nextLedgeBell=now+wait+LEDGE_BELL_GAP;sfx.pickup('bell',pickupFx.volume*LEDGE_BELL_LEVEL[n]*CP51_BELL,wait/1000);return true;}
 function pickupLandSound(){const now=time*1000;if(now<lastPickupLand)lastPickupLand=-9;if(now-lastPickupLand<120)return;lastPickupLand=now;sfx.pickup('thump',pickupFx.volume);}
 // Lost prize: drawn at the table edge where it crossed into the side gutter.
 function queueLostPrize(b,wx,wz){
@@ -36887,7 +36892,7 @@ function queueLostPrize(b,wx,wz){
 }
 function quakeInFlight(){let n=0;for(const f of treatAwards)if(f.kind==='quake'&&!f.arrived&&!f.preview)n++;return n;}
 function tickTreatAwards(dt){
- if(inventoryOpen||panel.style.display==='block')return;
+ if(inventoryOpen||panel.style.display==='block'||cp51Paused)return;
  tickPanel(dt);
  for(const k of sparkles)if(k.on){k.t+=dt;k.x+=k.vx*dt;k.y+=k.vy*dt;const d=Math.max(0,1-dt*3.2);k.vx*=d;k.vy*=d;if(k.t>=k.life)k.on=false;}
  if(tileBounceT>=0){tileBounceT+=dt;if(tileBounceT>=pickupFx.bounceTime)tileBounceT=-1;}
@@ -37142,7 +37147,7 @@ function wildTick(dt){
  if(!WILD.on)return;
  for(let i=WILD.confetti.length-1;i>=0;i--){const c=WILD.confetti[i];c.t+=dt;c.vy+=220*dt;c.x+=c.vx*dt;c.y+=c.vy*dt;c.a+=c.va*dt;if(c.y>H+20)WILD.confetti.splice(i,1);}
  WILD.cardT+=dt;
- const paused=inventoryOpen||panel.style.display==='block';if(paused)return;
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;if(paused)return;
  if(WILD.phase==='count'){
   WILD.count-=dt;const sec=Math.ceil(WILD.count);
   if(sec<WILD.lastSec&&sec>0){WILD.lastSec=sec;sfx.wild('beep',1);}
@@ -37214,13 +37219,13 @@ function drawWildHud(hud){
  const low=WILD.left<=10&&WILD.phase==='play';ctx.save();ctx.textBaseline='middle';ctx.textAlign='left';
  ctx.font='bold 17px system-ui';ctx.fillStyle=low?(Math.sin(performance.now()/90)>0?'#ff5050':'#ffd0d0'):'#fff';
  uiCircle(hud.left+19,hud.bannerY,6.5,null,ctx.fillStyle,1.8);ctx.strokeStyle=ctx.fillStyle;ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(hud.left+19,hud.bannerY-4);ctx.lineTo(hud.left+19,hud.bannerY);ctx.lineTo(hud.left+22,hud.bannerY+2);ctx.stroke();ctx.fillText(wildClock(),hud.left+31,hud.bannerY);
- if(WILD.turbo>0){ctx.font='bold 12px system-ui';ctx.fillStyle='#ff9ae8';ctx.fillText('TURBO '+Math.ceil(WILD.turbo),hud.left+92,hud.bannerY);}
- const bottom=hud.bottomY;ctx.font='bold 12px system-ui';ctx.fillStyle='#fff0d0';ctx.fillText('Collection '+WILD.got+' / '+WILD_GOAL,hud.left+14,bottom+5);
- WILD_COLLECTION.forEach((id,i)=>{const x=hud.left+24+(i%4)*24,y=bottom+22+(i/4|0)*22;wildIcon(id,x,y,20,!!WILD.have[id]);});
+ if(WILD.turbo>0){ctx.font='bold 11px system-ui';ctx.fillStyle='#ff9ae8';ctx.fillText('TURBO '+Math.ceil(WILD.turbo),hud.left+100,hud.bannerY);}
+ if(!cp50RowOn()){const bottom=hud.bottomY;ctx.font='bold 12px system-ui';ctx.fillStyle='#fff0d0';ctx.fillText('Collection '+WILD.got+' / '+WILD_GOAL,hud.left+14,bottom+5);
+ WILD_COLLECTION.forEach((id,i)=>{const x=hud.left+24+(i%4)*24,y=bottom+22+(i/4|0)*22;wildIcon(id,x,y+6,20,!!WILD.have[id]);});}
  ctx.restore();
 }
-function wildIcon(id,x,y,w,got){ctx.save();ctx.globalAlpha=got?1:.32;drawPrize('item',id,x,y+w*.3,w/(radius('item')*2.8));ctx.restore();if(got){const cx=x+w*.42,cy=y+w*.3;uiCircle(cx,cy,5,'#7dff6a','#1f6a18',1);ctx.strokeStyle='#0c3a12';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(cx-2.5,cy);ctx.lineTo(cx-.5,cy+2);ctx.lineTo(cx+2.8,cy-2.2);ctx.stroke();}}
-function wildMessage(){return S.coins===0&&WILD.phase==='play'?(board.earnedQuakes>0?'Use your Quake!':'Out of coins!'):WILD.phase==='card'?'Read the goal':WILD.phase==='count'?'Get ready…':WILD.phase==='end'?(WILD.win?'You won!':WILD.reason==='coins'?'Out of coins':"Time's up"):'Collect all '+WILD_GOAL+'!';}
+function wildIcon(id,x,y,w,got){cp50Icon(id,x,y,w,got);return;ctx.save();ctx.globalAlpha=got?1:.32;drawPrize('item',id,x,y+w*.3,w/(radius('item')*2.8));ctx.restore();if(got){const cx=x+w*.42,cy=y+w*.3;uiCircle(cx,cy,5,'#7dff6a','#1f6a18',1);ctx.strokeStyle='#0c3a12';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(cx-2.5,cy);ctx.lineTo(cx-.5,cy+2);ctx.lineTo(cx+2.8,cy-2.2);ctx.stroke();}}
+function wildMessage(){return S.coins===0&&WILD.phase==='play'?(board.earnedQuakes>0?'Use your Quake!':'Out of coins!'):WILD.phase==='card'?'Read the goal':WILD.phase==='count'?'Get ready…':WILD.phase==='end'?(WILD.win?'You won!':WILD.reason==='coins'?'Out of coins':WILD.reason==='finish'?'Round over':"Time's up"):'Collect all '+WILD_GOAL+'!';}
 
 // --- overlays: goal card, countdown, last seconds, end screens, confetti ---
 function wildCardRects(){const cy=H*.47;return {card:{x:30,y:cy-175,w:340,h:350},go:{x:110,y:cy+78,w:180,h:58},back:{x:140,y:cy+142,w:120,h:28}};}
@@ -37248,7 +37253,7 @@ function wildDraw(){
   wildPanel(R.card,'#4b1f6e','#1d0f33');
   wildText(WILD.v2?(petMode()?'COZY':'WILD 2'):'WILD BOARD',200,R.card.y+44,44,'#ffd23f','#2a0b3e',8);
   ctx.fillStyle='#fff';ctx.font='bold 21px system-ui';ctx.fillText('Collect all '+WILD_GOAL+' prizes',200,R.card.y+88);
-  WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(WILD_GOAL-1)/2)*42,R.card.y+106,36,false));
+  WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(WILD_GOAL-1)/2)*42,R.card.y+116,38,false));
   ctx.fillStyle='#fff';ctx.font='bold 15px system-ui';ctx.fillText('before the '+WILD_SECONDS+' s timer or your coins run out',200,R.card.y+158,320);
   ctx.font='14px system-ui';ctx.fillStyle='#f0e0ff';ctx.textAlign='left';
   const lines=[['rain10','Rain coins pour 5, 10 or 25 coins'],['!','Bonus drops fall from the sky']];
@@ -37264,13 +37269,13 @@ function wildDraw(){
   // the card first (after a short beat), then the big word on its top edge
   if(show){const a=Math.min(1,(WILD.endT-.9)/.25);ctx.save();ctx.globalAlpha=a;ctx.fillStyle='rgba(12,6,24,.35)';ctx.fillRect(0,R.card.y-10,W,R.card.h+20);
    wildPanel(R.card,WILD.win?'#2d6a2a':'#5a1f2e',WILD.win?'#123a10':'#2a0f18');
-   ctx.fillStyle='#fff';ctx.font='bold 20px system-ui';ctx.fillText(WILD.got+' of '+WILD_GOAL+' prizes',200,R.card.y+88);WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(WILD_GOAL-1)/2)*38,R.card.y+100,28,!!WILD.have[id]));
-   if(!pgEndText(R)){ctx.font='14px system-ui';ctx.fillStyle='#f0e0ff';ctx.fillText(WILD.win?wildClock()+' to spare'+(WILD.best!=null&&WILD.best===WILD.left&&WILD.runs>1?' · best yet!':''):(WILD.reason==='coins'?'The coins ran out. One more go?':'The timer ran out. One more go?'),200,R.card.y+142);
+   ctx.fillStyle='#fff';ctx.font='bold 20px system-ui';ctx.fillText(WILD.got+' of '+WILD_GOAL+' prizes',200,R.card.y+CP50_END.count);cp50EndRow(R);
+   if(!pgEndText(R)){ctx.font='14px system-ui';ctx.fillStyle='#f0e0ff';ctx.fillText(WILD.win?wildClock()+' to spare'+(WILD.best!=null&&WILD.best===WILD.left&&WILD.runs>1?' · best yet!':''):(WILD.reason==='coins'?'The coins ran out. One more go?':WILD.reason==='finish'?'You ended the round. One more go?':'The timer ran out. One more go?'),200,R.card.y+142);
    ctx.font='12px system-ui';ctx.fillText(WILD.rained+' coins rained · '+WILD.toppled+' towers toppled · '+WILD.bonusN+' bonus drops',200,R.card.y+160);}
    wildButtonDraw(R.again,pglAgainText(),'#ffd23f','#3a1a00',24);
    uiRound(R.back.x,R.back.y,R.back.w,R.back.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.fillText(pgBackText(),200,R.back.y+R.back.h/2);ctx.restore();}
   ctx.save();ctx.translate(200,R.card.y+33);const k=WILD.endT<.35?.4+.9*u:1.15-.15*Math.min(1,(WILD.endT-.35)/.25)+.03*Math.sin(WILD.endT*6);ctx.scale(k,k);ctx.rotate(-.04);
-  if(WILD.win)wildText('YOU WIN!',0,0,50,'#ffd23f','#3a1a00',9);else wildText(WILD.reason==='coins'?'OUT OF COINS!':"TIME'S UP!",0,0,WILD.reason==='coins'?38:46,'#ff6a4a','#2a0010',9);ctx.restore();
+  if(WILD.win)wildText('YOU WIN!',0,0,50,'#ffd23f','#3a1a00',9);else wildText(WILD.reason==='coins'?'OUT OF COINS!':WILD.reason==='finish'?'ROUND OVER':"TIME'S UP!",0,0,WILD.reason==='coins'?38:WILD.reason==='finish'?42:46,'#ff6a4a','#2a0010',9);ctx.restore();
  }
  ctx.restore();
 }
@@ -37466,7 +37471,7 @@ wildScheduleBonus=function(){
 wildLandBonus=function(o){__danceLand(o);if(o.kind==='note'&&floats.length)floats[floats.length-1].text='MUSIC NOTE!';};
 wildTick=function(dt){
  if(!WILD.on)return __danceTickW(dt);
- const paused=inventoryOpen||panel.style.display==='block';
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;
  if(WILD.danceForce&&WILD.phase==='play'&&board.status==='playing'&&!paused){WILD.danceForce=false;if(!WILD.dance)WILD.dancePending={f:null,wait:9};}
  WILD.happyT+=dt;
  if(WILD.dancePending&&!WILD.dance&&!paused){const P=WILD.dancePending;P.wait+=dt;const f=P.f;
@@ -37794,7 +37799,7 @@ wildPointer=function(e,p){
 };
 wildTick=function(dt){
  __w2Tick(dt);if(!WILD.on)return;
- const paused=inventoryOpen||panel.style.display==='block';if(paused)return;
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;if(paused)return;
  skyTick(dt);if(W2_YAWN)w2YawnTick(dt);
  if(WILD.phase==='end'&&WILD.visitAt!=null&&WILD.endT>=WILD.visitAt){WILD.visitAt=null;w2Visit();sfx.wild2('visitor',1);}
  if(WILD.visitor)WILD.visitor.t+=dt;
@@ -37961,7 +37966,7 @@ function drawWild2Card(){
  wildPanel(R,'#4b1f6e','#1d0f33');
  wildText(WILD.pet?'COZY':'WILD 2',200,R.y+40,46,WILD.pet?'#ff8ac8':'#a6ff6a',WILD.pet?'#3a0b2a':'#10301a',8);
  ctx.fillStyle='#ffd23f';ctx.font='900 24px Impact, "Arial Black", system-ui';ctx.fillText('GOAL: COLLECT ALL '+WILD_GOAL+' PRIZES',200,R.y+84,350);
- WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(WILD_GOAL-1)/2)*44,R.y+112,38,false));
+ WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(WILD_GOAL-1)/2)*44,R.y+123,40,false));
  ctx.fillStyle='#fff';ctx.font='bold 16px system-ui';ctx.fillText('before the '+WILD_SECONDS+' s timer or your coins run out',200,R.y+166,350);
  // one line per idea, icon on the left
  const big=L.row>=44;
@@ -38180,11 +38185,11 @@ function w43LostDraw(){
 // The collection icon of a lost prize shakes; the star prize's icon has a gold star.
 const __w43Icon=wildIcon;
 wildIcon=function(id,x,y,w,got){const k=WILD.on&&WILD.iconShake?WILD.iconShake[id]:undefined;if(k!==undefined)x+=Math.sin(k*45)*5*(1-k/.8);__w43Icon(id,x,y,w,got);
- if(WILD.on&&WILD.v2&&WILD.star===id)w43Star(x+w*.36,y-w*.05,Math.max(6,w*.24),'#ffd23f');};
+ if(WILD.on&&WILD.v2&&WILD.star===id)w43Star(x-w*.37,y-w*.37,Math.max(6,w*.21),'#ffd23f');}; // CP-50: on the circle's rim, top left
 function w43Star(x,y,r,fill){ctx.save();ctx.translate(x,y);ctx.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r*.45:r;ctx.lineTo(Math.cos(a)*rr,Math.sin(a)*rr);}ctx.closePath();ctx.fillStyle=fill;ctx.fill();ctx.lineWidth=Math.max(1.2,r*.16);ctx.strokeStyle='#5a3a00';ctx.stroke();ctx.restore();}
 // The star prize on the board: a gold star bobbing over it.
 function w43StarOnBoard(){
- if(!WILD.v2||!WILD.star||WILD.have[WILD.star]||WILD.phase==='card'||(WILD.dance&&WILD.dance.phase==='finale'))return;const b=bodies.find(b=>!b.dead&&b.kind==='item'&&b.id===WILD.star);if(!b)return;
+ if(!WILD.v2||!WILD.star||WILD.have[WILD.star]||WILD.phase==='card'||(WILD.phase==='end'&&WILD.endT>.9)||(WILD.dance&&WILD.dance.phase==='finale'))return;const b=bodies.find(b=>!b.dead&&b.kind==='item'&&b.id===WILD.star);if(!b)return;
  const p=b.rb.translation(),e=skyScreen(p.x/M,p.z/M,p.y/M),bob=Math.sin(performance.now()/220)*3;ctx.save();ctx.globalAlpha=.9;w43Star(e.x,e.y-radius('item')*e.s*1.7+bob,16+5*e.s,'#ffd23f');ctx.restore();
 }
 
@@ -38284,7 +38289,7 @@ function w43WinTick(){if(WILD.winHeld&&!WILD.dance&&WILD.phase==='play'){WILD.da
 
 // --- hooks: ticks and drawing ---
 const __w43Tick=wildTick,__w43Draw=wildDraw;
-wildTick=function(dt){__w43Tick(dt);if(!WILD.on)return;const paused=inventoryOpen||panel.style.display==='block';if(paused)return;w43LostTick(dt);w43CcdTick(dt);w43MergeTick(dt);if(WILD.v2)w43QuakeTick();w43WinTick();};
+wildTick=function(dt){__w43Tick(dt);if(!WILD.on)return;const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;if(paused)return;w43LostTick(dt);w43CcdTick(dt);w43MergeTick(dt);if(WILD.v2)w43QuakeTick();w43WinTick();};
 wildDraw=function(){__w43Draw();if(!WILD.on||inventoryOpen)return;ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);if(WILD.v2){w43StarOnBoard();w43LostDraw();}w43GlintDraw(1/60);ctx.restore();};
 
 // --- 7. Nothing stays on the cat's face (Jenny, UAT 43): cards, banners and the wheel sit below the chin line ---
@@ -38306,7 +38311,7 @@ drawWild2Card=function(){
  wildPanel(R,...wildModePanel());
  wildText(wildModeName(),200,R.y+28,36,wildModeColor(0),wildModeColor(1),7);
  ctx.fillStyle='#ffd23f';ctx.font='900 21px Impact, "Arial Black", system-ui';ctx.fillText('GOAL: COLLECT ALL '+WILD_GOAL+' PRIZES',200,R.y+60,356);
- WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(WILD_GOAL-1)/2)*44,R.y+74,34,false));
+ WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(WILD_GOAL-1)/2)*44,R.y+90,36,false));
  ctx.fillStyle='#fff';ctx.font='bold 15px system-ui';ctx.fillText('before the '+WILD_SECONDS+' s timer or your coins run out',200,R.y+128,360);
  const two=L.row>=36;
  for(let i=0;i<L.n;i++){const [ic,a,b]=wildCardLines()[i],y=L.linesY+i*L.row+L.row/2;
@@ -38553,7 +38558,7 @@ wildScheduleBonus=function(){
 wildLandBonus=function(o){__tossLand(o);if(o.kind==='fish'&&floats.length)floats[floats.length-1].text='TREATS!';};
 wildTick=function(dt){
  if(!WILD.on)return __tossTickW(dt);
- const paused=inventoryOpen||panel.style.display==='block';
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;
  if(WILD.tossForce&&wildFeature('toss')&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.tossForce=false;if(!WILD.toss)WILD.tossPending={f:null,wait:9};}
  if(WILD.tossPending&&!WILD.toss&&!paused){const P=WILD.tossPending;P.wait+=dt;const f=P.f;
   if(WILD.phase==='play'&&board.status==='playing'&&!WILD.dance&&!W2_YAWN&&sweepTime===0&&catquakeTime===0&&(!f||f.arrived||f.t>=f.tr+f.tm*.5||P.wait>1.2))tossStart();}
@@ -38851,7 +38856,7 @@ wildScheduleBonus=function(){
 wildLandBonus=function(o){__laserLand(o);if(o.kind==='laser'&&floats.length)floats[floats.length-1].text='LASER!';};
 wildTick=function(dt){
  if(!WILD.on)return __laserTickW(dt);
- const paused=inventoryOpen||panel.style.display==='block';
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;
  if(WILD.chaseForce&&WILD.laser&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.chaseForce=false;if(!WILD.chase)WILD.chasePending={f:null,wait:9};}
  if(WILD.chasePending&&!WILD.chase&&!paused){const P=WILD.chasePending;P.wait+=dt;const f=P.f;
   if(WILD.phase==='play'&&board.status==='playing'&&!WILD.dance&&!WILD.toss&&!W2_YAWN&&!(typeof PAW40_STATE==='object'&&PAW40_STATE&&PAW40_STATE.swipe)&&sweepTime===0&&catquakeTime===0&&(!f||f.arrived||f.t>=f.tr+f.tm*.5||P.wait>1.2))laserStart();}
@@ -39232,7 +39237,7 @@ wildScheduleBonus=function(){
 wildLandBonus=function(o){__petLand(o);if(o.kind==='heart'&&floats.length)floats[floats.length-1].text='HEART COIN!';};
 wildTick=function(dt){
  if(!WILD.on)return __petTickW(dt);
- const paused=inventoryOpen||panel.style.display==='block';
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;
  if(paused&&WILD.petGame)sfx.purr(0,20);
  if(WILD.petForce&&petMode()&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.petForce=false;if(!WILD.petGame)WILD.petPending={f:null,wait:9};}
  if(WILD.petPending&&!WILD.petGame&&!paused){const P=WILD.petPending;P.wait+=dt;const f=P.f;
@@ -39365,7 +39370,7 @@ function diagFrame(ms,physics,drawing,steps,wasHolding){if(!S.dev)return;
  if(!(ms>0)||!Number.isFinite(ms))return;
  if(!diagBin)diagBin={ms:0,frames:0,physics:0,draw:0,max:0,slow:0,steps:0,heldFrames:0,heldMs:0,heldPhysics:0,heldDraw:0,paused:0};
  const b=diagBin;b.ms+=ms;b.frames++;b.physics+=physics;b.draw+=drawing;b.max=Math.max(b.max,ms);b.slow+=ms>25?1:0;b.steps+=steps;
- const paused=inventoryOpen||panel.style.display==='block'||board.status!=='playing';if(paused)b.paused++;
+ const paused=inventoryOpen||panel.style.display==='block'||cp51Paused||board.status!=='playing';if(paused)b.paused++;
  if(wasHolding&&!paused){b.heldFrames++;b.heldMs+=ms;b.heldPhysics+=physics;b.heldDraw+=drawing;}
  if(wasHolding&&!holding){diagEvent('game-stopped-hold',board.status);diagNeedSave=true;}
  if(b.ms>=1000)diagFinishBin();
@@ -39546,7 +39551,7 @@ function paw40Hud(hud){if(!(WILD.on&&WILD.v2))return;const n=PAW40.perRound;if(!
 const __paw40Hud=drawWildHud;drawWildHud=function(hud){__paw40Hud(hud);paw40Hud(hud);};
 const __paw40Reset=wildReset;wildReset=function(){__paw40Reset();for(const b of bodies)b.paw40Done=0;PAW40_STATE={saves:PAW40.perRound,teeter:null,swipe:null,pops:[],saved:0,missed:0};};
 const __paw40Pointer=wildPointer;wildPointer=function(e,p){if(__paw40Pointer(e,p))return true;return paw40Pointer(p);};
-const __paw40Tick=wildTick;wildTick=function(dt){__paw40Tick(dt);if(!WILD.on||inventoryOpen||panel.style.display==='block')return;paw40Tick(dt);};
+const __paw40Tick=wildTick;wildTick=function(dt){__paw40Tick(dt);if(!WILD.on||inventoryOpen||panel.style.display==='block'||cp51Paused)return;paw40Tick(dt);};
 const __paw40Draw=wildDraw;wildDraw=function(){__paw40Draw();if(!(WILD.on&&WILD.v2))return;ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);paw40Draw();ctx.restore();};
 // Developer: force a tip-off now (a prize placed hanging over a side edge), and the saves-per-round dial.
 function paw40ForceTip(){if(!WILD.on||!WILD.v2){if(WILD.on)wildExit();wild2Enter();}if(WILD.phase!=='play'){if(WILD.phase==='end')wildReset();wildStartCountdown();WILD.paw40Force=true;return;}
@@ -39829,7 +39834,7 @@ function pgScreenCat(dt){const r=pgScreenCatRect(),t=PGU.T,S2=PGU.sc,el=t-S2.at,
  pgHead(cat,0,0,r.w,face,{look:Math.sin(t*.5)*.8,lookY:Math.sin(t*.37),blink:((t+.3)%5.3)<.13?1:0});ctx.restore();
  for(let i=S2.hearts.length-1;i>=0;i--){const h=S2.hearts[i];h.t+=dt;if(h.t>1.3){S2.hearts.splice(i,1);continue;}if(h.t<0)continue;ctx.save();ctx.globalAlpha=Math.max(0,1-h.t/1.3);pgHeart(h.x+Math.sin(h.t*5)*7,h.y-h.t*50,.9,'#ff6ab8');ctx.restore();}}
 function pgHeader(title,color){const y0=pgTop(),b=pgBack();ctx.fillStyle='rgba(18,11,28,.85)';ctx.fillRect(0,0,W,y0+86);
- uiRound(b.x,b.y,b.w,b.h,14,'rgba(255,255,255,.14)','#ffe08a',1.5);ctx.fillStyle='#fff';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';pgChevron(b.x+17,b.y+b.h/2,-1,'#fff',6);ctx.fillText('Board',b.x+b.w/2+7,b.y+b.h/2+1);
+ uiRound(b.x,b.y,b.w,b.h,14,'rgba(255,255,255,.14)','#ffe08a',1.5);ctx.fillStyle='#fff';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';pgChevron(b.x+17,b.y+b.h/2,-1,'#fff',6);ctx.fillText('Home',b.x+b.w/2+7,b.y+b.h/2+1);
  ctx.save();ctx.textAlign='left';ctx.font='italic 900 28px Impact, "Arial Black", system-ui';const tz=Math.min(28,28*146/Math.max(1,ctx.measureText(title).width));wildText(title,108,y0+38,tz,color||'#ffd23f','#2a0b3e',6);ctx.restore();
  pgCounters(y0+76);pgScreenCat(PGU.hdt||.016);}
 function pgCounters(y){ctx.save();ctx.textBaseline='middle';ctx.textAlign='left';ctx.font='bold 13px system-ui';
@@ -40048,7 +40053,7 @@ function pgDrawKitchen(dt){
   if(!open){ctx.fillStyle='#fff';ctx.textAlign='center';ctx.font='bold 16px system-ui';ctx.fillText('A new recipe after Level '+r.level,214,row.y+row.h/2);pgLock(200-ctx.measureText('A new recipe after Level '+r.level).width/2-8,row.y+row.h/2+2,.8);continue;}
   pgDish(r.id,row.x+48,row.y+48+(can?Math.sin(t*3)*2:0),.72);pgHead(r.cat,row.x+48,row.y+86,44,'calm',{noPupils:true});
   ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#3a1a0a';ctx.font='bold 17px system-ui';ctx.fillText(r.name,row.x+96,row.y+20);ctx.font='12px system-ui';ctx.fillStyle='#7a4a2a';ctx.fillText('for the '+PG_CAT[r.cat].name+(done?' · photographed':''),row.x+96,row.y+38);
-  let ix=row.x+108;for(const id in r.need){const have=pgHave(id),n=r.need[id],ok=have>=n;pgPrizeIcon(id,ix,row.y+60,28,ok?1:.55);ctx.textAlign='center';ctx.font='bold 11px system-ui';ctx.fillStyle=ok?'#1f7a1a':'#c0302a';ctx.fillText(Math.min(have,99)+'/'+n,ix,row.y+88);ix+=40;}
+  let ix=row.x+120;for(const id in r.need){const have=pgHave(id),n=r.need[id],ok=have>=n;pgPrizeIcon(id,ix,row.y+57,40,ok?1:.55);ctx.textAlign='center';ctx.font='bold 11px system-ui';ctx.fillStyle=ok?'#1f7a1a':'#c0302a';ctx.fillText(Math.min(have,99)+'/'+n,ix,row.y+94);ix+=44;}
   const b={x:row.x+row.w-86,y:row.y+row.h/2-20,w:76,h:40};row.btn=b;
   if(!held){ctx.textAlign='center';ctx.fillStyle='#7a4a2a';ctx.font='bold 11px system-ui';ctx.fillText('Used up',b.x+b.w/2,b.y+12);ctx.font='10px system-ui';ctx.fillText('win a recipe',b.x+b.w/2,b.y+26);ctx.fillText('coin on a board',b.x+b.w/2,b.y+38);}
   else{if(can){const k=1+.05*Math.sin(t*6);ctx.save();ctx.translate(b.x+b.w/2,b.y+b.h/2);ctx.scale(k,k);ctx.translate(-(b.x+b.w/2),-(b.y+b.h/2));}pgButton(b,'COOK',can?'#3ccf4e':'#8a8a8a',can?'#0c3a12':'#333',18,!can);if(can)ctx.restore();}
@@ -40179,8 +40184,8 @@ function pgDrawAlbum(dt){
  uiRound(18,top,364,bh,12,'#b0442a','#5a1a0a',3);uiRound(28,top+10,344,bh-20,8,'#fff8ea','#d8c8a8',1);
  ctx.textAlign='center';ctx.textBaseline='middle';
  if(pid==='prizes'){wildText('PRIZES',200,top+44,30,'#b0442a','#fff8ea',2);const n=PG_PRIZES.length,cols=3,cw=104,ch=Math.min(92,(bh-110)/Math.ceil(n/cols));
-  PG_PRIZES.forEach((id,i)=>{const x=200+((i%cols)-1)*cw,y=top+86+(i/cols|0)*ch;const ever=!!PG.ever[id];pgPrizeIcon(id,x,y,ch*.5,ever?1:.18);ctx.fillStyle=ever?'#3a1a0a':'#b8a890';ctx.font='bold 11px system-ui';ctx.fillText(ever?pgName(id):'?',x,y+ch*.42);
-   if(ever){ctx.font='bold 10px system-ui';ctx.fillStyle='#7a5a3a';ctx.fillText('×'+pgHave(id),x+ch*.34,y-ch*.12);}const o=pgOwner(id);if(o){ctx.fillStyle=PG_CAT[o].tag;ctx.beginPath();ctx.arc(x-ch*.32,y-ch*.12,4,0,7);ctx.fill();}});
+  PG_PRIZES.forEach((id,i)=>{const x=200+((i%cols)-1)*cw,y=top+86+(i/cols|0)*ch;const ever=!!PG.ever[id];pgPrizeIcon(id,x,y-ch*.13,ch*.74,ever?1:.18);ctx.fillStyle=ever?'#3a1a0a':'#b8a890';ctx.font='bold 11px system-ui';ctx.fillText(ever?pgName(id):'?',x,y+ch*.42);
+   if(ever){ctx.font='bold 10px system-ui';ctx.fillStyle='#7a5a3a';ctx.fillText('×'+pgHave(id),x+ch*.46,y-ch*.2);}const o=pgOwner(id);if(o){ctx.fillStyle=PG_CAT[o].tag;ctx.beginPath();ctx.arc(x-ch*.44,y-ch*.2,4,0,7);ctx.fill();}});
   if(PG.stamped.prizes)pgStamp(300,top+bh-70,t);}
  else{const C=PG_CAT[pid],n=PG.photos[pid]|0;wildText(C.name.toUpperCase(),200,top+44,30,C.tag,'#fff8ea',2);ctx.font='12px system-ui';ctx.fillStyle='#7a5a3a';ctx.fillText(C.board+' · its prizes: '+C.own.map(pgName).join(', '),200,top+72,330);
   const fh=Math.min(170,(bh-120)/2);PG_POSES.forEach((pose,i)=>{const x=i===2?200:i===0?118:282,y=top+100+(i===2?fh+16:0)+fh/2,w=fh*.86;
@@ -40291,7 +40296,7 @@ const __pgW2=sfx.wild2;sfx.wild2=function(kind,...a){if(kind==='perfect'&&WILD.o
 if(typeof laserEndLog==='function'){const __pgLaserEnd=laserEndLog;laserEndLog=function(D){if(WILD.on&&D&&!D.logged&&D.misses===0&&D.hits>=3)WILD.pgPerfect=true;return __pgLaserEnd(D);};}
 // End card: stars and what you earned, in place of the old stats lines (called from Wild's end card).
 function pgEndText(R){const P=WILD.pgResult;if(!P||PG_HOME_OFF)return false;const y=R.card.y+140;
- for(let i=0;i<3;i++)w43Star(200+(i-1)*34,y-2,13,i<P.stars?'#ffd23f':'rgba(255,255,255,.18)');
+ for(let i=0;i<3;i++)w43Star(200+(i-1)*34,y+2,12,i<P.stars?'#ffd23f':'rgba(255,255,255,.18)');
  ctx.font='bold 13px system-ui';ctx.fillStyle='#fff6d0';ctx.textAlign='center';ctx.fillText('+'+P.xp+' XP · +'+P.coins+' coins to the jar'+(P.nip?' · +1 Catnip':'')+(P.level?' · LEVEL '+P.level+'!':''),200,y+20,330);
  return true;}
 // Goal-card lines: the visitor and star-visitor lines become the stars line.
@@ -40523,9 +40528,9 @@ function pgCentre(y,t,o={}){const cat=PGU.boardCat||'tuxedo',L={};
  ctx.textAlign='left';wildText(lt,x0,y+38,22,'#fff','#2a0b3e',5);ctx.textAlign='center';pgDiffPill(x0+lw+10+tw/2,y+37,pgDiff(cat));
  // the goal
  ctx.font='bold 15px system-ui';ctx.fillStyle='#ffe8b0';ctx.fillText(pglGoalText(),200,y+72,300);
- const n=WILD_COLLECTION.length,sp=Math.min(42,238/Math.max(1,n));WILD_COLLECTION.forEach((id,i)=>wildIcon(id,200+(i-(n-1)/2)*sp,y+98,Math.min(40,sp-2),!!WILD.have[id]));
+ cp50HomeRow(y);
  // "?" how to play
- L.help={x:200-58,y:y+130,w:116,h:26};uiRound(L.help.x,L.help.y,L.help.w,L.help.h,13,'rgba(255,255,255,.1)','rgba(232,220,255,.5)',1);ctx.font='bold 12px system-ui';ctx.fillStyle='#e8dcff';ctx.fillText('? How to play',200,L.help.y+L.help.h/2+1);
+ L.help={x:200-58,y:y+(PGU.screen==='main'?CP50_HOME.help:130),w:116,h:26};uiRound(L.help.x,L.help.y,L.help.w,L.help.h,13,'rgba(255,255,255,.1)','rgba(232,220,255,.5)',1);ctx.font='bold 12px system-ui';ctx.fillStyle='#e8dcff';ctx.fillText('? How to play',200,L.help.y+L.help.h/2+1);
  return L;}
 function pgPlayButton(y,t,hh=78){const k=1+.035*Math.sin(t*4),r={x:78,y,w:244,h:hh};ctx.save();ctx.translate(200,y+hh/2);ctx.scale(k,k);ctx.translate(-200,-(y+hh/2));
  uiRound(r.x,r.y+6,r.w,r.h,30,'rgba(0,0,0,.4)');const g=ctx.createLinearGradient(0,r.y,0,r.y+r.h);g.addColorStop(0,'#ffe36a');g.addColorStop(.55,'#ffc21f');g.addColorStop(1,'#e8900a');uiRound(r.x,r.y,r.w,r.h,30,g,'#fff6d0',3);
@@ -40557,24 +40562,26 @@ function pgMainRects(){const top=pgDock().bottom,bot=H-Math.max(24,hudLayout().b
  const name=top+268*k,play=name+172; /* UAT 59 (Jenny: "a big empty space"): PLAY sits right under How to play; the pile gets the room below */return {top,bot,head:{x:200,y:top+118*k,w:240*k},name,play,side:pgSideRects(top+48,Math.min(100,(name+150-top-48)/2.4))};}
 // UAT 58 (Jenny: "cramped coins at the bottom that look disfigured"): a small, tidy pile, 5 + 3 + 1 coins at their true
 // proportions (round, never squashed), spaced so they don't crowd.
-function pgMainPile(rows=3){if(PGA.pile&&PGA.pile.rows===rows)return PGA.pile;const a=[];[[5,0],[3,1],[1,2]].slice(0,rows).forEach(([n,row])=>{for(let i=0;i<n;i++)a.push({x:200+(i-(n-1)/2)*62,y:-row*44,r:27});});a.rows=rows;return PGA.pile=a;}
+// CP-49 (Jenny, Nov 16): the coin pyramid under PLAY is removed; that area is clean background.
 // the pile sits in the room under PLAY, never touching it: as many rows (up to 3) as fit
-function pgMainPileRows(R){const room=(R.bot-28)-(R.play+78+12)-27;return Math.max(1,Math.min(3,Math.floor(room/44)+1));}
+// CP-49: the Home screen's PLAY, drawn by pgPlayButton scaled to 2/3 about its centre; returns the scaled tap area
+const PG_MAIN_PLAY=2/3;
+function pgMainPlay(y,t){const k=PG_MAIN_PLAY,cy=y+39;ctx.save();ctx.translate(200,cy);ctx.scale(k,k);ctx.translate(-200,-cy);const r=pgPlayButton(y,t);ctx.restore();
+ return {x:200-r.w*k/2,y:cy-r.h*k/2,w:r.w*k,h:r.h*k};}
 function pgDrawMain(dt){const R=pgMainRects(),t=PGU.T,cat=PGU.boardCat||'tuxedo';
  if(ART.background){const cover=Math.max(W/ART.background.width,H/ART.background.height),bw=ART.background.width*cover,bh=ART.background.height*cover;ctx.drawImage(ART.background,(W-bw)/2,(H-bh)/2,bw,bh);}else{ctx.fillStyle='#1d1030';ctx.fillRect(0,0,W,H);}
  let gr=ctx.createLinearGradient(0,0,0,H);gr.addColorStop(0,'rgba(30,10,50,.5)');gr.addColorStop(1,'rgba(20,6,34,.88)');ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
  ctx.save();ctx.translate(200,R.head.y);ctx.rotate(t*.2);for(let i=0;i<12;i++){ctx.rotate(Math.PI/6);ctx.fillStyle=i%2?'rgba(255,210,63,.1)':'rgba(255,122,213,.06)';ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-40,-H);ctx.lineTo(40,-H);ctx.fill();}ctx.restore();
- // the coin rain (the board's own coin, as on the title) and a pile of coins under PLAY
+ // the coin rain (the board's own coin, as on the title)
  if(!PGA.seeded){PGA.seeded=1;for(let i=0;i<6;i++)PGA.coins.push(pgTitleCoin(rand(0,H*.7)));}
  if(PGA.coins.length<12&&Math.random()<dt*2.2)PGA.coins.push(pgTitleCoin(-40));const csp=sprite('coin');
  for(let i=PGA.coins.length-1;i>=0;i--){const c=PGA.coins[i];c.y+=c.vy*dt*.8;c.vy=Math.min(c.vy+45*dt,170);c.x+=Math.sin(t*c.wf+c.s)*c.wa*dt;if(c.y>H+50){PGA.coins.splice(i,1);continue;}
   pgThickCoin(csp,c.x,c.y,c.r,c.s+t*c.vs*.6);} // UAT 58: solid coins with their gold edge as they turn; no glow
- const py=R.bot-28;for(const c of pgMainPile(pgMainPileRows(R))){const hs=csp.half*c.r/COIN_R;ctx.drawImage(csp.cv,c.x-hs,py+c.y-hs,2*hs,2*hs);}
  // the board's cat: floats, blinks, looks around; a tap gets the sweet face, hearts and a meow
  const el=t-PGA.react,live=el<1.4,by=Math.sin(t*1.6)*4-(live?Math.abs(Math.sin(el*9))*10*(1-el/1.4):0);
  pgHead(cat,R.head.x,R.head.y+by,R.head.w,live||(t%7)<1?'sweet':'calm',{look:Math.sin(t*.5)*.8,lookY:Math.sin(t*.37),blink:((t+.3)%4.7)<.13?1:0});
  for(let i=PGA.hearts.length-1;i>=0;i--){const h=PGA.hearts[i];h.t+=dt;if(h.t>1.3){PGA.hearts.splice(i,1);continue;}if(h.t<0)continue;ctx.save();ctx.globalAlpha=Math.max(0,1-h.t/1.3);pgHeart(h.x+Math.sin(h.t*5)*7,h.y-h.t*50,1,'#ff6ab8');ctx.restore();}
- ctx.textAlign='center';ctx.textBaseline='middle';PGA.L=pgCentre(R.name,t);PGA.L.play=pgPlayButton(R.play,t);pgDrawSide(R.side,t);
+ ctx.textAlign='center';ctx.textBaseline='middle';PGA.L=pgCentre(R.name,t);PGA.L.play=pgMainPlay(R.play,t);pgDrawSide(R.side,t);
  pgDrawMainBar();
  if(PGU.pick)pgDrawBoardPick(dt);ctx.save();pgDrawModes();ctx.restore();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';}
 // the slim top bar on the main screen (the board's own bar drawing, always fully shown)
@@ -40616,7 +40623,7 @@ const __abWildButton=wildButton;
 wildButton=function(){if(!(PG&&!PG_HOME_OFF&&WILD.on))return __abWildButton();const h=hudLayout(),bottom=Math.min(h.mainY+15,h.bannerY-20),hh=Math.max(20,Math.min(28,bottom-h.top-1));return {x:257,y:bottom-hh,w:56,h:hh};};
 const __abWildBtnDraw=drawWildButton;
 drawWildButton=function(){if(!(PG&&!PG_HOME_OFF&&WILD.on))return __abWildBtnDraw();if(inventoryOpen)return;const b=wildButton();
- ctx.save();uiRound(b.x,b.y,b.w,b.h,b.h/2,'#3a2350','rgba(232,220,255,.75)',1.5);pgChevron(b.x+12,b.y+b.h/2,-1,'#f4ecff',4.5);ctx.fillStyle='#f4ecff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='bold 12px system-ui';ctx.fillText('Board',b.x+b.w/2+6,b.y+b.h/2+1,b.w-20);ctx.restore();};
+ ctx.save();uiRound(b.x,b.y,b.w,b.h,b.h/2,'#3a2350','rgba(232,220,255,.75)',1.5);pgChevron(b.x+12,b.y+b.h/2,-1,'#f4ecff',4.5);ctx.fillStyle='#f4ecff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='bold 12px system-ui';ctx.fillText('Home',b.x+b.w/2+6,b.y+b.h/2+1,b.w-20);ctx.restore();};
 // The round's Settings gear follows the same rule (its circle stays above the meter's label).
 pgPlayGear=function(){const h=hudLayout(),bottom=Math.min(h.mainY+17,h.bannerY-20),hh=Math.max(22,Math.min(34,bottom-h.top-1));return {x:W-h.right-80,y:bottom-hh,w:36,h:hh};};
 pgDrawPlayGear=function(){const g=pgPlayGear(),r=Math.min(15,g.h/2);uiCircle(g.x+g.w/2,g.y+g.h/2,r,'rgba(255,255,255,.1)','rgba(232,220,255,.5)',1);pgGearIcon(g.x+g.w/2,g.y+g.h/2,Math.min(8,r-5));};
@@ -40786,8 +40793,8 @@ function uiStar(g,x,y,r,c){g.save();g.fillStyle=c;g.beginPath();for(let i=0;i<10
 // extra copies on the board are bonus prizes). top: [id, slot] for prizes on a tower wall (slot 0..4, left to right).
 // towers: 'default' (Wild 2's two) or a list {x,y,n}; wall: a tower wall (heights); rain: [kind,x,y]; quake: [x,y] or null.
 const PGL_LEVELS=[
- {name:'First push',tag:'Normal',coins:110,secs:60,goal:['egg','milk','sardine','biscuit'],star:'biscuit',
-  p:[['egg',200,630],['milk',108,600],['sardine',292,600],['biscuit',250,520]],towers:[],rain:[['rain10',200,705],['rain5',200,440]],quake:[140,545]},
+ {name:'First push',tag:'Normal',coins:110,secs:60,goal:['shrimp','cheese'],star:null, // CP-50 (Jenny, Nov 16): just the original shrimp and cheese
+  p:[['cheese',140,610],['shrimp',260,690]],towers:[],rain:[['rain10',200,705],['rain5',200,440]],quake:[140,545]},
  {name:'Line up',tag:'Normal',coins:110,secs:60,goal:['feather','ball','egg','milk','box'],star:'egg',
   p:[['feather',80,560],['ball',140,560],['egg',200,560],['milk',260,560],['box',320,560]],towers:'default',rain:[['rain10',110,690],['rain5',200,440]],quake:[200,660]},
  {name:'At the back',tag:'Hard',coins:90,secs:50,goal:['sardine','sock','biscuit','egg','box'],star:'sock',
@@ -40934,12 +40941,12 @@ pgRoundEnd=function(win){const done=WILD.pgDone;__pglRoundEnd(win);if(done||!PG|
  pglCheckScreens();pgSave();try{diagEvent('levels','level '+n+' '+(win?'passed':'lost')+' stars='+(P.stars|0)+' passed='+lv.passed);}catch(e){}};
 // End card: stars, coins, and the level passed.
 pgEndText=function(R){const P=WILD.pgResult;if(!P||PG_HOME_OFF)return false;const y=R.card.y+140;
- for(let i=0;i<3;i++)w43Star(200+(i-1)*34,y-2,13,i<P.stars?'#ffd23f':'rgba(255,255,255,.18)');
+ for(let i=0;i<3;i++)w43Star(200+(i-1)*34,y+2,12,i<P.stars?'#ffd23f':'rgba(255,255,255,.18)');
  ctx.font='bold 13px system-ui';ctx.fillStyle='#fff6d0';ctx.textAlign='center';
  const lead=P.lvl&&P.stars?(P.first?'Level '+P.lvl+' passed! ':'')+(P.next?'Level '+P.next+' is open · ':''):'';
- ctx.fillText(lead+'+'+P.coins+' coins'+(P.nip?' · +1 Catnip':''),200,y+20,330);return true;};
+ ctx.fillText(lead+'+'+P.coins+' coins'+(P.nip?' · +1 Catnip':''),200,y+23,330);return true;};
 function pglAgainText(){if(!pglOn()||!WILD.pgResult)return 'PLAY AGAIN';return WILD.pgResult.next?'NEXT LEVEL':WILD.win?'PLAY AGAIN':'TRY AGAIN';}
-const __pglBackText=pgBackText;pgBackText=function(){return pglActive()?'Main screen':__pglBackText();};
+const __pglBackText=pgBackText;pgBackText=function(){return pglActive()?'Home':__pglBackText();}; // CP-49 (Jenny, Nov 16): was "Main screen"
 
 // --- the PLAY screen: Level n and its tag, the level's name with the goal, stars, and arrows for passed levels ---
 pgBoardLevel=function(){return pglActive()?pglSel():(PG&&PG.passed|0)+1;};
@@ -41147,7 +41154,7 @@ function pgpKitten(x,y,s,d,ph){ctx.save();ctx.translate(x,y);ctx.scale(s*d,s);co
  ctx.fillStyle=C.light;ctx.beginPath();ctx.ellipse(24,-4,5,4,0,0,7);ctx.fill();ctx.fillStyle='#111';ctx.beginPath();ctx.arc(23,-10,1.8,0,7);ctx.arc(28,-9,1.6,0,7);ctx.fill();ctx.restore();}
 
 // --- hooks: tick, draw, reset, finish ---
-const __pgpTickW=wildTick;wildTick=function(dt){const r=__pgpTickW(dt);if(WILD.on&&!(inventoryOpen||panel.style.display==='block'))pgpTick(dt);return r;};
+const __pgpTickW=wildTick;wildTick=function(dt){const r=__pgpTickW(dt);if(WILD.on&&!(inventoryOpen||panel.style.display==='block'||cp51Paused))pgpTick(dt);return r;};
 const __pgpDrawW=wildDraw;wildDraw=function(){__pgpDrawW();if(WILD.on&&!inventoryOpen)pgpDraw();};
 const __pgpReset=wildReset;wildReset=function(){pgpEnd();WILD.pgpEarn=0;WILD.pgpPulse=null;return __pgpReset();};
 const __pgpExit=wildExit;wildExit=function(){pgpEnd();return __pgpExit();};
@@ -41210,7 +41217,7 @@ wildScheduleBonus=function(){
    const y=rand(430,620),x=200+rand(-1,1)*(tableHalfAt(y)-50);WILD.incoming.push({kind:'mousecoin',id:null,x,y,t:.9,t0:.9});WILD.bonusN++;WILD.mouseN++;sfx.wild('whistle',1);return;}}
  return __pounceBonus();};
 wildLandBonus=function(o){__pounceLand(o);if(o.kind==='mousecoin'&&floats.length)floats[floats.length-1].text='POUNCE!';};
-wildTick=function(dt){if(!WILD.on)return __pounceTickW(dt);const paused=inventoryOpen||panel.style.display==='block';
+wildTick=function(dt){if(!WILD.on)return __pounceTickW(dt);const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;
  if(WILD.pounceForce&&wildFeature('pounce')&&WILD.phase==='play'&&board.status==='playing'&&(WILD.goT||0)>=.8&&!paused){WILD.pounceForce=false;if(!WILD.pounce)WILD.pouncePending={f:null,wait:9};}
  if(WILD.pouncePending&&!WILD.pounce&&!paused){const P=WILD.pouncePending;P.wait+=dt;const f=P.f;if(WILD.phase==='play'&&board.status==='playing'&&!W2_YAWN&&!PGPX&&sweepTime===0&&catquakeTime===0&&(!f||f.arrived||f.t>=f.tr+f.tm*.5||P.wait>1.2))pounceStart();}
  if(!WILD.pounce||WILD.phase!=='play'){if(WILD.pounce&&WILD.phase!=='play')WILD.pounce=null;return __pounceTickW(dt);}
@@ -41269,7 +41276,7 @@ wildDevBind=function(panel){__pgpDevBind(panel);const box=panel.querySelector&&p
 const CP48_OWN=45,CP48_SLOW=1,CP48_RAIN=100;
 let cp48FullAt=-99,cp48FullLogAt=-99;
 function cp48Own(){let n=0;for(const b of bodies)if(!b.dead&&b.input&&(b.kind==='coin'||b.kind==='silver'))n++;return n;}
-function cp48Full(){return cp48Own()>=CP48_OWN;}
+function cp48Full(){return cp51Pieces()>=CP51_BACKSTOP;} // CP-51 (Jenny, Nov 16): no 45-coin limit; only the 120-piece backstop
 const __cp48TryDrop=tryDrop;
 tryDrop=function(at=aim){
  if(!inventoryOpen&&board.status!=='won'&&board.status!=='lost'&&board.remaining>0&&cp48Full()&&time-lastDrop<CP48_SLOW-1e-6){
@@ -41348,6 +41355,157 @@ const __cp48FrameError=frameError;
 frameError=function(e){__cp48FrameError(e);cp48FirstError();};
 addEventListener('error',ev=>{try{diagEvent('js-error',String(ev&&ev.message||'error').slice(0,140)+' '+String(ev&&ev.filename||'').slice(-30)+':'+(ev&&ev.lineno||''));}catch(e){}cp48FirstError();});
 addEventListener('unhandledrejection',ev=>{try{diagEvent('js-error','rejection '+String(ev&&ev.reason&&(ev.reason.message||ev.reason)||'').slice(0,140));}catch(e){}cp48FirstError();});
+
+// ===== CP-50 Simple first board (UAT 67; Jenny, Nov 16, via PM) =====
+// Goal icons: the prize at full colour on a soft cream circle (like the Album and Kitchen cards); a collected prize gets a
+// green rim and a check on the circle's rim, top right (the star prize's star sits top left). (x, y) is the centre, w the
+// circle's diameter. Same icon art, only bigger.
+function cp50Icon(id,x,y,w,got){const r=w/2;
+ ctx.save();ctx.shadowColor='rgba(0,0,0,.38)';ctx.shadowBlur=Math.max(2,w*.12);ctx.shadowOffsetY=Math.max(1,w*.05);uiCircle(x,y,r,'#fff4dc');ctx.restore();
+ uiCircle(x,y,r-.5,null,got?'#3fbf2e':'#dcb878',got?Math.max(1.8,w*.075):Math.max(1.1,w*.04));
+ const pw=w*.92;ctx.save();ctx.beginPath();ctx.arc(x,y,r-1,0,7);ctx.clip();drawPrize('item',id,x,y+pw*.13,pw/(radius('item')*2.8));ctx.restore();
+ if(got){const k=Math.max(5,w*.2),cx=x+r*.74,cy=y-r*.74;uiCircle(cx,cy,k,'#7dff6a','#1f6a18',Math.max(1,k*.2));
+  ctx.save();ctx.strokeStyle='#0c3a12';ctx.lineWidth=Math.max(1.6,k*.32);ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();ctx.moveTo(cx-k*.5,cy);ctx.lineTo(cx-k*.12,cy+k*.4);ctx.lineTo(cx+k*.55,cy-k*.42);ctx.stroke();ctx.restore();}}
+// A centred row of n icons: diameter up to maxD, gap between circles, never wider than maxW.
+function cp50Fit(n,maxW,maxD,gap){const D=Math.max(14,Math.min(maxD,(maxW+gap)/Math.max(1,n)-gap));return {D,step:D+gap};}
+function cp50Draw(cx,cy,f){const n=WILD_COLLECTION.length;WILD_COLLECTION.forEach((id,i)=>wildIcon(id,cx+(i-(n-1)/2)*f.step,cy,f.D,!!WILD.have[id]));}
+
+// --- End card: title, then "n of N prizes", then the icon row, then the stars and coins line, each with clear space ---
+const CP50_END={count:70,icons:105,maxD:44,maxW:316};
+function cp50EndRow(R){const f=cp50Fit(WILD_GOAL,CP50_END.maxW,CP50_END.maxD,4);cp50Draw(200,R.card.y+CP50_END.icons,f);globalThis.CP50_ENDROW={...f,cy:R.card.y+CP50_END.icons};}
+
+// --- Home goal line: bigger icons between the goal text and "? How to play" (moved 12 px down, still clear of PLAY);
+//     narrower where a side button reaches the row. Layout B's panel keeps its old spacing, with the new icons.
+const CP50_HOME={help:142,cy:110,maxD:52,maxW:340,narrow:250};
+function cp50HomeRow(y){const n=WILD_COLLECTION.length;
+ if(PGU.screen!=='main'){const f=cp50Fit(n,240,44,4);cp50Draw(200,y+105,f);return;}
+ const top=y+CP50_HOME.cy-CP50_HOME.maxD/2-4,bot=y+CP50_HOME.cy+CP50_HOME.maxD/2+4;let side=false;
+ try{for(const b of pgMainRects().side||[]){const h=b.hit;if(h&&h.y<bot&&h.y+h.h>top)side=true;}}catch(e){}
+ const f=cp50Fit(n,side?CP50_HOME.narrow:CP50_HOME.maxW,CP50_HOME.maxD,6);cp50Draw(200,y+CP50_HOME.cy,f);globalThis.CP50_HOMEROW={...f,cy:y+CP50_HOME.cy,side};}
+
+// --- In a round: the level name and the prizes to collect in the band above the cat's head ---
+// Drawn after the machine and before the cat, so the cat always stays on top (it can never be covered, even when the head
+// moves in a dance). Sized to sit between the top bar and the forehead, and between the ears: the cat's head top is at
+// VIEW.y + 57 * VIEW.zy across x 103..297 (measured on all four phone sizes); the inner ear edges rise about 0.9 px per
+// px outside that, so a row that is shorter may be a little wider. The row keeps 6 px above the forehead (its soft edge).
+function cp50RowOn(){return !!(WILD.on&&!inventoryOpen&&pglOn()&&(WILD.phase==='play'||WILD.phase==='count'||WILD.phase==='end'));}
+function cp50RowLayout(){const hud=hudLayout(),n=WILD_COLLECTION.length,F=VIEW.y+57*VIEW.zy,top=hud.headerBottom+2,ly=top+8,T=top+17,gap=5;
+ let D=Math.min(40,F-6-T),half=97;
+ for(;D>16;D-=.5){const B=T+D;half=B<=F-9?Math.min(140,100+(F-9-B)/.9):97;if(n*(D+gap)-gap<=2*half)break;}
+ return {n,D,step:D+gap,cy:T+D/2,ly,top,bottom:T+D,F,half,left:200-((n-1)/2)*(D+gap)-D/2,right:200+((n-1)/2)*(D+gap)+D/2};}
+function cp50DrawRow(){if(!cp50RowOn())return;const lvl=WILD.pglLevel||pglSel(),L=PGL_LEVELS[lvl-1]||pglOn(),R=cp50RowLayout();globalThis.CP50_ROW=R;if(R.D<14)return;
+ ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
+ wildText('Level '+lvl+' · '+L.name,200,R.ly,14,'#ffd23f','#2a0b3e',4);
+ cp50Draw(200,R.cy,R);ctx.restore();}
+const __cp50Machine=drawMachine;drawMachine=function(...a){const r=__cp50Machine.apply(this,a);try{cp50DrawRow();}catch(e){}return r;};
+
+// --- Level 1: no bonus prizes. A bonus drop that would bring a prize brings a 5-coin rain instead, unless it is bringing
+//     back a goal prize that fell off a side (otherwise the level could not be won); the cat's own sky-drop prizes are off.
+function cp50Lv1(){return !!(pglOn()&&(WILD.pglLevel||pglSel())===1);}
+const __cp50Bonus=wildScheduleBonus;
+wildScheduleBonus=function(){const lv1=cp50Lv1(),n=WILD.incoming.length,miss=lv1?wildMissing():[];const r=__cp50Bonus();
+ if(lv1){const o=WILD.incoming[n];if(o&&o.kind==='item'&&!miss.includes(o.id)){o.kind='rain5';o.id=null;}}return r;};
+const __cp50Reset=wildReset;wildReset=function(){const r=__cp50Reset();if(cp50Lv1())WILD.pglSched=PGL_CAT_DROPS.length;return r;};
+
+// ---------- CP-51 (UAT 68, Jenny Nov 16): drop speed, no 45-coin limit, Pause ----------
+// 1. Drop speed. Since CP-25 UAT 3 (Oct 28) holding and tapping both dropped a coin every 0.20 s (5 a second).
+//    Holding now drops one every CP51.hold s, a slower steady stream. Tapping may go faster, up to one every CP51.tap s;
+//    a tap that comes a little early isn't lost: it waits and drops as soon as the gap opens (one tap at a time; a
+//    second early tap still gets "Easy taps"). The first coin of a press always drops at once.
+var CP51={hold:.40,tap:.25,q:null,view:'menu',why:'',pausedAt:0,n:0};
+var cp51Paused=false;
+function cp51Queue(at){ // tryDrop's gap check: keep one early tap
+ if(CP51.q||!WILD.on||WILD.phase!=='play')return false;CP51.q={x:at.x,y:at.y,t:time};return true;}
+function cp51StepDrops(){ // called from step() in place of the old hold check
+ if(CP51.q&&(time-CP51.q.t>.6||(WILD.on&&WILD.phase!=='play')))CP51.q=null;
+ if(CP51.q&&time-lastDrop>=CP51.tap-1e-6){const q=CP51.q;CP51.q=null;tryDrop(q);return;}
+ if(holding&&time-lastDrop>=CP51.hold-1e-6)tryDrop(holdPos);}
+// 1b. The 45-coin limit is gone. What stays is the far-off safety net: at 120 coin pieces on the board (plain coins plus
+//     gold 5s) drops slow to one a second and "Board full" shows, until coins fall off (CP-48's slow-down, from 120). Rain past 100 still lands as
+//     gold 5s and merging stays at 130 (unchanged).
+const CP51_BACKSTOP=120;
+function cp51Pieces(){let n=0;for(const b of bodies)if(!b.dead&&(b.kind==='coin'||b.kind==='silver'||b.kind==='gold5'))n++;return n;}
+
+// 2. Pause. A pause button around the round timer (clock, time, two bars). Tapping it stops the timer, the physics, drops,
+//    side games and the music, and shows the pop-up: RESUME, FINISH ROUND (end now; prizes and coins are kept, normal end
+//    card), and Sound, How to play, Home. The game pauses by itself when the app goes to the background or the screen
+//    turns off, and the pop-up is there on return.
+function cp51CanPause(){return !!(world&&WILD.on&&WILD.phase==='play'&&board.status==='playing'&&!inventoryOpen&&panel.style.display!=='block'&&(typeof PGU==='undefined'||!PG||PG_HOME_OFF||PGU.screen==='board'));}
+function cp51ShowButton(){return cp51Paused||cp51CanPause();}
+function cp51Btn(hud){hud=hud||hudLayout();return {x:hud.left+5,y:hud.bannerY-15,w:91,h:30};}
+function cp51Hit(){const r=cp51Btn();return {x:r.x-4,y:r.y-5,w:r.w+8,h:r.h+10};}
+function cp51Pause(why){
+ if(cp51Paused||!cp51CanPause())return false;
+ cp51Paused=true;CP51.q=null;CP51.view='menu';CP51.why=why||'button';CP51.pausedAt=time;CP51.n++;
+ stopDrops('pause');taps=[];try{diagEvent('pause',CP51.why);}catch(e){}return true;}
+function cp51Resume(why){
+ if(!cp51Paused)return;cp51Paused=false;CP51.view='menu';last=performance.now();acc=0;
+ try{diagEvent('resume',why||'button');}catch(e){}}
+function cp51Finish(){ // end the round now: normal end card, prizes and coins kept
+ cp51Resume('finish');
+ if(WILD.winHeld||WILD.got>=WILD_GOAL)wildFinish(true);else wildFinish(false,'finish');}
+function cp51Home(){ // exactly what the round's top "Home" button does
+ cp51Resume('home');const b=wildButton();__cp51Pointer({timeStamp:0,pointerId:-1,preventDefault(){}},{x:b.x+b.w/2,y:b.y+b.h/2});}
+function cp51Rects(){const hud=hudLayout(),h=286,top=hud.headerBottom+8,bottom=hud.bottomY-8,y=Math.round(Math.max(top,(top+bottom)/2-h/2));
+ return {card:{x:36,y,w:328,h},resume:{x:66,y:y+92,w:268,h:48},finish:{x:66,y:y+152,w:268,h:40},
+  sound:{x:50,y:y+234,w:94,h:34},help:{x:153,y:y+234,w:94,h:34},home:{x:256,y:y+234,w:94,h:34}};}
+function cp51Tap(){try{pgSfx('tap');}catch(e){}}
+function cp51PopTap(p){
+ if(CP51.view==='rules'){cp51Tap();CP51.view='menu';return;}
+ const R=cp51Rects();
+ if(contains(R.resume,p)){cp51Tap();cp51Resume('button');}
+ else if(contains(R.finish,p)){cp51Tap();cp51Finish();}
+ else if(contains(R.sound,p)){S.muted=!S.muted;saveAudioSettings();musicTick();cp51Tap();}
+ else if(contains(R.help,p)){cp51Tap();CP51.view='rules';WILD.cardT=1;}
+ else if(contains(R.home,p)){cp51Tap();cp51Home();}}
+function cp51DrawPop(){
+ ctx.fillStyle='rgba(12,6,24,.55)';ctx.fillRect(0,0,W,H);
+ if(CP51.view==='rules'){ // the goal card that "? How to play" shows, with BACK in place of TAP TO START
+  const wb=wildButtonDraw,ft=ctx.fillText;
+  wildButtonDraw=function(r,label,...a){if(label==='TAP TO START')return wb(r,'BACK','#ffd23f','#3a1a00',30);return wb(r,label,...a);};
+  ctx.fillText=function(t,...a){if(t==='The timer starts after 3, 2, 1, GO!')t='Paused. Tap anywhere to go back.';return ft.call(ctx,t,...a);};
+  try{drawWild2Card();}finally{wildButtonDraw=wb;ctx.fillText=ft;}return;}
+ const R=cp51Rects(),y=R.card.y;
+ wildPanel(R.card,'#4b1f6e','#1d0f33');
+ wildText('PAUSED',200,y+38,44,'#ffd23f','#3a1a00',8);
+ ctx.fillStyle='#f0e0ff';ctx.font='bold 15px system-ui';ctx.fillText(wildClock()+' left · '+WILD.got+' of '+WILD_GOAL+' prizes',200,y+74,300);
+ wildButtonDraw(R.resume,'RESUME','#ffd23f','#3a1a00',28);
+ wildButtonDraw(R.finish,'END ROUND','#ff9a4a','#3a1400',22);
+ ctx.fillStyle='#f0e0ff';ctx.font='12px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('Ends the round now. You keep your prizes and coins.',200,y+211,300);
+ for(const [k,label] of [['sound',S.muted?'Sound: Off':'Sound: On'],['help','How to play'],['home','Home']]){const r=R[k];
+  uiRound(r.x,r.y,r.w,r.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,r.x+r.w/2,r.y+r.h/2+1,r.w-8);}}
+// the button: a soft pill behind the timer, and two bars after the time (the dance draws its own pink bars there)
+const __cp51Hud=drawWildHud;
+drawWildHud=function(hud){const on=cp51ShowButton();
+ if(on){const r=cp51Btn(hud);ctx.save();uiRound(r.x,r.y,r.w,r.h,r.h/2,cp51Paused?'rgba(255,210,63,.28)':'rgba(255,255,255,.12)','rgba(255,255,255,.6)',1.3);ctx.restore();}
+ __cp51Hud(hud);
+ if(on&&!WILD.dance){ctx.save();ctx.fillStyle='#fff';const x=hud.left+78,y=hud.bannerY;ctx.fillRect(x,y-6,3.5,12);ctx.fillRect(x+6,y-6,3.5,12);ctx.restore();}};
+const __cp51Draw=draw;
+draw=function(){__cp51Draw();if(!cp51Paused)return;ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
+ try{cp51DrawPop();}finally{ctx.restore();}};
+const __cp51Pointer=wildPointer;
+wildPointer=function(e,p){
+ if(cp51Paused){cp51PopTap(p);return true;}
+ if(cp51CanPause()&&contains(cp51Hit(),p)){cp51Tap();cp51Pause('button');return true;}
+ return __cp51Pointer(e,p);};
+// while paused: no physics, no game update; the side games' own pause bookkeeping still runs (wildTick sees cp51Paused)
+const __cp51Step=step;step=function(){if(cp51Paused)return;return __cp51Step();};
+const __cp51Update=update;update=function(dt){if(!cp51Paused)return __cp51Update(dt);try{wildTick(dt);bgmTick();}catch(e){}};
+const __cp51Bgm=bgmWanted;bgmWanted=function(){if(cp51Paused)return false;return __cp51Bgm();};
+// background / screen off: pause (and show the pop-up on return)
+const __cp51AppPaused=window.appPaused;
+window.appPaused=function(p){if(p)cp51Pause('background');return __cp51AppPaused?__cp51AppPaused(p):undefined;};
+function cp51Hidden(){if(document.hidden)cp51Pause('background');}
+document.addEventListener('visibilitychange',cp51Hidden);
+// 3. Add-ons (Jenny, Nov 16, after passing UAT 67).
+// 3a. Level 1 is the intro: only gold coins plus the cheese and shrimp on the board (no Quake coin, no Rain 5 or Rain 10),
+//     and its bonus drops are plain gold coins. A goal prize that fell off a side still comes back by bonus drop.
+PGL_LEVELS[0].rain=[];PGL_LEVELS[0].quake=null;
+const __cp51Bonus=wildScheduleBonus;
+wildScheduleBonus=function(){const lv1=cp50Lv1(),n=WILD.incoming.length,miss=lv1?wildMissing():[];const r=__cp51Bonus();
+ if(lv1){const o=WILD.incoming[n];if(o&&!(o.kind==='item'&&miss.includes(o.id))){o.kind='coin';o.id=null;}}return r;};
+// 3b. The prize bell (the struck bell as a prize drops over the ledge) at half its volume. Nothing else in the pickup changes.
+var CP51_BELL=.5;
 
 Promise.all([RAPIER.init(), loadArt()])
 
