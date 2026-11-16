@@ -1,0 +1,30 @@
+[
+ {
+  "seed": 42,
+  "board": 3,
+  "tapGap": 0.22,
+  "result": "won",
+  "coinsUsed": 107,
+  "of": 160,
+  "seconds": 23.4,
+  "collected": [
+   "shrimp",
+   "cheese",
+   "tuna"
+  ]
+ },
+ {
+  "seed": 42,
+  "board": 3,
+  "tapGap": 0.4,
+  "result": "won",
+  "coinsUsed": 98,
+  "of": 160,
+  "seconds": 38.9,
+  "collected": [
+   "shrimp",
+   "cheese",
+   "tuna"
+  ]
+ }
+]

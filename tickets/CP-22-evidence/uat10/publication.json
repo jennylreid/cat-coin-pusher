@@ -1,0 +1,15 @@
+{
+  "version": 20261027161026,
+  "displayName": "2026.10.27 UAT 10",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "0ba7a7f167bfc429d2b8007486738e1730dadedc59df632147b75933b729d82e",
+  "stagedJSONSHA256": "c58268277417a7599d61ae865d4c4f57c0213c7c73f994f9533418f0b2352cee",
+  "backup": "uat/backups/before-CP-22-UAT10-20261027161026",
+  "authorization": "Jenny CP-22 UAT fixes: shaking, pass-through and pusher retraction",
+  "releaseHTMLSHA256": "2730b37decbfe6970063f05e5eaa182d1400ccab540c71191ca993fd075c46c0",
+  "changedFiles": [
+    "index.html"
+  ],
+  "nonHTMLFilesUnchanged": 29,
+  "localPublication": "verified"
+}

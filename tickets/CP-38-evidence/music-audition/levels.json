@@ -1,0 +1,163 @@
+{
+ "render": "offline stand-in for Web Audio (oscillators, gain envelopes, biquad filters, looped noise), 44.1 kHz mono 16-bit; music bus into master gain 0.55 as in the game; levels at Music volume 100%",
+ "coinSoundsFromShippedCode": {
+  "land": {
+   "peak": 0.188,
+   "rms100ms": 0.0112,
+   "phoneBandRms100ms": 0.0113
+  },
+  "clink": {
+   "peak": 0.234,
+   "rms100ms": 0.0135,
+   "phoneBandRms100ms": 0.0137
+  },
+  "note": "UAT 38 sfx.land() and sfx.clink(); RMS over the first 100 ms (the sound itself)"
+ },
+ "uat38TrackAtMusicVolume50": {
+  "lengthSec": 17.143,
+  "peak": 0.17,
+  "rms": 0.0097,
+  "phoneBandRms": 0.0072
+ },
+ "targetPhoneBandRms": 0.0225,
+ "targetDbOverCoinLanding": 6,
+ "phoneBand": "RMS after a 4th-order 250 Hz highpass, roughly what a phone speaker can play",
+ "note": "mixGain is the factor applied to the raw mix to reach the target (in the game it would be baked into the note volumes); stemsRms are phone-band; each file loops seamlessly (it is the second of two rendered loops)",
+ "tracks": [
+  {
+   "file": "music-1-lofi.wav",
+   "style": "Lo-fi cat café",
+   "bpm": 78,
+   "bars": 12,
+   "lengthSec": 36.923,
+   "mixGain": 0.567,
+   "peak": 0.141,
+   "rms": 0.0275,
+   "phoneBandRms": 0.0225,
+   "phoneBandHalfSecondMin": 0.0068,
+   "phoneBandHalfSecondMax": 0.0385,
+   "phoneBandVsCoinLandingDb": 6,
+   "phoneBandVsUat38Db": 9.9,
+   "seamStep": 0.0001,
+   "stemsRms": {
+    "keys": 0.0085,
+    "bass": 0.0035,
+    "drums": 0.0022,
+    "lead": 0.0206,
+    "vinyl": 0.0011
+   }
+  },
+  {
+   "file": "music-2-chiptune.wav",
+   "style": "Bouncy arcade chiptune",
+   "bpm": 150,
+   "bars": 20,
+   "lengthSec": 32,
+   "mixGain": 0.599,
+   "peak": 0.187,
+   "rms": 0.0313,
+   "phoneBandRms": 0.0225,
+   "phoneBandHalfSecondMin": 0.0153,
+   "phoneBandHalfSecondMax": 0.0314,
+   "phoneBandVsCoinLandingDb": 6,
+   "phoneBandVsUat38Db": 9.9,
+   "seamStep": 0,
+   "stemsRms": {
+    "arp": 0.0033,
+    "bass": 0.0124,
+    "drums": 0.0047,
+    "lead": 0.0177
+   }
+  },
+  {
+   "file": "music-3-disco.wav",
+   "style": "Funky disco",
+   "bpm": 116,
+   "bars": 16,
+   "lengthSec": 33.103,
+   "mixGain": 1.046,
+   "peak": 0.244,
+   "rms": 0.029,
+   "phoneBandRms": 0.0225,
+   "phoneBandHalfSecondMin": 0.0176,
+   "phoneBandHalfSecondMax": 0.0288,
+   "phoneBandVsCoinLandingDb": 6,
+   "phoneBandVsUat38Db": 9.9,
+   "seamStep": 0.0001,
+   "stemsRms": {
+    "drums": 0.0065,
+    "bass": 0.0169,
+    "strings": 0.0087,
+    "guitar": 0.0013,
+    "lead": 0.0093
+   }
+  },
+  {
+   "file": "music-4-kawaii-pop.wav",
+   "style": "Kawaii bubbly pop",
+   "bpm": 144,
+   "bars": 20,
+   "lengthSec": 33.333,
+   "mixGain": 0.884,
+   "peak": 0.247,
+   "rms": 0.0333,
+   "phoneBandRms": 0.0225,
+   "phoneBandHalfSecondMin": 0.0096,
+   "phoneBandHalfSecondMax": 0.0287,
+   "phoneBandVsCoinLandingDb": 6,
+   "phoneBandVsUat38Db": 9.9,
+   "seamStep": 0.0001,
+   "stemsRms": {
+    "drums": 0.0049,
+    "plucks": 0.0037,
+    "bass": 0.0093,
+    "sparkle": 0.0018,
+    "lead": 0.0193
+   }
+  },
+  {
+   "file": "music-5-swing-jazz.wav",
+   "style": "Swing jazz",
+   "bpm": 150,
+   "bars": 24,
+   "lengthSec": 38.4,
+   "mixGain": 1.486,
+   "peak": 0.361,
+   "rms": 0.0656,
+   "phoneBandRms": 0.0225,
+   "phoneBandHalfSecondMin": 0.011,
+   "phoneBandHalfSecondMax": 0.0344,
+   "phoneBandVsCoinLandingDb": 6,
+   "phoneBandVsUat38Db": 9.9,
+   "seamStep": 0.0014,
+   "stemsRms": {
+    "piano": 0.0102,
+    "bass": 0.0103,
+    "drums": 0.0067,
+    "melody": 0.016
+   }
+  },
+  {
+   "file": "music-6-tropical.wav",
+   "style": "Tropical calypso",
+   "bpm": 120,
+   "bars": 18,
+   "lengthSec": 36,
+   "mixGain": 0.762,
+   "peak": 0.219,
+   "rms": 0.0362,
+   "phoneBandRms": 0.0225,
+   "phoneBandHalfSecondMin": 0.0147,
+   "phoneBandHalfSecondMax": 0.0402,
+   "phoneBandVsCoinLandingDb": 6,
+   "phoneBandVsUat38Db": 9.9,
+   "seamStep": 0,
+   "stemsRms": {
+    "percussion": 0.0057,
+    "bass": 0.0134,
+    "strum": 0.0034,
+    "lead": 0.0167
+   }
+  }
+ ]
+}

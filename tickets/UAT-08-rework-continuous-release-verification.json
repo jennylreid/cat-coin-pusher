@@ -1,0 +1,84 @@
+{
+  "version": 20261015172100,
+  "baselineVersion": 20261015164930,
+  "apkVersion": 2,
+  "channel": "catpusher-uat",
+  "applicationId": "com.jenny.catpusher.uat",
+  "publishedSHA256": "9e7ec078acd444e9a104b7a7cf36780a1e51fe01da3930be651476efe6f08a12",
+  "releaseHTMLSHA256": "266aa4219acf6e29e14bfcbcc6d69d6a790a2358285087aa874794503cf029ef",
+  "approvedDraftSHA256": "f99923e68afb46c2accacbc598b7c1397ad2cea801be1c9a88076631e73cde6e",
+  "backup": "uat/backups/before-20261015172100",
+  "runtimeFilesVerified": 23,
+  "onlySourceChanges": "Approved physical screen-top release, delivery gravity/spin, delivery CCD and height guard; BUILD label",
+  "protectedHashes": {
+    "phone/CatCoinPusher-game.json": "598532495b955f875688b47f5fa6ccbd1c929530e05ca447f3ccfbabe77ca301",
+    "CatCoinPusher.apk": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+    "uat/CatCoinPusher-UAT.apk": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78"
+  },
+  "results": [
+    {
+      "board": 1,
+      "cadence": 0.4,
+      "status": "won",
+      "used": 118,
+      "remaining": 102,
+      "seconds": 46.98333333333195,
+      "budget": 220,
+      "slack": 0.8644067796610169,
+      "targets": [
+        "shrimp",
+        "cheese"
+      ],
+      "idleFalls": 0
+    },
+    {
+      "board": 1,
+      "cadence": 0.22,
+      "status": "won",
+      "used": 99,
+      "remaining": 121,
+      "seconds": 21.58333333333339,
+      "budget": 220,
+      "slack": 1.2222222222222223,
+      "targets": [
+        "shrimp",
+        "cheese"
+      ],
+      "idleFalls": 0
+    },
+    {
+      "board": 2,
+      "cadence": 0.4,
+      "status": "won",
+      "used": 88,
+      "remaining": 72,
+      "seconds": 34.816666666665974,
+      "budget": 160,
+      "slack": 0.8181818181818181,
+      "targets": [
+        "shrimp",
+        "cheese"
+      ],
+      "idleFalls": 0
+    },
+    {
+      "board": 2,
+      "cadence": 0.22,
+      "status": "won",
+      "used": 113,
+      "remaining": 47,
+      "seconds": 24.749999999999876,
+      "budget": 160,
+      "slack": 0.415929203539823,
+      "targets": [
+        "shrimp",
+        "cheese"
+      ],
+      "idleFalls": 0
+    }
+  ],
+  "landingCases": 448,
+  "airborneRailContacts": 0,
+  "authorization": "Jenny replied yes to revised continuous-fall motion and explicit UAT publication question, October 15, 2026.",
+  "phoneAcceptance": "pending Jenny UAT"
+}

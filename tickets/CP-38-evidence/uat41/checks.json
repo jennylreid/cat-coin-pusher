@@ -1,0 +1,174 @@
+{
+ "passed": [
+  "board 1 identical to UAT 40 after 25 s of play",
+  "board 2 identical to UAT 40 after 25 s of play",
+  "board 3 identical to UAT 40 after 25 s of play",
+  "Wild round (40 s, through Turbo) identical to UAT 40 once started",
+  "Wild 2 round (40 s, through Turbo) identical to UAT 40 once started",
+  {
+   "name": "card fits the screen (H 889): goal, 6 icon lines, TAP TO START and Back inside the card",
+   "info": {
+    "card": {
+     "x": 14,
+     "y": 117.44449999999995,
+     "w": 372,
+     "h": 694
+    },
+    "row": 60,
+    "linesY": 307.44449999999995,
+    "start": {
+     "x": 46,
+     "y": 697.4445,
+     "w": 308,
+     "h": 70
+    },
+    "back": {
+     "x": 120,
+     "y": 777.4445,
+     "w": 160,
+     "h": 30
+    }
+   }
+  },
+  "the timer does not run while the card is up (H 889)",
+  "a tap anywhere on the card starts the 3-2-1 countdown",
+  "the timer starts after GO",
+  {
+   "name": "card fits the screen (H 720): goal, 6 icon lines, TAP TO START and Back inside the card",
+   "info": {
+    "card": {
+     "x": 14,
+     "y": 68,
+     "w": 372,
+     "h": 624
+    },
+    "row": 48.333333333333336,
+    "linesY": 258,
+    "start": {
+     "x": 46,
+     "y": 578,
+     "w": 308,
+     "h": 70
+    },
+    "back": {
+     "x": 120,
+     "y": 658,
+     "w": 160,
+     "h": 30
+    }
+   }
+  },
+  "the timer does not run while the card is up (H 720)",
+  "\"Back to the game\" leaves without starting",
+  "Wild 1 card unchanged: a tap off GO does not start it",
+  "Music volume defaults to 100% (the old music setting is not carried over); the pusher setting is kept",
+  "the dial reads 100% and goes to 200%",
+  "saved under the new key",
+  {
+   "name": "Music volume 100% is the audition level (phone-band RMS within 1.5 dB of 0.0225)",
+   "info": {
+    "rmsDb": -28.6,
+    "peakDb": -8.8,
+    "peak": 0.364,
+    "phoneBandRms": 0.025
+   }
+  },
+  {
+   "name": "no clipping at 200%: music peak under 0 dBFS, and with a coin landing on top",
+   "info": {
+    "d200": {
+     "rmsDb": -23.2,
+     "peakDb": -4.9,
+     "peak": 0.567,
+     "phoneBandRms": 0.0468
+    },
+    "coinPeak": 0.379
+   }
+  },
+  {
+   "name": "music sits under the coins: a coin hit is louder than the music (full-band RMS)",
+   "info": {
+    "coinHit": -22.8,
+    "music": -28.6
+   }
+  },
+  {
+   "name": "Board 1: the kawaii pop loop plays in full (about 2,250 notes a 33.3 s loop), no exception",
+   "info": {
+    "notes": 2304,
+    "errs": []
+   }
+  },
+  {
+   "name": "the dance music takes over: no background notes scheduled while the dance break is on",
+   "info": {
+    "inDance": 0
+   }
+  },
+  {
+   "name": "…and the background music comes back after, no exception",
+   "info": {
+    "errs": []
+   }
+  },
+  {
+   "name": "sound on: Wild 2, imperfect — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 24,
+    "nodesCreated": 3070
+   }
+  },
+  {
+   "name": "sound on: Wild 2, perfect: YAWN — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 33,
+    "nodesCreated": 4193
+   }
+  },
+  {
+   "name": "sound on: Wild 2, perfect: RAIN 25 — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 28,
+    "nodesCreated": 3677
+   }
+  },
+  {
+   "name": "sound on: Wild, perfect — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 37,
+    "nodesCreated": 2991
+   }
+  },
+  {
+   "name": "pusher: a beat on every stroke, forward and back (4 in 6.4 s at the normal 3.2 s cycle)",
+   "info": {
+    "n": 4
+   }
+  },
+  {
+   "name": "Turbo: twice the strokes (8 in 6.4 s), marked turbo (higher, louder)",
+   "info": {
+    "n": 8
+   }
+  },
+  "…and back to normal when Turbo ends",
+  "the callout says \"TURBO PUSHER! 2× SPEED\""
+ ],
+ "failed": []
+}

@@ -1,3 +1,11 @@
+## PROD-05 production baseline — November 15, 2026
+
+Production **2026.11.15 / APK17**, numeric 20261115224800 = Baseline 1 (UAT 64, 20261115190000, as is). Game-only: `phone/CatCoinPusher-game.json` carries the complete 37-file runtime in `files` (`apk` empty, apkVersion 17, channel `catpusher`, com.jenny.catpusher); index.html is `work/prod05/release.html`, the other 36 files are APK17's assets byte for byte. Build: `work/prod05/prepare.py` (pinned UAT 64 source, 17 recorded adaptations in `adaptations.json`): BUILD `2026.11.15`, title CatCoin, `catpusher.uat.*` -> `catpusher.*`, Settings heading "Settings" without the three log-file buttons (APK17 has no log bridge), safe-area/Happy previews and the faces note only with Developer on, the local performance log (`diagEvent`, `diagFrame`, `diagPersist`...) a no-op with Developer off. The UAT Developer default-on is keyed on "UAT" in BUILD, so it never applies. Then `stage.py`, `publish.ps1`, `verify-cloud.py`; checks `checks.cjs` (Developer-off screens, Oct 31 save upgrade, parity with UAT 64). First open of an Oct 31 save: `pgInit` migrates `catpusher.loop.v1` coins and treats (cap 9, extras as coins) into `catpusher.progress.v1`, Level 1. Future production builds start from `work/prod05/release.html` or repeat `prepare.py` on the next signed-off UAT source.
+
+## GitHub WIP checkpoint (November 12, 2026)
+
+After publishing a UAT, run `python work/checkpoint.py`. It copies the published UAT runtime, the work/cpNN build sources, ticket reports and text evidence (and .png evidence from CP-33 on) and the main docs into the cat-coin-pusher repo, commits on branch `wip/uat` (never main) and pushes. `--dry-run` shows what would change.
+
 ## CP-25 production baseline — November 1, 2026
 
 Production **2026.10.31 / APK17**, numeric20261031103610, promoted from UAT24 with Jenny's release and migration approvals. Source/native/staging `work/cp25/promotion`. Full37-file runtime is in APK assets, with an APK-only JSON envelope (`files:{}`); never extract a future baseline from that empty object. All36 non-HTML assets match UAT24; production changes are labels/keys, Developer gates and diagnostic omission. APK17 uses generated `BuildConfig.VERSION_CODE`; production update policy/identity/preferences/signing/URI retained. No native OneDrive diagnostic bridge/provider; local diagnostic entry points require Developer mode.
@@ -176,6 +184,98 @@ APK identity/signature and ZIP integrity, JSON/asset round trips, required expre
 
 UAT-15 correction 20261015213629: active Settings now exposes Check for updates and Developer mode. The collection-menu implementation is disabled and must not be used as evidence for active Settings. Current review baseline load resets boards and its progress-save hook is a no-op; preserve that approved behavior unless a ticket changes it.
 
+## CP-33 prize feedback (November 9, 2026)
+
+Source work/cp33/release.html, built by work/cp33/build.py from UAT 24's runtime (APK assets). The CP-25 Paw/ribbon/satchel styles, pickupBlocksPlay and the Pickup style setting are removed; catpusher.uat.pickup.v1 is no longer read. Collected prize (credit/save unchanged in fallOff): pooled flight objects in treatAwards fly a quadratic Bezier (ease-in-out cubic) from screenOf(x, T.FRONT, 0), mapped through the board view transform, to the Inventory tile centre, shrinking to endScale, emitting sparkles from a fixed 24-slot pool; arrival starts the tile spring (inventoryTileScale) and the existing itemCollected chime (throttled to one per 120 ms). The front-fall sprite for prizes is not drawn. Lost prize: gutterOff for kind 'item' queues a pooled grey (ctx.filter grayscale) sink with a dark ripple at the table edge, then the existing prize-lost rule. The later fallOff wrapper only annotates a falling entry its call added. Nothing pauses step/update or consumes input. Tuning (flight, endScale, sparkles, bounce, bounceTime, sink) persists in catpusher.uat.pickupfx.v1, shows under Settings > Developer mode with previews, and is written to the performance log as pickupTuning. Checks: work/cp33/check.cjs; clip: clip.cjs; desktop timing: perf.cjs; lost probes: lostprobe.cjs, pushprobe.cjs.
+
+UAT 26 (CP-33 round 2): tuning key is now catpusher.uat.pickupfx.v2 (fresh defaults; v1 ignored). New keys arcHeight (exact peak rise in CSS px above the front-edge start, 30-200; control point solved by arcControlY bisection once per pickup) and arcSide (-1..1, control x offset 150 px per unit). Defaults flight .7, endScale .5, arcHeight 160, arcSide 0, sparkles 10 (cap 24, life .55 s, outlined star with white core).
+
+UAT 27 (CP-33 round 3 + CP-34): the pickup module lives in work/cp33/module27.js (build.py inlines it). Flights in treatAwards have kind 'item' or 'quake' and three phases (tr rise, tm middle, td final); pickupPoint(f,t) returns position, size and flip (horizontal scale = cos of the flip angle). Prize: rise to pickupCentre (200, 0.52H) with easeOutBack growth to midSize, flip turns = round(spin*middle), radial sparkle burst plus chime on reaching the middle, swoop to the Inventory tile. Quake: one phase to the powerButtons().quake centre, 2 flips, sfx.special and quakeBounceT on landing; shownPowerCount hides in-flight earned Quakes (non-dev Board 3); the QUAKE +1 itemToasts banner is no longer pushed. Key catpusher.uat.pickupfx.v3; sparkle pool 32 with velocity/drag, drawn above flights. Checks: check.cjs (13); renders: clip27.cjs; UAT 26 builder kept as build-uat26.py.
+UAT 28 (CP-33 round 4): module28.js (build.py inlines it; build-uat27.py keeps UAT 27's build). Item flights add a settle phase ts after the middle (end = tr+tm+ts+td) and per-flight draws: tilt (flip axis lean, rotate/scale/unrotate in drawFlight), dir, flipK (flip completes within flipK*tm), turns, wamp (in-plane rock at 3 Hz, decays over the settle). Randomness 0 makes the draws fixed; Tilt, Randomness, Wobble and Settle all 0 reproduce UAT 27 exactly (check compares against release27.html). Sequential: a new item flight starts at t = -(time until the last queued item leaves the middle) and hovers at its start point; from the 3rd queued (2 ahead) tr/tm/ts are halved and turns = 1. Pickup tuning key stays catpusher.uat.pickupfx.v3. Checks: check.cjs (16); clips: clip28.cjs.
+UAT 29 (CP-33 round 5): module29.js (build.py inlines it; build-uat28.py keeps UAT 28's build). Item flights: rise-and-grow tr, held tm (no flip; position/size/rot fixed), ts=0, bag td. f.ms = size*400/prizeWidth(id,1), where prizeWidth uses the opaque share of the art (PRIZE_OPAQUE). Per pickup: f.rot (6-14 deg at Turn 14, random sign), f.mx/f.my offset (Off-centre * 400; sideways capped so the turned box spills at most EDGE_SPILL 8 px beyond what it already does). Burst of 14 large sparkles and a radial-gradient glow (pickupPoint .glow) on arrival; sparkle cap 36. Queue as UAT 28 (3rd+ halved). Tuning key catpusher.uat.pickupfx.v4 (v3 ignored). Checks: check.cjs (16); clips: clip29.cjs.
+UAT 30 (CP-33 round 6 + CP-34): module30.js (build-uat29.py keeps UAT 29's build). Prizes and the Quake coin share one queue and one motion (rise/grow tr, held tm, then td = toBag or quakeFlight; Quake flips twice on its final flight and lands on the button). Size default .7. Backdrop: backdropLevel() (1 while any pickup is rising-after-queue, held or waiting; fades over 0.3 s as the last leaves) drives drawBackdrop(): a grey-violet fill at Fade and a cached 14 px diagonal stripe pattern at Stripes*0.3, both under the flights, over the whole screen. Sparkles draw a cached radial glint with a twinkle (no stars); Burst and Trail default 0. bigQuakeSprite() renders craftedGoldSprite at 4x by swapping makeSprite once. Key catpusher.uat.pickupfx.v5 (v4 ignored). Checks: check.cjs (18); clips: clip30.cjs; desktop draw cost: perf30.cjs.
+UAT 31: module31.js = module30.js without the held glow (pickupPoint no longer returns glow; drawFlight draws no radial gradient). build-uat30.py keeps UAT 30's build. Checks: check.cjs (19, adds the no-glow/shadow/filter render check); held frames: frames31.cjs.
+UAT 32: module32.js. Backdrop is a pop-up panel: per flight f.px/f.py/f.pw/f.phh = upright box around the turned visible art (panelHalf: width w, height w*PRIZE_ASPECT) plus panelPad, clamped inside the screen with PANEL_MARGIN 12; the side offset is capped against that box. PANEL (tickPanel) follows the pickup in front, snapping when it appears and easing (1-exp(-14 dt)) between pickups. drawBackdrop fills a rounded path (radius 10) with the grey and the cached stripe pattern, then a 1 px light stroke. quakeSize sets the Quake coin's held size; key still catpusher.uat.pickupfx.v5. build-uat31.py keeps UAT 31's build. Checks: check.cjs (19); frames: frames32.cjs.
+UAT 33: module33.js (+ pickup-sounds.js injected into sfx before fanfare). Prize spin is the Quake coin's flip (P.flip=cos): f.spinIn turns during the rise (cos(2π·n·(1-easeOut(u))), facing front at full size) and f.turns during the leave; both = pickupFx.spin for prizes, Quake keeps spinIn 0 and turns 2. Sounds: sfx.pickup(kind 'full'|'land', variant 1-3, vol) called by pickupChime (reveal) and pickupLandSound (bag arrival); uses tone/noise/bell/steelAt, respects S.muted and background. Dials spin, sound, volume; held default 0.7. Key catpusher.uat.pickupfx.v6; on first run v5 values migrate except PICKUP_FX_NEW_DEFAULTS (held). build-uat32.py keeps UAT 32's build. Checks: check.cjs (20); frames: frames33.cjs; sounds: render-sounds.cjs (offline Web Audio stand-in, WAVs); perf: perf33.cjs.
+UAT 34: module34.js. Sounds: sfx.pickup('bell'|'thump', vol, delay) from pickup-sounds.js (pickup-sounds-uat33.js keeps UAT 33's three sets). ledgeBell() is called in queueTreatAward for prizes (the payout / ledge moment, previews too); bells in one burst are spaced LEDGE_BELL_GAP 100 ms (scheduled on the audio clock via delay) at LEDGE_BELL_LEVEL 1/.7/.5, a 4th is skipped; spacing uses game time and resets if time restarts. pickupLandSound() plays the thump on bag arrival. The 'sound' dial is gone (a saved value is ignored). Checks: check.cjs (20); sounds: render-sounds.cjs; audition source: audition.cjs.
 
 
+## Developer off = production view (Jenny, Nov 14, 2026)
+With Developer off, a UAT build must show exactly what a production player would see: no MODES button, debug or performance readouts, test chips or dials. All of it stays reachable with Developer on. Check every screen with Developer off before publishing.
+The UAT app starts with Developer ON by default (her saved choice wins once she changes it). Production never has it on.
 
+## Pickup (frozen, Jenny, Nov 14, 2026)
+The prize and coin pickup that came with the new version (the "Pop", UAT 42 onward; the default in UAT 52) is approved and frozen (AGENTS.md). Do not change its look, sizes, timing, sounds or line without an explicit ticket. Code: `queueTreatAward` (the `f.pop` branch), `popSpot`, `popPoint`, `drawPopShadow`, `ledgeBell`, `pickupLandSound`, `tickTreatAwards` in the game source. From UAT 53 every piece uses it (`f.pop=true` always). `work/cp53/checks53.cjs` sections 1–2 trace it frame for frame against UAT 52; run them after any change near it.
+
+**Which pieces:** all prizes (cheese, shrimp, tuna, yarn, duck, mouse, bell, bowtie, notes, cushion, biscuit, milk, egg, feather, sardine, the star prize), rain coins 5/10/25, the music-note, fish, laser and heart coins, and (from UAT 53) the Quake coin. No pickup animation, by design: cat coins (board-open moment), recipe coins ("RECIPE: …!" banner), the gold 5-coin ("+5", ka-ching) and plain coins.
+
+**One piece, step by step** (screen 400 px wide):
+1. **Ledge bell** the moment it goes over the front edge (`ledgeBell`).
+2. **Rise, 0.2 s** (`POP_RISE`): from where it went over to a spot near it (`popSpot`): up to 28 px sideways, 150–240 px up, tilted 4–15° either way at random, kept 10 px inside the screen and below y 96. It grows from its board size with a slight overshoot; a soft shadow sits under it (no panel or box).
+3. **Hold, 0.25 s** (`popHold`), still.
+4. **Leave, 0.45 s** (`popShrink`): it swoops to its target, spinning flat once (Spin dial, direction by its tilt), shrinking to half its board size (`endScale` .5).
+   - The target is the bag (`pickupTarget`); on the cat boards that is off screen (top-left), so it flies off the screen.
+   - The Quake coin's target is the Quake button, and it shrinks to a 26 px coin there.
+5. **Arrival:**
+   - a prize or coin: the landing thump (`pickupLandSound`, at least 0.12 s apart) and the bag tile's bounce (0.15 s);
+   - the Quake coin: its chime (`sfx.special`), the Quake button bounces and its count goes up.
+6. Total about 0.9 s, plus any wait in line. No glints by default (Burst and Sparkles dials are 0).
+
+**Sizes:** every piece aims for the same peak: visible width = `popPeak` (.3) × 400 = 120 px. Visible width is computed with a fixed "solid share" per art (`PRIZE_OPAQUE`: cheese .87, shrimp .826, tuna .928; the code-drawn prizes .86; coins .87), so what the eye sees varies with each picture's shape. Measured at the peak:
+
+| Piece | Visible width at the peak |
+|---|---|
+| bell, milk, egg | 86 px |
+| duck, notes | 96–98 px |
+| feather, biscuit | 101–110 px |
+| yarn, sardine, shrimp, cushion, tuna | 116–120 px |
+| cheese, bowtie | 122–123 px |
+| mouse | 128 px |
+| every coin (rain, note, fish, laser, heart, Quake) | 120 px |
+
+Nothing else changes the size: not the queue, not randomness, not the board. Only the spot and the tilt are random, from the pickup's own random stream (`popRand`), so the board's physics draws the same numbers with or without pickups.
+
+**Many at once (the busy, noisy feel Jenny approved):**
+- **Bells:** each piece rings as it goes over, spaced 0.1 s apart. The 1st is full volume, the 2nd .7, the 3rd .5; a 4th or later in the same burst is skipped.
+- **The line:** pickups take turns. A new one waits, bobbing on the ledge at board size, until every one ahead has left its peak, then rises.
+  - The next starts rising as the one ahead starts leaving, so up to 3 are in the air at once (one rising, one or two leaving), at spots kept apart (`popSpot` tries up to 8 spots and keeps the farthest from the others).
+  - From the 3rd in line on, the hold is halved (0.125 s), so a pop starts every 0.33 s after the first two (0.45 s each).
+  - Measured, 7 prizes at once: starts at 0, 0.45, 0.9, 1.225, 1.55, 1.875 and 2.2 s; 3 bells; 7 thumps.
+- **Thumps** follow as each one lands, at least 0.12 s apart.
+- **On the Wild boards** each prize also shows its board text ("2 / 5", "REPEAT +5 COINS", "COLLECTION!"); a rain coin starts its rain once its pickup is 60% through the hold.
+
+**Removed in UAT 53 (do not bring back):** the older UAT 34 pickup style (rise to the middle of the screen, 70% size, grey pinstriped panel, 0.7 s hold), which only the Quake coin still used, and its Developer switch.
+
+## Design rules (Jenny)
+GAMEPLAY_DESIGN.md "Design rules" 1-12 apply to every ticket. Rules 8-12 (Nov 14): one clear main action per screen; you can always find your way (buttons name their destination, never "Exit"); every element earns its place; nothing overlaps; one word, one meaning; 13: every sound comes from something you can see happen.
+
+## Test switches (Jenny, Nov 14, 2026)
+Each UAT build puts the switches Jenny should try in that build in a "Test this build" panel at the top of Settings, with plain names. When she picks an option, remove the losing option and its switch in the next build. Old Developer dials are cleaned up after the sign-off pass.
+
+## Coin and pusher sounds (CP-46, UAT 60, Jenny's picks Nov 14, 2026)
+Module `C46` (`work/cp60/sounds60.js`, applied by `work/cp60/patch.py`). The new coin sounds come from the CP-46 audition's own code (`work/cp60/coins-from-audition.js`, cut from `work/cp46-audition/make-audition.cjs`). They are recorded into note lists at start-up, with the audition's set gains baked in (`tickets/CP-46-evidence/audition/levels.json` `coinGroupGains`). They play a little ahead on the audio clock through `sfx.fx46`, which is `sfx.mus`'s recipe on the effects master; `C46.drain()` runs from `update`.
+- **Coins: added, nothing removed (Jenny).** Each event picks at random from the current sound plus the new variants, never the same pick twice in a row (`C46.pick`).
+  - A coin dropped onto the board: `sfx.land()` or one of 4 drops on pile.
+  - A coin knocking another: `sfx.clink(v)` or one of 4 clinks.
+  - A rain coin's first landing: clink or a drop on pile. A gold coin's first landing: clink, gold drop or gold clink.
+  - Coins over the front edge: a single coin calls `recordedSfx.edge()` as before. 3 within 0.35 s: the current edge sound or one of 4 spills. 10 within 1 s: the current edge sound or one of 3 cascades.
+  - Prizes and other pieces: `recordedSfx.edge()` unchanged. Gold paid at the front: ka-ching, plus the gold shimmer every other time.
+- **Pusher: replaced.** `sfx.slide` is the warm whoosh (audition option w5): band-passed noise only, one per stroke, the return at 35%, 1.2× higher in Turbo. Pusher sound 50% (the default) is the auditioned level, 10 dB under the music above 250 Hz. The recorded `pusher.mp3` no longer plays. `pusherSoundTick`'s timing is unchanged.
+- **Not touched:** the ledge bell and landing thump (frozen pickup), the music, ka-ching, the mouth drop, the coin roll, the stack tumble, and the Board 3 spill recording. `checks-cp46.cjs` compares their code with the base build.
+
+## Levels, cats and powers (CP-47, UAT 61, Jenny's model Nov 14, 2026)
+Modules `work/cp47-levels/levels47.js` and `powers47.js`, inserted after the CP-45 module by `work/cp47-levels/build.py` on pinned UAT 60 (plus a few text swaps listed in build.py). Saved inside `catpusher.uat.progress.v1`: `PG.lv = {passed, sel, stars}`, `PG.shown`, `PG.seenScr`, `PG.powers`.
+- **A level is a layout; a cat is a mode.** `PGL_LEVELS` holds the ten levels: prize spots (`p`), tower-wall prizes (`top`, slot 0-4), towers (`'default'`, a list, or a `wall` of heights), rain coins, Quake, coins, seconds, goal (each kind once, common prizes only) and tag. `wildPrefill` builds Wild 2's start rows, then the level replaces the prizes, rain, Quake and towers. A cat's mode (`PG_CAT[cat].mode`) brings its side game; `wildFeature('towerwall')` comes from the level. `pglOn()` is true on a cat's board only: Developer MODES (`PGL.dev`), the old boards and `pgHomeOff` play without levels, as before.
+- **Same start:** the layout is fixed and seeded; the physics settle leaves pieces within about 0.1 units (Level 4 about 0.4) between replays and between cats (`checks61.cjs` 1.5-1.6). Avoid placing rain coins or prizes where the start rows have a gap (they slide during the settle).
+- **A cat's prizes** never sit in a layout: two scheduled sky drops per round (10 s and 32 s after GO, `PGL_CAT_DROPS`) plus about half of the random bonus prize drops that aren't replacing a lost goal prize.
+- **Unlocks:** no XP (`pgAddXP` is a no-op). Recipes open after Level `r.level`. A side button appears when its screen is needed (`pglScreenNeed`) and stays; "!" until first visited.
+- **Powers:** the button is the paw-sweep slot (`powerButtons().sweep`, empty on Wild boards). A perfect side game (`sfx.wild2('perfect')`, or a laser chase with no misses) sets `WILD.pgpEarn`; the power is awarded once no side game is running. Sonic meow multiplies the pusher stroke by `pglReach()` (1 otherwise, so every other frame is unchanged). Hug adds two world colliders along the open gutters and removes them after 6 s. Every power uses existing sounds only.
+- **Mouse pounce** (`WILD.pounce`, the Tortoiseshell's mode `pounce`) follows Treat toss's pattern: a mouse coin replaces one bonus drop, the timer holds, a win waits, taps go to the pounce.
+- **UAT 62:** levels can have tower blocks (`blocks`: stacks packed together, `btop`: a prize on one of them). They're stood back up on their spots after the settle (`pglStandBlocks`). "Test this build" (`pglTestPanel`) is added to Settings after `openCredits` builds it. `PG_AB` is forced to 'A'. The release is built by `make.py` (build.py, then CP-45's pupils patch, then CP-46's fix A).
+
+## Coin limit and freeze logging (CP-48, UAT 64, Nov 15, 2026)
+- Own-coin limit (Jenny's option A): `cp48Own()` counts the player's dropped coins (`b.input`) still on the board. At `CP48_OWN` = 45, `tryDrop` allows one drop per `CP48_SLOW` = 1 s and shows "Board full" (front float plus `wildMessage`). Grid, tower, rain and prize pieces don't count.
+- Rain budget: `w43Budget` is overridden to start at `CP48_RAIN` = 100 plain coins (rain, pours and sky coins past it land as one gold 5 in five). `W43_COIN_CAP` (merging resting coins) stays 130.
+- A hard stop at 100 plain coins was tried in UAT 63's development and jams the board (no new coins, nothing falls): it made Levels 3/6/7/10 unwinnable. Re-run the test player (`work/cp63/simcap.cjs`) after any limit change.
+- Levels (`cp48.js`): `cp48Grid()` rebuilds production's 9-row grid (53 coins) after every level prefill; `cp48Lift()` stands towers and blocks on the grid (base at `COIN_HALF*2+.1`). It runs after `twPlacePrizes` and `pglStandBlocks`, which put towers back on the table. Each level starts at 80 coins or fewer (grid plus tower coins); keep new levels within that.
+- Logging: 200-event ring; `first-error` save; local save every 5 s in a round; `long-frame` (>100 ms), `frame-gap`, `screen`, `round-end`, `board-full` events; `diagSession.taps` (last 10, with target) and `peakCoins`. Native crash/stall handling (onRenderProcessGone, watchdog) still needs an APK.

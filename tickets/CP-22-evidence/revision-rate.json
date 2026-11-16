@@ -1,0 +1,8 @@
+{
+  "attemptsInOneSecond": 20,
+  "accepted": 2,
+  "charged": 2,
+  "afterNoFurtherTaps": 2,
+  "restartImmediateDrop": true,
+  "restartFeedback": true
+}

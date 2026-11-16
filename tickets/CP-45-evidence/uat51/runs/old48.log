@@ -1,0 +1,15 @@
+FAIL build label "2026.11.14 UAT 51"
+PASS TOWER WALL is listed in the MODES picker after the UAT 45-47 modes ["treats","laser","cozy","towers"]
+PASS the picker fits the screen with four modes {"bottom":836.6204081632653,"H":888.8889999999999,"errs":[]}
+PASS tapping TOWER WALL opens it on its goal card {"mode":"towers","phase":"card"}
+PASS five standing towers (13/18/23/18/13 coins) with a prize on each, the star on the middle one {"towers":[{"slot":0,"n":13,"up":1,"x":84},{"slot":1,"n":18,"up":1,"x":142},{"slot":2,"n":23,"up":1,"x":200},{"slot":3,"n":18,"up":1,"x":258},{"slot":4,"n":13,"up":1,"x":316}],"tops":[{"id":"tuna","x":316,"h":115},{"id":"cheese","x":84,"h":115},{"id":"shrimp","x":258,"h":156},{"id":"duck","x":142,"h":156},{"id":"mouse","x":200,"h":197}],"star":"mouse","mode":"towers","v2":true}
+PASS 60 s of Tower wall play without errors (sound on), the wall topples {"errs":[],"towersStanding":3,"audioNodes":13031}
+PASS a right-hand wall tower that starts to tip leans right (toward the side) {"twSide":true,"dx":6.4,"broke":false}
+PASS Paw save works the same in Tower wall as on Wild 2 (CP-40 flick) {"tw":2.6,"w2":2.6}
+PASS Wild 2 without a mode has no wall
+PASS treats mode has no wall
+PASS laser mode has no wall
+PASS cozy mode has no wall
+PASS Developer: Tower wall dial and start button
+PASS Wild 2 dance break runs to the end {"errs":[],"ended":true,"gameRunning":true,"stage":null,"liveNodes":140,"nodesCreated":4339}
+13 passed 1 failed

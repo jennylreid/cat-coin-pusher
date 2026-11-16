@@ -1,0 +1,40 @@
+{
+ "render": "desktop @napi-rs/canvas, 400x889 CSS at DPR 1.35, real runtime and real payout",
+ "marks": {
+  "prize-1-rise.png": {
+   "t": 0.15,
+   "flip": 1
+  },
+  "prize-2-middle.png": {
+   "t": 0.333,
+   "flip": 1
+  },
+  "prize-3-flip.png": {
+   "t": 0.55,
+   "flip": -1
+  },
+  "prize-4-to-bag.png": {
+   "t": 1,
+   "flip": 1
+  },
+  "prize-5-bounce.png": {
+   "t": 1.233
+  },
+  "quake-1-launch.png": {
+   "t": 0.1,
+   "shownCount": 0
+  },
+  "quake-2-mid.png": {
+   "t": 0.4,
+   "shownCount": 0
+  },
+  "quake-3-arrive.png": {
+   "t": 0.7,
+   "shownCount": 0
+  },
+  "quake-4-bounce.png": {
+   "t": 0.833,
+   "shownCount": 1
+  }
+ }
+}

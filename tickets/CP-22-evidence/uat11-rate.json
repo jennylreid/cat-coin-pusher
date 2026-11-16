@@ -1,0 +1,9 @@
+{
+  "tapLimit": 0.35,
+  "attemptsInOneSecond": 20,
+  "accepted": 3,
+  "charged": 3,
+  "afterPause": 3,
+  "restartImmediate": true,
+  "restartFeedback": true
+}

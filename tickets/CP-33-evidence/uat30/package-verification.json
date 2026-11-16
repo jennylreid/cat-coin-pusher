@@ -1,0 +1,18 @@
+{
+  "version": 20261111150540,
+  "displayName": "2026.11.11 UAT 30",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "40b8cd3f9134e787ad2085e0623f71e73cb8212c0fd51552fada91dc589c9404",
+  "stagedJSONSHA256": "0e51e6db37ac10e281ee0aa26e531bad0070a89bbd5acb4bab7ee6c2bbca68d6",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "b1b7611702bb23a0d12cb90fbc3803329bb4c2971cea42b3db515bf254a97f92",
+  "jsonBytes": 51323338,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-CP-33-UAT30-20261111150540",
+  "authorization": "Jenny Nov 11 (yes, go ahead with both), relayed by PM: CP-33 round 6 (70% size, backdrop veil, soft glints off by default) + CP-34 Quake coin big moment; UAT only"
+}

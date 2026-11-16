@@ -1,0 +1,35 @@
+{
+  "ticket": "UAT-07",
+  "approvedAssets": {
+    "happy-mouth.webp": {
+      "approvedPNG_SHA256": "9605b942052d931e710b707f51040f07a16a80427e6f705bfb9cdbe08bdb5b06",
+      "webP_SHA256": "b13cb26640f8aece298d7396859a541088b3f1bc33698f9f07d6bb28d6a7da96",
+      "fullRGBAIdentical": true,
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    "happy-mitt.webp": {
+      "approvedPNG_SHA256": "6dd704a3ae9d579d50b21128e5b7a0a488fdf8909ff325fc143af176d7fc9249",
+      "webP_SHA256": "b5721b0bcc889bed1044e7a8ea7a239619ac2937a27cf3becc8164046deafc0b",
+      "fullRGBAIdentical": true,
+      "dimensions": [
+        1254,
+        1254
+      ]
+    }
+  },
+  "beforeVersion": 20261012180042,
+  "beforeAPKVersion": 2,
+  "allowedSourceChanges": [
+    "load two Happy-only assets",
+    "drawHappyFeatures approved override",
+    "drawHappyPaws approved override"
+  ],
+  "allOtherRuntimeFilesUnchanged": true,
+  "allGameplayAndOtherPoseSourceUnchanged": true,
+  "productionJSONSHA256": "f5e6c67d68d29c08f64c8a4a96d51464d90b31ff4c28773caa46494a90f6b314",
+  "productionAPKSHA256": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+  "uatAPKSHA256": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78"
+}

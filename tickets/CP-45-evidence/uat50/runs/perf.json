@@ -1,0 +1,38 @@
+{
+ "uat49_0": {
+  "tickMs": 13.831,
+  "drawMs": 23.293,
+  "bodies": 161,
+  "overlayMsPerDraw": 0.037
+ },
+ "uat50_0": {
+  "tickMs": 14.267,
+  "drawMs": 23.728,
+  "bodies": 160,
+  "overlayMsPerDraw": 0.047
+ },
+ "uat49_1": {
+  "tickMs": 13.992,
+  "drawMs": 24.102,
+  "bodies": 161,
+  "overlayMsPerDraw": 0.038
+ },
+ "uat50_1": {
+  "tickMs": 14.651,
+  "drawMs": 24.25,
+  "bodies": 160,
+  "overlayMsPerDraw": 0.045
+ },
+ "uat49_2": {
+  "tickMs": 14.524,
+  "drawMs": 24.538,
+  "bodies": 161,
+  "overlayMsPerDraw": 0.041
+ },
+ "uat50_2": {
+  "tickMs": 15.361,
+  "drawMs": 25.534,
+  "bodies": 160,
+  "overlayMsPerDraw": 0.047
+ }
+}

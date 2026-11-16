@@ -1,0 +1,1 @@
+for(const m of ['../cp43/harness.cjs','../cp47/harness.cjs']){const h=require(m),orig=h.game;h.game=async(o={})=>{const g=await orig(o);try{g.run('if(typeof pgHomeOff==="function")pgHomeOff()');}catch(e){}return g;};}

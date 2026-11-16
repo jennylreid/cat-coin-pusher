@@ -1,0 +1,122 @@
+{
+ "build": "2026.11.11 UAT 35",
+ "passed": [
+  {
+   "name": "board 1 identical to UAT 34 after 25 s of play",
+   "info": {
+    "chars": 4196
+   }
+  },
+  {
+   "name": "board 2 identical to UAT 34 after 25 s of play",
+   "info": {
+    "chars": 2355
+   }
+  },
+  {
+   "name": "board 3 identical to UAT 34 after 25 s of play",
+   "info": {
+    "chars": 4099
+   }
+  },
+  "WILD button enters the Wild board and shows the goal card",
+  {
+   "name": "Wild bank is separate from the purse",
+   "info": {
+    "wildCoins": 110,
+    "purse": 137
+   }
+  },
+  "board shows rain coins, 7 prizes, a Quake coin and 2 towers",
+  "taps on the board do not drop coins while the goal card is up",
+  "GO starts a 3-2-1 countdown",
+  {
+   "name": "after the countdown the board is playing with 60 s on the timer",
+   "info": {
+    "left": 59.81666666666668
+   }
+  },
+  "normal save is not written during the Wild round",
+  {
+   "name": "timer counts down in play",
+   "info": {
+    "left": 39.82
+   }
+  },
+  {
+   "name": "bonus drops arrive (first at 5 s, then every 6-9 s)",
+   "info": {
+    "bonus": 3
+   }
+  },
+  {
+   "name": "rain coin gets the pickup moment, then 10 coins rain in",
+   "info": {
+    "rained": 10,
+    "startedAfterSec": 0.7833333333333333
+   }
+  },
+  {
+   "name": "a collection prize off the front is ticked off and plays the pickup",
+   "info": {
+    "got": 2,
+    "have": [
+     "mouse",
+     "tuna"
+    ]
+   }
+  },
+  {
+   "name": "a repeat of a collected prize does not count twice and pays 5 coins",
+   "info": {
+    "got": 2
+   }
+  },
+  {
+   "name": "a needed prize lost off the board comes back by bonus drop within 2 s",
+   "info": {
+    "prize": "cheese",
+    "afterSec": 2.02
+   }
+  },
+  "Wild prizes do not change the inventory",
+  "Turbo pusher starts at 0:25 and keeps the pusher in place",
+  "Turbo ends after 8 s",
+  "time running out ends the round: Time's up",
+  "no drops after the end",
+  "Play again restarts the Wild board with a countdown and a full bank",
+  {
+   "name": "empty bank and nothing paying out for 6 s ends the round: Out of coins",
+   "info": {
+    "afterSec": 6
+   }
+  },
+  "Play again after Out of coins restarts with a full bank",
+  "the last prize of the collection wins: win screen and the cat dances",
+  {
+   "name": "Back to the game restores the normal board, purse and save",
+   "info": {
+    "coins": 139,
+    "board": "twin-towers"
+   }
+  },
+  "PUSH_PERIOD back to normal after exit",
+  {
+   "name": "EXIT mid-round goes straight back to the normal board",
+   "info": {
+    "coins": 140
+   }
+  },
+  "reopening after closing mid-round loads the normal board and purse",
+  {
+   "name": "Wild sounds play with sound on, are silent with sound off or Pickup volume 0",
+   "info": {
+    "on": 125,
+    "muted": 0,
+    "vol0": 0
+   }
+  },
+  "Developer dials: Wild timer and starting coins step, apply to the next round and persist"
+ ],
+ "failed": []
+}

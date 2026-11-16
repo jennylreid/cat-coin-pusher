@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261114235930,
+    "displayName":  "2026.11.14 UAT 59",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "a7de67c65b4c7f89519a08fa07828618dd5795a7ddceb3ac3efb8117e6faf11d",
+    "stagedJSONSHA256":  "6b7af876f72eca0c007b9638ed8dfb0b62e23db0176e4bd32886d2d8345dd8e5",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "5486d9f1466860a5c7a8bdcef4e15595d787eabdaf0548d62d96dc29c171577a",
+    "jsonBytes":  51863474,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT59-20261114235930",
+    "authorization":  "UAT 59: layout A PLAY moved up under How to play (no big gap), the coin pile with room below it; on UAT 58; Jenny via PM Nov 14; UAT only",
+    "localPublication":  "verified"
+}

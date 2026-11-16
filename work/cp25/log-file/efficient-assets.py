@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path('work/cp25/log-file/assets.py');s=p.read_text(encoding='utf-8').replace("t=a/name;t.parent.mkdir(parents=True,exist_ok=True);t.write_bytes((p/'candidate.html').read_bytes() if name=='index.html' else base64.b64decode(encoded))", "t=a/name;t.parent.mkdir(parents=True,exist_ok=True);data=(p/'candidate.html').read_bytes() if name=='index.html' else base64.b64decode(encoded)\n if not t.exists() or t.read_bytes()!=data:t.write_bytes(data)");p.write_text(s,encoding='utf-8')

@@ -1,0 +1,85 @@
+{
+ "render": "desktop @napi-rs/canvas, 400x889 CSS at DPR 1.35, real runtime and real payout, Board 1, defaults",
+ "seeds": [
+  7,
+  8
+ ],
+ "single": {
+  "prize": "cheese",
+  "tiltDeg": 17.3,
+  "direction": 1,
+  "flips": 1,
+  "flipSec": 0.421,
+  "rockDeg": 12.1,
+  "shortened": false
+ },
+ "together": [
+  {
+   "prize": "shrimp",
+   "tiltDeg": -18,
+   "direction": -1,
+   "flips": 1,
+   "flipSec": 0.458,
+   "rockDeg": -12.9,
+   "shortened": false
+  },
+  {
+   "prize": "cheese",
+   "tiltDeg": -32.5,
+   "direction": -1,
+   "flips": 2,
+   "flipSec": 0.352,
+   "rockDeg": -14.6,
+   "shortened": false
+  }
+ ],
+ "shots": {
+  "pickupA-a-quarter-flip": {
+   "t": 0.067
+  },
+  "pickupA-b-mid-flip": {
+   "t": 0.183
+  },
+  "pickupA-c-late-flip": {
+   "t": 0.283
+  },
+  "pickupA-d-settled": {
+   "t": 0.5
+  },
+  "pickupB-a-quarter-flip": {
+   "t": 0.067
+  },
+  "pickupB-b-mid-flip": {
+   "t": 0.183
+  },
+  "waiting": {
+   "secondT": -0.45
+  },
+  "pickupB-c-late-flip": {
+   "t": 0.283
+  },
+  "pickupB-d-settled": {
+   "t": 0.5
+  }
+ },
+ "compared": {
+  "A": {
+   "prize": "cheese",
+   "tiltDeg": 17.3,
+   "direction": 1,
+   "flips": 1,
+   "flipSec": 0.421,
+   "rockDeg": 12.1,
+   "shortened": false
+  },
+  "B": {
+   "prize": "shrimp",
+   "tiltDeg": -18,
+   "direction": -1,
+   "flips": 1,
+   "flipSec": 0.458,
+   "rockDeg": -12.9,
+   "shortened": false
+  }
+ }
+}

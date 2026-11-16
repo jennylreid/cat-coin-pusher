@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261112124347,
+    "displayName":  "2026.11.12 UAT 37",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "81de2ae3222ae2ee49ccfb8f03893ef43313e937dc8be3f6ed5d6dd7221b4d19",
+    "stagedJSONSHA256":  "b3a2cb1fb2c1ae0569325c687b9a7d7bd2563f51cf37ba48f3d2a8db9042fbf5",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "41bf5c5e7a657680b349a5ff16c4758a81f77e9ad52ec385c7010fffd24257a9",
+    "jsonBytes":  51412186,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT37-20261112124347",
+    "authorization":  "UAT 37: CP-36 Dance break (Wild board prototype); brief waives approval stops, publish to UAT when it plays well (PM, Nov 12); UAT only",
+    "localPublication":  "verified"
+}

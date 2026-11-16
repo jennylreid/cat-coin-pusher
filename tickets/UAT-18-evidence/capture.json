@@ -1,0 +1,36 @@
+{
+  "events": [
+    {
+      "event": "collected",
+      "seconds": 50.43333333333333,
+      "count": 1
+    },
+    {
+      "event": "use button",
+      "seconds": 52.45,
+      "count": 0,
+      "quaking": true
+    }
+  ],
+  "board": {
+    "status": "won",
+    "remaining": 13,
+    "elapsed": 53.34999999999825,
+    "collected": [
+      "shrimp",
+      "tuna",
+      "cheese"
+    ],
+    "used": 127,
+    "released": 127,
+    "sweeps": 1,
+    "quakes": 1,
+    "earnedQuakes": 0,
+    "quakeStats": {
+      "before": 161,
+      "fallen": 69,
+      "until": 57.46666666666497
+    },
+    "endReason": "targets"
+  }
+}

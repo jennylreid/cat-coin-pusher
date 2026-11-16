@@ -1,0 +1,6 @@
+PASS real rounds on all five cat boards: every prize and coin collected (the Quake coin included) uses the Pop {"tuxedo":"rain10,biscuit,sardine,feather,egg,quake,rain5,bowtie","orange":"rain10,feather,biscuit,milk,egg,sardine,rain25,yarn,rain5,quake","ragdoll":"rain10,egg,sardine,feather,cushion,quake,rain10,biscuit,rain5,rain5","siamese":"rain10,egg,feather,biscuit,laser,quake,rain5,sardine,rain10,bell","tortie":"rain10,duck,quake,sardine"}
+PASS no pinstriped box in any round
+PASS rounds: no errors with sound on []
+PASS the old boards (Developer) too: every pickup there uses the Pop [["shrimp",1],["cheese",1],["shrimp",1],["cheese",1]]
+
+4/4 passed

@@ -1,0 +1,50 @@
+{
+  "version": 20261015163000,
+  "baselineVersion": 20261013215900,
+  "apkVersion": 2,
+  "channel": "catpusher-uat",
+  "applicationId": "com.jenny.catpusher.uat",
+  "publishedSHA256": "a6e2bd39afe97a86c398c82be7221dbfe9ac7beaa356313d848c9bac6b68548c",
+  "backup": "uat/backups/before-20261015163000",
+  "runtimeFilesVerified": 23,
+  "onlySourceChanges": "Board 1 allowance 140 to 220; BUILD label",
+  "protectedHashes": {
+    "phone/CatCoinPusher-game.json": "598532495b955f875688b47f5fa6ccbd1c929530e05ca447f3ccfbabe77ca301",
+    "CatCoinPusher.apk": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+    "uat/CatCoinPusher-UAT.apk": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78"
+  },
+  "results": [
+    {
+      "board": 1,
+      "cadence": 0.4,
+      "status": "won",
+      "used": 109,
+      "remaining": 111,
+      "seconds": 43.566666666665476,
+      "budget": 220,
+      "slack": 1.018348623853211,
+      "targets": [
+        "shrimp",
+        "cheese"
+      ],
+      "idleFalls": 0
+    },
+    {
+      "board": 1,
+      "cadence": 0.22,
+      "status": "won",
+      "used": 156,
+      "remaining": 64,
+      "seconds": 34.16666666666601,
+      "budget": 220,
+      "slack": 0.41025641025641035,
+      "targets": [
+        "shrimp",
+        "cheese"
+      ],
+      "idleFalls": 0
+    }
+  ],
+  "authorization": "UAT-12 ticket: publish directly, no preview needed",
+  "phoneAcceptance": "pending Jenny UAT"
+}

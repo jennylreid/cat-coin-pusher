@@ -1,0 +1,19 @@
+{
+ "render": "offline stand-in for Web Audio, shipped sfx code, 44.1 kHz mono; master gain 0.55 as in the game",
+ "files": [
+  "ledge-bell-and-landing-thump.wav",
+  "three-prizes-together.wav"
+ ],
+ "at100": {
+  "peak": 0.53,
+  "bellRms": 0.0786,
+  "thumpRms": 0.0166
+ },
+ "at150Peak": 0.794,
+ "threeTogether": {
+  "peak": 0.539,
+  "peakIfStackedUnspaced": 1.598
+ },
+ "volumeZeroPeak": 0,
+ "soundOffVoices": 0
+}

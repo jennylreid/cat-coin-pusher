@@ -1,0 +1,30 @@
+{
+  "waitingMatchesApprovedArt": true,
+  "approvedRenderDelta": {
+    "pixels": 753,
+    "maxChannelDelta": 1
+  },
+  "preservedSharpGrinLoaded": true,
+  "headDimensions": [
+    1536,
+    1024
+  ],
+  "otherPoseComparisons": [
+    {
+      "state": "rest",
+      "renderedPixelsIdentical": true
+    },
+    {
+      "state": "impact",
+      "renderedPixelsIdentical": true
+    },
+    {
+      "state": "recovery",
+      "renderedPixelsIdentical": true
+    },
+    {
+      "state": "happy",
+      "renderedPixelsIdentical": true
+    }
+  ]
+}

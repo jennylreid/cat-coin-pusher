@@ -1,0 +1,18 @@
+{
+  "version": 20261112133745,
+  "displayName": "2026.11.12 UAT 38",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "b3a2cb1fb2c1ae0569325c687b9a7d7bd2563f51cf37ba48f3d2a8db9042fbf5",
+  "stagedJSONSHA256": "9243c3f6e197900258cc0bb12017e2e29cb614662187f4123b500ad27ae36eca",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "8367eef8b18133987007c7f23bf646d76861dbe82fc68bbf9061057b15bbf22c",
+  "jsonBytes": 51454294,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-UAT38-20261112133745",
+  "authorization": "UAT 38: CP-38 Wild 2 prototype; Jenny approved (yup do it), no approval stops, publish to UAT when it plays well (PM, Nov 12); UAT only"
+}

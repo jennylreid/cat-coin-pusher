@@ -1,0 +1,17 @@
+{
+  "idleMaxDisplacement": 0.0697956968329312,
+  "quakeMaxSpeed": 5.950381789634692,
+  "quakeSettledGroundMaxTiltDegrees": 1.5852851054291306,
+  "draw": [
+    {
+      "file": "baseline.html",
+      "medianMs": 33.071899999999914,
+      "bodies": 65
+    },
+    {
+      "file": "draft.html",
+      "medianMs": 17.042899999999463,
+      "bodies": 60
+    }
+  ]
+}

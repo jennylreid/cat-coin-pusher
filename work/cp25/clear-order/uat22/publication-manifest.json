@@ -1,0 +1,16 @@
+{
+  "version": 20261030183600,
+  "displayName": "2026.10.30 UAT 22",
+  "apkVersion": 6,
+  "baselineJSONSHA256": "e5ab1969cc09b9c3c940eeff900aa82962702822ea8fc161a0002ab64f1cc286",
+  "stagedJSONSHA256": "b0abd74009361d8a2bbeed1298668d60ca6d52a53cd68214c5687548f08a2ed0",
+  "apkSHA256": "3b2c2918720dcbda4fa8138aba3bc37da5a8cb4f6164aa9e1ad47434db7389b6",
+  "releaseHTMLSHA256": "c3b3d4b5fb1a86e140157a3e383edb3e3ddc9ba7a87593aa16ee4fddb31c0c6e",
+  "jsonBytes": 51303762,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "backup": "uat/backups/before-CP-25-clear-order-20261030183600",
+  "authorization": "Jenny: show board clear message before cat Rest; game-only UAT"
+}

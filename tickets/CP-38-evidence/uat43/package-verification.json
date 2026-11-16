@@ -1,0 +1,18 @@
+{
+  "version": 20261112174338,
+  "displayName": "2026.11.12 UAT 43",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "e3acac23a40cb6780f77c934b8248cde701456eb21f5847f5827ebf4e5f86911",
+  "stagedJSONSHA256": "a92ee108c1e7df9dc0004fc0bd141d0eb65b4710e08ffaf8f222dc55d022443f",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "5768c5f34bbb9eb5c7eb562e440724088c69ef29b7a3db04bcd5311285fe99bd",
+  "jsonBytes": 51530354,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-UAT43-20261112174338",
+  "authorization": "UAT 43: CP-38/CP-39 follow-ups on UAT 42 (beat timing, tap outcomes, send-log feedback, Wild coin budget, star prize, lost prizes, tap-to-spin wheel, win waits for the dance, Classic/Kawaii music); Jenny approved (relayed by PM, Nov 12); UAT only"
+}

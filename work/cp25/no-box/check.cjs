@@ -1,0 +1,12 @@
+const make=require('../runtime.cjs'),path=require('path'),fs=require('fs'),assert=require('assert/strict'),vm=require('vm');
+const native=require('C:/Users/jenny/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/@napi-rs/canvas'),out='tickets/CP-25-evidence/no-box/';
+(async()=>{const storage={},g=await make({sourceFile:path.resolve('work/cp25/no-box/draft.html'),storage,render:true,height:888.889}),a=g.c.__game;
+g.c.Path2D=native.Path2D;g.c.devicePixelRatio=2.7;g.c.resize();a.S.got.cheese=2;a.S.coins=220;a.openLoopScreen('water');let geo=a.collectionGeometry();
+a.screenTap({x:geo.right-60,y:geo.top+64});assert.equal(vm.runInContext('loopScreen',g.c),'cheese');assert.equal(vm.runInContext('COLLECTIONS.cheese.name',g.c),'Kitchen');geo=a.collectionGeometry();assert(geo.scene);assert.equal(geo.slots.length,2);assert(geo.slots.find(r=>r.id==='mouse').future);
+g.snapshot(out+'kitchen-phone.png');const inline=native.createCanvas(540,1200);inline.getContext('2d').drawImage(await native.loadImage(out+'kitchen-phone.png'),0,0,540,1200);fs.writeFileSync(out+'kitchen-inline.png',inline.toBuffer('image/png'));
+const from=geo.items.find(r=>r.id==='cheese'),to=geo.slots.find(r=>r.id==='cheese');g.pointer('pointerdown',from.x+from.w/2,from.y+from.h/2);g.pointer('pointermove',to.x+to.w/2,to.y+to.h/2);g.snapshot(out+'drag-without-square-phone.png');g.pointer('pointerup',to.x+to.w/2,to.y+to.h/2);
+assert(a.placements.cheese);assert(a.collectionPaid.cheese);assert.equal(a.S.coins,270);assert.equal(a.S.got.cheese,1);for(let i=0;i<60;i++)g.tick();g.snapshot(out+'kitchen-payoff-phone.png');a.closeInventory();assert(a.collectionDance);a.save();g.close();
+const again=await make({sourceFile:path.resolve('work/cp25/no-box/draft.html'),storage});assert(again.c.__game.collectionPaid.cheese);assert.equal(again.c.__game.S.coins,270);assert.equal(again.c.__game.placeItem('cheese'),false);again.close();
+fs.writeFileSync(out+'checks.json',JSON.stringify({passed:['Kitchen tab selects correct scene and display name while keeping existing save key','Approved painting and two natural slots render in fixed scene bounds','Actual cheese drag consumes one and pays Kitchen 50 once; mouse stays future','Saved completion persists and return dance starts']},null,2));console.log('4 Kitchen checks passed');})().catch(e=>{console.error(e);process.exitCode=1});
+
+

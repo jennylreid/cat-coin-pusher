@@ -1,0 +1,50 @@
+{
+ "passed": [
+  {
+   "name": "a tap during the intro is ignored: the intro plays out (no jump to the board)",
+   "info": {
+    "screen": "title",
+    "t": 1.0000000000000013
+   }
+  },
+  {
+   "name": "after the intro it stays on the title (32 s and counting), the rain still going, until the player taps",
+   "info": {
+    "screen": "title",
+    "t": 31.999999999999464,
+    "coins": 15
+   }
+  },
+  {
+   "name": "the coins are the board coin, bigger (22-34 px radius, was 10-17); UAT 56 default rain 2 falls at up to 380 px/s",
+   "info": {
+    "rMin": 22.529012157143104,
+    "rMax": 33.14657019185514,
+    "vMax": 380
+   }
+  },
+  {
+   "name": "the coins are drawn behind the cat's face and the CatCoin title (never over them)",
+   "info": {
+    "lastCoin": 14,
+    "firstCat": 15,
+    "firstTitle": 16,
+    "n": 23
+   }
+  },
+  {
+   "name": "a tap after the intro (TAP TO PLAY) opens the Tuxedo's board on its goal (UAT 55: behind the main screen in layout A)",
+   "info": {
+    "screen": "main",
+    "on": true,
+    "phase": "card",
+    "cat": "tuxedo"
+   }
+  },
+  {
+   "name": "title: no errors with sound on",
+   "info": []
+  }
+ ],
+ "failed": []
+}

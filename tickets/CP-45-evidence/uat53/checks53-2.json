@@ -1,0 +1,155 @@
+{
+ "passed": [
+  {
+   "name": "7 prizes at once behave exactly as in UAT 52: same line (start times, holds), same bells and thumps, same overlap",
+   "info": {
+    "rise": [
+     [
+      "cheese",
+      0,
+      0.25
+     ],
+     [
+      "tuna",
+      0.45,
+      0.25
+     ],
+     [
+      "sardine",
+      0.9,
+      0.125
+     ],
+     [
+      "shrimp",
+      1.225,
+      0.125
+     ],
+     [
+      "bowtie",
+      1.55,
+      0.125
+     ],
+     [
+      "duck",
+      1.875,
+      0.125
+     ],
+     [
+      "milk",
+      2.2,
+      0.125
+     ]
+    ],
+    "air": 3,
+    "sounds": 10
+   }
+  },
+  {
+   "name": "with a Quake coin in the pile it takes a normal turn (same start and hold as a prize there), so the line keeps moving",
+   "info": {
+    "withQuake": [
+     [
+      "cheese",
+      0,
+      0.25
+     ],
+     [
+      "tuna",
+      0.45,
+      0.25
+     ],
+     [
+      "quake",
+      0.9,
+      0.125
+     ],
+     [
+      "shrimp",
+      1.225,
+      0.125
+     ],
+     [
+      "bowtie",
+      1.55,
+      0.125
+     ],
+     [
+      "duck",
+      1.875,
+      0.125
+     ],
+     [
+      "milk",
+      2.2,
+      0.125
+     ]
+    ],
+    "uat52WithQuake": [
+     [
+      "cheese",
+      0,
+      0.25
+     ],
+     [
+      "tuna",
+      0.45,
+      0.25
+     ],
+     [
+      "quake",
+      0.9,
+      0.35
+     ],
+     [
+      "shrimp",
+      1.425,
+      0.125
+     ],
+     [
+      "bowtie",
+      1.75,
+      0.125
+     ],
+     [
+      "duck",
+      2.075,
+      0.125
+     ],
+     [
+      "milk",
+      2.4,
+      0.125
+     ]
+    ]
+   }
+  },
+  {
+   "name": "in the pile: 3 bells at once (each quieter), the rest silent; thumps follow; two pieces in the air at once",
+   "info": {
+    "bells": [
+     [
+      "bell",
+      5,
+      0,
+      1
+     ],
+     [
+      "bell",
+      5,
+      0.1,
+      0.7
+     ],
+     [
+      "bell",
+      5,
+      0.2,
+      0.5
+     ]
+    ],
+    "thumps": 7,
+    "air": 3
+   }
+  }
+ ],
+ "failed": []
+}

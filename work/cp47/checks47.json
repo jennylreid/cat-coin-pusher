@@ -1,0 +1,217 @@
+[
+ {
+  "name": "Board 1 identical to the base after 25 s (same seed and drops)",
+  "pass": true,
+  "detail": "a154a432d00dd3c4 vs a154a432d00dd3c4"
+ },
+ {
+  "name": "Wild 2 round identical to the base after 40 s (same seed and drops)",
+  "pass": true,
+  "detail": "a264a4f99309ccfe vs a264a4f99309ccfe"
+ },
+ {
+  "name": "Treat toss mode round identical to the base after 40 s (same seed and drops)",
+  "pass": true,
+  "detail": "f9ead1c519592af0 vs f9ead1c519592af0"
+ },
+ {
+  "name": "Laser mode round identical to the base after 40 s (same seed and drops)",
+  "pass": false,
+  "detail": "dbd5505b879319bc vs 67b22b73cedd343e"
+ },
+ {
+  "name": "COZY is listed in the MODES picker",
+  "pass": true,
+  "detail": "treats, laser, cozy, towers, pounce"
+ },
+ {
+  "name": "picking COZY opens the Cozy goal card",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "Cozy card lines are the pet lines",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "Cozy features only Pet the cat (no happy meter, music-note or fish coin)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "a tap on the card starts the 3-2-1",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "round running after GO",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "EXIT leaves Cozy",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "WILD 2 button still opens plain Wild 2 with its own card",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "no exceptions (sound on, strict audio)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "Cozy: heart coin about once a round (4 rounds)",
+  "pass": true,
+  "detail": "[{\"seed\":21,\"hearts\":2,\"pets\":1,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":22,\"hearts\":2,\"pets\":1,\"notes\":9,\"fish\":9,\"won\":\"lost\",\"errs\":0},{\"seed\":23,\"hearts\":2,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0},{\"seed\":24,\"hearts\":2,\"pets\":0,\"notes\":9,\"fish\":9,\"won\":\"won\",\"errs\":0}]"
+ },
+ {
+  "name": "Cozy: a heart pushed off starts Pet the cat in at least 2 of 4 auto rounds",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "Cozy: no exceptions in 4 rounds",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "Wild 2: no heart coins, no petting",
+  "pass": true,
+  "detail": "notes 1 fish 0"
+ },
+ {
+  "name": "heart coin pickup queues petting",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "petting starts within 1.5 s of the pickup",
+  "pass": true,
+  "detail": "0.33 s"
+ },
+ {
+  "name": "round timer paused while petting",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "a tap on the board during petting drops no coin (the cat glances: \"pet my head!\")",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "ear tap: ear flick + whisker twitch + sound",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "stroking builds the purr (1 s of stroking)",
+  "pass": true,
+  "detail": "0.06 -> 0.37"
+ },
+ {
+  "name": "purr sound live while stroking",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "eyes close as the purr builds (approved Happy features)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "lifting briefly does not stop (0.33 s)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "staying off the cat for 0.75 s stops it",
+  "pass": true,
+  "detail": "\"{\\\"kind\\\":\\\"early\\\",\\\"score\\\":0.17753046805648276,\\\"L\\\":0.36693591917428775,\\\"over\\\":0,\\\"why\\\":\\\"lift\\\",\\\"coins\\\":4,\\\"pct\\\":37}\""
+ },
+ {
+  "name": "coins pour onto the board after the stop",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "petting ends and the purr stops",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "over-petting: growl warning, then a hiss and the Sharp Grin for a moment",
+  "pass": true,
+  "detail": "{\"kind\":\"hiss\",\"score\":0.12,\"L\":1,\"over\":1.2000000000000006,\"why\":\"hiss\",\"coins\":2,\"pct\":100}"
+ },
+ {
+  "name": "DONE stops at once",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "no exceptions (sound on, strict audio)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "a win during petting waits",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "no dance break starts during petting",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "Settings open: petting clock stops, purr off",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "after petting the waiting win plays (round won)",
+  "pass": true,
+  "detail": "end won"
+ },
+ {
+  "name": "EXIT during petting: clean exit, purr off",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "no exceptions",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "sound off: no audio nodes made while petting",
+  "pass": true,
+  "detail": "0 nodes"
+ },
+ {
+  "name": "dials step and save",
+  "pass": true,
+  "detail": "{\"len\":9.5,\"peak\":3,\"grace\":1.3}"
+ },
+ {
+  "name": "dials in the performance log",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "dials load on the next start",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "name": "Developer: Start pet the cat now and the three dials",
+  "pass": true,
+  "detail": ""
+ }
+]

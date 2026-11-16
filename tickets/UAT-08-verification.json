@@ -1,0 +1,75 @@
+{
+  "pinnedVersion": 20261012220659,
+  "drops": [
+    {
+      "phase": 0,
+      "immediate": true,
+      "x": [
+        80,
+        200,
+        320
+      ],
+      "depth": 247
+    },
+    {
+      "phase": 0.3,
+      "immediate": true,
+      "x": [
+        80,
+        200,
+        320
+      ],
+      "depth": 247
+    },
+    {
+      "phase": 0.5,
+      "immediate": true,
+      "x": [
+        80,
+        200,
+        320
+      ],
+      "depth": 247
+    },
+    {
+      "phase": 0.7,
+      "immediate": true,
+      "x": [
+        80,
+        200,
+        320
+      ],
+      "depth": 247
+    },
+    {
+      "phase": 0.9,
+      "immediate": true,
+      "x": [
+        80,
+        200,
+        320
+      ],
+      "depth": 247
+    }
+  ],
+  "quakes": [
+    {
+      "board": 1,
+      "before": 45,
+      "fallen": 15,
+      "until": 5
+    },
+    {
+      "board": 2,
+      "before": 51,
+      "fallen": 12,
+      "until": 5
+    }
+  ],
+  "hashes": {
+    "phone/CatCoinPusher-game.json": "598532495b955f875688b47f5fa6ccbd1c929530e05ca447f3ccfbabe77ca301",
+    "CatCoinPusher.apk": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+    "uat/CatCoinPusher-UAT-game.json": "f677431bcbb935bda60b1d291728c0fb48a5d588c81bb1a129fbb75522fd4888",
+    "uat/CatCoinPusher-UAT.apk": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78"
+  }
+}

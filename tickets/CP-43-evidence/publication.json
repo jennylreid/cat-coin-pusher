@@ -1,0 +1,21 @@
+﻿{
+    "version":  20261112200000,
+    "displayName":  "2026.11.12 UAT 47",
+    "apkVersion":  7,
+    "base":  "uat46",
+    "pin":  "ad6cf16c2b6ff5f7ecf4236c2fd302ca434baf0bfe3539cd05b4a0833d03ad35",
+    "baselineJSONSHA256":  "b5457c9c33bfe0d54b2ed75b3306ff917d16c65b911e214d1a4aec368b2523e3",
+    "stagedJSONSHA256":  "781e2a382196d2473b18a22dcdaa269b128d01a39d1774e0eaf111d419062a92",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "22234584bc944aaafbc688faa65814b996875ea1c5908b5fe34b9cc6f1830ca0",
+    "jsonBytes":  51681158,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT47-20261112200000",
+    "authorization":  "UAT 47: CP-43 Pet the cat (Cozy mode); hackathon brief from the PM (Nov 12): build and publish to UAT after UAT 46, no approval stops; UAT only",
+    "localPublication":  "verified"
+}

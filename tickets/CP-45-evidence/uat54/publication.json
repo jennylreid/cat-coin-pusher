@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261114230000,
+    "displayName":  "2026.11.14 UAT 54",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "940443a09dc5c5a2ce194daf2a98604fff3f26d0c46dce183f875bd10c130dbb",
+    "stagedJSONSHA256":  "d3e1267b16a25f65b510f161ab49f8933267ea590a663434b44a81ba43f4e3ad",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "02a4cd3d05220172b604c3950be274d8c7180461499614551fb12800b91332cc",
+    "jsonBytes":  51831418,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT54-20261114230000",
+    "authorization":  "UAT 54: the CatCoin title stays open after its intro until TAP TO PLAY (taps during the intro ignored) and its coin rain is bigger, slower and clearer (behind the title and the cat), on UAT 53; Jenny Nov 14 via PM; UAT only",
+    "localPublication":  "verified"
+}

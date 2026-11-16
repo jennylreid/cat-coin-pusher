@@ -1,0 +1,31 @@
+{
+ "passed": [
+  {
+   "name": "layout A: PLAY sits right under How to play (8-24 px, no big empty gap) and the pile has its own room below PLAY, on 720/889/960-high screens",
+   "info": {
+    "bad": [],
+    "out": {
+     "720": {
+      "gap": 16,
+      "room": 19,
+      "rows": 2,
+      "side": []
+     },
+     "889": {
+      "gap": 16,
+      "room": 104,
+      "rows": 3,
+      "side": []
+     },
+     "960": {
+      "gap": 16,
+      "room": 175,
+      "rows": 3,
+      "side": []
+     }
+    }
+   }
+  }
+ ],
+ "failed": []
+}

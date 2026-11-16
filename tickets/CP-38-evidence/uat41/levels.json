@@ -1,0 +1,61 @@
+{
+ "UAT 40 music 50% (old track, old default)": {
+  "rmsDb": -34.7,
+  "peakDb": -10.7,
+  "peak": 0.291,
+  "phoneBandRms": 0.0123
+ },
+ "UAT 41 kawaii pop 100% (default)": {
+  "rmsDb": -28.6,
+  "peakDb": -8.8,
+  "peak": 0.364,
+  "phoneBandRms": 0.025
+ },
+ "UAT 41 kawaii pop 200% (max)": {
+  "rmsDb": -23.2,
+  "peakDb": -4.9,
+  "peak": 0.567,
+  "phoneBandRms": 0.0468
+ },
+ "coin landing (coin-land.mp3 at its volume 0.25)": {
+  "whole": {
+   "rmsDb": -30.3,
+   "peakDb": -8.4,
+   "peak": 0.379
+  },
+  "hit100ms": {
+   "rmsDb": -22.8,
+   "peakDb": -8.4,
+   "peak": 0.379
+  }
+ },
+ "coin drop (coin-drop.mp3 at 0.24)": {
+  "whole": {
+   "rmsDb": -38.9,
+   "peakDb": -14.3,
+   "peak": 0.192
+  },
+  "hit100ms": {
+   "rmsDb": -28.9,
+   "peakDb": -14.3,
+   "peak": 0.192
+  }
+ },
+ "audition track 4 (levels.json)": {
+  "phoneBandRms": 0.0225,
+  "peak": 0.247,
+  "note": "the level Jenny heard; 6 dB over a coin landing above 250 Hz"
+ },
+ "UAT 40 pusher sound": {
+  "rmsDb": -53.7,
+  "peakDb": -30.9,
+  "peak": 0.029,
+  "phoneBandRms": 0.0016
+ },
+ "UAT 41 pusher sound": {
+  "rmsDb": -44.7,
+  "peakDb": -19.1,
+  "peak": 0.111,
+  "phoneBandRms": 0.0013
+ }
+}

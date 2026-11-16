@@ -1,0 +1,34 @@
+{
+ "passed": [
+  {
+   "name": "Developer off: no \"Wild\" drawn anywhere a player looks",
+   "info": {}
+  },
+  {
+   "name": "the title fits on the goal card",
+   "info": {
+    "tw": 108.18000030517578,
+    "cw": 380
+   }
+  },
+  {
+   "name": "names: no errors with sound on",
+   "info": []
+  }
+ ],
+ "failed": [
+  {
+   "name": "the Tuxedo's board is TUXEDO (goal card title, board readout) and Tuxedo in the picker; the others keep their mode names",
+   "info": {
+    "titles": {
+     "tuxedo": "TUXEDO",
+     "orange": "ORANGE",
+     "ragdoll": "RAGDOLL",
+     "siamese": "SIAMESE",
+     "tortie": "TORTOISESHELL"
+    },
+    "pk": "Dance break"
+   }
+  }
+ ]
+}

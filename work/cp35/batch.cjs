@@ -1,0 +1,1 @@
+const run=require('./play.cjs');(async()=>{const [strategy,...seeds]=process.argv.slice(2);for(const s of seeds){const r=await run({seed:+s,strategy});delete r.marks;console.log(JSON.stringify(r));}})();

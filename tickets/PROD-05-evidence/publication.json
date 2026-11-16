@@ -1,0 +1,25 @@
+﻿{
+    "displayName":  "2026.11.15",
+    "version":  20261115224800,
+    "apkVersion":  17,
+    "baselineJSONSHA256":  "0f4177067aef5fb39f1fa82a8c2bc1e39d70634166f2bcfa3366998b3a9a145b",
+    "productionAPKSHA256":  "df205863d0bf755276f7f4acf301b3c573788ccef09b8f8bc0cd0263121e8e45",
+    "uat64JSONSHA256":  "eeb5a40bc486ae10986dcedfe0c878c23ba0e32a2f4c5f50bf4b92c52e317607",
+    "stagedJSONSHA256":  "3b598d444a2fe2d8dad59fbded64215b2dfe392e1a6ec4d555506ed413a4f8dc",
+    "releaseHTMLSHA256":  "ff88d79ed5ef861e8c3a89c22be5388174463c734abc3400f464b1eaff78ecf3",
+    "sourceHTMLSHA256":  "230a9d7ee2b5259820cfe09678f0854524f6228970a4bc27585c66482238987d",
+    "jsonBytes":  51971696,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "unchangedRuntimeFilesMatchAPK17AndUAT64":  36,
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "updateURL":  "production (work/prod04/download-url.txt, APK17 assets/update-url.txt)",
+    "backup":  "backups/before-PROD-05-20261115224800",
+    "evidence":  "tickets/PROD-05-evidence",
+    "authorization":  "Jenny, Nov 15, 2026: \"Go: promote UAT 64 to production as is.\" Baseline 1 = UAT 64 (20261115190000): CP-24, CP-33 to CP-38, CP-40 to CP-48",
+    "localPublication":  "verified",
+    "publishedAt":  "2026-11-15T22:54:20"
+}

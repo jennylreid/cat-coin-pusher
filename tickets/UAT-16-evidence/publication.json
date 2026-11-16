@@ -1,0 +1,10 @@
+{
+  "version": 20261016203354,
+  "displayName": "2026.10.16 UAT 5",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "01c108843a0aaeb82ccc727aa71d9148b48ea125da5a46f086305816748f7771",
+  "stagedJSONSHA256": "3b27a766fa16bf67cf1f05219bb23624af404adfbd2c885cb79a82acef9c95e8",
+  "backup": "uat/backups/before-UAT-16-20261016203354",
+  "authorization": "Jenny: I will check it out on the phone in UAT",
+  "localPublication": "verified"
+}

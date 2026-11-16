@@ -1,0 +1,80 @@
+{
+ "passed": [
+  {
+   "name": "no glow or halo on any coin: the title (rain 2) and the main screen",
+   "info": {
+    "title": 0,
+    "main": 0
+   }
+  },
+  {
+   "name": "the main screen's falling coins are solid coins with their gold edge as they turn (not paper-thin discs)",
+   "info": {
+    "thick": 6
+   }
+  },
+  {
+   "name": "the pile under PLAY: 9 coins at their true proportions (round, not squashed), side by side without crowding",
+   "info": {
+    "pile": [
+     [
+      1,
+      76,
+      837,
+      54
+     ],
+     [
+      1,
+      138,
+      837,
+      54
+     ],
+     [
+      1,
+      200,
+      837,
+      54
+     ],
+     [
+      1,
+      262,
+      837,
+      54
+     ],
+     [
+      1,
+      324,
+      837,
+      54
+     ],
+     [
+      1,
+      138,
+      793,
+      54
+     ],
+     [
+      1,
+      200,
+      793,
+      54
+     ],
+     [
+      1,
+      262,
+      793,
+      54
+     ],
+     [
+      1,
+      200,
+      749,
+      54
+     ]
+    ],
+    "crowd": 0
+   }
+  }
+ ],
+ "failed": []
+}

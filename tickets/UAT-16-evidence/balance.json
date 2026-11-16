@@ -1,0 +1,100 @@
+[
+  {
+    "index": 1,
+    "cadence": 0.22,
+    "status": "won",
+    "remaining": 109,
+    "elapsed": 24.41666666666656,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ],
+    "used": 111,
+    "released": 111,
+    "sweeps": 1,
+    "quakes": 1,
+    "endReason": "targets"
+  },
+  {
+    "index": 1,
+    "cadence": 0.4,
+    "status": "won",
+    "remaining": 126,
+    "elapsed": 37.499999999999154,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ],
+    "used": 94,
+    "released": 94,
+    "sweeps": 1,
+    "quakes": 1,
+    "endReason": "targets"
+  },
+  {
+    "index": 2,
+    "cadence": 0.22,
+    "status": "won",
+    "remaining": 47,
+    "elapsed": 24.73333333333321,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ],
+    "used": 113,
+    "released": 113,
+    "sweeps": 1,
+    "quakes": 1,
+    "endReason": "targets"
+  },
+  {
+    "index": 2,
+    "cadence": 0.4,
+    "status": "won",
+    "remaining": 59,
+    "elapsed": 40.33333333333233,
+    "collected": [
+      "shrimp",
+      "cheese"
+    ],
+    "used": 101,
+    "released": 101,
+    "sweeps": 1,
+    "quakes": 1,
+    "endReason": "targets"
+  },
+  {
+    "index": 3,
+    "cadence": 0.22,
+    "status": "won",
+    "remaining": 16,
+    "elapsed": 27.116666666666408,
+    "collected": [
+      "cheese",
+      "shrimp",
+      "tuna"
+    ],
+    "used": 124,
+    "released": 124,
+    "sweeps": 1,
+    "quakes": 1,
+    "endReason": "targets"
+  },
+  {
+    "index": 3,
+    "cadence": 0.4,
+    "status": "won",
+    "remaining": 37,
+    "elapsed": 40.79999999999897,
+    "collected": [
+      "tuna",
+      "shrimp",
+      "cheese"
+    ],
+    "used": 103,
+    "released": 103,
+    "sweeps": 1,
+    "quakes": 1,
+    "endReason": "targets"
+  }
+]

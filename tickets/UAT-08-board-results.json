@@ -1,0 +1,62 @@
+[
+  {
+    "board": 1,
+    "cadence": 0.4,
+    "status": "won",
+    "used": 109,
+    "remaining": 31,
+    "seconds": 43.566666666665476,
+    "budget": 140,
+    "slack": 0.2844036697247707,
+    "targets": [
+      "shrimp",
+      "cheese"
+    ],
+    "idleFalls": 0
+  },
+  {
+    "board": 1,
+    "cadence": 0.22,
+    "status": "won",
+    "used": 140,
+    "remaining": 0,
+    "seconds": 41.04999999999895,
+    "budget": 140,
+    "slack": 0,
+    "targets": [
+      "shrimp",
+      "cheese"
+    ],
+    "idleFalls": 0
+  },
+  {
+    "board": 2,
+    "cadence": 0.4,
+    "status": "won",
+    "used": 117,
+    "remaining": 43,
+    "seconds": 46.48333333333198,
+    "budget": 160,
+    "slack": 0.36752136752136755,
+    "targets": [
+      "shrimp",
+      "cheese"
+    ],
+    "idleFalls": 0
+  },
+  {
+    "board": 2,
+    "cadence": 0.22,
+    "status": "won",
+    "used": 129,
+    "remaining": 31,
+    "seconds": 28.23333333333301,
+    "budget": 160,
+    "slack": 0.24031007751937983,
+    "targets": [
+      "shrimp",
+      "cheese"
+    ],
+    "idleFalls": 0
+  }
+]

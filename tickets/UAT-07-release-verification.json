@@ -1,0 +1,66 @@
+{
+  "ticket": "UAT-07",
+  "version": 20261012184647,
+  "apkVersion": 2,
+  "applicationId": "com.jenny.catpusher.uat",
+  "channel": "catpusher-uat",
+  "runtimeFiles": 22,
+  "artFiles": 13,
+  "APKUnchanged": true,
+  "uatAPKHash": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78",
+  "productionAPKHash": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+  "productionJSONHash": "f5e6c67d68d29c08f64c8a4a96d51464d90b31ff4c28773caa46494a90f6b314",
+  "approvedAssetsFullRGBAIdentical": true,
+  "happyManualPreviewOnly": true,
+  "happyDurationSeconds": 6,
+  "restRemainsBoardClear": true,
+  "waitingSharpSweetQuakePawOriginalAssetsPreserved": true,
+  "renderVerification": {
+    "approvedRenderDelta": {
+      "pixels": 2812,
+      "maxChannelDelta": 1
+    },
+    "otherPoseComparisons": [
+      {
+        "state": "waiting",
+        "renderedPixelsIdentical": true
+      },
+      {
+        "state": "rest",
+        "renderedPixelsIdentical": true
+      },
+      {
+        "state": "impact",
+        "renderedPixelsIdentical": true
+      },
+      {
+        "state": "recovery",
+        "renderedPixelsIdentical": true
+      }
+    ],
+    "happyOnlyManualPreview": true,
+    "previewDurationSeconds": 6,
+    "previewReturnsToRest": true,
+    "originalPawRestored": true,
+    "happyFirstRestClippingProfileIdentical": true,
+    "waitingAndSharpPreserved": true
+  },
+  "physicsSpend": [
+    86,
+    113,
+    119,
+    127
+  ],
+  "quakeSpill": [
+    15,
+    12
+  ],
+  "otherSourceUnchanged": true,
+  "updateJSONSHA256": "8f4991f4b48e693959eb88347ea529d1762c3dd38537eac12e2f506f0affb817",
+  "backup": "uat/backups/before-20261012184647",
+  "report": "tickets/UAT-07.md",
+  "phoneReceiptVerified": false,
+  "publishedJSONVerified": true,
+  "productionUnchangedVerified": true,
+  "backupVerified": true
+}

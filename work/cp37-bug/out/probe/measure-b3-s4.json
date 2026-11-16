@@ -1,0 +1,53 @@
+{
+ "board": "b3",
+ "seed": 4,
+ "src": "uat37.html",
+ "samples": 30,
+ "maxRest": 1,
+ "restEx": [
+  {
+   "t": 2.7,
+   "coins": [
+    [
+     "coin",
+     167.5,
+     239.4,
+     89.7,
+     1,
+     1
+    ]
+   ]
+  }
+ ],
+ "vanish": 0,
+ "maxHidden": 2,
+ "flips": 10,
+ "flickers": 2,
+ "pairFrames": 26016,
+ "examples": [
+  {
+   "frame": 102,
+   "ua": 92,
+   "ub": 98,
+   "za": 611,
+   "zb": 663,
+   "d": 1.0010058798614039
+  },
+  {
+   "frame": 123,
+   "ua": 80,
+   "ub": 86,
+   "za": 513.2,
+   "zb": 565.1,
+   "d": 0.9997778338458776
+  }
+ ],
+ "hidden90avg": 0.13,
+ "resting90avg": 0.03,
+ "hidden50avg": 0.7,
+ "hidden90end": 0,
+ "drawMs": 3.92,
+ "bodies": 72,
+ "coins": 984,
+ "used": 15
+}

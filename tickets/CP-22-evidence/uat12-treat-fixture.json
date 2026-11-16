@@ -1,0 +1,32 @@
+{
+  "a": {
+    "kind": "item",
+    "id": "cheese",
+    "p": {
+      "x": 1.4,
+      "y": 0.17,
+      "z": 6.1
+    },
+    "q": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    }
+  },
+  "b": {
+    "kind": "coin",
+    "p": {
+      "x": 1.4,
+      "y": 0.04,
+      "z": 6.3
+    },
+    "q": {
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    }
+  },
+  "description": "Coin supporting the front of the cheese; identical poses before and after."
+}

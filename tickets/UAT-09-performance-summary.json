@@ -1,0 +1,57 @@
+{
+  "environment": "Headless desktop Edge,1080x2404, draw plus synchronous raster flush; not Pixel FPS",
+  "finalResults": [
+    {
+      "kind": "pre05",
+      "frames": 120,
+      "bodyCount": 92,
+      "medianDrawMs": 61.099999994039536,
+      "p95DrawMs": 144.5,
+      "meanDrawMs": 69.25249999960263,
+      "counts": {
+        "lineTo": 1630,
+        "clip": 566,
+        "createRadialGradient": 0,
+        "save": 38217,
+        "restore": 38217
+      },
+      "displayBudget120HzMs": 8.333333333333334
+    },
+    {
+      "kind": "before",
+      "frames": 120,
+      "bodyCount": 92,
+      "medianDrawMs": 370.09999999403954,
+      "p95DrawMs": 657.9000000059605,
+      "meanDrawMs": 423.48666666547456,
+      "counts": {
+        "lineTo": 9014667,
+        "clip": 13942,
+        "createRadialGradient": 757133,
+        "save": 49474,
+        "restore": 49474
+      },
+      "displayBudget120HzMs": 8.333333333333334
+    },
+    {
+      "kind": "after",
+      "frames": 120,
+      "bodyCount": 92,
+      "medianDrawMs": 63.80000001192093,
+      "p95DrawMs": 90.2999999821186,
+      "meanDrawMs": 66.91750000069538,
+      "counts": {
+        "lineTo": 48258,
+        "clip": 953,
+        "createRadialGradient": 0,
+        "save": 3197,
+        "restore": 3197
+      },
+      "displayBudget120HzMs": 8.333333333333334
+    }
+  ],
+  "meanDrawCostReductionFromPublishedPercent": 84.19843993493292,
+  "PixelFPSVerified": false,
+  "target": "match pre-UAT-05 phone smoothness; pending actual Pixel confirmation",
+  "instrumentationNote": "Timing includes complete frame and synchronous raster flush. Main-context operation counters exclude offscreen drawing in final renderer; do not compare final counters as total workload."
+}

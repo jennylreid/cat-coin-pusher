@@ -1,0 +1,20 @@
+{
+  "version": 20261013170210,
+  "apkVersion": 2,
+  "channel": "catpusher-uat",
+  "applicationId": "com.jenny.catpusher.uat",
+  "files": 23,
+  "nonHTMLFilesUnchanged": 22,
+  "approvedDraftExactExceptBuild": true,
+  "approvedDraftSHA256": "baee76310dffb9d0a7b7a0b4ada5a8c3d8f93e022d192f3541e1baedb1d13918",
+  "backup": "uat/backups/before-20261013170210",
+  "sha256": "46d2b5197fedb2f1dfa2e1af108d448019f8f87a963510cbb8757e7e6e197ee8",
+  "protectedHashes": {
+    "phone/CatCoinPusher-game.json": "598532495b955f875688b47f5fa6ccbd1c929530e05ca447f3ccfbabe77ca301",
+    "CatCoinPusher.apk": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+    "uat/CatCoinPusher-UAT.apk": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78"
+  },
+  "approval": "Jenny: yes, please publish to UAT",
+  "phoneReceipt": "pending",
+  "phone120fps": "pending"
+}

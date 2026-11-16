@@ -1,0 +1,201 @@
+{
+ "passed": [
+  {
+   "name": "A: after the title the main screen shows (the board waits behind on its goal)",
+   "info": {
+    "screen": "main",
+    "phase": "card",
+    "cat": "tuxedo",
+    "ab": "A"
+   }
+  },
+  {
+   "name": "A: the side buttons are small and at the edges, clear of the cat (left Kitchen, Porch, Album; right Shop, Boards), below the top bar",
+   "info": [
+    {
+     "id": "kitchen",
+     "x": 36,
+     "y": 148,
+     "r": 25
+    },
+    {
+     "id": "porch",
+     "x": 36,
+     "y": 248,
+     "r": 25
+    },
+    {
+     "id": "album",
+     "x": 36,
+     "y": 348,
+     "r": 25
+    },
+    {
+     "id": "shop",
+     "x": 364,
+     "y": 148,
+     "r": 25
+    },
+    {
+     "id": "board",
+     "x": 364,
+     "y": 248,
+     "r": 25
+    }
+   ]
+  },
+  {
+   "name": "A: PLAY is the one big button (244 x 78, about 10 times the area of a side button)",
+   "info": {
+    "x": 78,
+    "y": 540,
+    "w": 244,
+    "h": 78
+   }
+  },
+  {
+   "name": "A: a locked side button (Kitchen, level 2) stays shut and says so",
+   "info": [
+    "Kitchen opens at level 2"
+   ]
+  },
+  {
+   "name": "A: Kitchen opens from its side button; back returns to the main screen",
+   "info": {
+    "k": "kitchen",
+    "back": "main"
+   }
+  },
+  {
+   "name": "A: \"? How to play\" shows the old goal card on the board",
+   "info": {
+    "screen": "board",
+    "rules": true,
+    "phase": "card"
+   }
+  },
+  {
+   "name": "A: from there a tap starts the round as before",
+   "info": "count"
+  },
+  {
+   "name": "A: after a round the end card shows on the board; its New goal comes back to the main screen",
+   "info": {
+    "end": {
+     "screen": "board",
+     "phase": "end"
+    },
+    "after": "main"
+   }
+  },
+  {
+   "name": "A: PLAY goes onto the board and starts the round (3, 2, 1)",
+   "info": {
+    "screen": "board",
+    "phase": "count"
+   }
+  },
+  {
+   "name": "A: Boards opens the picker on the main screen; picking the Orange's board stays on the main screen, now for TREAT TOSS",
+   "info": {
+    "pk": true,
+    "screen": "main",
+    "cat": "orange",
+    "name": "TREAT TOSS"
+   }
+  },
+  "A: a tap on the cat gets the sweet face, hearts and a meow",
+  {
+   "name": "A: the top bar works on the main screen (Settings opens)",
+   "info": "block"
+  },
+  {
+   "name": "A: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "B: after the title the board shows, with the new panel in the goal card area (no extra screen)",
+   "info": {
+    "screen": "board",
+    "phase": "card",
+    "rest": true
+   }
+  },
+  {
+   "name": "B: nothing over the cat's face: the panel, PLAY and the side buttons are all below the chin",
+   "info": {
+    "ch": 354.6204081632653,
+    "panel": 362.6204081632653,
+    "side": [
+     375.6204081632653,
+     471.6204081632653,
+     567.6204081632653,
+     375.6204081632653,
+     471.6204081632653
+    ]
+   }
+  },
+  "B: the top bar has no row of five big buttons any more (they are the side buttons)",
+  "B: a tap in the panel away from PLAY does not start the round",
+  "B: PLAY starts the round",
+  "B: the end card's New goal comes back to the board view's panel",
+  "B: \"? How to play\" shows the old goal card",
+  "B: from there a tap starts the round as before",
+  {
+   "name": "B: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "a \"!\" shows on a side button when something waits there (the same rules as the old paws)",
+   "info": [
+    [
+     "kitchen",
+     true
+    ],
+    [
+     "porch",
+     false
+    ],
+    [
+     "album",
+     true
+    ],
+    [
+     "shop",
+     false
+    ],
+    [
+     "board",
+     true
+    ]
+   ]
+  },
+  {
+   "name": "Developer: \"Home layout\" switch (A main screen / B board view) and a difficulty tag per board",
+   "info": null
+  },
+  {
+   "name": "switching the layout takes effect at once (main screen to board view and back)",
+   "info": {
+    "toB": "board",
+    "toA": "main"
+   }
+  },
+  {
+   "name": "difficulty tags: placeholders by opening order (Tuxedo and Orange Normal, Ragdoll and Siamese Hard, Tortie Super hard), shown with Level n",
+   "info": {
+    "tuxedo": "Normal",
+    "orange": "Normal",
+    "ragdoll": "Hard",
+    "siamese": "Hard",
+    "tortie": "Super hard"
+   }
+  },
+  "Developer off = production view: no MODES chip on the bar (the layout switch and tags are only in the Developer panel)",
+  {
+   "name": "switch and badges: no errors",
+   "info": []
+  }
+ ],
+ "failed": []
+}

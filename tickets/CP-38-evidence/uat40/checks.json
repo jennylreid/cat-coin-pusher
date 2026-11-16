@@ -1,0 +1,157 @@
+{
+ "passed": [
+  "board 1 identical to UAT 39 after 25 s of play",
+  "board 2 identical to UAT 39 after 25 s of play",
+  "board 3 identical to UAT 39 after 25 s of play",
+  {
+   "name": "control: UAT 39 still throws at the end of a Wild 2 dance break (sound on) — the freeze",
+   "info": [
+    "Failed to execute 'connect' on 'AudioNode': Overload resolution failed."
+   ]
+  },
+  {
+   "name": "UAT 40, sound on: Wild 2, imperfect — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 16,
+    "nodesCreated": 2251
+   }
+  },
+  {
+   "name": "UAT 40, sound on: Wild 2, perfect: +10 — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 18,
+    "nodesCreated": 2859
+   }
+  },
+  {
+   "name": "UAT 40, sound on: Wild 2, perfect: +15 — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 18,
+    "nodesCreated": 2993
+   }
+  },
+  {
+   "name": "UAT 40, sound on: Wild 2, perfect: RAIN 25 — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 18,
+    "nodesCreated": 2727
+   }
+  },
+  {
+   "name": "UAT 40, sound on: Wild 2, perfect: QUAKE — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 18,
+    "nodesCreated": 2789
+   }
+  },
+  {
+   "name": "UAT 40, sound on: Wild 2, perfect: +20 — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 18,
+    "nodesCreated": 3084
+   }
+  },
+  {
+   "name": "UAT 40, sound on: Wild 2, perfect: PRIZE — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 18,
+    "nodesCreated": 2740
+   }
+  },
+  {
+   "name": "UAT 40, sound on: Wild 2, perfect: YAWN — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 15,
+    "nodesCreated": 3190
+   }
+  },
+  {
+   "name": "UAT 40, sound on: Wild, perfect — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 22,
+    "nodesCreated": 2172
+   }
+  },
+  {
+   "name": "UAT 40, sound on: Wild, imperfect — the break ends, no exception, the game keeps running",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 15,
+    "nodesCreated": 2097
+   }
+  },
+  {
+   "name": "UAT 40, sound on: Wild 2 win — visitor card and its sound, no exception",
+   "info": {
+    "errs": [],
+    "visitor": true,
+    "liveNodes": 0
+   }
+  },
+  {
+   "name": "control: UAT 39 throws on the Wild 2 visitor sound",
+   "info": [
+    "Failed to execute 'connect' on 'AudioNode': Overload resolution failed."
+   ]
+  },
+  {
+   "name": "frame guard: a throwing frame does not escape, asks for the next frame and logs an error event",
+   "info": {
+    "raf": 1,
+    "ev": [
+     [
+      0,
+      "session-start",
+      null
+     ],
+     [
+      -49.35,
+      "error",
+      "test exception at update (evalmachine.<anonymous>:1:63)"
+     ]
+    ]
+   }
+  },
+  "…and the next frame runs normally"
+ ],
+ "failed": []
+}

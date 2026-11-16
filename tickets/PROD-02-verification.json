@@ -1,0 +1,15 @@
+{
+  "version": 20261013160516,
+  "approvedUATVersion": 20261012220659,
+  "previousProductionVersion": 20261012120202,
+  "apkVersion": 14,
+  "apkSHA256": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+  "uatJSONSHA256": "f677431bcbb935bda60b1d291728c0fb48a5d588c81bb1a129fbb75522fd4888",
+  "uatAPKSHA256": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78",
+  "previousProductionJSONSHA256": "f5e6c67d68d29c08f64c8a4a96d51464d90b31ff4c28773caa46494a90f6b314",
+  "productionAPKSHA256": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+  "files": 23,
+  "nonHTMLFilesExact": true,
+  "allowedAdaptations": 15,
+  "phone120fps": "pending production phone check"
+}

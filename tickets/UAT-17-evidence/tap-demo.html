@@ -1,0 +1,19 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>UAT-17 sound and dance preview</title>
+<style>body{margin:20px auto;max-width:440px;background:#150f20;color:#fff;font:16px system-ui}label{display:block;margin:12px}select,button{font:inherit;padding:8px}#stage{position:relative;width:min(100%,400px);margin:auto}video{display:block;width:100%}.paw{position:absolute;top:34%;height:17%;width:39%;background:transparent;border:2px dashed #ffda3588;border-radius:45%;cursor:pointer}.left{left:0}.right{right:0}p{padding:0 12px}#status{min-height:3em}</style>
+<h2>Tickle the paws — bigger happy dances</h2><p>Bigger movement, with Let’s Dance selected. Choose a motion, then tap either outlined paw. Every tap restarts both. The dance ends in rest; sound can continue. This is a preview, not the game.</p>
+<label>Dance <select id="dance"><option value="1">1 · Big alternating paw pumps</option><option value="2" selected>2 · Bouncy side-to-side shimmy</option><option value="3">3 · Three happy hops</option></select></label>
+<label>Sound <select id="sound"><option value="1">900 lives · first 6 seconds</option><option value="2">Mew mew · first 15 seconds</option><option value="3" selected>Let's dance · first 4 seconds</option></select></label>
+<div id="stage"><video id="clip" src="bigger-2.mp4" playsinline muted preload="auto"></video><button class="paw left" aria-label="Tickle left paw"></button><button class="paw right" aria-label="Tickle right paw"></button></div>
+<p><button id="stop">Stop / rest</button> <span id="count">0 taps</span></p><p id="status" role="status">Ready. Tap either paw.</p>
+<script>
+const clip=document.querySelector('#clip'),dance=document.querySelector('#dance'),sound=document.querySelector('#sound'),status=document.querySelector('#status');
+const audio=new Audio('sound-3.mp3');let taps=0;
+function stop(){audio.pause();audio.currentTime=0;clip.pause();clip.currentTime=0;status.textContent='Resting.';}
+function tap(){audio.pause();clip.pause();audio.currentTime=0;clip.currentTime=.35;const p=audio.play();if(p)p.catch(()=>status.textContent='Audio could not play. Tap again.');clip.play().catch(()=>{});document.querySelector('#count').textContent=(++taps)+' taps';status.textContent='Dancing; each new tap restarts sound and motion.';}
+document.querySelectorAll('.paw').forEach(p=>p.onclick=tap);
+dance.onchange=()=>{stop();clip.src='bigger-'+dance.value+'.mp4';};sound.onchange=()=>{stop();audio.src='sound-'+sound.value+'.mp3';};
+clip.onended=()=>status.textContent=audio.paused?'Resting.':'Resting; sound continues until its excerpt ends or you tap again.';
+audio.onended=()=>status.textContent='Resting. Tap either paw to replay.';
+document.querySelector('#stop').onclick=stop;
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+</script></html>

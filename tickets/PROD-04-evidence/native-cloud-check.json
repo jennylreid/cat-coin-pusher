@@ -1,0 +1,11 @@
+{
+  "runtimeFilesMatch": true,
+  "unchangedHeadReusesMetadata": true,
+  "nativeFreshDownload": true,
+  "indexSHA256": "16075b873a41323bddfd20bfb5dcb1200cd971a311e5698e164eb4e9ed0feabb",
+  "version": 20261015232124,
+  "changedEtagDownloadsPayload": true,
+  "productionDisplayNameVerified": true,
+  "uatCloudPayloadRejected": true,
+  "systemProxies": true
+}

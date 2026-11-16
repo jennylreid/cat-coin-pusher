@@ -1,0 +1,9 @@
+{
+  "source": "work/cp22/draft.html (release differs in label and feedback placement/reset only)",
+  "method": "Unmodified work/cp21/overlap.cjs; seed 42; 40 seconds per board; 0.35-second attempted taps; flat normals >=0.97; centre distance <46 and height difference <3 game units. Long = more than 10 sampled frames for the same pair.",
+  "results": [
+    {"board": 1, "pairs": 0, "pairsOver10frames": 0},
+    {"board": 2, "pairs": 0, "pairsOver10frames": 0},
+    {"board": 3, "pairs": 1, "sampleFrames": 1, "pairsOver10frames": 0, "example": {"seconds": 8.57, "horizontalDistance": 22.5, "heightDifference": 0.6}}
+  ]
+}

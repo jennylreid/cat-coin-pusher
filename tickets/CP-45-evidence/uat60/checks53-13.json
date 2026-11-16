@@ -1,0 +1,12 @@
+{
+ "passed": [
+  {
+   "name": "the sweet face has its pupils too (it used to go blank yellow), on the title as on the board",
+   "info": {
+    "calm": 2,
+    "sweet": 2
+   }
+  }
+ ],
+ "failed": []
+}

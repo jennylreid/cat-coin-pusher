@@ -1,0 +1,951 @@
+{
+ "passed": [
+  {
+   "name": "nothing overlaps on 720/889/960-high screens: in B the panel and PLAY end above the bottom readouts; PLAY, How to play and the side buttons never touch, in A or B",
+   "info": {
+    "bad": [],
+    "info": {
+     "A720": {
+      "play": [
+       531,
+       609
+      ],
+      "help": 484,
+      "readTop": 634
+     },
+     "A889": {
+      "play": [
+       700,
+       778
+      ],
+      "help": 524,
+      "readTop": 803
+     },
+     "A960": {
+      "play": [
+       771,
+       849
+      ],
+      "help": 524,
+      "readTop": 874
+     },
+     "B720": {
+      "play": [
+       534,
+       612
+      ],
+      "help": 526,
+      "readTop": 634
+     },
+     "B889": {
+      "play": [
+       701,
+       779
+      ],
+      "help": 549,
+      "readTop": 803
+     },
+     "B960": {
+      "play": [
+       772,
+       850
+      ],
+      "help": 549,
+      "readTop": 874
+     }
+    }
+   }
+  },
+  {
+   "name": "no glow or halo on any coin: the title (rain 2) and the main screen",
+   "info": {
+    "title": 0,
+    "main": 0
+   }
+  },
+  {
+   "name": "the main screen's falling coins are solid coins with their gold edge as they turn (not paper-thin discs)",
+   "info": {
+    "thick": 7
+   }
+  },
+  {
+   "name": "the pile under PLAY: 9 coins at their true proportions (round, not squashed), side by side without crowding",
+   "info": {
+    "pile": [
+     [
+      1,
+      76,
+      837,
+      54
+     ],
+     [
+      1,
+      138,
+      837,
+      54
+     ],
+     [
+      1,
+      200,
+      837,
+      54
+     ],
+     [
+      1,
+      262,
+      837,
+      54
+     ],
+     [
+      1,
+      324,
+      837,
+      54
+     ],
+     [
+      1,
+      138,
+      793,
+      54
+     ],
+     [
+      1,
+      200,
+      793,
+      54
+     ],
+     [
+      1,
+      262,
+      793,
+      54
+     ],
+     [
+      1,
+      200,
+      749,
+      54
+     ]
+    ],
+    "crowd": 0
+   }
+  },
+  {
+   "name": "the default pickup (Pop) is unchanged: every prize and coin that used it traces frame for frame the same as UAT 52",
+   "info": [
+    [
+     "cheese",
+     true
+    ],
+    [
+     "shrimp",
+     true
+    ],
+    [
+     "tuna",
+     true
+    ],
+    [
+     "duck",
+     true
+    ],
+    [
+     "bowtie",
+     true
+    ],
+    [
+     "milk",
+     true
+    ],
+    [
+     "rain5",
+     true
+    ],
+    [
+     "rain25",
+     true
+    ],
+    [
+     "note",
+     true
+    ],
+    [
+     "fish",
+     true
+    ],
+    [
+     "laser",
+     true
+    ],
+    [
+     "heart",
+     true
+    ]
+   ]
+  },
+  {
+   "name": "UAT 52 for comparison: the Quake coin went to the middle of the screen at 70% (280 px) on its own path",
+   "info": {
+    "pop": false,
+    "w": 280,
+    "peak": {
+     "x": 189.0573420273674,
+     "y": 477.06423205461414
+    }
+   }
+  },
+  {
+   "name": "the Quake coin now pops from where it fell, to the same size (120 px, 30%), with the same timings as the prizes",
+   "info": {
+    "w": 120,
+    "start": [
+     133.5071,
+     770.6891
+    ],
+    "x0": 133.50711107233224,
+    "peak": {
+     "x": 117.6804077902591,
+     "y": 570.2588110123218
+    },
+    "t": [
+     0.2,
+     0.25,
+     0.45
+    ],
+    "prize": [
+     0.2,
+     0.25,
+     0.45
+    ]
+   }
+  },
+  {
+   "name": "it still ends at the Quake button (the count goes up there)",
+   "info": {
+    "end": [
+     231,
+     75
+    ],
+    "button": {
+     "x": 231,
+     "y": 75
+    }
+   }
+  },
+  {
+   "name": "build label",
+   "info": "2026.11.14 UAT 58"
+  },
+  {
+   "name": "no pinstriped box; sounds: the ledge bell like every piece, then its own chime at the button (no thump)",
+   "info": {
+    "pb": 0,
+    "snd": [
+     "bell",
+     "special"
+    ]
+   }
+  },
+  {
+   "name": "an old saved setting (the UAT 34 box style) can no longer bring the box back",
+   "info": {
+    "pb": 0,
+    "pops": [
+     true,
+     true
+    ]
+   }
+  },
+  {
+   "name": "pieces: no errors with sound on",
+   "info": []
+  },
+  "Developer: no pickup style switch; only the Pop's own dials remain",
+  {
+   "name": "7 prizes at once behave exactly as in UAT 52: same line (start times, holds), same bells and thumps, same overlap",
+   "info": {
+    "rise": [
+     [
+      "cheese",
+      0,
+      0.25
+     ],
+     [
+      "tuna",
+      0.45,
+      0.25
+     ],
+     [
+      "sardine",
+      0.9,
+      0.125
+     ],
+     [
+      "shrimp",
+      1.225,
+      0.125
+     ],
+     [
+      "bowtie",
+      1.55,
+      0.125
+     ],
+     [
+      "duck",
+      1.875,
+      0.125
+     ],
+     [
+      "milk",
+      2.2,
+      0.125
+     ]
+    ],
+    "air": 3,
+    "sounds": 10
+   }
+  },
+  {
+   "name": "with a Quake coin in the pile it takes a normal turn (same start and hold as a prize there), so the line keeps moving",
+   "info": {
+    "withQuake": [
+     [
+      "cheese",
+      0,
+      0.25
+     ],
+     [
+      "tuna",
+      0.45,
+      0.25
+     ],
+     [
+      "quake",
+      0.9,
+      0.125
+     ],
+     [
+      "shrimp",
+      1.225,
+      0.125
+     ],
+     [
+      "bowtie",
+      1.55,
+      0.125
+     ],
+     [
+      "duck",
+      1.875,
+      0.125
+     ],
+     [
+      "milk",
+      2.2,
+      0.125
+     ]
+    ],
+    "uat52WithQuake": [
+     [
+      "cheese",
+      0,
+      0.25
+     ],
+     [
+      "tuna",
+      0.45,
+      0.25
+     ],
+     [
+      "quake",
+      0.9,
+      0.35
+     ],
+     [
+      "shrimp",
+      1.425,
+      0.125
+     ],
+     [
+      "bowtie",
+      1.75,
+      0.125
+     ],
+     [
+      "duck",
+      2.075,
+      0.125
+     ],
+     [
+      "milk",
+      2.4,
+      0.125
+     ]
+    ]
+   }
+  },
+  {
+   "name": "in the pile: 3 bells at once (each quieter), the rest silent; thumps follow; two pieces in the air at once",
+   "info": {
+    "bells": [
+     [
+      "bell",
+      0,
+      0,
+      1
+     ],
+     [
+      "bell",
+      0,
+      0.1,
+      0.7
+     ],
+     [
+      "bell",
+      0,
+      0.2,
+      0.5
+     ]
+    ],
+    "thumps": 7,
+    "air": 3
+   }
+  },
+  {
+   "name": "real rounds on all five cat boards: every prize and coin collected (the Quake coin included) uses the Pop",
+   "info": {
+    "tuxedo": "rain10,sardine,feather,biscuit,biscuit,quake,bowtie,egg,note,rain5,quake,milk",
+    "orange": "rain10,feather,sardine,milk,rain25,rain5,egg,fish,rain5,yarn,quake,sardine",
+    "ragdoll": "rain10,cushion,feather,egg,heart,biscuit,quake,biscuit,rain5,cheese,milk,sardine",
+    "siamese": "rain10,shrimp,feather,sardine,bell,laser,rain5,egg,rain5,rain5,quake",
+    "tortie": "rain10,biscuit,egg,sardine,milk,note,rain5,quake,mouse,rain10"
+   }
+  },
+  "no pinstriped box in any round",
+  {
+   "name": "rounds: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "the old boards (Developer) too: every pickup there uses the Pop",
+   "info": [
+    [
+     "shrimp",
+     1
+    ],
+    [
+     "cheese",
+     1
+    ],
+    [
+     "shrimp",
+     1
+    ],
+    [
+     "cheese",
+     1
+    ]
+   ]
+  },
+  {
+   "name": "Developer off: no \"Wild\" drawn anywhere a player looks",
+   "info": {}
+  },
+  {
+   "name": "the Tuxedo's board is TUXEDO (goal card title, board readout) and Tuxedo in the picker; the others keep their mode names",
+   "info": {
+    "titles": {
+     "tuxedo": "TUXEDO",
+     "orange": "TREAT TOSS",
+     "ragdoll": "COZY",
+     "siamese": "LASER CHASE",
+     "tortie": "TOWER WALL"
+    },
+    "pk": "Tuxedo"
+   }
+  },
+  {
+   "name": "the title fits on the goal card",
+   "info": {
+    "tw": 108.18000030517578,
+    "cw": 380
+   }
+  },
+  {
+   "name": "names: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "Dance break: every move lands on each beat of the tap clock (within one 60 fps frame, 17 ms), with sound on or off",
+   "info": {
+    "move 0 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 1 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 2 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 3 sound on": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 0 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 1 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 2 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ],
+    "move 3 sound off": [
+     -2,
+     -2,
+     -3,
+     -3,
+     -4,
+     -4,
+     -5
+    ]
+   }
+  },
+  {
+   "name": "a tap during the intro is ignored: the intro plays out (no jump to the board)",
+   "info": {
+    "screen": "title",
+    "t": 1.0000000000000013
+   }
+  },
+  {
+   "name": "after the intro it stays on the title (32 s and counting), the rain still going, until the player taps",
+   "info": {
+    "screen": "title",
+    "t": 31.999999999999464,
+    "coins": 15
+   }
+  },
+  {
+   "name": "the coins are the board coin, bigger (22-34 px radius, was 10-17); UAT 56 default rain 2 falls at up to 380 px/s",
+   "info": {
+    "rMin": 22.529012157143104,
+    "rMax": 33.14657019185514,
+    "vMax": 380
+   }
+  },
+  {
+   "name": "the coins are drawn behind the cat's face and the CatCoin title (never over them)",
+   "info": {
+    "lastCoin": 14,
+    "firstCat": 15,
+    "firstTitle": 16,
+    "n": 23
+   }
+  },
+  {
+   "name": "a tap after the intro (TAP TO PLAY) opens the Tuxedo's board on its goal (UAT 55: behind the main screen in layout A)",
+   "info": {
+    "screen": "main",
+    "on": true,
+    "phase": "card",
+    "cat": "tuxedo"
+   }
+  },
+  {
+   "name": "title: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "A: after the title the main screen shows (the board waits behind on its goal)",
+   "info": {
+    "screen": "main",
+    "phase": "card",
+    "cat": "tuxedo",
+    "ab": "A"
+   }
+  },
+  {
+   "name": "A: the side buttons are small and at the edges, clear of the cat (left Kitchen, Porch, Album; right Shop, Boards), below the top bar",
+   "info": [
+    {
+     "id": "kitchen",
+     "x": 36,
+     "y": 148,
+     "r": 25
+    },
+    {
+     "id": "porch",
+     "x": 36,
+     "y": 248,
+     "r": 25
+    },
+    {
+     "id": "album",
+     "x": 36,
+     "y": 348,
+     "r": 25
+    },
+    {
+     "id": "shop",
+     "x": 364,
+     "y": 148,
+     "r": 25
+    },
+    {
+     "id": "board",
+     "x": 364,
+     "y": 248,
+     "r": 25
+    }
+   ]
+  },
+  {
+   "name": "A: PLAY is the one big button (244 x 78, about 10 times the area of a side button)",
+   "info": {
+    "x": 78,
+    "y": 699.8889999999999,
+    "w": 244,
+    "h": 78
+   }
+  },
+  {
+   "name": "A: a locked side button (Kitchen, level 2) stays shut and says so",
+   "info": [
+    "Kitchen opens at level 2"
+   ]
+  },
+  {
+   "name": "A: Kitchen opens from its side button; back returns to the main screen",
+   "info": {
+    "k": "kitchen",
+    "back": "main"
+   }
+  },
+  {
+   "name": "A: \"? How to play\" shows the old goal card on the board",
+   "info": {
+    "screen": "board",
+    "rules": true,
+    "phase": "card"
+   }
+  },
+  {
+   "name": "A: from there a tap starts the round as before",
+   "info": "count"
+  },
+  {
+   "name": "A: after a round the end card shows on the board; its New goal comes back to the main screen",
+   "info": {
+    "end": {
+     "screen": "board",
+     "phase": "end"
+    },
+    "after": "main"
+   }
+  },
+  {
+   "name": "A: PLAY goes onto the board and starts the round (3, 2, 1)",
+   "info": {
+    "screen": "board",
+    "phase": "count"
+   }
+  },
+  {
+   "name": "A: Boards opens the picker on the main screen; picking the Orange's board stays on the main screen, now for TREAT TOSS",
+   "info": {
+    "pk": true,
+    "screen": "main",
+    "cat": "orange",
+    "name": "TREAT TOSS"
+   }
+  },
+  "A: a tap on the cat gets the sweet face, hearts and a meow",
+  {
+   "name": "A: the top bar works on the main screen (Settings opens)",
+   "info": "block"
+  },
+  {
+   "name": "A: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "B: after the title the board shows, with the new panel in the goal card area (no extra screen)",
+   "info": {
+    "screen": "board",
+    "phase": "card",
+    "rest": true
+   }
+  },
+  {
+   "name": "B: nothing over the cat's face: the panel, PLAY and the side buttons are all below the chin",
+   "info": {
+    "ch": 354.6204081632653,
+    "panel": 362.6204081632653,
+    "side": [
+     375.6204081632653,
+     471.6204081632653,
+     567.6204081632653,
+     375.6204081632653,
+     471.6204081632653
+    ]
+   }
+  },
+  "B: the top bar has no row of five big buttons any more (they are the side buttons)",
+  "B: a tap in the panel away from PLAY does not start the round",
+  "B: PLAY starts the round",
+  "B: the end card's New goal comes back to the board view's panel",
+  "B: \"? How to play\" shows the old goal card",
+  "B: from there a tap starts the round as before",
+  {
+   "name": "B: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "a \"!\" shows on a side button when something waits there (the same rules as the old paws)",
+   "info": [
+    [
+     "kitchen",
+     true
+    ],
+    [
+     "porch",
+     false
+    ],
+    [
+     "album",
+     true
+    ],
+    [
+     "shop",
+     false
+    ],
+    [
+     "board",
+     true
+    ]
+   ]
+  },
+  {
+   "name": "Developer: \"Home layout\" switch (A main screen / B board view) and a difficulty tag per board",
+   "info": null
+  },
+  {
+   "name": "switching the layout takes effect at once (main screen to board view and back)",
+   "info": {
+    "toB": "board",
+    "toA": "main"
+   }
+  },
+  {
+   "name": "difficulty tags: placeholders by opening order (Tuxedo and Orange Normal, Ragdoll and Siamese Hard, Tortie Super hard), shown with Level n",
+   "info": {
+    "tuxedo": "Normal",
+    "orange": "Normal",
+    "ragdoll": "Hard",
+    "siamese": "Hard",
+    "tortie": "Super hard"
+   }
+  },
+  "Developer off = production view: no MODES chip on the bar (the layout switch and tags are only in the Developer panel)",
+  {
+   "name": "switch and badges: no errors",
+   "info": []
+  },
+  {
+   "name": "nothing overlaps in the round HUD: Board button, Settings gear, the Dance meter and its label, on 720/889/960-high screens with status bars of 0, 24 and 48 px",
+   "info": []
+  },
+  {
+   "name": "during a round the button says \"Board\" with a back arrow (not EXIT); the meter says DANCE METER (not HAPPY CAT)",
+   "info": [
+    "DANCE METER",
+    "Board"
+   ]
+  },
+  {
+   "name": "the first time ever the meter fills, a hint shows under it (\"Prizes fill it. Full = Dance break!\"), with a pulse round the meter",
+   "info": {
+    "hint": true,
+    "happyT": 0.09999999999999999
+   }
+  },
+  "the hint goes after about 4 s",
+  "the goal card says \"Prizes fill the dance meter\"",
+  {
+   "name": "Board goes back to this board's between-rounds view (layout A: its main screen)",
+   "info": {
+    "screen": "main",
+    "phase": "card",
+    "cat": "tuxedo"
+   }
+  },
+  {
+   "name": "Board button and Dance meter: no errors with sound on",
+   "info": []
+  },
+  "the hint shows once only (not again on this phone)",
+  {
+   "name": "\"Level n\" on PLAY is the board number in sequence: 1 on a new save, +1 for each round won, not for a loss",
+   "info": {
+    "l0": 1,
+    "l1": 2,
+    "l2": 2
+   }
+  },
+  {
+   "name": "the cat head is drawn at the art's own proportions (1536 x 1024 = 1.5; was 1.75) on the title and the main screen",
+   "info": {
+    "title": [
+     1.5,
+     1.5
+    ],
+    "main": [
+     1.5,
+     1.5
+    ]
+   }
+  },
+  {
+   "name": "title coins 1: the same flat coins, about twice as fast (top speed 380 px/s, was 190)",
+   "info": {
+    "mode": 1,
+    "vmax": 380,
+    "up": 0,
+    "thick": 0,
+    "pile": 0,
+    "clinks": 0,
+    "screen": "title",
+    "errs": 0
+   }
+  },
+  {
+   "name": "title coins 2 (default): as fast, and each coin shows its gold edge as it turns",
+   "info": {
+    "mode": 2,
+    "vmax": 380,
+    "up": 0,
+    "thick": 912,
+    "pile": 0,
+    "clinks": 0,
+    "screen": "title",
+    "errs": 0
+   }
+  },
+  {
+   "name": "title coins 3: a fountain: coins burst up from the bottom and arc back down",
+   "info": {
+    "mode": 3,
+    "vmax": 1019,
+    "up": 420,
+    "thick": 913,
+    "pile": 0,
+    "clinks": 0,
+    "screen": "title",
+    "errs": 0
+   }
+  },
+  {
+   "name": "title coins 4: coins fall fast and pile up at the bottom with clinks",
+   "info": {
+    "mode": 4,
+    "vmax": 520,
+    "up": 0,
+    "thick": 666,
+    "pile": 29,
+    "clinks": 19,
+    "screen": "title",
+    "errs": 0
+   }
+  },
+  {
+   "name": "all four stay on the title until a tap, with no errors with sound on",
+   "info": {
+    "1": {
+     "mode": 1,
+     "vmax": 380,
+     "up": 0,
+     "thick": 0,
+     "pile": 0,
+     "clinks": 0,
+     "screen": "title",
+     "errs": 0
+    },
+    "2": {
+     "mode": 2,
+     "vmax": 380,
+     "up": 0,
+     "thick": 912,
+     "pile": 0,
+     "clinks": 0,
+     "screen": "title",
+     "errs": 0
+    },
+    "3": {
+     "mode": 3,
+     "vmax": 1019,
+     "up": 420,
+     "thick": 913,
+     "pile": 0,
+     "clinks": 0,
+     "screen": "title",
+     "errs": 0
+    },
+    "4": {
+     "mode": 4,
+     "vmax": 520,
+     "up": 0,
+     "thick": 666,
+     "pile": 29,
+     "clinks": 19,
+     "screen": "title",
+     "errs": 0
+    }
+   }
+  },
+  "Developer: \"Title coins\" switch (default 2), \"Show the title screen again\", \"Show the Dance meter hint again\""
+ ],
+ "failed": []
+}

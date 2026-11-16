@@ -1,0 +1,148 @@
+{
+ "build": "2026.11.12 UAT 42",
+ "passed": [
+  {
+   "name": "board 1 (Current) identical to UAT 41 after 25 s",
+   "info": {
+    "chars": 4767
+   }
+  },
+  {
+   "name": "board 2 (Current) identical to UAT 41 after 25 s",
+   "info": {
+    "chars": 4666
+   }
+  },
+  {
+   "name": "board 3 (Current) identical to UAT 41 after 25 s",
+   "info": {
+    "chars": 4782
+   }
+  },
+  {
+   "name": "board 1 (Pop) identical to UAT 41 until the board is won",
+   "info": {
+    "chars": 4767
+   }
+  },
+  {
+   "name": "board 2 (Pop) identical to UAT 41 until the board is won",
+   "info": {
+    "chars": 4666
+   }
+  },
+  {
+   "name": "board 3 (Pop) identical to UAT 41 until the board is won",
+   "info": {
+    "chars": 4782
+   }
+  },
+  "defaults: Pop, peak 30%, time at peak 0.25 s, shrink 0.45 s",
+  {
+   "name": "Pop cheese: 30% of the screen (visible art), near where it fell, tilted, on screen, then into the bag",
+   "info": {
+    "x0": 200,
+    "peakX": 184.2,
+    "up": 200.4,
+    "tilt": 7.8,
+    "w": 120
+   }
+  },
+  {
+   "name": "Pop keeps the ledge bell, landing thump and bag bounce; no striped panel",
+   "info": {
+    "snd": [
+     "bell",
+     "thump"
+    ],
+    "panel": false
+   }
+  },
+  {
+   "name": "Pop shrimp: 30% of the screen (visible art), near where it fell, tilted, on screen, then into the bag",
+   "info": {
+    "x0": 133.5,
+    "peakX": 116,
+    "up": 202.1,
+    "tilt": 14,
+    "w": 120
+   }
+  },
+  {
+   "name": "Pop tuna: 30% of the screen (visible art), near where it fell, tilted, on screen, then into the bag",
+   "info": {
+    "x0": 266.5,
+    "peakX": 253.3,
+    "up": 184.3,
+    "tilt": 10,
+    "w": 120
+   }
+  },
+  {
+   "name": "Pop rain10: 30% of the screen (visible art), near where it fell, tilted, on screen, then into the bag",
+   "info": {
+    "x0": 200,
+    "peakX": 185,
+    "up": 158.9,
+    "tilt": 14.2,
+    "w": 120
+   }
+  },
+  {
+   "name": "Pop yarn: 30% of the screen (visible art), near where it fell, tilted, on screen, then into the bag",
+   "info": {
+    "x0": 233.2,
+    "peakX": 215.1,
+    "up": 199,
+    "tilt": 8.9,
+    "w": 120
+   }
+  },
+  {
+   "name": "Quake coin keeps its own flight and panel (not Pop)",
+   "info": {
+    "td": 0.8
+   }
+  },
+  {
+   "name": "300 pops at random ledge spots: all fully on screen, each with its own offset, height and tilt",
+   "info": {
+    "off": 0,
+    "xs": 63,
+    "ys": 75,
+    "rs": 24
+   }
+  },
+  {
+   "name": "three prizes from the same spot pop at different places (at least a prize-width apart) and still take turns",
+   "info": {
+    "minDist": 125.48725442079821,
+    "w": 120,
+    "waits": [
+     0,
+     0.45,
+     0.9
+    ]
+   }
+  },
+  "Pickup style Current is UAT 41's flight, unchanged",
+  "Developer > Prize feedback: Pickup style toggle and Pop peak size 30%",
+  {
+   "name": "a phone with UAT 36-41 settings (Current, 100%) starts on the new Pop at 30% and keeps its other dials",
+   "info": [
+    1,
+    0.3,
+    0.5,
+    0.4,
+    2
+   ]
+  },
+  {
+   "name": "Pop peak changes are saved (v7) and not reset again",
+   "info": {
+    "kept": 0.35
+   }
+  }
+ ],
+ "failed": []
+}

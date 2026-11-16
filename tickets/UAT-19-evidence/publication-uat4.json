@@ -1,0 +1,10 @@
+﻿{
+    "version":  20261016144422,
+    "displayName":  "2026.10.16 UAT 4",
+    "apkVersion":  4,
+    "baselineJSONSHA256":  "c3235fc74186cc2aae74db112874c034b5696aa1742989b143595252686ab31e",
+    "stagedJSONSHA256":  "01c108843a0aaeb82ccc727aa71d9148b48ea125da5a46f086305816748f7771",
+    "backup":  "uat/backups/before-UAT-19-UAT4-20261016144422",
+    "builtOnUAT3SHA256":  "5990f4fd8feb5cd40967d6aeb9ae5cd32f526875835ec43d09a1e26cb2261907",
+    "localPublication":  "verified"
+}

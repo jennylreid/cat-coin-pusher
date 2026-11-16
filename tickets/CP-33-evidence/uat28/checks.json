@@ -1,0 +1,315 @@
+{
+ "source": "work/cp33/release.html",
+ "runtime": "real shipped script + Rapier, desktop node",
+ "passed": [
+  {
+   "name": "prize: middle, flip, then Inventory tile, board 1",
+   "prize": "cheese",
+   "start": {
+    "x": 100.3,
+    "y": 770.7
+   },
+   "middle": {
+    "x": 200,
+    "y": 462.3
+   },
+   "reachesMiddleSec": 0.3,
+   "chimeAtMiddle": true,
+   "middleSize": 1.6,
+   "flipReached": -1,
+   "burstSparkles": 8,
+   "tileCentre": {
+    "x": 200,
+    "y": 827
+   },
+   "arrivalSec": 1.4,
+   "tiltDeg": 29.1,
+   "flipTurns": 1,
+   "maxRockDeg": 9.8,
+   "rockAfterSettleDeg": 0,
+   "bouncePeak": 1.199,
+   "creditedAtPayout": true
+  },
+  {
+   "name": "prize: middle, flip, then Inventory tile, board 2",
+   "prize": "cheese",
+   "start": {
+    "x": 299.7,
+    "y": 770.7
+   },
+   "middle": {
+    "x": 200,
+    "y": 462.3
+   },
+   "reachesMiddleSec": 0.3,
+   "chimeAtMiddle": true,
+   "middleSize": 1.6,
+   "flipReached": -1,
+   "burstSparkles": 8,
+   "tileCentre": {
+    "x": 200,
+    "y": 827
+   },
+   "arrivalSec": 1.4,
+   "tiltDeg": 29.1,
+   "flipTurns": 1,
+   "maxRockDeg": 9.8,
+   "rockAfterSettleDeg": 0,
+   "bouncePeak": 1.199,
+   "creditedAtPayout": true
+  },
+  {
+   "name": "prize: middle, flip, then Inventory tile, board 3",
+   "prize": "cheese",
+   "start": {
+    "x": 200,
+    "y": 770.7
+   },
+   "middle": {
+    "x": 200,
+    "y": 462.3
+   },
+   "reachesMiddleSec": 0.3,
+   "chimeAtMiddle": true,
+   "middleSize": 1.6,
+   "flipReached": -1,
+   "burstSparkles": 8,
+   "tileCentre": {
+    "x": 200,
+    "y": 827
+   },
+   "arrivalSec": 1.4,
+   "tiltDeg": 29.1,
+   "flipTurns": 1,
+   "maxRockDeg": 9.8,
+   "rockAfterSettleDeg": 0,
+   "bouncePeak": 1.199,
+   "creditedAtPayout": true
+  },
+  {
+   "name": "hold keeps dropping through a pickup",
+   "dropsDuringOneSecond": 5,
+   "coinsUsed": 5,
+   "inputCanvasX": 120,
+   "releaseWorldX": [
+    116,
+    116,
+    116,
+    116,
+    116
+   ],
+   "holding": true
+  },
+  {
+   "name": "five prizes at once take turns in the middle",
+   "queuedSameFrame": 5,
+   "timelineSec": [
+    {
+     "reachesMiddle": 0.3,
+     "leavesMiddle": 1,
+     "landsInBag": 1.4
+    },
+    {
+     "reachesMiddle": 1.3,
+     "leavesMiddle": 2,
+     "landsInBag": 2.4
+    },
+    {
+     "reachesMiddle": 2.167,
+     "leavesMiddle": 2.517,
+     "landsInBag": 2.9
+    },
+    {
+     "reachesMiddle": 2.667,
+     "leavesMiddle": 3.017,
+     "landsInBag": 3.4
+    },
+    {
+     "reachesMiddle": 3.167,
+     "leavesMiddle": 3.517,
+     "landsInBag": 3.9
+    }
+   ],
+   "shortened": [
+    false,
+    false,
+    true,
+    true,
+    true
+   ],
+   "fullMiddleSec": {
+    "rise": 0.3,
+    "flip": 0.5,
+    "settle": 0.2
+   },
+   "shortMiddleSec": {
+    "rise": 0.15,
+    "flip": 0.25,
+    "settle": 0.1
+   },
+   "allLandedBySec": 3.9,
+   "maxSparkles": 28,
+   "sparkleCap": 32,
+   "gameTimeAdvancedSec": 4.2
+  },
+  {
+   "name": "two prizes collected together play one after the other",
+   "prizes": [
+    "cheese",
+    "shrimp"
+   ],
+   "creditedAtPayout": true,
+   "secondWaitsSec": 0.983,
+   "bothInMiddleFrames": 0,
+   "tilts": [
+    29.1,
+    25.5
+   ]
+  },
+  {
+   "name": "each pickup varies (defaults, 40 draws)",
+   "tiltDegAbs": [
+    16.7,
+    33.3
+   ],
+   "leanLeft": 21,
+   "leanRight": 19,
+   "dirNeg": 23,
+   "flipsPerSec": [
+    2,
+    5.8
+   ],
+   "turns": [
+    1,
+    2
+   ],
+   "rockDegAbs": [
+    8.5,
+    15.3
+   ]
+  },
+  {
+   "name": "Tilt, Randomness, Wobble, Settle at 0 match UAT 27",
+   "samples": 72,
+   "maxDifference": 0,
+   "flightPixelFramesIdentical": 3,
+   "comparedWith": "work/cp33/release27.html built by build-uat27.py (UAT 27 module)"
+  },
+  {
+   "name": "tap during a pickup drops a coin",
+   "usedBefore": 0,
+   "usedAfter": 1
+  },
+  {
+   "name": "clear order with the last two prizes queued, board 1",
+   "won": 0,
+   "queuedAtWin": 2,
+   "firstLanded": 1.383,
+   "landed": 2.533,
+   "clear": 2.533,
+   "rest": 4.733,
+   "next": 6.767
+  },
+  {
+   "name": "clear order with the last two prizes queued, board 2",
+   "won": 0,
+   "queuedAtWin": 2,
+   "firstLanded": 1.383,
+   "landed": 2.533,
+   "clear": 2.533,
+   "rest": 4.733,
+   "next": 6.767
+  },
+  {
+   "name": "clear order with the last two prizes queued, board 3",
+   "won": 0,
+   "queuedAtWin": 2,
+   "firstLanded": 1.383,
+   "landed": 2.533,
+   "clear": 2.533,
+   "rest": 4.733,
+   "next": 6.767
+  },
+  {
+   "name": "CP-34 Quake coin flies into the Quake button",
+   "board": 3,
+   "start": {
+    "x": 255.4,
+    "y": 770.7
+   },
+   "buttonCentre": {
+    "x": 231,
+    "y": 75
+   },
+   "landsSec": 0.8,
+   "shownCountBeforeLanding": 0,
+   "shownCountAtLanding": 1,
+   "earnedQuakesAtPayout": 1,
+   "soundAtLanding": true,
+   "textBanner": false,
+   "buttonBouncePeak": 1.199,
+   "flips": 2,
+   "dropsDuringFlight": 6,
+   "holding": true
+  },
+  {
+   "name": "lost prize: grey sink and ripple at the gutter",
+   "prize": "cheese",
+   "boardStatus": "lost",
+   "reason": "prize-lost",
+   "sinkSec": 0.3,
+   "oldGutterSpriteDrawn": false
+  },
+  {
+   "name": "developer tuning hidden when off, persists, in log",
+   "logPickupTuning": {
+    "rise": 0.3,
+    "midSize": 1.6,
+    "middle": 0.55,
+    "spin": 2.5,
+    "tilt": 30,
+    "random": 0.75,
+    "wobble": 10,
+    "settle": 0.25,
+    "toBag": 0.4,
+    "endScale": 0.5,
+    "sparkles": 9,
+    "burst": 8,
+    "bounce": 1.25,
+    "bounceTime": 0.15,
+    "quakeFlight": 0.75,
+    "sink": 0.3
+   },
+   "persistedAfterReload": {
+    "rise": 0.3,
+    "midSize": 1.6,
+    "middle": 0.55,
+    "spin": 2.5,
+    "tilt": 30,
+    "random": 0.75,
+    "wobble": 10,
+    "settle": 0.25,
+    "toBag": 0.4,
+    "endScale": 0.5,
+    "sparkles": 9,
+    "burst": 8,
+    "bounce": 1.25,
+    "bounceTime": 0.15,
+    "quakeFlight": 0.75,
+    "sink": 0.3
+   }
+  },
+  {
+   "name": "Paw, ribbon, bubble and style setting removed",
+   "searched": [
+    "pickupBlocksPlay",
+    "PICKUP_STYLES",
+    "Paw reward",
+    "Reward ribbon",
+    "Satchel bubble",
+    "pickup-style",
+    "pickup-paused"
+   ]
+  }
+ ]
+}

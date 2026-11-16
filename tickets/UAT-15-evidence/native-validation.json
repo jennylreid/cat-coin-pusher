@@ -1,0 +1,17 @@
+{
+  "nativeCandidateVersionCode": 3,
+  "nativeCandidateApplicationId": "com.jenny.catpusher.uat",
+  "jdk": 17,
+  "gradle": "8.10.2",
+  "androidCompileSdk": 35,
+  "compileDebugJavaWithJavac": "passed",
+  "lintDebug": "passed",
+  "offerPolicyCasesPassed": 10,
+  "cloudDownloadUrlConfigured": true,
+  "apkPackaged": true,
+  "published": true,
+  "deviceChecks": "pending",
+  "assembleDebug": "passed",
+  "gameVersion": 20261015211014,
+  "signingCertificateMatched": true
+}

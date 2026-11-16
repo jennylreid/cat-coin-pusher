@@ -1,0 +1,29 @@
+{
+  "unchangedSourceFunctions": [
+    "function drawPaws()",
+    "function drawRestMitt(",
+    "function drawHappyFeatures()",
+    "function drawHappyPaws()",
+    "drawTongue=function()",
+    "function __fallDisplay(",
+    "function tryDrop(",
+    "function step()",
+    "function update(",
+    "function fallOff(",
+    "function loadArt()"
+  ],
+  "all23LiveRuntimeFilesMatchPublishedUAT": true,
+  "reviewOnly": true,
+  "sideRailAudit": {
+    "samples": 12,
+    "rapidDropsAndQuake": true,
+    "visibleLayerPixels": 636820,
+    "outsidePixels": 0
+  },
+  "drawDoesNotMutatePhysicsFreshFlags": true,
+  "resetClearsVisualTrails": true,
+  "radialGradientRemovedFromTrail": true,
+  "publishedUATVersion": 20261012204534,
+  "publishedUATJSONHash": "691d9e860ebc19e5e10e9a284845174599080e65c26d680fd63a5068cea95d9d",
+  "productionJSONHash": "f5e6c67d68d29c08f64c8a4a96d51464d90b31ff4c28773caa46494a90f6b314"
+}

@@ -1,0 +1,27 @@
+{
+  "baselineUAT5": {
+    "wholeRun": {
+      "median": 13.801500000000033,
+      "p95": 21.505700000001525
+    },
+    "cascadePeriod": {
+      "median": 15.811600000000908,
+      "p95": 22.97399999999834
+    },
+    "peakBodies": 127
+  },
+  "draft": {
+    "wholeRun": {
+      "median": 12.50400000000036,
+      "p95": 22.175200000000586
+    },
+    "cascadePeriod": {
+      "median": 16.383999999998196,
+      "p95": 24.27059999999983
+    },
+    "peakBodies": 154
+  },
+  "medianRatio": 0.9059884795131203,
+  "p95Ratio": 1.031131281474168,
+  "phoneFPS": "requires device"
+}

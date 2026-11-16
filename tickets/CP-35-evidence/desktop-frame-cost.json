@@ -1,0 +1,33 @@
+{
+ "note": "Desktop node + @napi-rs/canvas CPU renderer, one process, hold-sweep drops every 0.2 s. phys = one 1/60 s physics step + update; draw = one frame. Not phone evidence; phone numbers come from her performance log.",
+ "wildRun": {
+  "win": true,
+  "reason": "",
+  "got": 7,
+  "left": 27.7
+ },
+ "wild": {
+  "phys": {
+   "avg": 12.76,
+   "p95": 25,
+   "max": 41.82
+  },
+  "draw": {
+   "avg": 19.12,
+   "p95": 31.36,
+   "max": 100.92
+  }
+ },
+ "board3UAT34": {
+  "phys": {
+   "avg": 8.23,
+   "p95": 18.92,
+   "max": 75.03
+  },
+  "draw": {
+   "avg": 14.68,
+   "p95": 24.09,
+   "max": 428.85
+  }
+ }
+}

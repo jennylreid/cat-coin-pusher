@@ -1,0 +1,12 @@
+{
+  "version": 20261016005411,
+  "displayName": "2026.10.16",
+  "backup": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\backups\\before-PROD-04-hotfix16-20261016005411",
+  "previousJSONSHA256": "c482f58f0f2ede7558081238c979f4f3da7ea4e1c6a9211877f3f30b53852ce3",
+  "previousAPKSHA256": "bcd150918daf9dfcee37564f358ffcdf4544c13091db40a57b1df5ac4d1c08c2",
+  "jsonSHA256": "8b476702dbe611dec05641e03cbc9034fe5ac17a3900062e4c3652d32df47689",
+  "apkSHA256": "2598c25d9d53bd2d144025b719cb8dfa33a2433b59bf34fc3d3256f6443c5d7f",
+  "allRequiredDEXClassesPresent": true,
+  "compileAndLint": "passed",
+  "signingCertificateMatchesAPK15": true
+}

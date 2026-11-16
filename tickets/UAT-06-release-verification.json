@@ -1,0 +1,67 @@
+{
+  "ticket": "UAT-06",
+  "version": 20261012180042,
+  "apkVersion": 2,
+  "applicationId": "com.jenny.catpusher.uat",
+  "channel": "catpusher-uat",
+  "approved": "corrected revision6",
+  "runtimeFiles": 20,
+  "artFiles": 11,
+  "waitingAsset": "img/art/head-waiting.webp",
+  "sharpGrinAsset": "img/art/head.webp",
+  "sharpGrinPreserved": true,
+  "waitingMatchesApprovedRGBA": true,
+  "faceVerification": {
+    "waitingMatchesApprovedArt": true,
+    "approvedRenderDelta": {
+      "pixels": 753,
+      "maxChannelDelta": 1
+    },
+    "preservedSharpGrinLoaded": true,
+    "headDimensions": [
+      1536,
+      1024
+    ],
+    "otherPoseComparisons": [
+      {
+        "state": "rest",
+        "renderedPixelsIdentical": true
+      },
+      {
+        "state": "impact",
+        "renderedPixelsIdentical": true
+      },
+      {
+        "state": "recovery",
+        "renderedPixelsIdentical": true
+      },
+      {
+        "state": "happy",
+        "renderedPixelsIdentical": true
+      }
+    ]
+  },
+  "APKUnchanged": true,
+  "uatAPKHash": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78",
+  "productionAPKHash": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+  "productionJSONHash": "f5e6c67d68d29c08f64c8a4a96d51464d90b31ff4c28773caa46494a90f6b314",
+  "physicsSpend": [
+    86,
+    113,
+    119,
+    127
+  ],
+  "quakeSpill": [
+    15,
+    12
+  ],
+  "otherArtPhysicsPosesTimingSoundsUnchanged": true,
+  "updateJSONSHA256": "81a7e58f92659c6accf782899c1d03c8f102c448ad67693378d71261ed97d0ab",
+  "backup": "uat/backups/before-20261012180042",
+  "report": "tickets/UAT-06.md",
+  "phoneInstallVerification": "not performed; delivery through existing OneDrive update flow",
+  "UAT07": "preview work only; not included",
+  "publishedJSONVerified": true,
+  "productionUnchangedVerified": true,
+  "backupVerified": true
+}

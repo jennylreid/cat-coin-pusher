@@ -1,0 +1,75 @@
+[
+ {
+  "board": 1,
+  "tapGap": 0.22,
+  "result": "won",
+  "coinsUsed": 103,
+  "of": 220,
+  "seconds": 22.6,
+  "collected": [
+   "shrimp",
+   "cheese"
+  ]
+ },
+ {
+  "board": 2,
+  "tapGap": 0.22,
+  "result": "won",
+  "coinsUsed": 117,
+  "of": 160,
+  "seconds": 25.6,
+  "collected": [
+   "shrimp",
+   "cheese"
+  ]
+ },
+ {
+  "board": 3,
+  "tapGap": 0.22,
+  "result": "lost",
+  "coinsUsed": 140,
+  "of": 140,
+  "seconds": 110,
+  "collected": [
+   "shrimp",
+   "tuna"
+  ]
+ },
+ {
+  "board": 1,
+  "tapGap": 0.4,
+  "result": "won",
+  "coinsUsed": 122,
+  "of": 220,
+  "seconds": 48.4,
+  "collected": [
+   "shrimp",
+   "cheese"
+  ]
+ },
+ {
+  "board": 2,
+  "tapGap": 0.4,
+  "result": "won",
+  "coinsUsed": 106,
+  "of": 160,
+  "seconds": 42.1,
+  "collected": [
+   "shrimp",
+   "cheese"
+  ]
+ },
+ {
+  "board": 3,
+  "tapGap": 0.4,
+  "result": "won",
+  "coinsUsed": 138,
+  "of": 140,
+  "seconds": 55.1,
+  "collected": [
+   "shrimp",
+   "cheese",
+   "tuna"
+  ]
+ }
+]

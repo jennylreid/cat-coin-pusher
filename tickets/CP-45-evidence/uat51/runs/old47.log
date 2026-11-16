@@ -1,0 +1,44 @@
+PASS Board 1 identical to the base after 25 s (same seed and drops)  a154a432d00dd3c4 vs a154a432d00dd3c4
+PASS Wild 2 round identical to the base after 40 s (same seed and drops)  a264a4f99309ccfe vs a264a4f99309ccfe
+PASS Treat toss mode round identical to the base after 40 s (same seed and drops)  f9ead1c519592af0 vs f9ead1c519592af0
+PASS Laser mode round identical to the base after 40 s (same seed and drops)  67b22b73cedd343e vs 67b22b73cedd343e
+PASS COZY is listed in the MODES picker  treats, laser, cozy, towers
+PASS picking COZY opens the Cozy goal card
+PASS Cozy card lines are the pet lines
+PASS Cozy features only Pet the cat (no happy meter, music-note or fish coin)
+PASS a tap on the card starts the 3-2-1
+PASS round running after GO
+PASS EXIT leaves Cozy
+PASS WILD 2 button still opens plain Wild 2 with its own card
+PASS no exceptions (sound on, strict audio)
+PASS Cozy: heart coin about once a round (4 rounds)  [{"seed":21,"hearts":1,"pets":1,"notes":9,"fish":9,"won":"won","errs":0},{"seed":22,"hearts":1,"pets":0,"notes":9,"fish":9,"won":"won","errs":0},{"seed":23,"hearts":2,"pets":0,"notes":9,"fish":9,"won":"won","errs":0},{"seed":24,"hearts":2,"pets":1,"notes":9,"fish":9,"won":"won","errs":0}]
+PASS Cozy: a heart pushed off starts Pet the cat in at least 2 of 4 auto rounds
+PASS Cozy: no exceptions in 4 rounds
+PASS Wild 2: no heart coins, no petting  notes 1 fish 0
+PASS heart coin pickup queues petting
+PASS petting starts within 1.5 s of the pickup  0.33 s
+PASS round timer paused while petting
+PASS a tap on the board during petting drops no coin (the cat glances: "pet my head!")
+PASS ear tap: ear flick + whisker twitch + sound
+PASS stroking builds the purr (1 s of stroking)  0.06 -> 0.37
+PASS purr sound live while stroking
+PASS eyes close as the purr builds (approved Happy features)
+PASS lifting briefly does not stop (0.33 s)
+PASS staying off the cat for 0.75 s stops it  "{\"kind\":\"early\",\"score\":0.17753046805648276,\"L\":0.36693591917428775,\"over\":0,\"why\":\"lift\",\"coins\":4,\"pct\":37}"
+PASS coins pour onto the board after the stop
+PASS petting ends and the purr stops
+PASS over-petting: growl warning, then a hiss and the Sharp Grin for a moment  {"kind":"hiss","score":0.12,"L":1,"over":1.2000000000000006,"why":"hiss","coins":2,"pct":100}
+PASS DONE stops at once
+PASS no exceptions (sound on, strict audio)
+PASS a win during petting waits
+PASS no dance break starts during petting
+PASS Settings open: petting clock stops, purr off
+PASS after petting the waiting win plays (round won)  end won
+PASS EXIT during petting: clean exit, purr off
+PASS no exceptions
+PASS sound off: no audio nodes made while petting  0 nodes
+PASS dials step and save  {"len":9.5,"peak":3,"grace":1.3}
+PASS dials in the performance log
+PASS dials load on the next start
+PASS Developer: Start pet the cat now and the three dials
+43 pass, 0 fail

@@ -1,0 +1,18 @@
+{
+  "version": 20261111152951,
+  "displayName": "2026.11.11 UAT 32",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "662884e23f067cc83ee191f4339220ea4f0e53cd7ae5b04c82fd8c3d4d7b3305",
+  "stagedJSONSHA256": "4a69c6b72f15ec42fbacf2e7c4c0bd739159eba095ded21c53da7630b03cc93b",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "3b8134be4c0cc8988f578dd18dd4c780bf832c83b0706ce2e475f6afc0a64058",
+  "jsonBytes": 51326026,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "backup": "uat/backups/before-CP-33-UAT32-20261111152951",
+  "authorization": "Jenny UAT 31 feedback Nov 11, relayed by PM: pop-up panel backdrop with a border of normal game, Panel padding and Quake size dials; UAT only"
+}

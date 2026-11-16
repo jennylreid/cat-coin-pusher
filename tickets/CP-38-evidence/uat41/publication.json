@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261112154501,
+    "displayName":  "2026.11.12 UAT 41",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "99227591581c607430a75e99d8848a221a57d5dd9e685c4c0e7c8cbbfa4c0d94",
+    "stagedJSONSHA256":  "d6b9200cd3f2389e4742140f78c05f87ec6d91728ef49fac3757f8c97e1abf5f",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "9b26bfc810f8c413cd0180d7c122ca0300f48a23adaa3d19bacee4ee50e26d15",
+    "jsonBytes":  51475918,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT41-20261112154501",
+    "authorization":  "UAT 41: CP-38 follow-ups on UAT 40 (goal card, kawaii pop music at the audition level, pusher beat and Turbo); PM relayed Jenny, publish now (Nov 12); UAT only",
+    "localPublication":  "verified"
+}

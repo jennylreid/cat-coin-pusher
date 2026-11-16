@@ -1,0 +1,31 @@
+{
+  "result": [
+    {
+      "variant": "baseline",
+      "activeSettingsUpdateButton": false
+    },
+    {
+      "variant": "draft",
+      "developer": false,
+      "settingsCheckCalls": 1,
+      "developerToggleWorks": true,
+      "saveCalled": true
+    },
+    {
+      "variant": "draft",
+      "developer": true,
+      "settingsCheckCalls": 1,
+      "developerToggleWorks": true,
+      "saveCalled": true
+    },
+    {
+      "variant": "draft",
+      "developer": false,
+      "settingsCheckCalls": 1,
+      "developerToggleWorks": true,
+      "saveCalled": true
+    }
+  ],
+  "entryPoint": "Actual bottom-right Settings tap",
+  "oldCheckWasInactive": true
+}

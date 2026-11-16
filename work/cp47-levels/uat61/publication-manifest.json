@@ -1,0 +1,20 @@
+{
+  "version": 20261114235955,
+  "displayName": "2026.11.14 UAT 61",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "5c195ebdfe6e74566b5b38e604a16bc3125e36dd5259683ff2b443389b861ab0",
+  "stagedJSONSHA256": "7d758989823b27e4198532a2b0254c5f55d78f8716e9e926ef6d033615b64166",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "b6552fee5c83740407adf98691526cc1c47efd435e8b9287125241fc6fd83073",
+  "jsonBytes": 51953498,
+  "runtimeFiles": 37,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.14 UAT 60",
+  "backup": "uat/backups/before-UAT61-20261114235955",
+  "evidence": "tickets/CP-47-evidence/uat61",
+  "authorization": "UAT 61: CP-47 Levels and cats (brief approved by Jenny Nov 14: 'go on cp-47'): ten fixed levels, cats as characters with their side games, prizes and powers, Mouse pounce for the Tortoiseshell, unlocks off levels, no XP; on 2026.11.14 UAT 60; UAT only"
+}

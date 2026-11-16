@@ -1,0 +1,61 @@
+{
+ "passed": [
+  {
+   "name": "nothing overlaps on 720/889/960-high screens: in B the panel and PLAY end above the bottom readouts; PLAY, How to play and the side buttons never touch, in A or B",
+   "info": {
+    "bad": [],
+    "info": {
+     "A720": {
+      "play": [
+       531,
+       609
+      ],
+      "help": 484,
+      "readTop": 634
+     },
+     "A889": {
+      "play": [
+       700,
+       778
+      ],
+      "help": 524,
+      "readTop": 803
+     },
+     "A960": {
+      "play": [
+       771,
+       849
+      ],
+      "help": 524,
+      "readTop": 874
+     },
+     "B720": {
+      "play": [
+       534,
+       612
+      ],
+      "help": 526,
+      "readTop": 634
+     },
+     "B889": {
+      "play": [
+       701,
+       779
+      ],
+      "help": 549,
+      "readTop": 803
+     },
+     "B960": {
+      "play": [
+       772,
+       850
+      ],
+      "help": 549,
+      "readTop": 874
+     }
+    }
+   }
+  }
+ ],
+ "failed": []
+}

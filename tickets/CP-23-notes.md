@@ -68,6 +68,175 @@ Status: **Built** = in the game today · **Decided** = Jenny said so · **Propos
 5. Ragdoll's power name; the Bounce coin's symbol.
 6. Giant prize: 5 or 10 failed tries.
 
+## Nov 12: Wild board playtest (UAT 35), Jenny's notes
+- **Best part:** the cat's dance at the end.
+- **Fun:** the opening board full of a variety of items.
+- **Coin rain:** a great concept, but you don't feel coins pouring onto the board. It needs to stand out more.
+- **Rain coins:** the variety of coins looks good, "almost good enough to use".
+- **New prizes** (yarn, duck, mouse, bell): they need to reach the standard of the fish, cheese and shrimp. Refine them.
+- **Missing:** "some feeling that you're collecting something that you need for some other purpose."
+- **PM read:** the board is busy, but the player makes few choices. Nothing builds anticipation, and nothing lasts after the round.
+- **Purpose idea (Jenny):** she loves a cat game where you leave food out, and different foods attract different cats. You leave the game and come back to see which cats visited. Then you take their photo and save it to your collection. The mechanic is inspiration only: our own art, cats and screens.
+- **Decided (Nov 12): the Porch.**
+  - Prizes won on the board are set out on a porch.
+  - They attract visiting cats, and different prizes bring different cats.
+  - You snap the visitors' photos into a **cat album**, which is the long-term collection.
+  - Visits happen both during play and while you're away, so they're a bonus rather than a time wall.
+  - First version: 2 porch spots and 4 visiting cats.
+- **Brainstorm (Jenny, Nov 12, not decided):**
+  - **Recipes.** Prizes are ingredients, such as tuna, carrots, cheese and salmon. Collect a recipe's ingredients, then spend coins to cook that cat's food.
+  - **Boards and cats.** The busy Wild-style boards are for general collecting. Attracting a cat may be what unlocks that cat's own board.
+  - **Dance break.** Pick one of the cat's dances and use it to interrupt a game mid-board, with its music and a timer. While the cat dances, there's something special the player can do. Keep all the dances for later use.
+    - **Decided (Nov 12), option 1:** each tap that lands on the beat banks a gold coin. When the music stops, the banked coins all rain down at once. It could sometimes bank a rain coin too.
+  - **Jenny:** "we need more payoffs, but we have to have goals in order to have payoffs."
+  - **Perfect dance → spinner (prize wheel), Nov 12.**
+    - Good slices: big prizes.
+    - Bad slice: the cat **stretches and yawns**. Its paws extend straight ahead and swipe things off the sides of the table.
+    - Needs new art: a yawn face, and paws stretched forward.
+  - **Cat's head (Nov 12):** the paws are in a good place, but the head should sit higher on the screen, or be rounder and fill more of the space above. This is a layout change, so it needs real-game screenshots to pick from.
+  - **Other UAT 37 notes:**
+    - The beat indicator is "just brilliant".
+    - Coin rain doesn't fall from high enough.
+    - Coins flicker and disappear behind other coins on a full board.
+    - Some coins disappear under the cat's chin.
+    - The pusher feels wrong (a shadow?).
+    - The dance rain's payoff is unclear.
+    - The game needs music throughout.
+    - The cat is too static.
+
+## Nov 12, UAT 40/41: "a super wild experience with the board crammed with prizes, and I liked it"
+A board packed with prizes is a hit. Keep prize density high even if the coin count is capped for speed.
+- **Cascade (Jenny, Nov 12):** "the board went crazy, prizes were falling all over the place... all the notifications were popping up at once... really kind of neat." She didn't know the cause; no log came through. Make it an intentional, rare "jackpot cascade" moment once the trigger is known (suspects: Quake on a crammed board, a Rain 25 or dance pour, turbo).
+  - **Jenny:** during a cascade, coins pile high and many prizes topple off the sides. She wants a power or button to grab something or do something about it (a rescue). (She was imagining this; it didn't actually happen.)
+  - **Decided (Nov 12):**
+    - **Paw save** for cascades: a prize glows as it tips off a side; tap it and the paw flicks it back; a few saves per round.
+    - **Claw:** later, for a still, calculated board (not a moving one).
+    - **Hug** (Ragdoll): later. Both claw and hug are wanted for other games.
+
+## Design principle (Jenny, Nov 12): feel, not just look
+Every change in the game should be felt as well as seen: through sound, rhythm and motion, so it's intuitive. Example: the pusher has a rhythmic sound, and during turbo the beat speeds up, so you know without reading. "It's a vibe, it's a feel, not just a look."
+
+## Game structure idea (Jenny, Nov 12)
+- **Game modes:** different game modes like Wild 2, each with its own goals. You visit them to collect the ingredients for the food that attracts each cat.
+- **Big payoff:** collect enough cats and there's a big payoff, such as a really special cat, or all the cats doing a big cat dance (in the spirit of the old Hamster Dance web page; our own music and art).
+- **Side games:** she wants at least 3 more side games as good as the Dance break.
+  - Order: Treat toss (CP-41, building), then Laser chase, then Pet the cat.
+  - In the final game each mode will probably be run by a different cat. For now, the Tuxedo runs them all.
+
+## Idea (Jenny, Nov 12): tower wall
+Not just single stacks: 4–5 tall coin towers side by side, with prizes perched on top. They often topple sideways, so a prize up there is hard to get. Maybe you have to win it through another mechanic (her message was cut off; candidates: the claw, Laser chase, the Quake, the wheel).
+
+## Design rule (Jenny, Nov 12): never cover the cat's face
+Wheels, cards, banners and pop-ups sit over the board, below the chin. (The win card was moved for the same reason.) Nothing sits on the face for any length of time, **including the visiting cat card**. A brief flash, like a callout passing over, is fine.
+
+## What brings Jenny back (brainstorm, Nov 12): capture all, pick later
+Everything here is inspiration, never a copy. The core genre is the coin pusher; the other concepts are borrowed ideas, built our own way.
+
+1. **Team wars.** She played one game for years because she was on a team. The team would declare war, she had to be available at a set time (a commitment), everyone played their own boards at once, then you saw who won what. Unlikely for CatCoin, but kept as a concept. It kept her engaged for 5+ years: "a small commitment, but steady." She can't remember the game's name. *Hooks: belonging, appointments, social comparison.*
+   - **Teams:** create a team, join one, or request to join. Jenny doesn't want to troubleshoot the server side herself; Claude could probably handle it.
+   - **Needs:** a way to join a team with strangers, since many players won't have friends playing, and a team chat or at least a message board. *Cost note: this needs a server, accounts and moderation, a big step up from today's offline game.*
+2. **Weekly event with set goals** (example: Family Island). You get a week to reach a set of goals. When the week ends, it stops whether or not you finished, resets, and gives you a different board to play. *Hooks: deadline urgency, fresh content every week, a clean restart.* *Fit: a weekly Wild-style event board with its own prize list could suit CatCoin, and it needs no server beyond the update file.*
+3. **Real prizes you take out of the game.** The only one that worked for Jenny: winning screens you could download and use as phone wallpaper. *Hooks: a reward with value outside the game.* *Fit: strong. Cat album photos or finished collections could unlock a wallpaper of that cat to save to the phone.*
+   - **Jenny:** it has to be really nice artwork, not game-themed. Wallpaper you'd actually want. The game: **Neko Atsume: Kitty Collector**, the same game as the food-attracts-cats idea behind the Porch. So both the Porch and wallpapers come from one game she loved. Inspiration only: CatCoin's porch, cats and art must be our own, not a copy of its yard, cats or look.
+
 ## What Jenny enjoys and dislikes (reference)
 - Enjoys: collecting (rubies; Family Island's shovels, picks and keys); keys and chests; small side games; the moment a collection fills in; looking at her inventory; solving a hard board and seeing something new.
 - Doesn't care for: browsing finished collections, storylines, card collections with weak payoffs, games that wall you off by time, constant ads (Coin Dozer, Family Island).
+
+## Nov 13: concept page reviewed; gameplay plan brainstorm (Jenny, raw)
+- Concept page reviewed: "you caught the right vibe". All 4 new side games liked; refine them later. First: the whole gameplay plan, i.e. how the pieces fit.
+- Side games "add layers to the main game board, which desperately needed more layers."
+- Need many avenues to payoffs and goals. Serve quick-play players AND long-haul players who keep discovering things (Family Island: a year before she knew the goals).
+- Cats can't visit the main board: give visits their own screen (a side game with different screens).
+- Board goals, open: always 7 prizes? Do the prizes change? Do goals change per board?
+- Prize economy idea (not married to it): trade extra prizes for coins; some food ingredients only buyable with coins; prizes have hidden value: place them on a collection board; completing it unlocks new cats visiting.
+- Control: Family Island gives little real control and she doesn't love that. Skill should matter.
+- Winning: a way to say "you won", or mastery (clearing side games expertly) earns wild "gorge" boards: collect everything, all payoff.
+
+## Nov 13 (cont.): chain, gorge boards, roles
+- Feel rule applies to EVERY screen (kitchen, porch, album, shop): action, sound, tactile, intuitive.
+- Chain: unlock a recipe -> make the cat food -> attract the cat -> (open: must you attract a cat before you can play its board?) -> each cat's board has things you can't get on Tuxedo's board -> and so on.
+- Expert players who've won everything: really wild boards that go crazy with payoffs, just for fun.
+- Occasional easy "lucky" board where the hard-to-get thing (like Family Island's rubies) suddenly comes in bulk.
+- Roles worry: early on the game needed her heavy involvement; now the base board is a template the team can fill. She wants to steer without overstepping and keep leveraging our ideas.
+- Dropped: the "sealed notion" idea (confusing).
+
+## Nov 13 (cont.): levels, spotting cats, board unlock coin
+- Levels: reaching a level lets you switch between cat boards.
+- Order: make the recipe -> food attracts the cat -> messages say it visited -> but you must SEE it yourself: the cat is only there for a while (player isn't told how long), so players come back to check. Tap a camera button to take an in-game photo; it goes onto the cat collection board (or is added automatically).
+- Cat board unlock: once spotted, the player can win that cat's coin; collecting it opens that cat's board, which you can then switch to, and it has the cat's special power.
+- Old cat powers recalled for her (from the Oct notes): Formal inspection (Tuxedo), Zoomies + Wild tongue (Orange), Hug (Ragdoll), Sonic meow (Siamese), Tortitude (Tortoiseshell).
+- Jenny: "I don't think the tuxedo is all that perfect." (Not reopened yet; candidate art ticket.) Not every cat should do Quake or the Yawn (paws swipe things off the sides). PM: the shared template = position, size, layout; each cat gets its own moves and poses to fit its personality.
+- DECIDED (Jenny, Nov 13): Quake is a coin anyone can win; each cat gets its own moves and poses; the Tuxedo touch-up is a later art ticket.
+- DECIDED (Jenny, Nov 13): placeholder recoloured cats for the prototype; real art later, one cat per ticket, Orange first.
+- Later art tickets (not yet on the board): Tuxedo touch-up; Orange cat art (first new cat); Porch visiting-cat template.
+
+## Nov 13 (cont.): after reading the gameplay map (raw, "more to come")
+- Free-play board idea (not committed): an endless board, no goal; to get a feel, kill time when blocked elsewhere, maybe practise the side games. Rare bulk of something valuable there is good for hardcore players.
+- Missing a visiting cat is GOOD: you must gather ingredients and cook again.
+- Recipes: maybe used up when cooked; memorise it or win it again (coin or prize). Never duplicate copies: one copy of a recipe at a time.
+- Caps on every item count: in testing she collected endless cheese with nothing to do with it. Cap growth of every item.
+- The 2011 team game was Clash of Clans (FYI).
+- Gorge boards: anything can be gorged, but leave a takeaway that helps on other boards (extra Quake, a special power, a special coin).
+- Confusion check: Quake (shake), Yawn (push off the sides), Bounce (every coin hops; decided, not built yet).
+- Cat dance: the Dancing pose has 4 moves; she wants ONE move per dance (not mixed), a different one each time. Build change.
+- DECIDED (Jenny, Nov 13): all 7 map questions as PM picked: win = all cats photographed + boards opened; visit window 20 min-2 h (UAT dial); switching at level 5; rare treasure = Catnip; 1-3 stars; Boards 1-3 retire; no real money for now.
+- More cats: board cats (5) + many Porch-only visitor cats; all join the big dance (PM proposal in GAMEPLAY_MAP 11). Jenny: 'we can start with what we have.' Wants prototyping next.
+- DECIDED (Jenny, Nov 14): always start on the coin board: title screen 'CatCoin' -> Tuxedo coin board; all gameplay linked off the coin board (no Home screen).
+- DECIDED (Jenny, Nov 14): with Developer off, UAT must look exactly like production would: MODES button, debug readouts and test controls only when Developer is on.
+- Jenny (Nov 14): likes UAT 49's floating cat head (Home); keep it, use it elsewhere, not on the landing screen. Placement open.
+- Floating cat head: top of Kitchen, Porch, Album, Shop, reacting to events (Jenny OK'd PM pick, Nov 14).
+- DECIDED (Jenny, Nov 14, UAT 52): every prize uses the new code-drawn prizes' pickup (pops up where it is, sparkle, jumps off screen); replaces CP-33's Pop pickup (kept under a Developer switch). Prize art stays frozen.
+- Update (Jenny): same effect for all old pieces incl. Quake and special coins (whatever the new prizes and new coins do); old 30% Pop pickup removed entirely, no switch.
+- DECIDED (Jenny, Nov 14): drop the name 'Wild'/'Wild 2' from player view; Wild 2 is the accepted baseline. PM pick: it's called 'Tuxedo's board'.
+
+## Nov 14: gameplay map "not really working" (Jenny, after UAT 52)
+- Good components, but very few feel good. Unsure whether to refine screens (Kitchen pot etc.) or fix the flow; she's not enjoying the flow.
+- On the Tuxedo board: "I have no idea what I'm supposed to be doing. I can't really tell what's going on."
+- The Kitchen: you're prompted there, or end up there, before you know what you need it for.
+- "There need to be clear goals, and then the player, as they play, will start to figure out how to achieve those goals."
+- "It all needs to be pretty intuitive, but it can't be super easy... so easy it's boring."
+- "It can't be like coloring in a coloring book. It needs to challenge someone's puzzle solving skills."
+- First screen should say "Level 1"; Tuxedo is the default board; opening other boards is an achievement.
+- Questions attracting so few cats to open boards: attracting cats should be its own goal with far more cats; maybe not only cats.
+- Asks: is wallpaper the only real prize? Any player fear about being prompted to download a wallpaper?
+- Jenny (Nov 14): old pieces (Quake etc.) still show a pinstriped box and centre on screen when collected. Remove all their special collection effects; same path as the new pieces, from where they fell. Gameplay effects (Quake shake) stay.
+- Jenny (Nov 14): boards are numbered in sequence (Board 1, 2, 3...). Each board has a goal (e.g. collect all 6 prizes); replay until you pass it, then the next board opens.
+- Jenny (Nov 14): Dance break: the cat's dance moves land on the same beat you tap, a visual cue even with sound off.
+- Jenny (Nov 14): the new default pickup is great when lots of prizes drop at once: super active, lots of sounds and visuals, very satisfying. Keep that multi-drop behaviour.
+- Jenny (Nov 14), Pixel Flow inspiration: intro screen -> a main screen with many entries but one main PLAY, the level number and its difficulty shown right there ("extra hard"). Seeing "extra hard" after days stuck explains it; she always gets past eventually by learning the board. Might be better than entering straight onto the coin board (reverses section 12?).
+- Worry: coin pushing is imprecise, so skill-based hard levels may not work and we may need Family Island-style controlled flow, which she'd love to avoid. Asked PM's view.
+- DECIDED direction (Jenny, Nov 14): precision side games earn the powers that help win the board (Quake, Paw grab/save, claw later), making up for the imprecise push. She uses Quake a lot to clear a board but only has it when she wins one.
+- DECIDED (Jenny, Nov 14): Quake uses the same Pop as everything else but flies to the Quake button with its chime.
+- Jenny (Nov 14): loves the title intro; title screen stays open until the player taps to play (no auto-advance). Coin rain there: larger, slower, more prominent.
+- Jenny (Nov 14): approves the board messages (e.g. the recipe message for Tuna dish): keep them. Unclear that EXIT leads to where you cook the dish. Wants a useful/informative message for Quake too.
+- Jenny (Nov 14): likes that there's so much going on it takes a while to absorb everything (supports rule 5, busy is good).
+- Pixel Flow main screen reference saved: Screenshots/ref-pixelflow-main-2026-11-14.webp (private; never commit).
+- DECIDED (Jenny, Nov 14): A/B test: (A) main screen built around cat + coins with a clear hierarchy vs (B) the same hierarchy on the coin board between rounds; Developer switch. 'CatCoin needs to have a cat and coins right away.' Equal-weight buttons were the problem with UAT 49 Home, not the menu itself. Brief: tickets/CP-45-ab-brief.md (UAT 55).
+- DECIDED (Jenny, Nov 14): design rules 8-12 added. Level = the board number in sequence (passed by meeting its goal; unlocks hang off it); cooking and cats have their own progress; no XP levels. EXIT -> "Board"; fix EXIT/Happy Cat overlap; Happy Cat -> "Dance meter" with an explainer.
+- Jenny (Nov 14): title fly-in and cat wobble = keep. Coins float/look flat: 4 variants in UAT 55. Cat head looks squished (too long and narrow): checking for code stretch; else art topic for later.
+- CP-46 (Jenny, Nov 14): no new music (current stays); all new coin sound sets approved; pusher: none of the 5; wants a constant soft whoosh per stroke, loud enough to set the board's beat, NO drum beats or ratchet. Round 2: whoosh-only options.
+- Jenny (Nov 14, UAT 57): cat head reads as a wide, short oval; she wants it rounder (circle). Pupils sometimes vanish (not a blink): asked engineer. Main screen coins: bad glow/halos, disfigured cramped pile, paper-thin spinning discs: fix in UAT 58.
+- Jenny (Nov 14): PLAY screen (layout A) concept is close to target: side buttons Kitchen/Porch/Album/Shop/Boards, board name + Level + tag, goal, How to play, PLAY. Fix: PLAY sits too low under an empty gap with crammed coins below.
+- DECIDED (Jenny, Nov 14): levels = boards in sequence (fixed layouts + goals); cats = who you play as, bringing their side game, power and prizes to any level. Switch cats to use a stored power or to collect a cat's prizes for a recipe: a slow-to-discover puzzle. Powers collected like Quake. Draft brief: tickets/CP-47-brief.md (for her review).
+- Jenny (Nov 14): a cat's prizes are never preset on a level; they only fall during play, while you play that cat.
+- Jenny (Nov 14): levels don't get steadily harder: a mix of easy, hard and really hard (stuck for days), like the Pixel Flow example. No XP concept.
+- Jenny (Nov 14): no player level; boards have levels; things should build higher to a cap, e.g. recipes upgrade (tuna salad -> tuna casserole -> tuna melt). Not in CP-47.
+- CP-46 (Jenny, Nov 14): pusher = w5 warm whoosh; with all new coin sets, building as UAT 59 after UAT 58.
+- DECIDED (Jenny, Nov 14): A/B winner = layout A (PLAY screen). B and its switch removed in CP-47's build.
+- Jenny (Nov 14, UAT 60): music masks the sound effects (since the music change). Phantom coin-drop sound when no coin is dropped: frustrating; every sound must match an action on the board. CP-46 investigating.
+- Jenny (Nov 14): loves the ledge bell but it's too loud now: lower its volume only (explicit exception to the frozen pickup; sound and timing unchanged). Goes in the post-CP-47 mix fix with: pusher loud and steady, original coin sounds heard on every coin, music lower and ducking.
+- Jenny (Nov 14): coin pile sounds are the best sound in the game. Every sound must match something that actually happens (very important). Idea: more towers spilling.
+
+## Nov 15: after sign-off pass 1 (Jenny)
+- Sound mix: think casino sounds.
+- Ideas: a merge game; a side game where you earn coins.
+- Side games need a payoff that helps progress in the main game, to keep interest.
+- Boards must vary enough to keep interest (Pixel Flow: lots of different artwork, fun to pull apart).
+- Family Island lesson: lots of tiny goals (collect the right ingredients to upgrade a building; build to explore the island), small payoffs all along the way; kept her playing well past its best-by date.
+- The merge (Kitchen) must be super cute. Kitchen, Porch, Album, Shop: "it's all about the artwork at this point".
+- One kind of coin only (no separate jar currency).
+- Ongoing board: clear a level and the next one is set up in front of you, like bowling pins resetting.
+- Each new board an interesting configuration; some with smaller coins and many more rows/columns and towers.
+- Towers in different colours making patterns, fun to watch fall apart; a goal like "collect all the red coins".
+- DECIDED (Jenny, Nov 15): Yawn = wheel slice only, not a power. Tuxedo's power = Formal inspection. Wheel for every cat: discuss later.

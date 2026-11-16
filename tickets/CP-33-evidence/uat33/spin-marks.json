@@ -1,0 +1,48 @@
+{
+ "render": "desktop @napi-rs/canvas, 400x889 CSS at DPR 1.35, real runtime, real payout on Board 1, defaults",
+ "prize": "cheese",
+ "marks": [
+  {
+   "frame": "spin-1-spin-in.png",
+   "sec": 0.1,
+   "flip": -0.659,
+   "turnDeg": -4.8,
+   "widthOfScreen": 0.562
+  },
+  {
+   "frame": "spin-2-spin-in.png",
+   "sec": 0.183,
+   "flip": 0.779,
+   "turnDeg": -6.7,
+   "widthOfScreen": 0.682
+  },
+  {
+   "frame": "spin-3-spin-in.png",
+   "sec": 0.267,
+   "flip": 0.996,
+   "turnDeg": -7.4,
+   "widthOfScreen": 0.706
+  },
+  {
+   "frame": "spin-4-rest.png",
+   "sec": 0.65,
+   "flip": 1,
+   "turnDeg": -7.5,
+   "widthOfScreen": 0.7
+  },
+  {
+   "frame": "spin-5-spin-out.png",
+   "sec": 1.133,
+   "flip": 0.922,
+   "turnDeg": -7,
+   "widthOfScreen": 0.264
+  },
+  {
+   "frame": "spin-6-spin-out.png",
+   "sec": 1.2,
+   "flip": -0.679,
+   "turnDeg": -4.7,
+   "widthOfScreen": 0.139
+  }
+ ]
+}

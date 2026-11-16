@@ -1,0 +1,50 @@
+{
+ "passed": [
+  {
+   "name": "a tap during the intro is ignored: the intro plays out (no jump to the board)",
+   "info": {
+    "screen": "title",
+    "t": 1.0000000000000013
+   }
+  },
+  {
+   "name": "after the intro it stays on the title (32 s and counting), the rain still going, until the player taps",
+   "info": {
+    "screen": "title",
+    "t": 31.999999999999464,
+    "coins": 18
+   }
+  },
+  {
+   "name": "the coins are the board coin, bigger (22-34 px radius, was 10-17) and slower (at most 190 px/s, was 170-330 and speeding up)",
+   "info": {
+    "rMin": 22.131820520508867,
+    "rMax": 32.78258239178227,
+    "vMax": 190
+   }
+  },
+  {
+   "name": "the coins are drawn behind the cat's face and the CatCoin title (never over them)",
+   "info": {
+    "lastCoin": 17,
+    "firstCat": 18,
+    "firstTitle": 19,
+    "n": 26
+   }
+  },
+  {
+   "name": "a tap after the intro (TAP TO PLAY) opens the Tuxedo's board on its goal (UAT 55: behind the main screen in layout A)",
+   "info": {
+    "screen": "main",
+    "on": true,
+    "phase": "card",
+    "cat": "tuxedo"
+   }
+  },
+  {
+   "name": "title: no errors with sound on",
+   "info": []
+  }
+ ],
+ "failed": []
+}

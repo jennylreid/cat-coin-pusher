@@ -1,0 +1,116 @@
+{
+ "board": "wild",
+ "seed": 5,
+ "src": "fixed2.html",
+ "frames": 480,
+ "coinFrames": 104684,
+ "flickerEvents": 11,
+ "stillAbaEvents": 8,
+ "stillAbaPx": 42270,
+ "maskToggles": 532,
+ "abaEvents": 1,
+ "abaPerSecond": 0.13,
+ "abaPx": 218788,
+ "abaExamples": [
+  {
+   "frame": 59,
+   "pair": "107:109",
+   "px": 1499,
+   "still": false
+  }
+ ],
+ "perSecond": 1.38,
+ "examples": [
+  {
+   "frame": 38,
+   "uid": 104,
+   "base": 384,
+   "dip": 90,
+   "back": 627,
+   "z": 593.6,
+   "h": 49.2
+  },
+  {
+   "frame": 80,
+   "uid": 80,
+   "base": 143,
+   "dip": 91,
+   "back": 143,
+   "z": 633.2,
+   "h": 4
+  },
+  {
+   "frame": 82,
+   "uid": 142,
+   "base": 122,
+   "dip": 68,
+   "back": 108,
+   "z": 400.5,
+   "h": 10.6
+  },
+  {
+   "frame": 97,
+   "uid": 81,
+   "base": 275,
+   "dip": 167,
+   "back": 253,
+   "z": 647.7,
+   "h": 4
+  },
+  {
+   "frame": 278,
+   "uid": 274,
+   "base": 206,
+   "dip": 23,
+   "back": 589,
+   "z": 328.8,
+   "h": 36.5
+  },
+  {
+   "frame": 280,
+   "uid": 219,
+   "base": 191,
+   "dip": 73,
+   "back": 402,
+   "z": 353.6,
+   "h": 24.3
+  },
+  {
+   "frame": 281,
+   "uid": 216,
+   "base": 130,
+   "dip": 38,
+   "back": 116,
+   "z": 404.2,
+   "h": 28.1
+  },
+  {
+   "frame": 281,
+   "uid": 239,
+   "base": 226,
+   "dip": 21,
+   "back": 764,
+   "z": 400.8,
+   "h": 36.3
+  },
+  {
+   "frame": 328,
+   "uid": 170,
+   "base": 125,
+   "dip": 62,
+   "back": 119,
+   "z": 381.5,
+   "h": 4
+  },
+  {
+   "frame": 334,
+   "uid": 170,
+   "base": 120,
+   "dip": 66,
+   "back": 107,
+   "z": 381.7,
+   "h": 4
+  }
+ ],
+ "bodies": 236
+}

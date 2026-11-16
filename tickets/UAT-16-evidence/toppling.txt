@@ -1,0 +1,11 @@
+topple 4.78 11
+topple 7.52 12
+topple 14.57 14
+[
+  { n: 6, moved: 229.03056148144424, tipping: true },
+  { n: 6, moved: 184.8738699317413, tipping: true },
+  { n: 6, moved: 154.51408438639248, tipping: true },
+  { n: 6, moved: 195.88239878449923, tipping: true },
+  { n: 7, moved: 177.82817777148202, tipping: true },
+  { n: 7, moved: 147.45899100623578, tipping: true }
+]

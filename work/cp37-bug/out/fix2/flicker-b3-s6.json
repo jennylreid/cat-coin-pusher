@@ -1,0 +1,35 @@
+{
+ "board": "b3",
+ "seed": 6,
+ "src": "fixed2.html",
+ "frames": 480,
+ "coinFrames": 90058,
+ "flickerEvents": 1,
+ "stillAbaEvents": 1,
+ "stillAbaPx": 57096,
+ "maskToggles": 279,
+ "abaEvents": 1,
+ "abaPerSecond": 0.13,
+ "abaPx": 206651,
+ "abaExamples": [
+  {
+   "frame": 82,
+   "pair": "201:192",
+   "px": 798,
+   "still": true
+  }
+ ],
+ "perSecond": 0.13,
+ "examples": [
+  {
+   "frame": 82,
+   "uid": 201,
+   "base": 988,
+   "dip": 162,
+   "back": 992,
+   "z": 439.6,
+   "h": 19.9
+  }
+ ],
+ "bodies": 201
+}

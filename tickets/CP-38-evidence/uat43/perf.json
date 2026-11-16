@@ -1,0 +1,32 @@
+{
+ "frames": {
+  "uat42": {
+   "physicsMsPerFrame": {
+    "avg": 70.2,
+    "p95": 128.7,
+    "max": 185.3
+   },
+   "bodies": {
+    "avg": 162,
+    "max": 227
+   },
+   "plainCoinsEnd": 212,
+   "gold5": 0,
+   "frames": 720
+  },
+  "uat43": {
+   "physicsMsPerFrame": {
+    "avg": 49.4,
+    "p95": 74.2,
+    "max": 110.9
+   },
+   "bodies": {
+    "avg": 132,
+    "max": 160
+   },
+   "plainCoinsEnd": 131,
+   "gold5": 18,
+   "frames": 720
+  }
+ }
+}

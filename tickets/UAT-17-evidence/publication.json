@@ -1,0 +1,9 @@
+{
+  "version": 20261016020438,
+  "displayName": "2026.10.16 UAT 1",
+  "apkVersion": 4,
+  "baselineJSONSHA256": "5e41a6ed012ff75d2977dbfaddabe69500353e9b211787426ac93058721d4915",
+  "publishedJSONSHA256": "bac0e8a1ed84d60b4ad61f65f9acb34851952f182a486897882e7b21a0ca66f9",
+  "backup": "uat/backups/before-UAT-17-20261016020438",
+  "localPublication": "verified"
+}

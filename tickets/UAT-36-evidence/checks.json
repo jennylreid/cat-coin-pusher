@@ -1,0 +1,359 @@
+{
+ "build": "2026.11.12 UAT 36",
+ "passed": [
+  {
+   "name": "board 1 (Pickup style Current) identical to UAT 35 after 25 s of play",
+   "info": {
+    "chars": 4196
+   }
+  },
+  {
+   "name": "board 2 (Pickup style Current) identical to UAT 35 after 25 s of play",
+   "info": {
+    "chars": 2355
+   }
+  },
+  {
+   "name": "board 3 (Pickup style Current) identical to UAT 35 after 25 s of play",
+   "info": {
+    "chars": 4099
+   }
+  },
+  {
+   "name": "board 1 (Pop) identical to UAT 35 until the board is won",
+   "info": {
+    "chars": 4196
+   }
+  },
+  {
+   "name": "board 2 (Pop) identical to UAT 35 until the board is won",
+   "info": {
+    "chars": 3481
+   }
+  },
+  {
+   "name": "board 3 (Pop) identical to UAT 35 until the board is won",
+   "info": {
+    "chars": 4099
+   }
+  },
+  "WILD button enters the Wild board and shows the goal card",
+  {
+   "name": "Wild bank is separate from the purse",
+   "info": {
+    "wildCoins": 110,
+    "purse": 137
+   }
+  },
+  "board shows rain coins, 7 prizes, a Quake coin and 2 towers",
+  "taps on the board do not drop coins while the goal card is up",
+  "GO starts a 3-2-1 countdown",
+  {
+   "name": "after the countdown the board is playing with 60 s on the timer",
+   "info": {
+    "left": 59.81666666666668
+   }
+  },
+  "normal save is not written during the Wild round",
+  {
+   "name": "timer counts down in play",
+   "info": {
+    "left": 39.82
+   }
+  },
+  {
+   "name": "bonus drops arrive (first at 5 s, then every 6-9 s)",
+   "info": {
+    "bonus": 3
+   }
+  },
+  {
+   "name": "rain coin gets the pickup moment, then 10 coins rain in",
+   "info": {
+    "rained": 10,
+    "startedAfterSec": 0.35
+   }
+  },
+  {
+   "name": "a collection prize off the front is ticked off and plays the pickup",
+   "info": {
+    "got": 2,
+    "have": [
+     "mouse",
+     "tuna"
+    ]
+   }
+  },
+  {
+   "name": "a repeat of a collected prize does not count twice and pays 5 coins",
+   "info": {
+    "got": 2
+   }
+  },
+  {
+   "name": "a needed prize lost off the board comes back by bonus drop within 2 s",
+   "info": {
+    "prize": "cheese",
+    "afterSec": 2.02
+   }
+  },
+  "Wild prizes do not change the inventory",
+  "Turbo pusher starts at 0:25 and keeps the pusher in place",
+  "Turbo ends after 8 s",
+  "time running out ends the round: Time's up",
+  "no drops after the end",
+  "Play again restarts the Wild board with a countdown and a full bank",
+  {
+   "name": "empty bank and nothing paying out for 6 s ends the round: Out of coins",
+   "info": {
+    "afterSec": 6
+   }
+  },
+  "Play again after Out of coins restarts with a full bank",
+  "the last prize of the collection wins: win screen and the cat dances",
+  {
+   "name": "end card sits below the cat (top at 446, lowest dancing claw ~432) with Play again and Back inside it",
+   "info": {
+    "card": {
+     "x": 30,
+     "y": 446,
+     "w": 340,
+     "h": 262
+    }
+   }
+  },
+  {
+   "name": "Back to the game restores the normal board, purse and save",
+   "info": {
+    "coins": 139,
+    "board": "twin-towers"
+   }
+  },
+  "PUSH_PERIOD back to normal after exit",
+  {
+   "name": "EXIT mid-round goes straight back to the normal board",
+   "info": {
+    "coins": 140
+   }
+  },
+  "reopening after closing mid-round loads the normal board and purse",
+  {
+   "name": "Wild sounds play with sound on, are silent with sound off or Pickup volume 0",
+   "info": {
+    "on": 125,
+    "muted": 0,
+    "vol0": 0
+   }
+  },
+  "Pickup style defaults to Pop with Pop peak 100%, time at peak 0.25 s, shrink 0.45 s",
+  {
+   "name": "Pop cheese: rises in 0.2 s, visible art fills the screen width at the peak, holds, shrinks and spins into the bag",
+   "info": {
+    "pop": true,
+    "tr": 0.2,
+    "tm": 0.25,
+    "td": 0.45,
+    "peakW": 399.99999999999994,
+    "peakX": 200,
+    "earlyFrac": 0.9601235423392375,
+    "midRot": 2.199114857512857,
+    "midS": 0.2135809954683273,
+    "endAtBag": 0,
+    "endS": 0.554107407730565,
+    "es": 0.5541074077305645,
+    "snd": [
+     "bell",
+     "thump"
+    ],
+    "bounced": true
+   }
+  },
+  {
+   "name": "Pop keeps the ledge bell, landing thump and bag bounce",
+   "info": {
+    "sounds": [
+     "bell",
+     "thump"
+    ]
+   }
+  },
+  {
+   "name": "Pop shrimp: rises in 0.2 s, visible art fills the screen width at the peak, holds, shrinks and spins into the bag",
+   "info": {
+    "pop": true,
+    "tr": 0.2,
+    "tm": 0.25,
+    "td": 0.45,
+    "peakW": 399.99999999999994,
+    "peakX": 200,
+    "earlyFrac": 0.9596115470944945,
+    "midRot": 2.199114857512857,
+    "midS": 0.20910103707682573,
+    "endAtBag": 0,
+    "endS": 0.554107407730565,
+    "es": 0.5541074077305645,
+    "snd": [
+     "bell",
+     "thump"
+    ],
+    "bounced": true
+   }
+  },
+  {
+   "name": "Pop tuna: rises in 0.2 s, visible art fills the screen width at the peak, holds, shrinks and spins into the bag",
+   "info": {
+    "pop": true,
+    "tr": 0.2,
+    "tm": 0.25,
+    "td": 0.45,
+    "peakW": 400,
+    "peakX": 200,
+    "earlyFrac": 0.964655032719658,
+    "midRot": 2.199114857512857,
+    "midS": 0.2532315362970071,
+    "endAtBag": 0,
+    "endS": 0.5541074077305645,
+    "es": 0.5541074077305645,
+    "snd": [
+     "bell",
+     "thump"
+    ],
+    "bounced": true
+   }
+  },
+  {
+   "name": "Pop rain5: rises in 0.2 s, visible art fills the screen width at the peak, holds, shrinks and spins into the bag",
+   "info": {
+    "pop": true,
+    "tr": 0.2,
+    "tm": 0.25,
+    "td": 0.45,
+    "peakW": 400,
+    "peakX": 200,
+    "earlyFrac": 0.9610544427842248,
+    "midRot": 2.199114857512857,
+    "midS": 0.2217263743619665,
+    "endAtBag": 0,
+    "endS": 0.5541074077305641,
+    "es": 0.5541074077305645,
+    "snd": [
+     "bell",
+     "thump"
+    ],
+    "bounced": true
+   }
+  },
+  {
+   "name": "Pop rain10: rises in 0.2 s, visible art fills the screen width at the peak, holds, shrinks and spins into the bag",
+   "info": {
+    "pop": true,
+    "tr": 0.2,
+    "tm": 0.25,
+    "td": 0.45,
+    "peakW": 400,
+    "peakX": 200,
+    "earlyFrac": 0.9610544427842248,
+    "midRot": 2.199114857512857,
+    "midS": 0.2217263743619665,
+    "endAtBag": 0,
+    "endS": 0.5541074077305641,
+    "es": 0.5541074077305645,
+    "snd": [
+     "bell",
+     "thump"
+    ],
+    "bounced": true
+   }
+  },
+  {
+   "name": "Pop rain25: rises in 0.2 s, visible art fills the screen width at the peak, holds, shrinks and spins into the bag",
+   "info": {
+    "pop": true,
+    "tr": 0.2,
+    "tm": 0.25,
+    "td": 0.45,
+    "peakW": 400,
+    "peakX": 200,
+    "earlyFrac": 0.9610544427842248,
+    "midRot": 2.199114857512857,
+    "midS": 0.2217263743619665,
+    "endAtBag": 0,
+    "endS": 0.5541074077305641,
+    "es": 0.5541074077305645,
+    "snd": [
+     "bell",
+     "thump"
+    ],
+    "bounced": true
+   }
+  },
+  {
+   "name": "Pop yarn: rises in 0.2 s, visible art fills the screen width at the peak, holds, shrinks and spins into the bag",
+   "info": {
+    "pop": true,
+    "tr": 0.2,
+    "tm": 0.25,
+    "td": 0.45,
+    "peakW": 399.99999999999994,
+    "peakX": 200,
+    "earlyFrac": 0.9600071797836139,
+    "midRot": 2.199114857512857,
+    "midS": 0.21256282310662222,
+    "endAtBag": 0,
+    "endS": 0.5541074077305641,
+    "es": 0.5541074077305645,
+    "snd": [
+     "bell",
+     "thump"
+    ],
+    "bounced": true
+   }
+  },
+  {
+   "name": "Quake coin keeps its own flight (not Pop)",
+   "info": {
+    "pop": false,
+    "tr": 0.35,
+    "tm": 0.7,
+    "td": 0.8,
+    "peakW": 280,
+    "peakX": 207.25744217470213,
+    "earlyFrac": 0.9623486793722813,
+    "midRot": 0.10795502508934643,
+    "midS": 0.14955357142857145,
+    "endAtBag": 0,
+    "endS": 0.41666666666666696,
+    "es": 0.4166666666666667,
+    "snd": [],
+    "bounced": true
+   }
+  },
+  {
+   "name": "Pop pickups take turns (the next rises as the one ahead leaves the middle; 3rd onwards holds half as long)",
+   "info": {
+    "w2": 0.45,
+    "w3": 0.9,
+    "first": 0.45,
+    "tm3": 0.125
+   }
+  },
+  "Developer > Prize feedback shows the Pickup style toggle and the three Pop dials",
+  {
+   "name": "Pop dials and the style choice are saved on the phone",
+   "info": [
+    0,
+    0.95,
+    0.3,
+    0.4
+   ]
+  },
+  {
+   "name": "Pickup style Current is the UAT 34/35 flight, unchanged",
+   "info": {
+    "chars": 3499
+   }
+  },
+  "Reset tuning returns to Pop"
+ ],
+ "failed": []
+}

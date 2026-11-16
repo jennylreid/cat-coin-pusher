@@ -1,0 +1,262 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp47-levels\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp59\\release.html",
+ "passed": true,
+ "failed": [],
+ "checks": [
+  {
+   "name": "six sound sets with every auditioned variant: clink 4, pile 4, spill 4, cascade 3, gold 2, gold over the edge 1",
+   "info": {
+    "clink": 4,
+    "pile": 4,
+    "spill": 4,
+    "cascade": 3,
+    "gold": 2,
+    "goldEdge": 1
+   }
+  },
+  "every note of every variant has finite times and volumes",
+  {
+   "name": "each coin sound is the audition's note list at its auditioned level (every note's time, pitch, length, volume and envelope)",
+   "info": {
+    "same": 18,
+    "bad": []
+   }
+  },
+  {
+   "name": "rendered, each coin sound is as loud as its audition WAV (loudest 100 ms above 250 Hz, average of 6 plays, within 1.5 dB: the notes are identical, but each play draws new noise, so a 10 ms click varies a little from the one recording Jenny heard)",
+   "info": {
+    "coin-1a-clink.wav": -0.96,
+    "coin-1b-clink.wav": -1.41,
+    "coin-1c-clink.wav": -0.18,
+    "coin-1d-clink.wav": -0.15,
+    "coin-2a-drop-on-pile.wav": -0.07,
+    "coin-2b-drop-on-pile.wav": 0.04,
+    "coin-2c-drop-on-pile.wav": 0.02,
+    "coin-2d-drop-on-pile.wav": 0.25,
+    "coin-3a-spill-3-coins.wav": -0.2,
+    "coin-3b-spill-4-coins.wav": 0.68,
+    "coin-3c-spill-5-coins.wav": -0.07,
+    "coin-3d-spill-6-coins.wav": -0.04,
+    "coin-4a-big-cascade.wav": 0.21,
+    "coin-4b-big-cascade.wav": 0.15,
+    "coin-4c-big-cascade.wav": 0.18,
+    "coin-5a-gold-drop.wav": 0.16,
+    "coin-5c-gold-clink.wav": 0.46,
+    "coin-5b-gold-over-edge.wav": 0.6
+   }
+  },
+  {
+   "name": "the pusher whoosh is noise only: no tones, no drum or click (every note fades in over 60 ms or more)",
+   "info": {
+    "notes": 32
+   }
+  },
+  {
+   "name": "the whoosh plays at the auditioned level at Pusher sound 50% (within 0.5 dB of pusher-w5-warm-whoosh.wav, above 250 Hz)",
+   "info": {
+    "dB": -0.07
+   }
+  },
+  {
+   "name": "sets: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "in a round: coins dropped on the board play the current landing and the new drops on pile; coins knocking play the current clink and the new clinks",
+   "info": {
+    "plays": {
+     "pile": 163,
+     "clinkCurrent": 55,
+     "clink": 200,
+     "pileCurrent": 35,
+     "gold": 13,
+     "spillCurrent": 1,
+     "spill": 1
+    },
+    "whooshes": 34,
+    "dropped": 0,
+    "rec": [
+     "drop",
+     "pushCoins",
+     "land"
+    ],
+    "slides": 34,
+    "turbo": 10,
+    "turboDur": 0.675,
+    "normalDur": 1.44,
+    "queued": 0
+   }
+  },
+  {
+   "name": "the pusher: one whoosh per stroke (forward and back), faster in Turbo (0.675 s strokes instead of 1.44 s)",
+   "info": {
+    "plays": {
+     "pile": 163,
+     "clinkCurrent": 55,
+     "clink": 200,
+     "pileCurrent": 35,
+     "gold": 13,
+     "spillCurrent": 1,
+     "spill": 1
+    },
+    "whooshes": 34,
+    "dropped": 0,
+    "rec": [
+     "drop",
+     "pushCoins",
+     "land"
+    ],
+    "slides": 34,
+    "turbo": 10,
+    "turboDur": 0.675,
+    "normalDur": 1.44,
+    "queued": 0
+   }
+  },
+  {
+   "name": "the recorded pusher sound (pusher.mp3) never plays",
+   "info": [
+    "drop",
+    "pushCoins",
+    "land"
+   ]
+  },
+  {
+   "name": "round: no errors with sound on, nothing dropped from the sound queue",
+   "info": []
+  },
+  {
+   "name": "one coin over the edge keeps its current sound (the original edge code, coin-off)",
+   "info": {
+    "plays": {},
+    "oldEdge": 1
+   }
+  },
+  {
+   "name": "three coins over the edge within 0.35 s play the current edge sound or a new spill",
+   "info": {
+    "spillCurrent": 1
+   }
+  },
+  {
+   "name": "ten or more within 1 s play the current edge sound or a new big cascade (right after the spill the first three started)",
+   "info": {
+    "spillCurrent": 1,
+    "spill": 1,
+    "cascade": 1
+   }
+  },
+  "prizes and other pieces over the edge keep the old edge sounds",
+  {
+   "name": "fix A: a gold coin's first landing plays the gold clink or the current clink (no drop-on-pile, no gold drop), a rain coin's a clink (no drop-on-pile); gold paid at the front: the shimmer every other time",
+   "info": {
+    "single": {
+     "plays": {},
+     "oldEdge": 1
+    },
+    "spill": {
+     "spillCurrent": 1
+    },
+    "cascade": {
+     "spillCurrent": 1,
+     "spill": 1,
+     "cascade": 1
+    },
+    "prizeOld": 2,
+    "gold": {
+     "spillCurrent": 1,
+     "spill": 1,
+     "cascade": 1,
+     "gold": 1
+    },
+    "rain": {
+     "spillCurrent": 1,
+     "spill": 1,
+     "cascade": 1,
+     "gold": 1,
+     "clinkCurrent": 1
+    },
+    "goldEdge": {
+     "spillCurrent": 1,
+     "spill": 1,
+     "cascade": 1,
+     "gold": 1,
+     "clinkCurrent": 1,
+     "goldEdge": 1
+    }
+   }
+  },
+  {
+   "name": "rotation: each pick is the current sound or a new variant, all of them come up about equally, never the same twice in a row",
+   "info": {
+    "pile": {
+     "counts": {
+      "0": 586,
+      "1": 575,
+      "2": 592,
+      "3": 617,
+      "-1": 630
+     },
+     "repeats": 0
+    },
+    "clink": {
+     "counts": {
+      "0": 619,
+      "1": 586,
+      "2": 609,
+      "3": 575,
+      "-1": 611
+     },
+     "repeats": 0
+    },
+    "spill": {
+     "counts": {
+      "0": 594,
+      "1": 612,
+      "2": 596,
+      "3": 609,
+      "-1": 589
+     },
+     "repeats": 0
+    },
+    "cascade": {
+     "counts": {
+      "0": 724,
+      "1": 717,
+      "2": 776,
+      "-1": 783
+     },
+     "repeats": 0
+    },
+    "gold": {
+     "counts": {
+      "0": 1013,
+      "1": 999,
+      "-1": 988
+     },
+     "repeats": 0
+    }
+   }
+  },
+  {
+   "name": "edge: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "untouched: the current coin landing, clink and edge sounds, the pickup (ledge bell, landing thump, the Pop), the music, ka-ching, the mouth drop, the stack tumble and the pusher timing are the same code as the base build",
+   "info": []
+  },
+  {
+   "name": "the build label",
+   "info": "2026.11.14 UAT 62"
+  },
+  {
+   "name": "sound off: no audio nodes and no errors in a round",
+   "info": {
+    "errs": [],
+    "created": 0
+   }
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "board": "b3",
+ "seed": 5,
+ "src": "uat37.html",
+ "frames": 480,
+ "coinFrames": 85948,
+ "flickerEvents": 0,
+ "stillAbaEvents": 3,
+ "stillAbaPx": 37651,
+ "maskToggles": 126,
+ "abaEvents": 0,
+ "abaPerSecond": 0,
+ "abaPx": 134158,
+ "abaExamples": [],
+ "perSecond": 0,
+ "examples": [],
+ "bodies": 189
+}

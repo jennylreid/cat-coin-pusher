@@ -1,0 +1,17 @@
+from pathlib import Path
+p=Path(__file__).parent;r=p.parents[2]
+f=r/'tickets/CP-25.md';text=f.read_text(encoding='utf-8')
+text=text.replace('2026.10.29 UAT 1','2026.10.29 UAT 2').replace('20261029064437','20261029070249')
+text=text.replace('Seahorse remains an optional idea pending her choice.','Jenny then selected “Include seahorse now”; its future outline is included.')
+text=text.replace('All six slots','All seven slots').replace('Added **clam on the sand and kelp beside the reef**, outline-only.','Added **clam on the sand, kelp beside the reef and seahorse in the right open water**, outline-only.')
+text=text.replace('CP-25-evidence/water/','CP-25-evidence/seahorse/')
+text=text.replace('HTML plus approved Water image and two derived contours are the only changed files; all other package fields retained;', 'Only HTML changed from UAT1 to add the seahorse outline and slot; all other package fields retained;')
+text=text.replace('Baseline UAT6 (Oct 28). Source `work/cp25/water/release.html`; builder `build.py`.', 'Baseline Oct29 UAT1. Source `work/cp25/seahorse/release.html`; builder `build.py`.')
+text=text.replace('before-CP-25-water-','before-CP-25-seahorse-').replace('db710c3e0ea6d71a72311cd46ce570fad04976022beaabdb2f5639dad1a98a3b','9a5ce7ba0ee3e86fdd5bea02fd1ac71060c6a8dbfa683f0f7a9d25536d31d29d').replace('revision36','revision37')
+text=text.replace('[Previous report](CP-25-evidence/scene-one-report.md) covers payoff/tile validation', '[Water UAT1 report](CP-25-evidence/water-report.md) records the approved background integration. [Earlier report](CP-25-evidence/scene-one-report.md) covers payoff/tile validation')
+f.write_text(text,encoding='utf-8')
+f=r/'tickets/CP-25-evidence/water-report.md';f.write_text(f.read_text(encoding='utf-8').replace('(CP-25-evidence/','(').replace('(../work/','(../../work/'),encoding='utf-8')
+f=r/'uat/README.md';text=f.read_text(encoding='utf-8').replace('2026.10.29 UAT 1','2026.10.29 UAT 2').replace('20261029064437','20261029070249').replace('clam/kelp future outlines','clam/kelp/seahorse future outlines').replace('work/cp25/water/','work/cp25/seahorse/').replace('before-CP-25-water-','before-CP-25-seahorse-');f.write_text(text,encoding='utf-8')
+f=r/'DEVELOPER.md';text=f.read_text(encoding='utf-8').replace('Current UAT source `work/cp25/water/release.html`, pinned to Oct28 UAT6.', 'Current UAT2 source `work/cp25/seahorse/release.html`, pinned to Oct29 UAT1; only HTML changed for the seahorse outline. Water integration source remains `work/cp25/water/release.html`, pinned to Oct28 UAT6.').replace('Seahorse remains an optional idea.', 'Seahorse is now a fifth future outline, explicitly selected by Jenny; no completion/save requirement added.');f.write_text(text,encoding='utf-8')
+f=r/'SPEC.md';text=f.read_text(encoding='utf-8').replace('Current UAT1/APK4 (20261029064437)','Current UAT2/APK4 (20261029070249)').replace('all four future items','all five future items').replace("Seahorse is an optional idea pending Jenny's choice.", 'Jenny selected seahorse too: its outline sits in the right open water between sardine and shrimp.');f.write_text(text,encoding='utf-8')
+print('Seahorse decision and UAT checkpoint recorded')

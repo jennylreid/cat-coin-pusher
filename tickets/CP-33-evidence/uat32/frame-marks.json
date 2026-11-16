@@ -1,0 +1,60 @@
+{
+ "render": "desktop @napi-rs/canvas, 400x889 CSS at DPR 1.35, real runtime, previews",
+ "prizeTuna": {
+  "id": "tuna",
+  "turnDeg": -7.5,
+  "art": {
+   "x": 207.6,
+   "y": 471.7
+  },
+  "panel": {
+   "left": 42.8,
+   "right": 372.4,
+   "top": 348.2,
+   "bottom": 595.1
+  }
+ },
+ "prizeShrimp": {
+  "id": "shrimp",
+  "turnDeg": -10.6,
+  "art": {
+   "x": 189.4,
+   "y": 458.8
+  },
+  "panel": {
+   "left": 12,
+   "right": 366.9,
+   "top": 281.4,
+   "bottom": 636.2
+  }
+ },
+ "quake70": {
+  "id": "quake",
+  "turnDeg": -7.5,
+  "art": {
+   "x": 207.6,
+   "y": 471.7
+  },
+  "panel": {
+   "left": 36.6,
+   "right": 378.7,
+   "top": 300.6,
+   "bottom": 642.7
+  }
+ },
+ "quake45": {
+  "id": "quake",
+  "turnDeg": -7.5,
+  "art": {
+   "x": 207.6,
+   "y": 471.7
+  },
+  "panel": {
+   "left": 92.7,
+   "right": 322.6,
+   "top": 356.7,
+   "bottom": 586.6
+  },
+  "quakeSize": 0.45
+ }
+}

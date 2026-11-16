@@ -1,0 +1,30 @@
+{
+  "approvedRenderDelta": {
+    "pixels": 2812,
+    "maxChannelDelta": 1
+  },
+  "otherPoseComparisons": [
+    {
+      "state": "waiting",
+      "renderedPixelsIdentical": true
+    },
+    {
+      "state": "rest",
+      "renderedPixelsIdentical": true
+    },
+    {
+      "state": "impact",
+      "renderedPixelsIdentical": true
+    },
+    {
+      "state": "recovery",
+      "renderedPixelsIdentical": true
+    }
+  ],
+  "happyOnlyManualPreview": true,
+  "previewDurationSeconds": 6,
+  "previewReturnsToRest": true,
+  "originalPawRestored": true,
+  "happyFirstRestClippingProfileIdentical": true,
+  "waitingAndSharpPreserved": true
+}

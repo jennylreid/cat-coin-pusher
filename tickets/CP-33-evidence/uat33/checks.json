@@ -1,0 +1,484 @@
+{
+ "source": "work/cp33/release.html",
+ "runtime": "real shipped script + Rapier, desktop node",
+ "passed": [
+  {
+   "name": "prize: grows to 70%, holds still over the backdrop, then Inventory bag, board 1",
+   "prize": "cheese",
+   "start": {
+    "x": 100.3,
+    "y": 770.7
+   },
+   "fullSizeSec": 0.35,
+   "visibleWidthOfScreen": 0.7,
+   "heldSec": 0.7,
+   "heldMovement": 0,
+   "spin": {
+    "turnsIn": 1,
+    "turnsOut": 1,
+    "deepestFlipIn": -1,
+    "deepestFlipOut": -1,
+    "facingFrontAtFullSize": true,
+    "spinWhileHeld": false
+   },
+   "turnDeg": -10.2,
+   "offCentrePx": {
+    "x": 8.9,
+    "y": -4
+   },
+   "sounds": {
+    "fullSizeAtSec": 0.35,
+    "bagLandingAtSec": 1.35,
+    "sound": 1,
+    "volume": 1
+   },
+   "sparkles": 0,
+   "glow": false,
+   "backdrop": {
+    "halfwayUpRise": 0.892,
+    "whileHeld": 1,
+    "gone0_3sAfterLeaving": true
+   },
+   "tileCentre": {
+    "x": 200,
+    "y": 827
+   },
+   "arrivalSec": 1.35,
+   "bouncePeak": 1.199,
+   "creditedAtPayout": true
+  },
+  {
+   "name": "prize: grows to 70%, holds still over the backdrop, then Inventory bag, board 2",
+   "prize": "cheese",
+   "start": {
+    "x": 299.7,
+    "y": 770.7
+   },
+   "fullSizeSec": 0.35,
+   "visibleWidthOfScreen": 0.7,
+   "heldSec": 0.7,
+   "heldMovement": 0,
+   "spin": {
+    "turnsIn": 1,
+    "turnsOut": 1,
+    "deepestFlipIn": -1,
+    "deepestFlipOut": -1,
+    "facingFrontAtFullSize": true,
+    "spinWhileHeld": false
+   },
+   "turnDeg": -10.2,
+   "offCentrePx": {
+    "x": 8.9,
+    "y": -4
+   },
+   "sounds": {
+    "fullSizeAtSec": 0.35,
+    "bagLandingAtSec": 1.35,
+    "sound": 1,
+    "volume": 1
+   },
+   "sparkles": 0,
+   "glow": false,
+   "backdrop": {
+    "halfwayUpRise": 0.892,
+    "whileHeld": 1,
+    "gone0_3sAfterLeaving": true
+   },
+   "tileCentre": {
+    "x": 200,
+    "y": 827
+   },
+   "arrivalSec": 1.35,
+   "bouncePeak": 1.199,
+   "creditedAtPayout": true
+  },
+  {
+   "name": "prize: grows to 70%, holds still over the backdrop, then Inventory bag, board 3",
+   "prize": "cheese",
+   "start": {
+    "x": 200,
+    "y": 770.7
+   },
+   "fullSizeSec": 0.35,
+   "visibleWidthOfScreen": 0.7,
+   "heldSec": 0.7,
+   "heldMovement": 0,
+   "spin": {
+    "turnsIn": 1,
+    "turnsOut": 1,
+    "deepestFlipIn": -1,
+    "deepestFlipOut": -1,
+    "facingFrontAtFullSize": true,
+    "spinWhileHeld": false
+   },
+   "turnDeg": -10.2,
+   "offCentrePx": {
+    "x": 8.9,
+    "y": -4
+   },
+   "sounds": {
+    "fullSizeAtSec": 0.35,
+    "bagLandingAtSec": 1.35,
+    "sound": 1,
+    "volume": 1
+   },
+   "sparkles": 0,
+   "glow": false,
+   "backdrop": {
+    "halfwayUpRise": 0.892,
+    "whileHeld": 1,
+    "gone0_3sAfterLeaving": true
+   },
+   "tileCentre": {
+    "x": 200,
+    "y": 827
+   },
+   "arrivalSec": 1.35,
+   "bouncePeak": 1.199,
+   "creditedAtPayout": true
+  },
+  {
+   "name": "hold keeps dropping through a pickup",
+   "dropsDuringOneSecond": 5,
+   "coinsUsed": 5,
+   "inputCanvasX": 120,
+   "releaseWorldX": [
+    116,
+    116,
+    116,
+    116,
+    116
+   ],
+   "holding": true
+  },
+  {
+   "name": "five prizes at once take turns in the middle",
+   "queuedSameFrame": 5,
+   "timelineSec": [
+    {
+     "reachesMiddle": 0.35,
+     "leavesMiddle": 1.05,
+     "landsInBag": 1.35
+    },
+    {
+     "reachesMiddle": 1.4,
+     "leavesMiddle": 2.1,
+     "landsInBag": 2.4
+    },
+    {
+     "reachesMiddle": 2.283,
+     "leavesMiddle": 2.633,
+     "landsInBag": 2.933
+    },
+    {
+     "reachesMiddle": 2.817,
+     "leavesMiddle": 3.167,
+     "landsInBag": 3.45
+    },
+    {
+     "reachesMiddle": 3.333,
+     "leavesMiddle": 3.683,
+     "landsInBag": 3.983
+    }
+   ],
+   "shortened": [
+    false,
+    false,
+    true,
+    true,
+    true
+   ],
+   "fullSec": {
+    "riseAndGrow": 0.35,
+    "held": 0.7
+   },
+   "shortSec": {
+    "riseAndGrow": 0.175,
+    "held": 0.35
+   },
+   "allLandedBySec": 3.983,
+   "maxSparkles": 0,
+   "sparkleCap": 36,
+   "gameTimeAdvancedSec": 4.2
+  },
+  {
+   "name": "two prizes collected together play one after the other",
+   "prizes": [
+    "cheese",
+    "shrimp"
+   ],
+   "creditedAtPayout": true,
+   "secondWaitsSec": 1.033,
+   "bothInMiddleFrames": 0,
+   "backdropMinBetweenTurns": 1,
+   "panelLargestStepPerFramePx": 2.27,
+   "turnsDeg": [
+    -10.2,
+    -13.8
+   ]
+  },
+  {
+   "name": "each pickup draws its own turn and offset; pop-up panel fits with a margin (160 draws)",
+   "turnDegAbs": [
+    6.1,
+    14
+   ],
+   "turnedLeft": 86,
+   "turnedRight": 74,
+   "offsetXPxAbs": [
+    4.5,
+    15.9
+   ],
+   "offsetYPxAbs": [
+    0,
+    15.9
+   ],
+   "draws": {
+    "prizes": 120,
+    "quake": 40
+   },
+   "panelMinScreenMarginPx": 12,
+   "panelMaxWidthPx": 366.9,
+   "panelPaddingPx": 14,
+   "allDifferent": true
+  },
+  {
+   "name": "Turn, Off-centre and Burst size at 0: straight, centred, no burst",
+   "rot": 0,
+   "offset": 0,
+   "burstSparkles": 0
+  },
+  {
+   "name": "Spin dial (0 off, 2 turns) for prizes only; Quake flight unchanged; Pickup sound and volume reach the sound; volume 0 and sound off are silent",
+   "spin0": {
+    "in": {
+     "min": 1,
+     "crossings": 0
+    },
+    "out": {
+     "min": 1,
+     "crossings": 0
+    }
+   },
+   "spin2": {
+    "flipsIn": 2,
+    "flipsOut": 2
+   },
+   "quakeWithSpin2": {
+    "spinIn": false,
+    "flipsOut": 2
+   },
+   "soundCall": [
+    [
+     "full",
+     3,
+     0.5
+    ],
+    [
+     "land",
+     3,
+     0.5
+    ]
+   ],
+   "volumeZeroPeak": 0,
+   "soundOffNodes": 0,
+   "peaksAt150Percent": [
+    0.382,
+    0.423,
+    0.4
+   ]
+  },
+  {
+   "name": "tap during a pickup drops a coin",
+   "usedBefore": 0,
+   "usedAfter": 1
+  },
+  {
+   "name": "clear order with the last two prizes queued, board 1",
+   "won": 0,
+   "queuedAtWin": 2,
+   "firstLanded": 1.333,
+   "landed": 2.533,
+   "clear": 2.533,
+   "rest": 4.733,
+   "next": 6.767
+  },
+  {
+   "name": "clear order with the last two prizes queued, board 2",
+   "won": 0,
+   "queuedAtWin": 2,
+   "firstLanded": 1.333,
+   "landed": 2.533,
+   "clear": 2.533,
+   "rest": 4.733,
+   "next": 6.767
+  },
+  {
+   "name": "clear order with the last two prizes queued, board 3",
+   "won": 0,
+   "queuedAtWin": 2,
+   "firstLanded": 1.333,
+   "landed": 2.533,
+   "clear": 2.533,
+   "rest": 4.733,
+   "next": 6.767
+  },
+  {
+   "name": "CP-34 Quake coin: big moment over the backdrop, then into the Quake button",
+   "board": 3,
+   "start": {
+    "x": 255.4,
+    "y": 770.7
+   },
+   "fullSizeSec": 0.35,
+   "visibleWidthOfScreen": 0.7,
+   "heldSec": 0.7,
+   "heldMovement": 0,
+   "turnDeg": -10.2,
+   "offCentrePx": {
+    "x": 8.9,
+    "y": -4
+   },
+   "backdropWhileHeld": 1,
+   "quakeSize45Checked": {
+    "quakeWidth": 0.45,
+    "prizeWidthUnchanged": 0.7
+   },
+   "bigSpritePx": 797,
+   "boardSpritePx": 200,
+   "buttonCentre": {
+    "x": 231,
+    "y": 75
+   },
+   "quakeFlightSec": 0.8,
+   "landsSec": 1.85,
+   "shownCountBeforeLanding": 0,
+   "shownCountAtLanding": 1,
+   "earnedQuakesAtPayout": 1,
+   "soundAtLandingOnly": true,
+   "chime": false,
+   "textBanner": false,
+   "buttonBouncePeak": 1.199,
+   "flipsOnFinalFlight": 2,
+   "spinIn": false,
+   "dropsDuringPickup": 10,
+   "holding": true
+  },
+  {
+   "name": "CP-34 prize and Quake coin collected together take turns",
+   "order": [
+    "item:cheese",
+    "quake:quake"
+   ],
+   "secondWaitsSec": 1.05,
+   "bothInMiddleFrames": 0,
+   "backdropMinBetweenTurns": 1,
+   "landedSec": [
+    1.333,
+    2.883
+   ]
+  },
+  {
+   "name": "lost prize: grey sink and ripple at the gutter",
+   "prize": "cheese",
+   "boardStatus": "lost",
+   "reason": "prize-lost",
+   "sinkSec": 0.3,
+   "oldGutterSpriteDrawn": false
+  },
+  {
+   "name": "developer tuning: Spin, Pickup sound and volume dials, Time held 0.7 s, v5 values migrate, persists, in log",
+   "oldKeyIgnored": "catpusher.uat.pickupfx.v4",
+   "migratedFromV5": {
+    "from": {
+     "size": 0.6,
+     "fade": 0.5,
+     "held": 0.5,
+     "panelPad": 20
+    },
+    "to": {
+     "size": 0.6,
+     "fade": 0.5,
+     "held": 0.7,
+     "panelPad": 20
+    }
+   },
+   "defaults": {
+    "size": 0.7,
+    "burst": 0,
+    "sparkles": 0,
+    "fade": 0.35,
+    "stripes": 0.5
+   },
+   "logPickupTuning": {
+    "rise": 0.35,
+    "size": 0.65,
+    "quakeSize": 0.65,
+    "held": 0.7,
+    "turn": 14,
+    "spin": 1.25,
+    "offCentre": 0.04,
+    "fade": 0.4,
+    "stripes": 0.6,
+    "panelPad": 16,
+    "burst": 2,
+    "toBag": 0.3,
+    "endScale": 0.5,
+    "sparkles": 1,
+    "bounce": 1.2,
+    "bounceTime": 0.15,
+    "quakeFlight": 0.75,
+    "sink": 0.3,
+    "sound": 2,
+    "volume": 0.9
+   },
+   "persistedAfterReload": {
+    "rise": 0.35,
+    "size": 0.65,
+    "quakeSize": 0.65,
+    "held": 0.7,
+    "turn": 14,
+    "spin": 1.25,
+    "offCentre": 0.04,
+    "fade": 0.4,
+    "stripes": 0.6,
+    "panelPad": 16,
+    "burst": 2,
+    "toBag": 0.3,
+    "endScale": 0.5,
+    "sparkles": 1,
+    "bounce": 1.2,
+    "bounceTime": 0.15,
+    "quakeFlight": 0.75,
+    "sink": 0.3,
+    "sound": 2,
+    "volume": 0.9
+   }
+  },
+  {
+   "name": "held prize and Quake coin drawn crisp: no glow, shadow or filter",
+   "framesDrawn": 192,
+   "radialGradientsDrawn": 0,
+   "shadowOrFilterAtDraw": 0
+  },
+  {
+   "name": "panel and glints are cached; panel only (no full-screen fill); Fade and Stripes at 0 draw no panel",
+   "stripePatternsCreatedFirstPickup": 1,
+   "newPatternsOrCanvasesOver90LaterFrames": 0,
+   "fullScreenBackdropFills": 0,
+   "panelFillsWithBothZero": 0
+  },
+  {
+   "name": "Paw, ribbon, bubble and style setting removed",
+   "searched": [
+    "pickupBlocksPlay",
+    "PICKUP_STYLES",
+    "Paw reward",
+    "Reward ribbon",
+    "Satchel bubble",
+    "pickup-style",
+    "pickup-paused"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,673 @@
+{
+ "passed": [
+  {
+   "name": "build label",
+   "info": "2026.11.14 UAT 52"
+  },
+  {
+   "name": "the game opens on the CatCoin title screen; a new save has only the Tuxedo board, level 1",
+   "info": {
+    "screen": "title",
+    "on": false,
+    "level": 1,
+    "open": {
+     "tuxedo": 1
+    }
+   }
+  },
+  {
+   "name": "the title moves and sounds: letters drop in with clinks, coins rain, the Tuxedo pops up and meows",
+   "info": {
+    "coins": 23,
+    "snd": 8,
+    "nodes": 116
+   }
+  },
+  {
+   "name": "after about 2.6 s it goes straight onto the Tuxedo's coin board (Wild 2, goal card)",
+   "info": {
+    "screen": "board",
+    "on": true,
+    "v2": true,
+    "mode": null,
+    "phase": "card",
+    "cat": "tuxedo",
+    "t": 2.6166666666666623
+   }
+  },
+  "the board is home: the top bar shows with the goal card (level, XP, coins, Catnip, Settings, 5 buttons)",
+  {
+   "name": "the bar sits in the HUD band at the top: above the cat's head, clear of the goal card and the table",
+   "info": {
+    "bottom": 100,
+    "card": 358.6204081632653,
+    "chin": 354.6204081632653
+   }
+  },
+  "a locked button (Kitchen, level 2) stays shut and says so",
+  {
+   "name": "on the goal card, messages sit in the card's free bottom slot under TAP TO START (never over the card's title)",
+   "info": {
+    "ty": [
+     856.8889999999999
+    ],
+    "slot": 856.8889999999999,
+    "title": 358.6204081632653
+   }
+  },
+  "a tap on the goal card still starts the round",
+  "during the round the top bar is gone (the normal HUD is back)",
+  {
+   "name": "title and board: no errors with sound on",
+   "info": []
+  },
+  {
+   "name": "a tap skips the title",
+   "info": 0.3833333333333333
+  },
+  {
+   "name": "UAT 48 save: 500 coins and 12 tuna become 9 tuna (cap) + 3 × 15 coins",
+   "info": {
+    "coins": 545,
+    "items": {
+     "cheese": 2,
+     "shrimp": 0,
+     "tuna": 9
+    },
+    "m": {
+     "coins": 500,
+     "extra": 45,
+     "at": "2026-10-10T16:00:00.016Z"
+    }
+   }
+  },
+  {
+   "name": "each cat board drops 2 prizes no other board drops (map section 4) plus the 5 shared ones",
+   "info": {
+    "tuxedo": [
+     "bowtie",
+     "notes",
+     "biscuit",
+     "milk",
+     "egg",
+     "feather",
+     "sardine"
+    ],
+    "orange": [
+     "tuna",
+     "yarn",
+     "biscuit",
+     "milk",
+     "egg",
+     "feather",
+     "sardine"
+    ],
+    "ragdoll": [
+     "cheese",
+     "cushion",
+     "biscuit",
+     "milk",
+     "egg",
+     "feather",
+     "sardine"
+    ],
+    "siamese": [
+     "shrimp",
+     "bell",
+     "biscuit",
+     "milk",
+     "egg",
+     "feather",
+     "sardine"
+    ],
+    "tortie": [
+     "mouse",
+     "duck",
+     "biscuit",
+     "milk",
+     "egg",
+     "feather",
+     "sardine"
+    ]
+   }
+  },
+  {
+   "name": "every recipe needs a prize from another cat's board (or the Shop)",
+   "info": [
+    {
+     "id": "tunadish",
+     "cat": "orange",
+     "other": [
+      "notes"
+     ]
+    },
+    {
+     "id": "cheeseplate",
+     "cat": "ragdoll",
+     "other": [
+      "yarn"
+     ]
+    },
+    {
+     "id": "skewers",
+     "cat": "siamese",
+     "other": [
+      "notes"
+     ]
+    },
+    {
+     "id": "fishpie",
+     "cat": "tortie",
+     "other": [
+      "bell"
+     ]
+    },
+    {
+     "id": "supper",
+     "cat": "tuxedo",
+     "other": [
+      "cushion"
+     ]
+    }
+   ]
+  },
+  {
+   "name": "board matching: Tuxedo Wild 2, Orange Treat toss, Ragdoll Cozy, Siamese Laser, Tortie Tower wall",
+   "info": {
+    "tuxedo": null,
+    "orange": "treats",
+    "ragdoll": "cozy",
+    "siamese": "laser",
+    "tortie": "towers"
+   }
+  },
+  {
+   "name": "round lists are 5-7 prizes and lean toward what the recipe needs (notes, biscuit, milk) over the rest",
+   "info": {
+    "cnt": {
+     "milk": 288,
+     "notes": 286,
+     "biscuit": 293,
+     "sardine": 137,
+     "egg": 130,
+     "feather": 143,
+     "bowtie": 223
+    },
+    "lens": [
+     5,
+     6,
+     7
+    ]
+   }
+  },
+  {
+   "name": "the Tuxedo board (Wild 2) has a 5-prize list from its pool and the star on the list",
+   "info": {
+    "screen": "board",
+    "on": true,
+    "v2": true,
+    "mode": null,
+    "list": [
+     "sardine",
+     "notes",
+     "biscuit",
+     "egg",
+     "feather"
+    ],
+    "goal": 5,
+    "star": "notes"
+   }
+  },
+  "the goal card has no visitor line; the stars line in plain words instead",
+  {
+   "name": "a round gives XP, coins to the jar and its prizes to the pantry",
+   "info": {
+    "res": {
+     "stars": 1,
+     "xp": 45,
+     "coins": 62,
+     "nip": 0,
+     "level": 0,
+     "lv": 1
+    },
+    "got": 5,
+    "have": {
+     "sardine": true,
+     "biscuit": true,
+     "egg": true,
+     "feather": true,
+     "notes": true
+    },
+    "items": {
+     "cheese": 0,
+     "shrimp": 0,
+     "tuna": 0,
+     "sardine": 1,
+     "biscuit": 1,
+     "egg": 1,
+     "feather": 1,
+     "notes": 1
+    },
+    "coins": 282,
+    "xp": 45,
+    "level": 1,
+    "rounds": 1
+   }
+  },
+  "no visiting-cat card after the round",
+  "between rounds the top bar is back over the end card",
+  "the end card's lower button (New goal) shows the next goal card on the same board, not a menu",
+  "EXIT during a round comes back to the board and its next goal card",
+  {
+   "name": "XP levels up (level 2 opens Kitchen, Porch, Shop and the Tuna dish)",
+   "info": {
+    "level": 4,
+    "recipes": {
+     "tunadish": 1,
+     "cheeseplate": 1,
+     "skewers": 1
+    }
+   }
+  },
+  {
+   "name": "round, New goal and EXIT: no errors with sound on",
+   "info": {
+    "errs": [],
+    "nodes": 12904
+   }
+  },
+  "stars: win with 10 s left = 1, 25 s = 2, 25 s and a perfect dance = 3, a loss = 0",
+  "the Kitchen button has a paw print (a recipe is ready to cook)",
+  "the Kitchen button on the board opens the Kitchen",
+  "COOK starts the pot with 4 ingredients on the shelf",
+  {
+   "name": "tapping each ingredient drops it in the pot (plop), then STIR",
+   "info": [
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "name": "stirring in circles cooks it: DING, a Tuna dish; ingredients used and the recipe used up",
+   "info": {
+    "stage": "ding",
+    "dishes": {
+     "tunadish": 1
+    },
+    "items": {
+     "tuna": 0,
+     "notes": 0,
+     "biscuit": 1,
+     "milk": 0
+    },
+    "recipe": 0
+   }
+  },
+  "SET IT ON THE PORCH goes to the Porch with the dish picker open",
+  "picking the dish sets it on spot 1",
+  "closing the Porch (Board, top left) returns to the coin board and its goal card",
+  "the album button opens the Album; closing it returns to the board",
+  "the shop button opens the Shop; closing it returns to the board",
+  {
+   "name": "Kitchen, Porch, Album, Shop: no errors with sound on",
+   "info": []
+  },
+  "during a round: \"Someone ate the tuna\" with a paw drawn in code, below the cat's chin",
+  "the Porch button has a paw print while a cat is there",
+  {
+   "name": "the camera: shutter, flash, the photo flies to the Album; the Orange coin can now drop",
+   "info": {
+    "photos": {
+     "orange": 1
+    },
+    "ready": {
+     "orange": 1
+    },
+    "state": "photo",
+    "fly": true
+   }
+  },
+  {
+   "name": "a visit missed (window passed while away): paw prints, food gone",
+   "info": [
+    null,
+    {
+     "dish": "tunadish",
+     "cat": "orange",
+     "setAt": 1791648000050,
+     "eatAt": 1791648008050,
+     "leaveAt": 1791648068050,
+     "state": "missed",
+     "arrive": 3.099999999999994
+    }
+   ]
+  },
+  "tapping the paw prints tidies the spot",
+  "the visit window is hidden and real-time: 20 min to 2 h when the dial is off",
+  {
+   "name": "Porch and Album: no errors",
+   "info": []
+  },
+  "the Orange cat coin drops on the Tuxedo board",
+  {
+   "name": "pushing it off opens the Orange's board with a big moment (cat, fanfare, confetti)",
+   "info": {
+    "open": {
+     "tuxedo": 1,
+     "orange": 1
+    },
+    "moment": "orange",
+    "newest": "orange"
+   }
+  },
+  "the round timer holds during the moment",
+  "the Boards button has a paw print for the new board",
+  "before level 5 the newest board plays: the next goal card is the Orange's (Treat toss, its recoloured art)",
+  "the goal card comes up clean (no moment, no message over it)",
+  "the Boards button opens the board picker over the board",
+  "before level 5 the older board is locked (\"Level 5\")",
+  "the picker stays open after a locked tap",
+  "from level 5, switching is free: Tuxedo picked, its goal card comes up with the original art",
+  {
+   "name": "cat coin chain: no errors with sound on",
+   "info": []
+  },
+  "selling a fish biscuit: +8 coins, one fewer",
+  {
+   "name": "the Shop sells only what no open board drops (8 exclusives at the start)",
+   "info": [
+    "tuna",
+    "yarn",
+    "cheese",
+    "cushion",
+    "shrimp",
+    "bell",
+    "mouse",
+    "duck"
+   ]
+  },
+  "buying a tuna: -60 coins (till)",
+  "not enough coins: nothing bought",
+  "caps: 12 tuna keep 9; the 3 extra become 45 coins at once",
+  "the cap dial changes the cap (3)",
+  {
+   "name": "Shop: no errors",
+   "info": []
+  },
+  "a full cat page (3 photos) stamps and gives 3 Catnip",
+  "every cat photographed and every board open: YOU WON (on the board, between rounds)",
+  {
+   "name": "Album and win: no errors",
+   "info": []
+  },
+  {
+   "name": "each dance picks one of the 4 moves, never the same twice in a row",
+   "info": [
+    2,
+    1,
+    0,
+    3,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    0,
+    2
+   ]
+  },
+  {
+   "name": "the win dance holds one move (game-time clock) for the whole dance",
+   "info": {
+    "moves": [
+     1
+    ],
+    "seen": 505
+   }
+  },
+  {
+   "name": "Wild 2 dance break runs to the end (UAT 48 test)",
+   "info": {
+    "errs": [],
+    "ended": true,
+    "gameRunning": true,
+    "stage": null,
+    "liveNodes": 147,
+    "nodesCreated": 4058
+   }
+  },
+  {
+   "name": "a Wild 2 win: no visitor card",
+   "info": {
+    "errs": [],
+    "visitor": false,
+    "liveNodes": 0
+   }
+  },
+  {
+   "name": "tuxedo's board plays 30 s (sound on), its list from its own pool",
+   "info": {
+    "s": {
+     "mode": null,
+     "list": [
+      "biscuit",
+      "milk",
+      "sardine",
+      "egg",
+      "feather",
+      "notes",
+      "bowtie"
+     ],
+     "cat": "tuxedo"
+    },
+    "errs": []
+   }
+  },
+  {
+   "name": "orange's board plays 30 s (sound on), its list from its own pool",
+   "info": {
+    "s": {
+     "mode": "treats",
+     "list": [
+      "biscuit",
+      "milk",
+      "sardine",
+      "egg",
+      "feather",
+      "tuna",
+      "yarn"
+     ],
+     "cat": "orange"
+    },
+    "errs": []
+   }
+  },
+  {
+   "name": "ragdoll's board plays 30 s (sound on), its list from its own pool",
+   "info": {
+    "s": {
+     "mode": "cozy",
+     "list": [
+      "milk",
+      "biscuit",
+      "sardine",
+      "feather",
+      "egg",
+      "cheese",
+      "cushion"
+     ],
+     "cat": "ragdoll"
+    },
+    "errs": []
+   }
+  },
+  {
+   "name": "siamese's board plays 30 s (sound on), its list from its own pool",
+   "info": {
+    "s": {
+     "mode": "laser",
+     "list": [
+      "milk",
+      "biscuit",
+      "sardine",
+      "feather",
+      "egg",
+      "shrimp",
+      "bell"
+     ],
+     "cat": "siamese"
+    },
+    "errs": []
+   }
+  },
+  {
+   "name": "tortie's board plays 30 s (sound on), its list from its own pool",
+   "info": {
+    "s": {
+     "mode": "towers",
+     "list": [
+      "biscuit",
+      "milk",
+      "mouse",
+      "egg",
+      "duck",
+      "sardine",
+      "feather"
+     ],
+     "cat": "tortie"
+    },
+    "errs": []
+   }
+  },
+  "Developer: visit window, XP speed, item cap, give all cat coins, reset, cat visits now, MODES",
+  "XP speed 5× multiplies XP",
+  {
+   "name": "no emoji or symbol glyphs in the drawn text (stars, paws and arrows are drawn in code)",
+   "info": []
+  },
+  {
+   "name": "on the cat boards the Collections and Inventory buttons are gone from the bottom strip",
+   "info": [
+    {
+     "x": -999,
+     "y": -999,
+     "w": 0,
+     "h": 0
+    },
+    {
+     "x": -999,
+     "y": -999,
+     "w": 0,
+     "h": 0,
+     "placement": "off"
+    }
+   ]
+  },
+  "a tap where Settings was (bottom right) doesn't open Settings",
+  "taps where Collections and Inventory were don't open them",
+  {
+   "name": "the Settings gear sits in the top HUD during a round, clear of EXIT and the power buttons",
+   "info": {
+    "x": 320,
+    "y": 30,
+    "w": 36,
+    "h": 34
+   }
+  },
+  "the top gear opens Settings during a round",
+  "between rounds the top bar holds Collections and Inventory (and Settings)",
+  "Collections on the top bar opens the Collections",
+  "Inventory on the top bar opens the Inventory",
+  "MODES chip shows on the top bar with Developer on",
+  "MODES opens the game modes picker over the board; Tower wall opens with the Tortie's art",
+  "with Developer off there is no MODES chip (players switch boards with Boards only)",
+  {
+   "name": "bottom strip and MODES: no errors",
+   "info": []
+  },
+  "a UAT install starts with Developer on",
+  "once she has turned Developer off, it stays off",
+  {
+   "name": "the Kitchen has the floating cat at the top right, clear of Board and the recipes",
+   "info": {
+    "x": 262,
+    "y": 12,
+    "w": 128,
+    "h": 80
+   }
+  },
+  "tapping it: the sweet face, hearts, a meow and a purr",
+  "happy at the Kitchen DING",
+  "a nod at a Shop sale",
+  "perks up when a cat arrives on the Porch",
+  "perks up at the camera flash",
+  "a purr at an Album stamp",
+  {
+   "name": "the floating cat: no errors",
+   "info": []
+  },
+  {
+   "name": "the top bar never reaches the cat's ear tips, status bars 0-60 px (compact one-row bar from 32 px)",
+   "info": [
+    {
+     "top": 0,
+     "b": 100,
+     "lim": 101.11667749902514,
+     "c": false,
+     "rest": true,
+     "tiles": true,
+     "errs": 0
+    },
+    {
+     "top": 24,
+     "b": 100.51667749902515,
+     "lim": 101.11667749902514,
+     "c": false,
+     "rest": true,
+     "tiles": true,
+     "errs": 0
+    },
+    {
+     "top": 32,
+     "b": 100.51667749902515,
+     "lim": 101.11667749902514,
+     "c": true,
+     "rest": true,
+     "tiles": true,
+     "errs": 0
+    },
+    {
+     "top": 40,
+     "b": 100.51667749902515,
+     "lim": 101.11667749902514,
+     "c": true,
+     "rest": true,
+     "tiles": true,
+     "errs": 0
+    },
+    {
+     "top": 48,
+     "b": 100.51667749902515,
+     "lim": 101.11667749902514,
+     "c": true,
+     "rest": true,
+     "tiles": true,
+     "errs": 0
+    },
+    {
+     "top": 60,
+     "b": 100.51667749902515,
+     "lim": 101.11667749902514,
+     "c": true,
+     "rest": true,
+     "tiles": true,
+     "errs": 0
+    }
+   ]
+  }
+ ],
+ "failed": []
+}

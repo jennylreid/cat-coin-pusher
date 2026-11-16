@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path('work/cp25/log-file/audit.cjs');s=p.read_text(encoding='utf-8').replace("[[0,'centre'],[1,'sweep'],[2,'left']]","[[0,'edge-left'],[2,'edge-right']]").replace("mode==='centre'?200:mode==='left'?140:200+60*Math.sin(f*.037)","mode==='edge-left'?116:284").replace('/physics-audit.json','/edge-audit.json');Path('work/cp25/log-file/edge-audit.cjs').write_text(s,encoding='utf-8')

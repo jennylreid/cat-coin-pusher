@@ -1,0 +1,12 @@
+{"seed":1,"strategy":"aim","win":true,"reason":"","got":7,"left":37.5,"coins":24,"rained":15,"toppled":1,"bonus":4,"earnedQuakes":0,"maxBodies":201,"physMsPerTick":16.96}
+{"seed":2,"strategy":"aim","win":true,"reason":"","got":7,"left":34.4,"coins":27,"rained":15,"toppled":1,"bonus":5,"earnedQuakes":0,"maxBodies":197,"physMsPerTick":17.87}
+{"seed":3,"strategy":"aim","win":true,"reason":"","got":7,"left":35,"coins":12,"rained":10,"toppled":0,"bonus":5,"earnedQuakes":0,"maxBodies":197,"physMsPerTick":15.12}
+{"seed":1,"strategy":"spam","win":true,"reason":"","got":7,"left":24.1,"coins":20,"rained":15,"toppled":1,"bonus":6,"earnedQuakes":0,"maxBodies":201,"physMsPerTick":19.9}
+{"seed":2,"strategy":"spam","win":true,"reason":"","got":7,"left":31.4,"coins":35,"rained":10,"toppled":2,"bonus":5,"earnedQuakes":0,"maxBodies":200,"physMsPerTick":15.98}
+{"seed":3,"strategy":"spam","win":true,"reason":"","got":7,"left":25.4,"coins":28,"rained":10,"toppled":2,"bonus":6,"earnedQuakes":0,"maxBodies":199,"physMsPerTick":16.06}
+{"seed":1,"strategy":"sweep","win":true,"reason":"","got":7,"left":28.7,"coins":20,"rained":15,"toppled":2,"bonus":5,"earnedQuakes":0,"maxBodies":198,"physMsPerTick":20.67}
+{"seed":2,"strategy":"sweep","win":true,"reason":"","got":7,"left":31.7,"coins":22,"rained":10,"toppled":1,"bonus":5,"earnedQuakes":0,"maxBodies":200,"physMsPerTick":19.77}
+{"seed":3,"strategy":"sweep","win":true,"reason":"","got":7,"left":34.3,"coins":20,"rained":10,"toppled":1,"bonus":5,"earnedQuakes":0,"maxBodies":199,"physMsPerTick":14.73}
+{"seed":1,"strategy":"taps","win":true,"reason":"","got":7,"left":22.3,"coins":55,"rained":15,"toppled":1,"bonus":6,"earnedQuakes":0,"maxBodies":171,"physMsPerTick":12.35}
+{"seed":2,"strategy":"taps","win":true,"reason":"","got":7,"left":27.9,"coins":84,"rained":15,"toppled":1,"bonus":6,"earnedQuakes":0,"maxBodies":151,"physMsPerTick":10.66}
+{"seed":3,"strategy":"taps","win":true,"reason":"","got":7,"left":28.6,"coins":71,"rained":20,"toppled":0,"bonus":6,"earnedQuakes":0,"maxBodies":148,"physMsPerTick":9.56}

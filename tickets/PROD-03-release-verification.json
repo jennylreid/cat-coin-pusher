@@ -1,0 +1,25 @@
+{
+  "version": 20261015210000,
+  "previous": 20261013160516,
+  "previousSHA256": "598532495b955f875688b47f5fa6ccbd1c929530e05ca447f3ccfbabe77ca301",
+  "uatSHA256": "95c80ce98ebdfbb57b95db44db81caecebd47c89f217a61f4ef15f5a90341726",
+  "releaseSHA256": "eb470250ad8a26fb88691cd83f78c46340da4c238e5e4ab72089e1da53aeff4a",
+  "protectedHashes": {
+    "uat/CatCoinPusher-UAT-game.json": "95c80ce98ebdfbb57b95db44db81caecebd47c89f217a61f4ef15f5a90341726",
+    "uat/CatCoinPusher-UAT.apk": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78",
+    "CatCoinPusher.apk": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26"
+  },
+  "backup": "backups/before-PROD-03-20261015210000",
+  "published": true,
+  "apkVersion": 14,
+  "productionMetadataPreserved": true,
+  "allNonHTMLFilesIdenticalToPinnedUAT": true,
+  "runtimeFileCount": 23,
+  "htmlInverseAdaptation": "exact pinned UAT reconstruction verified by prepare.cjs",
+  "boardResults": "exact match in PROD-03-board-results.json",
+  "automaticUpdate": {
+    "source": "work/android-build/app/src/main/java/com/jenny/catpusher/MainActivity.java (external workspace)",
+    "codePath": "onCreate calls loadNewest; loadNewest reads persisted update URI and offers Game update available when version exceeds installed/bundled version",
+    "phoneOffer": "pending device evidence"
+  }
+}

@@ -1,0 +1,68 @@
+# UAT 58 (UAT 57 + main-screen and title coins polish; UAT 57 = UAT 56 + B's panel above the bottom readouts; UAT 56 = UAT 55 + Board button, Dance meter, Level = board number, cat head proportions, title coin variants; UAT 55 = UAT 54 + the A/B of the between-rounds layout; UAT 54 = UAT 53 + the title stays until TAP TO PLAY, a clearer coin rain; UAT 53 = UAT 52 + one pickup effect for every piece, no Wild in player text; UAT 52 = UAT 51 + the top bar clear of the ears; the recipe is UAT 50's): builds release.html from UAT 48's source (work/cp48/release.html, pinned by hash) plus the CP-45 module
+# (progress50.js). UAT 49 was the same recipe with progress49.js; UAT 50 is the CP-45 rework (Jenny, Nov 14): a CatCoin
+# title screen, then the coin board is home (Kitchen, Porch, Album, Shop and Boards are buttons on the board). Usage: python build.py [other baseline release.html -> preview.html]
+from pathlib import Path
+import json, hashlib, sys, re
+p = Path(__file__).parent
+v = json.loads((p / 'release-version.json').read_text())
+BASE = Path(sys.argv[1]) if len(sys.argv) > 1 else p.parent / 'cp48/release.html'
+PIN = json.loads((p.parent / 'cp48/publication-manifest.json').read_text())['releaseHTMLSHA256']  # published UAT 48
+s = BASE.read_text(encoding='utf-8', newline='')
+if len(sys.argv) == 1: assert hashlib.sha256(s.encode('utf-8')).hexdigest() == PIN, 'baseline must be UAT 48'
+N = '\r\n' if '\r\n' in s else '\n'
+def rep(old, new, count=1):
+    global s
+    assert s.count(old) == count, (old[:90], s.count(old)); s = s.replace(old, new)
+old_build = re.findall(r"const BUILD = '[^']*';", s); assert len(old_build) == 1
+rep(old_build[0], "const BUILD = '%s';" % v['displayName'])
+# the round's prize list changes length (5-7), so the collection and its size become variables
+rep("const WILD_COLLECTION=['cheese','shrimp','tuna','yarn','duck','mouse','bell'],WILD_GOAL=WILD_COLLECTION.length,",
+    "var WILD_COLLECTION=['cheese','shrimp','tuna','yarn','duck','mouse','bell'];var WILD_GOAL=WILD_COLLECTION.length;const ")
+# Wild's prefill puts the round's list on its seven prize spots
+rep("const prizes=[['tuna',200,625],['cheese',108,595],['shrimp',292,600],['yarn',90,500],['duck',310,505],['mouse',96,670],['bell',304,672]];",
+    "const prizes=pgRoundPrizes([['tuna',200,625],['cheese',108,595],['shrimp',292,600],['yarn',90,500],['duck',310,505],['mouse',96,670],['bell',304,672]]);")
+# end card: stars and rewards in place of the stats lines
+a = "   ctx.font='14px system-ui';ctx.fillStyle='#f0e0ff';ctx.fillText(WILD.win?wildClock()+' to spare'"
+i = s.index(a); j = s.index("R.card.y+160);", i) + len("R.card.y+160);")
+rep(s[i:j], "   if(!pgEndText(R)){" + s[i:j].strip() + "}")
+# the star prize no longer brings a visitor: its card line stays the stars line (the old line only with Home off)
+rep("if(WILD.star){const V=W2_VISITORS[W43_STAR_TREATS[WILD.star]];W2_CARD_LINES[3]=", "if(WILD.star&&(PG_HOME_OFF||!PG)){const V=W2_VISITORS[W43_STAR_TREATS[WILD.star]];W2_CARD_LINES[3]=", 2)
+# the goal card's lower button is gone (the board is home); the end card's lower button shows the next goal card
+rep(" uiRound(L.back.x,L.back.y,L.back.w,L.back.h,14,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 14px system-ui';ctx.fillText('Back to the game',200,L.back.y+L.back.h/2+1);",
+    " if(PG_HOME_OFF||!PG){uiRound(L.back.x,L.back.y,L.back.w,L.back.h,14,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 14px system-ui';ctx.fillText('Back to the game',200,L.back.y+L.back.h/2+1);}")
+rep("const L=w2CardLayout();if(contains(L.back,p)){wildExit();return true;}", "const L=w2CardLayout();if((PG_HOME_OFF||!PG)&&contains(L.back,p)){wildExit();return true;}")
+rep("fillText('Back to the game'", "fillText(pgBackText()", 4)
+# sound helpers for the new screens (the audio clock, the struck bell and the steel clink)
+rep("    _w2ok(){return !(inBackground||document.hidden)&&ready();},",
+    "    _w2ok(){return !(inBackground||document.hidden)&&ready();},\n    _pgT(){return ac.currentTime;},_pgBell(t,f,v,d){bell(t,f,v,d);},_pgSteel(t,v,p,st){steelAt(t,v,p,st);},")
+# the board's pupils and resting mitts measure the original pictures (a cat's recoloured copy is smaller)
+rep("const sx=420/ART.head.width,sy=240/ART.head.height;", "const sx=420/(ART.head.pgW||ART.head.width),sy=240/(ART.head.pgH||ART.head.height);")
+rep("c.width=ART.paw.width;c.height=ART.paw.height;const g=c.getContext('2d');g.drawImage(ART.paw,0,0);",
+    "const __pp=(PG_ORIG&&PG_ORIG.paw)||ART.paw;c.width=__pp.width;c.height=__pp.height;const g=c.getContext('2d');g.drawImage(__pp,0,0);")
+rep("const h=w*ART.paw.height/ART.paw.width,sx=w/ART.paw.width,sy=h/ART.paw.height;",
+    "const __pp=(PG_ORIG&&PG_ORIG.paw)||ART.paw,h=w*__pp.height/__pp.width,sx=w/__pp.width,sy=h/__pp.height;")
+# UAT 53 (Jenny, Nov 14): every piece is collected on the frozen default path (Pop), the Quake coin too: from where it
+# fell, the same size, bell, shadow, timings and line as the prizes; no centring, no 70% zoom, no pinstriped box. It still
+# flies to the Quake button and chimes there (its own sound; the count goes up when it lands). The old panel style (UAT 34)
+# can't come back, even from an old saved setting: its Developer switch and the old style's dials are gone; the Pop's own dials stay.
+rep("f.pop=!quake&&pickupFx.popStyle>0;", "f.pop=true;")
+rep("if(!quake)ledgeBell();", "ledgeBell();")
+rep("const tg=pickupTarget();f.cx=(f.mx+tg.x)/2;f.cy=f.my+40;", "const tg=quake?quakeTarget():pickupTarget();f.cx=(f.mx+tg.x)/2;f.cy=f.my+40;")
+rep("const u=Math.min(1,(t-lv)/f.td),tg=pickupTarget(),e=easeIn(u)*.4+pickupEase(u)*.6;", "const u=Math.min(1,(t-lv)/f.td),tg=f.kind==='quake'?quakeTarget():pickupTarget(),e=easeIn(u)*.4+pickupEase(u)*.6;")
+rep("<button id=\"pfx-style\" class=\"wide\">'+pickupFxText('popStyle')+' (tap to switch)</button>'+PICKUP_FX_ORDER.filter(k=>k!=='popStyle')", "'+PICKUP_FX_ORDER.filter(k=>!['popStyle','rise','size','quakeSize','held','turn','offCentre','fade','stripes','panelPad','toBag','quakeFlight'].includes(k))")  # only the dials the Pop uses
+rep("pfx.querySelector('#pfx-style').onclick=", "(pfx.querySelector('#pfx-style')||{}).onclick=")
+# UAT 56: "Happy Cat" is the Dance meter (a music note instead of the heart); the goal card and Developer say "dance meter".
+rep("ctx.fillText(WILD.dance?'DANCE!':'HAPPY CAT',x0+24,y-13);", "ctx.fillText(WILD.dance?'DANCE!':'DANCE METER',x0+24,y-13);")
+rep("ctx.moveTo(hx,hy+hs*.75);ctx.bezierCurveTo(hx-hs*1.3,hy-hs*.2,hx-hs*.6,hy-hs*1.2,hx,hy-hs*.45);ctx.bezierCurveTo(hx+hs*.6,hy-hs*1.2,hx+hs*1.3,hy-hs*.2,hx,hy+hs*.75);ctx.fill();", "danceNoteGlyph(hx,hy,hs/8,ctx.fillStyle);")
+rep("Prizes fill the happy meter", "Prizes fill the dance meter", 2)
+rep("Prizes per happy meter", "Prizes per dance meter")
+# UAT 51: on the cat boards nothing takes taps in the bottom strip; Settings moves to the top (pgOwnHud in progress51.js)
+rep("ctx.fillText('Settings',hud.settingsX,hud.settingsY);", "if(!pgOwnHud())ctx.fillText('Settings',hud.settingsX,hud.settingsY);")
+rep("if(p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6){openCredits();return;}",
+    "if(!pgOwnHud()&&p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6){openCredits();return;}")
+rep("const hud=hudLayout();if(p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings",
+    "const hud=hudLayout();if(!pgOwnHud()&&p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings", 4)
+anchor = "Promise.all([RAPIER.init(), loadArt()])"
+rep(anchor, (p / 'progress58.js').read_text(encoding='utf-8').replace('\r\n', '\n').replace('\n', N) + N + anchor)
+out = p / ('release.html' if len(sys.argv) == 1 else 'preview.html')
+out.write_text(s, encoding='utf-8', newline=''); print(out, hashlib.sha256(s.encode('utf-8')).hexdigest())

@@ -1,0 +1,122 @@
+[
+ {
+  "board": 1,
+  "seed": 1,
+  "lane": "edges",
+  "status": "won",
+  "reason": null,
+  "used": 84,
+  "lostPrizes": [],
+  "sec": 18
+ },
+ {
+  "board": 1,
+  "seed": 1,
+  "lane": "targets",
+  "status": "won",
+  "reason": null,
+  "used": 114,
+  "lostPrizes": [],
+  "sec": 25
+ },
+ {
+  "board": 1,
+  "seed": 2,
+  "lane": "edges",
+  "status": "won",
+  "reason": null,
+  "used": 98,
+  "lostPrizes": [],
+  "sec": 21
+ },
+ {
+  "board": 1,
+  "seed": 2,
+  "lane": "targets",
+  "status": "won",
+  "reason": null,
+  "used": 114,
+  "lostPrizes": [],
+  "sec": 25
+ },
+ {
+  "board": 2,
+  "seed": 1,
+  "lane": "edges",
+  "status": "won",
+  "reason": null,
+  "used": 96,
+  "lostPrizes": [],
+  "sec": 21
+ },
+ {
+  "board": 2,
+  "seed": 1,
+  "lane": "targets",
+  "status": "won",
+  "reason": null,
+  "used": 83,
+  "lostPrizes": [],
+  "sec": 18
+ },
+ {
+  "board": 2,
+  "seed": 2,
+  "lane": "edges",
+  "status": "won",
+  "reason": null,
+  "used": 83,
+  "lostPrizes": [],
+  "sec": 18
+ },
+ {
+  "board": 2,
+  "seed": 2,
+  "lane": "targets",
+  "status": "won",
+  "reason": null,
+  "used": 83,
+  "lostPrizes": [],
+  "sec": 18
+ },
+ {
+  "board": 3,
+  "seed": 1,
+  "lane": "edges",
+  "status": "won",
+  "reason": null,
+  "used": 111,
+  "lostPrizes": [],
+  "sec": 24
+ },
+ {
+  "board": 3,
+  "seed": 1,
+  "lane": "targets",
+  "status": "won",
+  "reason": null,
+  "used": 85,
+  "lostPrizes": [],
+  "sec": 18
+ },
+ {
+  "board": 3,
+  "seed": 2,
+  "lane": "edges",
+  "status": "won",
+  "reason": null,
+  "used": 112,
+  "lostPrizes": [],
+  "sec": 24
+ },
+ {
+  "board": 3,
+  "seed": 2,
+  "lane": "targets",
+  "status": "won",
+  "reason": null,
+  "used": 85,
+  "lostPrizes": [],
+  "sec": 18
+ }
+]

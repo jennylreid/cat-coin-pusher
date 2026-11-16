@@ -1,0 +1,267 @@
+{
+ "render": "offline stand-in for Web Audio, 44.1 kHz mono 16-bit, through the game master gain 0.55",
+ "reference": {
+  "note": "UAT 54 sfx.land()/sfx.clink() rendered from work/cp54/release.html",
+  "landLoudest100msPhoneBand": 0.0113,
+  "clinkLoudest100msPhoneBand": 0.0137
+ },
+ "music": [
+  {
+   "file": "music-A-pizzicato-caper.wav",
+   "style": "Pizzicato caper",
+   "bpm": 132,
+   "bars": 16,
+   "lengthSec": 29.091,
+   "mixGain": 1.449,
+   "peak": 0.455,
+   "phoneBandRms": 0.0225,
+   "halfSecondMin": 0.0153,
+   "halfSecondMax": 0.0314,
+   "seamStep": 0
+  },
+  {
+   "file": "music-B-sunny-ukulele.wav",
+   "style": "Sunny ukulele and marimba",
+   "bpm": 112,
+   "bars": 12,
+   "lengthSec": 25.714,
+   "mixGain": 0.874,
+   "peak": 0.257,
+   "phoneBandRms": 0.0225,
+   "halfSecondMin": 0.0086,
+   "halfSecondMax": 0.038,
+   "seamStep": 0.0001
+  },
+  {
+   "file": "music-C-bossa-cafe.wav",
+   "style": "Bossa café",
+   "bpm": 132,
+   "bars": 16,
+   "lengthSec": 29.091,
+   "mixGain": 0.584,
+   "peak": 0.157,
+   "phoneBandRms": 0.0225,
+   "halfSecondMin": 0.0034,
+   "halfSecondMax": 0.0323,
+   "seamStep": 0
+  },
+  {
+   "file": "music-D-toy-box-pop.wav",
+   "style": "Toy-box pop",
+   "bpm": 128,
+   "bars": 16,
+   "lengthSec": 30,
+   "mixGain": 0.815,
+   "peak": 0.231,
+   "phoneBandRms": 0.0225,
+   "halfSecondMin": 0.0098,
+   "halfSecondMax": 0.0299,
+   "seamStep": 0.0002
+  },
+  {
+   "file": "music-E-funky-strut.wav",
+   "style": "Funky strut",
+   "bpm": 100,
+   "bars": 12,
+   "lengthSec": 28.8,
+   "mixGain": 1.525,
+   "peak": 0.373,
+   "phoneBandRms": 0.0225,
+   "halfSecondMin": 0.0114,
+   "halfSecondMax": 0.0341,
+   "seamStep": 0.0002
+  },
+  {
+   "file": "music-F-candy-pop.wav",
+   "style": "Candy pop",
+   "bpm": 136,
+   "bars": 16,
+   "lengthSec": 28.235,
+   "mixGain": 1.137,
+   "peak": 0.315,
+   "phoneBandRms": 0.0225,
+   "halfSecondMin": 0.0092,
+   "halfSecondMax": 0.0292,
+   "seamStep": 0.0001
+  }
+ ],
+ "coins": [
+  {
+   "file": "coin-1a-clink.wav",
+   "set": "clink",
+   "lengthSec": 0.5,
+   "peak": 0.164,
+   "loudest100msVsLandDb": 0
+  },
+  {
+   "file": "coin-1b-clink.wav",
+   "set": "clink",
+   "lengthSec": 0.5,
+   "peak": 0.159,
+   "loudest100msVsLandDb": 0.6
+  },
+  {
+   "file": "coin-1c-clink.wav",
+   "set": "clink",
+   "lengthSec": 0.5,
+   "peak": 0.152,
+   "loudest100msVsLandDb": 0.3
+  },
+  {
+   "file": "coin-1d-clink.wav",
+   "set": "clink",
+   "lengthSec": 0.5,
+   "peak": 0.142,
+   "loudest100msVsLandDb": -1
+  },
+  {
+   "file": "coin-2a-drop-on-pile.wav",
+   "set": "pile",
+   "lengthSec": 0.8,
+   "peak": 0.16,
+   "loudest100msVsLandDb": -0.7
+  },
+  {
+   "file": "coin-2b-drop-on-pile.wav",
+   "set": "pile",
+   "lengthSec": 0.8,
+   "peak": 0.162,
+   "loudest100msVsLandDb": -0.3
+  },
+  {
+   "file": "coin-2c-drop-on-pile.wav",
+   "set": "pile",
+   "lengthSec": 0.8,
+   "peak": 0.114,
+   "loudest100msVsLandDb": 0.2
+  },
+  {
+   "file": "coin-2d-drop-on-pile.wav",
+   "set": "pile",
+   "lengthSec": 0.8,
+   "peak": 0.138,
+   "loudest100msVsLandDb": 0.8
+  },
+  {
+   "file": "coin-3a-spill-3-coins.wav",
+   "set": "spill",
+   "lengthSec": 1.2,
+   "peak": 0.145,
+   "loudest100msVsLandDb": 1.5
+  },
+  {
+   "file": "coin-3b-spill-4-coins.wav",
+   "set": "spill",
+   "lengthSec": 1.2,
+   "peak": 0.16,
+   "loudest100msVsLandDb": 3.1
+  },
+  {
+   "file": "coin-3c-spill-5-coins.wav",
+   "set": "spill",
+   "lengthSec": 1.2,
+   "peak": 0.152,
+   "loudest100msVsLandDb": 3.6
+  },
+  {
+   "file": "coin-3d-spill-6-coins.wav",
+   "set": "spill",
+   "lengthSec": 1.2,
+   "peak": 0.202,
+   "loudest100msVsLandDb": 3.7
+  },
+  {
+   "file": "coin-4a-big-cascade.wav",
+   "set": "cascade",
+   "lengthSec": 2.4,
+   "peak": 0.155,
+   "loudest100msVsLandDb": 5.4
+  },
+  {
+   "file": "coin-4b-big-cascade.wav",
+   "set": "cascade",
+   "lengthSec": 2.8,
+   "peak": 0.183,
+   "loudest100msVsLandDb": 7.2
+  },
+  {
+   "file": "coin-4c-big-cascade.wav",
+   "set": "cascade",
+   "lengthSec": 3.2,
+   "peak": 0.157,
+   "loudest100msVsLandDb": 5.4
+  },
+  {
+   "file": "coin-5a-gold-drop.wav",
+   "set": "gold",
+   "lengthSec": 1.4,
+   "peak": 0.131,
+   "loudest100msVsLandDb": 2.7
+  },
+  {
+   "file": "coin-5b-gold-over-edge.wav",
+   "set": "gold",
+   "lengthSec": 1.6,
+   "peak": 0.089,
+   "loudest100msVsLandDb": 2.6
+  },
+  {
+   "file": "coin-5c-gold-clink.wav",
+   "set": "gold",
+   "lengthSec": 1.2,
+   "peak": 0.089,
+   "loudest100msVsLandDb": 0.5
+  }
+ ],
+ "pushers": [
+  {
+   "file": "pusher-0-current-for-comparison.wav",
+   "what": "Current pusher (UAT 41 onward), for comparison",
+   "lengthSec": 19.15,
+   "peak": 0.171,
+   "gainToMatchCurrent": 1
+  },
+  {
+   "file": "pusher-1-soft-glide.wav",
+   "what": "Soft glide: a felt-smooth swish and a soft wooden \"tok\" at the end",
+   "lengthSec": 19.15,
+   "peak": 0.064,
+   "gainToMatchCurrent": 0.53
+  },
+  {
+   "file": "pusher-2-ratchet.wav",
+   "what": "Ratchet: a light clicking gear under the travel, a small clunk at the end",
+   "lengthSec": 19.15,
+   "peak": 0.043,
+   "gainToMatchCurrent": 0.345
+  },
+  {
+   "file": "pusher-3-air-glide.wav",
+   "what": "Air glide: a soft pneumatic \"fsshh\" that rises then settles, a gentle \"pff-thk\" at the end",
+   "lengthSec": 19.15,
+   "peak": 0.029,
+   "gainToMatchCurrent": 0.402
+  },
+  {
+   "file": "pusher-4-wooden-drawer.wav",
+   "what": "Wooden drawer: a grainy wooden slide and a hollow \"tock\"",
+   "lengthSec": 19.15,
+   "peak": 0.051,
+   "gainToMatchCurrent": 0.399
+  },
+  {
+   "file": "pusher-5-tick-tock.wav",
+   "what": "Tick-tock: a soft tuned \"dum\" as it sets off and a woodblock \"tik\" where it stops; Turbo goes up a 4th",
+   "lengthSec": 19.15,
+   "peak": 0.037,
+   "gainToMatchCurrent": 0.307
+  }
+ ],
+ "coinGroupGains": {
+  "clink": 1.3619205110596297,
+  "pile": 0.742531937830136,
+  "spill": 0.8003213333188265,
+  "cascade": 0.879883484590881,
+  "gold": 0.5137834895338417
+ }
+}

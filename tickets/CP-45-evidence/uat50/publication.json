@@ -1,0 +1,19 @@
+﻿{
+    "version":  20261114120000,
+    "displayName":  "2026.11.14 UAT 50",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "000fe59d4ae3c180de75b288c8b94092b3ae4ee1ce24f5b9bbefba62c0be0d5b",
+    "stagedJSONSHA256":  "4e032eeae5bff3077796bcdb2698be13742587761bd5e2bef115f6795196c636",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "759e51a3d95deac59a425f508f47bb5471465ab07d0d02901704066a25119766",
+    "jsonBytes":  51815150,
+    "runtimeFiles":  37,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "backup":  "uat/backups/before-UAT50-20261114120000",
+    "authorization":  "UAT 50: CP-45 rework on UAT 49 (title screen, coin board is home); Jenny Nov 14 rework relayed by PM, hackathon style; UAT only",
+    "localPublication":  "verified"
+}

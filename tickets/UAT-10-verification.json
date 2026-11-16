@@ -1,0 +1,22 @@
+{
+  "identicalPhysicsSamples": 120,
+  "boards": 2,
+  "secondsPerBoard": 8,
+  "ledgeChecks": 300,
+  "coinDrawStats": {
+    "board": 20560,
+    "delivery": 2090,
+    "falling": 0,
+    "unclipped": 0
+  },
+  "upper480PixelRowsChangedChannels": 0,
+  "rearWidthIncreasePercent": 32.558139534883715,
+  "frontWidthUnchanged": true,
+  "protectedHashes": {
+    "phone/CatCoinPusher-game.json": "598532495b955f875688b47f5fa6ccbd1c929530e05ca447f3ccfbabe77ca301",
+    "CatCoinPusher.apk": "e1ee59222e40541327e8ba4e0f7d320a774028e9da79315c4720b5071cd5df26",
+    "uat/CatCoinPusher-UAT-game.json": "211cd01cd8ef5bad054a30017a000dabfa2781894d96072c100f98ea30203e5c",
+    "uat/CatCoinPusher-UAT.apk": "43c81f070ffb4b371b11de78692b537baf12284ce3127a490a438165f9c92a78"
+  },
+  "phone120fps": "pending device measurement"
+}

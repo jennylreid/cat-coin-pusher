@@ -1,0 +1,138 @@
+{
+ "build": "2026.11.12 UAT 45",
+ "base": "uat44",
+ "passed": [
+  "board 1 identical to the base build after 25 s",
+  "board 2 identical to the base build after 25 s",
+  "board 3 identical to the base build after 25 s",
+  "Wild (1) round identical to the base build after 25 s",
+  "Wild 2 round identical to the base build after 25 s (no fish coin, Dance break as before)",
+  {
+   "name": "MODES button opens the picker; TREAT TOSS starts its own mode on its goal card (Treat toss on, Dance break off)",
+   "info": {
+    "on": true,
+    "v2": true,
+    "mode": "treats",
+    "phase": "card",
+    "name": "TREAT TOSS",
+    "lines": "fish",
+    "toss": true,
+    "dance": false
+   }
+  },
+  {
+   "name": "Wild 2 itself keeps its name, card lines and Dance break, without Treat toss",
+   "info": {
+    "mode": null,
+    "name": "WILD 2",
+    "lines": "meter",
+    "toss": false,
+    "dance": true
+   }
+  },
+  {
+   "name": "Treat toss mode: a fish coin arrives as a bonus drop in each round (3rd to 7th drop)",
+   "info": {
+    "fish": 6,
+    "rounds": 6,
+    "atBonus": [
+     3,
+     5,
+     4,
+     6,
+     4,
+     6
+    ]
+   }
+  },
+  {
+   "name": "Treat toss mode: no music-note coin and no happy meter (the Dance break stays in Wild 2)",
+   "info": {
+    "roundsWithNote": 0
+   }
+  },
+  {
+   "name": "Wild 2: never a fish coin",
+   "info": {
+    "roundsWithFish": 0
+   }
+  },
+  "Treat toss mode: collecting a prize does not fill a happy meter",
+  {
+   "name": "pushing the fish coin off starts Treat toss within 1.2 s (after its pickup pop)",
+   "info": {
+    "afterSec": 0.33
+   }
+  },
+  {
+   "name": "the round timer is paused during the toss",
+   "info": {
+    "left0": 58.700000000000074,
+    "left": 58.700000000000074
+   }
+  },
+  "taps during the toss are catches, not coin drops",
+  "a tap on a treat catches it (counter, streak, it flies to the bag)",
+  {
+   "name": "the toss lasts about 8-11 s and ends on its own",
+   "info": {
+    "sec": 10.8
+   }
+  },
+  {
+   "name": "every flip, catch, whiff and drop is logged with its time",
+   "info": {
+    "events": 37
+   }
+  },
+  "the timer runs again after the toss",
+  {
+   "name": "the performance log carries the Treat toss dials, the last tosses and the pantry",
+   "info": {
+    "keys": [
+     "tossTuning",
+     "tossTuningDefaults",
+     "tossLog",
+     "pantry"
+    ]
+   }
+  },
+  {
+   "name": "no audio or frame errors with sound on; sounds were made",
+   "info": {
+    "errs": [],
+    "nodes": 1244
+   }
+  },
+  {
+   "name": "a perfect toss ticks off at most 2 needed prizes, the rest go to the pantry",
+   "info": {
+    "caught": 16,
+    "got": 2,
+    "pantry": 14
+   }
+  },
+  "catching every treat is PERFECT (logged) and drops a RAIN 10",
+  "the last goal prize during a toss does not end the round yet",
+  "a dance break does not start during a toss",
+  "when the toss finishes, the waiting win happens",
+  "EXIT mid-toss goes straight back to the normal board",
+  {
+   "name": "Treat toss sounds are silent with sound off or Pickup volume 0",
+   "info": {
+    "nodesMuted": 0,
+    "nodesVol0": 0
+   }
+  },
+  {
+   "name": "Developer: Start treat toss now and 4 dials (length, treats, speed, tap radius), saved on the phone",
+   "info": {
+    "len": 9,
+    "count": 15,
+    "speed": 1.1,
+    "tapR": 46
+   }
+  }
+ ],
+ "failed": []
+}

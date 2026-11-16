@@ -1,0 +1,26 @@
+[
+ {
+  "board": 1,
+  "seed": 1,
+  "status": "won",
+  "reason": "targets",
+  "used": 78,
+  "sec": 18.1
+ },
+ {
+  "board": 1,
+  "seed": 2,
+  "status": "won",
+  "reason": "targets",
+  "used": 100,
+  "sec": 31
+ },
+ {
+  "board": 1,
+  "seed": 3,
+  "status": "won",
+  "reason": "targets",
+  "used": 53,
+  "sec": 21.7
+ }
+]

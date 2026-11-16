@@ -1,0 +1,34 @@
+{
+ "build": "2026.11.12 UAT 39",
+ "passed": [
+  {
+   "name": "coins at rest fully under the cat's face/chin: Board 3 peak 8/7/6 -> 0/0/0, Wild 6/5/6 -> 0/0/0 (seeds 4-6, 60 s hold-to-drop)"
+  },
+  {
+   "name": "Wild 2 (UAT 38 -> UAT 39): face/chin peak 3/7 -> 0/0"
+  },
+  {
+   "name": "big flicker blinks (>=150 px) Wild 19/147/53 -> 3/8/4 (UAT 39 order code); Wild 2 36/97 -> 1/1; Board 3 0/0/2 -> 0/0/1"
+  },
+  {
+   "name": "example still pair: 7 order swaps in 18 frames -> 1"
+  },
+  {
+   "name": "balance Boards 1-3: 9/9 wins both; coins used 660 (UAT 38) vs 687 (UAT 39), within run-to-run spread 46-121"
+  },
+  {
+   "name": "CP-38 Wild 2 suite on UAT 39: 42/42 Wild 2 checks pass (4 'identical to UAT 37' traces differ by design, PM accepted)"
+  },
+  {
+   "name": "frame cost, same boards (Wild seed 7): draw 42.1 ms with the order code vs 42.2 ms without; backstop check 0.2-0.4 ms per step"
+  },
+  {
+   "name": "smoke: Boards 1-3, Wild and Wild 2 load, play 4 s and draw without errors on the built page"
+  }
+ ],
+ "failed": [],
+ "notes": [
+  "desktop only; phone UAT pending",
+  "frame-cost section of the CP-38 suite not run (desktop canvas library crashes in long render runs); measured with short runs instead"
+ ]
+}

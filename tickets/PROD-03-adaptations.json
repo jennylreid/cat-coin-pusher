@@ -1,0 +1,63 @@
+[
+  {
+    "from": "<title>Cat Pusher UAT</title>",
+    "to": "<title>Cat Coin Pusher</title>"
+  },
+  {
+    "from": "catpusher.uat.board.v1",
+    "to": "catpusher.board.prototype.v1"
+  },
+  {
+    "from": "catpusher.uat.audio.v1",
+    "to": "catpusher.audio.v1",
+    "all": true
+  },
+  {
+    "from": "const BUILD = 'UAT · 20261015195300';",
+    "to": "const BUILD = 'Board prototype 1';"
+  },
+  {
+    "from": "sweeps:0,quakes:1",
+    "to": "sweeps:S.dev?1:0,quakes:S.dev?1:0"
+  },
+  {
+    "from": "if(board.collected.length===1)board.sweeps=1",
+    "to": "if(S.dev&&board.collected.length===1)board.sweeps=1"
+  },
+  {
+    "from": "if(board.sweeps<=0||",
+    "to": "if(!S.dev||board.sweeps<=0||"
+  },
+  {
+    "from": "if(board.quakes<=0||",
+    "to": "if(!S.dev||board.quakes<=0||"
+  },
+  {
+    "from": "if(board.status!=='ready')return false;",
+    "to": "if(!S.dev||board.status!=='ready')return false;"
+  },
+  {
+    "from": "if(!safeAreaGuides)return;",
+    "to": "if(!S.dev||!safeAreaGuides)return;"
+  },
+  {
+    "from": "}else{\n  ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(20,bottom,178,32)",
+    "to": "}else if(S.dev){\n  ctx.fillStyle='rgba(18,11,28,.9)';ctx.fillRect(20,bottom,178,32)"
+  },
+  {
+    "from": "board.status==='ready'?'Tap board to play · Powers preview above'",
+    "to": "board.status==='ready'?(S.dev?'Tap board to play · Powers preview above':'Tap board to play')"
+  },
+  {
+    "from": "if(p.y<hud.bottomY+32&&!['won','lost'].includes(board.status)){",
+    "to": "if(S.dev&&p.y<hud.bottomY+32&&!['won','lost'].includes(board.status)){"
+  },
+  {
+    "from": "function openCredits(){holding=false;taps=[];panel.innerHTML='<button id=\"close\">Close</button><h2>UAT Settings</h2><button id=\"safe-guides\" class=\"wide\">Show/hide safe-area guides</button><button id=\"happy-test\" class=\"wide\">Preview Happy (6 seconds)</button><button id=\"sound-test\" class=\"wide\">Sound effects: '+(S.muted?'off':'on')+'</button><p>Waiting is the toothy idle pose. Rest is the small smile with raised mitts, used for board clear. Recovery returns from Quake. Happy usage is TBD; preview only.</p>';panel.style.display='block';panel.querySelector('#close').onclick=()=>panel.style.display='none';panel.querySelector('#safe-guides').onclick=()=>{safeAreaGuides=!safeAreaGuides;panel.style.display='none';};panel.querySelector('#happy-test').onclick=()=>{if(previewHappy())panel.style.display='none';};panel.querySelector('#sound-test').onclick=()=>{S.muted=!S.muted;saveAudioSettings();openCredits();};}\n",
+    "to": "function setDeveloperMode(enabled){\n S.dev=!!enabled;board.sweeps=S.dev?1:0;board.quakes=S.dev?1:0;save();\n}\nfunction testDevPower(kind){\n if(!S.dev||sweepTime>0||catquakeTime>0||['won','lost'].includes(board.status))return false;\n if(kind==='sweep'){board.sweeps=1;return board.status==='ready'?previewPawSweep():usePawSweep();}\n if(kind==='quake'){board.quakes=1;return useCatquake();}return false;\n}\nfunction openSettings() {\n holding=false;taps=[];\n panel.innerHTML='<button id=\"close\">Close</button><h2>Settings</h2><button id=\"settings-sound\" class=\"wide\">Sound effects: '+(S.muted?'off':'on')+'</button><p class=\"reward\">Background music is off.</p>'+(window.Android&&Android.checkUpdates?'<button id=\"settings-update\" class=\"wide\">Check for updates</button>':'')+'<button id=\"board-dev\" class=\"wide\">Developer mode: '+(S.dev?'on':'off')+'</button>'+(S.dev?'<div class=\"set\"><h3>Developer tools</h3><button id=\"safe-guides\" class=\"wide\">Show/hide safe-area guides</button><p class=\"reward\">Test powers here or use the buttons below the board. Restart a cleared board to test again.</p><button id=\"dev-sweep\" class=\"wide\">Test Paw Sweep</button><button id=\"dev-quake\" class=\"wide\">Test Catquake</button><button id=\"happy-test\" class=\"wide\">Preview Happy (6 seconds)</button><button id=\"dev-restart\" class=\"wide\">Restart current board</button></div>':'');\n panel.style.display='block';panel.querySelector('#close').onclick=()=>{panel.style.display='none';};\n panel.querySelector('#settings-sound').onclick=()=>{S.muted=!S.muted;saveAudioSettings();musicTick();openSettings();};\n panel.querySelector('#board-dev').onclick=()=>{setDeveloperMode(!S.dev);openSettings();};\n if(window.Android&&Android.checkUpdates)panel.querySelector('#settings-update').onclick=()=>Android.checkUpdates();\n if(S.dev){panel.querySelector('#happy-test').onclick=()=>{if(previewHappy())panel.style.display='none';};panel.querySelector('#safe-guides').onclick=()=>{safeAreaGuides=!safeAreaGuides;panel.style.display='none';};for(const [id,kind]of [['#dev-sweep','sweep'],['#dev-quake','quake']])panel.querySelector(id).onclick=()=>{if(testDevPower(kind))panel.style.display='none';};panel.querySelector('#dev-restart').onclick=()=>{resetBoard();panel.style.display='none';};}\n}\nfunction openCredits(){openSettings();}\n"
+  },
+  {
+    "from": "hudLayout, safeAreaReport, isRestPose",
+    "to": "hudLayout, safeAreaReport, setDeveloperMode, testDevPower, isRestPose"
+  }
+]

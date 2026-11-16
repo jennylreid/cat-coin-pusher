@@ -1,0 +1,146 @@
+{
+ "passed": [
+  {
+   "name": "board 1 identical to UAT 36 after 25 s of play",
+   "info": {
+    "chars": 1857
+   }
+  },
+  {
+   "name": "board 2 identical to UAT 36 after 25 s of play",
+   "info": {
+    "chars": 2244
+   }
+  },
+  {
+   "name": "board 3 identical to UAT 36 after 25 s of play",
+   "info": {
+    "chars": 4034
+   }
+  },
+  "Wild round starts with an empty happy meter of 4 notches",
+  {
+   "name": "each prize fills one notch",
+   "info": {
+    "happy": 3
+   }
+  },
+  "a repeat prize fills a notch too, and a full meter queues the dance break",
+  {
+   "name": "the dance break starts once the pickup has been held up (within 1.3 s)",
+   "info": {}
+  },
+  "the cat does the Dancing pose (one looped move)",
+  "a 3-beat count-in, then the dance (16 beats at 109 BPM = 8.8 s)",
+  "the pose loops move 1 in time with the bar",
+  {
+   "name": "taps within ±0.13 s of the beat (after the 0.05 s delay allowance) bank one coin each",
+   "info": {
+    "bank": "{\"coin\":5,\"rain5\":1,\"rain10\":0}"
+   }
+  },
+  "extra taps on a beat already banked bank nothing",
+  "an off-beat tap banks nothing",
+  "…and costs the next beat (so tapping fast does not pay)",
+  "an on-beat tap sometimes banks a rain coin instead (Rain-coin chance)",
+  {
+   "name": "rapid tapping (15 taps a second) banks at most one beat in two",
+   "info": {
+    "banked": 0
+   }
+  },
+  {
+   "name": "no coins dropped and the Wild bank unchanged during the break",
+   "info": {
+    "used": 0
+   }
+  },
+  {
+   "name": "the round timer is paused during the break",
+   "info": {
+    "left": 55.56666666666692
+   }
+  },
+  "music stops after the last beat: roar (cat lunges) and the screen shakes",
+  "the screen shakes",
+  {
+   "name": "everything banked rains down at once (spread over a short time)",
+   "info": {
+    "banked": 7,
+    "newBodies": 7
+   }
+  },
+  "banked rain coins land on the board",
+  {
+   "name": "after the break: shake off, meter empty, pose stopped, round timer running again",
+   "info": {
+    "left": 54.566666666666976
+   }
+  },
+  "a bonus drop can be the music-note coin (about one per round)",
+  "collecting the music-note coin fills the meter at once",
+  "…with the Pop pickup",
+  "EXIT still works during the break: back on the normal board, pose and shake cleared",
+  {
+   "name": "about one music-note coin per round",
+   "info": {
+    "rounds": 6,
+    "notes": 8
+   }
+  },
+  "if the last prize lands during a dance break, the round is won and the win dance plays",
+  "Developer mode shows the Dance break dials and the Start button",
+  "dial values are saved",
+  "dial values appear in the performance log",
+  "saved dials load on the next start",
+  "Start dance break now: opens the Wild board and counts down",
+  "…and the dance break starts right after GO",
+  {
+   "name": "opening Settings pauses the dance (beat clock shifts by the pause)",
+   "info": {
+    "shift": 2.0000000000005826
+   }
+  },
+  {
+   "name": "dance sounds play with sound on, and are silent with sound off or Pickup volume 0",
+   "info": {
+    "on": 2,
+    "vol0": 2,
+    "muted": 2
+   }
+  },
+  {
+   "name": "the beat plays through the break (generated in code)",
+   "info": {
+    "nodes": 62
+   }
+  },
+  {
+   "name": "frame cost: the dance rain costs no more than an existing rain-25 coin on the same board (desktop, ms per frame incl. physics and drawing)",
+   "info": {
+    "normal": {
+     "avg": 6.2,
+     "p95": 6.72,
+     "max": 83.96
+    },
+    "dance": {
+     "avg": 8.47,
+     "p95": 13.33,
+     "max": 17.48
+    },
+    "danceRain": {
+     "avg": 16.85,
+     "p95": 22.12,
+     "max": 27.69
+    },
+    "existingRain25Reference": {
+     "avg": 20.35,
+     "p95": 28.31,
+     "max": 39.34
+    },
+    "coinsBanked": 16
+   }
+  }
+ ],
+ "failed": []
+}

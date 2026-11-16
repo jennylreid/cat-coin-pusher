@@ -1,0 +1,13 @@
+{
+  "rate": {
+    "attempts": 20,
+    "accepted": 3,
+    "charged": 3,
+    "feedback": 2,
+    "afterNoMoreTaps": 3
+  },
+  "restSamples": 34254,
+  "maxRestTiltDeltaDegrees": 0.052143200769661814,
+  "unearnedFlipFrames": 0,
+  "maxLandedHeight": 67.97633767127991
+}

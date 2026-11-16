@@ -1,0 +1,155 @@
+{
+ "source": "work/cp33/release.html",
+ "runtime": "real shipped script + Rapier, desktop node",
+ "passed": [
+  {
+   "name": "arc ends on Inventory tile, board 1",
+   "prize": "cheese",
+   "start": {
+    "x": 100.3,
+    "y": 770.7
+   },
+   "tileCentre": {
+    "x": 200,
+    "y": 827
+   },
+   "arrivalSec": 0.7,
+   "arcPeakY": 610.6,
+   "arcRisePx": 160.1,
+   "bouncePeak": 1.199,
+   "chimesAtArrival": 1,
+   "creditedAtPayout": true
+  },
+  {
+   "name": "arc ends on Inventory tile, board 2",
+   "prize": "cheese",
+   "start": {
+    "x": 299.7,
+    "y": 770.7
+   },
+   "tileCentre": {
+    "x": 200,
+    "y": 827
+   },
+   "arrivalSec": 0.7,
+   "arcPeakY": 610.6,
+   "arcRisePx": 160.1,
+   "bouncePeak": 1.199,
+   "chimesAtArrival": 1,
+   "creditedAtPayout": true
+  },
+  {
+   "name": "arc ends on Inventory tile, board 3",
+   "prize": "cheese",
+   "start": {
+    "x": 200,
+    "y": 770.7
+   },
+   "tileCentre": {
+    "x": 200,
+    "y": 827
+   },
+   "arrivalSec": 0.7,
+   "arcPeakY": 610.6,
+   "arcRisePx": 160.1,
+   "bouncePeak": 1.199,
+   "chimesAtArrival": 1,
+   "creditedAtPayout": true
+  },
+  {
+   "name": "hold keeps dropping through a pickup",
+   "dropsDuringOneSecond": 5,
+   "coinsUsed": 5,
+   "inputCanvasX": 120,
+   "releaseWorldX": [
+    116,
+    116,
+    116,
+    116,
+    116
+   ],
+   "holding": true
+  },
+  {
+   "name": "five prizes in quick succession",
+   "queuedOverSec": 0.25,
+   "allDoneWithinSec": 1.25,
+   "maxSimultaneousFlights": 5,
+   "maxSparkles": 24,
+   "sparkleCap": 24,
+   "gameTimeAdvancedSec": 1.25
+  },
+  {
+   "name": "tap during a pickup drops a coin",
+   "usedBefore": 0,
+   "usedAfter": 1
+  },
+  {
+   "name": "clear order with final prize, board 1",
+   "won": 0,
+   "landed": 0.833,
+   "clear": 0.833,
+   "rest": 3.033,
+   "next": 5.067
+  },
+  {
+   "name": "clear order with final prize, board 2",
+   "won": 0,
+   "landed": 0.833,
+   "clear": 0.833,
+   "rest": 3.033,
+   "next": 5.067
+  },
+  {
+   "name": "clear order with final prize, board 3",
+   "won": 0,
+   "landed": 0.833,
+   "clear": 0.833,
+   "rest": 3.033,
+   "next": 5.067
+  },
+  {
+   "name": "lost prize: grey sink and ripple at the gutter",
+   "prize": "cheese",
+   "boardStatus": "lost",
+   "reason": "prize-lost",
+   "sinkSec": 0.3,
+   "oldGutterSpriteDrawn": false
+  },
+  {
+   "name": "developer tuning hidden when off, persists, in log",
+   "logPickupTuning": {
+    "flight": 0.75,
+    "endScale": 0.5,
+    "arcHeight": 170,
+    "arcSide": -0.25,
+    "sparkles": 9,
+    "bounce": 1.25,
+    "bounceTime": 0.15,
+    "sink": 0.3
+   },
+   "persistedAfterReload": {
+    "flight": 0.75,
+    "endScale": 0.5,
+    "arcHeight": 170,
+    "arcSide": -0.25,
+    "sparkles": 9,
+    "bounce": 1.25,
+    "bounceTime": 0.15,
+    "sink": 0.3
+   }
+  },
+  {
+   "name": "Paw, ribbon, bubble and style setting removed",
+   "searched": [
+    "pickupBlocksPlay",
+    "PICKUP_STYLES",
+    "Paw reward",
+    "Reward ribbon",
+    "Satchel bubble",
+    "pickup-style",
+    "pickup-paused"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,118 @@
+== section 1
+PASS the default pickup (Pop) is unchanged: every prize and coin that used it traces frame for frame the same as UAT 52 [["cheese",true],["shrimp",true],["tuna",true],["duck",true],["bowtie",true],["milk",true],["rain5",true],["rain25",true],["note",true],["fish",true],["laser",true],["heart",true]]
+PASS UAT 52 for comparison: the Quake coin went to the middle of the screen at 70% (280 px) on its own path {"pop":false,"w":280,"peak":{"x":189.0573420273674,"y":477.06423205461414}}
+PASS the Quake coin now pops from where it fell, to the same size (120 px, 30%), with the same timings as the prizes {"w":120,"start":[133.5071,770.6891],"x0":133.50711107233224,"peak":{"x":117.6804077902591,"y":570.2588110123218},"t":[0.2,0.25,0.45],"prize":[0.2,0.25,0.45]}
+PASS it still ends at the Quake button (the count goes up there) {"end":[231,75],"button":{"x":231,"y":75}}
+FAIL build label "2026.11.14 UAT 60"
+PASS no pinstriped box; sounds: the ledge bell like every piece, then its own chime at the button (no thump) {"pb":0,"snd":["bell","special"]}
+PASS an old saved setting (the UAT 34 box style) can no longer bring the box back {"pb":0,"pops":[true,true]}
+PASS pieces: no errors with sound on []
+
+7/8 passed
+exit 1
+== section 2
+PASS 7 prizes at once behave exactly as in UAT 52: same line (start times, holds), same bells and thumps, same overlap {"rise":[["cheese",0,0.25],["tuna",0.45,0.25],["sardine",0.9,0.125],["shrimp",1.225,0.125],["bowtie",1.55,0.125],["duck",1.875,0.125],["milk",2.2,0.125]],"air":3,"sounds":10}
+PASS with a Quake coin in the pile it takes a normal turn (same start and hold as a prize there), so the line keeps moving {"withQuake":[["cheese",0,0.25],["tuna",0.45,0.25],["quake",0.9,0.125],["shrimp",1.225,0.125],["bowtie",1.55,0.125],["duck",1.875,0.125],["milk",2.2,0.125]],"uat52WithQuake":[["cheese",0,0.25],["tuna",0.45,0.25],["quake",0.9,0.35],["shrimp",1.425,0.125],["bowtie",1.75,0.125],["duck",2.075,0.125],["milk",2.4,0.125]]}
+PASS in the pile: 3 bells at once (each quieter), the rest silent; thumps follow; two pieces in the air at once {"bells":[["bell",0,0,1],["bell",0,0.1,0.7],["bell",0,0.2,0.5]],"thumps":7,"air":3}
+
+3/3 passed
+exit 0
+== section 3
+exit 127
+== section 4
+PASS Developer: no pickup style switch; only the Pop's own dials remain
+
+1/1 passed
+exit 0
+== section 5
+PASS Developer off: no "Wild" drawn anywhere a player looks {}
+PASS the Tuxedo's board is TUXEDO (goal card title, board readout) and Tuxedo in the picker; the others keep their mode names {"titles":{"tuxedo":"TUXEDO","orange":"TREAT TOSS","ragdoll":"COZY","siamese":"LASER CHASE","tortie":"TOWER WALL"},"pk":"Tuxedo"}
+PASS the title fits on the goal card {"tw":108.18000030517578,"cw":380}
+PASS names: no errors with sound on []
+
+4/4 passed
+exit 0
+== section 6
+PASS Dance break: every move lands on each beat of the tap clock (within one 60 fps frame, 17 ms), with sound on or off {"move 0 sound on":[-2,-2,-3,-3,-4,-4,-5],"move 1 sound on":[-2,-2,-3,-3,-4,-4,-5],"move 2 sound on":[-2,-2,-3,-3,-4,-4,-5],"move 3 sound on":[-2,-2,-3,-3,-4,-4,-5],"move 0 sound off":[-2,-2,-3,-3,-4,-4,-5],"move 1 sound off":[-2,-2,-3,-3,-4,-4,-5],"move 2 sound off":[-2,-2,-3,-3,-4,-4,-5],"move 3 sound off":[-2,-2,-3,-3,-4,-4,-5]}
+
+1/1 passed
+exit 0
+== section 7
+PASS a tap during the intro is ignored: the intro plays out (no jump to the board) {"screen":"title","t":1.0000000000000013}
+PASS after the intro it stays on the title (32 s and counting), the rain still going, until the player taps {"screen":"title","t":31.999999999999464,"coins":15}
+PASS the coins are the board coin, bigger (22-34 px radius, was 10-17); UAT 56 default rain 2 falls at up to 380 px/s {"rMin":22.529012157143104,"rMax":33.14657019185514,"vMax":380}
+PASS the coins are drawn behind the cat's face and the CatCoin title (never over them) {"lastCoin":14,"firstCat":15,"firstTitle":16,"n":23}
+PASS a tap after the intro (TAP TO PLAY) opens the Tuxedo's board on its goal (UAT 55: behind the main screen in layout A) {"screen":"main","on":true,"phase":"card","cat":"tuxedo"}
+PASS title: no errors with sound on []
+
+6/6 passed
+exit 0
+== section 8
+PASS A: after the title the main screen shows (the board waits behind on its goal) {"screen":"main","phase":"card","cat":"tuxedo","ab":"A"}
+PASS A: the side buttons are small and at the edges, clear of the cat (left Kitchen, Porch, Album; right Shop, Boards), below the top bar [{"id":"kitchen","x":36,"y":148,"r":25},{"id":"porch","x":36,"y":248,"r":25},{"id":"album","x":36,"y":348,"r":25},{"id":"shop","x":364,"y":148,"r":25},{"id":"board","x":364,"y":248,"r":25}]
+PASS A: PLAY is the one big button (244 x 78, about 10 times the area of a side button) {"x":78,"y":540,"w":244,"h":78}
+PASS A: a locked side button (Kitchen, level 2) stays shut and says so ["Kitchen opens at level 2"]
+PASS A: Kitchen opens from its side button; back returns to the main screen {"k":"kitchen","back":"main"}
+PASS A: "? How to play" shows the old goal card on the board {"screen":"board","rules":true,"phase":"card"}
+PASS A: from there a tap starts the round as before "count"
+PASS A: after a round the end card shows on the board; its New goal comes back to the main screen {"end":{"screen":"board","phase":"end"},"after":"main"}
+PASS A: PLAY goes onto the board and starts the round (3, 2, 1) {"screen":"board","phase":"count"}
+PASS A: Boards opens the picker on the main screen; picking the Orange's board stays on the main screen, now for TREAT TOSS {"pk":true,"screen":"main","cat":"orange","name":"TREAT TOSS"}
+PASS A: a tap on the cat gets the sweet face, hearts and a meow
+PASS A: the top bar works on the main screen (Settings opens) "block"
+PASS A: no errors with sound on []
+PASS B: after the title the board shows, with the new panel in the goal card area (no extra screen) {"screen":"board","phase":"card","rest":true}
+PASS B: nothing over the cat's face: the panel, PLAY and the side buttons are all below the chin {"ch":354.6204081632653,"panel":362.6204081632653,"side":[375.6204081632653,471.6204081632653,567.6204081632653,375.6204081632653,471.6204081632653]}
+PASS B: the top bar has no row of five big buttons any more (they are the side buttons)
+PASS B: a tap in the panel away from PLAY does not start the round
+PASS B: PLAY starts the round
+PASS B: the end card's New goal comes back to the board view's panel
+PASS B: "? How to play" shows the old goal card
+PASS B: from there a tap starts the round as before
+PASS B: no errors with sound on []
+PASS a "!" shows on a side button when something waits there (the same rules as the old paws) [["kitchen",true],["porch",false],["album",true],["shop",false],["board",true]]
+PASS Developer: "Home layout" switch (A main screen / B board view) and a difficulty tag per board null
+PASS switching the layout takes effect at once (main screen to board view and back) {"toB":"board","toA":"main"}
+PASS difficulty tags: placeholders by opening order (Tuxedo and Orange Normal, Ragdoll and Siamese Hard, Tortie Super hard), shown with Level n {"tuxedo":"Normal","orange":"Normal","ragdoll":"Hard","siamese":"Hard","tortie":"Super hard"}
+PASS Developer off = production view: no MODES chip on the bar (the layout switch and tags are only in the Developer panel)
+PASS switch and badges: no errors []
+
+28/28 passed
+exit 0
+== section 9
+PASS nothing overlaps in the round HUD: Board button, Settings gear, the Dance meter and its label, on 720/889/960-high screens with status bars of 0, 24 and 48 px []
+PASS during a round the button says "Board" with a back arrow (not EXIT); the meter says DANCE METER (not HAPPY CAT) ["DANCE METER","Board"]
+PASS the first time ever the meter fills, a hint shows under it ("Prizes fill it. Full = Dance break!"), with a pulse round the meter {"hint":true,"happyT":0.09999999999999999}
+PASS the hint goes after about 4 s
+PASS the goal card says "Prizes fill the dance meter"
+PASS Board goes back to this board's between-rounds view (layout A: its main screen) {"screen":"main","phase":"card","cat":"tuxedo"}
+PASS Board button and Dance meter: no errors with sound on []
+PASS the hint shows once only (not again on this phone)
+PASS "Level n" on PLAY is the board number in sequence: 1 on a new save, +1 for each round won, not for a loss {"l0":1,"l1":2,"l2":2}
+PASS the cat head is drawn at the art's own proportions (1536 x 1024 = 1.5; was 1.75) on the title and the main screen {"title":[1.5,1.5],"main":[1.5,1.5]}
+PASS title coins 1: the same flat coins, about twice as fast (top speed 380 px/s, was 190) {"mode":1,"vmax":380,"up":0,"thick":0,"pile":0,"clinks":0,"screen":"title","errs":0}
+PASS title coins 2 (default): as fast, and each coin shows its gold edge as it turns {"mode":2,"vmax":380,"up":0,"thick":912,"pile":0,"clinks":0,"screen":"title","errs":0}
+PASS title coins 3: a fountain: coins burst up from the bottom and arc back down {"mode":3,"vmax":1019,"up":420,"thick":913,"pile":0,"clinks":0,"screen":"title","errs":0}
+PASS title coins 4: coins fall fast and pile up at the bottom with clinks {"mode":4,"vmax":520,"up":0,"thick":666,"pile":29,"clinks":19,"screen":"title","errs":0}
+PASS all four stay on the title until a tap, with no errors with sound on {"1":{"mode":1,"vmax":380,"up":0,"thick":0,"pile":0,"clinks":0,"screen":"title","errs":0},"2":{"mode":2,"vmax":380,"up":0,"thick":912,"pile":0,"clinks":0,"screen":"title","errs":0},"3":{"mode":3,"vmax":1019,"up":420,"thick":913,"pile":0,"clinks":0,"screen":"title","errs":0},"4":{"mode":4,"vmax":520,"up":0,"thick":666,"pile":29,"clinks":19,"screen":"title","errs":0}}
+PASS Developer: "Title coins" switch (default 2), "Show the title screen again", "Show the Dance meter hint again"
+
+16/16 passed
+exit 0
+== section 10
+PASS nothing overlaps on 720/889/960-high screens: in B the panel and PLAY end above the bottom readouts; PLAY, How to play and the side buttons never touch, in A or B {"bad":[],"info":{"A720":{"play":[500,578],"help":484,"readTop":634},"A889":{"play":[540,618],"help":524,"readTop":803},"A960":{"play":[540,618],"help":524,"readTop":874},"B720":{"play":[534,612],"help":526,"readTop":634},"B889":{"play":[701,779],"help":549,"readTop":803},"B960":{"play":[772,850],"help":549,"readTop":874}}}
+
+1/1 passed
+exit 0
+== section 11
+PASS no glow or halo on any coin: the title (rain 2) and the main screen {"title":0,"main":0}
+PASS the main screen's falling coins are solid coins with their gold edge as they turn (not paper-thin discs) {"thick":7}
+PASS the pile under PLAY: 9 coins at their true proportions (round, not squashed), side by side without crowding {"pile":[[1,76,837,54],[1,138,837,54],[1,200,837,54],[1,262,837,54],[1,324,837,54],[1,138,793,54],[1,200,793,54],[1,262,793,54],[1,200,749,54]],"crowd":0}
+
+3/3 passed
+exit 0
+== section 12
+PASS layout A: PLAY sits right under How to play (8-24 px, no big empty gap) and the pile has its own room below PLAY, on 720/889/960-high screens {"bad":[],"out":{"720":{"gap":16,"room":19,"rows":2,"side":[["kitchen",36,148],["porch",36,248],["album",36,348],["shop",364,148],["board",364,248]]},"889":{"gap":16,"room":104,"rows":3,"side":[["kitchen",36,148],["porch",36,248],["album",36,348],["shop",364,148],["board",364,248]]},"960":{"gap":16,"room":175,"rows":3,"side":[["kitchen",36,148],["porch",36,248],["album",36,348],["shop",364,148],["board",364,248]]}}}
+
+1/1 passed
+exit 0
