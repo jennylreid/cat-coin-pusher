@@ -23,6 +23,9 @@ work, done the same way. Jenny reviews in this chat; the PM reads `tickets/CP-56
   treats; board size on the teal table; 32 px icons on dark and light.
 - Then write `tickets/CP-56.md` and **stop**. Jenny picks or asks for a redo.
 
+**Picks (Jenny, Nov 16): sock B, fish biscuit A, sardine B, egg B, box A.** Phase B starts after CP-54's UAT 71 is
+published; base it on UAT 71.
+
 ## Phase B: only when the PM says go
 Same as CP-52 Phase B: swap the picks in everywhere they show, with the same size and collider (the pickup is frozen).
 Build to UAT with the usual steps, take screenshots at 360x640 and 412x915, and write a UAT test plan.

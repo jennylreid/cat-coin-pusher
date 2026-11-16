@@ -12,7 +12,8 @@ Still open: CP-23 (design, solo), CP-39 (log without file picker).
 **Known issues, fixed first (fix tickets):**
 1. Playability: level not shown on the board; no pause (timer); screen sleeps while playing (keep awake, with a
    limit); "Main screen" button → "Home"; "Collect these n" doesn't draw the eye.
-2. Sound: casino feel; the raindrop-like coin sound is far too frequent; more real coin sounds (cash register,
+2. Sound: "This should sound like money" (Jenny, Nov 16): real recordings of coins, piles of change and a cash register;
+   no code-made plinks. CP-54 restores the pre-CP-46 coin landing; the cash register follows. Casino feel; the raindrop-like coin sound is far too frequent; more real coin sounds (cash register,
    sliding change); music a little lower. The title screen's coin pile-up uses the same rain-on-a-tin-roof sound
    (Jenny, Nov 15): it should sound like coins dropping. It is the only sound on the title screen, so whatever
    the title screen plays is the sound to replace everywhere.

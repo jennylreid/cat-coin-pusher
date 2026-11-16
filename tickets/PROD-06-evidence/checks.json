@@ -1,0 +1,587 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\prod06\\release.html",
+ "passed": true,
+ "passedChecks": [
+  {
+   "name": "1.0 the Pause button opens the pop-up with Developer off (RESUME / END ROUND), and the round resumes",
+   "info": true
+  },
+  {
+   "name": "1.1 Settings with Developer off: only Check for updates (in the app), Sound effects and the Developer switch (off); no test panel, previews, dials, log buttons or \"UAT\"",
+   "info": {
+    "found": [],
+    "buttons": [
+     "Close",
+     "Sound effects: off",
+     "Developer mode: off"
+    ]
+   }
+  },
+  "1.2 the same Settings with Developer on still has the test tools (Test this build, previews, dials)",
+  {
+   "name": "1.3 no MODES button on any screen with Developer off (title, Home, Kitchen, Porch, Album, Shop, cat picker, round, Pause, end card)",
+   "info": {
+    "title": {
+     "sameAsDevOn": true,
+     "screen": "title",
+     "modesButton": false
+    },
+    "main": {
+     "sameAsDevOn": false,
+     "screen": "main",
+     "modesButton": false
+    },
+    "main-all-buttons": {
+     "sameAsDevOn": false,
+     "screen": "main",
+     "modesButton": false
+    },
+    "door-kitchen": {
+     "sameAsDevOn": true,
+     "screen": "kitchen",
+     "modesButton": false
+    },
+    "door-porch": {
+     "sameAsDevOn": true,
+     "screen": "porch",
+     "modesButton": false
+    },
+    "door-album": {
+     "sameAsDevOn": true,
+     "screen": "album",
+     "modesButton": false
+    },
+    "door-shop": {
+     "sameAsDevOn": true,
+     "screen": "shop",
+     "modesButton": false
+    },
+    "cat-picker": {
+     "sameAsDevOn": false,
+     "screen": "main",
+     "modesButton": false
+    },
+    "round-play": {
+     "sameAsDevOn": false,
+     "screen": "board",
+     "modesButton": false
+    },
+    "round-pause": {
+     "sameAsDevOn": false,
+     "screen": "board",
+     "modesButton": false
+    },
+    "round-resumed": {
+     "sameAsDevOn": false,
+     "screen": "board",
+     "modesButton": false
+    },
+    "round-end": {
+     "sameAsDevOn": false,
+     "screen": "board",
+     "modesButton": false
+    }
+   }
+  },
+  "1.4 sanity: with Developer on the MODES button does appear on the main screen",
+  {
+   "name": "1.5 fresh install: Developer off after the title and the first screen; no UAT keys and no devdefault or diagnostics key saved",
+   "info": {
+    "dev": false,
+    "keys": [
+     "catpusher.progress.v1",
+     "catpusher.loop.v1"
+    ]
+   }
+  },
+  {
+   "name": "1.6 a played round with Developer off writes no performance log (catpusher.diagnostics.v1) and keeps the production keys",
+   "info": [
+    "catpusher.progress.v1",
+    "catpusher.loop.v1"
+   ]
+  },
+  {
+   "name": "1.7 footer/label reads the production release name, no \"UAT\"",
+   "info": "2026.11.16"
+  },
+  {
+   "name": "1.8 no frame errors (Developer off and on runs)",
+   "info": {
+    "off": [],
+    "on": []
+   }
+  },
+  {
+   "name": "2.1 Oct 31 save: coins carry over; treats carry over up to the cap of 9 (extra cheese turns into coins once)",
+   "info": {
+    "before": {
+     "coins": 201,
+     "got": {
+      "cheese": 14,
+      "shrimp": 3,
+      "tuna": 0
+     },
+     "muted": true,
+     "board": 0
+    },
+    "after": {
+     "coins": 276,
+     "items": {
+      "cheese": 9,
+      "shrimp": 3,
+      "tuna": 0
+     },
+     "migrated": {
+      "coins": 201,
+      "extra": 75,
+      "at": "2026-10-10T16:00:00.016Z"
+     },
+     "level": 0,
+     "sel": 1,
+     "dev": false,
+     "muted": true,
+     "screen": "main",
+     "cap": 9
+    },
+    "sell": {
+     "cheese": 15,
+     "shrimp": 15
+    }
+   }
+  },
+  {
+   "name": "2.2 progression starts at Level 1 (no levels passed); Developer off; sound setting kept (muted stays muted)",
+   "info": {
+    "coins": 276,
+    "items": {
+     "cheese": 9,
+     "shrimp": 3,
+     "tuna": 0
+    },
+    "migrated": {
+     "coins": 201,
+     "extra": 75,
+     "at": "2026-10-10T16:00:00.016Z"
+    },
+    "level": 0,
+    "sel": 1,
+    "dev": false,
+    "muted": true,
+    "screen": "main",
+    "cap": 9
+   }
+  },
+  {
+   "name": "2.3 the upgraded save plays: Level 1 round starts, no frame errors",
+   "info": []
+  },
+  {
+   "name": "2.4 reopening keeps the new save (no second migration, coins and treats the same)",
+   "info": {
+    "coins": 276,
+    "items": {
+     "cheese": 9,
+     "shrimp": 3,
+     "tuna": 0
+    }
+   }
+  },
+  {
+   "name": "2.5 production never reads or writes UAT keys",
+   "info": [
+    "catpusher.audio.v1",
+    "catpusher.loop.v1",
+    "catpusher.pickup.v1",
+    "catpusher.progress.v1"
+   ]
+  },
+  {
+   "name": "2.6 2026.11.15 save: level progress and stars, coins, Catnip, pantry (treats, recipes, dishes), Album (photos, stamps), cats and rounds carry over unchanged; no re-migration",
+   "info": {
+    "before": {
+     "coins": 1234,
+     "catnip": 7,
+     "lv": {
+      "passed": 4,
+      "sel": 5,
+      "stars": {
+       "1": 3,
+       "2": 2,
+       "3": 1,
+       "4": 2
+      }
+     },
+     "items": {
+      "cheese": 4,
+      "shrimp": 2,
+      "tuna": 1
+     },
+     "ever": {
+      "cheese": 1,
+      "shrimp": 1,
+      "tuna": 1
+     },
+     "recipes": {
+      "r1": 1
+     },
+     "dishes": {
+      "d1": 2
+     },
+     "photos": {
+      "tuxedo": 1,
+      "orange": 1
+     },
+     "stamped": {
+      "tuxedo": 1
+     },
+     "open": {
+      "tuxedo": 1,
+      "orange": 1
+     },
+     "openOrder": [
+      "tuxedo",
+      "orange"
+     ],
+     "rounds": 9,
+     "migrated": {
+      "coins": 220,
+      "extra": 0,
+      "at": "2026-10-10T16:00:00.016Z"
+     }
+    },
+    "after": {
+     "coins": 1234,
+     "catnip": 7,
+     "lv": {
+      "passed": 4,
+      "sel": 5,
+      "stars": {
+       "1": 3,
+       "2": 2,
+       "3": 1,
+       "4": 2
+      }
+     },
+     "items": {
+      "cheese": 4,
+      "shrimp": 2,
+      "tuna": 1
+     },
+     "ever": {
+      "cheese": 1,
+      "shrimp": 1,
+      "tuna": 1
+     },
+     "recipes": {
+      "r1": 1
+     },
+     "dishes": {
+      "d1": 2
+     },
+     "photos": {
+      "tuxedo": 1,
+      "orange": 1
+     },
+     "stamped": {
+      "tuxedo": 1
+     },
+     "open": {
+      "tuxedo": 1,
+      "orange": 1
+     },
+     "openOrder": [
+      "tuxedo",
+      "orange"
+     ],
+     "rounds": 9,
+     "migrated": {
+      "coins": 220,
+      "extra": 0,
+      "at": "2026-10-10T16:00:00.016Z"
+     }
+    }
+   }
+  },
+  {
+   "name": "2.7 other saved settings carry over (sound, pantry key, music byte for byte; old-board coins/treats), Developer off, sound stays muted",
+   "info": {
+    "catpusher.audio.v1": true,
+    "catpusher.pantry.v1": true,
+    "catpusher.music.v2": true,
+    "catpusher.loop.v1 (player fields, as the 2026.11.15 game reopens it)": true
+   }
+  },
+  {
+   "name": "2.8 the upgraded 2026.11.15 save plays Level 5, no frame errors, no UAT keys",
+   "info": {
+    "sel": 5,
+    "errs": []
+   }
+  },
+  {
+   "name": "3.1 same scripted rounds (Levels 1, 4, 6) end with identical boards in production and UAT 70",
+   "info": [
+    {
+     "level": 1,
+     "seed": 3,
+     "pieces": 80,
+     "equal": true
+    },
+    {
+     "level": 4,
+     "seed": 5,
+     "pieces": 94,
+     "equal": true
+    },
+    {
+     "level": 6,
+     "seed": 9,
+     "pieces": 96,
+     "equal": true
+    }
+   ]
+  }
+ ],
+ "failed": [],
+ "notes": {
+  "pauseOk": true,
+  "devOffScreens": {
+   "title": {
+    "sameAsDevOn": true,
+    "screen": "title",
+    "modesButton": false
+   },
+   "main": {
+    "sameAsDevOn": false,
+    "screen": "main",
+    "modesButton": false
+   },
+   "main-all-buttons": {
+    "sameAsDevOn": false,
+    "screen": "main",
+    "modesButton": false
+   },
+   "door-kitchen": {
+    "sameAsDevOn": true,
+    "screen": "kitchen",
+    "modesButton": false
+   },
+   "door-porch": {
+    "sameAsDevOn": true,
+    "screen": "porch",
+    "modesButton": false
+   },
+   "door-album": {
+    "sameAsDevOn": true,
+    "screen": "album",
+    "modesButton": false
+   },
+   "door-shop": {
+    "sameAsDevOn": true,
+    "screen": "shop",
+    "modesButton": false
+   },
+   "cat-picker": {
+    "sameAsDevOn": false,
+    "screen": "main",
+    "modesButton": false
+   },
+   "round-play": {
+    "sameAsDevOn": false,
+    "screen": "board",
+    "modesButton": false
+   },
+   "round-pause": {
+    "sameAsDevOn": false,
+    "screen": "board",
+    "modesButton": false
+   },
+   "round-resumed": {
+    "sameAsDevOn": false,
+    "screen": "board",
+    "modesButton": false
+   },
+   "round-end": {
+    "sameAsDevOn": false,
+    "screen": "board",
+    "modesButton": false
+   }
+  },
+  "devOnDiffers": [
+   "main",
+   "main-all-buttons",
+   "cat-picker",
+   "round-play",
+   "round-pause",
+   "round-resumed",
+   "round-end"
+  ],
+  "oct31Save": {
+   "state": {
+    "coins": 201,
+    "got": {
+     "cheese": 14,
+     "shrimp": 3,
+     "tuna": 0
+    },
+    "muted": true,
+    "board": 0
+   },
+   "keys": [
+    "catpusher.audio.v1",
+    "catpusher.loop.v1",
+    "catpusher.pickup.v1"
+   ]
+  },
+  "upgraded": {
+   "coins": 276,
+   "items": {
+    "cheese": 9,
+    "shrimp": 3,
+    "tuna": 0
+   },
+   "migrated": {
+    "coins": 201,
+    "extra": 75,
+    "at": "2026-10-10T16:00:00.016Z"
+   },
+   "level": 0,
+   "sel": 1,
+   "dev": false,
+   "muted": true,
+   "screen": "main",
+   "cap": 9
+  },
+  "nov15Save": {
+   "state": {
+    "coins": 1234,
+    "catnip": 7,
+    "lv": {
+     "passed": 4,
+     "sel": 5,
+     "stars": {
+      "1": 3,
+      "2": 2,
+      "3": 1,
+      "4": 2
+     }
+    },
+    "items": {
+     "cheese": 4,
+     "shrimp": 2,
+     "tuna": 1
+    },
+    "ever": {
+     "cheese": 1,
+     "shrimp": 1,
+     "tuna": 1
+    },
+    "recipes": {
+     "r1": 1
+    },
+    "dishes": {
+     "d1": 2
+    },
+    "photos": {
+     "tuxedo": 1,
+     "orange": 1
+    },
+    "stamped": {
+     "tuxedo": 1
+    },
+    "open": {
+     "tuxedo": 1,
+     "orange": 1
+    },
+    "openOrder": [
+     "tuxedo",
+     "orange"
+    ],
+    "rounds": 9,
+    "migrated": {
+     "coins": 220,
+     "extra": 0,
+     "at": "2026-10-10T16:00:00.016Z"
+    }
+   },
+   "keys": [
+    "catpusher.audio.v1",
+    "catpusher.progress.v1",
+    "catpusher.loop.v1"
+   ]
+  },
+  "nov15Upgraded": {
+   "coins": 1234,
+   "catnip": 7,
+   "lv": {
+    "passed": 4,
+    "sel": 5,
+    "stars": {
+     "1": 3,
+     "2": 2,
+     "3": 1,
+     "4": 2
+    }
+   },
+   "items": {
+    "cheese": 4,
+    "shrimp": 2,
+    "tuna": 1
+   },
+   "ever": {
+    "cheese": 1,
+    "shrimp": 1,
+    "tuna": 1
+   },
+   "recipes": {
+    "r1": 1
+   },
+   "dishes": {
+    "d1": 2
+   },
+   "photos": {
+    "tuxedo": 1,
+    "orange": 1
+   },
+   "stamped": {
+    "tuxedo": 1
+   },
+   "open": {
+    "tuxedo": 1,
+    "orange": 1
+   },
+   "openOrder": [
+    "tuxedo",
+    "orange"
+   ],
+   "rounds": 9,
+   "migrated": {
+    "coins": 220,
+    "extra": 0,
+    "at": "2026-10-10T16:00:00.016Z"
+   }
+  },
+  "parity": [
+   {
+    "level": 1,
+    "seed": 3,
+    "pieces": 80,
+    "equal": true
+   },
+   {
+    "level": 4,
+    "seed": 5,
+    "pieces": 94,
+    "equal": true
+   },
+   {
+    "level": 6,
+    "seed": 9,
+    "pieces": 96,
+    "equal": true
+   }
+  ]
+ },
+ "at": "2026-11-16T22:05:20.371Z"
+}
