@@ -1,0 +1,263 @@
+[
+  {
+    "id": "feather",
+    "option": "a",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 20,
+      "y": 13,
+      "w": 92,
+      "h": 101,
+      "transparent": 11932
+    },
+    "master": {
+      "x": 158,
+      "y": 122,
+      "w": 1005,
+      "h": 973,
+      "transparent": 1087974
+    },
+    "output": {
+      "x": 20,
+      "y": 13,
+      "w": 92,
+      "h": 101,
+      "transparent": 11743
+    }
+  },
+  {
+    "id": "feather",
+    "option": "b",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 20,
+      "y": 13,
+      "w": 92,
+      "h": 101,
+      "transparent": 11932
+    },
+    "master": {
+      "x": 86,
+      "y": 107,
+      "w": 1074,
+      "h": 1023,
+      "transparent": 967912
+    },
+    "output": {
+      "x": 21,
+      "y": 13,
+      "w": 91,
+      "h": 101,
+      "transparent": 11255
+    }
+  },
+  {
+    "id": "feather",
+    "option": "c",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 20,
+      "y": 13,
+      "w": 92,
+      "h": 101,
+      "transparent": 11932
+    },
+    "master": {
+      "x": 90,
+      "y": 49,
+      "w": 1124,
+      "h": 1135,
+      "transparent": 1016371
+    },
+    "output": {
+      "x": 20,
+      "y": 13,
+      "w": 92,
+      "h": 101,
+      "transparent": 12320
+    }
+  },
+  {
+    "id": "ball",
+    "option": "a",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 20,
+      "y": 20,
+      "w": 88,
+      "h": 88,
+      "transparent": 9142
+    },
+    "master": {
+      "x": 85,
+      "y": 97,
+      "w": 1071,
+      "h": 1090,
+      "transparent": 666725
+    },
+    "output": {
+      "x": 20,
+      "y": 20,
+      "w": 88,
+      "h": 88,
+      "transparent": 10361
+    }
+  },
+  {
+    "id": "ball",
+    "option": "b",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 20,
+      "y": 20,
+      "w": 88,
+      "h": 88,
+      "transparent": 9142
+    },
+    "master": {
+      "x": 115,
+      "y": 124,
+      "w": 1005,
+      "h": 1030,
+      "transparent": 773574
+    },
+    "output": {
+      "x": 20,
+      "y": 20,
+      "w": 88,
+      "h": 88,
+      "transparent": 10400
+    }
+  },
+  {
+    "id": "ball",
+    "option": "c",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 20,
+      "y": 20,
+      "w": 88,
+      "h": 88,
+      "transparent": 9142
+    },
+    "master": {
+      "x": 79,
+      "y": 87,
+      "w": 1077,
+      "h": 1101,
+      "transparent": 640234
+    },
+    "output": {
+      "x": 20,
+      "y": 20,
+      "w": 88,
+      "h": 88,
+      "transparent": 10321
+    }
+  },
+  {
+    "id": "cushion",
+    "option": "a",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 9,
+      "y": 29,
+      "w": 110,
+      "h": 77,
+      "transparent": 7709
+    },
+    "master": {
+      "x": 60,
+      "y": 150,
+      "w": 1121,
+      "h": 939,
+      "transparent": 729932
+    },
+    "output": {
+      "x": 9,
+      "y": 37,
+      "w": 110,
+      "h": 69,
+      "transparent": 9877
+    }
+  },
+  {
+    "id": "cushion",
+    "option": "b",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 9,
+      "y": 29,
+      "w": 110,
+      "h": 77,
+      "transparent": 7709
+    },
+    "master": {
+      "x": 96,
+      "y": 228,
+      "w": 1060,
+      "h": 848,
+      "transparent": 790346
+    },
+    "output": {
+      "x": 9,
+      "y": 29,
+      "w": 110,
+      "h": 77,
+      "transparent": 9079
+    }
+  },
+  {
+    "id": "cushion",
+    "option": "c",
+    "canvas": [
+      128,
+      128
+    ],
+    "target": {
+      "x": 9,
+      "y": 29,
+      "w": 110,
+      "h": 77,
+      "transparent": 7709
+    },
+    "master": {
+      "x": 105,
+      "y": 225,
+      "w": 1040,
+      "h": 884,
+      "transparent": 758316
+    },
+    "output": {
+      "x": 9,
+      "y": 29,
+      "w": 110,
+      "h": 77,
+      "transparent": 8890
+    }
+  }
+]
