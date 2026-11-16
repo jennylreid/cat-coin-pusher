@@ -13,10 +13,12 @@ Still open: CP-23 (design, solo), CP-39 (log without file picker).
 1. Playability: level not shown on the board; no pause (timer); screen sleeps while playing (keep awake, with a
    limit); "Main screen" button → "Home"; "Collect these n" doesn't draw the eye.
 2. Sound: casino feel; the raindrop-like coin sound is far too frequent; more real coin sounds (cash register,
-   sliding change); music a little lower.
+   sliding change); music a little lower. The title screen's coin pile-up uses the same rain-on-a-tin-roof sound
+   (Jenny, Nov 15): it should sound like coins dropping. It is the only sound on the title screen, so whatever
+   the title screen plays is the sound to replace everywhere.
 3. Mouse pounce: the big cat's own mitts should pounce, not small paws from another cat.
 4. Cats button: a pop-up to switch cats, greyed with one cat; keep hearts on tap.
-5. PLAY-screen coins: try a soft, evenly spaced coin field with coins falling behind, instead of the pyramid.
+5. PLAY-screen coins: remove the pyramid (no coin field for now) and make the PLAY button smaller (Jenny, Nov 16). In CP-49.
 6. Developer cleanup (MODES and old test tools).
 7. Powers: the Yawn works against the player, so it is a wheel slice only, not a power. The Tuxedo's power becomes
    Formal inspection (a monocle highlights the most valuable coins and prizes; the cane sweeps them forward). (Jenny, Nov 15)
@@ -35,6 +37,31 @@ Still open: CP-23 (design, solo), CP-39 (log without file picker).
     8), no towers. Towers start on later levels. (Jenny, Nov 15, with production and UAT 62 screenshots)
     Every level: the full coin grid, no open gaps; towers stack straight up on grid coins; about 80 coins or
     fewer at the start. In CP-48.
+    Level 1 prizes (Jenny, Nov 16): "we're collecting prizes too quickly"; the first board should be very simple with
+    just two prizes, the original shrimp and cheese. Proposed for CP-50 with the coin limit.
+    Crammed boards stay occasional, never the first board. Prize collection should be harder to achieve (Jenny,
+    Nov 16). PM proposal: a balance pass after CP-50 (the slower drop already makes it harder; measure that first):
+    fewer bonus prizes, prizes start further back, report win rates before/after. Jenny's idea: fill the space with
+    other coins (rain coins, 10s etc.) or prizes that don't get used for much. PM opinion: value coins yes; filler
+    prizes only if each pays out (turns into coins on pickup), otherwise they clutter.
+
+**From UAT 64's test (Jenny, Nov 15; CP-48 passed with these for later):**
+- The 45-coin limit: she never saw "Board full", only the slowdown; on Level 6 it hit early and "destroyed gameplay".
+  Prevent the situation instead: e.g. slower drops on a long press. Next fix ticket after production.
+- Design talk: packed boards as a rarity; fewer coins, some bigger (reference: Screenshots/ref-other-pusher-fewer-bigger-coins-2026-11-15.webp,
+  another game, private, never commit); fewer prizes and harder to collect (not 7 per board). Hard levels 3, 7, 10: later.
+- Design talk: patterns as part of the fun (Pixel Flow: a picture made of pieces that you clear; reference
+  Screenshots/ref-pixelflow-pattern-2026-11-15.webp, private). Ties in with coloured towers and colour goals.
+
+**Old app can't update (Jenny, Nov 15, Nothing Phone/Pixel):** a production app on the Oct 27 build (APK16) shows
+"Incomplete app update: The UAT file is missing its app installer" and is stuck. It says "UAT" in production and
+gives no way out. Fix ticket: when the app is too old for an update, say so plainly and offer the installer (a link
+or the installer in the update file), and never say UAT in production. Before Google Play: decide how app updates
+work there (Play updates the app itself; check the in-game updater doesn't fight it).
+
+**Keep, revise later (Jenny, Nov 15):** the Shop stays in the game. It opens after some play (since CP-47: after the
+Kitchen, when a recipe needs something no board drops). When it opens and what it does get revised in the Shop design
+talk; never drop it.
 
 **Design work next (talks first):** Kitchen as a super-cute merge game with recipe tiers; Porch; Album; Shop; one
 kind of coin (economy) and a coin-earning side game; many attractable cats; side games paying into progress;

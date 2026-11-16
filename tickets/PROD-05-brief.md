@@ -1,16 +1,17 @@
-# PROD-05 Promote Baseline 1 (UAT 62) to production
+# PROD-05 Promote Baseline 1 (UAT 64) to production
 
 Name this conversation "PROD-05 Promote Baseline 1". Work in C:\Users\jenny\OneDrive\work\CoinPusher; follow AGENTS.md
 (read "Channels and publication" closely) and CODEX_BRIEF.md.
 
 **Sign-off:** Jenny, Nov 15, 2026: "just push it all to production, and anything we perceive as a bug we'll fix
-first." Her sign-off pass is in tickets/SIGNOFF-1.md. Scope: everything in 2026.11.14 UAT 62 (20261114235959),
-which includes CP-24, CP-33 to CP-38, CP-40 to CP-47 (Baseline 1).
+first." Her sign-off pass is in tickets/SIGNOFF-1.md. Then, after testing UAT 64: "Go: promote UAT 64 to production
+as is." Scope: everything in 2026.11.15 UAT 64 (20261115190000): CP-24, CP-33 to CP-38, CP-40 to CP-48 (Baseline 1).
+UAT 63 was never tested; don't use it. UAT 64's source: work/cp63/release.html (see tickets/CP-48.md).
 
 ## Do
 1. **Back up production first** (`backups/`, as earlier PROD tickets did). Never touch signing keystores in the
    shared project.
-2. **Build production from UAT 62's game source** with production identity: app ID com.jenny.catpusher,
+2. **Build production from UAT 64's game source** with production identity: app ID com.jenny.catpusher,
    `phone/CatCoinPusher-game.json`, production update URI, production save keys and settings. Don't copy the UAT
    JSON wholesale; don't carry any UAT channel identity across. Game version strictly higher than production's.
    Game-only update if the native app doesn't need to change; if it does, say so and stop for the PM.
@@ -21,7 +22,7 @@ which includes CP-24, CP-33 to CP-38, CP-40 to CP-47 (Baseline 1).
    over (capped as in CP-45), progression starts at Level 1. Test an upgrade from a copy of an Oct 31 production save.
 5. Verify a fresh cloud download of `phone/CatCoinPusher-game.json` matches what you published. UAT untouched.
 6. **Close-out to GitHub** (C:\Users\jenny\GitHub\cat-coin-pusher): `git switch main` (the repo sits on
-   `wip/uat`), bring in the Baseline 1 source, commit naming "Baseline 1 (UAT 62): CP-24, CP-33–38, CP-40–47,
+   `wip/uat`), bring in the Baseline 1 source, commit naming "Baseline 1 (UAT 64): CP-24, CP-33–38, CP-40–48,
    PROD-05", push. Never commit `Screenshots/ibear-*`, `Screenshots/ref-*`, `ref-other-pusher-*`, keystores, APKs,
    WAVs or anything .gitignore excludes.
 
