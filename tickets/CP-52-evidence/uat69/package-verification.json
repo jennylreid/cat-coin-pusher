@@ -1,0 +1,23 @@
+{
+  "version": 20261116190000,
+  "displayName": "2026.11.16 UAT 69",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "f6edcf665f618e2f354028260aed4389c6890eb2debde10f9a88c7cea5334afb",
+  "stagedJSONSHA256": "37809a3955252daffd71a2b22e37bc4fd899ba5c7734831026fa261ead288464",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "88110b8cf989104239030682a2b1ff50476079507e712050f1ae7f567950ac08",
+  "jsonBytes": 52055737,
+  "runtimeFiles": 40,
+  "changedRuntimeFiles": [
+    "index.html",
+    "img/art/cp52-feather.png",
+    "img/art/cp52-ball.png",
+    "img/art/cp52-cushion.png"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.16 UAT 68",
+  "backup": "uat/backups/before-UAT69-20261116190000",
+  "evidence": "tickets/CP-52-evidence/uat69",
+  "authorization": "UAT 69: CP-52 approved feather D, ball C, cushion C; UAT only on UAT 68; shared art cache replacement, same sizes/colliders and frozen pickup"
+}

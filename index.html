@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 68';
+const BUILD = '2026.11.16 UAT 69';
 
 
 
@@ -21952,6 +21952,11 @@ async function loadArt() {
 
 
  async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
+ // CP-52: preload approved 128px prize canvases into the existing shared art cache.
+ WILD_ART['feather']=await image('img/art/cp52-feather.png');WILD_ART['feather'].pgl=1;
+ WILD_ART['ball']=await image('img/art/cp52-ball.png');WILD_ART['ball'].pgl=1;
+ WILD_ART['cushion']=await image('img/art/cp52-cushion.png');WILD_ART['cushion'].pgl=1;
+
 
 
 
