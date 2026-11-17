@@ -1,0 +1,651 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp63-uat\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp63-uat\\base.html",
+ "passed": true,
+ "passedN": 8,
+ "failed": [],
+ "notes": {
+  "power": [
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 1,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "cheese",
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "gone": 5,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 2,
+    "playing": true,
+    "roundEnded": true,
+    "picks": [
+     "shrimp",
+     "cheese",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "gone": 5,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 1,
+    "playing": true,
+    "roundEnded": true,
+    "picks": [
+     "cheese",
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "gone": 1,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 2,
+    "playing": true,
+    "roundEnded": true,
+    "picks": [
+     "shrimp",
+     "cheese",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "gone": 2,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 2,
+    "fps": 60,
+    "seed": 1,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "egg",
+     "feather",
+     "quake",
+     "quake",
+     "rain5"
+    ],
+    "gone": 5,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 2,
+    "fps": 60,
+    "seed": 2,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "feather",
+     "ball",
+     "quake",
+     "rain5",
+     "coin"
+    ],
+    "gone": 5,
+    "side": [
+     {
+      "kind": "item",
+      "lit": false
+     }
+    ],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 1
+   },
+   {
+    "level": 2,
+    "fps": 30,
+    "seed": 1,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "egg",
+     "milk",
+     "quake",
+     "quake",
+     "rain5"
+    ],
+    "gone": 5,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 2,
+    "fps": 30,
+    "seed": 2,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "ball",
+     "feather",
+     "quake",
+     "rain5",
+     "coin"
+    ],
+    "gone": 4,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 1,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "egg",
+     "box",
+     "quake",
+     "rain5",
+     "rain5"
+    ],
+    "gone": 5,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 2,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "egg",
+     "box",
+     "rain5",
+     "rain5",
+     "rain5"
+    ],
+    "gone": 5,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 1,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "egg",
+     "box",
+     "quake",
+     "rain5",
+     "rain5"
+    ],
+    "gone": 5,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 2,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "egg",
+     "box",
+     "rain5",
+     "rain5",
+     "rain5"
+    ],
+    "gone": 5,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 4,
+    "fps": 60,
+    "seed": 1,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "milk",
+     "egg",
+     "quake",
+     "rain5",
+     "coin"
+    ],
+    "gone": 5,
+    "side": [
+     {
+      "kind": "item",
+      "lit": false
+     }
+    ],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 4,
+    "fps": 60,
+    "seed": 2,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "milk",
+     "egg",
+     "rain5",
+     "coin",
+     "coin"
+    ],
+    "gone": 5,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 4,
+    "fps": 30,
+    "seed": 1,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "milk",
+     "egg",
+     "quake",
+     "rain5",
+     "coin"
+    ],
+    "gone": 4,
+    "side": [
+     {
+      "kind": "item",
+      "lit": false
+     }
+    ],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 4,
+    "fps": 30,
+    "seed": 2,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "milk",
+     "egg",
+     "rain5",
+     "coin",
+     "coin"
+    ],
+    "gone": 5,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 5,
+    "fps": 60,
+    "seed": 1,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "egg",
+     "milk",
+     "quake",
+     "rain5",
+     "coin"
+    ],
+    "gone": 5,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   },
+   {
+    "level": 5,
+    "fps": 60,
+    "seed": 2,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "sock",
+     "milk",
+     "quake",
+     "quake",
+     "coin"
+    ],
+    "gone": 5,
+    "side": [
+     {
+      "kind": "item",
+      "lit": false
+     }
+    ],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 1
+   },
+   {
+    "level": 5,
+    "fps": 30,
+    "seed": 1,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "egg",
+     "ball",
+     "quake",
+     "rain5",
+     "coin"
+    ],
+    "gone": 4,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 1
+   },
+   {
+    "level": 5,
+    "fps": 30,
+    "seed": 2,
+    "playing": true,
+    "roundEnded": false,
+    "picks": [
+     "egg",
+     "milk",
+     "quake",
+     "quake",
+     "coin"
+    ],
+    "gone": 4,
+    "side": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "clean": {
+     "cp63": false,
+     "pgpx": false,
+     "dance": false
+    },
+    "words": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "errs": 0,
+    "sideNoPower": 0
+   }
+  ]
+ }
+}
