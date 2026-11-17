@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 77';
+const BUILD = '2026.11.16 UAT 78';
 
 
 
@@ -37415,7 +37415,7 @@ function danceTap(e){
   if(D.judged[k])return; // a second tap on a beat already banked: ignored
   if(D.blocked===k){D.judged[k]='miss';D.misses++;D.streak=0;danceFx('BLOCKED','#b9a6d6');sfx.dance('miss',1);return;}
   D.judged[k]='hit';D.hits++;D.streak++;D.best=Math.max(D.best,D.streak);D.ringT=0;
-  const r=Math.random(),kind=r<D.rainChance*.5?'rain5':'coin'; // CP-61: half as many rain coins, Rain 5 onlyD.bank[kind]++;
+  const r=Math.random(),kind=r<D.rainChance*.5?'rain5':'coin';D.bank[kind]++; // CP-61: half as many rain coins, Rain 5 only (CP-57 fix: the bank line runs again)
   D.fx.push({kind,t:0,x:200,y:DANCE_LANE_Y});
   if(kind==='coin'){sfx.dance('hit',1,0,D.streak);danceFx(D.streak>=8&&D.streak%8===0?'GROOVY!':'+1','#ffd23f');}
   else{sfx.dance('hitRain',1);danceFx(kind==='rain10'?'+RAIN 10!':'+RAIN 5!',kind==='rain10'?'#e88aff':'#5ef0c0');}
@@ -37764,19 +37764,24 @@ pawMotion=function(side=0){
  const lift=s(t/.45)*(1-s((t-.45)/.35)),fwd=s((t-.6)/.6)*(1-s((t-2.1)/.7)),out=s((t-1.25)/.75)*(1-s((t-2.1)/.7));
  return {x:-side*34*fwd+side*120*out,y:-26*lift+200*fwd-20*out,r:side*(.25*lift-.18*out)};
 };
-const CP61_YAWN_MAX=6; // CP-61: the wheel's Yawn only knocks off up to 6 coins from the top of the pile
-function cp61YawnPick(){const top=[];for(const b of bodies){if(b.dead||!(b.kind==='coin'||b.kind==='silver'||b.kind==='gold5'))continue;const p=b.rb.translation(),z=p.z/M,y=p.y/M;
- if(z<380||z>570||y<COIN_HALF*2.6)continue;top.push({b,y});}top.sort((a,c)=>c.y-a.y);return top.slice(0,CP61_YAWN_MAX).map(o=>o.b);}
+const CP61_YAWN_MAX=6; // CP-61 rework: each Yawn knocks off up to 6 pieces lying on top of the pile (any kind), never the bottom layer
+function cp61Half(b){return typeof b.half==='number'?b.half:halfOf(b.kind);}
+function cp61YawnPick(){const pick=(z0,z1)=>{const top=[];for(const b of bodies){if(b.dead||b.kind==='stack')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;
+  if(z<z0||z>z1||Math.abs(x-200)>tableHalfAt(z)-4)continue;if(y-cp61Half(b)<COIN_HALF*1.5)continue;top.push({b,y});}
+  top.sort((a,c)=>c.y-a.y);const r=[];let room=CP61_YAWN_MAX,prizes=0; // a prize counts as 2: two prizes, a prize and a few coins, or a handful of coins
+  for(const o of top){if(o.b.kind==='item'){if(prizes<2&&room>=2){r.push(o.b);room-=2;prizes++;}}else if(room>=1){r.push(o.b);room--;}if(room<=0)break;}return r;};
+ let r=pick(GUARD_END+COIN_R,570);if(r.length<3)r=pick(GUARD_END+COIN_R,T.FRONT-30);return r;} // past the side walls (CP-21), where pieces can go over
 function w2YawnTick(dt){
  const Y=W2_YAWN;if(!Y)return;Y.t+=dt;happyUntil=0;
- if(Y.t>=1.25&&Y.t<2.05){if(!Y.swept){Y.swept=true;sfx.wild2('sweep',1);callout('SWOOSH!',{color:'#b9a6d6',dur:.8});}
-  // the paws sweep outward across the back half of the table: coins they reach go flying off the sides
+ if(Y.t>=1.25&&!Y.swept){Y.swept=true;sfx.wild2('sweep',1);callout('SWOOSH!',{color:'#b9a6d6',dur:.8});}
+ if(Y.t>=1.25&&Y.t<2.8){
+  // the paws sweep outward; the pieces on top of the pile they reach fly off the sides (pushed until they leave the table)
   const f=Math.min(1,(Y.t-1.25)/.75),reach=20+f*170;
-  // (the paws are drawn over table depth ~390-560); like a plough, everything the paws have reached keeps moving outward
-  if(!Y.pick)Y.pick=cp61YawnPick(); // CP-61: the wheel's Yawn and the YAWN power: top coins only
-  for(const b of Y.pick){if(b.dead||b.kind==='stack')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M;
-   if(z<380||z>570||Math.abs(x-200)>reach)continue;
-   if(!Y.pushed.has(b))Y.pushed.set(b,x<200?-1:1);const v=b.rb.linvel();b.rb.setLinvel({x:Y.pushed.get(b)*Math.max(Math.abs(v.x),rand(5,7.5)),y:Math.max(v.y,rand(.8,1.6)),z:v.z},true);}}
+  if(!Y.pick)Y.pick=cp61YawnPick();
+  for(const b of Y.pick){if(b.dead)continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M;
+   if(!Y.pushed.has(b)){if(Math.abs(x-200)>reach)continue;Y.pushed.set(b,x<200?-1:1);}
+   if(Math.abs(x-200)>tableHalfAt(z)+2)continue; // over the side: let it fall
+   const v=b.rb.linvel();b.rb.setLinvel({x:Y.pushed.get(b)*Math.max(Math.abs(v.x),rand(5,7.5)),y:Math.max(v.y,rand(.8,1.6)),z:v.z},true);}}
  if(Y.t>=2.8){W2_YAWN=null;if(pawDance&&pawDance.yawn)stopPawDance();}
 }
 function yawnText(){if(!W2_YAWN)return;const t=W2_YAWN.t;if(t>1.3)return;ctx.save();ctx.globalAlpha=Math.min(1,t*4)*(1-Math.max(0,(t-1)/.3));ctx.translate(200,w43ChinY()+34);ctx.rotate(-.06);wildText('YAAAWN…',0,0,40,'#d8c8ee','#2a1a3e',7);ctx.restore();}
@@ -38127,7 +38132,8 @@ const __w43Spawn=wildSpawnRainCoin,__w43DanceSpawn=danceSpawn;
 // Sky coins are all scheduled at once by a pour, so they're budgeted when they land: they all fall (the rain looks just as
 // thick), and past the budget four in five vanish into the pile as they touch down while every fifth lands as a gold 5.
 const __w43SkyLand=skyLand;
-skyLand=function(s){if(s.kind==='coin'||s.kind==='silver'){const k=w43Budget(s.kind);if(!k)return;if(k!==s.kind)s={...s,kind:k};}return __w43SkyLand(s);};
+skyLand=function(s){return __w43SkyLand(s);}; // CP-61: nothing vanishes on landing; the budget is applied when coins are dropped
+const __cp61SkyDrop=skyDrop;skyDrop=function(kind,x,y,o){if((kind==='coin'||kind==='silver')&&WILD.on){const k=w43Budget(kind);if(!k)return;if(k!==kind)return __cp61SkyDrop(k,x,y,o);}return __cp61SkyDrop(kind,x,y,o);};
 wildSpawnRainCoin=function(){
  if(WILD.v2||w43PlainCount()<W43_COIN_CAP)return __w43Spawn(); // Wild 2 goes through skyDrop
  const k=w43Budget('coin');if(k!=='gold5')return;const y=rand(PUSH_MAX+30,T.FRONT-150),x=200+rand(-1,1)*(tableHalfAt(y)-COIN_R-8),h=rand(240,330);
@@ -38151,7 +38157,8 @@ function w43CcdTick(dt){
 // second five resting coins close together near the back become one gold 5 in their place (worth the same 5 coins),
 // with a glint and a soft chime. Prizes, rain coins and the Quake coin are never merged.
 let w43MergeT=0;const W43_GLINTS=[];
-function w43MergeTick(dt){
+function w43MergeTick(dt){return; // CP-61 (Jenny, Nov 16): coins on the board are never merged into gold 5s
+
  if(!WILD.on||WILD.phase!=='play')return;w43MergeT+=dt;if(w43MergeT<.5)return;w43MergeT=0;
  let plain=[];for(const b of bodies){if(b.dead||(b.kind!=='coin'&&b.kind!=='silver'))continue;const v=b.rb.linvel();if(Math.abs(v.x)+Math.abs(v.y)+Math.abs(v.z)>.6)continue;const p=b.rb.translation();plain.push({b,x:p.x/M,y:p.y/M,z:p.z/M});}
  const total=w43PlainCount();if(total<=W43_COIN_CAP||plain.length<5)return;

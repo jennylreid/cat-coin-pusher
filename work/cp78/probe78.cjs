@@ -1,0 +1,11 @@
+// Why did the Yawn knock off nothing? Mid-round Level 3 (Tuxedo), normal taps 2/s for SECS s, then the Yawn pick and the band.
+const {game}=require('../cp43/harness.cjs'),path=require('path');
+const src=path.resolve(process.argv[2]),secs=+(process.argv[3]||25),seed=+(process.argv[4]||1),mode=process.argv[5]||'wheel';
+(async()=>{const g=await game({src,seed});g.run('S.muted=true;S.dev=false');g.ticks(150);g.tap(200,700);g.ticks(30);
+ g.run("PG.lv.passed=2;PG.lv.sel=3;wildReset();PGU.screen='board';pgStartRound();");g.until("WILD.phase==='play'",900);
+ const sc=+g.run('scale');for(let k=0;k<secs*60;k++){if(k%30===0){const x=200+110*Math.sin(k/50+seed);g.pointer('pointerdown',x*sc,560*sc);g.tick();g.pointer('pointerup',x*sc,560*sc);}else g.tick();}
+ const info=JSON.parse(g.run(`JSON.stringify((()=>{const r=[];for(const b of bodies){if(b.dead||b.kind==='stack')continue;const p=b.rb.translation(),z=p.z/M,y=p.y/M;if(z<340||z>650)continue;r.push([b.kind,Math.round(z),+(y/COIN_HALF).toFixed(2),+((typeof b.half==='number'?b.half:0)/COIN_HALF).toFixed(2)]);}return {COIN_HALF,n:r.length,pick:typeof cp61YawnPick==='function'?cp61YawnPick().length:null,top:r.filter(x=>x[2]>2.2).length,hist:r.reduce((h,x)=>{const k=x[2].toFixed(1);h[k]=(h[k]|0)+1;return h;},{}),items:r.filter(x=>x[0]!=='coin'&&x[0]!=='silver')};})())`));
+ console.log(JSON.stringify(info));
+ const before=+g.run("bodies.filter(b=>!b.dead).length");g.run("globalThis.__side=[];const __rc=removeCoin;removeCoin=function(b){try{const p=b.rb.translation();if(Math.abs(p.x/M-200)>tableHalfAt(p.z/M)-2&&p.z/M<T.FRONT-10)__side.push(b.kind);}catch(e){}return __rc.apply(this,arguments);};");
+ if(mode==='power')g.run("PGU.boardCat='tuxedo';PG.powers=PG.powers||{};PG.powers.tuxedo=1;pgpUse();");else g.run('w2StartYawn();');g.run('globalThis.__pk=null');for(let i=0;i<200;i++){g.tick();if(i<120)g.run('if(W2_YAWN&&W2_YAWN.pick&&!__pk)__pk=W2_YAWN.pick.slice()');}console.log('picked',g.run("JSON.stringify((__pk||[]).map(b=>{const p=b.dead?null:b.rb.translation();return [b.kind,b.dead?'gone':Math.round(p.x/M)+','+Math.round(p.z/M)+','+(p.y/M/COIN_HALF).toFixed(1)];}))"));
+ console.log('off sides',g.run('JSON.stringify(__side)'));})().catch(e=>{console.error(e);process.exit(1)});

@@ -1,0 +1,3802 @@
+{
+ "uat73": {
+  "beat": {
+   "p0": 112.93470948012553,
+   "beat": 0.5504587155963303,
+   "n": 16,
+   "latency": 0.08
+  },
+  "summary": {
+   "sfx.dance(count)": {
+    "n": 3,
+    "onBeat": 3,
+    "half": 0,
+    "beats": [
+     -3,
+     -2,
+     -1
+    ]
+   },
+   "sfx.dance(hat)": {
+    "n": 35,
+    "onBeat": 0,
+    "half": 19,
+    "beats": [
+     -2.5,
+     -1.5,
+     -0.5,
+     0.5,
+     1.5,
+     2.5,
+     3.5,
+     4.5,
+     5.5,
+     6.5,
+     7.5,
+     8.5,
+     8.25,
+     8.75,
+     9.5,
+     9.25,
+     9.75,
+     10.5,
+     10.25,
+     10.75
+    ]
+   },
+   "sfx.slide": {
+    "n": 7,
+    "onBeat": 1,
+    "half": 1,
+    "beats": [
+     -2.849,
+     -0.124,
+     2.965,
+     5.69,
+     8.778,
+     11.503,
+     14.591
+    ]
+   },
+   "sfx.fx46": {
+    "n": 14,
+    "onBeat": 2,
+    "half": 2,
+    "beats": [
+     -2.84,
+     -2.84,
+     -0.115,
+     -0.115,
+     2.974,
+     2.974,
+     5.699,
+     5.699,
+     8.787,
+     8.787,
+     11.512,
+     11.512,
+     14.6,
+     14.6
+    ]
+   },
+   "sfx.dance(kick)": {
+    "n": 16,
+    "onBeat": 16,
+    "half": 0,
+    "beats": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ]
+   },
+   "sfx.dance(crash)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     0
+    ]
+   },
+   "sfx.dance(bass)": {
+    "n": 16,
+    "onBeat": 16,
+    "half": 0,
+    "beats": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ]
+   },
+   "sfx.unlock": {
+    "n": 16,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     0.149,
+     1.148,
+     2.147,
+     3.146,
+     4.146,
+     5.145,
+     6.144,
+     7.143,
+     8.142,
+     9.141,
+     10.141,
+     11.14,
+     12.139,
+     13.138,
+     14.137,
+     15.136
+    ]
+   },
+   "sfx.dance(hit)": {
+    "n": 16,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     0.149,
+     1.148,
+     2.147,
+     3.146,
+     4.146,
+     5.145,
+     6.144,
+     7.143,
+     8.142,
+     9.141,
+     10.141,
+     11.14,
+     12.139,
+     13.138,
+     14.137,
+     15.136
+    ]
+   },
+   "sfx.dance(snare)": {
+    "n": 8,
+    "onBeat": 8,
+    "half": 0,
+    "beats": [
+     1,
+     3,
+     5,
+     7,
+     9,
+     11,
+     13,
+     15
+    ]
+   },
+   "sfx.dance(lead)": {
+    "n": 21,
+    "onBeat": 12,
+    "half": 9,
+    "beats": [
+     4,
+     4.5,
+     5,
+     5.5,
+     6,
+     6.5,
+     7,
+     8,
+     8.5,
+     9,
+     9.5,
+     10,
+     10.5,
+     11,
+     12,
+     12.5,
+     13,
+     13.5,
+     14,
+     14.5
+    ]
+   },
+   "sfx.dance(clap)": {
+    "n": 6,
+    "onBeat": 6,
+    "half": 0,
+    "beats": [
+     5,
+     7,
+     9,
+     11,
+     13,
+     15
+    ]
+   },
+   "sfx.dance(stop)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     16
+    ]
+   },
+   "sfx.dance(roar)": {
+    "n": 1,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     16.105
+    ]
+   },
+   "sfx.wild2(perfect)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     16.014
+    ]
+   },
+   "sfx._mt": {
+    "n": 6,
+    "onBeat": 6,
+    "half": 0,
+    "beats": [
+     16.014,
+     16.014,
+     16.014,
+     16.014,
+     16.014,
+     16.014
+    ]
+   }
+  },
+  "recordings": [],
+  "nodes": 538,
+  "log": [
+   {
+    "t": -3,
+    "s": "sfx.dance(count)"
+   },
+   {
+    "t": -2.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": -2.849,
+    "s": "sfx.slide"
+   },
+   {
+    "t": -2.84,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -2.84,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -2,
+    "s": "sfx.dance(count)"
+   },
+   {
+    "t": -1.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": -1,
+    "s": "sfx.dance(count)"
+   },
+   {
+    "t": -0.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.dance(crash)"
+   },
+   {
+    "t": 0.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": -0.124,
+    "s": "sfx.slide"
+   },
+   {
+    "t": -0.115,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -0.115,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 0.149,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 0.149,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.dance(snare)"
+   },
+   {
+    "t": 1.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 1.148,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 1.148,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 2,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 2.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 2,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 2.147,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 2.147,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.dance(snare)"
+   },
+   {
+    "t": 3.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 2.965,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 2.974,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 2.974,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 3.146,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 3.146,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 4.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 4.5,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 4.146,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 4.146,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.dance(snare)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.dance(clap)"
+   },
+   {
+    "t": 5.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 5.5,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 5.145,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 5.145,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 5.69,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 5.699,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 5.699,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 6,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 6.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 6,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 6,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 6.5,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 6.144,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 6.144,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.dance(snare)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.dance(clap)"
+   },
+   {
+    "t": 7.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 7.143,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 7.143,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 8.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 8.25,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 8.75,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 8.5,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 8.142,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 8.142,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.dance(snare)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.dance(clap)"
+   },
+   {
+    "t": 9.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 9.25,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 9.75,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 9.5,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 8.778,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 8.787,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 8.787,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 9.141,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 9.141,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 10.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 10.25,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 10.75,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 10.5,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 10.141,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 10.141,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.dance(snare)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.dance(clap)"
+   },
+   {
+    "t": 11.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 11.25,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 11.75,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 11.14,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 11.14,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 11.503,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 11.512,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 11.512,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 12,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 12.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 12.25,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 12.75,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 12,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 12,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 12.5,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 12.139,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 12.139,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.dance(snare)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.dance(clap)"
+   },
+   {
+    "t": 13.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 13.25,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 13.75,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 13.5,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 13.138,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 13.138,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 14.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 14.25,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 14.75,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 14.5,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 14.137,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 14.137,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 14.591,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 14.6,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 14.6,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 15,
+    "s": "sfx.dance(kick)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.dance(snare)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.dance(clap)"
+   },
+   {
+    "t": 15.5,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 15.25,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 15.75,
+    "s": "sfx.dance(hat)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.dance(bass)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.dance(lead)"
+   },
+   {
+    "t": 15.136,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 15.136,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 16,
+    "s": "sfx.dance(stop)"
+   },
+   {
+    "t": 16.105,
+    "s": "sfx.dance(roar)"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx.wild2(perfect)"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   }
+  ]
+ },
+ "uat75": {
+  "beat": {
+   "p0": 112.93470948012553,
+   "beat": 0.5504587155963303,
+   "n": 16,
+   "latency": 0.08
+  },
+  "summary": {
+   "sfx.danceLoud(count)": {
+    "n": 3,
+    "onBeat": 3,
+    "half": 0,
+    "beats": [
+     -3,
+     -2,
+     -1
+    ]
+   },
+   "sfx.danceLoud(hat)": {
+    "n": 35,
+    "onBeat": 0,
+    "half": 19,
+    "beats": [
+     -2.5,
+     -1.5,
+     -0.5,
+     0.5,
+     1.5,
+     2.5,
+     3.5,
+     4.5,
+     5.5,
+     6.5,
+     7.5,
+     8.5,
+     8.25,
+     8.75,
+     9.5,
+     9.25,
+     9.75,
+     10.5,
+     10.25,
+     10.75
+    ]
+   },
+   "sfx.slide": {
+    "n": 7,
+    "onBeat": 1,
+    "half": 1,
+    "beats": [
+     -2.849,
+     -0.124,
+     2.965,
+     5.69,
+     8.778,
+     11.503,
+     14.591
+    ]
+   },
+   "sfx.fx46": {
+    "n": 14,
+    "onBeat": 2,
+    "half": 2,
+    "beats": [
+     -2.84,
+     -2.84,
+     -0.115,
+     -0.115,
+     2.974,
+     2.974,
+     5.699,
+     5.699,
+     8.787,
+     8.787,
+     11.512,
+     11.512,
+     14.6,
+     14.6
+    ]
+   },
+   "sfx.danceLoud(kick)": {
+    "n": 16,
+    "onBeat": 16,
+    "half": 0,
+    "beats": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ]
+   },
+   "sfx.danceLoud(crash)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     0
+    ]
+   },
+   "sfx.danceLoud(bass)": {
+    "n": 16,
+    "onBeat": 16,
+    "half": 0,
+    "beats": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ]
+   },
+   "sfx.unlock": {
+    "n": 16,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     0.149,
+     1.148,
+     2.147,
+     3.146,
+     4.146,
+     5.145,
+     6.144,
+     7.143,
+     8.142,
+     9.141,
+     10.141,
+     11.14,
+     12.139,
+     13.138,
+     14.137,
+     15.136
+    ]
+   },
+   "sfx.dance(hit)": {
+    "n": 16,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     0.149,
+     1.148,
+     2.147,
+     3.146,
+     4.146,
+     5.145,
+     6.144,
+     7.143,
+     8.142,
+     9.141,
+     10.141,
+     11.14,
+     12.139,
+     13.138,
+     14.137,
+     15.136
+    ]
+   },
+   "sfx.danceLoud(snare)": {
+    "n": 8,
+    "onBeat": 8,
+    "half": 0,
+    "beats": [
+     1,
+     3,
+     5,
+     7,
+     9,
+     11,
+     13,
+     15
+    ]
+   },
+   "sfx.danceLoud(lead)": {
+    "n": 21,
+    "onBeat": 12,
+    "half": 9,
+    "beats": [
+     4,
+     4.5,
+     5,
+     5.5,
+     6,
+     6.5,
+     7,
+     8,
+     8.5,
+     9,
+     9.5,
+     10,
+     10.5,
+     11,
+     12,
+     12.5,
+     13,
+     13.5,
+     14,
+     14.5
+    ]
+   },
+   "sfx.danceLoud(clap)": {
+    "n": 6,
+    "onBeat": 6,
+    "half": 0,
+    "beats": [
+     5,
+     7,
+     9,
+     11,
+     13,
+     15
+    ]
+   },
+   "sfx.danceLoud(stop)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     16
+    ]
+   },
+   "sfx.dance(roar)": {
+    "n": 1,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     16.105
+    ]
+   },
+   "sfx.wild2(perfect)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     16.014
+    ]
+   },
+   "sfx._mt": {
+    "n": 6,
+    "onBeat": 6,
+    "half": 0,
+    "beats": [
+     16.014,
+     16.014,
+     16.014,
+     16.014,
+     16.014,
+     16.014
+    ]
+   }
+  },
+  "recordings": [],
+  "nodes": 538,
+  "log": [
+   {
+    "t": -3,
+    "s": "sfx.danceLoud(count)"
+   },
+   {
+    "t": -2.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": -2.849,
+    "s": "sfx.slide"
+   },
+   {
+    "t": -2.84,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -2.84,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -2,
+    "s": "sfx.danceLoud(count)"
+   },
+   {
+    "t": -1.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": -1,
+    "s": "sfx.danceLoud(count)"
+   },
+   {
+    "t": -0.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.danceLoud(crash)"
+   },
+   {
+    "t": 0.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": -0.124,
+    "s": "sfx.slide"
+   },
+   {
+    "t": -0.115,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -0.115,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 0.149,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 0.149,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 1.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 1.148,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 1.148,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 2,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 2.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 2,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 2.147,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 2.147,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 3.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 2.965,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 2.974,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 2.974,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 3.146,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 3.146,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 4.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 4.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 4.146,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 4.146,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 5.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 5.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 5.145,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 5.145,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 5.69,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 5.699,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 5.699,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 6,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 6.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 6,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 6,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 6.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 6.144,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 6.144,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 7.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 7.143,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 7.143,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 8.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 8.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 8.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 8.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 8.142,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 8.142,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 9.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 9.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 9.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 9.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 8.778,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 8.787,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 8.787,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 9.141,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 9.141,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 10.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 10.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 10.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 10.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 10.141,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 10.141,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 11.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 11.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 11.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 11.14,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 11.14,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 11.503,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 11.512,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 11.512,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 12,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 12.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 12.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 12.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 12,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 12,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 12.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 12.139,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 12.139,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 13.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 13.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 13.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 13.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 13.138,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 13.138,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 14.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 14.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 14.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 14.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 14.137,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 14.137,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 14.591,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 14.6,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 14.6,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 15.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 15.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 15.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 15.136,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 15.136,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 16,
+    "s": "sfx.danceLoud(stop)"
+   },
+   {
+    "t": 16.105,
+    "s": "sfx.dance(roar)"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx.wild2(perfect)"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   }
+  ]
+ },
+ "uat76": {
+  "beat": {
+   "p0": 112.93470948012553,
+   "beat": 0.5504587155963303,
+   "n": 16,
+   "latency": 0.08
+  },
+  "summary": {
+   "sfx.danceLoud(count)": {
+    "n": 3,
+    "onBeat": 3,
+    "half": 0,
+    "beats": [
+     -3,
+     -2,
+     -1
+    ]
+   },
+   "sfx.danceLoud(hat)": {
+    "n": 35,
+    "onBeat": 0,
+    "half": 19,
+    "beats": [
+     -2.5,
+     -1.5,
+     -0.5,
+     0.5,
+     1.5,
+     2.5,
+     3.5,
+     4.5,
+     5.5,
+     6.5,
+     7.5,
+     8.5,
+     8.25,
+     8.75,
+     9.5,
+     9.25,
+     9.75,
+     10.5,
+     10.25,
+     10.75
+    ]
+   },
+   "sfx.slide": {
+    "n": 7,
+    "onBeat": 1,
+    "half": 1,
+    "beats": [
+     -2.849,
+     -0.124,
+     2.965,
+     5.69,
+     8.778,
+     11.503,
+     14.591
+    ]
+   },
+   "sfx.fx46": {
+    "n": 14,
+    "onBeat": 2,
+    "half": 2,
+    "beats": [
+     -2.84,
+     -2.84,
+     -0.115,
+     -0.115,
+     2.974,
+     2.974,
+     5.699,
+     5.699,
+     8.787,
+     8.787,
+     11.512,
+     11.512,
+     14.6,
+     14.6
+    ]
+   },
+   "sfx.danceLoud(kick)": {
+    "n": 16,
+    "onBeat": 16,
+    "half": 0,
+    "beats": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ]
+   },
+   "sfx.danceLoud(crash)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     0
+    ]
+   },
+   "sfx.danceLoud(bass)": {
+    "n": 16,
+    "onBeat": 16,
+    "half": 0,
+    "beats": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ]
+   },
+   "sfx.unlock": {
+    "n": 16,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     0.149,
+     1.148,
+     2.147,
+     3.146,
+     4.146,
+     5.145,
+     6.144,
+     7.143,
+     8.142,
+     9.141,
+     10.141,
+     11.14,
+     12.139,
+     13.138,
+     14.137,
+     15.136
+    ]
+   },
+   "sfx.dance(hit)": {
+    "n": 16,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     0.149,
+     1.148,
+     2.147,
+     3.146,
+     4.146,
+     5.145,
+     6.144,
+     7.143,
+     8.142,
+     9.141,
+     10.141,
+     11.14,
+     12.139,
+     13.138,
+     14.137,
+     15.136
+    ]
+   },
+   "sfx.danceLoud(snare)": {
+    "n": 8,
+    "onBeat": 8,
+    "half": 0,
+    "beats": [
+     1,
+     3,
+     5,
+     7,
+     9,
+     11,
+     13,
+     15
+    ]
+   },
+   "sfx.danceLoud(lead)": {
+    "n": 21,
+    "onBeat": 12,
+    "half": 9,
+    "beats": [
+     4,
+     4.5,
+     5,
+     5.5,
+     6,
+     6.5,
+     7,
+     8,
+     8.5,
+     9,
+     9.5,
+     10,
+     10.5,
+     11,
+     12,
+     12.5,
+     13,
+     13.5,
+     14,
+     14.5
+    ]
+   },
+   "sfx.danceLoud(clap)": {
+    "n": 6,
+    "onBeat": 6,
+    "half": 0,
+    "beats": [
+     5,
+     7,
+     9,
+     11,
+     13,
+     15
+    ]
+   },
+   "sfx.danceLoud(stop)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     16
+    ]
+   },
+   "sfx.dance(roar)": {
+    "n": 1,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     16.105
+    ]
+   },
+   "sfx.wild2(perfect)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     16.014
+    ]
+   },
+   "sfx._mt": {
+    "n": 6,
+    "onBeat": 6,
+    "half": 0,
+    "beats": [
+     16.014,
+     16.014,
+     16.014,
+     16.014,
+     16.014,
+     16.014
+    ]
+   }
+  },
+  "recordings": [],
+  "nodes": 538,
+  "log": [
+   {
+    "t": -3,
+    "s": "sfx.danceLoud(count)"
+   },
+   {
+    "t": -2.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": -2.849,
+    "s": "sfx.slide"
+   },
+   {
+    "t": -2.84,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -2.84,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -2,
+    "s": "sfx.danceLoud(count)"
+   },
+   {
+    "t": -1.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": -1,
+    "s": "sfx.danceLoud(count)"
+   },
+   {
+    "t": -0.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.danceLoud(crash)"
+   },
+   {
+    "t": 0.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": -0.124,
+    "s": "sfx.slide"
+   },
+   {
+    "t": -0.115,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -0.115,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 0.149,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 0.149,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 1.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 1.148,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 1.148,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 2,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 2.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 2,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 2.147,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 2.147,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 3.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 2.965,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 2.974,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 2.974,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 3.146,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 3.146,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 4.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 4.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 4.146,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 4.146,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 5.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 5.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 5.145,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 5.145,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 5.69,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 5.699,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 5.699,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 6,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 6.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 6,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 6,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 6.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 6.144,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 6.144,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 7.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 7.143,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 7.143,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 8.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 8.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 8.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 8.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 8.142,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 8.142,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 9.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 9.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 9.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 9.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 8.778,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 8.787,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 8.787,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 9.141,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 9.141,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 10.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 10.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 10.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 10.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 10.141,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 10.141,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 11.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 11.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 11.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 11.14,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 11.14,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 11.503,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 11.512,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 11.512,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 12,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 12.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 12.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 12.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 12,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 12,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 12.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 12.139,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 12.139,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 13.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 13.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 13.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 13.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 13.138,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 13.138,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 14.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 14.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 14.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 14.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 14.137,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 14.137,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 14.591,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 14.6,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 14.6,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 15.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 15.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 15.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 15.136,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 15.136,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 16,
+    "s": "sfx.danceLoud(stop)"
+   },
+   {
+    "t": 16.105,
+    "s": "sfx.dance(roar)"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx.wild2(perfect)"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   }
+  ]
+ },
+ "uat77": {
+  "beat": {
+   "p0": 112.93470948012553,
+   "beat": 0.5504587155963303,
+   "n": 16,
+   "latency": 0.08
+  },
+  "summary": {
+   "sfx.danceLoud(count)": {
+    "n": 3,
+    "onBeat": 3,
+    "half": 0,
+    "beats": [
+     -3,
+     -2,
+     -1
+    ]
+   },
+   "sfx.danceLoud(hat)": {
+    "n": 35,
+    "onBeat": 0,
+    "half": 19,
+    "beats": [
+     -2.5,
+     -1.5,
+     -0.5,
+     0.5,
+     1.5,
+     2.5,
+     3.5,
+     4.5,
+     5.5,
+     6.5,
+     7.5,
+     8.5,
+     8.25,
+     8.75,
+     9.5,
+     9.25,
+     9.75,
+     10.5,
+     10.25,
+     10.75
+    ]
+   },
+   "sfx.slide": {
+    "n": 7,
+    "onBeat": 1,
+    "half": 1,
+    "beats": [
+     -2.849,
+     -0.124,
+     2.965,
+     5.69,
+     8.778,
+     11.503,
+     14.591
+    ]
+   },
+   "sfx.fx46": {
+    "n": 14,
+    "onBeat": 2,
+    "half": 2,
+    "beats": [
+     -2.84,
+     -2.84,
+     -0.115,
+     -0.115,
+     2.974,
+     2.974,
+     5.699,
+     5.699,
+     8.787,
+     8.787,
+     11.512,
+     11.512,
+     14.6,
+     14.6
+    ]
+   },
+   "sfx.danceLoud(kick)": {
+    "n": 16,
+    "onBeat": 16,
+    "half": 0,
+    "beats": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ]
+   },
+   "sfx.danceLoud(crash)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     0
+    ]
+   },
+   "sfx.danceLoud(bass)": {
+    "n": 16,
+    "onBeat": 16,
+    "half": 0,
+    "beats": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15
+    ]
+   },
+   "sfx.unlock": {
+    "n": 16,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     0.149,
+     1.148,
+     2.147,
+     3.146,
+     4.146,
+     5.145,
+     6.144,
+     7.143,
+     8.142,
+     9.141,
+     10.141,
+     11.14,
+     12.139,
+     13.138,
+     14.137,
+     15.136
+    ]
+   },
+   "sfx.dance(hit)": {
+    "n": 16,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     0.149,
+     1.148,
+     2.147,
+     3.146,
+     4.146,
+     5.145,
+     6.144,
+     7.143,
+     8.142,
+     9.141,
+     10.141,
+     11.14,
+     12.139,
+     13.138,
+     14.137,
+     15.136
+    ]
+   },
+   "sfx.danceLoud(snare)": {
+    "n": 8,
+    "onBeat": 8,
+    "half": 0,
+    "beats": [
+     1,
+     3,
+     5,
+     7,
+     9,
+     11,
+     13,
+     15
+    ]
+   },
+   "sfx.danceLoud(lead)": {
+    "n": 21,
+    "onBeat": 12,
+    "half": 9,
+    "beats": [
+     4,
+     4.5,
+     5,
+     5.5,
+     6,
+     6.5,
+     7,
+     8,
+     8.5,
+     9,
+     9.5,
+     10,
+     10.5,
+     11,
+     12,
+     12.5,
+     13,
+     13.5,
+     14,
+     14.5
+    ]
+   },
+   "sfx.danceLoud(clap)": {
+    "n": 6,
+    "onBeat": 6,
+    "half": 0,
+    "beats": [
+     5,
+     7,
+     9,
+     11,
+     13,
+     15
+    ]
+   },
+   "sfx.danceLoud(stop)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     16
+    ]
+   },
+   "sfx.dance(roar)": {
+    "n": 1,
+    "onBeat": 0,
+    "half": 0,
+    "beats": [
+     16.105
+    ]
+   },
+   "sfx.wild2(perfect)": {
+    "n": 1,
+    "onBeat": 1,
+    "half": 0,
+    "beats": [
+     16.014
+    ]
+   },
+   "sfx._mt": {
+    "n": 6,
+    "onBeat": 6,
+    "half": 0,
+    "beats": [
+     16.014,
+     16.014,
+     16.014,
+     16.014,
+     16.014,
+     16.014
+    ]
+   }
+  },
+  "recordings": [],
+  "nodes": 538,
+  "log": [
+   {
+    "t": -3,
+    "s": "sfx.danceLoud(count)"
+   },
+   {
+    "t": -2.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": -2.849,
+    "s": "sfx.slide"
+   },
+   {
+    "t": -2.84,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -2.84,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -2,
+    "s": "sfx.danceLoud(count)"
+   },
+   {
+    "t": -1.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": -1,
+    "s": "sfx.danceLoud(count)"
+   },
+   {
+    "t": -0.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.danceLoud(crash)"
+   },
+   {
+    "t": 0.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 0,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": -0.124,
+    "s": "sfx.slide"
+   },
+   {
+    "t": -0.115,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": -0.115,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 0.149,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 0.149,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 1.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 1,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 1.148,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 1.148,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 2,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 2.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 2,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 2.147,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 2.147,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 3.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 3,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 2.965,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 2.974,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 2.974,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 3.146,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 3.146,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 4.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 4,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 4.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 4.146,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 4.146,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 5.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 5.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 5.145,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 5.145,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 5.69,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 5.699,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 5.699,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 6,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 6.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 6,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 6,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 6.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 6.144,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 6.144,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 7.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 7,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 7.143,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 7.143,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 8.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 8.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 8.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 8,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 8.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 8.142,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 8.142,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 9.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 9.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 9.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 9,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 9.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 8.778,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 8.787,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 8.787,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 9.141,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 9.141,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 10.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 10.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 10.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 10,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 10.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 10.141,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 10.141,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 11.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 11.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 11.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 11,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 11.14,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 11.14,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 11.503,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 11.512,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 11.512,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 12,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 12.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 12.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 12.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 12,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 12,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 12.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 12.139,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 12.139,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 13.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 13.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 13.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 13,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 13.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 13.138,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 13.138,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 14.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 14.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 14.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 14,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 14.5,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 14.137,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 14.137,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 14.591,
+    "s": "sfx.slide"
+   },
+   {
+    "t": 14.6,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 14.6,
+    "s": "sfx.fx46"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(kick)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(snare)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(clap)"
+   },
+   {
+    "t": 15.5,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 15.25,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 15.75,
+    "s": "sfx.danceLoud(hat)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(bass)"
+   },
+   {
+    "t": 15,
+    "s": "sfx.danceLoud(lead)"
+   },
+   {
+    "t": 15.136,
+    "s": "sfx.unlock"
+   },
+   {
+    "t": 15.136,
+    "s": "sfx.dance(hit)"
+   },
+   {
+    "t": 16,
+    "s": "sfx.danceLoud(stop)"
+   },
+   {
+    "t": 16.105,
+    "s": "sfx.dance(roar)"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx.wild2(perfect)"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   },
+   {
+    "t": 16.014,
+    "s": "sfx._mt"
+   }
+  ]
+ }
+}

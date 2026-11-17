@@ -1,0 +1,21 @@
+﻿{
+    "version":  20261116235900,
+    "displayName":  "2026.11.16 UAT 78",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "327b569cd00d156a1c46e87b327a8dca2b389bf6081ef375fd472b5e8cbffce1",
+    "stagedJSONSHA256":  "e538e2a233efe699e71a526d926d1a03acdc65fb714b1d9a1d1ff351847cc3b5",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "b224550f20855e7b37d346bfe6984fcf0a98ac0d45d253e3373179ccc7734c0d",
+    "jsonBytes":  52588680,
+    "runtimeFiles":  45,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.16 UAT 77",
+    "backup":  "uat/backups/before-UAT78-20261116235900",
+    "evidence":  "tickets/CP-61-evidence/uat78",
+    "authorization":  "UAT 78: CP-61 rework (Jenny via PM, Nov 16, UAT 77: Yawn knocked off nothing; fix both Yawns: a handful of any top pieces, never the bottom layer; publish as UAT 78 on UAT 77); UAT only",
+    "localPublication":  "verified"
+}
