@@ -27,6 +27,8 @@ work, done the same way. Jenny reviews; the PM reads `tickets/CP-62.md`.
 ## Phase B: only when the PM says go
 Same as CP-56 Phase B.
 
+Jenny authorized Phase B in this chat: UAT 80 on published UAT 79 (20261116235950). Final picks: milk **B** (corrected from A), mouse A, bell A, bowtie A. Jenny also authorized random colours per prize from the existing A/B/C paintings for **music notes, cushions and yarn**. Preserve each object's colour through pickup; same size/collider and frozen pickup motion/audio. UAT only.
+
 ## Don't touch
 Every other prize, the approved art, the coins, the cat, layout, physics, the pickup, sounds and levels. Production
 stays untouched.

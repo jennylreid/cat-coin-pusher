@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 79';
+const BUILD = '2026.11.16 UAT 80';
 
 
 
@@ -21037,7 +21037,7 @@ function drawBody(b) {
 
 
 
-    drawPrize(b.kind, b.id, c.x, c.y, c.s);
+    cp62DrawPrize(b.kind, b.id, c.x, c.y, c.s,b);
 
 
 
@@ -21385,7 +21385,7 @@ function drawFalling(f) {
 
 
 
-  if (f.kind === 'item' || f.kind === 'power') { drawPrize(f.kind, f.id, f.x, f.y, f.s); return; }
+  if (f.kind === 'item' || f.kind === 'power') { cp62DrawPrize(f.kind, f.id, f.x, f.y, f.s,f); return; }
 
 
 
@@ -21974,6 +21974,23 @@ async function loadArt() {
 
 
  async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
+ // CP-62: preload approved 128px prize canvases into the existing shared art cache.
+ WILD_ART['milk']=await image('img/art/cp62-milk.png');WILD_ART['milk'].pgl=1;
+ WILD_ART['mouse']=await image('img/art/cp62-mouse.png');WILD_ART['mouse'].pgl=1;
+ WILD_ART['bell']=await image('img/art/cp62-bell.png');WILD_ART['bell'].pgl=1;
+ WILD_ART['bowtie']=await image('img/art/cp62-bowtie.png');WILD_ART['bowtie'].pgl=1;
+ WILD_ART['notes']=await image('img/art/cp62-notes.png');WILD_ART['notes'].pgl=1;
+ WILD_ART['yarn']=await image('img/art/cp62-yarn.png');WILD_ART['yarn'].pgl=1;
+ CP62_ART['notes']=CP62_ART['notes']||[];CP62_ART['notes'].push(await image('img/art/cp62-notes-a.png'));
+ CP62_ART['notes']=CP62_ART['notes']||[];CP62_ART['notes'].push(await image('img/art/cp62-notes-b.png'));
+ CP62_ART['notes']=CP62_ART['notes']||[];CP62_ART['notes'].push(await image('img/art/cp62-notes-c.png'));
+ CP62_ART['yarn']=CP62_ART['yarn']||[];CP62_ART['yarn'].push(await image('img/art/cp62-yarn-a.png'));
+ CP62_ART['yarn']=CP62_ART['yarn']||[];CP62_ART['yarn'].push(await image('img/art/cp62-yarn-b.png'));
+ CP62_ART['yarn']=CP62_ART['yarn']||[];CP62_ART['yarn'].push(await image('img/art/cp62-yarn-c.png'));
+ CP62_ART['cushion']=CP62_ART['cushion']||[];CP62_ART['cushion'].push(await image('img/art/cp62-cushion-a.png'));
+ CP62_ART['cushion']=CP62_ART['cushion']||[];CP62_ART['cushion'].push(await image('img/art/cp62-cushion-b.png'));
+ CP62_ART['cushion']=CP62_ART['cushion']||[];CP62_ART['cushion'].push(await image('img/art/cp62-cushion-c.png'));
+
  // CP-56: preload approved 128px prize canvases into the existing shared art cache.
  WILD_ART['sock']=await image('img/art/cp56-sock.png');WILD_ART['sock'].pgl=1;
  WILD_ART['biscuit']=await image('img/art/cp56-biscuit.png');WILD_ART['biscuit'].pgl=1;
@@ -36991,7 +37008,7 @@ function drawFlight(f){
  let fl=q.flip;if(Math.abs(fl)<.06)fl=fl<0?-.06:.06;
  ctx.save();ctx.translate(q.x,q.y);if(q.rot)ctx.rotate(q.rot);if(fl!==1)ctx.scale(fl,1);
  if(f.kind==='quake'){const big=radius('quake')*q.s>40,sp=big?bigQuakeSprite():sprite('quake'),hs=sp.half*q.s;ctx.drawImage(sp.cv,-hs,-hs,2*hs,2*hs);}
- else drawPrize('item',f.id,0,prizeCenterLift(f.id,q.s),q.s);
+ else cp62DrawPrize('item',f.id,0,prizeCenterLift(f.id,q.s),q.s,f);
  ctx.restore();
 }
 function drawTreatAward(){
@@ -37014,7 +37031,7 @@ function drawLostPrizes(){
   ctx.save();ctx.globalAlpha=.42*(1-u);ctx.strokeStyle='#170e1e';ctx.fillStyle='rgba(23,14,30,.35)';ctx.lineWidth=2.2*(1-u)+.6;
   const rad=(10+e*34)*f.s;ctx.beginPath();ctx.ellipse(f.x,f.y,rad,rad*SQUASH,0,0,7);ctx.fill();ctx.stroke();ctx.restore();
   const sc=f.s*(1-e);if(sc<=.01)continue;
-  ctx.save();ctx.globalAlpha=1-u;ctx.filter='grayscale(1) brightness(.85)';drawPrize('item',f.id,f.x,f.y+prizeCenterLift(f.id,sc)+e*6*f.s,sc);ctx.restore();
+  ctx.save();ctx.globalAlpha=1-u;ctx.filter='grayscale(1) brightness(.85)';cp62DrawPrize('item',f.id,f.x,f.y+prizeCenterLift(f.id,sc)+e*6*f.s,sc,f);ctx.restore();
  }
 }
 
@@ -42019,7 +42036,7 @@ yawnText=function(){const Y=W2_YAWN;if(!Y)return;__cp58YawnText();if(!Y.cp58)ret
  Y.grabs.forEach((g,i)=>{if(!g.held||g.gone)return;const T0=cp58Times(i),M0=cp58Mitt(g.side,t),claw={x:M0.x-g.side*4,y:M0.y+30};
   const k=cp58Ease((t-T0.hit-.1)/(CP58.carry-.1)),pos={x:claw.x+(m.x+g.side*14-claw.x)*k,y:claw.y+(m.y+8-claw.y)*k};
   const s=(g.s0+(1.05-g.s0)*k)*(1-.22*g.bites);
-  ctx.save();ctx.translate(pos.x,pos.y);ctx.rotate(g.side*.25*(1-k));drawPrize('item',g.id,0,0,s);ctx.restore();});
+  ctx.save();ctx.translate(pos.x,pos.y);ctx.rotate(g.side*.25*(1-k));cp62DrawPrize('item',g.id,0,0,s,g.b);ctx.restore();});
  for(const c of Y.crumbs){ctx.globalAlpha=1-c.t/.8;ctx.fillStyle=c.c;ctx.fillRect(c.x-2,c.y-2,4,4);}ctx.globalAlpha=1;};
 
 
@@ -42057,6 +42074,30 @@ drawTrackingPupils=function(){const Y=W2_YAWN;if(!Y||!Y.cp58)return __cp58Pupils
 // No power while the CP-58 Yawn plays (a power Yawn would cut it short with a prize still in the mitt).
 const __cp58PgpReady=pgpReady;pgpReady=function(){return __cp58PgpReady()&&!(W2_YAWN&&W2_YAWN.cp58);};
 // ---------- end CP-58 ----------
+// CP-62: Jenny requested random A/B/C colours for notes, cushions and yarn.
+// Art-only state: independent of gameplay RNG; each object keeps its colour into pickup/loss.
+const CP62_ART={};
+const CP62_COLOURS=new WeakMap();
+let cp62ColourSeed=(Date.now()>>>0)||62;
+function cp62Colour(id,owner){
+ if(!CP62_ART[id]||!owner)return null;
+ let old=CP62_COLOURS.get(owner);if(old&&old.id===id)return old.i;
+ cp62ColourSeed^=cp62ColourSeed<<13;cp62ColourSeed^=cp62ColourSeed>>>17;cp62ColourSeed^=cp62ColourSeed<<5;
+ const i=(cp62ColourSeed>>>0)%3;CP62_COLOURS.set(owner,{id,i});return i;
+}
+function cp62DrawPrize(kind,id,x,y,s,owner){
+ const i=cp62Colour(id,owner);if(i===null)return drawPrize(kind,id,x,y,s);
+ const old=WILD_ART[id];WILD_ART[id]=CP62_ART[id][i];
+ try{return drawPrize(kind,id,x,y,s);}finally{WILD_ART[id]=old;}
+}
+const __cp62Queue=queueTreatAward;
+queueTreatAward=function(id,x,body,preview=false,kind='item'){
+ const f=__cp62Queue(id,x,body,preview,kind);CP62_COLOURS.delete(f);
+ const i=cp62Colour(id,body||f);if(i!==null)CP62_COLOURS.set(f,{id,i});return f;
+};
+const __cp62Lost=queueLostPrize;
+queueLostPrize=function(b,x,z){const f=__cp62Lost(b,x,z);CP62_COLOURS.delete(f);const i=cp62Colour(b.id,b);if(i!==null)CP62_COLOURS.set(f,{id:b.id,i});return f;};
+
 </script>
 
 

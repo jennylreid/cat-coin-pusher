@@ -76,6 +76,10 @@ Already on the way: Pause with Finish (CP-51), which handles the half-empty boar
   - **Clock coin:** a power coin that adds time to the round. PM: simple (data plus new art), and a nice counter to the
     timer pressure. Or it's a cat power for a new cat (Jenny).
 
+- **Coloured music notes (Jenny, Nov 17):** "room for various colors of musical notes". CP-62 made gold, purple and
+  turquoise notes. PM: these could carry colour for colour goals ("clear the purple notes") without touching the frozen
+  coins.
+
 ## Open questions (after the backbone)
 
 - Which goal types do early levels use?
