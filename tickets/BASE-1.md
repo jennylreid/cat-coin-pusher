@@ -25,7 +25,9 @@ Still open: CP-23 (design, solo), CP-39 (log without file picker).
    setting for her to mark keep/remove.
 7. Powers: the Yawn works against the player, so it is a wheel slice only, not a power. The Tuxedo's power becomes
    Formal inspection (a monocle highlights the most valuable coins and prizes; the cane sweeps them forward). (Jenny, Nov 15)
-8. Zoomies looks cute but "nothing happens": the kittens should enter at the back and run FORWARD (toward the player),
+8. Zoomies (Jenny, Nov 17, UAT 78: "super broken", the kittens don't do anything, the art doesn't work on the orange
+   cat). Waits for a powers pass with items 9-11, after the order agreed on Nov 17: Yawn (UAT 79), the production update,
+   CP-60, CP-53, then the design session. Zoomies looks cute but "nothing happens": the kittens should enter at the back and run FORWARD (toward the player),
    not left-right, visibly shoving coins and prizes forward over the front
    edge (for the player), and the pusher's double speed must be obvious (sound and motion). Check every power has a
    clear, felt result. (Jenny, Nov 15)

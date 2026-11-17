@@ -301,3 +301,17 @@ Module `work/cp68/cp51.js`, inserted by `work/cp68/build.py` on pinned UAT 67; c
 
 ## CP-56 Phase B (UAT 72, November 16, 2026)
 Pinned UAT 71 plus sock B, biscuit A, sardine B, egg B, box A. work/cp72/build.py preloads 128px PNGs into WILD_ART for all shared consumers; same size/collider and frozen pickup. Validation: checks72.cjs; package/publication: stage.py, publish.ps1, verify-cloud.py. Complete 45-file game-only update; report tickets/CP-56.md.
+
+## The wheel's Yawn (CP-58, UAT 79, Jenny's approval Nov 16, 2026)
+- The prize wheel's YAWN slices (both wheels; `danceTick` stage `yawn`) call `cp58StartYawn()`. It's a 4.75 s moment.
+  The cat yawns with the Runway round-yawn face (`img/art/cp58-yawn-face.webp`, a whole head on the head canvas,
+  fading in and out). The mitts stretch and shiver, then the cat side-eyes away (the game's pupils). One mitt drapes
+  down and grabs the prize nearest the front, with goal prizes first. The other mitt grabs a second. Both are eaten,
+  with Runway's squinting eyes (`img/art/cp58-yawn-eyes.png`), four chomps, "NOM." and crumbs. Each stolen goal prize
+  then comes back through `WILD.incoming` (the bonus drop): "IT'LL DROP BACK!".
+- It never touches coins. While a prize is in the mitt, `wildMissing()` doesn't count it, so the bonus-drop clock can't
+  make a duplicate. A prize that's gone before the mitt reaches it is simply missed (`g.missed`).
+- The Tuxedo's YAWN power stays CP-61's sweep (`w2StartYawn`). `w2YawnTick` hands anything that isn't CP-58 to it.
+  Powers aren't usable during the CP-58 Yawn (`pgpReady`), and the wheel waits for a running power Yawn to end.
+- Timings are in `CP58` at the top of the block. Source is `work/cp79/build.py`: the approved prototype
+  (`work/cp58-yawn/`) plus the listed edits. Checks are in `work/cp79/checks79.cjs`.
