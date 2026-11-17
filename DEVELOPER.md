@@ -321,6 +321,14 @@ Pinned UAT 71 plus sock B, biscuit A, sardine B, egg B, box A. work/cp72/build.p
   make a duplicate. A prize that's gone before the mitt reaches it is simply missed (`g.missed`).
 - The Tuxedo's YAWN power stays CP-61's sweep (`w2StartYawn`). `w2YawnTick` hands anything that isn't CP-58 to it.
   Powers aren't usable during the CP-58 Yawn (`pgpReady`), and the wheel waits for a running power Yawn to end.
+- **Since UAT 82 (Jenny, Nov 17):** an eaten prize is lost at the gulp, the same as a side loss (`cp58Lost`: lost sound,
+  icon shake, "LOST THE …!", lost count, the star's return), with no rail flash or tumble. It comes back only through
+  the normal bonus drop, and there's no drop-back. With no prize in reach, the mitt takes up to 4 coins lying on top,
+  where most lie together (`cp58CoinTargets`). They are re-checked at the grab (UAT 83).
+- **Real-browser boot check (since UAT 82):** the desktop harness strips the boot line (`Promise.all([RAPIER.init(),
+  loadArt()])`), so a const used by loadArt and declared below it (CP62_ART in UAT 80/81) only fails in a real browser.
+  Before publishing, run `work/cp83/bootcheck.cjs <runtime folder>` (headless Chrome, real time, the full runtime
+  folder).
 - Timings are in `CP58` at the top of the block. Source is `work/cp79/build.py`: the approved prototype
   (`work/cp58-yawn/`) plus the listed edits. Checks are in `work/cp79/checks79.cjs`.
 

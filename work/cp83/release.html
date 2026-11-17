@@ -42021,7 +42021,7 @@ w2YawnTick=function(dt){
  if(t>=CP58.eyesOpen&&!fx.look){fx.look=1;sfx.wild2('tick',.8);}
  Y.grabs.forEach((g,i)=>{const T0=cp58Times(i);
   if(t>=T0.hover&&!g.whoosh){g.whoosh=1;sfx.paw40&&sfx.paw40('whoosh',1);}
-  if(t>=T0.hit&&!g.held&&!g.missed){if(g.b.dead){g.missed=true;return;}g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;removeCoin(g.b);if(g.coins){g.coins=g.coins.filter(c=>c!==g.b&&!c.dead);g.kinds=[g.b.kind,...g.coins.map(c=>c.kind)];for(const c of g.coins)removeCoin(c);}sfx.paw40&&sfx.paw40('swipe',1);CP58.stats.grabbed.push(g.id);
+  if(t>=T0.hit&&!g.held&&!g.missed){if(g.coins){const top=c=>!c.dead&&c.rb.translation().y/M-cp61Half(c)>=COIN_HALF*1.5;const L=[g.b,...g.coins.filter(c=>c!==g.b)].filter(top);if(!L.length){g.missed=true;return;}g.b=L[0];g.coins=L.slice(1);}if(g.b.dead){g.missed=true;return;}g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;removeCoin(g.b);if(g.coins){g.coins=g.coins.filter(c=>c!==g.b&&!c.dead);g.kinds=[g.b.kind,...g.coins.map(c=>c.kind)];for(const c of g.coins)removeCoin(c);}sfx.paw40&&sfx.paw40('swipe',1);CP58.stats.grabbed.push(g.id);
    try{diagEvent('wild2','cp58 grab '+g.id);}catch(e){}}});
  // chewing
  Y.chew=0;Y.chewOpen=0;for(const c of CP58.chomps){const u=(t-c)/.22;if(u>=0&&u<1){Y.chewOpen=Math.sin(u*Math.PI);Y.chew=5*Math.sin(u*Math.PI);}}

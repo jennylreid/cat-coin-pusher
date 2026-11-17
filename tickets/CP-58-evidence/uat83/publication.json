@@ -1,0 +1,24 @@
+﻿{
+    "version":  20261116235954,
+    "displayName":  "2026.11.16 UAT 83",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "5712ff1c977a79b3548247018707e1ae56f99d8dd3d2ba05f386eb790ec734c7",
+    "stagedJSONSHA256":  "db227d3cfb7a22bb80a1a478ed8a2ee62aa71a5fc0343c6e95fa41dc4f7e0fc0",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "02019ccecd271fd1beeec5b66cac5ce4ef74170cb92d473f226c822ff487ba02",
+    "jsonBytes":  53946049,
+    "runtimeFiles":  65,
+    "waivedChecks":  [
+
+                     ],
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.16 UAT 82",
+    "backup":  "uat/backups/before-UAT83-20261116235954",
+    "evidence":  "tickets/CP-58-evidence/uat83",
+    "authorization":  "UAT 83: CP-58 follow-up (PM, Nov 17: publish UAT 82 now, then tune the coin grab and publish it as UAT 83); UAT only",
+    "localPublication":  "verified"
+}

@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 82';
+const BUILD = '2026.11.16 UAT 83';
 
 
 
@@ -42021,7 +42021,7 @@ w2YawnTick=function(dt){
  if(t>=CP58.eyesOpen&&!fx.look){fx.look=1;sfx.wild2('tick',.8);}
  Y.grabs.forEach((g,i)=>{const T0=cp58Times(i);
   if(t>=T0.hover&&!g.whoosh){g.whoosh=1;sfx.paw40&&sfx.paw40('whoosh',1);}
-  if(t>=T0.hit&&!g.held&&!g.missed){if(g.b.dead){g.missed=true;return;}g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;removeCoin(g.b);if(g.coins){g.coins=g.coins.filter(c=>c!==g.b&&!c.dead);g.kinds=[g.b.kind,...g.coins.map(c=>c.kind)];for(const c of g.coins)removeCoin(c);}sfx.paw40&&sfx.paw40('swipe',1);CP58.stats.grabbed.push(g.id);
+  if(t>=T0.hit&&!g.held&&!g.missed){if(g.coins){const top=c=>!c.dead&&c.rb.translation().y/M-cp61Half(c)>=COIN_HALF*1.5;const L=[g.b,...g.coins.filter(c=>c!==g.b)].filter(top);if(!L.length){g.missed=true;return;}g.b=L[0];g.coins=L.slice(1);}if(g.b.dead){g.missed=true;return;}g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;removeCoin(g.b);if(g.coins){g.coins=g.coins.filter(c=>c!==g.b&&!c.dead);g.kinds=[g.b.kind,...g.coins.map(c=>c.kind)];for(const c of g.coins)removeCoin(c);}sfx.paw40&&sfx.paw40('swipe',1);CP58.stats.grabbed.push(g.id);
    try{diagEvent('wild2','cp58 grab '+g.id);}catch(e){}}});
  // chewing
  Y.chew=0;Y.chewOpen=0;for(const c of CP58.chomps){const u=(t-c)/.22;if(u>=0&&u<1){Y.chewOpen=Math.sin(u*Math.PI);Y.chew=5*Math.sin(u*Math.PI);}}
@@ -42088,8 +42088,9 @@ function cp58Lost(g){if(!(WILD.on&&WILD.v2))return;const need=!WILD.have[g.id],s
 function cp58CoinTargets(){const c=[];for(const b of bodies){if(b.dead||!(b.kind==='coin'||b.kind==='silver'||b.kind==='gold5'))continue;
   const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;if(z<PUSH_MAX+20||z>T.FRONT-30||Math.abs(x-200)>tableHalfAt(z)-4)continue; // the pile builds up at the back
   if(y-cp61Half(b)<COIN_HALF*1.5)continue;c.push({b,x,z});}
- if(!c.length)return [];c.sort((a,d)=>d.z-a.z);const A=c[0];
- return c.filter(o=>Math.hypot(o.x-A.x,o.z-A.z)<=90).sort((a,d)=>Math.hypot(a.x-A.x,a.z-A.z)-Math.hypot(d.x-A.x,d.z-A.z)).slice(0,4).map(o=>o.b);}
+ if(!c.length)return [];const near=(o,A)=>Math.hypot(o.x-A.x,o.z-A.z)<=70; // UAT 83: where most coins lie together on top (the front one first on a tie)
+ for(const o of c)o.n=c.filter(q=>near(q,o)).length;c.sort((a,d)=>d.n-a.n||d.z-a.z);const A=c[0];
+ return c.filter(o=>near(o,A)).sort((a,d)=>Math.hypot(a.x-A.x,a.z-A.z)-Math.hypot(d.x-A.x,d.z-A.z)).slice(0,4).map(o=>o.b);}
 function cp58CoinGrab(grabs){const cs=cp58CoinTargets();if(!cs.length)return;const b=cs[0],x=b.rb.translation().x/M;
  grabs.push({b,id:'coins',coins:cs,side:x<200?-1:1,goal:false,held:false,gone:false,bites:0});cp58PrizeScreen(grabs[0]);}
 function cp58DrawCoins(g,s){const k=g.kinds||['coin'],n=k.length;

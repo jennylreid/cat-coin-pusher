@@ -13,6 +13,8 @@ EDITS=[("const BUILD = '2026.11.16 UAT 82';","const BUILD = '%s';"%v['displayNam
   " if(!c.length)return [];const near=(o,A)=>Math.hypot(o.x-A.x,o.z-A.z)<=70; // UAT 83: where most coins lie together on top (the front one first on a tie)\n"
   " for(const o of c)o.n=c.filter(q=>near(q,o)).length;c.sort((a,d)=>d.n-a.n||d.z-a.z);const A=c[0];\n"
   " return c.filter(o=>near(o,A)).sort((a,d)=>Math.hypot(a.x-A.x,a.z-A.z)-Math.hypot(d.x-A.x,d.z-A.z)).slice(0,4).map(o=>o.b);}")]
+EDITS.append(("if(t>=T0.hit&&!g.held&&!g.missed){if(g.b.dead){g.missed=true;return;}",
+ "if(t>=T0.hit&&!g.held&&!g.missed){if(g.coins){const top=c=>!c.dead&&c.rb.translation().y/M-cp61Half(c)>=COIN_HALF*1.5;const L=[g.b,...g.coins.filter(c=>c!==g.b)].filter(top);if(!L.length){g.missed=true;return;}g.b=L[0];g.coins=L.slice(1);}if(g.b.dead){g.missed=true;return;}")) # UAT 83: only coins still on top at the grab
 for a,b in EDITS:
     if a not in s:a=a.replace('\n','\r\n');b=b.replace('\n','\r\n')
     assert s.count(a)==1,a[:60];s=s.replace(a,b)

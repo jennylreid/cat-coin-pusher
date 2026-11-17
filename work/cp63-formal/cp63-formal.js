@@ -126,13 +126,16 @@ function cp63Tick(t){const X=CP63X;if(!X)return;X.t=t;happyUntil=0;const fx=X.fx
  if(t>=CP63.sweep0&&!fx.sweep){fx.sweep=1;try{sfx.paw40('swipe',1);}catch(e){}}
  if(t>=CP63.sweep0+.5&&!fx.word){fx.word=1;if(X.picks.length)callout(CP63.words[1],{color:'#ffe27a',dur:1.1});}
  if(t>=CP63.monoOut&&!fx.off){fx.off=1;pgSfx('flip',.7);}
+ // a lit piece never goes over a side: near a side edge it is eased back toward the middle (the whole power)
+ for(const o of X.picks){const b=o.b;if(o.done||b.dead||o.lit==null)continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,edge=tableHalfAt(Math.min(T.FRONT,z))-cp63R(b)*.7;
+  if(z<T.FRONT-6&&Math.abs(x-200)>edge){const v=b.rb.linvel(),d=x<200?1:-1;b.rb.wakeUp();b.rb.setLinvel({x:d*Math.max(1.2,d*v.x),y:v.y,z:v.z},true);}}
  // the sweep: a highlighted piece the cane reaches is carried forward with it (and steered toward the tray's width)
  if(t>=CP63.sweep0&&t<CP63.sweep1+.25){const z=cp63CaneZ(t),zn=cp63CaneZ(t+1/60),vz=Math.max(2.2,(zn-z)*60*M*1.08);
   for(const o of X.picks){const b=o.b;if(o.done)continue;if(b.dead){o.done=true;continue;}const p=b.rb.translation(),x=p.x/M,pz=p.z/M;
    if(pz>T.FRONT+4){o.done=true;continue;}
    if(!o.on){if(z<pz-cp63R(b)-4)continue;o.on=true;}
    if(t>=CP63.sweep1&&!CP63.offEdge)continue;
-   const v=b.rb.linvel(),keep=Math.max(PAY_L+28,Math.min(PAY_R-28,x)),vx=(keep-x)*.06+v.x*.4;
+   const v=b.rb.linvel(),keep=Math.max(PAY_L+28,Math.min(PAY_R-28,x)),vx=(keep-x)*.1+v.x*.3;
    b.rb.wakeUp();b.rb.setLinvel({x:vx,y:Math.max(v.y,.35),z:Math.max(v.z,vz)},true);}}
  if(!CP63.offEdge&&t>=CP63.sweep1&&!fx.stop){fx.stop=1;for(const o of X.picks){if(!o.on||o.done||o.b.dead)continue;const v=o.b.rb.linvel();o.b.rb.setLinvel({x:v.x*.3,y:v.y,z:Math.min(v.z,.2)},true);}}
  if(t>=CP63.end){cp63Stop();}}

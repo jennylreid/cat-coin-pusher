@@ -1,0 +1,38 @@
+[
+ {
+  "sz": "360x640",
+  "build": "2026.11.17 UAT 84",
+  "picks": [
+   "box",
+   "egg",
+   "rain5",
+   "rain5",
+   "rain5"
+  ],
+  "errs": []
+ },
+ {
+  "sz": "360x780",
+  "build": "2026.11.17 UAT 84",
+  "picks": [
+   "box",
+   "egg",
+   "rain5",
+   "rain5",
+   "rain5"
+  ],
+  "errs": []
+ },
+ {
+  "sz": "412x915",
+  "build": "2026.11.17 UAT 84",
+  "picks": [
+   "box",
+   "egg",
+   "rain5",
+   "rain5",
+   "rain5"
+  ],
+  "errs": []
+ }
+]
