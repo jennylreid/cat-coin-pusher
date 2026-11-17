@@ -310,6 +310,21 @@ Module `work/cp68/cp51.js`, inserted by `work/cp68/build.py` on pinned UAT 67; c
 ## CP-56 Phase B (UAT 72, November 16, 2026)
 Pinned UAT 71 plus sock B, biscuit A, sardine B, egg B, box A. work/cp72/build.py preloads 128px PNGs into WILD_ART for all shared consumers; same size/collider and frozen pickup. Validation: checks72.cjs; package/publication: stage.py, publish.ps1, verify-cloud.py. Complete 45-file game-only update; report tickets/CP-56.md.
 
+## Formal inspection: the Tuxedo's power (CP-63, UAT 84, Nov 17, 2026)
+The Tuxedo's power button plays Formal inspection instead of the YAWN power (BASE-1 item 7). Code: the `CP-63` block at
+the end of the script (`work/cp63-uat/cp63-added.js`); `PGP.tuxedo={id:'inspect',...}`; `pgpUse`/`pgpTick`/`pgpEnd`
+wrapped; state in `CP63X`, settings in `CP63` (timing table, `max:5`, `maxPrizes:2`, `topOnly`, `offEdge`, `words`).
+- Beats (about 4.4 s, the game runs at full speed): monocle drops onto the eye (0-0.45 s); a lens visits the chosen pieces
+  back to front, each gets a gold ring (0.55-1.95 s); the right mitt lays a cane behind them (to 2.45 s) and sweeps forward
+  to past the front edge (to 3.55 s); lit pieces riding the cane are steered inside the tray's width; mitt home, monocle off.
+- Pick rule (`cp63Pick`): goal prizes > other prizes > Quake > Rain coins by value > plain coins, then nearest the front;
+  at most 2 prizes; a coin only if it lies on top of the pile (the bottom layer is never chosen).
+- A lit piece is eased back from a side edge for the whole power (never lost over a side).
+- Guards: the button is locked while it plays (`PGPX`); a wheel YAWN waits for it (`CP63X` in the dance's yawn stage);
+  Home, round end and pause go through `pgpEnd`/the power tick and leave nothing behind.
+- Stand-ins drawn in code: monocle, chain, cane, rings, lens beam, button icon. Real art later (one piece at a time).
+- The frozen pickup is untouched (pieces leave through the normal front-edge payout).
+
 ## The wheel's Yawn (CP-58, UAT 79, Jenny's approval Nov 16, 2026)
 - The prize wheel's YAWN slices (both wheels; `danceTick` stage `yawn`) call `cp58StartYawn()`. It's a 4.75 s moment.
   The cat yawns with the Runway round-yawn face (`img/art/cp58-yawn-face.webp`, a whole head on the head canvas,
