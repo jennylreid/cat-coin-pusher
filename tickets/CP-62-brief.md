@@ -35,3 +35,5 @@ stays untouched.
 
 ## Report
 Top of `tickets/CP-62.md`. Never use Claude or message anyone; the PM reads the report. Don't start other work.
+
+Jenny follow-up: add bow ties too to random per-prize existing A/B/C colour variation; UAT 81 on UAT 80. Same art-only mechanism and frozen pickup.

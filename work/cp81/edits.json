@@ -1,0 +1,10 @@
+[
+  [
+    "const BUILD = '2026.11.16 UAT 80';",
+    "const BUILD = '2026.11.16 UAT 81';"
+  ],
+  [
+    "async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }",
+    "async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }\n // CP-62 follow-up: Jenny added bow ties to random per-prize colours.\n CP62_ART.bowtie=CP62_ART.bowtie||[];CP62_ART.bowtie.push(await image('img/art/cp62-bowtie-a.png'));\n CP62_ART.bowtie=CP62_ART.bowtie||[];CP62_ART.bowtie.push(await image('img/art/cp62-bowtie-b.png'));\n CP62_ART.bowtie=CP62_ART.bowtie||[];CP62_ART.bowtie.push(await image('img/art/cp62-bowtie-c.png'));\n"
+  ]
+]

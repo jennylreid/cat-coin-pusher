@@ -1,3 +1,7 @@
+## CP-62 bow tie colours — UAT 81
+
+Jenny added bow tie A/B/C variation. On pinned UAT 80, `work/cp81/build.py` adds only the build label and three palette preloads (`img/art/cp62-bowtie-{a,b,c}.png`) to the existing CP62_ART mechanism. UI stays red A; each body keeps its red/blue/plum painting through pickup/loss and the wheel Yawn. Runtime 65 files. No size/collider, RNG or pickup motion/audio changes. Evidence/report: `tickets/CP-62-evidence/uat81/`, `tickets/CP-62.md`. Phone UAT pending.
+
 ## CP-62 prize art and colours — UAT 80, November 16, 2026
 
 `work/cp80/build.py` pins published UAT 79. Shared `WILD_ART` defaults: milk B, mouse A, bell A, notes C, bowtie A, yarn A; cushion keeps C. Jenny additionally authorized random existing A/B/C paintings per notes, yarn and cushion prize. `colours.js` loads those palettes, assigns stable per-object art through a WeakMap and an independent colour RNG, and transfers only the art index into pooled pickup/loss objects. Five render call sites pass their owning object (board, falling, pickup, loss and CP-58 held prize). UI icons use the default painting. Shared cache is restored after each variant draw. No gameplay RNG, prize IDs, sizes, colliders, levels, pickup motion/timing/sounds or multi-drop rules change. New file names: `img/art/cp62-*.png` (15); runtime has 62 files. Checks/evidence: `tickets/CP-62-evidence/uat80/`; source `work/cp80/`. Phone UAT pending.
@@ -319,3 +323,4 @@ Pinned UAT 71 plus sock B, biscuit A, sardine B, egg B, box A. work/cp72/build.p
   Powers aren't usable during the CP-58 Yawn (`pgpReady`), and the wheel waits for a running power Yawn to end.
 - Timings are in `CP58` at the top of the block. Source is `work/cp79/build.py`: the approved prototype
   (`work/cp58-yawn/`) plus the listed edits. Checks are in `work/cp79/checks79.cjs`.
+

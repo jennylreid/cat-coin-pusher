@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 80';
+const BUILD = '2026.11.16 UAT 81';
 
 
 
@@ -21974,6 +21974,11 @@ async function loadArt() {
 
 
  async function image(src) { const im = new Image(); im.src = src; await im.decode(); return im; }
+ // CP-62 follow-up: Jenny added bow ties to random per-prize colours.
+ CP62_ART.bowtie=CP62_ART.bowtie||[];CP62_ART.bowtie.push(await image('img/art/cp62-bowtie-a.png'));
+ CP62_ART.bowtie=CP62_ART.bowtie||[];CP62_ART.bowtie.push(await image('img/art/cp62-bowtie-b.png'));
+ CP62_ART.bowtie=CP62_ART.bowtie||[];CP62_ART.bowtie.push(await image('img/art/cp62-bowtie-c.png'));
+
  // CP-62: preload approved 128px prize canvases into the existing shared art cache.
  WILD_ART['milk']=await image('img/art/cp62-milk.png');WILD_ART['milk'].pgl=1;
  WILD_ART['mouse']=await image('img/art/cp62-mouse.png');WILD_ART['mouse'].pgl=1;
