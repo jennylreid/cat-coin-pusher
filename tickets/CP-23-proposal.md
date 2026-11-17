@@ -86,3 +86,12 @@ Already on the way: Pause with Finish (CP-51), which handles the half-empty boar
 - What does each cat's power unlock?
 - How often should a "wanted" prize drop, so it stays scarce but findable?
 - Keep the busy multi-drop moments (they're frozen behaviour).
+
+- **Empty milk bottles (Jenny, Nov 17):** the Yawn drinks the milk and throws the empty bottle onto the board (CP-58).
+  "maybe the empty bottle is even needed at some point." PM: it could be a goal ("push off 3 empty bottles") or a
+  recipe or Porch item. Simple once CP-58 ships the piece.
+
+- **Shop (Jenny, Nov 17):** "special prizes to the shop that can only be purchased" (can't be won on a board), and "different currency than gold
+  coins for the shop since it is too confusing." PM: agree. Coins are what you push; the shop should use Catnip, which
+  already shows on the top bar. Shop-only prizes give Catnip a purpose (e.g. the peacock feather). Open: how Catnip is
+  earned. Simple to medium.

@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.17 UAT 84';
+const BUILD = '2026.11.17 UAT 85';
 
 
 
@@ -41941,7 +41941,7 @@ function cp58Rest(side){return {x:200+side*135,y:VIEW.y+180*VIEW.zy+45,r:0};}
 function cp58Goal(id){return typeof WILD_COLLECTION!=='undefined'&&WILD_COLLECTION.includes(id)&&!WILD.have[id];}
 // The prizes worth stealing: on the table, not falling, nearest the front first; goal prizes before others.
 function cp58Targets(){
- const c=[];for(const b of bodies){if(b.dead||b.kind!=='item')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;
+ const c=[];for(const b of bodies){if(b.dead||b.kind!=='item'||!CP58_FOOD.includes(b.id))continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M; // UAT 85: food only
   if(z<GUARD_END-40||z>T.FRONT-6||y<-3||Math.abs(x-200)>(T.R-T.L)/2+2)continue;c.push({b,score:z+(cp58Goal(b.id)?400:0)});}
  c.sort((a,b)=>b.score-a.score);return c.slice(0,CP58.maxGrabs).map(o=>o.b);}
 function cp58StartYawn(){ // the wheel's YAWN slices only; the Tuxedo's power keeps CP-61's w2StartYawn
@@ -42026,8 +42026,8 @@ w2YawnTick=function(dt){
  // chewing
  Y.chew=0;Y.chewOpen=0;for(const c of CP58.chomps){const u=(t-c)/.22;if(u>=0&&u<1){Y.chewOpen=Math.sin(u*Math.PI);Y.chew=5*Math.sin(u*Math.PI);}}
  CP58.chomps.forEach((c,i)=>{if(t>=c&&!fx['c'+i]){fx['c'+i]=1;if(Y.grabs.some(g=>g.held)){sfx.wild2('catch',1);for(const g of Y.grabs)g.bites=i+1;
-  if(i===0)callout('NOM.',{color:'#ffd23f',dur:.9});const m=cp58Mouth();for(let k=0;k<7;k++)Y.crumbs.push({x:m.x+rand(-14,14),y:m.y+rand(-4,6),vx:rand(-70,70),vy:rand(-120,-30),t:0,c:Math.random()<.5?'#f4c24a':'#e8a060'});}}});
- if(t>=CP58.gulp&&!fx.gulp){fx.gulp=1;if(Y.grabs.some(g=>g.held)){pgSfx('plop',1);for(const g of Y.grabs)g.gone=true;for(const g of Y.grabs)if(g.held&&!g.coins)cp58Lost(g);}}
+  if(i===0)callout('NOM.',{color:'#ffd23f',dur:.9});const m=cp58Mouth();for(let k=0;k<7;k++)Y.crumbs.push({x:m.x+rand(-14,14),y:m.y+rand(-4,6),vx:rand(-70,70),vy:rand(-120,-30),t:0,c:Y.grabs.every(g=>!g.held||g.id==='milk')?(Math.random()<.5?'#ffffff':'#f1ece0'):Math.random()<.5?'#f4c24a':'#e8a060'});}}});
+ if(t>=CP58.gulp&&!fx.gulp){fx.gulp=1;if(Y.grabs.some(g=>g.held)){pgSfx('plop',1);for(const g of Y.grabs)g.gone=true;for(const g of Y.grabs)if(g.held&&!g.coins)cp58Lost(g);cp58BottleGulp(Y);}}
  for(let i=Y.crumbs.length-1;i>=0;i--){const c=Y.crumbs[i];c.t+=dt;c.x+=c.vx*dt;c.y+=c.vy*dt;c.vy+=520*dt;if(c.t>.8)Y.crumbs.splice(i,1);}
  if(t>=CP58.end){W2_YAWN=null;if(pawDance&&pawDance.yawn)stopPawDance();try{pgSfx('purr',.6);}catch(e){}}
 };
@@ -42039,7 +42039,7 @@ const __cp58YawnText=yawnText;
 yawnText=function(){const Y=W2_YAWN;if(!Y)return;__cp58YawnText();if(!Y.cp58)return;const t=Y.t,m=cp58Mouth();
  Y.grabs.forEach((g,i)=>{if(!g.held||g.gone)return;const T0=cp58Times(i),M0=cp58Mitt(g.side,t),claw={x:M0.x-g.side*4,y:M0.y+30};
   const k=cp58Ease((t-T0.hit-.1)/(CP58.carry-.1)),pos={x:claw.x+(m.x+g.side*14-claw.x)*k,y:claw.y+(m.y+8-claw.y)*k};
-  const s=(g.s0+(1.05-g.s0)*k)*(1-.22*g.bites);
+  const s=(g.s0+(1.05-g.s0)*k)*(g.id==='milk'?1:1-.22*g.bites); /* UAT 85: milk is drunk, not nibbled */
   ctx.save();ctx.translate(pos.x,pos.y);ctx.rotate(g.side*.25*(1-k));if(g.coins)cp58DrawCoins(g,s);else cp62DrawPrize('item',g.id,0,0,s,g.b);ctx.restore();});
  for(const c of Y.crumbs){ctx.globalAlpha=1-c.t/.8;ctx.fillStyle=c.c;ctx.fillRect(c.x-2,c.y-2,4,4);}ctx.globalAlpha=1;};
 
@@ -42142,7 +42142,7 @@ function cp63Half(b){return typeof b.half==='number'?b.half:halfOf(b.kind);}
 function cp63R(b){return b.kind==='item'?ITEM_R:RAIN[b.kind]?RAIN[b.kind].r:b.kind==='quake'?COIN_R*1.15:COIN_R;}
 // The most valuable pieces on the table: worth most first, then nearest the front.
 function cp63Pick(){const c=[];
- for(const b of bodies){if(b.dead||b.kind==='stack')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;
+ for(const b of bodies){if(b.dead||b.kind==='stack'||b.bottle)continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;
   if(z<PUSH_MAX+20||z>T.FRONT-10||y<-3||Math.abs(x-200)>tableHalfAt(z)-6)continue;
   if(CP63.topOnly&&b.kind!=='item'&&y-cp63Half(b)<COIN_HALF*1.5)continue; // part of the bottom layer: stays
   c.push({b,v:cp63Value(b),z});}
@@ -42283,6 +42283,56 @@ const __cp63Fall=typeof fallOff==='function'?fallOff:null;
 if(__cp63Fall){fallOff=function(b,...a){const X=CP63X;if(X&&!b.dead){const q=b.rb.translation();if(Math.abs(q.x/M-200)>(T.R-T.L)/2-2&&q.z/M<T.FRONT-4)CP63.stats.anySide++;else if(q.z/M>=T.FRONT-30)CP63.stats.anyFront++;}
  if(X&&X.picks.some(o=>o.b===b)){const q=b.rb.translation(),x=q.x/M,side=Math.abs(x-200)>(T.R-T.L)/2-2&&q.z/M<T.FRONT-4;(side?CP63.stats.lostSide:CP63.stats.paid).push(b.id||b.kind);}return __cp63Fall(b,...a);};}
 // ---------- end CP-63 ----------
+
+// ---------- CP-58 add-on (UAT 85; Jenny, Nov 17): the Yawn eats food only; milk leaves an empty bottle ----------
+// The wheel's Yawn only takes food (cheese, shrimp, tuna, fish biscuit, sardine, egg, milk); toys are never taken. With no
+// food in reach the mitt takes a few top coins as before. Milk: the cat drinks it (white drips instead of crumbs), then
+// tosses the empty bottle onto the board, where it is a real piece with milk's own size, collider and weight. Pushed off
+// (front or side) it plays a plain bottle clink and is gone: it is never a prize, never counted, never picked up.
+// At most 2 empty bottles on the board; with 2 already there the cat keeps the third (it isn't thrown).
+// New art: img/art/cp58-milk-empty.png, made from Jenny's milk B with the milk gone (milk B itself is unchanged).
+const CP58_FOOD=['cheese','shrimp','tuna','biscuit','sardine','egg','milk'];
+const CP58_BOTTLE={max:2,toss:4.27,fly:.42,h:70,stats:{tossed:0,kept:0,off:0,side:0}};
+let CP58_BOTTLE_ART=null;
+cp58RunwayLoad('img/art/cp58-milk-empty.png',im=>{CP58_BOTTLE_ART=im;});
+function cp58Bottles(){let n=0;for(const b of bodies)if(b.bottle&&!b.dead)n++;return n;}
+// The empty bottle draws exactly like milk (same size, anchor and occlusion), with the empty painting.
+const __cp58BottleDraw=drawPrize;
+drawPrize=function(kind,id,x,y,s){if(id!=='bottle')return __cp58BottleDraw(kind,id,x,y,s);if(!CP58_BOTTLE_ART)return;
+ const old=WILD_ART.milk;WILD_ART.milk=CP58_BOTTLE_ART;try{return __cp58BottleDraw(kind,'milk',x,y,s);}finally{WILD_ART.milk=old;}};
+// A plain glass clink.
+sfx.cp58Clink=function(vol=1){if(!this._w2ok())return;const t=this._pgT(),B=(t0,f,a,d)=>this._pgBell(t0,f,a,d);
+ B(t,2489,.12*vol,.3);B(t,3951,.05*vol,.18);B(t+.075,2637,.06*vol,.22);};
+// At the gulp: the drunk milk's bottle stays in the mitt, then is tossed onto the board in front of the pusher.
+function cp58BottleGulp(Y){const g=Y.grabs.find(g=>g.held&&!g.coins&&g.id==='milk');if(!g)return;
+ if(cp58Bottles()>=CP58_BOTTLE.max){CP58_BOTTLE.stats.kept++;return;}
+ const z=rand(PUSH_MAX+50,PUSH_MAX+150),x=200+g.side*rand(15,70);Y.bottle={g,x,z,landed:false};}
+function cp58BottleLand(B){if(cp58Bottles()>=CP58_BOTTLE.max){CP58_BOTTLE.stats.kept++;return;}
+ const b=addCoin('item','bottle',B.x,CP58_BOTTLE.h,B.z,yawTurn(0),{x:0,y:-3,z:.4},{x:0,y:0,z:0});b.bottle=true;b.rb.enableCcd(true);
+ CP58_BOTTLE.stats.tossed++;try{diagEvent('wild2','cp58 empty bottle tossed');}catch(e){}}
+const __cp58BottleTick=w2YawnTick;
+w2YawnTick=function(dt){const Y=W2_YAWN;__cp58BottleTick(dt);
+ if(Y&&Y.cp58&&Y.bottle&&!Y.bottle.landed&&Y.t>=CP58_BOTTLE.toss+CP58_BOTTLE.fly){Y.bottle.landed=true;cp58BottleLand(Y.bottle);}};
+// Drawn over the board like the held prizes: in the mitt by the mouth, then an arc with a spin down to where it lands.
+const __cp58BottleText=yawnText;
+yawnText=function(){__cp58BottleText();const Y=W2_YAWN;if(!Y||!Y.cp58||!Y.bottle||Y.bottle.landed||!CP58_BOTTLE_ART)return;
+ const B=Y.bottle,g=B.g,t=Y.t,m=cp58Mouth(),S0={x:m.x+g.side*14,y:m.y+8,s:1.05};let p=S0,r=0;
+ if(t>=CP58_BOTTLE.toss){const u=Math.min(1,(t-CP58_BOTTLE.toss)/CP58_BOTTLE.fly),E=skyScreen(B.x,B.z,CP58_BOTTLE.h);
+  p={x:S0.x+(E.x-S0.x)*u,y:S0.y+(E.y-S0.y)*u-70*Math.sin(Math.PI*u),s:S0.s+(E.s-S0.s)*u};r=g.side*u*Math.PI*1.5;}
+ ctx.save();ctx.translate(p.x,p.y);ctx.rotate(r);drawPrize('item','bottle',0,0,p.s);ctx.restore();};
+// Over the edge: a clink and gone (front or side). Squeezed through the table it goes back on top, as coins do.
+const __cp58BottleFall=fallOff;
+fallOff=function(b,x){if(!b||!b.bottle)return __cp58BottleFall.apply(this,arguments);if(b.dead)return;
+ const t=b.rb.translation(),z=t.z/M,inside=Math.abs(x-200)<=(T.R-T.L)/2-2;
+ if(inside&&z<T.FRONT-30){b.rb.setTranslation({x:(200+(x-200)*.6)*M,y:30*M,z:Math.max(z,PUSH_MAX+COIN_R+4)*M},true);b.rb.setLinvel({x:0,y:0,z:0},true);b.rb.setAngvel({x:0,y:0,z:0},true);return;}
+ const at=screenOf(t.x/M,z,t.y/M),side=!inside&&z<T.FRONT-4;
+ if(side)falling.push({x:at.x,y:at.y,vx:x<200?-40:40,vy:60,kind:'item',id:'bottle',won:false,t:0,s:at.s,gutter:true,__screenStart:at,__sourceX:at.x,__sourceY:at.y});
+ else{const p=proj(x,T.FRONT);falling.push({x:p.x,y:p.y+4,vx:0,vy:60,kind:'item',id:'bottle',won:false,t:0,s:p.s,__screenStart:at,__sourceX:p.x,__sourceY:p.y+4});}
+ CP58_BOTTLE.stats[side?'side':'off']++;try{sfx.cp58Clink(1);}catch(e){}
+ removeCoin(b);};
+const __cp58BottleGutter=gutterOff;
+gutterOff=function(b,x){if(b&&b.bottle)return fallOff(b,x);return __cp58BottleGutter.apply(this,arguments);};
+// ---------- end CP-58 add-on ----------
 
 </script>
 

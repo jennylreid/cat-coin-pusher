@@ -1,0 +1,24 @@
+{
+  "version": 20261117235956,
+  "displayName": "2026.11.17 UAT 85",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "b1772159d3cb01b3c6f446fcb9fa0509639194751f24e67e49b78f5cd67dee73",
+  "stagedJSONSHA256": "c050239097f02c509ee0dc4e311d67042be85f4c80ac073e4f1ccfa838400326",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "c537df933e0a80989a416e9173817945e79532a3adcfdfbde2da5c11ef91df80",
+  "jsonBytes": 53987034,
+  "runtimeFiles": 66,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [
+    "img/art/cp58-milk-empty.png"
+  ],
+  "addedArtSHA256": "f6a1eec6dd7481fe1f82ffd63847d04bbf0de2f2352a1c17e55b3d65732134e2",
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.17 UAT 84",
+  "backup": "uat/backups/before-UAT85-20261117235956",
+  "evidence": "tickets/CP-58-evidence/uat85",
+  "authorization": "UAT 85: CP-58 add-on (Jenny via PM, Nov 17: the Yawn eats food only; milk leaves an empty bottle; build into UAT 85 on UAT 84); UAT only"
+}

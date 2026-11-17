@@ -1,0 +1,29 @@
+{
+ "edits": [
+  [
+   "const BUILD = '2026.11.17 UAT 84';",
+   "const BUILD = '2026.11.17 UAT 85';"
+  ],
+  [
+   "c=[];for(const b of bodies){if(b.dead||b.kind!=='item')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;\n  if(z<GUARD_END-40",
+   "c=[];for(const b of bodies){if(b.dead||b.kind!=='item'||!CP58_FOOD.includes(b.id))continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M; // UAT 85: food only\n  if(z<GUARD_END-40"
+  ],
+  [
+   "const s=(g.s0+(1.05-g.s0)*k)*(1-.22*g.bites);",
+   "const s=(g.s0+(1.05-g.s0)*k)*(g.id==='milk'?1:1-.22*g.bites); /* UAT 85: milk is drunk, not nibbled */"
+  ],
+  [
+   "c:Math.random()<.5?'#f4c24a':'#e8a060'",
+   "c:Y.grabs.every(g=>!g.held||g.id==='milk')?(Math.random()<.5?'#ffffff':'#f1ece0'):Math.random()<.5?'#f4c24a':'#e8a060'"
+  ],
+  [
+   "for(const g of Y.grabs)if(g.held&&!g.coins)cp58Lost(g);}}",
+   "for(const g of Y.grabs)if(g.held&&!g.coins)cp58Lost(g);cp58BottleGulp(Y);}}"
+  ],
+  [
+   "for(const b of bodies){if(b.dead||b.kind==='stack')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;\n  if(z<PUSH_MAX+20||z>T.FRONT-10",
+   "for(const b of bodies){if(b.dead||b.kind==='stack'||b.bottle)continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;\n  if(z<PUSH_MAX+20||z>T.FRONT-10"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": "cp58-bottle.js"
+}

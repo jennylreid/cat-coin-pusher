@@ -340,6 +340,13 @@ wrapped; state in `CP63X`, settings in `CP63` (timing table, `max:5`, `maxPrizes
   icon shake, "LOST THE …!", lost count, the star's return), with no rail flash or tumble. It comes back only through
   the normal bonus drop, and there's no drop-back. With no prize in reach, the mitt takes up to 4 coins lying on top,
   where most lie together (`cp58CoinTargets`). They are re-checked at the grab (UAT 83).
+- **Since UAT 85 (Jenny, Nov 17):** the Yawn takes food only (`CP58_FOOD`: cheese, shrimp, tuna, biscuit, sardine, egg,
+  milk); toys are never taken. Milk is drunk, and its empty bottle is tossed onto the board (`cp58BottleGulp` / `cp58BottleLand`, block
+  `work/cp85/cp58-bottle.js`). The bottle is `addCoin('item','bottle')` with `b.bottle=true`: milk's collider and
+  drawing (`drawPrize` swaps in `img/art/cp58-milk-empty.png`). `fallOff`/`gutterOff` catch it before every prize
+  handler: it clinks (`sfx.cp58Clink`), falls and is removed, and is never a prize or counted. At most
+  `CP58_BOTTLE.max` (2) are on the board. `cp63Pick` skips bottles. Any new code that loops over `kind==='item'` bodies
+  must skip `b.bottle`.
 - **Real-browser boot check (since UAT 82):** the desktop harness strips the boot line (`Promise.all([RAPIER.init(),
   loadArt()])`), so a const used by loadArt and declared below it (CP62_ART in UAT 80/81) only fails in a real browser.
   Before publishing, run `work/cp83/bootcheck.cjs <runtime folder>` (headless Chrome, real time, the full runtime

@@ -35,3 +35,17 @@ building UAT 75 in this folder: work only in `work/cp58-yawn/` and `tickets/CP-5
 Top of `tickets/CP-58.md`: how to open the prototype, the beats, what's placeholder, and the effort to ship it. Then
 message the PM (session `local_c33de928-2fcf-4e87-9b03-fae33ff1496d`) and stop. Never grep or print the 49 MB game JSON
 files.
+
+## Add-on (Jenny, Nov 17, after UAT 84): food only, and milk leaves an empty bottle
+- "Yawn should only eat food items, not yarn, etc." It eats only food: cheese, shrimp, tuna, fish biscuit, sardine,
+  egg, milk. Toys (yarn, feather, ball, cushion, sock, box, toy mouse, bell, bow tie, music notes, star) are never taken.
+  With no food in reach it takes a few top coins as now; never nothing. Eaten food is lost, as today.
+- Milk: the cat drinks it and throws the empty bottle back onto the board, where it's a real piece you push off
+  ("I like the clutter on top of a nice sheet of coins... it's only performance we worry about. Let's shoot for 2").
+  - Empty-bottle art comes from the milk bottle Jenny picked (CP-62 milk B) with the milk gone. Don't change milk B.
+    It's the only new art. Keep the same size and collider as milk.
+  - Pushed off, it plays a plain bottle clink, isn't a prize and isn't counted. It's never a goal item.
+  - Performance: it's one extra piece. Keep at most 2 empty bottles on the board, and measure a tick on Level 8.
+- Build into UAT 85 on UAT 84 (same rules as before: backup, real-browser boot check, cloud check, checkpoint). Add
+  key-beat stills at 412x915 and 360x640 to tickets/CP-58-evidence/. Report at the top of tickets/CP-58.md, message
+  the PM and stop.
