@@ -1,0 +1,20 @@
+{
+  "version": 20261116235500,
+  "displayName": "2026.11.16 UAT 76",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "1d63049ed0048fc7e9627a7eaa13da23c84ce05e23e6e2ccd162af49f92e97a9",
+  "stagedJSONSHA256": "5a51de0dd167bc90424b79d15582e123f7074054deb959497274ac651e338d97",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "73781b4dcec613a056f0bc353b806f0435a8bdf4cfb7e991af4f8bd1a3b834cc",
+  "jsonBytes": 52587764,
+  "runtimeFiles": 45,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.16 UAT 75",
+  "backup": "uat/backups/before-UAT76-20261116235500",
+  "evidence": "tickets/CP-57-evidence/uat76",
+  "authorization": "UAT 76: CP-57 follow-up (Jenny via PM, Nov 16: go for the ledge-sound fix on UAT 75): every plain coin over the ledge is heard, real recordings only; UAT only, on UAT 75 (CP-61 unchanged)"
+}

@@ -1,32 +1,32 @@
 {
- "old": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp74\\release.html",
- "new": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp57-money\\release-edge.html",
+ "old": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp75\\release.html",
+ "new": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp76\\release.html",
  "uat74": {
   "rounds": 2,
-  "coins": 34,
+  "coins": 33,
   "take": 0,
-  "offRecording": 8,
+  "offRecording": 10,
   "spillRecording": 0,
   "codeGroup": 1,
   "coveredByGroup": 0,
-  "silent": 25,
+  "silent": 22,
   "cp57e": null
  },
  "new_": {
   "rounds": 2,
-  "coins": 36,
-  "take": 33,
+  "coins": 37,
+  "take": 31,
   "offRecording": 0,
   "spillRecording": 0,
   "codeGroup": 0,
-  "coveredByGroup": 3,
+  "coveredByGroup": 6,
   "silent": 0,
   "cp57e": {
-   "coins": 36,
+   "coins": 37,
    "take": 31,
-   "spill": 3,
+   "spill": 2,
    "cascade": 0,
-   "thinned": 5,
+   "thinned": 6,
    "fallback": 0
   }
  }

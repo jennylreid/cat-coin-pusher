@@ -1,0 +1,17 @@
+{
+  "httpStatus": 200,
+  "etag": "\"{578FC2C8-E07A-4447-B0E5-3EBC7EA2C0E6},10\"",
+  "bytes": 52055101,
+  "sha256": "86297dc95be7636e5bdd9ecf3cbd65309fa58adc0af7f929660b52407806553b",
+  "version": 20261116235000,
+  "displayName": "2026.11.16.2",
+  "channel": "catpusher",
+  "applicationId": "com.jenny.catpusher",
+  "apkVersion": 17,
+  "runtimeFiles": 40,
+  "indexHTMLSHA256": "a0fccd03304c8e1974f2fa13741c01b1b1d00ce91efff53124bebff29338542a",
+  "productionAppAction": "GAME (apkVersion 17 = installed APK17, version newer than 20261116171500)",
+  "anonymousDownload": true,
+  "checkedAt": "2026-11-16T20:02:59",
+  "phoneEvidence": "pending Jenny"
+}
