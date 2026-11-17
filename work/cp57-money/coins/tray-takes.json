@@ -1,0 +1,32 @@
+{
+ "tray1": {
+  "src": "sumaga123-coin-drop-432151.mp3 (= the game's coin-off.mp3)",
+  "start": 0.994,
+  "len": 0.55
+ },
+ "tray2": {
+  "src": "universfield-spinning-coin-on-table-352448.mp3",
+  "start": 0.279,
+  "len": 0.5
+ },
+ "tray3": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 14.973,
+  "len": 0.4
+ },
+ "tray4": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 18.381,
+  "len": 0.3
+ },
+ "tray5": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 1.962,
+  "len": 0.45
+ },
+ "tray6": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 7.995,
+  "len": 0.45
+ }
+}

@@ -1,0 +1,21 @@
+﻿{
+    "version":  20261116235000,
+    "displayName":  "2026.11.16 UAT 75",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "37f5d1d18efc1627a46f9ebb0beec2129e5402a7f5713e1f2d1fc8feedffdcb8",
+    "stagedJSONSHA256":  "1d63049ed0048fc7e9627a7eaa13da23c84ce05e23e6e2ccd162af49f92e97a9",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "a416c9a06c67eb485d8bb905b0c61126f5ff6c29ef49c9ab9fd8779e748ed392",
+    "jsonBytes":  52518384,
+    "runtimeFiles":  45,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.16 UAT 74",
+    "backup":  "uat/backups/before-UAT75-20261116235000",
+    "evidence":  "tickets/CP-61-evidence/uat75",
+    "authorization":  "UAT 75: CP-61 No slow-down, fewer rain coins + Yawn add-on (Jenny via PM, Nov 16: \u0027UAT 74 is published. Base CP-61 on UAT 74 and publish as UAT 75 when your checks pass.\u0027); UAT only, on UAT 74 (CP-57 sounds and CP-59 fix unchanged)",
+    "localPublication":  "verified"
+}

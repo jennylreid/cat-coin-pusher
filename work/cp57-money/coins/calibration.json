@@ -127,6 +127,86 @@
    ],
    "gain": 0.2097,
    "peakAtVol1": 0.099
+  },
+  "tray": {
+   "refDb": -29.35,
+   "takes": [
+    {
+     "take": "tray1",
+     "loudDb": -28.27,
+     "peak": 0.455
+    },
+    {
+     "take": "tray2",
+     "loudDb": -22.43,
+     "peak": 0.493
+    },
+    {
+     "take": "tray3",
+     "loudDb": -28.41,
+     "peak": 0.47
+    },
+    {
+     "take": "tray4",
+     "loudDb": -23.85,
+     "peak": 0.466
+    },
+    {
+     "take": "tray5",
+     "loudDb": -25.57,
+     "peak": 0.499
+    },
+    {
+     "take": "tray6",
+     "loudDb": -26.39,
+     "peak": 0.496
+    }
+   ],
+   "gain": 0.6661,
+   "peakAtVol1": 0.332,
+   "todayCoinOffAsPlayedDb": -72.55,
+   "intendedCoinOffHitDb": -39.35,
+   "coinLandingDb": -21.35
+  },
+  "spillBed": {
+   "refDb": -29.35,
+   "takes": [
+    {
+     "take": "B1",
+     "loudDb": -32.28,
+     "peak": 0.2
+    },
+    {
+     "take": "B2",
+     "loudDb": -32.86,
+     "peak": 0.165
+    },
+    {
+     "take": "B3",
+     "loudDb": -30.13,
+     "peak": 0.177
+    }
+   ],
+   "gain": 1.3186,
+   "peakAtVol1": 0.264,
+   "coinSpillRecordingDb": -33.78
+  },
+  "pourBed": {
+   "refDb": -29.35,
+   "takes": [
+    {
+     "take": "pour1",
+     "loudDb": -24.24,
+     "peak": 0.473
+    },
+    {
+     "take": "pour2",
+     "loudDb": -23.38,
+     "peak": 0.468
+    }
+   ],
+   "gain": 0.5286,
+   "peakAtVol1": 0.25
   }
  }
 }

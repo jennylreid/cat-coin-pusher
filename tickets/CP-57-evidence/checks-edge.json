@@ -1,0 +1,18 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp57-money\\release-edge.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp74\\release.html",
+ "passed": true,
+ "passedN": 10,
+ "failed": [],
+ "notes": {
+  "stats": {
+   "coins": 27,
+   "take": 22,
+   "spill": 2,
+   "cascade": 2,
+   "thinned": 5,
+   "fallback": 0
+  },
+  "errs": []
+ }
+}

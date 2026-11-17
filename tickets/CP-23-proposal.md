@@ -68,6 +68,13 @@ Already on the way: Pause with Finish (CP-51), which handles the half-empty boar
   ones. PM: Sonic meow already doubles the pusher's length, and refilling with a few big star coins solves the hole.
   Medium.
 - **Star coin** replaces the star prize (decided Nov 16).
+- **Brainstorm (Jenny, Nov 16, "not saying we should do it"):**
+  - When the board gets too full, the cat eats some plain paw coins ("nothing completely"), and occasionally grabs a
+    prize. PM: it turns the performance limit into character. Take a few at a time from the back or sides, make it
+    visible and funny, and never leave a gap. Medium (reuses the Yawn grab).
+  - A grabbed goal prize must always be replaced by a fresh one dropping in, so there's still a chance.
+  - **Clock coin:** a power coin that adds time to the round. PM: simple (data plus new art), and a nice counter to the
+    timer pressure. Or it's a cat power for a new cat (Jenny).
 
 ## Open questions (after the backbone)
 

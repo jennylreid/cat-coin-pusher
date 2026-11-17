@@ -32,6 +32,15 @@ numbers) and tickets/CP-48.md (rain past 100 lands as gold 5s; merging at 130). 
    - bot win rate and time left (hold and taps, as in CP-51).
    If a level still floods, propose options for the PM to take to Jenny; don't add a throttle.
 
+## Add-on (Jenny, Nov 16): Yawn without gaps
+The wheel's Yawn slice swipes the sides and leaves a gap drops can't reach. For now, keep its animation, but it knocks
+off only a handful of pieces (about 5-8 max), and only from on top of the pile. A full bottom layer stays across the
+board. (The full redesign comes later in CP-58: yawn, stretch, side-eye, grab and eat.)
+
+## Add-on (Jenny, Nov 16): prize wheel
+No rain slices. At least two Yawn slices. The rain slices become prizes or power coins. Report the wheel before and
+after.
+
 ## Don't touch
 The pickup (frozen), CP-59's cascade fix, CP-57's sounds (being published as UAT 74), art, layouts and goals.
 

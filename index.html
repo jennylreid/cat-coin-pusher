@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 74';
+const BUILD = '2026.11.16 UAT 75';
 
 
 
@@ -37158,9 +37158,12 @@ function wildSpawnRainCoin(){
  const b=addCoin(Math.random()<.25?'silver':'coin',null,x,h,y,randomTurn(rand(.05,.4)),{x:0,y:-2,z:0},{x:rand(-2,2),y:rand(-4,4),z:rand(-2,2)});
  b.rb.enableCcd(true);b.deliveryStartHeight=h;b.rain=true;sfx.wild('drip',1);
 }
+const CP61_CROWD=100; // CP-61: coin pieces (plain coins + gold 5s) from which no rain bonus drops come
+function cp61Crowded(){let n=0;for(const b of bodies)if(!b.dead&&(b.kind==='coin'||b.kind==='silver'||b.kind==='gold5'))n++;return n>=CP61_CROWD;}
 function wildScheduleBonus(){
  // A bonus falls by itself: a marker and a falling whistle first, then it drops out of the sky.
- const miss=wildMissing(),r=Math.random(),pick=miss.length?'prize':r<.3?'rain5':r<.5?'rain10':r<.58?'rain25':r<.7?'quake':'prize';
+ const miss=wildMissing(),r=Math.random();let pick=miss.length?'prize':r<.18?'rain5':r<.26?'rain10':r<.28?'rain25':r<.4?'quake':r<.7?'none':'prize'; // CP-61: fewer rain drops
+ if(pick==='none'||(RAIN[pick]&&cp61Crowded())){WILD.cp61Skipped=(WILD.cp61Skipped|0)+1;return;} // CP-61: and none on a crowded board
  const need=WILD_COLLECTION.filter(id=>!WILD.have[id]),id=pick!=='prize'?null:miss.length?miss[0]:need.length&&Math.random()<.5?need[Math.random()*need.length|0]:WILD_COLLECTION[Math.random()*WILD_GOAL|0];
  const y=rand(430,650),x=200+rand(-1,1)*(tableHalfAt(y)-50);
  WILD.incoming.push({kind:pick==='prize'?'item':pick,id,x,y,t:.9,t0:.9});WILD.bonusN++;sfx.wild('whistle',1);
@@ -37412,7 +37415,7 @@ function danceTap(e){
   if(D.judged[k])return; // a second tap on a beat already banked: ignored
   if(D.blocked===k){D.judged[k]='miss';D.misses++;D.streak=0;danceFx('BLOCKED','#b9a6d6');sfx.dance('miss',1);return;}
   D.judged[k]='hit';D.hits++;D.streak++;D.best=Math.max(D.best,D.streak);D.ringT=0;
-  const r=Math.random(),kind=r<D.rainChance?(Math.random()<.25?'rain10':'rain5'):'coin';D.bank[kind]++;
+  const r=Math.random(),kind=r<D.rainChance*.5?'rain5':'coin'; // CP-61: half as many rain coins, Rain 5 onlyD.bank[kind]++;
   D.fx.push({kind,t:0,x:200,y:DANCE_LANE_Y});
   if(kind==='coin'){sfx.dance('hit',1,0,D.streak);danceFx(D.streak>=8&&D.streak%8===0?'GROOVY!':'+1','#ffd23f');}
   else{sfx.dance('hitRain',1);danceFx(kind==='rain10'?'+RAIN 10!':'+RAIN 5!',kind==='rain10'?'#e88aff':'#5ef0c0');}
@@ -37761,13 +37764,17 @@ pawMotion=function(side=0){
  const lift=s(t/.45)*(1-s((t-.45)/.35)),fwd=s((t-.6)/.6)*(1-s((t-2.1)/.7)),out=s((t-1.25)/.75)*(1-s((t-2.1)/.7));
  return {x:-side*34*fwd+side*120*out,y:-26*lift+200*fwd-20*out,r:side*(.25*lift-.18*out)};
 };
+const CP61_YAWN_MAX=6; // CP-61: the wheel's Yawn only knocks off up to 6 coins from the top of the pile
+function cp61YawnPick(){const top=[];for(const b of bodies){if(b.dead||!(b.kind==='coin'||b.kind==='silver'||b.kind==='gold5'))continue;const p=b.rb.translation(),z=p.z/M,y=p.y/M;
+ if(z<380||z>570||y<COIN_HALF*2.6)continue;top.push({b,y});}top.sort((a,c)=>c.y-a.y);return top.slice(0,CP61_YAWN_MAX).map(o=>o.b);}
 function w2YawnTick(dt){
  const Y=W2_YAWN;if(!Y)return;Y.t+=dt;happyUntil=0;
  if(Y.t>=1.25&&Y.t<2.05){if(!Y.swept){Y.swept=true;sfx.wild2('sweep',1);callout('SWOOSH!',{color:'#b9a6d6',dur:.8});}
   // the paws sweep outward across the back half of the table: coins they reach go flying off the sides
   const f=Math.min(1,(Y.t-1.25)/.75),reach=20+f*170;
   // (the paws are drawn over table depth ~390-560); like a plough, everything the paws have reached keeps moving outward
-  for(const b of bodies){if(b.dead||b.kind==='stack')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M;
+  const power=typeof PGPX!=='undefined'&&PGPX&&PGPX.id==='yawn';if(!power&&!Y.pick)Y.pick=cp61YawnPick(); // CP-61: the wheel's Yawn: top coins only
+  for(const b of (power?bodies:Y.pick)){if(b.dead||b.kind==='stack')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M;
    if(z<380||z>570||Math.abs(x-200)>reach)continue;
    if(!Y.pushed.has(b))Y.pushed.set(b,x<200?-1:1);const v=b.rb.linvel();b.rb.setLinvel({x:Y.pushed.get(b)*Math.max(Math.abs(v.x),rand(5,7.5)),y:Math.max(v.y,rand(.8,1.6)),z:v.z},true);}}
  if(Y.t>=2.8){W2_YAWN=null;if(pawDance&&pawDance.yawn)stopPawDance();}
@@ -38101,7 +38108,7 @@ danceDraw=function(){
 // Rain, pours and sky coins check the budget: while the table holds W43_COIN_CAP plain coins or more, every fifth
 // surplus coin lands as one gold "5" coin (worth 5 when it goes over the front) and the other four are not made, so the
 // rain still looks thick from above but the physics doesn't grow. Prizes, rain coins and the Quake are never capped.
-const W43_COIN_CAP=130;
+const W43_COIN_CAP=100; // CP-61: merging resting coins into gold 5s from 100 plain coins (was 130)
 RAIN.gold5={n:5,gold:true,r:Math.round(COIN_R*1.3),half:COIN_HALF*1.15,face:['#fff6c8','#ffc93c','#9a6a00'],edge:'#8a5c00'};
 EDGE.gold5=RAIN.gold5.edge;PRIZE_OPAQUE.gold5=.95;PRIZE_ASPECT.gold5=1;
 const __w43RainFace=rainFace;
@@ -38231,8 +38238,8 @@ function w43StarOnBoard(){
 
 // --- 4. The bigger wheel: near full width, a longer spin with a pause before it lands; every slice is an event ---
 W2_WHEEL.length=0;
-W2_WHEEL.push({label:'RAIN 25',kind:'rain25',w:.16,c:'#ff5a2c'},{label:'DANCE AGAIN',kind:'again',w:.16,c:'#ff7ad5'},{label:'RAIN 10 + QUAKE',kind:'r10q',w:.2,c:'#4f8bff'},
- {label:'PRIZE YOU NEED',kind:'prize',w:.15,c:'#7dff6a'},{label:'RAIN 25',kind:'rain25',w:.16,c:'#ff8a3c'},{label:'JACKPOT 50',kind:'jackpot',w:.05,c:'#ffd23f'},{label:'YAWN',kind:'yawn',w:.12,c:'#6a6a7a'});
+W2_WHEEL.push({label:'QUAKE COIN',kind:'quake',w:.2,c:'#ff5a2c'},{label:'DANCE AGAIN',kind:'again',w:.16,c:'#ff7ad5'},{label:'YAWN',kind:'yawn',w:.12,c:'#4a4a5a'},
+ {label:'PRIZE YOU NEED',kind:'prize',w:.15,c:'#7dff6a'},{label:'PRIZE YOU NEED',kind:'prize',w:.15,c:'#4fe0b0'},{label:'JACKPOT 25',kind:'jackpot',w:.05,c:'#ffd23f'},{label:'YAWN',kind:'yawn',w:.12,c:'#6a6a7a'});
 const W43_SPIN=4.6,W43_PAUSE=.55,W43_CREEP=.4,W43_WAIT=8;
 function w43StartSpin(D,tapped){const Wh=D.wheel;if(!Wh||!Wh.waiting)return;Wh.waiting=false;Wh.spinAt=D.st;Wh.a0=Wh.a;Wh.tapped=tapped;
  let end=Wh.end;while(end<Wh.a0+Math.PI*2*7)end+=Math.PI*2;while(end>Wh.a0+Math.PI*2*8)end-=Math.PI*2;const seg=Math.PI*2/W2_WHEEL.length;Wh.end=end;Wh.stop=end-seg*.62;
@@ -38267,10 +38274,10 @@ danceTick=function(dt,paused){
 };
 w2ApplySlice=function(s,D){
  const front=()=>({x:200+rand(-80,80),y:rand(590,650)});
- if(s.kind==='rain25'){const p=front();skyDrop('rain25',p.x,p.y,{dur:1});return;}
+ if(s.kind==='quake'){const p=front();skyDrop('quake',p.x,p.y,{dur:1});return;} // CP-61: no rain slices
  if(s.kind==='r10q'){w2Rain(10,.06);D.quakeAt=time+1.6;WILD.pendingQuake=time+1.6;return;}
  if(s.kind==='prize'){const need=WILD_COLLECTION.filter(id=>!WILD.have[id]),id=need.length?need[Math.random()*need.length|0]:WILD_COLLECTION[Math.random()*WILD_GOAL|0];skyDrop('item',200+rand(-60,60),T.FRONT-42,{id,dur:1,h:24});return;}
- if(s.kind==='jackpot'){w2Rain(50,.035);sfx.wild('win',1);return;}
+ if(s.kind==='jackpot'){w2Rain(25,.05);sfx.wild('win',1);return;}
  if(s.kind==='again'){D.again=true;return;}
 };
 // Rain 10 + Quake: once the ten coins have landed the board shakes (a free Quake).
@@ -38287,7 +38294,7 @@ w2WheelDraw=function(D){
   ctx.save();ctx.rotate((i+.5)*seg);ctx.translate(R*.6,0);ctx.rotate(Math.PI/2);const dark=s.kind==='yawn'||s.kind==='r10q';ctx.fillStyle=dark?'#fff':'#2a0b3e';ctx.textAlign='center';ctx.textBaseline='middle';
   const words=s.label.split(' '),l1=words.length>2?words.slice(0,-1).join(' '):words[0],l2=words.length>2?words[words.length-1]:words.slice(1).join(' ');
   ctx.font='900 '+(Math.max(l1.length,l2.length)>6?15:19)+'px Impact, "Arial Black", system-ui';ctx.fillText(l1,0,-34);if(l2)ctx.fillText(l2,0,-15);
-  if(s.kind==='rain25'||s.kind==='r10q'){const sp=sprite(s.kind==='r10q'?'rain10':'rain25');ctx.drawImage(sp.cv,-17,6,34,34);}
+  if(s.kind==='quake'){const sp=sprite('quake');ctx.drawImage(sp.cv,-17,6,34,34);}
   if(s.kind==='r10q'){const sp=sprite('quake');ctx.drawImage(sp.cv,4,26,24,24);}
   if(s.kind==='prize')drawPrize('item','bell',0,30,.42);
   if(s.kind==='jackpot'){for(let j=0;j<5;j++)uiCircle(-10+j*5,30-j*4,9,'#f5c632','#8a5c00',1.2);}
@@ -38299,7 +38306,7 @@ w2WheelDraw=function(D){
  if(Wh.waiting&&t>=.4){const k=1+.07*Math.sin(t*7);ctx.save();ctx.translate(0,R+46);ctx.scale(k,k);wildText('TAP TO SPIN!',0,0,40,'#ffd23f','#2a0b3e',8);ctx.restore();
   ctx.font='bold 13px system-ui';ctx.fillStyle='rgba(255,240,200,.85)';ctx.textAlign='center';ctx.fillText('spins by itself in '+Math.max(1,Math.ceil(.5+W43_WAIT-t))+' s',0,R+80);}
  const wob=Wh.result||Wh.waiting?0:Math.sin(t*60)*.06*(st<stopT?1:0);ctx.save();ctx.translate(0,-R-4);ctx.rotate(wob);ctx.fillStyle='#fff';ctx.strokeStyle='#2a0b3e';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-18,-16);ctx.lineTo(18,-16);ctx.lineTo(0,22);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
- if(Wh.result){const s=W2_WHEEL[Wh.i],txt={rain25:'RAIN 25!',r10q:'RAIN 10 + QUAKE!',prize:'A PRIZE YOU NEED!',jackpot:'JACKPOT 50!',again:'DANCE AGAIN!',yawn:'UH OH… YAWN'}[s.kind];
+ if(Wh.result){const s=W2_WHEEL[Wh.i],txt={quake:'QUAKE COIN!',r10q:'RAIN 10 + QUAKE!',prize:'A PRIZE YOU NEED!',jackpot:'JACKPOT 25!',again:'DANCE AGAIN!',yawn:'UH OH… YAWN'}[s.kind];
   ctx.save();ctx.translate(0,R+44);const k=1+.08*Math.sin(t*10)+(s.kind==='jackpot'?.15:0);ctx.scale(k,k);wildText(txt,0,0,s.kind==='jackpot'?44:36,s.kind==='yawn'?'#d8c8ee':'#ffd23f','#2a0b3e',7);ctx.restore();}
  ctx.restore();
 };
@@ -38553,7 +38560,7 @@ function tossFinish(D){
  try{localStorage.setItem(PANTRY_KEY,JSON.stringify(PANTRY));}catch(e){}
  WILD.tossCaught+=D.caught;
  if(D.caught){sfx.toss('end',1,D.caught);wildConfetti(Math.min(60,10+D.caught*3));}else sfx.toss('drop',1);
- if(D.perfect){sfx.wild2('perfect',1);const x=200+rand(-60,60),y=rand(560,630);skyDrop('rain10',x,y,{dur:1,delay:.6});}
+ if(D.perfect){sfx.wild2('perfect',1);const x=200+rand(-60,60),y=rand(560,630);skyDrop('rain5',x,y,{dur:1,delay:.6});}
  tossLog(D,['end',D.caught,D.n,D.whiffs,D.dropped,D.best,D.perfect?1:0,D.newIds.length,D.pantry]);
  try{diagEvent('toss','end caught='+D.caught+'/'+D.n+' whiffs='+D.whiffs+' best='+D.best+(D.perfect?' perfect':'')+' new='+D.newIds.length+' pantry='+D.pantry);}catch(e){}
  TOSS_LOG.push({at:new Date().toISOString(),board:WILD.mode||(WILD.v2?'wild2':'wild'),dials:{...TOSS},events:D.log});while(TOSS_LOG.length>3)TOSS_LOG.shift();
@@ -38652,7 +38659,7 @@ function tossDraw(){
  if(D.phase==='end'){const u=Math.min(1,D.endT/.25),out=Math.max(0,(D.endT-(TOSS_END-.35))/.35);ctx.globalAlpha=1-out;ctx.save();ctx.translate(200,Y+40);ctx.scale(.6+.5*u,.6+.5*u);ctx.rotate(-.05);
   if(D.caught)wildText('+'+D.caught+' TREATS!',0,0,50,'#ffd23f','#3a1a00',9);else wildText('ALL DROPPED!',0,0,40,'#c9b6e6','#2a0b3e',8);
   ctx.font='bold 15px system-ui';ctx.fillStyle='#fff';const parts=[];if(D.newIds.length)parts.push(D.newIds.length+' for the goal');if(D.pantry)parts.push(D.pantry+' to the pantry');if(parts.length)ctx.fillText(parts.join(' · '),0,40);
-  if(D.perfect){ctx.translate(0,-62);ctx.scale(1+.05*Math.sin(D.endT*12),1+.05*Math.sin(D.endT*12));wildText('PERFECT!',0,0,40,'#7dff6a','#0c3a12',8);ctx.font='bold 13px system-ui';ctx.fillStyle='#fff';ctx.fillText('every treat! RAIN 10 coming',0,30);}
+  if(D.perfect){ctx.translate(0,-62);ctx.scale(1+.05*Math.sin(D.endT*12),1+.05*Math.sin(D.endT*12));wildText('PERFECT!',0,0,40,'#7dff6a','#0c3a12',8);ctx.font='bold 13px system-ui';ctx.fillStyle='#fff';ctx.fillText('every treat! RAIN 5 coming',0,30);}
   ctx.restore();ctx.globalAlpha=1;}
  ctx.restore();
 }
@@ -38683,7 +38690,7 @@ wildDevBind=function(panel){__tossDevBind(panel);const box=panel.querySelector&&
 // music-note coin). The fish coin starts it. The Tuxedo runs it for now (no new cat art).
 registerWildMode({id:'treats',name:'TREAT TOSS',blurb:'Catch treats the cat flips into the air',
  colors:['#5ef0c0','#0b2a2a','#173f42'],panel:['#1f5a5c','#0b2224'],features:{toss:true},
- cardLines:[['fish','Push the fish coin off','and the cat tosses treats!'],['catch','Tap treats in the air','to catch them'],['perfect','Catch every one','for a RAIN 10 coin'],
+ cardLines:[['fish','Push the fish coin off','and the cat tosses treats!'],['catch','Tap treats in the air','to catch them'],['perfect','Catch every one','for a RAIN 5 coin'],
   ['visitor','Win','and a cat comes to visit'],['rain10','Rain coins pour','5, 10 or 25 coins'],['!','Bonus drops','fall from the sky']],
  icon(x,y){const sp=sprite('fish');ctx.drawImage(sp.cv,x-24,y-24,48,48);},
  cardIcon(kind,x,y){
@@ -39041,7 +39048,7 @@ const PET_DIALS={len:[5,15,.5,'Pet length',' s'],peak:[1.5,8,.5,'Peak timing (st
 try{const d=JSON.parse(localStorage.getItem(PET_KEY)||'null');if(d)for(const k in PET_DIALS)if(Number.isFinite(+d[k]))PET[k]=Math.min(PET_DIALS[k][1],Math.max(PET_DIALS[k][0],+d[k]));}catch(e){}
 function petSave(){try{localStorage.setItem(PET_KEY,JSON.stringify(PET));}catch(e){}}
 let PET_LOG=[];try{PET_LOG=JSON.parse(localStorage.getItem(PET_LOG_KEY)||'[]')||[];}catch(e){PET_LOG=[];}
-const PET_INTRO=1.1,PET_END=2.6,PET_HUD_Y=468,PET_STOP_GAP=.75,PET_FULL_SPEED=230,PET_PERFECT_OVER=.45,PET_COINS=20;
+const PET_INTRO=1.1,PET_END=2.6,PET_HUD_Y=468,PET_STOP_GAP=.75,PET_FULL_SPEED=230,PET_PERFECT_OVER=.45,PET_COINS=10; // CP-61: was 20
 
 // --- the heart coin: same physics as the rain coins; pink with a white heart ---
 RAIN.heart={n:0,heart:true,r:33,half:4.4,face:['#ffe3f1','#ff5fa8','#a3195d'],edge:'#7a1046'};
@@ -39133,7 +39140,7 @@ function petStop(D,why){
  else if(L<.15&&over<=0){score=0;kind='none';}
  else if(over>0||L>=.97){const u=Math.min(1,over/D.grace);score=1-.6*u;kind=over<=PET_PERFECT_OVER?'perfect':'over';}
  else{score=Math.pow(Math.max(0,(L-.15)/.82),1.3);kind=L>=.85?'close':'early';}
- const coins=kind==='perfect'?PET_COINS+4:Math.round(PET_COINS*score);
+ const coins=kind==='perfect'?PET_COINS+2:Math.round(PET_COINS*score);
  D.result={kind,score,L,over,why,coins,pct:Math.round(Math.min(L,1)*100)};D.phase='end';D.endT=0;D.coins=coins;
  if(kind==='perfect'){WILD.petPerfects++;sfx.wild2('perfect',1);wildConfetti(40);}else if(kind==='hiss'){}else if(coins)sfx.pet('content',1);else sfx.pet('huh',1);
  petLog(D,['end',kind,+L.toFixed(3),+over.toFixed(2),coins,why]);
@@ -39177,7 +39184,7 @@ function petTick(dt,paused){
  // the payoff: coins pour onto the board; a perfect stop gets the Dancing pose and a RAIN 10 from the sky
  if(!D.paid&&D.endT>=.55){D.paid=true;
   if(R.coins){w2Rain(R.coins,Math.max(.03,Math.min(.07,1.1/R.coins)));sfx.wild2('whoosh',1);sfx.dance('pour',.7,.5);WILD.rained+=R.coins;}
-  if(R.kind==='perfect'){skyDrop('rain10',200+rand(-60,60),rand(560,630),{dur:1,delay:.4});
+  if(R.kind==='perfect'){skyDrop('rain5',200+rand(-60,60),rand(560,630),{dur:1,delay:.4});
    if(sweepTime===0&&catquakeTime===0){stopPawDance();pawDanceToken++;pawDance={started:time,silent:true,index:1,switched:true,anchor:0,pet:true};}}}
  if(pawDance&&pawDance.pet&&time-pawDance.started>2.4)stopPawDance();
  if(D.endT>=PET_END){if(pawDance&&pawDance.pet)stopPawDance();WILD.petGame=null;sfx.purr(0,20);
@@ -39341,7 +39348,7 @@ function petDraw(){
   const big={perfect:['PURR-FECT!','#7dff6a','#0c3a12'],hiss:['HSSSS!','#ff9a7a','#3a0b0b'],over:['A BIT MUCH…','#ffb04a','#3a1a00'],close:['SO CLOSE!','#ffe066','#3a1a00'],early:['MORE PETS?','#ffd0ea','#3a0b2a'],none:['NO PETS?','#d8c8ee','#2a0b3e']}[R.kind];
   wildText(big[0],0,0,46,big[1],big[2],8);
   ctx.font='bold 15px system-ui';ctx.fillStyle='#fff';
-  const line=R.kind==='hiss'?'Too much petting! +'+R.coins+' coins':R.kind==='none'?'The cat waited for a pet':R.kind==='perfect'?'+'+R.coins+' coins · RAIN 10 coming':'+'+R.coins+' coins · stopped at '+(R.over>0?'peak + '+R.over.toFixed(1)+' s':R.pct+'% of the peak');
+  const line=R.kind==='hiss'?'Too much petting! +'+R.coins+' coins':R.kind==='none'?'The cat waited for a pet':R.kind==='perfect'?'+'+R.coins+' coins · RAIN 5 coming':'+'+R.coins+' coins · stopped at '+(R.over>0?'peak + '+R.over.toFixed(1)+' s':R.pct+'% of the peak');
   ctx.fillText(line,0,38,340);ctx.restore();ctx.globalAlpha=1;}
  ctx.restore();
 }
@@ -40880,28 +40887,28 @@ const PGL_LEVELS=[
  {name:'First push',tag:'Normal',coins:110,secs:60,goal:['shrimp','cheese'],star:null, // CP-50 (Jenny, Nov 16): just the original shrimp and cheese
   p:[['cheese',140,610],['shrimp',260,690]],towers:[],rain:[['rain10',200,705],['rain5',200,440]],quake:[140,545]},
  {name:'Line up',tag:'Normal',coins:110,secs:60,goal:['feather','ball','egg','milk','box'],star:'egg',
-  p:[['feather',80,560],['ball',140,560],['egg',200,560],['milk',260,560],['box',320,560]],towers:'default',rain:[['rain10',110,690],['rain5',200,440]],quake:[200,660]},
+  p:[['feather',80,560],['ball',140,560],['egg',200,560],['milk',260,560],['box',320,560]],towers:'default',rain:[['rain5',110,690],['rain5',200,440]],quake:[200,660]},
  {name:'At the back',tag:'Hard',coins:90,secs:50,goal:['sardine','sock','biscuit','egg','box'],star:'sock',
-  p:[['sardine',100,365],['sock',200,345],['biscuit',300,365],['egg',150,440],['box',250,440]],towers:[],rain:[['rain10',200,650],['rain5',110,580],['rain5',290,580]],quake:null},
+  p:[['sardine',100,365],['sock',200,345],['biscuit',300,365],['egg',150,440],['box',250,440]],towers:[],rain:[['rain5',200,650],['rain5',110,580],['rain5',290,580]],quake:null},
  {name:'Crammed',tag:'Normal',coins:110,secs:60,goal:['egg','milk','feather','ball','sock','biscuit'],star:'sock',
   p:[['egg',90,485],['milk',160,480],['feather',240,480],['ball',310,485],['sock',120,560],['biscuit',200,555],['sardine',280,560],['milk',90,640],['box',160,635],['egg',240,635],['ball',310,640],['feather',200,705]],
-  towers:'default',rain:[['rain10',200,435]],quake:null},
+  towers:'default',rain:[['rain5',200,435]],quake:null},
  {name:'Tower wall',tag:'Hard',coins:110,secs:60,goal:['egg','milk','sock','ball','feather'],star:'sock',
-  top:[['egg',0],['milk',1],['sock',2],['ball',3],['feather',4]],p:[],wall:[4,5,7,5,4],rain:[['rain10',200,650],['rain5',200,718]],quake:[290,610]},
+  top:[['egg',0],['milk',1],['sock',2],['ball',3],['feather',4]],p:[],wall:[4,5,7,5,4],rain:[['rain5',200,650],['rain5',200,718]],quake:[290,610]},
  {name:'Tower block',tag:'Normal',coins:110,secs:60,goal:['feather','biscuit','box','egg','sardine','milk'],star:'feather',
   // one chunky block: five stacks packed into a plus, the feather on top of the middle one
   blocks:[[[200,417,5],[147,470,5],[200,470,7],[253,470,5],[200,523,5]]],btop:[['feather',0,2]],towers:[],
   p:[['biscuit',90,575],['box',310,575],['egg',140,650],['sardine',260,650],['milk',200,688]],
-  rain:[['rain25',200,345],['rain10',78,470],['rain10',322,470]],quake:[95,705]},
+  rain:[['rain10',200,345],['rain5',78,470],['rain5',322,470]],quake:[95,705]},
  {name:'Edge of the table',tag:'Super hard',coins:80,secs:60,goal:['sock','ball','egg','box','feather','milk','sardine'],star:'sardine',
   p:[['sock',62,425],['ball',338,425],['egg',58,560],['box',342,560],['feather',62,655],['milk',338,655],['sardine',200,350]],towers:'default',rain:[['rain5',200,640]],quake:null},
  {name:'Wall and back',tag:'Hard',coins:120,secs:70,goal:['milk','egg','box','ball','biscuit','sardine'],star:'box',
-  top:[['milk',0],['egg',1],['box',2],['ball',3],['biscuit',4]],p:[['sardine',200,365]],wall:[4,5,7,5,4],rain:[['rain10',200,650]],quake:[110,640]},
+  top:[['milk',0],['egg',1],['box',2],['ball',3],['biscuit',4]],p:[['sardine',200,365]],wall:[4,5,7,5,4],rain:[['rain5',200,650]],quake:[110,640]},
  {name:'Prize party',tag:'Normal',coins:110,secs:60,goal:['ball','sock','egg','milk','sardine'],star:null,
   // a block of four stacks with one more behind, packed together at the back
   blocks:[[[173,415,5],[227,415,5],[173,468,5],[227,468,5],[200,370,7]]],towers:[],
   p:[['ball',75,455],['milk',325,455],['sock',90,380],['egg',310,380],['sardine',110,520],['box',200,540],['feather',290,520],['biscuit',80,595],['ball',160,590],['egg',240,590],['sock',320,595],['milk',120,665],['sardine',200,660],['box',280,665]],
-  rain:[['rain10',130,725]],quake:[270,725]},
+  rain:[['rain5',130,725]],quake:[270,725]},
  {name:'The vault',tag:'Super hard',coins:65,secs:55,goal:['egg','milk','box','ball','feather','sock','biscuit','sardine'],star:'sock',
   top:[['egg',0],['milk',1],['box',2],['ball',3],['feather',4]],p:[['sock',200,312],['biscuit',66,345],['sardine',334,345]],wall:[4,6,7,6,4],rain:[],quake:null}];
 const PGL_N=PGL_LEVELS.length;
@@ -41245,7 +41252,7 @@ const __pgpExit=wildExit;wildExit=function(){pgpEnd();return __pgpExit();};
 const __pgpFinish=wildFinish;wildFinish=function(win,reason){const r=__pgpFinish(win,reason);if(board.status==='won'||board.status==='lost'){if(WILD.pgpEarn&&!pgpSideGame()){WILD.pgpEarn=0;if(pglOn())pgpAward(pgpCat(),'perfect');}pgpEnd();}return r;};
 
 // ---------- Mouse pounce (the Tortoiseshell's side game) ----------
-const POUNCE={len:8,count:14,tapR:44,coins:3};
+const POUNCE={len:8,count:14,tapR:44,coins:2}; // CP-61: was 3
 const POUNCE_INTRO=.9,POUNCE_END=2.1,POUNCE_HUD_Y=468;
 RAIN.mousecoin={n:0,pounce:true,r:33,half:4.4,face:['#fff0e0','#ff8a3c','#7a2a06'],edge:'#6a2406'};
 EDGE.mousecoin=RAIN.mousecoin.edge;PRIZE_OPAQUE.mousecoin=.95;PRIZE_ASPECT.mousecoin=1;
@@ -41287,7 +41294,7 @@ function pounceTick(dt,paused){const D=WILD.pounce;if(!D||paused)return;WILD.las
 function pounceFinish(D){D.phase='end';D.endT=0;D.perfect=D.caught===D.n;
  if(!D.bank)try{sfx.toss('drop',1);}catch(e){}
  if(D.caught)wildConfetti(Math.min(60,10+D.caught*3));
- if(D.perfect){sfx.wild2('perfect',1);skyDrop('rain10',200+rand(-60,60),rand(560,630),{dur:1,delay:.6});}
+ if(D.perfect){sfx.wild2('perfect',1);skyDrop('rain5',200+rand(-60,60),rand(560,630),{dur:1,delay:.6});}
  try{diagEvent('pounce','end caught='+D.caught+'/'+D.n+' whiffs='+D.whiffs+' escaped='+D.escaped+(D.perfect?' perfect':''));}catch(e){}}
 // hooks, as Treat toss does them
 const __pounceReset=wildReset,__pounceExit=wildExit,__pounceFinish=wildFinish,__pounceRain=wildRainCollected,__pounceBonus=wildScheduleBonus,__pounceLand=wildLandBonus,__pounceTickW=wildTick,__pouncePointer=wildPointer,__pounceDrawW=wildDraw;
@@ -41330,12 +41337,12 @@ function pounceDraw(){const D=WILD.pounce,Y=POUNCE_HUD_Y;ctx.save();ctx.setTrans
  if(D.phase==='end'){const u=Math.min(1,D.endT/.25),out=Math.max(0,(D.endT-(POUNCE_END-.35))/.35);ctx.globalAlpha=1-out;ctx.save();ctx.translate(200,Y+40);ctx.scale(.6+.5*u,.6+.5*u);ctx.rotate(-.05);
   if(D.caught)wildText('+'+D.caught+' MICE!',0,0,50,'#ffd23f','#3a1a00',9);else wildText('ALL GOT AWAY!',0,0,38,'#c9b6e6','#2a0b3e',8);
   ctx.font='bold 15px system-ui';ctx.fillStyle='#fff';if(D.bank)ctx.fillText(D.bank+' coins coming down',0,40);
-  if(D.perfect){ctx.translate(0,-62);ctx.scale(1+.05*Math.sin(D.endT*12),1+.05*Math.sin(D.endT*12));wildText('PERFECT!',0,0,40,'#7dff6a','#0c3a12',8);ctx.font='bold 13px system-ui';ctx.fillStyle='#fff';ctx.fillText('every mouse! RAIN 10 and a Tortitude',0,30);}
+  if(D.perfect){ctx.translate(0,-62);ctx.scale(1+.05*Math.sin(D.endT*12),1+.05*Math.sin(D.endT*12));wildText('PERFECT!',0,0,40,'#7dff6a','#0c3a12',8);ctx.font='bold 13px system-ui';ctx.fillStyle='#fff';ctx.fillText('every mouse! RAIN 5 and a Tortitude',0,30);}
   ctx.restore();ctx.globalAlpha=1;}
  ctx.restore();}
 // the mouse coin's goal-card icon
 const __pounceCardIcon=w2CardIcon;w2CardIcon=function(kind,x,y){if(kind==='mousecoin'){const sp=sprite('mousecoin');ctx.drawImage(sp.cv,x-17,y-17,34,34);return;}if(kind==='mouse'){drawPrize('item','mouse',x,y+8,30/prizeWidth('mouse',1));return;}if(WILD.mode==='pounce'&&kind==='paw'){const w=34,h=w*ART.paw.height/ART.paw.width;ctx.drawImage(ART.paw,x-w/2,y-h/2,w,h);return;}if(WILD.mode==='pounce'&&kind==='perfect'){wildText('×'+POUNCE.count,x,y,18,'#7dff6a','#0c3a12',4);return;}return __pounceCardIcon(kind,x,y);};
-WILD_MODES.pounce.cardLines=[['mousecoin','Push the mouse coin off','and the toy mice run!'],['mouse','Tap the mice','the mitt pounces'],['perfect','Catch every one','for a RAIN 10 and a Tortitude'],
+WILD_MODES.pounce.cardLines=[['mousecoin','Push the mouse coin off','and the toy mice run!'],['mouse','Tap the mice','the mitt pounces'],['perfect','Catch every one','for a RAIN 5 and a Tortitude'],
  ['paw','Prizes topple off the sides','Tap the glow to Paw save'],['rain10','Rain coins pour','5, 10 or 25 coins'],['!','Bonus drops','fall from the sky']];
 try{pgFixAllLines();}catch(e){}
 
@@ -41360,7 +41367,7 @@ wildDevBind=function(panel){__pgpDevBind(panel);const box=panel.querySelector&&p
 const CP48_OWN=45,CP48_SLOW=1,CP48_RAIN=100;
 let cp48FullAt=-99,cp48FullLogAt=-99;
 function cp48Own(){let n=0;for(const b of bodies)if(!b.dead&&b.input&&(b.kind==='coin'||b.kind==='silver'))n++;return n;}
-function cp48Full(){return cp51Pieces()>=CP51_BACKSTOP;} // CP-51 (Jenny, Nov 16): no 45-coin limit; only the 120-piece backstop
+function cp48Full(){return false;} // CP-61 (Jenny, Nov 16): never slow the game down; no Board full // CP-51 (Jenny, Nov 16): no 45-coin limit; only the 120-piece backstop
 const __cp48TryDrop=tryDrop;
 tryDrop=function(at=aim){
  if(!inventoryOpen&&board.status!=='won'&&board.status!=='lost'&&board.remaining>0&&cp48Full()&&time-lastDrop<CP48_SLOW-1e-6){

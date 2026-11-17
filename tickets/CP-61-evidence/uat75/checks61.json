@@ -1,0 +1,235 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp75\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp74\\release.html",
+ "passed": true,
+ "passedN": 11,
+ "failed": [],
+ "notes": {
+  "packedHold": {
+   "new": {
+    "piecesAtStart": 199,
+    "drops": 16,
+    "boardFullFloats": 0,
+    "boardFullMessage": false,
+    "errs": []
+   },
+   "base": {
+    "piecesAtStart": 199,
+    "drops": 7,
+    "boardFullFloats": 6,
+    "boardFullMessage": true,
+    "errs": []
+   }
+  },
+  "startRain": {
+   "1": {
+    "base": [],
+    "new": []
+   },
+   "2": {
+    "base": [
+     "rain10",
+     "rain5"
+    ],
+    "new": [
+     "rain5",
+     "rain5"
+    ]
+   },
+   "3": {
+    "base": [
+     "rain10",
+     "rain5",
+     "rain5"
+    ],
+    "new": [
+     "rain5",
+     "rain5",
+     "rain5"
+    ]
+   },
+   "4": {
+    "base": [
+     "rain10"
+    ],
+    "new": [
+     "rain5"
+    ]
+   },
+   "5": {
+    "base": [
+     "rain10",
+     "rain5"
+    ],
+    "new": [
+     "rain5",
+     "rain5"
+    ]
+   },
+   "6": {
+    "base": [
+     "rain10",
+     "rain10",
+     "rain25"
+    ],
+    "new": [
+     "rain10",
+     "rain5",
+     "rain5"
+    ]
+   },
+   "7": {
+    "base": [
+     "rain5"
+    ],
+    "new": [
+     "rain5"
+    ]
+   },
+   "8": {
+    "base": [
+     "rain10"
+    ],
+    "new": [
+     "rain5"
+    ]
+   },
+   "9": {
+    "base": [
+     "rain10"
+    ],
+    "new": [
+     "rain5"
+    ]
+   },
+   "10": {
+    "base": [],
+    "new": []
+   }
+  },
+  "picks": {
+   "new": {
+    "none": 0.304,
+    "prize": 0.306,
+    "note": 0.001,
+    "quake": 0.119,
+    "rain5": 0.176,
+    "rain10": 0.074,
+    "rain25": 0.019
+   },
+   "base": {
+    "rain10": 0.203,
+    "note": 0.001,
+    "prize": 0.308,
+    "rain5": 0.297,
+    "quake": 0.111,
+    "rain25": 0.081
+   },
+   "crowded": {
+    "quake": 0.127,
+    "note": 0.002,
+    "none": 0.578,
+    "prize": 0.293,
+    "pieces": 225
+   }
+  },
+  "wheel": {
+   "labels": [
+    "QUAKE COIN",
+    "DANCE AGAIN",
+    "YAWN",
+    "PRIZE YOU NEED",
+    "PRIZE YOU NEED",
+    "JACKPOT 25",
+    "YAWN"
+   ],
+   "odds": [
+    "QUAKE COIN 21%",
+    "DANCE AGAIN 17%",
+    "YAWN 13%",
+    "PRIZE YOU NEED 16%",
+    "PRIZE YOU NEED 16%",
+    "JACKPOT 25 5%",
+    "YAWN 13%"
+   ],
+   "slices": {
+    "0 QUAKE COIN": {
+     "quake": 1
+    },
+    "1 DANCE AGAIN": {},
+    "2 YAWN": {},
+    "3 PRIZE YOU NEED": {
+     "item": 1
+    },
+    "4 PRIZE YOU NEED": {
+     "item": 1
+    },
+    "5 JACKPOT 25": {
+     "coin": 24,
+     "silver": 1
+    },
+    "6 YAWN": {}
+   },
+   "yawnSliceStartsYawn": true
+  },
+  "pet": {
+   "perfect": 12,
+   "close": 9,
+   "early": 3
+  },
+  "pounceCoins": 2,
+  "yawn": {
+   "control": {
+    "before": {
+     "bottom": 22,
+     "top": 48,
+     "emptyCells": 0,
+     "pieces": 137
+    },
+    "after": {
+     "bottom": 19,
+     "top": 42,
+     "emptyCells": 1,
+     "pieces": 112,
+     "offSides": 0
+    },
+    "paidIn10s": 9,
+    "errs": []
+   },
+   "new": {
+    "before": {
+     "bottom": 22,
+     "top": 48,
+     "emptyCells": 0,
+     "pieces": 137
+    },
+    "after": {
+     "bottom": 19,
+     "top": 41,
+     "emptyCells": 1,
+     "pieces": 109,
+     "offSides": 3
+    },
+    "paidIn10s": 5,
+    "errs": []
+   },
+   "base": {
+    "before": {
+     "bottom": 24,
+     "top": 48,
+     "emptyCells": 0,
+     "pieces": 138
+    },
+    "after": {
+     "bottom": 8,
+     "top": 2,
+     "emptyCells": 10,
+     "pieces": 81,
+     "offSides": 49
+    },
+    "paidIn10s": 0,
+    "errs": []
+   }
+  }
+ }
+}
