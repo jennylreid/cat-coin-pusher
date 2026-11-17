@@ -1,0 +1,14 @@
+Proposed CP-59 fix, tested only on a scratch copy of work/cp70/release.html (the game itself is unchanged).
+Three one-line edits:
+
+1. Base wildTick (UAT 35 Wild code), the bonus-drop clock:
+-  WILD.nextBonus-=dt;if(WILD.nextBonus<=0){WILD.nextBonus=rand(6,9);wildScheduleBonus();}
++  if(!(WILD.dance||WILD.toss||WILD.chase||WILD.petGame||WILD.pounce)){WILD.nextBonus-=dt;if(WILD.nextBonus<=0){WILD.nextBonus=rand(6,9);wildScheduleBonus();}}
+
+2. Wild 2 dance payoff, 'pour' stage (ends after 4 s at most):
+-  if(D.stage==='pour'){if(!SKY.length&&D.st>.6)w2Next(D,D.perfect?'wheel':'done')
++  if(D.stage==='pour'){if((!SKY.length&&D.st>.6)||D.st>4)w2Next(D,D.perfect?'wheel':'done')
+
+3. Wild 2 dance payoff, 'settle' stage (same cap):
+-  if(D.stage==='settle'){if(!SKY.length&&D.st>.5)w2Next(D,'done')
++  if(D.stage==='settle'){if((!SKY.length&&D.st>.5)||D.st>4)w2Next(D,'done')

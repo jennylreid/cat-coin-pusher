@@ -1,0 +1,23 @@
+PASS 0 only the CP-57 lines differ from the base (build name, sfx helpers, Dance beat bus, ledge bell slot, gold 5, CP57 block)
+PASS 1 prize (cheese): register [{"s":"register","v":0.7287,"d":0}]
+PASS 1 prize (yarn): register [{"s":"register","v":0.7287,"d":0}]
+PASS 1 Jingle bell prize: bell [{"s":"bell","v":0.5,"d":0}]
+PASS 1 Coin rain 5: register [{"s":"register","v":0.7287,"d":0}]
+PASS 1 Coin rain 10: register [{"s":"register","v":0.7287,"d":0}]
+PASS 1 Coin rain 25: register [{"s":"register","v":0.7287,"d":0}]
+PASS 1 gold 5 rain coin: register [{"s":"register","v":0.7287,"d":0}]
+PASS 1 Quake coin: bell [{"s":"bell","v":0.5,"d":0}]
+PASS 1 music note coin: bell [{"s":"bell","v":0.5,"d":0}]
+PASS 1 fish coin: bell [{"s":"bell","v":0.5,"d":0}]
+PASS 1 laser coin: bell [{"s":"bell","v":0.5,"d":0}]
+PASS 1 heart coin: bell [{"s":"bell","v":0.5,"d":0}]
+PASS 1 mouse coin: bell [{"s":"bell","v":0.5,"d":0}]
+PASS 1 plain coin: no bell, register or ka-ching (unchanged coin sound) []
+PASS 1 plain rain coin: no bell, register or ka-ching (unchanged coin sound) []
+PASS 2 a burst of 5 prizes: registers at the bell's exact delays and relative levels (UAT 71 bells), 4th and 5th skipped as before {"new":[{"s":"register","v":0.7287,"d":0},{"s":"register","v":0.5101,"d":0.1},{"s":"register","v":0.3643,"d":0.2}],"old":[{"s":"bell","v":0.5,"d":0},{"s":"bell","v":0.35,"d":0.1},{"s":"bell","v":0.25,"d":0.2}]}
+PASS 3 register rotation: 60 rings use all 5 takes, never the same twice in a row {"used":5,"rep":false}
+PASS 4a every beat sound in danceSchedule uses danceLoud (no plain sfx.dance left there)
+PASS 4b DANCE_MUSIC_GAIN is +10 dB (3.1623)
+PASS 4c a real Dance break schedules its beat through danceLoud 16
+PASS 5 no frame errors []
+PASS 6 production untouched

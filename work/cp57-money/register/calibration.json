@@ -1,0 +1,37 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp71\\release.html",
+ "bellAt05": {
+  "loudest100msPhoneBandDb": -22.22,
+  "peak": 0.268
+ },
+ "takesThroughMaster": [
+  {
+   "take": "reg1",
+   "loudDb": -18.91,
+   "peak": 0.445
+  },
+  {
+   "take": "reg2",
+   "loudDb": -20.55,
+   "peak": 0.553
+  },
+  {
+   "take": "reg3",
+   "loudDb": -20.42,
+   "peak": 0.543
+  },
+  {
+   "take": "reg4",
+   "loudDb": -18.74,
+   "peak": 0.398
+  },
+  {
+   "take": "reg6",
+   "loudDb": -18.75,
+   "peak": 0.512
+  }
+ ],
+ "REG_GAIN": 1.4573,
+ "note": "register(vol) plays at vol*REG_GAIN on the master; at vol 0.5 (today's bell level) the takes average the bell's loudness",
+ "peakAtBellLevel": 0.403
+}

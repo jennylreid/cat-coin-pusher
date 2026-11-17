@@ -1,0 +1,6 @@
+{"how":"tickets/CP-57-evidence/levels.html (work/cp57-money/make-levels-page.py): OfflineAudioContext in the in-app browser, each build's own sfx code, 44.1 kHz mono; loudest 100 ms and average above 250 Hz (dBFS); 'music' = the 12 beats after the 4-beat intro",
+ "danceBefore":{"whole":{"peak":0.464,"loudest100msDb":-25.7,"averageDb":-38.2},"music":{"peak":0.464,"loudest100msDb":-29.2,"averageDb":-38}},
+ "danceAfter":{"whole":{"peak":0.893,"loudest100msDb":-15.8,"averageDb":-28.5},"music":{"peak":0.893,"loudest100msDb":-19.6,"averageDb":-28.3}},
+ "bellAtTodaysLevel":{"peak":0.264,"loudest100msDb":-22.3,"averageDb":-33.7},
+ "registerAtBellLevel":{"reg1":{"peak":0.324,"loudest100msDb":-21.6,"averageDb":-31.5},"reg2":{"peak":0.401,"loudest100msDb":-23.4,"averageDb":-33.9},"reg3":{"peak":0.396,"loudest100msDb":-23.1,"averageDb":-32.1},"reg4":{"peak":0.29,"loudest100msDb":-21.5,"averageDb":-30.3},"reg6":{"peak":0.373,"loudest100msDb":-21.4,"averageDb":-30.5}},
+ "coinLandingRecording":{"peak":0.261,"loudest100msDb":-24.7,"averageDb":-36}}
