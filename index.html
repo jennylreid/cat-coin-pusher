@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 76';
+const BUILD = '2026.11.16 UAT 77';
 
 
 
@@ -37773,8 +37773,8 @@ function w2YawnTick(dt){
   // the paws sweep outward across the back half of the table: coins they reach go flying off the sides
   const f=Math.min(1,(Y.t-1.25)/.75),reach=20+f*170;
   // (the paws are drawn over table depth ~390-560); like a plough, everything the paws have reached keeps moving outward
-  const power=typeof PGPX!=='undefined'&&PGPX&&PGPX.id==='yawn';if(!power&&!Y.pick)Y.pick=cp61YawnPick(); // CP-61: the wheel's Yawn: top coins only
-  for(const b of (power?bodies:Y.pick)){if(b.dead||b.kind==='stack')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M;
+  if(!Y.pick)Y.pick=cp61YawnPick(); // CP-61: the wheel's Yawn and the YAWN power: top coins only
+  for(const b of Y.pick){if(b.dead||b.kind==='stack')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M;
    if(z<380||z>570||Math.abs(x-200)>reach)continue;
    if(!Y.pushed.has(b))Y.pushed.set(b,x<200?-1:1);const v=b.rb.linvel();b.rb.setLinvel({x:Y.pushed.get(b)*Math.max(Math.abs(v.x),rand(5,7.5)),y:Math.max(v.y,rand(.8,1.6)),z:v.z},true);}}
  if(Y.t>=2.8){W2_YAWN=null;if(pawDance&&pawDance.yawn)stopPawDance();}

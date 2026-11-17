@@ -1,0 +1,79 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp77\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp76\\release.html",
+ "passed": true,
+ "passedN": 5,
+ "failed": [],
+ "notes": {
+  "control": {
+   "before": {
+    "bottom": 22,
+    "top": 48,
+    "emptyCells": 0,
+    "pieces": 137
+   },
+   "after": {
+    "bottom": 19,
+    "top": 42,
+    "emptyCells": 1,
+    "pieces": 112,
+    "offSides": 0
+   },
+   "paidIn10s": 9,
+   "errs": []
+  },
+  "power": {
+   "power": "yawn",
+   "before": {
+    "bottom": 22,
+    "top": 48,
+    "emptyCells": 0,
+    "pieces": 137
+   },
+   "after": {
+    "bottom": 18,
+    "top": 41,
+    "emptyCells": 2,
+    "pieces": 108,
+    "offSides": 5
+   },
+   "paidIn10s": 11,
+   "errs": []
+  },
+  "powerUAT76": {
+   "power": "yawn",
+   "before": {
+    "bottom": 22,
+    "top": 48,
+    "emptyCells": 0,
+    "pieces": 137
+   },
+   "after": {
+    "bottom": 6,
+    "top": 7,
+    "emptyCells": 11,
+    "pieces": 79,
+    "offSides": 43
+   },
+   "paidIn10s": 2,
+   "errs": []
+  },
+  "wheel": {
+   "before": {
+    "bottom": 22,
+    "top": 48,
+    "emptyCells": 0,
+    "pieces": 137
+   },
+   "after": {
+    "bottom": 19,
+    "top": 41,
+    "emptyCells": 1,
+    "pieces": 109,
+    "offSides": 3
+   },
+   "paidIn10s": 5,
+   "errs": []
+  }
+ }
+}

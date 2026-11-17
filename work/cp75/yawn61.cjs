@@ -11,10 +11,10 @@ async function yawnRun(file,yawn,seed=5){const g=await make({sourceFile:file,ren
  g.run("PG.lv.passed=Math.max(PG.lv.passed,2);PG.lv.sel=3;wildReset();PGU.screen='board';pgStartRound();");let k=0;while(!g.run("WILD.phase==='play'")&&k++<900)g.tick();
  g.run('WILD.nextBonus=999;WILD.left=999;');g.run(FILL);g.ticks(240);
  const before={...J(g,LAYER),pieces:J(g,PIECES)};g.run("globalThis.__side=0;const __rc=removeCoin;removeCoin=function(b){try{const p=b.rb.translation();if(Math.abs(p.x/M-200)>tableHalfAt(p.z/M)-2&&p.z/M<T.FRONT-10)__side++;}catch(e){}return __rc.apply(this,arguments);};");
- if(yawn)g.run('w2StartYawn();');g.ticks(200);
+ if(yawn==='power')g.run("PGU.boardCat='tuxedo';PG.powers=PG.powers||{};PG.powers.tuxedo=1;pgpUse();globalThis.__pgpx=PGPX&&PGPX.id;");else if(yawn)g.run('w2StartYawn();');g.ticks(200);
  const after={...J(g,LAYER),pieces:J(g,PIECES),offSides:J(g,'__side')};
  // drops still push: 10 s of taps across the back, count coins paid over the front
  const c0=J(g,'S.coins+S.drops');for(let i=0;i<600;i++){if(i%24===0){const x=120+(i/24%5)*40;g.pointer('pointerdown',x*sc(),560*sc());g.tick();g.pointer('pointerup',x*sc(),560*sc());}else g.tick();}
- const paid=J(g,'S.coins+S.drops')-c0;return {before,after,paidIn10s:paid,errs:J(g,"typeof __errs==='undefined'?[]:__errs")};}
+ const paid=J(g,'S.coins+S.drops')-c0;return {power:yawn==='power'?J(g,"globalThis.__pgpx||null"):undefined,before,after,paidIn10s:paid,errs:J(g,"typeof __errs==='undefined'?[]:__errs")};}
 module.exports={yawnRun};
 if(require.main===module)(async()=>{for(const f of process.argv.slice(2))for(const y of [false,true])console.log(path.basename(path.dirname(path.resolve(f))),y?'yawn':'control',JSON.stringify(await yawnRun(path.resolve(f),y)));})();
