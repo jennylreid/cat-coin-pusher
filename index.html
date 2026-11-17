@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.16 UAT 81';
+const BUILD = '2026.11.16 UAT 82';
 
 
 
@@ -41646,6 +41646,7 @@ wildScheduleBonus=function(){const lv1=cp50Lv1(),n=WILD.incoming.length,miss=lv1
 // 3b. The prize bell (the struck bell as a prize drops over the ledge) at half its volume. Nothing else in the pickup changes.
 var CP51_BELL=.5;
 
+const CP62_ART={},CP62_COLOURS=new WeakMap(); // UAT 82: declared before the boot (CP-62's art loads in loadArt)
 Promise.all([RAPIER.init(), loadArt()])
 
 
@@ -41927,7 +41928,8 @@ window.__game = {
 // Replaces the old Yawn (paws sweeping coins off the sides). The cat yawns big (head back, eyes squeezed, mouth wide),
 // stretches both mitts up and out with a shiver, then side-eyes away while one mitt drapes casually down onto the board
 // and grabs the prize nearest the front (a goal prize first); the other mitt grabs a second one. Both are carried to the
-// mouth and eaten (chomp, crumbs, Happy eyes). Coins are never touched, so no gap. A stolen goal prize drops back in.
+// mouth and eaten (chomp, crumbs, Happy eyes). An eaten prize is lost, like one over the side (UAT 82); with no prize in
+// reach the mitt takes a few top coins instead. The bottom layer is never touched, so no gap.
 // Approved art is only moved: head, faces, mitts, pupils, prize paintings. Placeholders drawn in code: the open yawn
 // mouth, the squeezed-shut yawn eyes, the chewing mouth, the crumbs.
 const CP58={ // timing (s); every beat is here so it can be tuned
@@ -41946,6 +41948,7 @@ function cp58StartYawn(){ // the wheel's YAWN slices only; the Tuxedo's power ke
  stopTickle();stopPawDance();pawDanceToken++;pawDance={started:time,silent:true,index:0,switched:true,anchor:0,yawn:true};happyUntil=0;
  const tg=cp58Targets(),grabs=[];
  tg.forEach((b,i)=>{const x=b.rb.translation().x/M;let side=x<200?-1:1;if(i===1)side=-grabs[0].side;grabs.push({b,id:b.id,side,goal:cp58Goal(b.id),held:false,gone:false,bites:0});cp58PrizeScreen(grabs[grabs.length-1]);});
+ if(!grabs.length)cp58CoinGrab(grabs); // UAT 82: never nothing
  const away=grabs.length?(CP58.lookAway?-grabs[0].side:grabs[0].side):1;
  W2_YAWN={t:0,cp58:true,grabs,away,crumbs:[],mouth:null,fx:{}};CP58.stats.runs++;sfx.wild2('yawn',1);
  try{diagEvent('wild2','cp58 yawn grabs='+grabs.map(g=>g.id).join(','));}catch(e){}};
@@ -42018,30 +42021,26 @@ w2YawnTick=function(dt){
  if(t>=CP58.eyesOpen&&!fx.look){fx.look=1;sfx.wild2('tick',.8);}
  Y.grabs.forEach((g,i)=>{const T0=cp58Times(i);
   if(t>=T0.hover&&!g.whoosh){g.whoosh=1;sfx.paw40&&sfx.paw40('whoosh',1);}
-  if(t>=T0.hit&&!g.held&&!g.missed){if(g.b.dead){g.missed=true;return;}g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;removeCoin(g.b);sfx.paw40&&sfx.paw40('swipe',1);CP58.stats.grabbed.push(g.id);
+  if(t>=T0.hit&&!g.held&&!g.missed){if(g.b.dead){g.missed=true;return;}g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;removeCoin(g.b);if(g.coins){g.coins=g.coins.filter(c=>c!==g.b&&!c.dead);g.kinds=[g.b.kind,...g.coins.map(c=>c.kind)];for(const c of g.coins)removeCoin(c);}sfx.paw40&&sfx.paw40('swipe',1);CP58.stats.grabbed.push(g.id);
    try{diagEvent('wild2','cp58 grab '+g.id);}catch(e){}}});
  // chewing
  Y.chew=0;Y.chewOpen=0;for(const c of CP58.chomps){const u=(t-c)/.22;if(u>=0&&u<1){Y.chewOpen=Math.sin(u*Math.PI);Y.chew=5*Math.sin(u*Math.PI);}}
  CP58.chomps.forEach((c,i)=>{if(t>=c&&!fx['c'+i]){fx['c'+i]=1;if(Y.grabs.some(g=>g.held)){sfx.wild2('catch',1);for(const g of Y.grabs)g.bites=i+1;
   if(i===0)callout('NOM.',{color:'#ffd23f',dur:.9});const m=cp58Mouth();for(let k=0;k<7;k++)Y.crumbs.push({x:m.x+rand(-14,14),y:m.y+rand(-4,6),vx:rand(-70,70),vy:rand(-120,-30),t:0,c:Math.random()<.5?'#f4c24a':'#e8a060'});}}});
- if(t>=CP58.gulp&&!fx.gulp){fx.gulp=1;if(Y.grabs.some(g=>g.held)){pgSfx('plop',1);for(const g of Y.grabs)g.gone=true;}}
- // a stolen goal prize comes back as the game's own bonus drop (marker, whistle, drop from the sky), one after the other
- if(t>=CP58.dropAt&&!fx.drop){fx.drop=1;let n=0;Y.dropping=true;const miss=wildMissing();for(const g of Y.grabs)if(g.held&&miss.includes(g.id)&&WILD.on&&WILD.phase==='play'){
-   const y=rand(430,650),x=200+rand(-1,1)*(tableHalfAt(y)-50);WILD.incoming.push({kind:'item',id:g.id,x,y,t:.9+n*.45,t0:.9});WILD.bonusN++;n++;CP58.stats.replaced.push(g.id);}
-  if(n){sfx.wild('whistle',1);callout(n>1?"THEY'LL DROP BACK!":"IT'LL DROP BACK!",{color:'#7dff6a',dur:1.2});}}
+ if(t>=CP58.gulp&&!fx.gulp){fx.gulp=1;if(Y.grabs.some(g=>g.held)){pgSfx('plop',1);for(const g of Y.grabs)g.gone=true;for(const g of Y.grabs)if(g.held&&!g.coins)cp58Lost(g);}}
  for(let i=Y.crumbs.length-1;i>=0;i--){const c=Y.crumbs[i];c.t+=dt;c.x+=c.vx*dt;c.y+=c.vy*dt;c.vy+=520*dt;if(c.t>.8)Y.crumbs.splice(i,1);}
  if(t>=CP58.end){W2_YAWN=null;if(pawDance&&pawDance.yawn)stopPawDance();try{pgSfx('purr',.6);}catch(e){}}
 };
 // While a stolen prize is in the cat's mitt, the bonus-drop clock doesn't count it as missing (it comes back at the end).
 const __cp58Missing=wildMissing;
-wildMissing=function(){const r=__cp58Missing(),Y=W2_YAWN;if(!Y||!Y.cp58||Y.dropping)return r;return r.filter(id=>!Y.grabs.some(g=>g.held&&g.id===id));};
+wildMissing=function(){const r=__cp58Missing(),Y=W2_YAWN;if(!Y||!Y.cp58)return r;return r.filter(id=>!Y.grabs.some(g=>g.held&&!g.gone&&g.id===id));};
 // Overlay (screen coordinates): the YAAAWN text (unchanged), then the held prizes and crumbs.
 const __cp58YawnText=yawnText;
 yawnText=function(){const Y=W2_YAWN;if(!Y)return;__cp58YawnText();if(!Y.cp58)return;const t=Y.t,m=cp58Mouth();
  Y.grabs.forEach((g,i)=>{if(!g.held||g.gone)return;const T0=cp58Times(i),M0=cp58Mitt(g.side,t),claw={x:M0.x-g.side*4,y:M0.y+30};
   const k=cp58Ease((t-T0.hit-.1)/(CP58.carry-.1)),pos={x:claw.x+(m.x+g.side*14-claw.x)*k,y:claw.y+(m.y+8-claw.y)*k};
   const s=(g.s0+(1.05-g.s0)*k)*(1-.22*g.bites);
-  ctx.save();ctx.translate(pos.x,pos.y);ctx.rotate(g.side*.25*(1-k));cp62DrawPrize('item',g.id,0,0,s,g.b);ctx.restore();});
+  ctx.save();ctx.translate(pos.x,pos.y);ctx.rotate(g.side*.25*(1-k));if(g.coins)cp58DrawCoins(g,s);else cp62DrawPrize('item',g.id,0,0,s,g.b);ctx.restore();});
  for(const c of Y.crumbs){ctx.globalAlpha=1-c.t/.8;ctx.fillStyle=c.c;ctx.fillRect(c.x-2,c.y-2,4,4);}ctx.globalAlpha=1;};
 
 
@@ -42078,11 +42077,26 @@ drawTrackingPupils=function(){const Y=W2_YAWN;if(!Y||!Y.cp58)return __cp58Pupils
  if(!eat&&k<1)__cp58Pupils();cp58Face();};
 // No power while the CP-58 Yawn plays (a power Yawn would cut it short with a prize still in the mitt).
 const __cp58PgpReady=pgpReady;pgpReady=function(){return __cp58PgpReady()&&!(W2_YAWN&&W2_YAWN.cp58);};
+// UAT 82: an eaten prize is lost exactly like one over the side (the Levels' lost-prize handling: sound, goal icon shake,
+// "LOST THE ...!", the star's 12 s return, the lost count), without the side-rail flash and tumble (it was eaten).
+function cp58Lost(g){if(!(WILD.on&&WILD.v2))return;const need=!WILD.have[g.id],star=g.id===WILD.star;
+ WILD.iconShake[g.id]=0;WILD.lostN++;sfx.wild43&&sfx.wild43(star?'lostStar':'lost',1);
+ if(star){WILD.starBackAt=time+12;callout('LOST THE STAR!',{color:'#ff4b4b',dur:1.6});}
+ else if(need)callout('LOST THE '+String(WILD_PRIZE_NAMES[g.id]||g.id).replace(/^(Toy|Rubber|Cat) /,'').toUpperCase()+'!',{color:'#ff8a6a',dur:1.1});
+ CP58.stats.lost=(CP58.stats.lost||[]);CP58.stats.lost.push(g.id);try{diagEvent('wild2','cp58 ate '+g.id+(star?' (star)':''));}catch(e){}}
+// UAT 82: no prize in reach: the mitt takes up to 4 coins lying on top of the pile, nearest the front and close together.
+function cp58CoinTargets(){const c=[];for(const b of bodies){if(b.dead||!(b.kind==='coin'||b.kind==='silver'||b.kind==='gold5'))continue;
+  const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;if(z<PUSH_MAX+20||z>T.FRONT-30||Math.abs(x-200)>tableHalfAt(z)-4)continue; // the pile builds up at the back
+  if(y-cp61Half(b)<COIN_HALF*1.5)continue;c.push({b,x,z});}
+ if(!c.length)return [];c.sort((a,d)=>d.z-a.z);const A=c[0];
+ return c.filter(o=>Math.hypot(o.x-A.x,o.z-A.z)<=90).sort((a,d)=>Math.hypot(a.x-A.x,a.z-A.z)-Math.hypot(d.x-A.x,d.z-A.z)).slice(0,4).map(o=>o.b);}
+function cp58CoinGrab(grabs){const cs=cp58CoinTargets();if(!cs.length)return;const b=cs[0],x=b.rb.translation().x/M;
+ grabs.push({b,id:'coins',coins:cs,side:x<200?-1:1,goal:false,held:false,gone:false,bites:0});cp58PrizeScreen(grabs[0]);}
+function cp58DrawCoins(g,s){const k=g.kinds||['coin'],n=k.length;
+ for(let i=0;i<n;i++){const sp=sprite(k[i]==='silver'?'coin':k[i]),r=sp.half*s;ctx.drawImage(sp.cv,(i-(n-1)/2)*r*1.1-r,-(i%2)*r*.5-r,2*r,2*r);}}
 // ---------- end CP-58 ----------
 // CP-62: Jenny requested random A/B/C colours for notes, cushions and yarn.
 // Art-only state: independent of gameplay RNG; each object keeps its colour into pickup/loss.
-const CP62_ART={};
-const CP62_COLOURS=new WeakMap();
 let cp62ColourSeed=(Date.now()>>>0)||62;
 function cp62Colour(id,owner){
  if(!CP62_ART[id]||!owner)return null;

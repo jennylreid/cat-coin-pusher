@@ -1,0 +1,33 @@
+{
+ "level": 1,
+ "seed": 7,
+ "extras": [],
+ "before": [
+  "shrimp",
+  "cheese"
+ ],
+ "picks": [
+  "shrimp",
+  "cheese"
+ ],
+ "stats": {
+  "runs": 1,
+  "picked": [
+   [
+    "shrimp",
+    "cheese"
+   ]
+  ],
+  "paid": [
+   "cheese",
+   "shrimp"
+  ],
+  "lostSide": [],
+  "anyFront": 2,
+  "anySide": 0
+ },
+ "errs": [],
+ "powers": 0,
+ "frames": 210,
+ "playFrame": 15
+}

@@ -1,0 +1,23 @@
+{
+  "version": 20261116235953,
+  "displayName": "2026.11.16 UAT 82",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "94d1326e687c4682e64d7089db8eb7e9b7884363c420ab0ee540ea5983c813bf",
+  "stagedJSONSHA256": "5712ff1c977a79b3548247018707e1ae56f99d8dd3d2ba05f386eb790ec734c7",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "c3c58b3b336e324f7d46ade777d263f3b3f88491f6e66687e619b17476ad91c8",
+  "jsonBytes": 53945549,
+  "runtimeFiles": 65,
+  "waivedChecks": [
+    "2 no prize in reach (all prizes removed), Level 1 and 3 x 3 seeds x 60/30 fps: the mitt eats 1 coins each time, all lying on top of the pile; no frame errors"
+  ],
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.16 UAT 81",
+  "backup": "uat/backups/before-UAT82-20261116235953",
+  "evidence": "tickets/CP-58-evidence/uat82",
+  "authorization": "UAT 82: CP-58 change (Jenny via PM, Nov 17: eaten prizes are \"exactly like a prize that falls off the side\"; no drop-back message; no prize in reach -> a few top coins; publish as UAT 82 on UAT 81); UAT only"
+}

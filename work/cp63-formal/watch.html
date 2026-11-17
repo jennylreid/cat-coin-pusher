@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CP-63 Formal inspection prototype</title>
+<style>
+:root{--bg:#1b1026;--panel:#2a1a3e;--ink:#f4ecff;--muted:#b9a6d6;--accent:#ffd76a}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,sans-serif}
+.wrap{display:flex;gap:24px;padding:16px;flex-wrap:wrap;align-items:flex-start}
+iframe{width:412px;height:915px;max-width:100%;border:0;border-radius:18px;background:#000;flex:none}
+.side{max-width:440px}
+h1{font-size:22px;margin:0 0 6px}
+button{font:600 15px system-ui;padding:10px 14px;margin:4px 6px 4px 0;border-radius:10px;border:1px solid #6b5a8a;background:#3a2d52;color:var(--ink);cursor:pointer}
+button.big{background:var(--accent);color:#2a0b3e;border-color:var(--accent);font-size:18px;padding:12px 20px}
+.note{color:var(--muted);font-size:13px}
+ol{padding-left:20px}
+label{display:block;margin:6px 0}
+#st{font:12px ui-monospace,monospace;color:var(--muted);white-space:pre-wrap}
+</style></head><body>
+<div class="wrap">
+<iframe id="g" src="game/proto.html?level=1"></iframe>
+<div class="side">
+<h1>CP-63 Formal inspection prototype</h1>
+<p class="note">The real game (UAT 81) with the Tuxedo's power button playing Formal inspection instead of the Yawn sweep. Not a release. Tap the board once to turn the sound on.</p>
+<p><button class="big" id="play">▶ Play Formal inspection</button></p>
+<p><button data-lv="1">New round: Level 1 (cheese, shrimp)</button><button data-lv="3">New round: Level 3 (5 prizes)</button></p>
+<p>Add on top of the pile: <button data-add="rain5">Rain 5</button><button data-add="rain10">Rain 10</button><button data-add="quake">Quake coin</button><button data-add="cheese">Cheese</button></p>
+<label><input type="checkbox" id="edge" checked> Cane carries them over the front edge (untick: it stops just short)</label>
+<p class="note">After a new round there is a countdown first. Playing the power adds one charge and tops up the round clock.</p>
+<h2 style="font-size:16px">The beats (about 4.4 s)</h2>
+<ol>
+<li>0–0.45 s: a monocle drops onto the cat's eye with a clink; a glint crosses it.</li>
+<li>0.55–1.95 s: “HMM.” A beam from the monocle and a lens move from piece to piece, back to front; each one gets a gold ring with a ding. The pupils follow the lens.</li>
+<li>1.95–2.45 s: the right mitt brings a cane down behind the lit pieces (whoosh).</li>
+<li>2.45–3.55 s: the cane sweeps forward (swipe), “SPLENDID.”; the lit pieces ride in front of it to the front edge and over it.</li>
+<li>3.9–4.4 s: the mitt goes back, the monocle pops off.</li>
+</ol>
+<div id="st"></div>
+</div></div>
+<script>
+const g=document.getElementById('g'),W=()=>g.contentWindow,st=document.getElementById('st');
+document.getElementById('play').onclick=()=>{try{W().cp63DemoEdge(document.getElementById('edge').checked);const ok=W().cp63DemoPlay();st.textContent=ok?'Playing…':'Not ready: wait for the round to start (or it is already playing).';}catch(e){st.textContent='Still loading…';}};
+for(const b of document.querySelectorAll('[data-lv]'))b.onclick=()=>{g.src='game/proto.html?level='+b.dataset.lv+'&r='+Date.now();st.textContent='';};
+for(const b of document.querySelectorAll('[data-add]'))b.onclick=()=>{try{W().cp63DemoAdd(b.dataset.add);}catch(e){}};
+setInterval(()=>{try{const s=W().cp63DemoState();if(!s.on&&st.textContent==='Playing…')st.textContent='Picked: '+(s.stats.picked.at(-1)||[]).join(', ')+'\nPaid over the front: '+s.stats.paid.length+' of '+s.stats.picked.flat().length+' so far';}catch(e){}},500);
+</script>
+</body></html>

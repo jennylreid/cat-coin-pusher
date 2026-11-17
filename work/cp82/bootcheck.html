@@ -1,0 +1,22 @@
+<!doctype html>
+<!-- Real-browser boot check (UAT 82): loads ?dir=<folder>/index.html (the full runtime folder, as on the phone) in a frame,
+     waits for the title screen with art, starts a Level 1 round through the real Play button path, waits for play, then
+     writes the result into #result as JSON. Run headless: chrome --headless=new --dump-dom --virtual-time-budget=... -->
+<html><head><meta charset="utf-8"><title>boot check</title></head><body>
+<iframe id="g" style="width:400px;height:889px;border:0"></iframe><pre id="result">PENDING</pre>
+<script>
+const dir=new URLSearchParams(location.search).get('dir')||'boot82',g=document.getElementById('g'),out=document.getElementById('result');
+const res={dir,steps:[],errors:[]};const done=()=>{out.textContent=JSON.stringify(res);};
+g.src=dir+'/index.html';
+g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));
+ const t0=Date.now();const iv=setInterval(()=>{try{
+  const txt=w.document.body.innerText||'';if(/Could not start/.test(txt)){res.steps.push('could not start: '+txt.slice(0,160));clearInterval(iv);return done();}
+  const ok=w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0");
+  if(ok&&!res.title){res.title=true;res.build=w.eval('BUILD');res.screen=w.eval('PGU.screen');res.steps.push('title with art at '+(Date.now()-t0)+' ms');
+   w.eval("if(!PG)pgInit();PGU.title.t=9;pgTitleDone();PG.lv.passed=0;PG.lv.sel=1;wildReset();PGU.screen='board';pgStartRound();");}
+  if(res.title&&!res.play&&w.eval("WILD.phase==='play'")){res.play=true;res.steps.push('round in play at '+(Date.now()-t0)+' ms');
+   res.state=w.eval("JSON.stringify({level:pglSel(),prizes:bodies.filter(b=>!b.dead&&b.kind==='item').map(b=>b.id),cp62:Object.keys(CP62_ART).length,runway:!!CP58_RUNWAY&&!!CP58_RUNWAY_EYES})");
+   clearInterval(iv);return done();}
+  if(Date.now()-t0>60000){res.steps.push('timeout');clearInterval(iv);done();}
+ }catch(e){res.errors.push(String(e));}},250);};
+</script></body></html>
