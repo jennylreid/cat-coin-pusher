@@ -1,0 +1,537 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\prod07\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\prod06\\release.html",
+ "passed": true,
+ "passedN": 17,
+ "failed": [],
+ "notes": {
+  "cascade": {
+   "uat72": {
+    "held": true,
+    "secs": 60,
+    "phase": "play",
+    "status": "playing",
+    "win": false,
+    "bonusDrops": 3600,
+    "left0": 46.00000000000023,
+    "left": 46.00000000000023,
+    "dance": "finale/pour",
+    "pieces": 366,
+    "errs": []
+   },
+   "uat73": {
+    "held": true,
+    "secs": 23.2,
+    "phase": "end",
+    "status": "won",
+    "win": true,
+    "bonusDrops": 0,
+    "left0": 46.00000000000023,
+    "left": 46.00000000000023,
+    "dance": null,
+    "pieces": 78,
+    "errs": []
+   }
+  },
+  "dance": [
+   {
+    "name": "perfect dance (wheel)",
+    "uat72": {
+     "end": 1398,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 3,
+     "hash": "dda10cb17562c3734a5bcca3ad11bb6e36d47a9e4348d1134e6901a04bf277d5",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 1398,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 3,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    }
+   },
+   {
+    "name": "half the beats",
+    "uat72": {
+     "end": 788,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": null,
+     "hash": "b4abafef39118d2edb841eb1c61dbcf49043d8656f4f656072f40b807074d709",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/total",
+      "finale/pour",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 788,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": null,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/total",
+      "finale/pour",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    }
+   },
+   {
+    "name": "no taps",
+    "uat72": {
+     "end": 710,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": null,
+     "hash": "9555b3ab4ed7280564b99e6e2e80d6e8c4ebf4bbec7bd263d6670e3130f48f47",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/total",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 710,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": null,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/total",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    }
+   },
+   {
+    "name": "perfect dance, seed 9",
+    "uat72": {
+     "end": 1388,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 2,
+     "hash": "164564d78d46d59b1df2b37eea20a8a19320dab3a87d85c35000a13f03ab1f31",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 1388,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 2,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    }
+   },
+   {
+    "name": "half the beats, seed 9",
+    "uat72": {
+     "end": 790,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": null,
+     "hash": "a9369b69cbfdf5a48b21e856b0c9972ca7dd9b7830e983650327f944649b1e8f",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/total",
+      "finale/pour",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 790,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": null,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/total",
+      "finale/pour",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    }
+   },
+   {
+    "name": "wheel lands on RAIN 25 (slice 0)",
+    "uat72": {
+     "end": 1398,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 0,
+     "hash": "a467e583917ec33ecac123418a9dbb26383d307def9f9893c80d48b1c223bda2",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 1398,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 0,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    }
+   },
+   {
+    "name": "wheel lands on DANCE AGAIN (slice 1)",
+    "uat72": {
+     "end": 2915,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 1,
+     "hash": "c6266d599f0112a4528874bd437819dd08ac86d69f9760abeb5f98f0c68c323d",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-",
+      "finale/yawn"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 2915,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 1,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-",
+      "finale/yawn"
+     ],
+     "errs": []
+    }
+   },
+   {
+    "name": "wheel lands on RAIN 10 + QUAKE (slice 2)",
+    "uat72": {
+     "end": 1398,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 2,
+     "hash": "f76eccaa1f911f4b51820aacad0e6f9800d265b37a13ac78f1bad6940c420955",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 1398,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 2,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    }
+   },
+   {
+    "name": "wheel lands on PRIZE YOU NEED (slice 3)",
+    "uat72": {
+     "end": 1398,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 3,
+     "hash": "1227804b730285d4e0713b413996a8bccd33c4010a5fe8e006238bb3b1a030e8",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 1398,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 3,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    }
+   },
+   {
+    "name": "wheel lands on RAIN 25 (slice 4)",
+    "uat72": {
+     "end": 1398,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 4,
+     "hash": "71a85214caa9c0acf6eb1f7c19d78f3ee4d2d05bf2a20228b4f24c542cb75c80",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 1398,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 4,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    }
+   },
+   {
+    "name": "wheel lands on JACKPOT 50 (slice 5)",
+    "uat72": {
+     "end": 1433,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 5,
+     "hash": "fb2b640c2cce0b011bd6b5637329a63282acde75120ccf77ddc5c2095b35e94a",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 1433,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 5,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/settle",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    }
+   },
+   {
+    "name": "wheel lands on YAWN (slice 6)",
+    "uat72": {
+     "end": 1537,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 6,
+     "hash": "195ff7ef6e315f9ea269835ea815b775c6cc3acdc6274e527a1fba2644a2a703",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/yawn",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    },
+    "uat73": {
+     "end": 1537,
+     "first": 0,
+     "leftAtStart": 46,
+     "leftAtEnd": 46,
+     "wheel": 6,
+     "hash": "same",
+     "stages": [
+      "count/",
+      "dance/",
+      "finale/perfect",
+      "finale/total",
+      "finale/pour",
+      "finale/wheel",
+      "finale/yawn",
+      "finale/done",
+      "-"
+     ],
+     "errs": []
+    }
+   }
+  ]
+ }
+}

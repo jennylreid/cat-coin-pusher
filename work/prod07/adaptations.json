@@ -1,0 +1,26 @@
+{
+  "displayName": "2026.11.16.2",
+  "version": 20261116235000,
+  "apkVersion": 17,
+  "sourceHTML": "work/prod06/release.html",
+  "sourceHTMLSHA256": "828684ac3e42e96a5298999f9724b62c75b244abfdc165d1e4c533d71e88150e",
+  "releaseHTMLSHA256": "a0fccd03304c8e1974f2fa13741c01b1b1d00ce91efff53124bebff29338542a",
+  "changes": [
+    {
+      "before": "const BUILD = '2026.11.16';",
+      "after": "const BUILD = '2026.11.16.2';"
+    },
+    {
+      "before": "WILD.nextBonus-=dt;if(WILD.nextBonus<=0){WILD.nextBonus=rand(6,9);wildScheduleBonus();}",
+      "after": "if(!(WILD.dance||WILD.toss||WILD.chase||WILD.petGame||WILD.pounce)){WILD.nextBonus-=dt;if(WILD.nextBonus<=0){WILD.nextBonus=rand(6,9);wildScheduleBonus();}} // CP-59: no bonus clock during a side game"
+    },
+    {
+      "before": "if(D.stage==='pour'){if(!SKY.length&&D.st>.6)",
+      "after": "if(D.stage==='pour'){if((!SKY.length&&D.st>.6)||D.st>4)"
+    },
+    {
+      "before": "if(D.stage==='settle'){if(!SKY.length&&D.st>.5)",
+      "after": "if(D.stage==='settle'){if((!SKY.length&&D.st>.5)||D.st>4)"
+    }
+  ]
+}

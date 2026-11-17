@@ -1,0 +1,8 @@
+t0 {"left":46,"ph":"play","st":"playing","got":5,"coins":90,"eq":0,"dance":"count/","held":true,"nb":0.01,"bonusN":0,"sky":0,"rainLeft":0,"bodies":61,"rainOnBoard":3,"notes":0,"dances":0,"errs":0} held true
+1 {"left":46,"ph":"play","st":"playing","got":5,"coins":90,"eq":0,"dance":"count/","held":true,"nb":0.01,"bonusN":0,"sky":0,"rainLeft":0,"bodies":61,"rainOnBoard":3,"notes":0,"dances":0,"errs":0,"dn":0}
+2 {"left":46,"ph":"play","st":"playing","got":5,"coins":90,"eq":0,"dance":"dance/","held":true,"nb":0.01,"bonusN":0,"sky":0,"rainLeft":0,"bodies":61,"rainOnBoard":3,"notes":0,"dances":0,"errs":0,"dn":0}
+5 {"left":46,"ph":"play","st":"playing","got":5,"coins":90,"eq":0,"dance":"dance/","held":true,"nb":0.01,"bonusN":0,"sky":0,"rainLeft":0,"bodies":61,"rainOnBoard":3,"notes":0,"dances":0,"errs":0,"dn":0}
+10 {"left":46,"ph":"play","st":"playing","got":5,"coins":90,"eq":0,"dance":"dance/","held":true,"nb":0.01,"bonusN":0,"sky":0,"rainLeft":0,"bodies":62,"rainOnBoard":3,"notes":0,"dances":0,"errs":0,"dn":0}
+15 {"left":46,"ph":"play","st":"playing","got":5,"coins":90,"eq":0,"dance":"finale/wheel","held":true,"nb":0.01,"bonusN":0,"sky":0,"rainLeft":0,"bodies":78,"rainOnBoard":4,"notes":0,"dances":0,"errs":0,"dn":0}
+20 {"left":46,"ph":"play","st":"playing","got":5,"coins":90,"eq":0,"dance":"finale/wheel","held":true,"nb":0.01,"bonusN":0,"sky":0,"rainLeft":0,"bodies":78,"rainOnBoard":4,"notes":0,"dances":0,"errs":0,"dn":0}
+ENDED at 24 won

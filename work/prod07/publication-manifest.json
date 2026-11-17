@@ -1,0 +1,23 @@
+{
+  "displayName": "2026.11.16.2",
+  "version": 20261116235000,
+  "apkVersion": 17,
+  "baselineJSONSHA256": "7c39b1e194d88c5d017f1fc2d019fe18bf051dd1c60803a5005d0ecf028b9cc1",
+  "productionAPKSHA256": "df205863d0bf755276f7f4acf301b3c573788ccef09b8f8bc0cd0263121e8e45",
+  "stagedJSONSHA256": "86297dc95be7636e5bdd9ecf3cbd65309fa58adc0af7f929660b52407806553b",
+  "releaseHTMLSHA256": "a0fccd03304c8e1974f2fa13741c01b1b1d00ce91efff53124bebff29338542a",
+  "sourceHTML": "work/prod06/release.html",
+  "sourceHTMLSHA256": "828684ac3e42e96a5298999f9724b62c75b244abfdc165d1e4c533d71e88150e",
+  "jsonBytes": 52055101,
+  "runtimeFiles": 40,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "unchangedRuntimeFilesMatchProduction20261116": 39,
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "updateURL": "production (work/prod04/download-url.txt, APK17 assets/update-url.txt)",
+  "backup": "backups/before-PROD-07-20261116235000",
+  "evidence": "tickets/CP-59-evidence/prod07",
+  "authorization": "Jenny, Nov 16, 2026 (via PM): \"CP-59: fix it now in UAT, then hotfix production with only the fix.\"; UAT sign-off on UAT 74 (includes UAT 73's fix): \"Dance break looks good.\""
+}
