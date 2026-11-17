@@ -2,7 +2,7 @@
 // the gold 5's register, unchanged plain coins, the Dance break beat on the louder bus, and nothing else changed vs the base.
 // Usage: node checks-cp57.cjs [build] [base]   -> tickets/CP-57-evidence/checks-cp57.json
 const {game}=require('../cp43/harness.cjs'),{strictAudio}=require('../cp43/helpers43.cjs'),path=require('path'),fs=require('fs'),crypto=require('crypto');
-const src=path.resolve(process.argv[2]||path.join(__dirname,'release.html')),base=path.resolve(process.argv[3]||path.join(__dirname,'../cp71/release.html'));
+const src=path.resolve(process.argv[2]||path.join(__dirname,'release.html')),base=path.resolve(process.argv[3]||path.join(__dirname,'../cp73/release.html'));
 const OUT=path.resolve(__dirname,'../../tickets/CP-57-evidence');fs.mkdirSync(OUT,{recursive:true});
 const passed=[],failed=[],notes={};function check(n,ok,info){(ok?passed:failed).push(n);console.log((ok?'PASS ':'FAIL ')+n+(info!==undefined?' '+JSON.stringify(info).slice(0,700):''));}
 const J=(g,x)=>JSON.parse(g.run('JSON.stringify('+x+')'));
@@ -17,7 +17,7 @@ async function boot(file){const g=await game({src:file,seed:5});const st=strictA
  g.run(`globalThis.__S=[];const L=(n)=>__S.push(n);
   const pu=sfx.pickup;sfx.pickup=function(k,v,d=0){if(k==='bell')L({s:'bell',v:+(+v).toFixed(4),d:+(+d).toFixed(3)});return pu.apply(this,arguments);};
   const kc=sfx.kaching;sfx.kaching=function(){L({s:'kaching'});return kc.apply(this,arguments);};
-  if(sfx._playBufAt){const pb=sfx._playBufAt;sfx._playBufAt=function(b,v,d=0){L({s:'register',v:+(+v).toFixed(4),d:+(+d).toFixed(3)});return pb.apply(this,arguments);};}
+  if(sfx._playBufAt){const pb=sfx._playBufAt;sfx._playBufAt=function(b,v,d=0){L({s:CP57.bufs.includes(b)?'register':'coin-take',v:+(+v).toFixed(4),d:+(+d).toFixed(3)});return pb.apply(this,arguments);};}
   const ce=C46.edge;C46.edge=function(b){L({s:'coin-edge'});return ce.apply(this,arguments);};`);
  g.st=st;return g;}
 const CASES=[['prize (cheese)','item','cheese','register'],['prize (yarn)','item','yarn','register'],['Jingle bell prize','item','bell','bell'],
@@ -62,6 +62,16 @@ function edge(g,kind,id,rain){g.run('__S.length=0;board.status="playing";');
   check('4b DANCE_MUSIC_GAIN is +10 dB (3.1623)',/const DANCE_MUSIC_GAIN=3\.1623;/.test(t));
   g.run('globalThis.__dl=0;const dl=sfx.danceLoud;sfx.danceLoud=function(...a){__dl++;return dl.apply(this,a);};danceStartNow&&danceStartNow();');let k=0;while(!g.run('!!WILD.dance')&&k++<400)g.tick();g.ticks(240);
   check('4c a real Dance break schedules its beat through danceLoud',J(g,'__dl')>10,J(g,'__dl'));}
+ // 7. coins never plink: real coin takes for coin bumps, rain drips, sky landings, topples and the pour; prizes keep their plink
+ {const nodes=()=>g.st.started.length;const kindOf=(from)=>{const L=g.st.started.slice(from);return {take:L.filter(n=>n.buffer&&n.buffer.len).length,code:L.filter(n=>!(n.buffer&&n.buffer.len)).length};};
+  const T=(label,js)=>{g.ticks(10);const n0=nodes();g.run(js);return kindOf(n0);};
+  const r={coinBump:T('coin bump',"C46.hit({kind:'coin'},.8)"),goldBump:T('gold bump',"C46.hit({kind:'gold5',c46:1},.8)"),rainFirstTouch:T('rain coin first touch',"C46.hit({kind:'coin',rain:true},.6)"),
+   prizeBump:T('prize bump',"C46.hit({kind:'item',id:'yarn'},.8)"),drip:T('drip',"sfx.wild('drip',.6)"),skyLanding:T('sky landing',"sfx.wild2('land',.8)"),topple:T('topple',"sfx.wild('topple',1)"),pour:T('pour',"sfx.dance('pour',.7,.5)")};
+  notes.coins=r;notes.coinStats=J(g,'CP57C.stats');
+  for(const k of ['coinBump','goldBump','rainFirstTouch','drip','skyLanding','topple','pour'])check(`7 ${k}: one real coin take, nothing code-made`,r[k].take===1&&r[k].code===0,r[k]);
+  check('7 prizeBump: keeps its plink (code-made, no coin take)',r.prizeBump.take===0&&r.prizeBump.code>0,r.prizeBump);
+  const picks=J(g,"(()=>{const out=[];const pb=sfx._playBufAt;sfx._playBufAt=function(b){out.push(CP57C.bufs.bump.indexOf(b));return true;};for(let i=0;i<40;i++){CP57C.play('bump',.5);}sfx._playBufAt=pb;return out;})()");
+  check('7 bump rotation: all 8 takes used, never the same twice in a row',new Set(picks).size===8&&!picks.some((x,i)=>i&&x===picks[i-1]),{used:new Set(picks).size});}
  notes.errs=J(g,'__errs');check('5 no frame errors',!notes.errs.length,notes.errs.slice(0,3));g.close();
  check('6 production untouched',sha(prod)===prod0);
  fs.writeFileSync(path.join(OUT,'checks-cp57.json'),JSON.stringify({build:src,base,passed:failed.length===0,passedN:passed.length,failed,notes},null,1));if(failed.length)process.exitCode=1;

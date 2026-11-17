@@ -1,0 +1,20 @@
+{
+  "version": 20261116233000,
+  "displayName": "2026.11.16 UAT 74",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "827a4c27e5d4592761632ca00d7f34b4b31c76879942824802dee468d4b53923",
+  "stagedJSONSHA256": "37f5d1d18efc1627a46f9ebb0beec2129e5402a7f5713e1f2d1fc8feedffdcb8",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "faaf908d04511004fd98f9d1db3597c81315b55bdec18ba9e493c8f9cad49649",
+  "jsonBytes": 52516856,
+  "runtimeFiles": 45,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.16 UAT 73",
+  "backup": "uat/backups/before-UAT74-20261116233000",
+  "evidence": "tickets/CP-57-evidence/uat74",
+  "authorization": "UAT 74: CP-57 Money sounds (Jenny via PM, Nov 16: go to publish on UAT 73): cash register for prizes and rain coins over the ledge (bell split), real coin takes instead of coin plinks, Dance break music +10 dB; UAT only, on UAT 73 (CP-59 fix unchanged)"
+}

@@ -1,0 +1,187 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp74\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp73\\release.html",
+ "passed": true,
+ "passedN": 32,
+ "failed": [],
+ "notes": {
+  "edge": {
+   "prize (cheese)": [
+    {
+     "s": "register",
+     "v": 0.7287,
+     "d": 0
+    }
+   ],
+   "prize (yarn)": [
+    {
+     "s": "register",
+     "v": 0.7287,
+     "d": 0
+    }
+   ],
+   "Jingle bell prize": [
+    {
+     "s": "bell",
+     "v": 0.5,
+     "d": 0
+    }
+   ],
+   "Coin rain 5": [
+    {
+     "s": "register",
+     "v": 0.7287,
+     "d": 0
+    }
+   ],
+   "Coin rain 10": [
+    {
+     "s": "register",
+     "v": 0.7287,
+     "d": 0
+    }
+   ],
+   "Coin rain 25": [
+    {
+     "s": "register",
+     "v": 0.7287,
+     "d": 0
+    }
+   ],
+   "gold 5 rain coin": [
+    {
+     "s": "register",
+     "v": 0.7287,
+     "d": 0
+    }
+   ],
+   "Quake coin": [
+    {
+     "s": "bell",
+     "v": 0.5,
+     "d": 0
+    }
+   ],
+   "music note coin": [
+    {
+     "s": "bell",
+     "v": 0.5,
+     "d": 0
+    }
+   ],
+   "fish coin": [
+    {
+     "s": "bell",
+     "v": 0.5,
+     "d": 0
+    }
+   ],
+   "laser coin": [
+    {
+     "s": "bell",
+     "v": 0.5,
+     "d": 0
+    }
+   ],
+   "heart coin": [
+    {
+     "s": "bell",
+     "v": 0.5,
+     "d": 0
+    }
+   ],
+   "mouse coin": [
+    {
+     "s": "bell",
+     "v": 0.5,
+     "d": 0
+    }
+   ],
+   "plain coin": [],
+   "plain rain coin": []
+  },
+  "stats": {
+   "register": 6,
+   "bell": 0,
+   "loading": 0
+  },
+  "burst": {
+   "new": [
+    {
+     "s": "register",
+     "v": 0.7287,
+     "d": 0
+    },
+    {
+     "s": "register",
+     "v": 0.5101,
+     "d": 0.1
+    },
+    {
+     "s": "register",
+     "v": 0.3643,
+     "d": 0.2
+    }
+   ],
+   "old": [
+    {
+     "s": "bell",
+     "v": 0.5,
+     "d": 0
+    },
+    {
+     "s": "bell",
+     "v": 0.35,
+     "d": 0.1
+    },
+    {
+     "s": "bell",
+     "v": 0.25,
+     "d": 0.2
+    }
+   ],
+   "REG_GAIN": 1.4573
+  },
+  "coins": {
+   "coinBump": {
+    "take": 1,
+    "code": 0
+   },
+   "goldBump": {
+    "take": 1,
+    "code": 0
+   },
+   "rainFirstTouch": {
+    "take": 1,
+    "code": 0
+   },
+   "prizeBump": {
+    "take": 0,
+    "code": 14
+   },
+   "drip": {
+    "take": 1,
+    "code": 0
+   },
+   "skyLanding": {
+    "take": 1,
+    "code": 0
+   },
+   "topple": {
+    "take": 1,
+    "code": 0
+   },
+   "pour": {
+    "take": 1,
+    "code": 0
+   }
+  },
+  "coinStats": {
+   "drop": 48,
+   "bump": 52,
+   "spill": 1,
+   "pour": 1
+  },
+  "errs": []
+ }
+}

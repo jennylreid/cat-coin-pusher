@@ -1,0 +1,62 @@
+{
+ "bump1": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 19.086,
+  "len": 0.09,
+  "loud": -21.29
+ },
+ "bump2": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 19.207,
+  "len": 0.09,
+  "loud": -22.88
+ },
+ "bump3": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 19.297,
+  "len": 0.09,
+  "loud": -21.95
+ },
+ "bump4": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 19.38,
+  "len": 0.09,
+  "loud": -21.65
+ },
+ "bump5": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 23.982,
+  "len": 0.09,
+  "loud": -23.73
+ },
+ "bump6": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 24.098,
+  "len": 0.09,
+  "loud": -23.92
+ },
+ "bump7": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 24.176,
+  "len": 0.09,
+  "loud": -24.62
+ },
+ "bump8": {
+  "src": "voicebosch-single-coin-170397.mp3",
+  "start": 24.247,
+  "len": 0.09,
+  "loud": -24.19
+ },
+ "pour1": {
+  "src": "freesound_community-coin-spill-105867.mp3",
+  "start": 1.0,
+  "len": 1.4,
+  "loud": -18.7
+ },
+ "pour2": {
+  "src": "freesound_community-coin-spill-105867.mp3",
+  "start": 2.0,
+  "len": 1.4,
+  "loud": -18.02
+ }
+}

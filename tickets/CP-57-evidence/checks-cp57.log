@@ -19,5 +19,14 @@ PASS 3 register rotation: 60 rings use all 5 takes, never the same twice in a ro
 PASS 4a every beat sound in danceSchedule uses danceLoud (no plain sfx.dance left there)
 PASS 4b DANCE_MUSIC_GAIN is +10 dB (3.1623)
 PASS 4c a real Dance break schedules its beat through danceLoud 16
+PASS 7 coinBump: one real coin take, nothing code-made {"take":1,"code":0}
+PASS 7 goldBump: one real coin take, nothing code-made {"take":1,"code":0}
+PASS 7 rainFirstTouch: one real coin take, nothing code-made {"take":1,"code":0}
+PASS 7 drip: one real coin take, nothing code-made {"take":1,"code":0}
+PASS 7 skyLanding: one real coin take, nothing code-made {"take":1,"code":0}
+PASS 7 topple: one real coin take, nothing code-made {"take":1,"code":0}
+PASS 7 pour: one real coin take, nothing code-made {"take":1,"code":0}
+PASS 7 prizeBump: keeps its plink (code-made, no coin take) {"take":0,"code":14}
+PASS 7 bump rotation: all 8 takes used, never the same twice in a row {"used":8}
 PASS 5 no frame errors []
 PASS 6 production untouched

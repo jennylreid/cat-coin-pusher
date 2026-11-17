@@ -28,6 +28,15 @@ Engineer: same rules as CP-54 (AGENTS.md: frozen pickup; CODEX_BRIEF.md; SOUND_M
 4. **Real recordings only,** with a licence that allows use in a game. Note each one's source and licence.
    Nothing code-made.
 
+## Added (Jenny, Nov 16, after testing UAT 71)
+- "Rain, which is not really rain, it's coins falling. It should sound like coins falling." On a full pile she still
+  hears the old plinks: these are the code-made first-touch and bump clinks of rain and gold coins (C46.hit and the
+  like).
+- Replace them with real coin recordings: a pile of coins dropping and coins on coins, with several takes for variety
+  ("whether it's the same coin sound just doubled up, or a different coin sound").
+- "Prizes should plink": prizes bumping on the board may keep their plink. Coins never plink.
+- Real recordings only; downloads must be within Jenny's Pixabay OK, or ask.
+
 ## Publishing
 Prepare the change now, but don't publish yet. Codex is publishing CP-56 as UAT 72. When the PM says go, build on the
 latest UAT (UAT 72) and publish the next one with the usual backup, version, cloud check and checkpoint. Production

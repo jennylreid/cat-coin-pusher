@@ -58,6 +58,17 @@ Already on the way: Pause with Finish (CP-51), which handles the half-empty boar
 - **Process:** focus on gameplay one board at a time. Once there are enough approved boards, generate more by mixing
   actions, consequences and goals.
 
+## Jenny's input (Nov 16, performance and big moments)
+- **Never slow the game.** Mitigate instead (memory: never-slow-gameplay).
+- **Hard levels:** "we shouldn't have a larger number of coins. We should have more large coins." The player stays in
+  control at the same speed. PM: a big coin is a new piece (new art, bigger collider); pair it with the star coin.
+  Medium.
+- **Board-clearing moment:** an extra-long push (pusher twice as far) clears coins. The catch is the "big gaping hole",
+  where drops then make no progress. Her answer: big coins (maybe star coins) drop in to take the place of the small
+  ones. PM: Sonic meow already doubles the pusher's length, and refilling with a few big star coins solves the hole.
+  Medium.
+- **Star coin** replaces the star prize (decided Nov 16).
+
 ## Open questions (after the backbone)
 
 - Which goal types do early levels use?
