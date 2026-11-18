@@ -329,6 +329,26 @@ wrapped; state in `CP63X`, settings in `CP63` (timing table, `max:5`, `maxPrizes
 - Stand-ins drawn in code: monocle, chain, cane, rings, lens beam, button icon. Real art later (one piece at a time).
 - The frozen pickup is untouched (pieces leave through the normal front-edge payout).
 
+## Zoomies: the Orange cat's power (CP-72, UAT 91, Jenny's go Nov 18, 2026)
+The Orange cat's power button (`PGP.orange`, id `zoomies`) plays the rebuilt Zoomies (BASE-1 item 8). Code: the `CP-72`
+block at the end of the script (`work/cp91/cp72-added.js`, from the prototype `work/cp72-zoomies/cp72-zoomies.js`);
+`pgpUse`/`pgpTick`/`pgpEnd`/`pgpDraw`/`pgpSideGame`/`sfx.slide`/`fallOff` wrapped; state in `Z72X` (`PGPX.id='zoomies72'`),
+settings in `Z72` (timing, speeds, stunt plans, caps). The old Zoomies code (sideways kittens) stays in the base, unused.
+- 7 s of double-speed pusher (`wildSetPeriod(base/2)`, held through a Turbo; not while a Jackpot runs), the turbo slide
+  sound (`sfx.slide` with `turbo`), gold streaks on the pusher, "2x PUSHER".
+- Two kittens (0.4 s, 0.95 s), each a list of path segments (`z72Path`): pop out at the back, play-bow, then a zigzag
+  sprint through 4 corners (one aimed at the best piece) with stunts (`Z72.plans`: circle, sideways arched hop,
+  straight-up spook jump with fur/tail puffed, flip), skid at the front edge, stretched leap off it. Drawn in code
+  (`z72Kitten`, poses after Jenny's reference photos, inspiration only).
+- The shove: a piece a running kitten touches (prizes, Quake, Rain, coins lying on top; the bottom layer stays) slides
+  straight on over the front edge into the normal pickup. Caps: 1 prize per use (`maxPrizes`), 3 pieces per kitten,
+  6 in all. A piece only joins if its path to the front edge is clear of other prizes (`z72Clear`), and is let go if a
+  prize moves into its way, so shoved pieces never ram other prizes off. No hold at the edge (Jenny, Nov 18): an
+  occasional second prize tipped by the double-speed pusher is accepted.
+- Guards: shoved pieces and prizes are eased back from the side edges while it runs; the button is locked while it
+  plays; Home, round end and reset go through `pgpEnd` (kittens gone, pusher back to normal).
+- The frozen pickup is untouched.
+
 ## Jackpot cascade (CP-64, UAT 86, Jenny's go Nov 17, 2026)
 - The wheel's JACKPOT slice (weight .02, about 2%; was JACKPOT 25 at 5%) sets `WILD.jpPending`. Once no side game runs
   (`cp64Side()`), the round is in play and not paused, `cp64Start()` opens `WILD.jp`: a timed state that drops a bonus

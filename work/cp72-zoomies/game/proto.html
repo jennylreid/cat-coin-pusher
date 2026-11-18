@@ -42549,6 +42549,11 @@ function z72Start(){const X=Z72X={t:0,kits:[],taken:new Set(),aimed:new Set(),pr
  try{sfx.wild('turbo',1);}catch(e){}pgSfx('meow',1.1);shake=Math.max(shake,.5);
  try{diagEvent('powers','cp72 zoomies');}catch(e){}}
 // --- a kitten's path: a list of segments, each a function of its own 0..1 progress ---
+// A clear path: no other prize lies ahead of piece b, between it and the front edge, in its way. A shoved piece must
+// never ram another prize off the front (so the kittens' 1 prize per use holds without holding anything at the edge).
+function z72Clear(b,taken){const q=b.rb.translation(),x=q.x/M,z=q.z/M,r=z72R(b);
+ for(const c of bodies){if(c===b||c.dead||c.kind!=='item'||taken.has(c))continue;const p=c.rb.translation(),cz=p.z/M;if(cz<=z||cz>T.FRONT+4||p.y/M<-3)continue;
+  if(Math.abs(p.x/M-x)<r+ITEM_R+6)return false;}return true;}
 function z72Clamp(x){return Math.max(PAY_L+28,Math.min(PAY_R-28,x));}
 function z72Path(k,aim){const z0=Math.max(pusherY,PUSH_MAX)+4,z1=z0+80,zF=T.FRONT-14,segs=[],plan=Z72.plans[k.id%Z72.plans.length];
  const side0=k.id%2?1:-1,c=aim?z72Clamp(aim.x+side0*Z72.zig*.5):[150,250][k.id%2],x0=z72Clamp(c-side0*Z72.zig*.6);
@@ -42594,7 +42599,7 @@ function z72Tick(dt){const X=Z72X;if(!X)return;X.t+=dt;const t=X.t;
   // what the kitten runs into while on the ground and heading toward you joins its shove
   const fwd=prev?P.z-prev.z>=-.01:true;
   if(P.ground&&fwd&&k.n<Z72.perKitten&&X.carry.length<Z72.maxPieces)for(const b of bodies){if(k.n>=Z72.perKitten||X.carry.length>=Z72.maxPieces)break;if(X.taken.has(b)||!z72Ok(b))continue;if(b.kind==='item'&&X.prizes>=Z72.maxPrizes)continue;
-   const q=b.rb.translation(),x=q.x/M,z=q.z/M,r=z72R(b);if(Math.hypot(x-P.x,z-P.z)>Z72.size*.5+r*Z72.reach||z<P.z-r*.3)continue;
+   const q=b.rb.translation(),x=q.x/M,z=q.z/M,r=z72R(b);if(Math.hypot(x-P.x,z-P.z)>Z72.size*.5+r*Z72.reach||z<P.z-r*.3||!z72Clear(b,X.taken))continue;
    X.taken.add(b);k.n++;if(b.kind==='item')X.prizes++;X.carry.push({b,k,id:b.id||b.kind,done:false});Z72.stats.carried.push(b.id||b.kind);pgSfx('coin',.7);}}
  // no prize (and nothing a kitten shoves) goes over a side while Zoomies runs: near a side edge it is eased back
  for(const b of bodies){if(b.dead||b.kind==='stack')continue;const mine=X.taken.has(b);if(b.kind!=='item'&&!mine)continue;const q=b.rb.translation(),x=q.x/M,z=q.z/M;
@@ -42603,6 +42608,7 @@ function z72Tick(dt){const X=Z72X;if(!X)return;X.t+=dt;const t=X.t;
  // the shove: a shoved piece slides straight on toward you (steered inside the tray's width) and over the front edge
  for(const o of X.carry){const b=o.b;if(o.done)continue;if(b.dead){o.done=true;continue;}const q=b.rb.translation(),x=q.x/M,z=q.z/M;
   if(z>T.FRONT+4){o.done=true;continue;}
+  if(z<T.FRONT-8&&!z72Clear(b,X.taken)){o.done=true;Z72.stats.released=(Z72.stats.released|0)+1;const v=b.rb.linvel();b.rb.setLinvel({x:v.x*.5,y:v.y,z:Math.min(v.z,.4)},true);continue;} // another prize in the way: let go
   const v=b.rb.linvel(),keep=Math.max(PAY_L+28,Math.min(PAY_R-28,x)),vx=(keep-x)*.1+v.x*.3;
   b.rb.wakeUp();b.rb.setLinvel({x:vx,y:Math.max(v.y,.3),z:Math.max(v.z,Z72.shoveV)},true);}
 }

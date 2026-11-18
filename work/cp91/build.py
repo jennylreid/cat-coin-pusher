@@ -8,7 +8,7 @@ Usage: python build.py             (on ../cp90/release.html, sha pinned below on
 from pathlib import Path
 import json,hashlib,sys,re
 p=Path(__file__).parent;W=p.parent;v=json.loads((p/'release-version.json').read_text())
-BASE_SHA=''  # published UAT 90 (work/cp90/release.html): fill in when the PM says "UAT 90 is out"
+BASE_SHA='562a95f8236885530c9bfe70a49ea34310e3397a2a6d888dd95273511aafa224'  # published UAT 90 (work/cp90/release.html; cp90/publication-manifest.json)
 dev='--dev' in sys.argv
 src=Path(sys.argv[sys.argv.index('--dev')+1]) if dev else W/v['base']/'release.html'
 s=src.read_bytes()

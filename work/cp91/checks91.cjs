@@ -38,7 +38,7 @@ async function midRound(file,{seed,level=3,secs=12,fps=60,cat='orange'}){const g
  g.run(`if(!PG)pgInit();for(const c of PG_CATS)PG.open[c]=true;PG.lv.passed=Math.max(${level-1},PG_SWITCH_LEVEL);PG.lv.sel=${level};if(PGU.screen==='title'){PGU.title.t=9;pgTitleDone();}pgPlay('${cat}');if(WILD.phase==='end')wildReset();wildStartCountdown();`);
  let k=0;while(g.run("WILD.phase")!=='play'&&k++<900)g.tick();
  const per=Math.round(fps/2);for(let k=0;k<secs*fps;k++){if(k%per===0)tap(200+110*Math.sin(k/fps*1.2+seed),560);tk();}
- g.run(`WILD.left=Math.max(WILD.left,60);PG.powers=PG.powers||{};PG.powers['${cat}']=2;`+WATCH);return {g,tk};}
+ g.run(`WILD.left=Math.max(WILD.left,60);PG.powers=PG.powers||{};PG.powers['${cat}']=2;`+WATCH);if(process.env.PROBE)g.run(process.env.PROBE);return {g,tk};}
 async function burst(file){const g=await game(file,{seed:5,render:true});
  for(let i=0;i<150;i++)g.tick();
  g.run("treatAwards.length=0;popSeed=0x2f6b4e1d;globalThis.__sounds=[];sfx.pickup=function(...a){__sounds.push(a)};S.muted=false;for(const [i,id] of ['sock','biscuit','sardine','egg','box','sock','cheese'].entries())queueTreatAward(id,70+i*40,null,false,'item')");
@@ -61,7 +61,7 @@ async function burst(file){const g=await game(file,{seed:5,render:true});
    sideDuring:side.filter(s=>s.on).map(s=>s.kind+(s.shoved?'*':'')),lockedDuring,secondTapIgnored:t2>=t1&&countMid===before-1,used:before-+g.run('pgpCount()'),roundEnded,clean,errs:errs.length};
   {const c=await midRound(src,{seed,level,fps});for(let i=0;i<Math.round(12*fps);i++)c.tk();row.sideNoPower=J(c.g,'__zside').length;row.frontNoPower=J(c.g,'__zfront').map(f=>f.id);c.g.close();}
   notes.power.push(row);console.log(JSON.stringify(row));shoved+=carried.length;paid+=st.paid.length;prizesShoved+=prizes;
-  if(!(cat==='orange'&&playing&&started&&kits===2&&prizes<=1&&!st.lostSide.length&&!side.some(s=>s.shoved)&&Math.abs(periodDuring-normal/2)<1e-6&&lockedDuring&&row.secondTapIgnored&&row.used===1&&!clean.z72&&!clean.pgpx&&Math.abs(clean.period-clean.normal)<1e-6&&!errs.length&&(roundEnded||st.paid.length===carried.length)))ok1=false;g.close();}
+  if(!(cat==='orange'&&playing&&started&&kits===2&&prizes<=1&&!st.lostSide.length&&!side.some(s=>s.shoved)&&Math.abs(periodDuring-normal/2)<1e-6&&lockedDuring&&row.secondTapIgnored&&row.used===1&&!clean.z72&&!clean.pgpx&&Math.abs(clean.period-clean.normal)<1e-6&&!errs.length&&(roundEnded||st.paid.length+(st.released|0)>=carried.length)))ok1=false;g.close();}
  const P=notes.power;
  check('1 Zoomies through the real button on the Orange board, Levels 1-5 x 2 seeds x 60/30 fps: 2 kittens every time; '+shoved+' pieces shoved ('+prizesShoved+' prizes, never more than 1 per use), '+paid+' paid over the front; nothing shoved off a side (all pieces off a side during it: '+P.reduce((n,r)=>n+r.sideDuring.length,0)+'; same windows without the power: '+P.reduce((n,r)=>n+r.sideNoPower,0)+'); prizes over the front in the 12 s after the tap, shoved or not: '+P.reduce((n,r)=>n+r.frontPrizes.length,0)+' (same windows without the power: '+P.reduce((n,r)=>n+r.frontNoPower.length,0)+'); pusher 2x during, normal after; one charge used; clean after; no frame errors',ok1);
  check('2 the power button is locked while it plays; a second tap does nothing',P.every(r=>r.lockedDuring&&r.secondTapIgnored));
