@@ -1,0 +1,24 @@
+﻿{
+    "version":  20261118000004,
+    "displayName":  "2026.11.18 UAT 93",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "3d857a2b62a8c7dcaf0ce402dc3b275f6ecd12aa38e48462321cd6c8520869df",
+    "stagedJSONSHA256":  "9f2cbd5b5b2d8e31fd98050f8305a9a78f7c9ec9ee2d1724ca52b07d54e2545b",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "60e61bdf9b715170f537cd7c3a73838f57ed84d0dd5089bbf886ba71e8bfddb0",
+    "jsonBytes":  54969154,
+    "runtimeFiles":  70,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.18 UAT 92",
+    "backup":  "uat/backups/before-UAT93-20261118000004",
+    "evidence":  "tickets/CP-73-evidence/uat93",
+    "authorization":  "UAT 93: CP-73 follow-up (Jenny, Nov 18: \"CP-73 Formal inspection: cane shaft goes behind the mitt, crook showing above it, so the mitt looks like it\u0027s holding it. Next UAT.\"); UAT only",
+    "localPublication":  "verified"
+}

@@ -36,3 +36,32 @@ Codex paints the shoulders and arms over the locked layout, one piece at a time,
 Top of `tickets/CP-74.md`; then message the PM (session `local_c33de928-2fcf-4e87-9b03-fae33ff1496d`) and stop. Never
 grep or print the 49 MB game JSON files. Keep long logs in your scratchpad. Don't stall on background runs: run them in
 the foreground or poll them.
+
+## Step 2: art (Codex). GO from Jenny, Nov 18
+Name this conversation "CP-74 Hug art". Work in C:\Users\jenny\OneDrive\work\CoinPusher. Follow AGENTS.md ("Art and
+layout": the layout is locked, art fills it, one piece at a time on the same canvas, approved art frozen). Read
+tickets/CP-74.md (both step-1 sections: layout numbers, "Effort" art list) and the evidence in tickets/CP-74-evidence/
+(hug-numbers-412x915.png, layout-numbers.json, hug-3-hug-412x915.png, hug-level3.mp4).
+
+**Jenny, verbatim:**
+- Nov 15: "the Ragdoll's actual paws/arms must come out over the board"; "terrible artwork, great concept".
+- Nov 18: "We need to remove the paws and replace or maybe just move the mitts to the bottom of the screen and add thick
+  furry arms and the shoulders of the cat. It will all kind of fill the screen around the board."
+- Nov 18: "I'd like the mitts to remain in the lower corners, not wrap around"; then "CP-74 Hug layout: approved. Title
+  first, then the hug with no words over it; small phones arms only is fine. Then Codex art."
+- Nov 18, on the stand-ins: "Should I be worried about gaps between the shoulders and the arms? Or can I just depend
+  on Codex to fill that in?"
+
+**Do**
+- Paint the three pieces over the locked layout, one at a time, in this order: **shoulders**, **left arm**, **right
+  arm** (the left arm mirrored unless it doesn't fit). Use the canvases from tickets/CP-74.md "Effort", adjusted so each
+  arm runs from the shoulder down to the mitt in its lower corner (the mitts are now in the corners, not under the lip).
+- The Ragdoll's own colours and fur, on-model with its approved Rest/Waiting art. The approved mitts, faces and the
+  head are frozen: don't redraw, resize or restyle them.
+- **No gaps:** shoulders, arms and mitts must read as one cat. Show a combined still of all pieces over the real game
+  frame at 412x915 (and 360x640, where the mitts are off-screen).
+- The arms' inner edge stays on the table-edge line (they're the gutter walls). Nothing may cover the board's play area.
+- Save each piece as a transparent PNG with its canvas size in `work/cp74-art/`, plus the combined stills in
+  `tickets/CP-74-evidence/art/`. Don't touch `uat/`, `phone/` or the release files, and don't build a UAT: a Claude
+  engineer puts the art in the game after Jenny approves it.
+- Write a short section at the top of tickets/CP-74.md (pieces, sizes, combined stills, anything unsure) and stop.
