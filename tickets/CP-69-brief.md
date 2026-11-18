@@ -47,3 +47,36 @@ Top of `tickets/CP-69.md`. Never use Claude or message anyone; the PM reads the 
 - Make 2 options each for the bow tie and hat (sizes or proportions) and the 2 canes above, on the real Tuxedo at 412x915 as before
   (with the silver monocle), plus the cane on the board. Update the top of `tickets/CP-69.md` and **stop**. Phase B
   still waits for the PM's go.
+
+## Phase B: GO (Jenny, Nov 17). One UAT build with three changes
+Build UAT 88 on the published UAT 87 (2026.11.17 UAT 87, 20261117235958, source `work/cp87/release.html`).
+
+**1. CP-69 art (Jenny's picks):**
+- Hat: round 2 **B** (hat C, 40% wider).
+- Bow tie: round 2 **A** (black, 30% wider), **moved lower so it doesn't overlap the tongue at all**. Overlapping
+  the pusher is fine ("it's only temporary and there will be no playing on the board while it's showing").
+- Monocle: Phase A **A** (gold).
+- Cane: round 2 crook or knob, **your call** (Jenny: "we can let Codex decide on the handle"; she leaned crook).
+  Choose the handle, angle and grip so the handle shows past the mitt during the sweep, and say which you chose.
+- Replace CP-63's code-drawn monocle and cane. Show the hat and bow tie for the length of the power only. Formal
+  inspection plays exactly as in UAT 87 otherwise.
+
+**2. CP-57 title sound:** run `work/cp57-title/build-title-final.py` (production's title sound; removes the A/B/C/D
+switch and "Replay title"). Its checks are `checks-title-restore` in the same folder.
+
+**3. CP-70 Developer cleanup** (Jenny: "limit it to the ones I still find useful"). Settings → Developer shows only:
+- Basics: Developer mode, Sound effects, Check for updates, Send performance log.
+- Levels: Open every level, Pass the next level, Back to Level 1.
+- Give: +1,000 coins, Give 3 of every prize + 300 coins, Give powers (3 each), Give all cats.
+- Start now: Start dance break now, Wild 2: spin the wheel now, Wheel lands on (each slice), Start a Jackpot now, Cat
+  visits now.
+- Reset progression, last.
+Everything else moves into a closed "Engineer tools" section, collapsed by default. Delete nothing: the harnesses press
+some of these buttons by id. Drop exact duplicates from the main list. No game behaviour changes.
+
+**Checks:** the art is drawn only during the power; the bow tie is clear of the tongue at 412x915 and 360x640; the
+CP-63, CP-64 and title checks still pass; the pickup is identical; the Developer list is as above; the real-browser boot
+check (`work/cp85/bootcheck.cjs` style). Then back up, publish to UAT only, run the cloud check (`work/cp87/verify-cloud.py`
+style), `python work/checkpoint.py`, and a GitHub commit naming CP-69, CP-57 and CP-70.
+Stills of the power at 412x915 and 360x640, and a short clip, go in `tickets/CP-69-evidence/uat88/`. Put the phone test
+at the top of `tickets/CP-69.md` and **stop**.

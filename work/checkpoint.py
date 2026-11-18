@@ -92,6 +92,8 @@ def ticket_files():
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--dry-run', action='store_true', help='list what would change; copy, commit and push nothing')
+    ap.add_argument('--message', help='ticket-specific commit subject; checkpoint details are retained')
+    ap.add_argument('--exclude', action='append', default=[], help='repo-relative file or folder to leave out of this checkpoint')
     a = ap.parse_args()
 
     branch = git('branch', '--show-current')
@@ -116,6 +118,7 @@ def main():
                                  capture_output=True, text=True).stdout.split('\0')) - {''}
     changed = {k: v for k, v in plan.items() if k not in ignored and
                (not (REPO / k).is_file() or (REPO / k).read_bytes() != v)}
+    changed = {k: v for k, v in changed.items() if not any(k == x.rstrip('/') or k.startswith(x.rstrip('/') + '/') for x in a.exclude)}
     big = sorted(changed.items(), key=lambda kv: -len(kv[1]))
     total = sum(len(v) for v in changed.values())
     print('Published UAT: %s (%s), source %s' % (name, version, src or 'not matched to a work folder'))
@@ -139,8 +142,9 @@ def main():
     if bad:
         git('reset', '-q')
         sys.exit('Stopping: banned files were staged (unstaged again):\n  ' + '\n  '.join(bad))
-    git('commit', '-q', '-m', 'WIP checkpoint: %s (%s)\n\nSource: %s. Copied by work/checkpoint.py.\n\n%s'
-        % (name, version, src or 'uat/CatCoinPusher-UAT-game.json', CO_AUTHOR))
+    subject = a.message or 'WIP checkpoint: %s (%s)' % (name, version)
+    git('commit', '-q', '-m', '%s\n\nSource: %s. Copied by work/checkpoint.py.\n\n%s'
+        % (subject, src or 'uat/CatCoinPusher-UAT-game.json', CO_AUTHOR))
     head = git('rev-parse', '--short', 'HEAD')
     git('push', '-q', '-u', 'origin', BRANCH, capture=False)
     print('Committed %s on %s (%d files, %.1f MB) and pushed.' % (head, BRANCH, len(staged), total / 1e6))

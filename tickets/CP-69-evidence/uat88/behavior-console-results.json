@@ -1,0 +1,22 @@
+{
+  "provenance": "Results observed in the original checks63.cjs and checks64.cjs console executions before each stopped at rendered check 5 because the legacy image loader could not load newer baseline PNGs. Checks from 5 onward rerun separately using the complete staged runtime and an in-memory C2PA metadata workaround. No game changes for this workaround.",
+  "build": "work/cp88/release.html",
+  "CP63": {
+    "passed": true,
+    "checks": [1, 2, 3, 4],
+    "piecesLit": 100,
+    "piecesOffFront": 89,
+    "litPiecesOffSide": 0,
+    "frameErrors": 0,
+    "cases": "Levels 1-5, 2 seeds, 60/30 fps; lock and second tap; wheel Yawn wait; Home and round-end cleanup"
+  },
+  "CP64": {
+    "passed": true,
+    "checks": [1, 2, 3, 4],
+    "jackpotWeight": 0.02,
+    "backToBackJackpots": 12,
+    "backToBackPeakPieces": 157,
+    "frameErrors": 0,
+    "cases": "Wheel slices/odds; Levels 3 and 8, 2 seeds, 60/30 fps; hostile 60/30/20 fps; back-to-back; END ROUND/Home/win/Dance/Pause"
+  }
+}

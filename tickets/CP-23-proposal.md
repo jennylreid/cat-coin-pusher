@@ -130,3 +130,13 @@ Already on the way: Pause with Finish (CP-51), which handles the half-empty boar
   episodes are a lot of content. Ties to CP-60 (Home) and CP-66 part 2.
   **Decided (Jenny, Nov 17):** "our storyline will just be cat visits." Blocker: "we just need great cat art and we
   struggle with that."
+
+- **Spitballing (Jenny, Nov 17, not decided):** "maybe we should have fewer prizes on the board... I don't think we
+  should have every prize on the board that we have to win the board. And maybe we shouldn't even have the concept of
+  winning a board... a finite number of coins... levels... you can run out of coins and therefore have to stop
+  playing. And maybe then you could sell your inventory for coins. Or... for catnip, or sell your catnip for
+  inventory."
+  PM opinion: yes to fewer prizes on the board (performance and scarcity). Keep levels with 1-2 goal prizes for a
+  clear goal. A persistent coin wallet that can run out and refills over time is the standard pusher model. Exchanges
+  go one way: extra prizes (beyond what recipes need) sell for Catnip, Catnip buys shop items. Two currencies, no
+  back-and-forth.

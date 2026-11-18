@@ -1,3 +1,7 @@
+## CP-69 / CP-57 / CP-70 — UAT 88
+
+Pinned published UAT 87; `work/cp88/build.py` calls the CP-57 title-final builder, preloads four approved CP-69 accessory paintings, then appends drawing overrides and the CP-70 Developer DOM wrapper. Hat and lowered tie draw only from the inspection-only monocle hook; gold monocle retains eye origin/drop/out timing, crook cane retains original sweep span with a visible angled grip. Physics, inspection state machine and frozen pickup unchanged. `developer.js` moves bound nodes, preserves IDs, keeps duplicates and tuning in native closed details; +1,000 grants the old panel's same coin amount. `prepare.py`, `audit.py`, adapted behavioral suites and real-browser `browser.cjs` provide validation. Publication/anonymous cloud verification use the existing UAT item; 70-file game-only APK7 payload. Phone test/report: `tickets/CP-69.md`.
+
 ## CP-62 bow tie colours — UAT 81
 
 Jenny added bow tie A/B/C variation. On pinned UAT 80, `work/cp81/build.py` adds only the build label and three palette preloads (`img/art/cp62-bowtie-{a,b,c}.png`) to the existing CP62_ART mechanism. UI stays red A; each body keeps its red/blue/plum painting through pickup/loss and the wheel Yawn. Runtime 65 files. No size/collider, RNG or pickup motion/audio changes. Evidence/report: `tickets/CP-62-evidence/uat81/`, `tickets/CP-62.md`. Phone UAT pending.
