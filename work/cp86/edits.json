@@ -1,0 +1,13 @@
+{
+ "edits": [
+  [
+   "const BUILD = '2026.11.17 UAT 85';",
+   "const BUILD = '2026.11.17 UAT 86';"
+  ],
+  [
+   "prize:'A PRIZE YOU NEED!',jackpot:'JACKPOT 25!',again:'DANCE AGAIN!'",
+   "prize:'A PRIZE YOU NEED!',jackpot:'JACKPOT!',again:'DANCE AGAIN!'"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": "cp64-jackpot.js"
+}

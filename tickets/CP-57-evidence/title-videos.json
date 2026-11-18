@@ -1,0 +1,37 @@
+{
+ "framesFps": 30,
+ "frames": 84,
+ "size": "412x915",
+ "titleTimeAtFrame0": 0,
+ "letterVideoTimes": [
+  0.6,
+  0.69,
+  0.78,
+  0.87,
+  0.96,
+  1.05,
+  1.14
+ ],
+ "files": {
+  "D-production": {
+   "mp4": "title-D-production.mp4",
+   "bytes": 947436,
+   "peak": 0.115
+  },
+  "A": {
+   "mp4": "title-A.mp4",
+   "bytes": 946134,
+   "peak": 0.115
+  },
+  "B": {
+   "mp4": "title-B.mp4",
+   "bytes": 947270,
+   "peak": 0.115
+  },
+  "C": {
+   "mp4": "title-C.mp4",
+   "bytes": 946586,
+   "peak": 0.115
+  }
+ }
+}

@@ -1,0 +1,15 @@
+{
+ "production": {
+  "loudest100msDb": -45.2,
+  "peak": 0.048
+ },
+ "fix": {
+  "loudest100msDb": -45.2,
+  "peak": 0.048
+ },
+ "todayUat86": {
+  "loudest100msDb": -27.3,
+  "peak": 0.193
+ },
+ "maxSampleDifferenceProductionVsFix": 0
+}

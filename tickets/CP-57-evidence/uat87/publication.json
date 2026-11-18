@@ -1,0 +1,24 @@
+﻿{
+    "version":  20261117235958,
+    "displayName":  "2026.11.17 UAT 87",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "c050239097f02c509ee0dc4e311d67042be85f4c80ac073e4f1ccfa838400326",
+    "stagedJSONSHA256":  "7cd44fd607f76540842f3e5064c843c1f4dfdf37e91d0e3643bf08d4b2a55d7c",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "a6c855cf8154b048b8a0e567eb4768c8dfd9feea37806e7da9ab9d676f50724b",
+    "jsonBytes":  54042830,
+    "runtimeFiles":  66,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.17 UAT 85",
+    "backup":  "uat/backups/before-UAT87-20261117235958",
+    "evidence":  "tickets/CP-57-evidence/uat87",
+    "authorization":  "UAT 87: CP-64 Jackpot cascade + CP-57 title sound switch (Jenny, Nov 17: \"Publish Jackpot + title sound together as one UAT.\"); UAT only, on UAT 85",
+    "localPublication":  "verified"
+}

@@ -1,0 +1,43 @@
+{
+ "productionLoudestDb": -45.2,
+ "pitches": [
+  0.989,
+  1.013,
+  1.066,
+  0.983,
+  1.055,
+  0.999,
+  0.974
+ ],
+ "letters": [
+  0.6,
+  0.69,
+  0.78,
+  0.87,
+  0.96,
+  1.05,
+  1.14
+ ],
+ "A": {
+  "loudestDb": -45.2,
+  "peak": 0.03,
+  "tapGainToMatchProduction": 0.0326,
+  "tapLenS": 0.48
+ },
+ "B": {
+  "loudestDb": -45.2,
+  "peak": 0.024,
+  "tapGainToMatchProduction": 0.0129,
+  "tapLenS": 0.5
+ },
+ "C": {
+  "loudestDb": -45.2,
+  "peak": 0.031,
+  "tapGainToMatchProduction": 0.0354,
+  "tapLenS": 0.3
+ },
+ "D": {
+  "loudestDb": -45.2,
+  "peak": 0.048
+ }
+}
