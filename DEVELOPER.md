@@ -400,6 +400,7 @@ settings in `Z72` (timing, speeds, stunt plans, caps). The old Zoomies code (sid
   the mitt; the eating face is off on coin runs; `Y.knockEnd` ends the Yawn early. Block `work/cp90/cp71-knock.js`.
 - **CP-73 (UAT 90):** Formal inspection's words go through `cp73Say` (band above the head, `cp50RowLayout`), not
   `callout()`. It draws the same two `rand()` values callout did, so the RNG stream matches. Block `work/cp90/cp73-words.js`.
+- **CP-73 rework (UAT 92):** `work/cp92/cp73-rework.js`. Formal inspection's words are big again (`cp73Big`/`cp73DrawBig`, drawn like `drawCallout`, keyed to `PGPX.t`); `cp63Tick` runs on `PGPX.t - CP73B.lead` (1.25 s), so the whole CP63 timeline starts after the intro; picks still at the tap. HMM. dropped (draws kept via `cp73Draws`); SPLENDID. at `CP63.sweep1+.15`. `PGPX.dur = cp73Total()` (6.05 s). While `PGPX.id==='inspect'` the callout queue is held (`calloutTick`/`drawCallout` wrappers). UAT 90's `cp73Say` remains, unused. Power text: `PGL_CATINFO.tuxedo.power='Formal inspection'`; `CP73D[cat]` = the one-line description drawn in the cat picker row.
 - **Real-browser boot check (since UAT 82):** the desktop harness strips the boot line (`Promise.all([RAPIER.init(),
   loadArt()])`), so a const used by loadArt and declared below it (CP62_ART in UAT 80/81) only fails in a real browser.
   Before publishing, run `work/cp83/bootcheck.cjs <runtime folder>` (headless Chrome, real time, the full runtime

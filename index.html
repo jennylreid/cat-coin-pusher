@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.18 UAT 91';
+const BUILD = '2026.11.18 UAT 92';
 
 
 
@@ -40521,7 +40521,7 @@ function pgBoardOverlay(){ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0
   ctx.save();ctx.translate(200,y);for(let i=0;i<12;i++){ctx.rotate(Math.PI/6);ctx.fillStyle=i%2?'rgba(255,210,63,.25)':'rgba(255,255,255,.12)';ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(-30,-220);ctx.lineTo(30,-220);ctx.fill();}ctx.restore();
   ctx.save();ctx.translate(200,y);ctx.scale(.3+.7*(1-Math.pow(1-u,3)),.3+.7*(1-Math.pow(1-u,3)));pgHead(M2.cat,0,0,260,t%1.2<.6?'sweet':'calm');ctx.restore();
   wildText(PG_CAT[M2.cat].name.toUpperCase(),200,cy+50,32,'#ffd23f','#3a1a00',6);wildText('JOINS YOU!',200,cy+90,34,'#7dff6a','#0c3a12',6);
-  ctx.font='bold 14px system-ui';ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(pglCatLine(M2.cat)+' · Cats, between rounds',200,y+100);}
+  ctx.font='bold 14px system-ui';ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(pglCatLine(M2.cat)+' · Cats, between rounds',200,y+100,384);}
  if(WILD.on&&pgRestPhase())pgDrawDock();else if(WILD.on&&!inventoryOpen)pgDrawPlayGear();
  ctx.restore();pgToastsDraw();
  const dt=pgDrawDt();ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
@@ -40993,7 +40993,7 @@ function pglOn(){return pglActive()&&WILD.on&&WILD.v2?pglLevel():null;}
 const __pglFresh=pgFresh;pgFresh=function(){return {...__pglFresh(),lv:{passed:0,sel:1,stars:{}},shown:{},seenScr:{},powers:{}};};
 
 // --- cats: the side game each brings (its mode), its power and its prizes ---
-const PGL_CATINFO={tuxedo:{game:'Dance break',power:'Yawn'},orange:{game:'Treat toss',power:'Zoomies'},ragdoll:{game:'Pet the cat',power:'Hug'},
+const PGL_CATINFO={tuxedo:{game:'Dance break',power:'Formal inspection'},orange:{game:'Treat toss',power:'Zoomies'},ragdoll:{game:'Pet the cat',power:'Hug'},
  siamese:{game:'Laser chase',power:'Sonic meow'},tortie:{game:'Mouse pounce',power:'Tortitude'}};
 for(const c of PG_CATS){PG_CAT[c].board=PGL_CATINFO[c].game;}
 PG_CAT.tortie.mode='pounce'; // Tower wall is a level type now; the Tortoiseshell brings Mouse pounce (UAT 62)
@@ -41153,10 +41153,10 @@ pgDrawBoardPick=function(dt){const R=pglPickRects(),u=Math.min(1,PGU.pickT/.2);c
  wildPanel(R.card,'#4b1f6e','#1d0f33');wildText('PICK A CAT',200,R.card.y+36,30,'#ffd23f','#2a0b3e',6);
  for(const r of R.rows){const C=PG_CAT[r.c],I=PGL_CATINFO[r.c],open=!!PG.open[r.c],cur=r.c===PGU.boardCat;uiRound(r.x,r.y,r.w,r.h,16,open?(cur?'rgba(125,255,106,.16)':'rgba(255,255,255,.14)'):'rgba(0,0,0,.3)',open?C.tag:'#554',2);
   if(open)pgHead(r.c,r.x+46,r.y+r.h/2,78,'calm');else{ctx.save();ctx.globalAlpha*=.5;ctx.filter='brightness(0)';pgHead(r.c,r.x+46,r.y+r.h/2,78,'calm',{noPupils:true});ctx.restore();ctx.fillStyle='#fff';ctx.font='900 26px Impact, system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('?',r.x+46,r.y+r.h/2+2);}
-  ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#fff';ctx.font='bold 17px system-ui';ctx.fillText(open?C.name:'???',r.x+94,r.y+20,170);
+  ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillStyle='#fff';ctx.font='bold 17px system-ui';ctx.fillText(open?C.name:'???',r.x+94,r.y+(open?15:20),170);
   ctx.font='12px system-ui';ctx.fillStyle='#e8dcff';
-  if(open){ctx.fillText(I.game+' · power: '+I.power,r.x+94,r.y+42,250);ctx.fillText('Prizes:',r.x+94,r.y+63);const px=r.x+94+ctx.measureText('Prizes: ').width;C.own.forEach((id,i)=>pgPrizeIcon(id,px+14+i*30,r.y+60,24));
-   const pw=(PG.powers&&PG.powers[r.c])|0;if(pw){ctx.textAlign='right';ctx.fillStyle='#ffe08a';ctx.font='bold 12px system-ui';ctx.fillText(I.power+' ×'+pw,r.x+r.w-14,r.y+63);}}
+  if(open){ctx.fillText(I.game+' · power: '+I.power,r.x+94,r.y+33,250);ctx.font='italic 11px system-ui';ctx.fillStyle='#cbb8ee';ctx.fillText(CP73D[r.c]||'',r.x+94,r.y+49,250);ctx.font='12px system-ui';ctx.fillStyle='#e8dcff';ctx.fillText('Prizes:',r.x+94,r.y+67);const px=r.x+94+ctx.measureText('Prizes: ').width;C.own.forEach((id,i)=>pgPrizeIcon(id,px+14+i*30,r.y+65,22));
+   const pw=(PG.powers&&PG.powers[r.c])|0;if(pw){ctx.textAlign='right';ctx.fillStyle='#ffe08a';ctx.font='bold 12px system-ui';ctx.fillText(I.power+' ×'+pw,r.x+r.w-14,r.y+67);}}
   else ctx.fillText('Photograph it on the Porch, then win its cat coin',r.x+94,r.y+44,250);
   ctx.textAlign='center';if(open&&cur){ctx.font='900 13px Impact, system-ui';ctx.fillStyle='#7dff6a';ctx.fillText('PLAYING',r.x+r.w-40,r.y+22);}else if(open)pgPlayTri(r.x+r.w-30,r.y+24,'#7dff6a');}
  ctx.textAlign='center';uiRound(R.close.x,R.close.y,R.close.w,R.close.h,15,'rgba(255,255,255,.12)','#d8c8ee',1);ctx.fillStyle='#f4ecff';ctx.font='bold 14px system-ui';ctx.fillText('Close',200,R.close.y+R.close.h/2+1);ctx.restore();};
@@ -42179,7 +42179,7 @@ function cp63Start(){
  const zs=picks.map(p=>p.b.rb.translation().z/M);
  CP63X={t:0,picks,tour,z0:Math.max(PUSH_MAX+10,(zs.length?Math.min(...zs):520)-55),fx:{},eye:null,lens:null,cane:null};
  CP63.stats.runs++;CP63.stats.picked.push(picks.map(p=>p.id));
- pgSfx('clink',1);try{diagEvent('powers','cp63 inspect '+picks.map(p=>p.id).join(','));}catch(e){}}
+ try{diagEvent('powers','cp63 inspect '+picks.map(p=>p.id).join(','));}catch(e){}}
 function cp63Screen(o){if(!o.b.dead){const p=o.b.rb.translation();o.at=skyScreen(p.x/M,p.z/M,p.y/M);}return o.at;}
 // The lens: from piece to piece in tour order during the look.
 function cp63LensAt(t){const X=CP63X,n=X.tour.length;if(!n)return null;const u=(t-CP63.look0)/(CP63.look1-CP63.look0);if(u<0||u>1.02)return null;
@@ -42260,14 +42260,15 @@ function cp63DrawBoard(){const X=CP63X;if(!X)return;const t=X.t;
 const __cp63DrawPaws=drawPaws;
 drawPaws=function(){if(CP63X){ctx.save();try{cp63DrawBoard();}finally{ctx.restore();}}return __cp63DrawPaws();};
 // --- the clock (runs inside the power's own tick, so pause/Home stop it) ---
-function cp63Tick(t){const X=CP63X;if(!X)return;X.t=t;happyUntil=0;const fx=X.fx;
+function cp63Tick(t){const X=CP63X;if(!X)return;X.t=t;happyUntil=0;const fx=X.fx;if(!fx.go){fx.go=1;pgSfx('clink',1);}
  if(t>=CP63.monoIn&&!fx.on){fx.on=1;pgSfx('ding',.6);}
- if(t>=CP63.look0&&!fx.hmm){fx.hmm=1;cp73Say(CP63.words[0],'#ffe27a',CP73.dur.hmm);}
+ if(t>=CP63.look0&&!fx.hmm){fx.hmm=1;cp73Draws(); /* CP-73 rework: HMM. dropped */}
  const L=cp63LensAt(t);if(L&&L.arrived){const o=X.tour[L.i];if(o.lit==null){o.lit=t;pgSfx('ding',.55+.1*L.i);}}
  if(t>=CP63.look1&&!fx.all){fx.all=1;for(const o of X.tour)if(o.lit==null)o.lit=t;}
  if(t>=CP63.caneIn&&!fx.cane){fx.cane=1;try{sfx.paw40('whoosh',1);}catch(e){}}
  if(t>=CP63.sweep0&&!fx.sweep){fx.sweep=1;try{sfx.paw40('swipe',1);}catch(e){}}
- if(t>=CP63.sweep0+.5&&!fx.word){fx.word=1;if(X.picks.length)cp73Say(CP63.words[1],'#ffe27a',CP73.dur.splendid);}
+ if(t>=CP63.sweep0+.5&&!fx.word){fx.word=1;if(X.picks.length)CP73B.pend=cp73Draws();}
+ if(t>=CP73B.splAt&&CP73B.pend&&!fx.spl){fx.spl=1;cp73Big(CP63.words[1],'#ffe27a',CP73B.splDur,PGPX.t,CP73B.pend);CP73B.pend=null;}
  if(t>=CP63.monoOut&&!fx.off){fx.off=1;pgSfx('flip',.7);}
  // a lit piece never goes over a side: near a side edge it is eased back toward the middle (the whole power)
  for(const o of X.picks){const b=o.b;if(o.done||b.dead||o.lit==null)continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,edge=tableHalfAt(Math.min(T.FRONT,z))-cp63R(b)*.7;
@@ -42294,10 +42295,10 @@ const __cp63How=pgpHow;pgpHow=function(cat){return __cp63How(cat);};
 const __cp63Use=pgpUse;
 pgpUse=function(){const cat=pgpCat(),P=PGP[cat];if(P.id!=='inspect')return __cp63Use();
  PG.powers[cat]=pgpCount(cat)-1;pgSave();stopDrops();try{diagEvent('powers','use '+P.id+' left='+PG.powers[cat]+' level='+pglSel());}catch(e){}
- cp73Say(P.name+'!',P.col,CP73.dur.intro);try{navigator.vibrate&&navigator.vibrate([60,40,90]);}catch(e){}
- cp63Start();PGPX={id:'inspect',t:0,dur:CP63.end};};
+ cp73Big(P.name+'!',P.col,CP73B.intro,0,cp73Draws());try{navigator.vibrate&&navigator.vibrate([60,40,90]);}catch(e){}
+ cp63Start();PGPX={id:'inspect',t:0,dur:cp73Total()};};
 const __cp63PgpTick=pgpTick;
-pgpTick=function(dt){const was=PGPX&&PGPX.id==='inspect'?PGPX:null;__cp63PgpTick(dt);if(was)cp63Tick(was.t);};
+pgpTick=function(dt){const was=PGPX&&PGPX.id==='inspect'?PGPX:null;__cp63PgpTick(dt);if(was&&was.t>=CP73B.lead)cp63Tick(was.t-CP73B.lead);}; /* CP-73 rework */
 const __cp63PgpEnd=pgpEnd;pgpEnd=function(){const X=PGPX;__cp63PgpEnd();if(X&&X.id==='inspect')cp63Stop();};
 // counts as busy while it plays (no second power; a power earned meanwhile is awarded after)
 const __cp63SideGame=pgpSideGame;pgpSideGame=function(){return __cp63SideGame()||!!CP63X;};
@@ -42746,6 +42747,47 @@ const __z72Fall=typeof fallOff==='function'?fallOff:null;
 if(__z72Fall){fallOff=function(b,...a){const X=Z72X;if(X&&!b.dead){const q=b.rb.translation(),side=Math.abs(q.x/M-200)>(T.R-T.L)/2-2&&q.z/M<T.FRONT-4;if(side)Z72.stats.anySide++;else if(q.z/M>=T.FRONT-30)Z72.stats.anyFront++;
   if(X.carry.some(o=>o.b===b))(side?Z72.stats.lostSide:Z72.stats.paid).push(b.id||b.kind);}return __z72Fall(b,...a);};}
 // ---------- end CP-72 ----------
+
+// ---------- CP-73 rework (UAT 92; Jenny, Nov 18: "big 'FORMAL INSPECTION!' first, action starts only after it's gone;
+// drop 'HMM.'; big 'SPLENDID.' after the sweep") ----------
+// The words are big and centred again, in the lettering and place of the old callout (UAT 84-89). Formal inspection now
+// opens with "FORMAL INSPECTION!" alone (1.2 s); the monocle, beam, highlights, cane and sweep run only after it has gone,
+// on their own unchanged timeline, 1.25 s later. "HMM." is gone. "SPLENDID." shows once the sweep has finished. The power
+// (and its locked button) lasts until "SPLENDID." has faded. The pieces are picked at the tap, as before; the random draws
+// the words made are kept, at the same points of the power, so the game's randomness runs as before.
+// While Formal inspection plays, other callouts (e.g. COIN RAIN) wait and show after it, so nothing covers its words, beam,
+// highlights or cane.
+const CP73B={intro:1.2,lead:1.25,splAt:CP63.sweep1+.15,splDur:1.1,pend:null};
+let CP73W=null; // the big words showing: {word,color,dur,t0 (power time),rot,x,bam}
+function cp73Total(){return CP73B.lead+Math.max(CP63.end,CP73B.splAt+CP73B.splDur);}
+function cp73Draws(){return {rot:rand(-0.12,0.12),x:200+rand(-10,10)};} // the two random draws callout() made, in its order
+function cp73Big(word,color,dur,t0,d){CP73W={word:String(word).toUpperCase(),color,dur,t0,rot:d.rot,x:d.x,bam:false};}
+function cp73BigT(){const X=PGPX,c=CP73W;if(!c||!X||X.id!=='inspect')return -1;const t=X.t-c.t0;return t>=0&&t<c.dur?t:-1;}
+function cp73BigOn(){return cp73BigT()>=0;}
+// drawn exactly like the old callout (drawCallout): same place, size, pop, tilt, outline and fade
+function cp73DrawBig(){const c=CP73W,t=cp73BigT();if(t<0)return;
+ const pop=t<0.16?0.3+t/0.16*0.95:t<0.3?1.25-(t-0.16)/0.14*0.25:1+Math.sin(t*9)*0.015;
+ ctx.save();ctx.globalAlpha=Math.max(0,Math.min(1,(c.dur-t)*3));
+ ctx.translate(c.x,Math.max(VIEW.y+350*VIEW.zy,VIEW.y+215*VIEW.zy+130));ctx.rotate(c.rot);ctx.scale(pop,pop);
+ const lines=calloutLines(c.word),font=px=>`italic 900 ${px}px Impact, "Arial Black", system-ui`;
+ ctx.font=font(64);const widest=Math.max(...lines.map(l=>ctx.measureText(l).width)),size=Math.min(64,64*290/widest),lh=size*1.02,th=lh*lines.length;
+ ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.font=font(size);
+ lines.forEach((l,i)=>{const y=-th/2+lh*(i+0.5);ctx.lineWidth=Math.max(7,size/5);ctx.strokeStyle='#111';ctx.strokeText(l,0,y);
+  ctx.fillStyle=c.color;ctx.fillText(l,0,y);ctx.fillStyle='rgba(255,255,255,.4)';ctx.fillText(l,-2,y-3);});
+ ctx.restore();}
+function cp73Holding(){return !!(PGPX&&PGPX.id==='inspect');}
+const __cp73bDraw=drawCallout;drawCallout=function(){if(cp73Holding())return cp73DrawBig();return __cp73bDraw();};
+// the words' pop and buzz play on the game tick (as the old callout's did), once per word
+const __cp73bTick=calloutTick;calloutTick=function(dt){if(cp73Holding()){const c=CP73W;if(cp73BigOn()&&!c.bam){c.bam=true;try{sfx.bam();}catch(e){}try{navigator.vibrate&&navigator.vibrate(45);}catch(e){}}return;}return __cp73bTick(dt);};
+const __cp73bEnd=pgpEnd;pgpEnd=function(){const X=PGPX;__cp73bEnd();if(X&&X.id==='inspect'){CP73W=null;CP73B.pend=null;}};
+// Each cat's power in one plain line, shown in the cat picker under "<side game> · power: <name>" (Jenny, Nov 18: the
+// cat's screen still said the Tuxedo's power was Yawn). Matches what each power does now (Zoomies after CP-72).
+const CP73D={tuxedo:'A monocle spots the best pieces; the cane sweeps them forward.',
+ orange:'Two kittens shove pieces off the front; the pusher runs double speed.',
+ ragdoll:'Flops over the board and blocks both side gutters for 6 s.',
+ siamese:'A big meow shakes the board; the pusher reaches twice as far.',
+ tortie:'A fiery burst shoves a big group of coins forward.'};
+// ---------- end CP-73 rework ----------
 
 </script>
 
