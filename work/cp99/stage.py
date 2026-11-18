@@ -30,17 +30,17 @@ for k,b64 in files.items():
     if not f.exists() or f.read_bytes()!=b:f.parent.mkdir(parents=True,exist_ok=True);f.write_bytes(b);wrote+=1
 print('boot folder',G,'files written',wrote)
 if '--boot-only' in sys.argv or DEV:sys.exit(0)
-names=['checks79.json','checks80.json']+sorted(f.name for f in e.glob('checks*-on99.json'))
-assert len(names)>=10,('missing regression results',names)
+names=['checks79.json','checks80.json','checks72z.json','checks72s.json']+sorted(f.name for f in e.glob('checks*-on99.json'))
+assert len(names)>=13,('missing regression results',names)
 for name in names:
     c=json.loads((e/name).read_text(encoding='utf-8'));assert Path(c['build'])==rel.resolve(),(name,'not run on this release.html')
     assert c['passed'] is True and not c['failed'],(name,c['failed'])
 bt=json.loads((e/'real-browser-boot.json').read_text().strip().splitlines()[-1])
-assert bt['title'] and bt['play'] and not bt['errors'] and bt['build']==v['displayName'] and bt.get('cp79'),'real-browser boot/yawn sound check failed'
+assert bt['title'] and bt['play'] and not bt['errors'] and bt['build']==v['displayName'] and bt.get('cp79') and bt.get('cp72z'),'real-browser boot/yawn/zoomies sound check failed'
 out={**u,**{k:v[k] for k in ('version','displayName','apkVersion')},'apk':'','files':files};t=p/'CatCoinPusher-UAT-game.json'
 t.write_text(json.dumps(out,separators=(',',':')),encoding='utf-8');size=t.stat().st_size;assert size<60_000_000
 m={**{k:v[k] for k in ('version','displayName','apkVersion')},'baselineJSONSHA256':sha(raw),'stagedJSONSHA256':sha(t.read_bytes()),'apkSHA256':sha(apk),'releaseHTMLSHA256':sha(h),'jsonBytes':size,
    'runtimeFiles':len(files),'changedRuntimeFiles':['index.html'],'addedRuntimeFiles':[],'embeddedAPKBytes':0,'nativeChange':False,'base':pin['displayName'],
    'backup':f"uat/backups/before-UAT{uat}-{v['version']}",'evidence':e.relative_to(r).as_posix(),'checks':names,
-   'authorization':f"UAT {uat}: CP-79 Yawn sound as a Developer choice (Jenny, Nov 18, via PM: \"CP-79 Yawn sound: put today, A2, B2 and AB in the next UAT as a Developer choice (today's is the default). I'll pick on my phone.\"); UAT only"}
+   'authorization':f"UAT {uat}: CP-79 Yawn sound as a Developer choice (Jenny, Nov 18, via PM: \"CP-79 Yawn sound: put today, A2, B2 and AB in the next UAT as a Developer choice (today's is the default). I'll pick on my phone.\"; CP-80 Developer wheel on the Siamese (PM go, Nov 18); CP-72 Zoomies sound (\"Pusher sound: replace the turbo rev with the sound of coins being pushed; 2-3 real candidates as a Developer choice next to today's, I pick on my phone.\") and \"remove the gold streaks\"); UAT only"}
 (p/'publication-manifest.json').write_text(json.dumps(m,indent=2));(e/'package-verification.json').write_text(json.dumps(m,indent=2));print(json.dumps(m,indent=2))

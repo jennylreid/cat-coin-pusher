@@ -13,5 +13,5 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const call=(method,params={})=>new Promise(r=>{const i=++id;pend[i]=r;ws.send(JSON.stringify({id:i,method,params}));});
   await call('Page.enable');await call('Page.navigate',{url:`http://127.0.0.1:${process.env.REVIEW_PORT||process.env.PORT||8795}/work/cp99/yawncheck.html?dir=${dir}&r=${Date.now()}`});
   let res='PENDING';for(let i=0;i<200&&res==='PENDING';i++){await sleep(500);const r=await call('Runtime.evaluate',{expression:"document.getElementById('result')?document.getElementById('result').textContent:'PENDING'"});res=r.result&&r.result.result&&r.result.result.value||'PENDING';}
-  console.log(res);let o={};try{o=JSON.parse(res);}catch(e){}if(!(o.title&&o.play&&o.cp79&&!o.errors.length))ok=false;ws.close();}
+  console.log(res);let o={};try{o=JSON.parse(res);}catch(e){}if(!(o.title&&o.play&&o.cp79&&o.cp72z&&!o.errors.length))ok=false;ws.close();}
  }finally{ch.kill();}process.exitCode=ok?0:1;})();

@@ -1,0 +1,36 @@
+{
+  "version": 20261118000010,
+  "displayName": "2026.11.18 UAT 99",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "6452ea7b89bbec9ef99649b80bee02665d7e8f019d4b83aa629bdd750ddc10d0",
+  "stagedJSONSHA256": "a73da3064d1cf0f5ea7cad4f27bf77315ac6242c5f1dc90d16904a416b9ab6e8",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "3fbd5411afe2eab752044dd7393ece425fdc5e9fd4227a2848277bbb2e8931c1",
+  "jsonBytes": 58216518,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.18 UAT 98",
+  "backup": "uat/backups/before-UAT99-20261118000010",
+  "evidence": "tickets/CP-79-evidence/uat99",
+  "checks": [
+    "checks79.json",
+    "checks80.json",
+    "checks72z.json",
+    "checks72s.json",
+    "checks64-on99.json",
+    "checks71-on99.json",
+    "checks72-on99.json",
+    "checks75-on99.json",
+    "checks92-on99.json",
+    "checks93-on99.json",
+    "checks94-on99.json",
+    "checks97-on99.json",
+    "checks98-on99.json"
+  ],
+  "authorization": "UAT 99: CP-79 Yawn sound as a Developer choice (Jenny, Nov 18, via PM: \"CP-79 Yawn sound: put today, A2, B2 and AB in the next UAT as a Developer choice (today's is the default). I'll pick on my phone.\"; CP-80 Developer wheel on the Siamese (PM go, Nov 18); CP-72 Zoomies sound (\"Pusher sound: replace the turbo rev with the sound of coins being pushed; 2-3 real candidates as a Developer choice next to today's, I pick on my phone.\") and \"remove the gold streaks\"); UAT only"
+}

@@ -20,6 +20,11 @@ for f in sorted(S.glob('checks*.cjs')):
     s=re.sub(r"'\.\./\.\./tickets/CP-\d+-evidence/uat\d+'","'../../tickets/CP-79-evidence/uat99'",s)
     s=re.sub(r"'\.\./\.\./tickets/CP-\d+-evidence/uat'","'../../tickets/CP-79-evidence/uat'",s)
     s=s.replace(f.name.replace('.cjs','.json'),o.replace('.cjs','.json'))
+    # a script that takes its comparison base from edits.json keeps the one it was written for (the base UAT's own base)
+    s=s.replace("base=E.base,","base=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../%s/edits.json'),'utf8')).base,"%v['base'])
+    # references renamed to the base UAT's name (the build name is drawn on screen) are renamed to this build's name
+    bn=json.loads((S/'release-version.json').read_text())['displayName']
+    s=s.replace(".join(\"const BUILD = '%s';\")"%bn,".join(\"const BUILD = '%s';\")"%v['displayName']).replace('named'+bn.split()[-1]+'.html','named'+v['displayName'].split()[-1]+'.html')
     assert 'CP-79-evidence' in s,f.name
     (p/o).write_bytes(s.replace('\r\n','\n').encode('utf-8'));made.append(o)
 print('\n'.join(made))
