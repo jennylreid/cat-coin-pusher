@@ -1,0 +1,36 @@
+﻿{
+    "version":  20261118000012,
+    "displayName":  "2026.11.18 UAT 101",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "8ec47bd7c7f8253c1fb0da082282ce1bab1f461e291e92fd17162fb2c76252f3",
+    "stagedJSONSHA256":  "35830a39c47f4d8d2e52d8b20908ad1496b975cf80dd02f04a61804230d076a8",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "8924190e43c50421679348813bc23458e42218d1afbe2752c16957794451f95f",
+    "jsonBytes":  58755791,
+    "runtimeFiles":  78,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.18 UAT 100",
+    "backup":  "uat/backups/before-UAT101-20261118000012",
+    "evidence":  "tickets/CP-82-evidence/uat101",
+    "checks":  [
+                   "checks101.json",
+                   "checks100-on101.json",
+                   "checks64-on101.json",
+                   "checks72-on101.json",
+                   "checks72z-on101.json",
+                   "checks75-on101.json",
+                   "checks79-on101.json",
+                   "checks92-on101.json",
+                   "checks93-on101.json",
+                   "checks94-on101.json"
+               ],
+    "authorization":  "UAT 101: CP-82 power titles first for Sonic meow and Tortitude (Jenny, Nov 18, via PM: \"we definitely want to do CP82.\"; \"the words appear before the action is taken\") + CP-72 Zoomies sound fix (PM, Nov 18: Jenny can\u0027t hear P1-P3; \u0027Fix it in UAT 101 along with CP-82\u0027); UAT only",
+    "localPublication":  "verified"
+}
