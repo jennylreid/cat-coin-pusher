@@ -345,6 +345,10 @@ wrapped; state in `CP63X`, settings in `CP63` (timing table, `max:5`, `maxPrizes
   (`wildFinish` wrapper, "ALL n! JACKPOT!"); any other finish (END ROUND, Home, `wildReset`/`wildExit`) ends it at once.
 - During a Jackpot a prize over the side is lost as normal but shows no "LOST THE …!" banner (Jenny, Nov 17): a
   `gutterOff` wrapper drops those callouts while `WILD.jp` is set.
+- Jackpot prizes don't fill the Dance (Happy Cat) meter (Jenny, Nov 17; UAT 89): a `wildLandBonus` wrapper tags every
+  piece a Jackpot drop lands (`b.jp`, via a temporary `addCoin` wrapper), and a `wildPrizeCollected` wrapper skips
+  `danceFill` for tagged prizes, also after the Jackpot has ended. Other prizes fill it as before. Block
+  `work/cp89/cp64-meter.js` (UAT 88 + label + this block, `work/cp89/build.py`); check `work/cp89/check-meter.cjs`.
 - Developer: "Start a Jackpot now" (`cp64StartNow`, above "Wild 2: spin the wheel now"). Checks `work/cp86/checks86.cjs`;
   real-browser stills `work/cp86/shots86.cjs`.
 

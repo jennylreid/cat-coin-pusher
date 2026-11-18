@@ -1,0 +1,154 @@
+{
+ "check": "10 Jackpot prizes leave the Dance meter unchanged (during the Jackpot and after it ends); normal prizes still fill it, also during a Jackpot",
+ "pass": true,
+ "runs": [
+  {
+   "file": "cp89/release.html",
+   "seed": 1,
+   "level": 3,
+   "fps": 60,
+   "collected": 13,
+   "jackpotPrizes": 13,
+   "jackpotPrizesAfterEnd": 5,
+   "meterRiseFromJackpot": 0,
+   "otherPrizes": 0,
+   "meterRiseFromOther": 0,
+   "happyAtEnd": 0,
+   "happyAfterTail": 0,
+   "danceDuring": false,
+   "danceAfter": false,
+   "stats": {
+    "n": 46,
+    "prizes": 39,
+    "rain": 5,
+    "quakes": 2,
+    "skipped": 7,
+    "peak": 111,
+    "t": 8.42,
+    "why": "done"
+   },
+   "errs": 0
+  },
+  {
+   "file": "cp89/release.html",
+   "seed": 2,
+   "level": 8,
+   "fps": 60,
+   "collected": 13,
+   "jackpotPrizes": 13,
+   "jackpotPrizesAfterEnd": 1,
+   "meterRiseFromJackpot": 0,
+   "otherPrizes": 0,
+   "meterRiseFromOther": 0,
+   "happyAtEnd": 0,
+   "happyAfterTail": 0,
+   "danceDuring": false,
+   "danceAfter": false,
+   "stats": {
+    "n": 48,
+    "prizes": 41,
+    "rain": 5,
+    "quakes": 2,
+    "skipped": 5,
+    "peak": 115,
+    "t": 8.97,
+    "why": "done"
+   },
+   "errs": 0
+  },
+  {
+   "file": "cp89/release.html",
+   "seed": 3,
+   "level": 3,
+   "fps": 30,
+   "collected": 13,
+   "jackpotPrizes": 13,
+   "jackpotPrizesAfterEnd": 3,
+   "meterRiseFromJackpot": 0,
+   "otherPrizes": 0,
+   "meterRiseFromOther": 0,
+   "happyAtEnd": 0,
+   "happyAfterTail": 0,
+   "danceDuring": false,
+   "danceAfter": false,
+   "stats": {
+    "n": 42,
+    "prizes": 38,
+    "rain": 2,
+    "quakes": 2,
+    "skipped": 11,
+    "peak": 101,
+    "t": 8.43,
+    "why": "done"
+   },
+   "errs": 0
+  },
+  {
+   "file": "cp89/release.html",
+   "seed": 4,
+   "level": 8,
+   "fps": 30,
+   "collected": 11,
+   "jackpotPrizes": 11,
+   "jackpotPrizesAfterEnd": 0,
+   "meterRiseFromJackpot": 0,
+   "otherPrizes": 0,
+   "meterRiseFromOther": 0,
+   "happyAtEnd": 0,
+   "happyAfterTail": 0,
+   "danceDuring": false,
+   "danceAfter": false,
+   "stats": {
+    "n": 47,
+    "prizes": 40,
+    "rain": 5,
+    "quakes": 2,
+    "skipped": 6,
+    "peak": 118,
+    "t": 9.07,
+    "why": "done"
+   },
+   "errs": 0
+  }
+ ],
+ "normal": {
+  "rises": [
+   1,
+   1,
+   1
+  ],
+  "happy": 3,
+  "notches": 4,
+  "duringJackpot": {
+   "jp": true,
+   "rise": 1
+  }
+ },
+ "oldBuild": {
+  "file": "cp88/release.html",
+  "seed": 1,
+  "level": 3,
+  "fps": 60,
+  "collected": 13,
+  "jackpotPrizes": 13,
+  "jackpotPrizesAfterEnd": 5,
+  "meterRiseFromJackpot": 4,
+  "otherPrizes": 0,
+  "meterRiseFromOther": 0,
+  "happyAtEnd": 4,
+  "happyAfterTail": 4,
+  "danceDuring": false,
+  "danceAfter": true,
+  "stats": {
+   "n": 46,
+   "prizes": 39,
+   "rain": 5,
+   "quakes": 2,
+   "skipped": 7,
+   "peak": 111,
+   "t": 8.42,
+   "why": "done"
+  },
+  "errs": 0
+ }
+}
