@@ -1,0 +1,816 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp94\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp93\\release.html",
+ "passed": true,
+ "passedN": 7,
+ "failed": [],
+ "notes": {
+  "power": [
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 1,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 7,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "paid": [
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "lostSide": [],
+    "prizes": 0,
+    "frontPrizes": [
+     "shrimp"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": [
+     "shrimp"
+    ]
+   },
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 2,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 7,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "paid": [
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "lostSide": [],
+    "prizes": 0,
+    "frontPrizes": [
+     "shrimp"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 1,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 5.48,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "coin",
+     "cheese"
+    ],
+    "paid": [
+     "cheese"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "shrimp",
+     "cheese"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": true,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 2,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 6.98,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "paid": [
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "lostSide": [],
+    "prizes": 0,
+    "frontPrizes": [
+     "shrimp"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 2,
+    "fps": 60,
+    "seed": 1,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 7,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "egg",
+     "rain5"
+    ],
+    "paid": [
+     "egg",
+     "rain5"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "egg*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 2,
+    "fps": 60,
+    "seed": 2,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 7,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "milk"
+    ],
+    "paid": [
+     "milk"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "milk*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 2,
+    "fps": 30,
+    "seed": 1,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 6.98,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "box",
+     "rain5"
+    ],
+    "paid": [
+     "box",
+     "rain5"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "box*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 2,
+    "fps": 30,
+    "seed": 2,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 6.98,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "ball"
+    ],
+    "paid": [
+     "ball"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "ball*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 1,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 7,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "coin",
+     "yarn",
+     "rain5",
+     "rain5"
+    ],
+    "paid": [
+     "yarn",
+     "coin",
+     "rain5",
+     "rain5"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "yarn*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 2,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 7,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "tuna",
+     "recipecoin",
+     "rain10"
+    ],
+    "paid": [
+     "tuna",
+     "recipecoin",
+     "rain10"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "tuna*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 1,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 6.98,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "tuna",
+     "silver",
+     "rain5"
+    ],
+    "paid": [
+     "silver",
+     "rain5"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 2,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 6.98,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "tuna",
+     "rain10",
+     "rain5"
+    ],
+    "paid": [
+     "tuna",
+     "rain10",
+     "rain5"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "tuna*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 4,
+    "fps": 60,
+    "seed": 1,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 7,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "egg"
+    ],
+    "paid": [
+     "egg"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "feather",
+     "egg*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 4,
+    "fps": 60,
+    "seed": 2,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 7,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "box"
+    ],
+    "paid": [
+     "box"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "feather",
+     "box*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": [
+     "feather"
+    ]
+   },
+   {
+    "level": 4,
+    "fps": 30,
+    "seed": 1,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 6.98,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "box"
+    ],
+    "paid": [
+     "box"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "box*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 4,
+    "fps": 30,
+    "seed": 2,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 6.98,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "box"
+    ],
+    "paid": [
+     "box"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "feather",
+     "box*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": [
+     "feather"
+    ]
+   },
+   {
+    "level": 5,
+    "fps": 60,
+    "seed": 1,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 7,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "tuna",
+     "coin",
+     "quake"
+    ],
+    "paid": [
+     "tuna",
+     "coin",
+     "quake"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "tuna*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 5,
+    "fps": 60,
+    "seed": 2,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 7,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "quake",
+     "egg",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "paid": [
+     "coin",
+     "quake",
+     "egg",
+     "coin",
+     "coin"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "egg*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 5,
+    "fps": 30,
+    "seed": 1,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 6.98,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "tuna",
+     "coin",
+     "quake"
+    ],
+    "paid": [
+     "tuna",
+     "quake",
+     "coin"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "tuna*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   },
+   {
+    "level": 5,
+    "fps": 30,
+    "seed": 2,
+    "cat": "orange",
+    "playing": true,
+    "started": true,
+    "kits": 2,
+    "len": 6.98,
+    "periodDuring": 1.6,
+    "normal": 3.2,
+    "carried": [
+     "tuna",
+     "quake"
+    ],
+    "paid": [
+     "tuna",
+     "quake"
+    ],
+    "lostSide": [],
+    "prizes": 1,
+    "frontPrizes": [
+     "tuna*"
+    ],
+    "sideDuring": [],
+    "lockedDuring": true,
+    "secondTapIgnored": true,
+    "used": 1,
+    "roundEnded": false,
+    "clean": {
+     "z72": false,
+     "pgpx": false,
+     "period": 3.2,
+     "normal": 3.2
+    },
+    "errs": 0,
+    "sideNoPower": 0,
+    "frontNoPower": []
+   }
+  ]
+ }
+}

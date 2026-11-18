@@ -96,3 +96,27 @@ apart; later levels allow them to chain.
 ## Power balance (Jenny, Nov 17)
 "We're making it too easy with all these powers." Zoomies capped at 1 prize per use (CP-72). PM: in the powers pass,
 give each power one clear, felt result that helps but never wins a board by itself, and scale its strength with level.
+
+## Jenny, Nov 18: timer and waiting
+"I don't think the timer on each board is particularly helpful. I think some timed boards would be great, but I don't
+think every level should be timed. I think I prefer the idea that the coins run out and you kind of have to go away and
+wait for coins to refresh to come back. But there are other things you can do, like work on the cat food, and all of
+those also take time and you come back to them." Also: "we need to clear out the backlog. We need to get the gameplay in
+place so that we can be working on the refinements within a framework... Right now, if someone were to pick up the
+game, they'd be lost."
+PM: this settles rule 3 (coin wallet, no round timer; timed boards only as a special rule) and confirms cooking over
+real time. Questions 2-4 and the refill speed (question 1) are still open.
+
+## Parked for later (good ideas, not until the core loop is set)
+Jenny, Nov 18: "It's definitely a good idea. It's just not time to implement this." These come back when we plan the
+level ladder and Up Next unlocks.
+
+- **More dances (Dance break).** Jenny: Dance break works ("every time it pops up, I go through it"), but "in the long
+  run, it's going to get old". Different beats for different levels, each with its own catchy music, so "the player will
+  get familiar with the song and know how to tap to it". Like the first dance, a new one "takes you off guard" and takes
+  "3 to 5 tries" to learn. Rhythms must have "a real cadence": start with today's steady beat, then "a steady beat with
+  one outlier or one double speed beat... dun, dun, dun-dun-dun", and maybe "some really kind of unusual cadence" on
+  really difficult levels.
+  PM notes: a new dance is a natural Up Next unlock. Rhythms are small work (a new beat list); the music is the hard
+  part (one catchy track per dance that we're allowed to use), so make one second dance first. Keep early dances
+  forgiving (difficulty ramp).
