@@ -1,0 +1,22 @@
+{
+  "mode": "built-in image_gen",
+  "edits": [
+    {
+      "target": "../masters/bowtie-a.png",
+      "output": "masters/bowtie-black.png",
+      "prompt": "Change only colour to black satin with charcoal/silver highlights; preserve butterfly silhouette, proportions, knot and folds. Isolated transparent bow tie."
+    },
+    {
+      "target": "../masters/cane-a.png",
+      "output": "masters/cane-a.png",
+      "prompt": "Preserve black lacquer, gold collar and silver left tip. Twice as thick shaft. Compact rounded right crook, not shepherd hook. Horizontal transparent isolated cane."
+    },
+    {
+      "target": "../masters/cane-a.png",
+      "output": "masters/cane-b.png",
+      "prompt": "Preserve black lacquer, gold collar and silver left tip. Twice as thick shaft. Replace right crook with black rounded knob top about twice shaft diameter. Horizontal transparent isolated cane."
+    }
+  ],
+  "hat": "Existing hat-c painting fitted at two sizes; no regeneration",
+  "monocle": "Existing monocle-c unchanged"
+}

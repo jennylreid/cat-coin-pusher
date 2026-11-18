@@ -1,0 +1,110 @@
+[
+  {
+    "id": "hat",
+    "option": "a",
+    "source": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\tickets\\CP-69-evidence\\hat-c.png",
+    "placement": [
+      467.88,
+      0,
+      600.24,
+      397.6
+    ],
+    "bounds": {
+      "x": 468,
+      "y": 0,
+      "w": 600,
+      "h": 398,
+      "transparent": 1392050
+    }
+  },
+  {
+    "id": "bowtie",
+    "option": "a",
+    "source": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\tickets\\CP-69-evidence\\round2\\masters\\bowtie-black.png",
+    "placement": [
+      495,
+      759.9194865810969,
+      546,
+      264.08051341890314
+    ],
+    "bounds": {
+      "x": 495,
+      "y": 760,
+      "w": 546,
+      "h": 264,
+      "transparent": 1472695
+    }
+  },
+  {
+    "id": "cane",
+    "option": "a",
+    "source": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\tickets\\CP-69-evidence\\round2\\masters\\cane-a.png",
+    "placement": [
+      262,
+      330,
+      922,
+      175.081914893617
+    ],
+    "bounds": {
+      "x": 262,
+      "y": 330,
+      "w": 922,
+      "h": 175,
+      "transparent": 1485700
+    }
+  },
+  {
+    "id": "hat",
+    "option": "b",
+    "source": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\tickets\\CP-69-evidence\\hat-c.png",
+    "placement": [
+      423.6,
+      0,
+      688.8,
+      426
+    ],
+    "bounds": {
+      "x": 423,
+      "y": 0,
+      "w": 690,
+      "h": 426,
+      "transparent": 1350655
+    }
+  },
+  {
+    "id": "bowtie",
+    "option": "b",
+    "source": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\tickets\\CP-69-evidence\\round2\\masters\\bowtie-black.png",
+    "placement": [
+      442.5,
+      709.1347724620771,
+      651,
+      314.865227537923
+    ],
+    "bounds": {
+      "x": 442,
+      "y": 709,
+      "w": 651,
+      "h": 315,
+      "transparent": 1430449
+    }
+  },
+  {
+    "id": "cane",
+    "option": "b",
+    "source": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\tickets\\CP-69-evidence\\round2\\masters\\cane-b.png",
+    "placement": [
+      262,
+      330,
+      922,
+      127.49917194349732
+    ],
+    "bounds": {
+      "x": 262,
+      "y": 330,
+      "w": 922,
+      "h": 128,
+      "transparent": 1491247
+    }
+  }
+]
