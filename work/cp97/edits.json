@@ -1,0 +1,24 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp96\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.18 UAT 96';",
+   "const BUILD = '2026.11.18 UAT 97';"
+  ],
+  [
+   "drawArmrests();drawTongue();",
+   "cp78Rim();drawTongue(); /* CP-78: no armrests; solid board rim */"
+  ],
+  [
+   "ctx.clip(__cachedBoardPath());ctx.drawImage(ART.table,0,__WARP_Y0,400,__WARP_Y1-__WARP_Y0);ctx.restore();",
+   "ctx.clip(__cachedBoardPath());if(!__cp78TableDone)cp78CleanTable();ctx.drawImage(ART.table,0,__WARP_Y0,400,__WARP_Y1-__WARP_Y0);ctx.restore();"
+  ],
+  [
+   "const restBlend=restPoseBlend();if(restBlend>0){ctx.save();ctx.globalAlpha=restBlend;const g=ctx.createLinearGradient(0,199,0,219);g.addColorStop(0,'#bd7b20');g.addColorStop(.5,'#ffc856');g.addColorStop(1,'#b8791c');ctx.fillStyle=g;ctx.fillRect(76,199,248,20);ctx.restore();}",
+   "/* CP-78: no rest-pose gold rail backing */"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp78-rim.js"
+ ]
+}

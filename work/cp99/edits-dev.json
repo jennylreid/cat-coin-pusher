@@ -1,0 +1,12 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp96\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.18 UAT 96';",
+   "const BUILD = '2026.11.18 UAT 99 (dev on UAT 96)';"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp79-yawn.js"
+ ]
+}

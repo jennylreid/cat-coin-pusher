@@ -1,7 +1,8 @@
 // CP-79 Step 1 clips: the real game's wheel Yawn (work/cp95/release.html = published UAT 95, Tuxedo board, Level 1,
 // Developer off) at 412x915, 30 fps, from 0.5 s before the Yawn until the yawn part is over (Yawn t = 2.6 s), then the
 // audio for each version laid in at the moment the game plays its yawn sound (cp58StartYawn -> sfx.wild2('yawn')).
-// One mp4 per version: tickets/CP-79-evidence/yawn-sound-{A,B,C,today}.mp4. Usage: node clips.cjs
+// One mp4 per version: tickets/CP-79-evidence/yawn-sound-<v>.mp4. Usage: node clips.cjs [A,B,C,today] [info-suffix]
+// (Step 1b: node clips.cjs A2,B2,AB,today -1b)
 const make=require('../cp33/runtime.cjs'),path=require('path'),fs=require('fs'),vm=require('vm'),{execFileSync}=require('child_process');
 const NAPI='C:/Users/jenny/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/@napi-rs/canvas';
 const src=path.resolve(__dirname,'../cp95/release.html'),OUT=path.resolve(__dirname,'../../tickets/CP-79-evidence'),FR=path.join(__dirname,'frames');
@@ -26,9 +27,9 @@ const J=(g,x)=>JSON.parse(g.run('JSON.stringify('+x+')'));
  const yawnTick=g.run('__yawnAt'),errs=J(g,'__errs');g.close();
  const offset=(yawnTick-1)/60; // the sound starts on the tick the game plays it (frames are every 2nd tick from tick 1)
  const A=path.join(__dirname,'audio'),info={frames:f,fps:30,yawnSoundAt:+offset.toFixed(3),errs,clips:{}};
- for(const v of ['A','B','C','today']){const o=path.join(OUT,`yawn-sound-${v}.mp4`);
+ const VERS=(process.argv[2]||'A,B,C,today').split(',');for(const v of VERS){const o=path.join(OUT,`yawn-sound-${v}.mp4`);
   execFileSync('ffmpeg',['-v','error','-y','-framerate','30','-i',path.join(FR,'f%04d.png'),'-i',path.join(A,`yawn-sound-${v}.wav`),
    '-filter_complex',`[0:v]pad=412:916:0:0,format=yuv420p[v];[1:a]adelay=${Math.round(offset*1000)}:all=1,apad[a]`,'-map','[v]','-map','[a]','-shortest',
    '-c:v','libx264','-crf','20','-preset','medium','-c:a','aac','-b:a','160k','-movflags','+faststart',o]);info.clips[v]=path.basename(o);}
- fs.writeFileSync(path.join(OUT,'clips-info.json'),JSON.stringify(info,null,1));console.log(JSON.stringify(info));
+ fs.writeFileSync(path.join(OUT,'clips-info'+(process.argv[3]||'')+'.json'),JSON.stringify(info,null,1));console.log(JSON.stringify(info));
 })().catch(e=>{console.error(e);process.exit(1)});

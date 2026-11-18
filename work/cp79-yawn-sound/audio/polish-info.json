@@ -1,0 +1,24 @@
+{
+ "A2": {
+  "from": "originals/A-841188 0.24-1.60 s",
+  "f0_Hz": [
+   366,
+   502
+  ],
+  "semitones": 2,
+  "seconds": 1.207
+ },
+ "B2": {
+  "from": "originals/B-764743 2.85-4.25 s",
+  "f0_Hz": [
+   650,
+   813
+  ],
+  "seconds": 1.045
+ },
+ "AB": {
+  "from": "B 2.85 s + 0.85 s, 0.12 s glide, A from 0.95 s (+5 semitones)",
+  "seconds": 1.525
+ },
+ "note": "all files levelled to the same RMS (-20 dBFS over the sounding part) as yawn-sound-today.wav"
+}

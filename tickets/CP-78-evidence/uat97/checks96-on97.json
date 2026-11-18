@@ -1,0 +1,174 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\ref78-cp95-release.html",
+ "passed": true,
+ "passedN": 5,
+ "failed": [],
+ "notes": {
+  "paths": {
+   "cream": true,
+   "gingerBefore": true,
+   "hangS": 1,
+   "bigS": 0.83,
+   "topGrowUAT94": 1.576,
+   "maxGrow": 2.354,
+   "hangHeight": [
+    37,
+    43
+   ],
+   "topHeightUAT94": 40,
+   "hangPuffVisible": true,
+   "riseVisible": true,
+   "leapLonger": 1,
+   "endSame": true
+  },
+  "play": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "len": [
+     8.42,
+     8.25
+    ],
+    "kitsDone": [
+     true,
+     false
+    ],
+    "carried": [
+     "egg",
+     "rain5",
+     "coin",
+     "rain5"
+    ],
+    "paid": [
+     "egg",
+     "rain5",
+     "coin",
+     "rain5"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "len": [
+     8.57,
+     8.25
+    ],
+    "kitsDone": [
+     true,
+     true
+    ],
+    "carried": [
+     "tuna",
+     "rain10"
+    ],
+    "paid": [
+     "tuna",
+     "rain10"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "len": [
+     8.77,
+     8.23
+    ],
+    "kitsDone": [
+     true,
+     false
+    ],
+    "carried": [
+     "tuna",
+     "rain5",
+     "rain5"
+    ],
+    "paid": [
+     "tuna",
+     "rain5",
+     "rain5"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "len": [
+     8.6,
+     8.23
+    ],
+    "kitsDone": [
+     true,
+     true
+    ],
+    "carried": [
+     "silver",
+     "rain10",
+     "rain5",
+     "tuna"
+    ],
+    "paid": [
+     "rain10",
+     "silver",
+     "tuna",
+     "rain5"
+    ],
+    "fails": []
+   }
+  ],
+  "screen": [
+   {
+    "sz": "412x915",
+    "tag": "",
+    "shots": [
+     "1-start",
+     "2-middle",
+     "3-end"
+    ],
+    "box": {
+     "l": 173.8,
+     "r": 360,
+     "t": 465.1,
+     "b": 779.3
+    },
+    "errs": 0
+   },
+   {
+    "sz": "412x915",
+    "tag": "-before",
+    "shots": [
+     "top"
+    ],
+    "box": null,
+    "errs": 0
+   },
+   {
+    "sz": "360x640",
+    "tag": "",
+    "shots": [
+     "1-start",
+     "2-middle",
+     "3-end"
+    ],
+    "box": {
+     "l": 208.4,
+     "r": 394.6,
+     "t": 405.4,
+     "b": 719
+    },
+    "errs": 0
+   },
+   {
+    "sz": "360x640",
+    "tag": "-before",
+    "shots": [
+     "top"
+    ],
+    "box": null,
+    "errs": 0
+   }
+  ]
+ }
+}
