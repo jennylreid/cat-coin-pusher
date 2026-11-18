@@ -1,0 +1,27 @@
+{
+ "A": {
+  "source": "841188-designerschoice-cat-yawn-closeup.mp3",
+  "from": 0.26,
+  "to": 1.64,
+  "seconds": 1.38,
+  "peak_dBFS": -1.0
+ },
+ "B": {
+  "source": "764743-242011vee-cat-yawning-and-meow.mp3",
+  "from": 2.85,
+  "to": 4.25,
+  "seconds": 1.4,
+  "peak_dBFS": -7.4
+ },
+ "C": {
+  "source": "875658-timmysdecals-my-cat-waking-up.mp3",
+  "from": 3.0,
+  "to": 4.6,
+  "seconds": 1.6,
+  "peak_dBFS": -8.7
+ },
+ "today": {
+  "source": "code-made sfx.wild2('yawn') (UAT 95), rendered offline",
+  "seconds": 1.65
+ }
+}

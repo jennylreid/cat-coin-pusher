@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.18 UAT 95';
+const BUILD = '2026.11.18 UAT 96';
 
 
 
@@ -42635,7 +42635,11 @@ function z72Path(k,aim){const z0=Math.max(pusherY,PUSH_MAX)+4,z1=z0+80,zF=T.FRON
    segs.push({k:'flip',d:F.d,f:u=>({x:A.x,z:A.z+(B.z-A.z)*u,h:F.h*Math.sin(u*Math.PI),rot:-2*Math.PI*z72E(u),dir:1,pose:'leap'})});at=B;}});
  run(at,{x:at.x,z:zF});
  segs.push({k:'skid',d:.16,f:u=>({x:at.x,z:zF+4*Math.sin(u*Math.PI/2),h:0,skid:u,dir:1})});
- segs.push({k:'leap',d:.4,f:u=>({x:at.x,z:zF+4+u*60,h:40*Math.sin(Math.min(1,u)*Math.PI*.8),grow:1+u*.9,fade:Math.max(0,1-u),dir:1,pose:'leap',puff:k.id===0?Math.min(1,u/.12):0})}); /* CP-72 add-on: poof */
+ if(k.id===0){const H=Z72.leapHang,L={...H,dx:Math.max(-H.edge,Math.min(H.edge,at.x-200))+200-at.x},o0=L.top,top=o=>({x:at.x,z:zF+4+o*60,h:40*Math.sin(Math.min(1,o)*Math.PI*.8),grow:1+o*.9,dir:1,pose:'leap',puff:Math.min(1,o/.12)}); /* CP-72 rework: the poof hangs */
+  segs.push({k:'leap',d:.4*o0,f:u=>({...top(u*o0),fade:1})});
+  segs.push({k:'leap',d:L.hang,f:u=>{const P=top(o0),e=z72E(u/.18);return {...P,x:P.x+L.dx*e,h:P.h+3*Math.sin(u*Math.PI*4),grow:P.grow*(1+(L.big-1)*e),fade:1};}});
+  segs.push({k:'leap',d:.4*(1-o0),f:u=>{const P=top(o0+u*(1-o0)),e=1-z72E(u/.6);return {...P,x:P.x+L.dx*e,grow:P.grow*(1+(L.big-1)*e),fade:Math.max(0,1-u)};}});}
+ else segs.push({k:'leap',d:.4,f:u=>({x:at.x,z:zF+4+u*60,h:40*Math.sin(Math.min(1,u)*Math.PI*.8),grow:1+u*.9,fade:Math.max(0,1-u),dir:1,pose:'leap',puff:0})});
  let t=0;for(const g of segs){g.t0=t;t+=g.d;}k.segs=segs;k.len=t;}
 function z72KitPos(k,u){const segs=k.segs;let g=segs[segs.length-1];for(const s of segs)if(u<s.t0+s.d){g=s;break;}
  const f=Math.max(0,Math.min(1,(u-g.t0)/g.d)),P=g.f(f);P.seg=g.k;P.si=segs.indexOf(g);P.ground=!!g.ground;P.u=f;if(u>=k.len)P.done=true;return P;}
@@ -42850,6 +42854,24 @@ const __cp75Face=cp58Face;
 cp58Face=function(){const A=CP75_ART[CP75_CAT];if(!A||!A.face||!A.eyes)return __cp75Face();
  const f=CP58_RUNWAY,e=CP58_RUNWAY_EYES;CP58_RUNWAY=A.face;CP58_RUNWAY_EYES=A.eyes;
  try{return __cp75Face();}finally{CP58_RUNWAY=f;CP58_RUNWAY_EYES=e;}};
+
+// ---------- CP-72 rework of the poof (UAT 96; Jenny, Nov 18: "the puffed kitten hangs about 1 s at the top of its final
+// leap, about 1.5x bigger during the hang"; before: "I wanted to hold a second longer so I can actually see it. Or maybe it
+// should be bigger... I can't see it very well.") ----------
+// Only the ginger kitten's final leap: it rises as before, hangs puffed at the top for 1 s (a small hover), growing to 1.5x
+// its size there, then finishes the leap as before, shrinking back. It stays fully visible until the hang ends (before, it
+// was already fading on the way up) and fades over the rest of the leap. Path, moves and the cream kitten unchanged. The
+// double-speed pusher still stops at 7 s of Zoomies (the hang can end after it; the power ends when the kitten has gone).
+Z72.leapHang={top:.625,hang:1,big:1.5,edge:90}; // top: the part of the old leap at its highest point; hang (s); size during the hang;
+// edge: while it is big, a kitten leaping near a side eases in to within this distance of the middle (table units), so it stays
+// on the screen; it eases back as it shrinks and lands where it did before
+// The power waits for both kittens to finish (as CP-72 meant, up to 2 s past its 7 s): the game's general power clock
+// ended it at exactly 7 s, which would cut the ginger kitten off in mid-hang when its leap ends after that. The pusher's
+// double speed still stops at 7 s of Zoomies; only the power (and its locked button) runs on until the kitten has gone.
+const __cp72hTick=pgpTick;pgpTick=function(dt){const X=PGPX;
+ if(X&&X.id==='zoomies72'&&Z72X&&X.t+dt>=X.dur&&X.t+dt<Z72T.lead+Z72.dur+2&&!Z72X.kits.every(k=>k.gone))X.dur=X.t+dt+1e-4;
+ return __cp72hTick(dt);};
+// ---------- end CP-72 rework ----------
 
 </script>
 

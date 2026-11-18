@@ -1,0 +1,65 @@
+// UAT 94 checks (CP-72 add-ons, Jenny Nov 18: Zoomies' title first, then the animation with no words over it; one kitten
+// poofs in the final leap). Usage: node checks94.cjs -> tickets/CP-72-evidence/uat94/checks94-on96.json + stills zoomies-*.png
+const fs=require('fs'),path=require('path'),crypto=require('crypto'),vm=require('vm');
+const make=require('../cp72/runtime.cjs'),make33=require('../cp33/runtime.cjs');
+const NAPI='C:/Users/jenny/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/@napi-rs/canvas';
+const src=path.resolve(__dirname,'release.html'),base=path.resolve(__dirname,'../cp93/release.html'),out=path.resolve(__dirname,'../../tickets/CP-72-evidence/uat96');fs.mkdirSync(out,{recursive:true});
+const root=path.resolve(__dirname,'../..'),sha=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
+const prodJ=path.join(root,'phone/CatCoinPusher-game.json'),uatJ=path.join(root,'uat/CatCoinPusher-UAT-game.json'),prod0=sha(prodJ),uat0=sha(uatJ);
+let passed=[],failed=[],notes={};function check(n,b,info){(b?passed:failed).push(n);console.log((b?'PASS ':'FAIL ')+n+(info!==undefined?' '+JSON.stringify(info).slice(0,1500):''));}
+const J=(g,s)=>JSON.parse(g.run('JSON.stringify('+s+')'));
+const LEAD=1.25,TAP="(()=>{const b=pgpButton();return powerTap({x:b.x+b.w/2,y:b.y+b.h/2});})()";
+// spies: words drawn (wildText, the callout queue moving), the title's random draws, pops, the turbo rev
+const SPY="globalThis.__wt=[];{const w=wildText;wildText=function(t,...a){if(PGPX&&PGPX.id==='zoomies72'&&!/^Level [0-9]/.test(String(t)))__wt.push([+PGPX.t.toFixed(2),String(t)]);return w.call(this,t,...a);};}"+
+ "globalThis.__draws=0;{const r=Math.random;Math.random=function(){{const st=new Error().stack;if(/cp73Draws|at callout /.test(st)&&/pgpUse/.test(st))__draws++;}return r.apply(this,arguments)};}"+
+ "globalThis.__bam=0;{const b=sfx.bam;sfx.bam=function(){__bam++;return b.apply(this,arguments)};}"+
+ "globalThis.__rev=[];{const w=sfx.wild;sfx.wild=function(k,...a){if(k==='turbo')__rev.push(PGPX?+PGPX.t.toFixed(2):-1);return w.call(this,k,...a)};}";
+async function midRound(file,{seed,level=3,secs=10,fps=60,render=false,w=400,h=889,pr=1}){
+ const g=render?await make33({sourceFile:file,render:true,seed,pixelRatio:pr,width:w,height:h,storage:{'catpusher.uat.devdefault.v1':'1'}}):await make({sourceFile:file,render:false,width:w,height:h,pixelRatio:1,seed,storage:{'catpusher.uat.devdefault.v1':'1'}});
+ if(render)g.c.Path2D=require(NAPI).Path2D;
+ let ms=100000;g.c.performance={now:()=>ms,timeOrigin:0};const t=g.tick.bind(g);g.run=s=>vm.runInContext(s,g.c);
+ g.tick=()=>{ms+=1000/60;t();};g.tick30=()=>{ms+=1000/30;g.run('step();step();update(1/30);');};const tk=fps===60?g.tick:g.tick30;
+ g.run("S.dev=false;S.muted=true;globalThis.__errs=[];const __fe=frameError;frameError=e=>{__errs.push(String(e&&e.stack||e).slice(0,300));return __fe(e)}");
+ const sc=()=>+g.run('scale'),tap=(x,y)=>{g.pointer('pointerdown',x*sc(),y*sc());g.pointer('pointerup',x*sc(),y*sc());};
+ for(let i=0;i<150;i++)g.tick();tap(200,700);for(let i=0;i<30;i++)g.tick();
+ g.run(`if(!PG)pgInit();for(const c of PG_CATS)PG.open[c]=true;PG.lv.passed=Math.max(${level-1},PG_SWITCH_LEVEL);PG.lv.sel=${level};if(PGU.screen==='title'){PGU.title.t=9;pgTitleDone();}pgPlay('orange');if(WILD.phase==='end')wildReset();wildStartCountdown();`);
+ let k=0;while(g.run("WILD.phase")!=='play'&&k++<900)g.tick();
+ const per=Math.round(fps/2);for(let k=0;k<secs*fps;k++){if(k%per===0)tap(200+110*Math.sin(k/fps*1.2+seed),560);tk();}
+ g.run("WILD.left=Math.max(WILD.left,60);WILD.nextBonus=999;PG.powers=PG.powers||{};PG.powers.orange=2;"+SPY);return {g,tk};}
+(async()=>{
+ // 0. the build
+ {const S=fs.readFileSync(src,'utf8');let B=fs.readFileSync(path.resolve(__dirname,'../cp95/release.html'),'utf8');let m=[1];if(require('crypto').createHash('sha256').update(B).digest('hex')!=='a522d3c21735550eaa1e779165fc75529ca1edcf69c4b69ef9b876837e51d209')m=[];const E=JSON.parse(fs.readFileSync(path.join(__dirname,'edits.json'),'utf8'));for(const [a,b] of E.edits){if(B.split(a).length!==2)m=[];B=B.split(a).join(b);}const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,'cp72-hang.js'),'utf8')+String.fromCharCode(10)+B.slice(i);
+  check('0 the build is published UAT 95 + build name + the CP-72 hang edit and block (everything else of UAT 95 unchanged)',S===B&&m.length===1);}
+ // 1. timeline against UAT 93 (2 seeds x 60/30 fps, Level 3): the title alone first, Zoomies after it, nothing over it
+ {const rows=[];let ok=true;for(const fps of [60,30])for(const seed of [1,2]){const row={fps,seed};
+   for(const [tag,file] of [['a',src],['b',base]]){const {g,tk}=await midRound(file,{seed,fps});g.run(TAP);
+    const r={title:null,started:null,zoomT0:null,len:0,kits:0,callMoves:[],heldAfter:0};let qPrev=null,end=0;
+    for(let i=0;i<Math.round(11*fps)&&g.run('!!(PGPX&&PGPX.id==="zoomies72")');i++){tk();const s=J(g,"({p:PGPX?PGPX.t:-1,big:typeof z72BigT==='function'?z72BigT():-1,z:Z72X?Z72X.t:-1,k:Z72X?Z72X.kits.length:0,q:callouts.length?{w:callouts[0].word,t:callouts[0].t}:null})");
+     if(s.big>=0)r.title=r.title?{from:r.title.from,to:+s.p.toFixed(2)}:{from:+s.p.toFixed(2),to:+s.p.toFixed(2)};
+     if(s.z>=0&&r.started==null)r.started=+s.p.toFixed(2);if(s.z>=0&&r.zoomT0==null)r.zoomT0=+(s.p-s.z).toFixed(3);r.kits=Math.max(r.kits,s.k);if(s.p>=0)r.len=+s.p.toFixed(2);
+     if(s.q&&qPrev&&s.q.w===qPrev.w&&s.q.t>qPrev.t)r.callMoves.push([+s.p.toFixed(2),s.q.w]);qPrev=s.q;}
+    r.words=J(g,'__wt');r.draws=+g.run('__draws');r.bam=+g.run('__bam');r.rev=J(g,'__rev');r.used=2-+g.run('pgpCount()');r.errs=J(g,'__errs').length;r.clean=g.run("!Z72X&&!PGPX&&(typeof Z72W==='undefined'||!Z72W)");row[tag]=r;g.close();}
+   const a=row.a,b=row.b;
+   const C={title:!!(a.title&&a.title.from<.05&&a.title.to>=1.1&&a.title.to<LEAD),wait:a.started>=LEAD&&a.started<LEAD+.05&&Math.abs(a.zoomT0-LEAD)<.02,rev:a.rev.length===1&&a.rev[0]>=LEAD,
+    kits:a.kits===2&&b.kits===2,len:a.len>=b.len+LEAD-.1&&a.len<=b.len+LEAD+1.05,noCallouts:!a.callMoves.length,
+    draws:a.draws===b.draws,pop:a.bam>=1,used:a.used===1,clean:a.clean,errs:!a.errs&&!b.errs};
+   row.fails=Object.keys(C).filter(k=>!C[k]);if(row.fails.length)ok=false;rows.push(row);console.log(JSON.stringify(row));}
+  notes.timeline=rows;check('1 Zoomies (2 seeds x 60/30 fps, against UAT 93): the big ZOOMIES! shows alone from the tap for 1.2 s; Zoomies (turbo rev, double-speed pusher, kittens) starts at 1.25 s on its own clock; 2 kittens; the power lasts 1.25 s longer; while it plays no other callout moves (words drawn: check 2); the title makes the same random draws as the old callout; one charge; clean after',ok,rows.map(r=>[r.fps,r.seed,r.a.title,r.a.started,r.a.len+'/'+r.b.len,r.fails]));}
+ // 2. on screen at 412x915 and 360x640: stills of the title alone, kittens running with no words, the poofed leap;
+ // the first kitten's final leap is puffed (fur out), the second's is not
+ {const rows=[];let ok=true;for(const [w,h] of [[412,915],[360,640]]){const sz=w+'x'+h,{g,tk}=await midRound(src,{seed:7,w,h,pr:2,render:true});
+   const shot=n=>{g.c.draw();fs.writeFileSync(path.join(out,`zoomies-${n}-${sz}.png`),g.c.document.getElementById('cv').toBuffer('image/png'));};
+   g.run(TAP);const row={sz,leap:{},shots:[],titleKits:0};const at={'1-title':.5,'2-kittens':LEAD+1.6,'3-kittens':LEAD+3.6};const taken=new Set();
+   for(let i=0;i<12*60&&g.run('!!(PGPX&&PGPX.id==="zoomies72")');i++){tk();const p=+g.run('PGPX?PGPX.t:-1');if(p<0)break;
+    for(const [n,v] of Object.entries(at))if(!taken.has(n)&&p>=v){taken.add(n);shot(n);row.shots.push(n);}
+    if(p<1.2&&g.run('!!Z72X'))row.titleKits++;
+    const L=J(g,"Z72X?Z72X.kits.filter(k=>k.P&&!k.gone&&k.P.seg==='leap').map(k=>({id:k.id,u:k.P.u,puff:k.P.puff||0})):[]");
+    for(const k of L){const r=row.leap[k.id]=row.leap[k.id]||{minPuffAfter:9,maxPuff:0};if(k.u>=.25)r.minPuffAfter=Math.min(r.minPuffAfter,k.puff);r.maxPuff=Math.max(r.maxPuff,k.puff);
+     if(k.id===0&&k.u>=.35&&!taken.has('4-poof-leap')){taken.add('4-poof-leap');shot('4-poof-leap');row.shots.push('4-poof-leap');}}}
+   row.words=J(g,'__wt');row.errs=J(g,'__errs').length;rows.push(row);console.log(JSON.stringify(row));
+   if(!(row.shots.length===4&&!row.titleKits&&!row.words.length&&!row.errs&&row.leap[0]&&row.leap[0].minPuffAfter>.99&&row.leap[1]&&row.leap[1].maxPuff===0))ok=false;g.close();}
+  notes.screen=rows;check('2 at 412x915 and 360x640: no kitten during the title, no words drawn during Zoomies (the level name above the cat, "Level 3 · At the back", is not over the board and stays); the first (ginger) kitten is puffed (fur straight out) through its final leap, the second leaps as before; stills of the title, kittens running and the poofed leap',ok,rows);}
+ // 3 (leap identical to UAT 93 apart from the puff) replaced by checks96 check 1: the hang changes that leap on purpose
+ check('4 production and the UAT channel untouched',sha(prodJ)===prod0&&sha(uatJ)===uat0);
+ fs.writeFileSync(path.join(out,'checks94-on96.json'),JSON.stringify({build:src,base,passed:failed.length===0,passedN:passed.length,failed,notes},null,1));if(failed.length)process.exitCode=1;
+})().catch(e=>{console.error(e);process.exit(1)});

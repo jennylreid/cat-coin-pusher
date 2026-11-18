@@ -1,0 +1,24 @@
+﻿{
+    "version":  20261118000007,
+    "displayName":  "2026.11.18 UAT 96",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "129ab65b622ce0edd37d566aaec007483ce6b75fe0fe24020f2bfb70c893beb0",
+    "stagedJSONSHA256":  "5adc251abe41c1750dc98e3ceeb12400842d7a56d15451baf090adee9ec1cc31",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "074e79157437c99d3ac78316421c22431c658bb526513d9ebf3ed3e0d02fa243",
+    "jsonBytes":  57559454,
+    "runtimeFiles":  78,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.18 UAT 95",
+    "backup":  "uat/backups/before-UAT96-20261118000007",
+    "evidence":  "tickets/CP-72-evidence/uat96",
+    "authorization":  "UAT 96: CP-72 rework of the poof (Jenny, Nov 18: \"CP-72 UAT 94: 1 pass, 2 pass, 4 pass; 3 rework: the puffed kitten hangs about 1 s at the top of its final leap, about 1.5x bigger during the hang. Next UAT.\"); UAT only",
+    "localPublication":  "verified"
+}
