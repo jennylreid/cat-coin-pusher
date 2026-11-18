@@ -1,0 +1,18 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp100\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp98\\release.html",
+ "passed": true,
+ "passedN": 3,
+ "failed": [],
+ "notes": {
+  "frames": {
+   "compared": 94,
+   "zoomies": 75,
+   "zoomiesFramesWithStreaks": 70,
+   "lengths": [
+    94,
+    94
+   ]
+  }
+ }
+}

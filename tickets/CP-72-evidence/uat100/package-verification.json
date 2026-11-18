@@ -1,0 +1,36 @@
+{
+  "version": 20261118000011,
+  "displayName": "2026.11.18 UAT 100",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "a73da3064d1cf0f5ea7cad4f27bf77315ac6242c5f1dc90d16904a416b9ab6e8",
+  "stagedJSONSHA256": "8ec47bd7c7f8253c1fb0da082282ce1bab1f461e291e92fd17162fb2c76252f3",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "57f3dad50eb6ef644183f27db5056bda96a3ac9f395e8a4249d3edf14c0d4618",
+  "jsonBytes": 58219683,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.18 UAT 99",
+  "backup": "uat/backups/before-UAT100-20261118000011",
+  "evidence": "tickets/CP-72-evidence/uat100",
+  "checks": [
+    "checks100.json",
+    "checks64-on100.json",
+    "checks71-on100.json",
+    "checks72-on100.json",
+    "checks72s-on100.json",
+    "checks72z-on100.json",
+    "checks75-on100.json",
+    "checks79-on100.json",
+    "checks80-on100.json",
+    "checks92-on100.json",
+    "checks93-on100.json",
+    "checks94-on100.json",
+    "checks97-on100.json"
+  ],
+  "authorization": "UAT 100: CP-72 shorter close-up (Jenny, Nov 18, via PM: \"can you shorten the up close pause and if that doesn't work we'll revert to your earlier version, prior to my close-up request.\"; PM: hold about 0.4 s, plus a 'Zoomies ending' Developer choice Short close-up / Hang); UAT only"
+}

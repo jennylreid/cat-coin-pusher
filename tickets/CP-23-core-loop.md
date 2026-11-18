@@ -125,3 +125,30 @@ level ladder and Up Next unlocks.
   Dance break. The wheel (Yawn, Jackpot) only comes after a perfect Dance break, so Siamese players never get the wheel.
   This grew piece by piece, not by design. Decide in the plan: does every cat get the Dance break plus its own side
   game, or does the side game replace it, and how is the wheel earned on each board?
+  Jenny, Nov 18: Siamese replacing the Dance break "just makes no sense"; and "Tuxedo only has dance break. That's
+  crazy." PM: the Tuxedo was the first cat, so the Dance break was its side game. In the plan: make the Dance break shared
+  by every cat, and give the Tuxedo a side game of its own that suits its formal character.
+  Jenny, Nov 18: "Maybe Tuxedo's side game is dance break, and all these other cats shouldn't have it." PM: clean if the
+  wheel rule becomes "a perfect side game, whichever it is, earns the wheel spin" (one cat, one side game; fixes the
+  Siamese too; "more dances" becomes the Tuxedo's). Cost: the Dance break, Jenny's favourite, only on the Tuxedo's board.
+  Options to decide: (a) every cat: Dance break + own side game; (b) one side game per cat, Dance break = Tuxedo's, any
+  perfect side game earns the wheel. CP-81 (Siamese gets the Dance break back) is on hold until this is decided.
+  **Jenny's direction, Nov 18:** "perfect side game earns a wheel spin makes sense. The problem is the other games are not
+  winnable... it's not really possible to win perfectly. I think our goal should be to make every side game as satisfying
+  and delightful as Dance Break, rather than trying to make Dance Break appear everywhere." So option (b): one side game
+  per cat (Dance break = Tuxedo's); every side game gets a clear, reachable "perfect" and is polished to the Dance break's
+  bar; a perfect side game earns the wheel. Order: rework the other side games first, then take the Dance break off the
+  other cats, so no cat loses the wheel in between. CP-81 is replaced by this.
+  **Decided, Jenny, Nov 18: option A.** "Side games: option A. Every cat has the Dance break plus its own side game. Put
+  the Dance break back on the Siamese (next UAT); the Tuxedo gets a new side game later (gameplay plan)." Her reason:
+  the cats' own side games win prizes as you play; the Dance break wins nothing until the end (a perfect one earns the
+  wheel). So each board has one steady-reward game and one skill game for the wheel. The goal of making every side game
+  as delightful as the Dance break still stands. CP-81 brings the Dance break back to the Siamese. Still open for the
+  plan: the Tuxedo's own side game.
+  **Correction and final word, Nov 18.** The CP-81 engineer found that only the Tuxedo has the Dance break today (the
+  PM had wrongly said all but the Siamese), so only the Tuxedo ever reaches the wheel. Jenny: "We should keep all these
+  separate. You know, we can keep the yawn art on hand. We might need it for something else. Certainly the eyes will need
+  at some point." So: one side game per cat (Tuxedo = Dance break, Orange = Treat toss, Ragdoll = Pet the cat, Siamese =
+  Laser chase, Tortie = Mouse pounce), plus one power each. CP-81 not doing. Open for the plan: how the other four cats
+  reach the wheel (e.g. a perfect side game, once each is winnable), and making each side game as good as the Dance break.
+  The per-cat Yawn art stays in the game for later use.
