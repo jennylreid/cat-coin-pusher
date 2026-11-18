@@ -72,3 +72,23 @@ Busy boards with lots of prizes and coins also strain the phone.
 3. **Recipes:** start with the four visitors' recipes (3 of their favourite plus 2 others each)? My pick: yes.
 4. **Losing a level:** with no timer, a level ends when you choose to stop or you run out of coins. Keep the prizes you
    won either way? My pick: yes, you always keep prizes.
+
+## Jenny's input after the draft (Nov 17)
+- **Cooking takes time** (from Family Island): "a timer on the cat food so that it takes time to make it." There, you
+  make items in buildings, and upgrading a building lets you make more or make them faster. "I think we should follow
+  that format for making recipes, and we'll have to have a way of grouping them... more of a variety to choose from."
+  PM: this fits the loop. Recipes cook over real time in kitchen stations (e.g. stove, oven, fish grill), each holding a
+  group of recipes. Upgrades (more slots, faster cooking) are a natural thing to spend Catnip on. Watch that the cooking
+  timers and the coin-wallet refill together don't feel like too much waiting.
+- Jenny: today's cooking "just wasn't fun at all... there's no payoff... why am I dragging all these things in if it's
+  just going to be done? I think there needs to be time to wait, and then that's your investment of time that you come
+  back and see that it's fully cooked. And maybe some recipes have to... go in an oven."
+
+## Genre and tagline (Jenny: "save that for later", Nov 17)
+Store category Casual. Genre line "a cozy coin pusher". Tagline "Push coins. Cook treats. Collect cats." Other options:
+"Coin pusher meets cat café".
+
+## Difficulty ramp (Jenny, Nov 17)
+A side game straight after a Jackpot "will not be too much... for the really high-level player... it'd be totally
+fun. But it's way too much for a beginner." PM: back-to-back events unlock with level. Early levels keep big moments
+apart; later levels allow them to chain.

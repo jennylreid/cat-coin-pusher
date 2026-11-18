@@ -1,0 +1,16 @@
+PASS 0 the three CP-59 lines are in the build
+PASS 1 the cascade repro ends with the win, no bonus drops during the break, no frame errors (same as UAT 89) {"held":true,"secs":27.5,"phase":"end","status":"won","win":true,"bonusDrops":0,"left0":46.00000000000023,"left":46.00000000000023,"dance":null,"pieces":77,"errs":[]}
+PASS 2 perfect dance (wheel): identical to UAT 89 tick by tick (ends at tick 1398, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1398,"endP":1398,"wheel":[3,3]}
+PASS 2 half the beats: identical to UAT 89 tick by tick (ends at tick 792, stages count/ > dance/ > finale/total > finale/pour > finale/done > -) {"endU":792,"endP":792,"wheel":[null,null]}
+PASS 2 no taps: identical to UAT 89 tick by tick (ends at tick 710, stages count/ > dance/ > finale/total > finale/done > -) {"endU":710,"endP":710,"wheel":[null,null]}
+PASS 2 perfect dance, seed 9: identical to UAT 89 tick by tick (ends at tick 1389, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1389,"endP":1389,"wheel":[4,4]}
+PASS 2 wheel lands on QUAKE COIN (slice 0): identical to UAT 89 tick by tick (ends at tick 1398, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1398,"endP":1398,"wheel":[0,0]}
+PASS 2 wheel lands on DANCE AGAIN (slice 1): identical to UAT 89 tick by tick (ends at tick 2791, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":2791,"endP":2791,"wheel":[1,1]}
+PASS 2 wheel lands on YAWN (slice 2): identical to UAT 89 tick by tick (ends at tick 1654, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/yawn > finale/done > -) {"endU":1654,"endP":1654,"wheel":[2,2]}
+PASS 2 wheel lands on PRIZE YOU NEED (slice 3): identical to UAT 89 tick by tick (ends at tick 1398, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1398,"endP":1398,"wheel":[3,3]}
+PASS 2 wheel lands on PRIZE YOU NEED (slice 4): identical to UAT 89 tick by tick (ends at tick 1398, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1398,"endP":1398,"wheel":[4,4]}
+PASS 2 wheel lands on JACKPOT (slice 5): identical to UAT 89 tick by tick (ends at tick 1433, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1433,"endP":1433,"wheel":[5,5]}
+PASS 2 wheel lands on YAWN (slice 6): identical to UAT 89 tick by tick (ends at tick 1654, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/yawn > finale/done > -) {"endU":1654,"endP":1654,"wheel":[6,6]}
+PASS 3 seven simultaneous pickups: identical frame trace and sound calls to UAT 89
+PASS 4 production untouched
+exit 0

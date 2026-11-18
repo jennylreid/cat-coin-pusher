@@ -1,0 +1,20 @@
+PASS 1.0 the Pause button opens the pop-up with Developer off (RESUME / END ROUND), and the round resumes true
+PASS 1.1 Settings with Developer off: only Check for updates (in the app), Sound effects and the Developer switch (off); no test panel, previews, dials, log buttons or "UAT" {"found":[],"buttons":["Close","Sound effects: off","Developer mode: off"]}
+PASS 1.2 the same Settings with Developer on still has the test tools (Test this build, previews, dials)
+PASS 1.3 no MODES button on any screen with Developer off (title, Home, Kitchen, Porch, Album, Shop, cat picker, round, Pause, end card) {"title":{"sameAsDevOn":true,"screen":"title","modesButton":false},"main":{"sameAsDevOn":false,"screen":"main","modesButton":false},"main-all-buttons":{"sameAsDevO
+PASS 1.4 sanity: with Developer on the MODES button does appear on the main screen
+PASS 1.5 fresh install: Developer off after the title and the first screen; no UAT keys and no devdefault or diagnostics key saved {"dev":false,"keys":["catpusher.progress.v1","catpusher.loop.v1"]}
+PASS 1.6 a played round with Developer off writes no performance log (catpusher.diagnostics.v1) and keeps the production keys ["catpusher.progress.v1","catpusher.loop.v1"]
+PASS 1.7 footer/label reads the production release name, no "UAT" "2026.11.17"
+PASS 1.8 no frame errors (Developer off and on runs) {"off":[],"on":[]}
+PASS 2.1 Oct 31 save: coins carry over; treats carry over up to the cap of 9 (extra cheese turns into coins once) {"before":{"coins":201,"got":{"cheese":14,"shrimp":3,"tuna":0},"muted":true,"board":0},"after":{"coins":276,"items":{"cheese":9,"shrimp":3,"tuna":0},"migrated":{"coins":201,"extra":75,"a
+PASS 2.2 progression starts at Level 1 (no levels passed); Developer off; sound setting kept (muted stays muted) {"coins":276,"items":{"cheese":9,"shrimp":3,"tuna":0},"migrated":{"coins":201,"extra":75,"at":"2026-10-10T16:00:00.016Z"},"level":0,"sel":1,"dev":false,"muted":true,"screen":"main","cap":
+PASS 2.3 the upgraded save plays: Level 1 round starts, no frame errors []
+PASS 2.4 reopening keeps the new save (no second migration, coins and treats the same) {"coins":276,"items":{"cheese":9,"shrimp":3,"tuna":0}}
+PASS 2.5 production never reads or writes UAT keys ["catpusher.audio.v1","catpusher.loop.v1","catpusher.pickup.v1","catpusher.progress.v1"]
+PASS 2.6 2026.11.16.2 save: level progress and stars, coins, Catnip, pantry (treats, recipes, dishes), Album (photos, stamps), cats and rounds carry over unchanged; no re-migration {"before":{"coins":1234,"catnip":7,"lv":{"passed":4,"sel":5,"stars":{"1":3,"2":2,"3":1,"4":2}},"items":{"cheese":4,"shr
+PASS 2.7 other saved settings carry over (sound, pantry key, music byte for byte; old-board coins/treats), Developer off, sound stays muted {"catpusher.audio.v1":true,"catpusher.pantry.v1":true,"catpusher.music.v2":true,"catpusher.loop.v1 (player fields, as the 2026.11.16.2 game reopens it)":true}
+PASS 2.8 the 2026.11.16.2 save plays Level 5, no frame errors, no UAT keys {"sel":5,"errs":[]}
+PASS 3.1 same scripted rounds (Levels 1, 4, 6) end with identical boards in this build and UAT 89 [{"level":1,"seed":3,"pieces":80,"equal":true},{"level":4,"seed":5,"pieces":93,"equal":true},{"level":6,"seed":9,"pieces":92,"equal":true}]
+ALL PASSED
+exit 0

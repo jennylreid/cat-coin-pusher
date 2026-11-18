@@ -1,0 +1,955 @@
+2426c2426
+< const BUILD = '2026.11.16 UAT 70';
+---
+> const BUILD = '2026.11.17 UAT 89';
+7332c7332,7340
+<     _pgT(){return ac.currentTime;},_pgBell(t,f,v,d){bell(t,f,v,d);},_pgSteel(t,v,p,st){steelAt(t,v,p,st);},
+---
+>     // CP-57: play a decoded buffer delay s ahead on the effects master
+>     _playBufAt(b,v,delay=0,r=1){if(!this._w2ok()||!b||!(v>0))return false;const s=ac.createBufferSource(),g=ac.createGain();s.buffer=b;s.playbackRate.value=r;g.gain.value=v;s.connect(g);g.connect(master);s.start(ac.currentTime+Math.max(0,de
+>     // CP-57: the Dance break music bus: x DANCE_MUSIC_GAIN (+10 dB), then the UAT 43 soft limiter (x0.4 -> curve straight up to 0.5,
+>     // rounding off towards 0.65 -> x2.5) into the effects master, so the louder beat can't clip
+>     _dBus(){if(!this.__dbus){const g=ac.createGain(),pre=ac.createGain(),sh=ac.createWaveShaper(),post=ac.createGain(),n=1025,c=new Float32Array(n);
+>       for(let i=0;i<n;i++){const u=i/(n-1)*2-1,a=Math.abs(u);c[i]=Math.sign(u)*(a<=.5?a:.5+.15*Math.tanh((a-.5)/.15));}
+>       sh.curve=c;g.gain.value=DANCE_MUSIC_GAIN;pre.gain.value=.4;post.gain.value=2.5;g.connect(pre);pre.connect(sh);sh.connect(post);post.connect(master);this.__dbus=g;}return this.__dbus;},
+>     danceLoud(kind,vol=1,delay=0,arg=0){if(inBackground||document.hidden||!ready())return;const m=master,b=this._dBus();master=b;try{this.dance(kind,vol,delay,arg);}finally{master=m;}},
+>     _pgT(){return ac.currentTime;},_pgBell(t,f,v,d){bell(t,f,v,d);},_pgSteel(t,v,p,st){steelAt(t,v,p,st);},_dec(ab,cb){if(!ready())return false;try{const r=ac.decodeAudioData(ab,cb,()=>{});if(r&&r.catch)r.catch(()=>{});}catch(e){return fals
+7401a7410
+> 
+7402a7412
+> 
+7403a7414
+> 
+7404a7416
+> 
+7405a7418
+> 
+7406a7420
+> 
+7407a7422
+> 
+7408a7424
+> 
+7409a7426
+> 
+7410a7428
+> 
+7411a7430
+> 
+7412a7432
+> 
+7413a7434
+> 
+7414a7436
+> 
+7415a7438
+> 
+7416a7440
+> 
+8578a8603,8616
+>  // CP-54: like play(), but returns what happened: 'played', 'cooldown', 'cap', 'unloaded' or 'off' (muted/background).
+>  // realClock (the title): its own cooldown on performance.now(), because game time stands still on the title.
+>  const lastReal={};
+>  function playWhy(name,scale=1,realClock=false){
+>   if(S.muted||inBackground||document.visibilityState!=='visible')return 'off';
+>   const d=definitions[name],list=pools[name];if(!d)return 'unloaded';
+>   const now=realClock?performance.now()/1000:time,L=realClock?lastReal:last;if(now-(L[name]??-Infinity)<d.cooldown)return 'cooldown';
+>   if(!list.some(a=>a._ready||a.readyState>=2))return 'unloaded';
+>   if(Object.values(pools).flat().filter(a=>!a.paused).length>=6)return 'cap';
+>   let a=list.find(a=>a.paused&&(a._ready||a.readyState>=2))||list[(cursor[name]++)%list.length];
+>   if(!(a._ready||a.readyState>=2))return 'unloaded';
+>   a.pause();a.currentTime=0;a.volume=Math.min(1,d.volume*scale*(!realClock&&board.status==='won'?.35:1));L[name]=now;
+>   try{const p=a.play();if(p&&p.catch)p.catch(()=>{a._ready=false;});return 'played';}catch(e){a._ready=false;return 'unloaded';}
+>  }
+8615c8653
+<  return {play,edge,reset,stopAll,duck};
+---
+>  return {play,playWhy,edge,reset,stopAll,duck};
+21018c21056
+<     drawPrize(b.kind, b.id, c.x, c.y, c.s);
+---
+>     cp62DrawPrize(b.kind, b.id, c.x, c.y, c.s,b);
+21366c21404
+<   if (f.kind === 'item' || f.kind === 'power') { drawPrize(f.kind, f.id, f.x, f.y, f.s); return; }
+---
+>   if (f.kind === 'item' || f.kind === 'power') { cp62DrawPrize(f.kind, f.id, f.x, f.y, f.s,f); return; }
+21954a21993,22027
+>  // CP-69: approved accessory overlays, preloaded with the existing art.
+>  WILD_ART['cp69-hat']=await image('img/art/cp69-hat.png');
+>  WILD_ART['cp69-bowtie']=await image('img/art/cp69-bowtie.png');
+>  WILD_ART['cp69-monocle']=await image('img/art/cp69-monocle.png');
+>  WILD_ART['cp69-cane']=await image('img/art/cp69-cane.png');
+> 
+>  // CP-62 follow-up: Jenny added bow ties to random per-prize colours.
+>  CP62_ART.bowtie=CP62_ART.bowtie||[];CP62_ART.bowtie.push(await image('img/art/cp62-bowtie-a.png'));
+>  CP62_ART.bowtie=CP62_ART.bowtie||[];CP62_ART.bowtie.push(await image('img/art/cp62-bowtie-b.png'));
+>  CP62_ART.bowtie=CP62_ART.bowtie||[];CP62_ART.bowtie.push(await image('img/art/cp62-bowtie-c.png'));
+> 
+>  // CP-62: preload approved 128px prize canvases into the existing shared art cache.
+>  WILD_ART['milk']=await image('img/art/cp62-milk.png');WILD_ART['milk'].pgl=1;
+>  WILD_ART['mouse']=await image('img/art/cp62-mouse.png');WILD_ART['mouse'].pgl=1;
+>  WILD_ART['bell']=await image('img/art/cp62-bell.png');WILD_ART['bell'].pgl=1;
+>  WILD_ART['bowtie']=await image('img/art/cp62-bowtie.png');WILD_ART['bowtie'].pgl=1;
+>  WILD_ART['notes']=await image('img/art/cp62-notes.png');WILD_ART['notes'].pgl=1;
+>  WILD_ART['yarn']=await image('img/art/cp62-yarn.png');WILD_ART['yarn'].pgl=1;
+>  CP62_ART['notes']=CP62_ART['notes']||[];CP62_ART['notes'].push(await image('img/art/cp62-notes-a.png'));
+>  CP62_ART['notes']=CP62_ART['notes']||[];CP62_ART['notes'].push(await image('img/art/cp62-notes-b.png'));
+>  CP62_ART['notes']=CP62_ART['notes']||[];CP62_ART['notes'].push(await image('img/art/cp62-notes-c.png'));
+>  CP62_ART['yarn']=CP62_ART['yarn']||[];CP62_ART['yarn'].push(await image('img/art/cp62-yarn-a.png'));
+>  CP62_ART['yarn']=CP62_ART['yarn']||[];CP62_ART['yarn'].push(await image('img/art/cp62-yarn-b.png'));
+>  CP62_ART['yarn']=CP62_ART['yarn']||[];CP62_ART['yarn'].push(await image('img/art/cp62-yarn-c.png'));
+>  CP62_ART['cushion']=CP62_ART['cushion']||[];CP62_ART['cushion'].push(await image('img/art/cp62-cushion-a.png'));
+>  CP62_ART['cushion']=CP62_ART['cushion']||[];CP62_ART['cushion'].push(await image('img/art/cp62-cushion-b.png'));
+>  CP62_ART['cushion']=CP62_ART['cushion']||[];CP62_ART['cushion'].push(await image('img/art/cp62-cushion-c.png'));
+> 
+>  // CP-56: preload approved 128px prize canvases into the existing shared art cache.
+>  WILD_ART['sock']=await image('img/art/cp56-sock.png');WILD_ART['sock'].pgl=1;
+>  WILD_ART['biscuit']=await image('img/art/cp56-biscuit.png');WILD_ART['biscuit'].pgl=1;
+>  WILD_ART['sardine']=await image('img/art/cp56-sardine.png');WILD_ART['sardine'].pgl=1;
+>  WILD_ART['egg']=await image('img/art/cp56-egg.png');WILD_ART['egg'].pgl=1;
+>  WILD_ART['box']=await image('img/art/cp56-box.png');WILD_ART['box'].pgl=1;
+> 
+36801c36874
+<  ledgeBell(); // the collection moment: the prize has just dropped over the ledge
+---
+>  ledgeBell(id); // the collection moment: the prize has just dropped over the ledge (CP-57: the register or the bell, by piece)
+36890c36963
+< function ledgeBell(){const now=time*1000;if(nextLedgeBell-now>LEDGE_BELL_GAP*LEDGE_BELL_LEVEL.length)nextLedgeBell=-9; // game time restarts with a board
+---
+> function ledgeBell(id){const now=time*1000;if(nextLedgeBell-now>LEDGE_BELL_GAP*LEDGE_BELL_LEVEL.length)nextLedgeBell=-9; // game time restarts with a board
+36892c36965,36967
+<  nextLedgeBell=now+wait+LEDGE_BELL_GAP;sfx.pickup('bell',pickupFx.volume*LEDGE_BELL_LEVEL[n]*CP51_BELL,wait/1000);return true;}
+---
+>  nextLedgeBell=now+wait+LEDGE_BELL_GAP;const vol=pickupFx.volume*LEDGE_BELL_LEVEL[n]*CP51_BELL;
+>  if(CP57.isMoney(id)&&CP57.register(vol,wait/1000))return true; // CP-57: prizes and coin-rain coins ring the register
+>  sfx.pickup('bell',vol,wait/1000);return true;} // power coins and the Jingle bell prize keep the bell (also the fallback while the takes load)
+36963c37038
+<  else drawPrize('item',f.id,0,prizeCenterLift(f.id,q.s),q.s);
+---
+>  else cp62DrawPrize('item',f.id,0,prizeCenterLift(f.id,q.s),q.s,f);
+36986c37061
+<   ctx.save();ctx.globalAlpha=1-u;ctx.filter='grayscale(1) brightness(.85)';drawPrize('item',f.id,f.x,f.y+prizeCenterLift(f.id,sc)+e*6*f.s,sc);ctx.restore();
+---
+>   ctx.save();ctx.globalAlpha=1-u;ctx.filter='grayscale(1) brightness(.85)';cp62DrawPrize('item',f.id,f.x,f.y+prizeCenterLift(f.id,sc)+e*6*f.s,sc,f);ctx.restore();
+37129a37205,37206
+> const CP61_CROWD=100; // CP-61: coin pieces (plain coins + gold 5s) from which no rain bonus drops come
+> function cp61Crowded(){let n=0;for(const b of bodies)if(!b.dead&&(b.kind==='coin'||b.kind==='silver'||b.kind==='gold5'))n++;return n>=CP61_CROWD;}
+37132c37209,37210
+<  const miss=wildMissing(),r=Math.random(),pick=miss.length?'prize':r<.3?'rain5':r<.5?'rain10':r<.58?'rain25':r<.7?'quake':'prize';
+---
+>  const miss=wildMissing(),r=Math.random();let pick=miss.length?'prize':r<.18?'rain5':r<.26?'rain10':r<.28?'rain25':r<.4?'quake':r<.7?'none':'prize'; // CP-61: fewer rain drops
+>  if(pick==='none'||(RAIN[pick]&&cp61Crowded())){WILD.cp61Skipped=(WILD.cp61Skipped|0)+1;return;} // CP-61: and none on a crowded board
+37183c37261
+<  WILD.nextBonus-=dt;if(WILD.nextBonus<=0){WILD.nextBonus=rand(6,9);wildScheduleBonus();}
+---
+>  if(!(WILD.dance||WILD.toss||WILD.chase||WILD.petGame||WILD.pounce)){WILD.nextBonus-=dt;if(WILD.nextBonus<=0){WILD.nextBonus=rand(6,9);wildScheduleBonus();}} // CP-59: no bonus clock during a side game
+37384c37462
+<   const r=Math.random(),kind=r<D.rainChance?(Math.random()<.25?'rain10':'rain5'):'coin';D.bank[kind]++;
+---
+>   const r=Math.random(),kind=r<D.rainChance*.5?'rain5':'coin';D.bank[kind]++; // CP-61: half as many rain coins, Rain 5 only (CP-57 fix: the bank line runs again)
+37400,37401c37478,37479
+<   if(k<0){sfx.dance('count',1,d,k===-1?1600:1200);sfx.dance('hat',.8,d+h);continue;}
+<   if(k===D.n){sfx.dance('stop',1,d);continue;}
+---
+>   if(k<0){sfx.danceLoud('count',1,d,k===-1?1600:1200);sfx.danceLoud('hat',.8,d+h);continue;}
+>   if(k===D.n){sfx.danceLoud('stop',1,d);continue;}
+37403,37407c37481,37485
+<   sfx.dance('kick',1,d);if(k===0)sfx.dance('crash',.8,d);
+<   if(b===1||b===3){sfx.dance('snare',1,d);if(k>=4)sfx.dance('clap',.7,d);}
+<   sfx.dance('hat',1,d+h);if(k>=8)sfx.dance('hat',.5,d+h/2),sfx.dance('hat',.5,d+h*1.5);
+<   sfx.dance('bass',1,d,DANCE_BASS[bar][b%2]);
+<   if(k>=4){const m=DANCE_LEAD[bar];sfx.dance('lead',1,d,m[b]);if(b!==3)sfx.dance('lead',.8,d+h,m[(b+1)%4]*(k>=12?2:1));}
+---
+>   sfx.danceLoud('kick',1,d);if(k===0)sfx.danceLoud('crash',.8,d);
+>   if(b===1||b===3){sfx.danceLoud('snare',1,d);if(k>=4)sfx.danceLoud('clap',.7,d);}
+>   sfx.danceLoud('hat',1,d+h);if(k>=8)sfx.danceLoud('hat',.5,d+h/2),sfx.danceLoud('hat',.5,d+h*1.5);
+>   sfx.danceLoud('bass',1,d,DANCE_BASS[bar][b%2]);
+>   if(k>=4){const m=DANCE_LEAD[bar];sfx.danceLoud('lead',1,d,m[b]);if(b!==3)sfx.danceLoud('lead',.8,d+h,m[(b+1)%4]*(k>=12?2:1));}
+37701c37779
+<  if(D.stage==='pour'){if(!SKY.length&&D.st>.6)w2Next(D,D.perfect?'wheel':'done');return;}
+---
+>  if(D.stage==='pour'){if((!SKY.length&&D.st>.6)||D.st>4)w2Next(D,D.perfect?'wheel':'done');return;}
+37712,37713c37790,37791
+<  if(D.stage==='yawn'){if(!D.yawnStarted){D.yawnStarted=true;w2StartYawn();}if(!W2_YAWN)w2Next(D,'done');return;}
+<  if(D.stage==='settle'){if(!SKY.length&&D.st>.5)w2Next(D,'done');return;}
+---
+>  if(D.stage==='yawn'){if(!D.yawnStarted){if((W2_YAWN&&!W2_YAWN.cp58)||CP63X)return; /* CP-63: the wheel's Yawn waits for an inspection */D.yawnStarted=true;cp58StartYawn();}if(!W2_YAWN)w2Next(D,'done');return;} // CP-58: the wheel's Yawn
+>  if(D.stage==='settle'){if((!SKY.length&&D.st>.5)||D.st>4)w2Next(D,'done');return;}
+37732a37811,37817
+> const CP61_YAWN_MAX=6; // CP-61 rework: each Yawn knocks off up to 6 pieces lying on top of the pile (any kind), never the bottom layer
+> function cp61Half(b){return typeof b.half==='number'?b.half:halfOf(b.kind);}
+> function cp61YawnPick(){const pick=(z0,z1)=>{const top=[];for(const b of bodies){if(b.dead||b.kind==='stack')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;
+>   if(z<z0||z>z1||Math.abs(x-200)>tableHalfAt(z)-4)continue;if(y-cp61Half(b)<COIN_HALF*1.5)continue;top.push({b,y});}
+>   top.sort((a,c)=>c.y-a.y);const r=[];let room=CP61_YAWN_MAX,prizes=0; // a prize counts as 2: two prizes, a prize and a few coins, or a handful of coins
+>   for(const o of top){if(o.b.kind==='item'){if(prizes<2&&room>=2){r.push(o.b);room-=2;prizes++;}}else if(room>=1){r.push(o.b);room--;}if(room<=0)break;}return r;};
+>  let r=pick(GUARD_END+COIN_R,570);if(r.length<3)r=pick(GUARD_END+COIN_R,T.FRONT-30);return r;} // past the side walls (CP-21), where pieces can go over
+37735,37736c37820,37822
+<  if(Y.t>=1.25&&Y.t<2.05){if(!Y.swept){Y.swept=true;sfx.wild2('sweep',1);callout('SWOOSH!',{color:'#b9a6d6',dur:.8});}
+<   // the paws sweep outward across the back half of the table: coins they reach go flying off the sides
+---
+>  if(Y.t>=1.25&&!Y.swept){Y.swept=true;sfx.wild2('sweep',1);callout('SWOOSH!',{color:'#b9a6d6',dur:.8});}
+>  if(Y.t>=1.25&&Y.t<2.8){
+>   // the paws sweep outward; the pieces on top of the pile they reach fly off the sides (pushed until they leave the table)
+37738,37741c37824,37828
+<   // (the paws are drawn over table depth ~390-560); like a plough, everything the paws have reached keeps moving outward
+<   for(const b of bodies){if(b.dead||b.kind==='stack')continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M;
+<    if(z<380||z>570||Math.abs(x-200)>reach)continue;
+<    if(!Y.pushed.has(b))Y.pushed.set(b,x<200?-1:1);const v=b.rb.linvel();b.rb.setLinvel({x:Y.pushed.get(b)*Math.max(Math.abs(v.x),rand(5,7.5)),y:Math.max(v.y,rand(.8,1.6)),z:v.z},true);}}
+---
+>   if(!Y.pick)Y.pick=cp61YawnPick();
+>   for(const b of Y.pick){if(b.dead)continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M;
+>    if(!Y.pushed.has(b)){if(Math.abs(x-200)>reach)continue;Y.pushed.set(b,x<200?-1:1);}
+>    if(Math.abs(x-200)>tableHalfAt(z)+2)continue; // over the side: let it fall
+>    const v=b.rb.linvel();b.rb.setLinvel({x:Y.pushed.get(b)*Math.max(Math.abs(v.x),rand(5,7.5)),y:Math.max(v.y,rand(.8,1.6)),z:v.z},true);}}
+38073c38160
+< const W43_COIN_CAP=130;
+---
+> const W43_COIN_CAP=100; // CP-61: merging resting coins into gold 5s from 100 plain coins (was 130)
+38092c38179,38180
+< skyLand=function(s){if(s.kind==='coin'||s.kind==='silver'){const k=w43Budget(s.kind);if(!k)return;if(k!==s.kind)s={...s,kind:k};}return __w43SkyLand(s);};
+---
+> skyLand=function(s){return __w43SkyLand(s);}; // CP-61: nothing vanishes on landing; the budget is applied when coins are dropped
+> const __cp61SkyDrop=skyDrop;skyDrop=function(kind,x,y,o){if((kind==='coin'||kind==='silver')&&WILD.on){const k=w43Budget(kind);if(!k)return;if(k!==kind)return __cp61SkyDrop(k,x,y,o);}return __cp61SkyDrop(kind,x,y,o);};
+38102c38190
+< wildRainCollected=function(b,x){if(b.kind!=='gold5')return __w43Rain(b,x);S.coins+=5;board.remaining=S.coins;WILD.lastPay=time;const p=proj(x,T.FRONT);floats.push({text:'+5',x:p.x,y:p.y-10,t:0,big:true});try{sfx.kaching();}catch(e){}};
+---
+> wildRainCollected=function(b,x){if(b.kind!=='gold5')return __w43Rain(b,x);S.coins+=5;board.remaining=S.coins;WILD.lastPay=time;const p=proj(x,T.FRONT);floats.push({text:'+5',x:p.x,y:p.y-10,t:0,big:true});try{ledgeBell('gold5');}catch(e){}};
+38116c38204,38205
+< function w43MergeTick(dt){
+---
+> function w43MergeTick(dt){return; // CP-61 (Jenny, Nov 16): coins on the board are never merged into gold 5s
+> 
+38203,38204c38292,38293
+< W2_WHEEL.push({label:'RAIN 25',kind:'rain25',w:.16,c:'#ff5a2c'},{label:'DANCE AGAIN',kind:'again',w:.16,c:'#ff7ad5'},{label:'RAIN 10 + QUAKE',kind:'r10q',w:.2,c:'#4f8bff'},
+<  {label:'PRIZE YOU NEED',kind:'prize',w:.15,c:'#7dff6a'},{label:'RAIN 25',kind:'rain25',w:.16,c:'#ff8a3c'},{label:'JACKPOT 50',kind:'jackpot',w:.05,c:'#ffd23f'},{label:'YAWN',kind:'yawn',w:.12,c:'#6a6a7a'});
+---
+> W2_WHEEL.push({label:'QUAKE COIN',kind:'quake',w:.2,c:'#ff5a2c'},{label:'DANCE AGAIN',kind:'again',w:.16,c:'#ff7ad5'},{label:'YAWN',kind:'yawn',w:.12,c:'#4a4a5a'},
+>  {label:'PRIZE YOU NEED',kind:'prize',w:.15,c:'#7dff6a'},{label:'PRIZE YOU NEED',kind:'prize',w:.15,c:'#4fe0b0'},{label:'JACKPOT 25',kind:'jackpot',w:.05,c:'#ffd23f'},{label:'YAWN',kind:'yawn',w:.12,c:'#6a6a7a'});
+38239c38328
+<  if(s.kind==='rain25'){const p=front();skyDrop('rain25',p.x,p.y,{dur:1});return;}
+---
+>  if(s.kind==='quake'){const p=front();skyDrop('quake',p.x,p.y,{dur:1});return;} // CP-61: no rain slices
+38242c38331
+<  if(s.kind==='jackpot'){w2Rain(50,.035);sfx.wild('win',1);return;}
+---
+>  if(s.kind==='jackpot'){w2Rain(25,.05);sfx.wild('win',1);return;}
+38259c38348
+<   if(s.kind==='rain25'||s.kind==='r10q'){const sp=sprite(s.kind==='r10q'?'rain10':'rain25');ctx.drawImage(sp.cv,-17,6,34,34);}
+---
+>   if(s.kind==='quake'){const sp=sprite('quake');ctx.drawImage(sp.cv,-17,6,34,34);}
+38271c38360
+<  if(Wh.result){const s=W2_WHEEL[Wh.i],txt={rain25:'RAIN 25!',r10q:'RAIN 10 + QUAKE!',prize:'A PRIZE YOU NEED!',jackpot:'JACKPOT 50!',again:'DANCE AGAIN!',yawn:'UH OH… YAWN'}[s.kind];
+---
+>  if(Wh.result){const s=W2_WHEEL[Wh.i],txt={quake:'QUAKE COIN!',r10q:'RAIN 10 + QUAKE!',prize:'A PRIZE YOU NEED!',jackpot:'JACKPOT!',again:'DANCE AGAIN!',yawn:'UH OH… YAWN'}[s.kind];
+38525c38614
+<  if(D.perfect){sfx.wild2('perfect',1);const x=200+rand(-60,60),y=rand(560,630);skyDrop('rain10',x,y,{dur:1,delay:.6});}
+---
+>  if(D.perfect){sfx.wild2('perfect',1);const x=200+rand(-60,60),y=rand(560,630);skyDrop('rain5',x,y,{dur:1,delay:.6});}
+38624c38713
+<   if(D.perfect){ctx.translate(0,-62);ctx.scale(1+.05*Math.sin(D.endT*12),1+.05*Math.sin(D.endT*12));wildText('PERFECT!',0,0,40,'#7dff6a','#0c3a12',8);ctx.font='bold 13px system-ui';ctx.fillStyle='#fff';ctx.fillText('every treat! RAIN 10 com
+---
+>   if(D.perfect){ctx.translate(0,-62);ctx.scale(1+.05*Math.sin(D.endT*12),1+.05*Math.sin(D.endT*12));wildText('PERFECT!',0,0,40,'#7dff6a','#0c3a12',8);ctx.font='bold 13px system-ui';ctx.fillStyle='#fff';ctx.fillText('every treat! RAIN 5 comi
+38655c38744
+<  cardLines:[['fish','Push the fish coin off','and the cat tosses treats!'],['catch','Tap treats in the air','to catch them'],['perfect','Catch every one','for a RAIN 10 coin'],
+---
+>  cardLines:[['fish','Push the fish coin off','and the cat tosses treats!'],['catch','Tap treats in the air','to catch them'],['perfect','Catch every one','for a RAIN 5 coin'],
+39013c39102
+< const PET_INTRO=1.1,PET_END=2.6,PET_HUD_Y=468,PET_STOP_GAP=.75,PET_FULL_SPEED=230,PET_PERFECT_OVER=.45,PET_COINS=20;
+---
+> const PET_INTRO=1.1,PET_END=2.6,PET_HUD_Y=468,PET_STOP_GAP=.75,PET_FULL_SPEED=230,PET_PERFECT_OVER=.45,PET_COINS=10; // CP-61: was 20
+39105c39194
+<  const coins=kind==='perfect'?PET_COINS+4:Math.round(PET_COINS*score);
+---
+>  const coins=kind==='perfect'?PET_COINS+2:Math.round(PET_COINS*score);
+39149c39238
+<   if(R.kind==='perfect'){skyDrop('rain10',200+rand(-60,60),rand(560,630),{dur:1,delay:.4});
+---
+>   if(R.kind==='perfect'){skyDrop('rain5',200+rand(-60,60),rand(560,630),{dur:1,delay:.4});
+39313c39402
+<   const line=R.kind==='hiss'?'Too much petting! +'+R.coins+' coins':R.kind==='none'?'The cat waited for a pet':R.kind==='perfect'?'+'+R.coins+' coins · RAIN 10 coming':'+'+R.coins+' coins · stopped at '+(R.over>0?'peak + '+R.over.toFixed(
+---
+>   const line=R.kind==='hiss'?'Too much petting! +'+R.coins+' coins':R.kind==='none'?'The cat waited for a pet':R.kind==='perfect'?'+'+R.coins+' coins · RAIN 5 coming':'+'+R.coins+' coins · stopped at '+(R.over>0?'peak + '+R.over.toFixed(1
+40744c40833
+<  function land(){if(!ok())return sfx.land();const t=sfx._pgT();if(t-lastLand<.09)return;lastLand=t;play('pile',1,()=>sfx.land());}
+---
+>  function land(){if(!ok())return sfx.land();const t=sfx._pgT();if(t-lastLand<.09)return;lastLand=t;CP54.coin(1,false);}
+40763a40853,40919
+> // ---------- CP-54 (UAT 71; Jenny, Nov 16): the coin landing is the recording again, with real filler ----------
+> // coin(scale, title): coin-land.mp3 through recordedSfx exactly as UAT 59; if it can't play (6-recording cap, cooldown,
+> // not loaded), one of 3 real coin-on-pile takes (voicebosch, Pixabay; CP-54 candidate A) on the effects master, pitch +-6%,
+> // never the same take twice in a row. Nothing code-made. Off (muted/background) plays nothing.
+> const CP54=(()=>{const B64=["SUQzBAAAAAAAIlRTU0UAAAAOAAADTGF2ZjYzLjEuMTAyAAAAAAAAAAAAAAD/+3DAAAAAAAAAAAAAAAAAAAAAAABJbmZvAAAADwAAABMAABh9ABkZGRkZJiYmJiYzMzMzMz8/Pz8/P0xMTExMWVlZWVlmZmZmZnNzc3Nzc39/f39/jIyMjIyZmZmZmaampqamprOzs7OzwMDAwMDMzMz
+>  const bufs=[];let asked=false,lastI=-1;const stats={coins:0,E:0,A:0,silent:0,why:{}};
+>  function load(){if(asked)return;asked=true;B64.forEach((s,i)=>{try{const b=atob(s),u=new Uint8Array(b.length);for(let k=0;k<b.length;k++)u[k]=b.charCodeAt(k);
+>   if(!sfx._dec(u.buffer,x=>{bufs[i]=x;}))asked=false;}catch(e){asked=false;}});}
+>  function filler(vol){load();const n=B64.length;let i=Math.floor(Math.random()*n);if(n>1&&i===lastI)i=(i+1)%n;if(!bufs[i]){i=bufs.findIndex((b,k)=>b&&k!==lastI);if(i<0)return false;}
+>   lastI=i;return sfx._playBuf(bufs[i],vol*A_GAIN,.94+Math.random()*.12);}
+>  function coin(scale=1,title=false){load();stats.coins++;const why=recordedSfx.playWhy('land',scale,title);stats.why[why]=(stats.why[why]||0)+1;
+>   if(why==='played'){stats.E++;return true;}if(why==='off')return false;
+>   if(filler(scale*(!title&&board.status==='won'?.35:1))){stats.A++;return true;}stats.silent++;return false;}
+>  return {coin,filler,stats,bufs,load};})();
+> 
+> // ---------- CP-57 (Jenny, Nov 16): money sounds ----------
+> // The register: 5 real cash-register takes (Pixabay Content License; sources in tickets/CP-57.md), trimmed to ~1.0-1.25 s and
+> // evened out, decoded once, played on the effects master at REG_GAIN x the bell's volume (REG_GAIN: the takes' average matches
+> // the bell's loudness, loudest 100 ms above 250 Hz), never the same take twice in a row.
+> // isMoney(id): prizes (anything that isn't a coin kind, except the Jingle bell prize), coin-rain coins and the gold 5.
+> // Power coins (Quake, note, fish, laser, heart, mouse and any other special coin) keep the bell.
+> const DANCE_MUSIC_GAIN=3.1623; // +10 dB on the Dance break beat (Jenny: "isn't loud enough")
+> const CP57=(()=>{const B64=["SUQzBAAAAAAAIlRTU0UAAAAOAAADTGF2ZjYzLjEuMTAyAAAAAAAAAAAAAAD/+3DAAAAAAAAAAAAAAAAAAAAAAABJbmZvAAAADwAAACgAADI0AAwMEhIYGBgfHyUlJSsrMTExODg+Pj5EREpKSlFRV1dXXV1jY2NqanBwcHZ2fHx8g4OJiYmPj5WVlZycoqKiqKiurq61tbu7u8HBx8f
+>  const bufs=[];let asked=false,last=-1;const stats={register:0,bell:0,loading:0};
+>  function load(){if(asked)return;asked=true;B64.forEach((s,i)=>{try{const b=atob(s),u=new Uint8Array(b.length);for(let k=0;k<b.length;k++)u[k]=b.charCodeAt(k);
+>   if(!sfx._dec(u.buffer,x=>{bufs[i]=x;}))asked=false;}catch(e){asked=false;}});}
+>  function isMoney(id){if(MONEY_COINS.includes(id))return true;if(id==='quake'||id==='bell'||!id)return false;return !(typeof RAIN!=='undefined'&&RAIN[id]);}
+>  function register(vol,delay=0){load();const n=B64.length;let i=Math.floor(Math.random()*n);if(n>1&&i===last)i=(i+1)%n;
+>   if(!bufs[i]){i=bufs.findIndex((b,k)=>b&&k!==last);if(i<0){stats.loading++;return false;}}last=i;
+>   if(sfx._playBufAt(bufs[i],vol*REG_GAIN,delay)){stats.register++;return true;}return false;}
+>  return {isMoney,register,load,stats,bufs};})();
+> // Coins never plink (Jenny): real coin takes for every coin sound that was a code-made plink; prizes keep theirs.
+> const CP57C=(()=>{const B64={"bump": ["SUQzBAAAAAAAIlRTU0UAAAAOAAADTGF2ZjYzLjEuMTAyAAAAAAAAAAAAAAD/+3DAAAAAAAAAAAAAAAAAAAAAAABJbmZvAAAADwAAAAUAAAdYAFVVVVVVVVVVVVVVVVVVVVVVVVWAgICAgICAgICAgICAgICAgICAgKqqqqqqqqqqqqqqqqqqqqqqqqqq1dXV1dXV1dXV1
+>  const bufs={},last={};let asked=false,lastBump=-9;const stats={};
+>  function load(){if(asked)return;asked=true;for(const [set,L] of Object.entries(B64)){bufs[set]=bufs[set]||[];L.forEach((s,i)=>{try{const b=atob(s),u=new Uint8Array(b.length);for(let k=0;k<b.length;k++)u[k]=b.charCodeAt(k);
+>   if(!sfx._dec(u.buffer,x=>{bufs[set][i]=x;}))asked=false;}catch(e){asked=false;}});}}
+>  function play(set,vol,delay=0){load();const L=bufs[set]||[],n=B64[set].length;if(!(vol>0))return true;let i=Math.floor(Math.random()*n);if(n>1&&i===last[set])i=(i+1)%n;
+>   if(!L[i]){i=L.findIndex((b,k)=>b&&k!==last[set]);if(i<0)return false;}last[set]=i;
+>   if(sfx._playBufAt(L[i],vol*GAIN[set],delay,.94+Math.random()*.12)){stats[set]=(stats[set]||0)+1;return true;}return false;}
+>  function bump(v){const t=sfx._pgT();if(t-lastBump<.035)return true;lastBump=t;return play('bump',Math.min(1,v));}
+>  return {play,bump,load,stats,bufs};})();
+> {const h=C46.hit;C46.hit=function(b,v){if(b&&b.kind!=='item'&&v>0){try{if(!S.muted&&CP57C.bump(v))return;}catch(e){}}return h.call(this,b,v);};} // coins: real; prizes: their plink
+> {const pv=()=>typeof pickupFx==='object'?pickupFx.volume:1;
+>  const w=sfx.wild;sfx.wild=function(kind,vol=1,...a){if(!S.muted&&(kind==='drip'||kind==='topple')){try{if(CP57C.play(kind==='drip'?'drop':'spill',(kind==='drip'?.875:1)*vol*pv()))return;}catch(e){}}return w.call(this,kind,vol,...a);};
+>  const w2=sfx.wild2;sfx.wild2=function(kind,vol=1,...a){if(!S.muted&&kind==='land'){try{if(CP57C.play('drop',vol*pv()))return;}catch(e){}}return w2.call(this,kind,vol,...a);};
+>  const dn=sfx.dance;sfx.dance=function(kind,vol=1,delay=0,...a){if(!S.muted&&kind==='pour'){try{if(CP57C.play('pour',vol*pv(),delay))return;}catch(e){}}return dn.call(this,kind,vol,delay,...a);};}
+> {const __cp57Update=update;update=function(dt){__cp57Update(dt);if(!S.muted)try{CP57.load();CP57C.load();}catch(e){}};} // decode the takes early
+> // ---------- CP-57 follow-up (Jenny, Nov 16): every plain coin over the ledge is heard, real recordings only ----------
+> // A real coin into the tray for each coin; 3+ in 0.35 s add a coin-spill bed, 10+ in 1 s a pour bed (CP-57's takes); inside a
+> // group the per-coin takes are softer, varied, jittered (<=40 ms) and at most one per 50 ms, so a spill clatters.
+> const CP57E=(()=>{const B64=["SUQzBAAAAAAAIlRTU0UAAAAOAAADTGF2ZjYzLjEuMTAyAAAAAAAAAAAAAAD/+3DAAAAAAAAAAAAAAAAAAAAAAABJbmZvAAAADwAAABcAAB1jABUVFRUfHx8fKioqKio1NTU1Pz8/P0pKSkpKVVVVVV9fX19qampqanV1dXV/f39/ioqKioqVlZWVoKCgoKqqqqqqtbW1tb+/v7/Kys
+>  const bufs=[];let asked=false,last=-1,lastBed={},edges=[],block=-9,cascadeBlock=-9,lastCoin=-9;const stats={coins:0,take:0,spill:0,cascade:0,thinned:0,fallback:0};
+>  function load(){if(asked)return;asked=true;B64.forEach((s,i)=>{try{const b=atob(s),u=new Uint8Array(b.length);for(let k=0;k<b.length;k++)u[k]=b.charCodeAt(k);
+>   if(!sfx._dec(u.buffer,x=>{bufs[i]=x;}))asked=false;}catch(e){asked=false;}});}
+>  function pick(L,key){const n=L.length;let i=Math.floor(Math.random()*n);if(n>1&&i===lastBed[key])i=(i+1)%n;if(!L[i]){i=L.findIndex((b,k)=>b&&k!==lastBed[key]);if(i<0)return null;}lastBed[key]=i;return L[i];}
+>  function bed(kind){const b=pick((CP57C.bufs[kind]||[]),kind);return !!b&&sfx._playBufAt(b,G[kind],0,.94+Math.random()*.12);}
+>  function coin(vol,delay){load();const n=B64.length;let i=Math.floor(Math.random()*n);if(n>1&&i===last)i=(i+1)%n;if(!bufs[i]){i=bufs.findIndex((b,k)=>b&&k!==last);if(i<0)return false;}last=i;
+>   return sfx._playBufAt(bufs[i],vol*G.tray,delay,.94+Math.random()*.12);}
+>  function edge(b){const now=time;edges=edges.filter(t=>now-t<1&&t<=now);edges.push(now);stats.coins++;
+>   if(edges.length>=10&&now>=cascadeBlock){if(bed('pour'))stats.cascade++;block=cascadeBlock=now+1.6;}
+>   else if(now>=block&&edges.filter(t=>now-t<.35).length>=3){if(bed('spill'))stats.spill++;block=now+.6;}
+>   const group=now<block;if(group&&now-lastCoin<.05&&now>=lastCoin){stats.thinned++;return true;}
+>   if(coin(group?.45+Math.random()*.35:.85+Math.random()*.15,group?Math.random()*.04:0)){lastCoin=now;stats.take++;return true;}stats.fallback++;return false;}
+>  return {edge,load,stats,bufs};})();
+> {const ce=C46.edge;C46.edge=function(b){if(b&&(b.kind==='coin'||b.kind==='silver')&&!S.muted){try{if(CP57E.edge(b))return;}catch(e){}}return ce.call(this,b);};}
+> {const __cp57eUpdate=update;update=function(dt){__cp57eUpdate(dt);if(!S.muted)try{CP57E.load();}catch(e){}};}
+> 
+40804c40960
+<   p:[['feather',80,560],['ball',140,560],['egg',200,560],['milk',260,560],['box',320,560]],towers:'default',rain:[['rain10',110,690],['rain5',200,440]],quake:[200,660]},
+---
+>   p:[['feather',80,560],['ball',140,560],['egg',200,560],['milk',260,560],['box',320,560]],towers:'default',rain:[['rain5',110,690],['rain5',200,440]],quake:[200,660]},
+40806c40962
+<   p:[['sardine',100,365],['sock',200,345],['biscuit',300,365],['egg',150,440],['box',250,440]],towers:[],rain:[['rain10',200,650],['rain5',110,580],['rain5',290,580]],quake:null},
+---
+>   p:[['sardine',100,365],['sock',200,345],['biscuit',300,365],['egg',150,440],['box',250,440]],towers:[],rain:[['rain5',200,650],['rain5',110,580],['rain5',290,580]],quake:null},
+40809c40965
+<   towers:'default',rain:[['rain10',200,435]],quake:null},
+---
+>   towers:'default',rain:[['rain5',200,435]],quake:null},
+40811c40967
+<   top:[['egg',0],['milk',1],['sock',2],['ball',3],['feather',4]],p:[],wall:[4,5,7,5,4],rain:[['rain10',200,650],['rain5',200,718]],quake:[290,610]},
+---
+>   top:[['egg',0],['milk',1],['sock',2],['ball',3],['feather',4]],p:[],wall:[4,5,7,5,4],rain:[['rain5',200,650],['rain5',200,718]],quake:[290,610]},
+40816c40972
+<   rain:[['rain25',200,345],['rain10',78,470],['rain10',322,470]],quake:[95,705]},
+---
+>   rain:[['rain10',200,345],['rain5',78,470],['rain5',322,470]],quake:[95,705]},
+40820c40976
+<   top:[['milk',0],['egg',1],['box',2],['ball',3],['biscuit',4]],p:[['sardine',200,365]],wall:[4,5,7,5,4],rain:[['rain10',200,650]],quake:[110,640]},
+---
+>   top:[['milk',0],['egg',1],['box',2],['ball',3],['biscuit',4]],p:[['sardine',200,365]],wall:[4,5,7,5,4],rain:[['rain5',200,650]],quake:[110,640]},
+40825c40981
+<   rain:[['rain10',130,725]],quake:[270,725]},
+---
+>   rain:[['rain5',130,725]],quake:[270,725]},
+41169c41325
+< const POUNCE={len:8,count:14,tapR:44,coins:3};
+---
+> const POUNCE={len:8,count:14,tapR:44,coins:2}; // CP-61: was 3
+41211c41367
+<  if(D.perfect){sfx.wild2('perfect',1);skyDrop('rain10',200+rand(-60,60),rand(560,630),{dur:1,delay:.6});}
+---
+>  if(D.perfect){sfx.wild2('perfect',1);skyDrop('rain5',200+rand(-60,60),rand(560,630),{dur:1,delay:.6});}
+41254c41410
+<   if(D.perfect){ctx.translate(0,-62);ctx.scale(1+.05*Math.sin(D.endT*12),1+.05*Math.sin(D.endT*12));wildText('PERFECT!',0,0,40,'#7dff6a','#0c3a12',8);ctx.font='bold 13px system-ui';ctx.fillStyle='#fff';ctx.fillText('every mouse! RAIN 10 and
+---
+>   if(D.perfect){ctx.translate(0,-62);ctx.scale(1+.05*Math.sin(D.endT*12),1+.05*Math.sin(D.endT*12));wildText('PERFECT!',0,0,40,'#7dff6a','#0c3a12',8);ctx.font='bold 13px system-ui';ctx.fillStyle='#fff';ctx.fillText('every mouse! RAIN 5 and 
+41259c41415
+< WILD_MODES.pounce.cardLines=[['mousecoin','Push the mouse coin off','and the toy mice run!'],['mouse','Tap the mice','the mitt pounces'],['perfect','Catch every one','for a RAIN 10 and a Tortitude'],
+---
+> WILD_MODES.pounce.cardLines=[['mousecoin','Push the mouse coin off','and the toy mice run!'],['mouse','Tap the mice','the mitt pounces'],['perfect','Catch every one','for a RAIN 5 and a Tortitude'],
+41284c41440
+< function cp48Full(){return cp51Pieces()>=CP51_BACKSTOP;} // CP-51 (Jenny, Nov 16): no 45-coin limit; only the 120-piece backstop
+---
+> function cp48Full(){return false;} // CP-61 (Jenny, Nov 16): never slow the game down; no Board full // CP-51 (Jenny, Nov 16): no 45-coin limit; only the 120-piece backstop
+41514a41671
+> const CP62_ART={},CP62_COLOURS=new WeakMap(); // UAT 82: declared before the boot (CP-62's art loads in loadArt)
+41789a41947,42507
+> 
+> 
+> // ---------- CP-58 (Jenny, Nov 16; UAT 79): the wheel's Yawn: yawn, stretch, side-eye, grab and eat ----------
+> // Replaces the old Yawn (paws sweeping coins off the sides). The cat yawns big (head back, eyes squeezed, mouth wide),
+> // stretches both mitts up and out with a shiver, then side-eyes away while one mitt drapes casually down onto the board
+> // and grabs the prize nearest the front (a goal prize first); the other mitt grabs a second one. Both are carried to the
+> // mouth and eaten (chomp, crumbs, Happy eyes). An eaten prize is lost, like one over the side (UAT 82); with no prize in
+> // reach the mitt takes a few top coins instead. The bottom layer is never touched, so no gap.
+> // Approved art is only moved: head, faces, mitts, pupils, prize paintings. Placeholders drawn in code: the open yawn
+> // mouth, the squeezed-shut yawn eyes, the chewing mouth, the crumbs.
+> const CP58={ // timing (s); every beat is here so it can be tuned
+>  up:.7, peak:1.35, eyesOpen:1.5, drape:2.25, snap:.2, carry:.6, grab2:2.55, snap2:.25, eat:3.15, chomps:[3.25,3.5,3.75,4.0], gulp:4.2, back:4.25, end:4.75,
+>  dropAt:4.3, lookAway:true, maxGrabs:2, stats:{runs:0,grabbed:[],replaced:[]}};
+> function cp58Ease(x){x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);}
+> function cp58Lerp(a,b,k){return {x:a.x+(b.x-a.x)*k,y:a.y+(b.y-a.y)*k,r:(a.r||0)+((b.r||0)-(a.r||0))*k};}
+> function cp58Rest(side){return {x:200+side*135,y:VIEW.y+180*VIEW.zy+45,r:0};}
+> function cp58Goal(id){return typeof WILD_COLLECTION!=='undefined'&&WILD_COLLECTION.includes(id)&&!WILD.have[id];}
+> // The prizes worth stealing: on the table, not falling, nearest the front first; goal prizes before others.
+> function cp58Targets(){
+>  const c=[];for(const b of bodies){if(b.dead||b.kind!=='item'||!CP58_FOOD.includes(b.id))continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M; // UAT 85: food only
+>   if(z<GUARD_END-40||z>T.FRONT-6||y<-3||Math.abs(x-200)>(T.R-T.L)/2+2)continue;c.push({b,score:z+(cp58Goal(b.id)?400:0)});}
+>  c.sort((a,b)=>b.score-a.score);return c.slice(0,CP58.maxGrabs).map(o=>o.b);}
+> function cp58StartYawn(){ // the wheel's YAWN slices only; the Tuxedo's power keeps CP-61's w2StartYawn
+>  stopTickle();stopPawDance();pawDanceToken++;pawDance={started:time,silent:true,index:0,switched:true,anchor:0,yawn:true};happyUntil=0;
+>  const tg=cp58Targets(),grabs=[];
+>  tg.forEach((b,i)=>{const x=b.rb.translation().x/M;let side=x<200?-1:1;if(i===1)side=-grabs[0].side;grabs.push({b,id:b.id,side,goal:cp58Goal(b.id),held:false,gone:false,bites:0});cp58PrizeScreen(grabs[grabs.length-1]);});
+>  if(!grabs.length)cp58CoinGrab(grabs); // UAT 82: never nothing
+>  const away=grabs.length?(CP58.lookAway?-grabs[0].side:grabs[0].side):1;
+>  W2_YAWN={t:0,cp58:true,grabs,away,crumbs:[],mouth:null,fx:{}};CP58.stats.runs++;sfx.wild2('yawn',1);
+>  try{diagEvent('wild2','cp58 yawn grabs='+grabs.map(g=>g.id).join(','));}catch(e){}};
+> // When each grab happens: the first mitt drapes then snaps; the second snaps straight from rest.
+> function cp58Times(i){return i===0?{from:CP58.peak,hover:CP58.drape,hit:CP58.drape+CP58.snap,home:CP58.drape+CP58.snap+CP58.carry}
+>  :{from:CP58.grab2-.01,hover:CP58.grab2,hit:CP58.grab2+CP58.snap2,home:CP58.grab2+CP58.snap2+CP58.carry};}
+> function cp58PrizeScreen(g){if(!g.b.dead){const p=g.b.rb.translation();g.at=skyScreen(p.x/M,p.z/M,p.y/M);}return g.at;}
+> function cp58Mouth(){return W2_YAWN&&W2_YAWN.mouth||{x:200,y:w43ChinY()-28};}
+> // The mitt's absolute position (screen) and turn at time t.
+> function cp58Mitt(side,t){
+>  const Y=W2_YAWN,R=cp58Rest(side),S={x:R.x+side*48,y:R.y-185,r:-side*.55}; // S: the stretch, up and out beside the head
+>  const shiver=t>CP58.up&&t<CP58.peak?Math.sin(t*58)*Math.min(1,(t-CP58.up)/.15):0;
+>  let P;
+>  if(t<CP58.peak){P=cp58Lerp(R,S,cp58Ease(t/CP58.up));P.x+=side*3.5*shiver;P.r+=.06*shiver;}
+>  else P=null;
+>  const i=Y.grabs.findIndex(g=>g.side===side),g=Y.grabs[i];
+>  const chin=()=>{const m=cp58Mouth();return {x:m.x+side*62,y:m.y+48,r:side*.35};};
+>  if(!P){
+>   if(!g){P=cp58Lerp(S,R,cp58Ease((t-CP58.peak)/.6));}
+>   else{const T0=cp58Times(i),e=cp58PrizeScreen(g),C={x:Math.max(40,Math.min(360,e.x+side*10)),y:e.y-34,r:-side*.35};
+>    const H={x:C.x+side*52,y:C.y-70,r:-side*.15};
+>    if(i===0){
+>     if(t<T0.hover){const u=(t-T0.from)/(T0.hover-T0.from),k=cp58Ease(u);P=cp58Lerp(S,H,k);P.x+=side*55*Math.sin(Math.PI*k);P.r+=-side*.25*Math.sin(Math.PI*k);} // the casual drape: out wide, then down
+>    }else if(t<T0.hover){P=cp58Lerp(S,R,cp58Ease((t-CP58.peak)/.6));}
+>    if(!P&&t<T0.hit){const from=i===0?H:cp58Lerp(S,R,cp58Ease((T0.hover-CP58.peak)/.6));P=cp58Lerp(from,C,cp58Ease((t-T0.hover)/(T0.hit-T0.hover)));}
+>    if(!P&&t<T0.home){const fl=t-T0.hit<.08?Math.sin((t-T0.hit)/.08*Math.PI):0;P=cp58Lerp(C,chin(),cp58Ease((t-T0.hit)/CP58.carry));P.x-=side*10*fl;}
+>    if(!P&&t<CP58.back){P=chin();P.y+=Y.chew||0;}
+>    if(!P){P=cp58Lerp(chin(),R,cp58Ease((t-CP58.back)/(CP58.end-CP58.back-.05)));}
+>   }
+>  }
+>  return P;}
+> const __cp58PawMotion=pawMotion;
+> pawMotion=function(side=0){
+>  const Y=W2_YAWN;if(!Y||!Y.cp58||!pawDance||!pawDance.yawn)return __cp58PawMotion(side);const t=Y.t;
+>  if(!side){ // the head: back for the yawn (with the shiver), a small tilt for the side-eye, a bob while chewing
+>   const back=cp58Ease(t/.5)*(1-cp58Ease((t-1.25)/.3)),sh=t>CP58.up&&t<CP58.peak?Math.sin(t*58)*.8:0;
+>   return {x:sh,y:-16*back+(Y.chew||0)*.6,r:-.02*back};}
+>  const P=cp58Mitt(side,t),R=cp58Rest(side);return {x:P.x-R.x,y:P.y-R.y,r:P.r};};
+> const __cp58PawGaze=pawGaze;
+> pawGaze=function(){const Y=W2_YAWN;if(!Y||!Y.cp58)return __cp58PawGaze();const t=Y.t;
+>  const T0=Y.grabs.length?cp58Times(Y.grabs.length-1).home:2.6;
+>  const k=cp58Ease((t-CP58.eyesOpen)/.12)*(1-cp58Ease((t-T0)/.2));return k>0?{x:Y.away*2*k,y:-.75*k}:null;};
+> // Face overlays inside the head's own drawing (head-art pixels, as drawHappyFeatures does).
+> function cp58Face(){const Y=W2_YAWN,t=Y.t;
+>  try{const m=ctx.getTransform(),k=scale*renderPixelRatio,p=m.transformPoint({x:199.5,y:171});Y.mouth={x:p.x/k,y:p.y/k};}catch(e){}
+>  const yawn=t>.05&&t<CP58.eyesOpen?cp58Ease((t-.05)/.35)*(1-cp58Ease((t-1.25)/.22)):0;
+>  const eat=t>CP58.eat&&t<CP58.end-.15;
+>  ctx.save();ctx.translate(-10,-25);ctx.scale(420/1536,240/1024);
+>  if((t>.25&&t<CP58.eyesOpen-.05)||eat){ // eyes shut: squeezed flat for the yawn (placeholder), the Happy face's arcs while eating
+>   ctx.globalAlpha=1;ctx.fillStyle='#000';for(const c of [480,1056]){ctx.beginPath();ctx.ellipse(c,525,183,148,0,0,7);ctx.fill();}
+>   ctx.strokeStyle='#ffda35';ctx.lineWidth=30;ctx.lineCap='round';
+>   for(const side of [-1,1]){const c=768+side*205;ctx.beginPath();if(eat){ctx.moveTo(c-100,540);ctx.quadraticCurveTo(c,360,c+100,540);}
+>    else{ctx.moveTo(c-105,505);ctx.quadraticCurveTo(c,560,c+105,505);ctx.moveTo(c+side*-60,470);ctx.lineTo(c+side*-100,440);}ctx.stroke();}
+>   ctx.globalAlpha=1;}
+>  if(yawn>0){ // the open yawn mouth (placeholder)
+>   const w=60+120*yawn,h=30+250*yawn,top=812;ctx.fillStyle='#3a0b14';ctx.strokeStyle='#000';ctx.lineWidth=12;
+>   ctx.beginPath();ctx.ellipse(766,top+h/2,w/2,h/2,0,0,7);ctx.fill();ctx.stroke();
+>   ctx.fillStyle='#ff8fa3';ctx.beginPath();ctx.ellipse(766,top+h*.78,w*.34,h*.17,0,0,7);ctx.fill();
+>   ctx.fillStyle='#fff';for(const s of [-1,1]){ctx.beginPath();ctx.moveTo(766+s*w*.32,top+h*.08);ctx.lineTo(766+s*w*.22,top+h*.08);ctx.lineTo(766+s*w*.27,top+h*.08+34*yawn);ctx.closePath();ctx.fill();}}
+>  if(eat){ // chewing: the Happy mouth, opening to a small round mouth on each chomp (placeholder)
+>   const o=Y.chewOpen||0;if(o>.05){ctx.fillStyle='#3a0b14';ctx.strokeStyle='#000';ctx.lineWidth=10;ctx.beginPath();ctx.ellipse(766,840,50+40*o,18+50*o,0,0,7);ctx.fill();ctx.stroke();}
+>   else ctx.drawImage(ART.happyMouth,0,0);}
+>  ctx.restore();}
+> const __cp58Pupils=drawTrackingPupils;
+> drawTrackingPupils=function(){const Y=W2_YAWN;if(!Y||!Y.cp58)return __cp58Pupils();const t=Y.t;
+>  const shut=(t>.25&&t<CP58.eyesOpen-.05)||(t>CP58.eat&&t<CP58.end-.15);if(!shut)__cp58Pupils();cp58Face();};
+> const __cp61YawnTick=w2YawnTick;
+> w2YawnTick=function(dt){
+>  const Y=W2_YAWN;if(!Y)return;if(!Y.cp58)return __cp61YawnTick(dt);Y.t+=dt;happyUntil=0;const t=Y.t,fx=Y.fx;
+>  if(t>=CP58.eyesOpen&&!fx.look){fx.look=1;sfx.wild2('tick',.8);}
+>  Y.grabs.forEach((g,i)=>{const T0=cp58Times(i);
+>   if(t>=T0.hover&&!g.whoosh){g.whoosh=1;sfx.paw40&&sfx.paw40('whoosh',1);}
+>   if(t>=T0.hit&&!g.held&&!g.missed){if(g.coins){const top=c=>!c.dead&&c.rb.translation().y/M-cp61Half(c)>=COIN_HALF*1.5;const L=[g.b,...g.coins.filter(c=>c!==g.b)].filter(top);if(!L.length){g.missed=true;return;}g.b=L[0];g.coins=L.slice(1);
+>    try{diagEvent('wild2','cp58 grab '+g.id);}catch(e){}}});
+>  // chewing
+>  Y.chew=0;Y.chewOpen=0;for(const c of CP58.chomps){const u=(t-c)/.22;if(u>=0&&u<1){Y.chewOpen=Math.sin(u*Math.PI);Y.chew=5*Math.sin(u*Math.PI);}}
+>  CP58.chomps.forEach((c,i)=>{if(t>=c&&!fx['c'+i]){fx['c'+i]=1;if(Y.grabs.some(g=>g.held)){sfx.wild2('catch',1);for(const g of Y.grabs)g.bites=i+1;
+>   if(i===0)callout('NOM.',{color:'#ffd23f',dur:.9});const m=cp58Mouth();for(let k=0;k<7;k++)Y.crumbs.push({x:m.x+rand(-14,14),y:m.y+rand(-4,6),vx:rand(-70,70),vy:rand(-120,-30),t:0,c:Y.grabs.every(g=>!g.held||g.id==='milk')?(Math.random()<.
+>  if(t>=CP58.gulp&&!fx.gulp){fx.gulp=1;if(Y.grabs.some(g=>g.held)){pgSfx('plop',1);for(const g of Y.grabs)g.gone=true;for(const g of Y.grabs)if(g.held&&!g.coins)cp58Lost(g);cp58BottleGulp(Y);}}
+>  for(let i=Y.crumbs.length-1;i>=0;i--){const c=Y.crumbs[i];c.t+=dt;c.x+=c.vx*dt;c.y+=c.vy*dt;c.vy+=520*dt;if(c.t>.8)Y.crumbs.splice(i,1);}
+>  if(t>=CP58.end){W2_YAWN=null;if(pawDance&&pawDance.yawn)stopPawDance();try{pgSfx('purr',.6);}catch(e){}}
+> };
+> // While a stolen prize is in the cat's mitt, the bonus-drop clock doesn't count it as missing (it comes back at the end).
+> const __cp58Missing=wildMissing;
+> wildMissing=function(){const r=__cp58Missing(),Y=W2_YAWN;if(!Y||!Y.cp58)return r;return r.filter(id=>!Y.grabs.some(g=>g.held&&!g.gone&&g.id===id));};
+> // Overlay (screen coordinates): the YAAAWN text (unchanged), then the held prizes and crumbs.
+> const __cp58YawnText=yawnText;
+> yawnText=function(){const Y=W2_YAWN;if(!Y)return;__cp58YawnText();if(!Y.cp58)return;const t=Y.t,m=cp58Mouth();
+>  Y.grabs.forEach((g,i)=>{if(!g.held||g.gone)return;const T0=cp58Times(i),M0=cp58Mitt(g.side,t),claw={x:M0.x-g.side*4,y:M0.y+30};
+>   const k=cp58Ease((t-T0.hit-.1)/(CP58.carry-.1)),pos={x:claw.x+(m.x+g.side*14-claw.x)*k,y:claw.y+(m.y+8-claw.y)*k};
+>   const s=(g.s0+(1.05-g.s0)*k)*(g.id==='milk'?1:1-.22*g.bites); /* UAT 85: milk is drunk, not nibbled */
+>   ctx.save();ctx.translate(pos.x,pos.y);ctx.rotate(g.side*.25*(1-k));if(g.coins)cp58DrawCoins(g,s);else cp62DrawPrize('item',g.id,0,0,s,g.b);ctx.restore();});
+>  for(const c of Y.crumbs){ctx.globalAlpha=1-c.t/.8;ctx.fillStyle=c.c;ctx.fillRect(c.x-2,c.y-2,4,4);}ctx.globalAlpha=1;};
+> 
+> 
+> const CP58_RUNWAY_SRC='img/art/cp58-yawn-face.webp',CP58_RUNWAY_EYES_SRC='img/art/cp58-yawn-eyes.png';
+> 
+> // ---------- CP-58 Runway trial (Nov 16): Runway's full yawn face as the yawn frame ----------
+> // Loaded after cp58-yawn.js. During the yawn the Runway face (own eyes, jaw and mouth, fitted to the head canvas) fades
+> // in over the normal face and back out; the code-drawn yawn eyes and mouth are not drawn. While eating, the closed eyes
+> // are Runway's own squinting eyes (cut from the same image, same place on the head canvas) instead of the code-drawn
+> // arcs; the chewing mouth is the prototype's. Stretch, side-eye (open eyes, pupils) and grab are the prototype unchanged.
+> // CP58_RUNWAY_SRC / CP58_RUNWAY_EYES_SRC are set by build_runway.py.
+> let CP58_RUNWAY=null,CP58_RUNWAY_EYES=null;
+> function cp58RunwayLoad(src,set){
+>  (typeof __loadImage==='function'?Promise.resolve().then(()=>__loadImage(src)) // desktop renderer
+>   :(()=>{const im=new Image();im.src=src;return im.decode().then(()=>im);})()).then(set).catch(e=>{try{console.error('runway art',src,e);}catch(_){}});}
+> cp58RunwayLoad(CP58_RUNWAY_SRC,im=>{CP58_RUNWAY=im;});
+> cp58RunwayLoad(CP58_RUNWAY_EYES_SRC,im=>{CP58_RUNWAY_EYES=im;});
+> function cp58RunwayK(t){ // fade in 0.05-0.30 s, hold, fade out 1.25-1.47 s (the prototype's own yawn envelope)
+>  return t>.05&&t<CP58.eyesOpen?cp58Ease((t-.05)/.25)*(1-cp58Ease((t-1.25)/.22)):0;}
+> const __cp58FaceOrig=cp58Face;
+> cp58Face=function(){const Y=W2_YAWN,t=Y.t,k=cp58RunwayK(t);
+>  const eat=t>CP58.eat&&t<CP58.end-.15;
+>  if(!CP58_RUNWAY||!CP58_RUNWAY_EYES)return __cp58FaceOrig();
+>  ctx.save();ctx.translate(-10,-25);ctx.scale(420/1536,240/1024);
+>  if(eat){ // Runway's squinting eyes, then the prototype's chewing mouth (unchanged)
+>   ctx.drawImage(CP58_RUNWAY_EYES,0,0);
+>   const o=Y.chewOpen||0;if(o>.05){ctx.fillStyle='#3a0b14';ctx.strokeStyle='#000';ctx.lineWidth=10;ctx.beginPath();ctx.ellipse(766,840,50+40*o,18+50*o,0,0,7);ctx.fill();ctx.stroke();}
+>   else ctx.drawImage(ART.happyMouth,0,0);}
+>  else if(k>0){ctx.globalAlpha=k;ctx.drawImage(CP58_RUNWAY,0,0);}
+>  ctx.restore();};
+> // The normal face keeps its pupils under the yawn fade (the Runway face covers them at full strength); shut while eating.
+> drawTrackingPupils=function(){const Y=W2_YAWN;if(!Y||!Y.cp58)return __cp58Pupils();const t=Y.t;
+>  const eat=t>CP58.eat&&t<CP58.end-.15,k=cp58RunwayK(t);
+>  if(!eat&&k<1)__cp58Pupils();cp58Face();};
+> // No power while the CP-58 Yawn plays (a power Yawn would cut it short with a prize still in the mitt).
+> const __cp58PgpReady=pgpReady;pgpReady=function(){return __cp58PgpReady()&&!(W2_YAWN&&W2_YAWN.cp58);};
+> // UAT 82: an eaten prize is lost exactly like one over the side (the Levels' lost-prize handling: sound, goal icon shake,
+> // "LOST THE ...!", the star's 12 s return, the lost count), without the side-rail flash and tumble (it was eaten).
+> function cp58Lost(g){if(!(WILD.on&&WILD.v2))return;const need=!WILD.have[g.id],star=g.id===WILD.star;
+>  WILD.iconShake[g.id]=0;WILD.lostN++;sfx.wild43&&sfx.wild43(star?'lostStar':'lost',1);
+>  if(star){WILD.starBackAt=time+12;callout('LOST THE STAR!',{color:'#ff4b4b',dur:1.6});}
+>  else if(need)callout('LOST THE '+String(WILD_PRIZE_NAMES[g.id]||g.id).replace(/^(Toy|Rubber|Cat) /,'').toUpperCase()+'!',{color:'#ff8a6a',dur:1.1});
+>  CP58.stats.lost=(CP58.stats.lost||[]);CP58.stats.lost.push(g.id);try{diagEvent('wild2','cp58 ate '+g.id+(star?' (star)':''));}catch(e){}}
+> // UAT 82: no prize in reach: the mitt takes up to 4 coins lying on top of the pile, nearest the front and close together.
+> function cp58CoinTargets(){const c=[];for(const b of bodies){if(b.dead||!(b.kind==='coin'||b.kind==='silver'||b.kind==='gold5'))continue;
+>   const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;if(z<PUSH_MAX+20||z>T.FRONT-30||Math.abs(x-200)>tableHalfAt(z)-4)continue; // the pile builds up at the back
+>   if(y-cp61Half(b)<COIN_HALF*1.5)continue;c.push({b,x,z});}
+>  if(!c.length)return [];const near=(o,A)=>Math.hypot(o.x-A.x,o.z-A.z)<=70; // UAT 83: where most coins lie together on top (the front one first on a tie)
+>  for(const o of c)o.n=c.filter(q=>near(q,o)).length;c.sort((a,d)=>d.n-a.n||d.z-a.z);const A=c[0];
+>  return c.filter(o=>near(o,A)).sort((a,d)=>Math.hypot(a.x-A.x,a.z-A.z)-Math.hypot(d.x-A.x,d.z-A.z)).slice(0,4).map(o=>o.b);}
+> function cp58CoinGrab(grabs){const cs=cp58CoinTargets();if(!cs.length)return;const b=cs[0],x=b.rb.translation().x/M;
+>  grabs.push({b,id:'coins',coins:cs,side:x<200?-1:1,goal:false,held:false,gone:false,bites:0});cp58PrizeScreen(grabs[0]);}
+> function cp58DrawCoins(g,s){const k=g.kinds||['coin'],n=k.length;
+>  for(let i=0;i<n;i++){const sp=sprite(k[i]==='silver'?'coin':k[i]),r=sp.half*s;ctx.drawImage(sp.cv,(i-(n-1)/2)*r*1.1-r,-(i%2)*r*.5-r,2*r,2*r);}}
+> // ---------- end CP-58 ----------
+> // CP-62: Jenny requested random A/B/C colours for notes, cushions and yarn.
+> // Art-only state: independent of gameplay RNG; each object keeps its colour into pickup/loss.
+> let cp62ColourSeed=(Date.now()>>>0)||62;
+> function cp62Colour(id,owner){
+>  if(!CP62_ART[id]||!owner)return null;
+>  let old=CP62_COLOURS.get(owner);if(old&&old.id===id)return old.i;
+>  cp62ColourSeed^=cp62ColourSeed<<13;cp62ColourSeed^=cp62ColourSeed>>>17;cp62ColourSeed^=cp62ColourSeed<<5;
+>  const i=(cp62ColourSeed>>>0)%3;CP62_COLOURS.set(owner,{id,i});return i;
+> }
+> function cp62DrawPrize(kind,id,x,y,s,owner){
+>  const i=cp62Colour(id,owner);if(i===null)return drawPrize(kind,id,x,y,s);
+>  const old=WILD_ART[id];WILD_ART[id]=CP62_ART[id][i];
+>  try{return drawPrize(kind,id,x,y,s);}finally{WILD_ART[id]=old;}
+> }
+> const __cp62Queue=queueTreatAward;
+> queueTreatAward=function(id,x,body,preview=false,kind='item'){
+>  const f=__cp62Queue(id,x,body,preview,kind);CP62_COLOURS.delete(f);
+>  const i=cp62Colour(id,body||f);if(i!==null)CP62_COLOURS.set(f,{id,i});return f;
+> };
+> const __cp62Lost=queueLostPrize;
+> queueLostPrize=function(b,x,z){const f=__cp62Lost(b,x,z);CP62_COLOURS.delete(f);const i=cp62Colour(b.id,b);if(i!==null)CP62_COLOURS.set(f,{id:b.id,i});return f;};
+> 
+> 
+> // ---------- CP-63 (UAT 83; Jenny, Nov 15/17): the Tuxedo's power becomes Formal inspection (replaces its YAWN power) ----------
+> // A monocle drops onto the cat's eye; the cat inspects the board and the most valuable pieces light up one by one
+> // (goal prizes, other prizes, Quake coins, Rain coins, then plain coins lying on top of the pile). Then one big mitt
+> // lays a cane across the board behind them and sweeps forward: the highlighted pieces are carried to the front edge
+> // and over it, toward the player. The bottom layer of coins is never picked (only pieces lying on top, and prizes),
+> // so no hole is left where drops can't reach. The game keeps running at full speed throughout.
+> // Approved art is only moved: head, pupils, big mitts. Stand-ins drawn in code: the monocle, its chain, the cane,
+> // the gold highlight rings, the inspection lens and the power-button icon.
+> const CP63={ // timing (s); every beat is here so it can be tuned
+>  monoIn:.45, look0:.55, look1:1.95, caneIn:1.95, sweep0:2.45, sweep1:3.55, home:4.05, monoOut:3.9, end:4.4,
+>  max:5, maxPrizes:2, // how many pieces get inspected, and how many of them may be prizes
+>  topOnly:true, // coins must lie on top of the pile (the bottom layer stays); prizes always count
+>  offEdge:true, // the cane carries them over the front edge (false: it stops just short)
+>  words:['HMM.','SPLENDID.'],
+>  stats:{runs:0,picked:[],paid:[],lostSide:[],anyFront:0,anySide:0}};
+> let CP63X=null; // the inspection in progress
+> function cp63E(x){x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);}
+> function cp63Goal(id){return typeof WILD_COLLECTION!=='undefined'&&WILD_COLLECTION.includes(id)&&!WILD.have[id];}
+> function cp63Value(b){if(b.kind==='item')return cp63Goal(b.id)?100:60;if(b.kind==='quake')return 40;if(RAIN[b.kind])return RAIN[b.kind].n;return VALUE[b.kind]||1;}
+> function cp63Half(b){return typeof b.half==='number'?b.half:halfOf(b.kind);}
+> function cp63R(b){return b.kind==='item'?ITEM_R:RAIN[b.kind]?RAIN[b.kind].r:b.kind==='quake'?COIN_R*1.15:COIN_R;}
+> // The most valuable pieces on the table: worth most first, then nearest the front.
+> function cp63Pick(){const c=[];
+>  for(const b of bodies){if(b.dead||b.kind==='stack'||b.bottle)continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;
+>   if(z<PUSH_MAX+20||z>T.FRONT-10||y<-3||Math.abs(x-200)>tableHalfAt(z)-6)continue;
+>   if(CP63.topOnly&&b.kind!=='item'&&y-cp63Half(b)<COIN_HALF*1.5)continue; // part of the bottom layer: stays
+>   c.push({b,v:cp63Value(b),z});}
+>  c.sort((a,b)=>b.v-a.v||b.z-a.z);const r=[];let pz=0;
+>  for(const o of c){if(r.length>=CP63.max)break;if(o.b.kind==='item'){if(pz>=CP63.maxPrizes)continue;pz++;}r.push(o.b);}return r;}
+> function cp63Start(){
+>  stopTickle();stopPawDance();pawDanceToken++;pawDance={started:time,silent:true,index:0,switched:true,anchor:0,cp63:true};happyUntil=0;
+>  const picks=cp63Pick().map((b,i)=>{const o={b,id:b.id||b.kind,kind:b.kind,v:cp63Value(b),i,lit:null,on:false,done:false};cp63Screen(o);return o;}); // where each is now (kept if it leaves early)
+>  // the order the lens visits them: back to front, so the cane follows the eye
+>  const tour=picks.slice().sort((a,b)=>a.b.rb.translation().z-b.b.rb.translation().z);
+>  const zs=picks.map(p=>p.b.rb.translation().z/M);
+>  CP63X={t:0,picks,tour,z0:Math.max(PUSH_MAX+10,(zs.length?Math.min(...zs):520)-55),fx:{},eye:null,lens:null,cane:null};
+>  CP63.stats.runs++;CP63.stats.picked.push(picks.map(p=>p.id));
+>  pgSfx('clink',1);try{diagEvent('powers','cp63 inspect '+picks.map(p=>p.id).join(','));}catch(e){}}
+> function cp63Screen(o){if(!o.b.dead){const p=o.b.rb.translation();o.at=skyScreen(p.x/M,p.z/M,p.y/M);}return o.at;}
+> // The lens: from piece to piece in tour order during the look.
+> function cp63LensAt(t){const X=CP63X,n=X.tour.length;if(!n)return null;const u=(t-CP63.look0)/(CP63.look1-CP63.look0);if(u<0||u>1.02)return null;
+>  const k=Math.min(n-1e-6,Math.max(0,u*n)),i=Math.floor(k),f=k-i,a=cp63Screen(X.tour[i]),b=i>0?cp63Screen(X.tour[i-1]):{x:200,y:a.y-80,s:a.s};
+>  const m=cp63E(f/.45);return {x:b.x+(a.x-b.x)*m,y:b.y+(a.y-b.y)*m,s:b.s+(a.s-b.s)*m,i,arrived:f>=.45};}
+> // The cane's depth (table units) at time t.
+> function cp63CaneZ(t){const X=CP63X,z1=CP63.offEdge?T.FRONT+18:T.FRONT-80;
+>  if(t<CP63.sweep0)return X.z0;const u=(t-CP63.sweep0)/(CP63.sweep1-CP63.sweep0);return X.z0+(z1-X.z0)*(u<1?u*u*(3-2*u)*.35+u*.65:1);}
+> function cp63CaneSpan(z){const hw=tableHalfAt(Math.min(T.FRONT,z));return {xl:200-hw+16,xr:200+hw-10};}
+> function cp63CaneVis(t){if(t<CP63.caneIn||t>CP63.home+.1)return 0;return Math.min(1,(t-CP63.caneIn)/.35,(CP63.home+.1-t)/.3);}
+> // The crook end (screen), where the right mitt holds the cane.
+> function cp63Crook(t){const z=cp63CaneZ(t),sp=cp63CaneSpan(z),p=skyScreen(sp.xr,Math.min(z,T.FRONT+30),14);return p;}
+> // --- the mitts and head (approved art, moved only) ---
+> function cp63Rest(side){return {x:200+side*135,y:VIEW.y+180*VIEW.zy+45};}
+> function cp63Mitt(side,t){const R=cp63Rest(side);
+>  if(side<0){ // the left mitt: a small lift while inspecting (kept clear of the monocle), then back
+>   const k=cp63E((t-.35)/.4)*(1-cp63E((t-CP63.caneIn)/.4));return {x:R.x+14*k,y:R.y-12*k,r:.16*k};}
+>  const C=cp63Crook(t),H={x:C.x-6,y:C.y-30,r:-.25};
+>  if(t<CP63.caneIn)return {x:R.x,y:R.y,r:0};
+>  if(t<CP63.sweep0){const k=cp63E((t-CP63.caneIn)/(CP63.sweep0-CP63.caneIn));return {x:R.x+(H.x-R.x)*k+30*Math.sin(Math.PI*k),y:R.y+(H.y-R.y)*k,r:H.r*k};}
+>  if(t<CP63.sweep1+.08)return H;
+>  const k=cp63E((t-CP63.sweep1-.08)/(CP63.home-CP63.sweep1-.08));return {x:H.x+(R.x-H.x)*k,y:H.y+(R.y-H.y)*k,r:H.r*(1-k)};}
+> const __cp63PawMotion=pawMotion;
+> pawMotion=function(side=0){const X=CP63X;if(!X||!pawDance||!pawDance.cp63)return __cp63PawMotion(side);const t=X.t;
+>  if(!side){const L=cp63LensAt(t),lean=cp63E((t-.3)/.3)*(1-cp63E((t-CP63.look1)/.3));const dx=L?Math.max(-1,Math.min(1,(L.x-200)/150)):0;
+>   return {x:3*dx*lean,y:5*lean,r:.04*dx*lean};}
+>  const P=cp63Mitt(side,t),R=cp63Rest(side);return {x:P.x-R.x,y:P.y-R.y,r:P.r};};
+> const __cp63PawGaze=pawGaze;
+> pawGaze=function(){const X=CP63X;if(!X)return __cp63PawGaze();const t=X.t;let tx=null;
+>  const L=cp63LensAt(t);if(L)tx=L.x;else if(t>=CP63.caneIn&&t<CP63.sweep1+.2){const c=cp63Crook(t);tx=200+(c.x-200)*.4;}
+>  if(tx==null)return null;return {x:Math.max(-1.6,Math.min(1.6,(tx-200)/110)),y:.35};};
+> // The monocle (stand-in, drawn in code) on the cat's left-of-screen eye, in head-art pixels like the pupils.
+> function cp63Monocle(){const X=CP63X,t=X.t;
+>  const inK=Math.min(1,t/CP63.monoIn),drop=t<CP63.monoIn?(1-inK)*-70+Math.sin(inK*Math.PI)*-8:0,bounce=t>=CP63.monoIn&&t<CP63.monoIn+.25?Math.sin((t-CP63.monoIn)/.25*Math.PI)*3:0;
+>  const out=t>CP63.monoOut?(t-CP63.monoOut)/(CP63.end-CP63.monoOut):0;if(out>=1)return;
+>  const sx=420/(ART.head.pgW||ART.head.width),sy=240/(ART.head.pgH||ART.head.height),e={x:500,y:515,rx:118,ry:108};
+>  const cx=-10+e.x*sx,cy=-25+e.y*sy+drop+bounce+out*out*90,rx=e.rx*sx*1.18,ry=e.ry*sy*1.22;
+>  try{const m=ctx.getTransform(),k=scale*renderPixelRatio,p=m.transformPoint({x:cx,y:cy});X.eye={x:p.x/k,y:p.y/k};}catch(e){}
+>  ctx.save();ctx.globalAlpha=Math.min(1,t/.12)*(1-out);ctx.translate(cx,cy);ctx.rotate(out*1.4);
+>  // the chain: hangs from the ring down and out over the cheek
+>  ctx.strokeStyle='#e8c35a';ctx.lineWidth=1.6;ctx.setLineDash([2.2,1.6]);ctx.beginPath();ctx.moveTo(-rx*.7,ry*.7);ctx.quadraticCurveTo(-rx*1.3,ry*2.6,-rx*2.1,ry*2.2);ctx.stroke();ctx.setLineDash([]);
+>  // glass, ring, glint
+>  ctx.fillStyle='rgba(205,235,255,.22)';ctx.beginPath();ctx.ellipse(0,0,rx,ry,0,0,7);ctx.fill();
+>  ctx.lineWidth=4.2;ctx.strokeStyle='#5a3d08';ctx.stroke();ctx.lineWidth=2.6;ctx.strokeStyle='#f3cf63';ctx.stroke();
+>  ctx.strokeStyle='rgba(255,255,255,.85)';ctx.lineWidth=1.6;ctx.beginPath();ctx.ellipse(0,0,rx*.72,ry*.72,0,3.6,4.5);ctx.stroke();
+>  const gl=t>CP63.monoIn&&t<CP63.monoIn+.35?(t-CP63.monoIn)/.35:-1; // a glint sweeps across as it settles
+>  if(gl>=0){ctx.save();ctx.beginPath();ctx.ellipse(0,0,rx,ry,0,0,7);ctx.clip();ctx.fillStyle='rgba(255,255,255,.55)';ctx.translate(-rx*1.5+gl*rx*3,0);ctx.rotate(.5);ctx.fillRect(-3,-ry*2,6,ry*4);ctx.restore();}
+>  ctx.restore();}
+> const __cp63Pupils=drawTrackingPupils;
+> drawTrackingPupils=function(){__cp63Pupils();if(CP63X)cp63Monocle();};
+> // --- on the board: the highlight rings, the lens beam and the cane, drawn under the mitts ---
+> function cp63Ring(p,r,a,pulse){const rx=r*p.s*1.15,ry=rx*.66;ctx.save();ctx.globalAlpha=a;
+>  ctx.fillStyle='rgba(255,215,80,.22)';ctx.beginPath();ctx.ellipse(p.x,p.y,rx*(1+.06*pulse),ry*(1+.06*pulse),0,0,7);ctx.fill();
+>  ctx.shadowColor='#ffd23f';ctx.shadowBlur=20;ctx.strokeStyle='#ffd84a';ctx.lineWidth=4.5;ctx.stroke();
+>  ctx.shadowBlur=0;ctx.strokeStyle='rgba(255,255,255,.9)';ctx.lineWidth=1.2;ctx.stroke();ctx.restore();}
+> function cp63Spark(x,y,s,a){ctx.save();ctx.globalAlpha=a;ctx.fillStyle='#fffbe0';ctx.translate(x,y);ctx.beginPath();for(let i=0;i<8;i++){const r=i%2?s*.28:s;ctx.lineTo(Math.cos(i*Math.PI/4)*r,Math.sin(i*Math.PI/4)*r);}ctx.closePath();ctx.fi
+> function cp63DrawCane(t){const a=cp63CaneVis(t);if(a<=0)return;const z=Math.min(cp63CaneZ(t),T.FRONT+30),sp=cp63CaneSpan(z);
+>  const slide=cp63E((t-CP63.caneIn)/.35),xl=sp.xr-(sp.xr-sp.xl)*slide,A=skyScreen(xl,z,14),B=skyScreen(sp.xr,z,14),w=9.5*B.s;
+>  ctx.save();ctx.globalAlpha=a;ctx.lineCap='round';
+>  ctx.strokeStyle='rgba(0,0,0,.28)';ctx.lineWidth=w*1.1;ctx.beginPath();ctx.moveTo(A.x,A.y+9*B.s);ctx.lineTo(B.x,B.y+9*B.s);ctx.stroke(); // shadow on the coins
+>  // shaft, then the crook curling up at the right end (into the mitt)
+>  const hook=new Path2D();hook.moveTo(A.x,A.y);hook.lineTo(B.x,B.y);hook.quadraticCurveTo(B.x+20*B.s,B.y-2*B.s,B.x+18*B.s,B.y-22*B.s);hook.quadraticCurveTo(B.x+14*B.s,B.y-40*B.s,B.x-4*B.s,B.y-34*B.s);
+>  ctx.strokeStyle='#120c16';ctx.lineWidth=w;ctx.stroke(hook);ctx.strokeStyle='rgba(150,130,190,.55)';ctx.lineWidth=w*.28;ctx.translate(0,-w*.22);ctx.stroke(hook);ctx.translate(0,w*.22);
+>  // gold collar near the crook and a silver tip at the far end
+>  ctx.strokeStyle='#e8c35a';ctx.lineWidth=w*1.15;ctx.lineCap='butt';const cx=B.x-(B.x-A.x)*.06,cy=B.y-(B.y-A.y)*.06;ctx.beginPath();ctx.moveTo(cx-4*B.s,cy);ctx.lineTo(cx+4*B.s,cy);ctx.stroke();
+>  if(slide>.9){ctx.strokeStyle='#d8dde6';ctx.beginPath();ctx.moveTo(A.x,A.y);ctx.lineTo(A.x+8*A.s,A.y);ctx.stroke();}
+>  ctx.restore();}
+> function cp63DrawBoard(){const X=CP63X;if(!X)return;const t=X.t;
+>  const fade=1-cp63E((t-CP63.sweep1)/.5);
+>  // the inspection beam from the monocle to the lens
+>  const L=cp63LensAt(t);
+>  if(L&&X.eye){const r=34*L.s;ctx.save();const g=ctx.createLinearGradient(X.eye.x,X.eye.y,L.x,L.y);g.addColorStop(0,'rgba(255,230,140,.0)');g.addColorStop(1,'rgba(255,230,140,.5)');
+>   ctx.fillStyle=g;ctx.beginPath();ctx.moveTo(X.eye.x-6,X.eye.y);ctx.lineTo(L.x-r,L.y);ctx.lineTo(L.x+r,L.y);ctx.lineTo(X.eye.x+6,X.eye.y);ctx.closePath();ctx.fill();
+>   ctx.fillStyle='rgba(225,245,255,.25)';ctx.strokeStyle='#ffe27a';ctx.lineWidth=3.5;ctx.shadowColor='#ffd23f';ctx.shadowBlur=12;ctx.beginPath();ctx.ellipse(L.x,L.y,r,r*.7,0,0,7);ctx.fill();ctx.stroke();ctx.restore();}
+>  for(const o of X.picks){if(o.lit==null||o.done)continue;const p=cp63Screen(o);const u=t-o.lit,pulse=Math.sin(u*9);
+>   cp63Ring(p,cp63R(o.b),Math.min(1,u/.12)*fade,pulse);if(u<.35)cp63Spark(p.x+14*p.s,p.y-22*p.s,10*p.s*(1-u/.35)+3,1-u/.35);}
+>  cp63DrawCane(t);}
+> const __cp63DrawPaws=drawPaws;
+> drawPaws=function(){if(CP63X){ctx.save();try{cp63DrawBoard();}finally{ctx.restore();}}return __cp63DrawPaws();};
+> // --- the clock (runs inside the power's own tick, so pause/Home stop it) ---
+> function cp63Tick(t){const X=CP63X;if(!X)return;X.t=t;happyUntil=0;const fx=X.fx;
+>  if(t>=CP63.monoIn&&!fx.on){fx.on=1;pgSfx('ding',.6);}
+>  if(t>=CP63.look0&&!fx.hmm){fx.hmm=1;callout(CP63.words[0],{color:'#ffe27a',dur:1});}
+>  const L=cp63LensAt(t);if(L&&L.arrived){const o=X.tour[L.i];if(o.lit==null){o.lit=t;pgSfx('ding',.55+.1*L.i);}}
+>  if(t>=CP63.look1&&!fx.all){fx.all=1;for(const o of X.tour)if(o.lit==null)o.lit=t;}
+>  if(t>=CP63.caneIn&&!fx.cane){fx.cane=1;try{sfx.paw40('whoosh',1);}catch(e){}}
+>  if(t>=CP63.sweep0&&!fx.sweep){fx.sweep=1;try{sfx.paw40('swipe',1);}catch(e){}}
+>  if(t>=CP63.sweep0+.5&&!fx.word){fx.word=1;if(X.picks.length)callout(CP63.words[1],{color:'#ffe27a',dur:1.1});}
+>  if(t>=CP63.monoOut&&!fx.off){fx.off=1;pgSfx('flip',.7);}
+>  // a lit piece never goes over a side: near a side edge it is eased back toward the middle (the whole power)
+>  for(const o of X.picks){const b=o.b;if(o.done||b.dead||o.lit==null)continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,edge=tableHalfAt(Math.min(T.FRONT,z))-cp63R(b)*.7;
+>   if(z<T.FRONT-6&&Math.abs(x-200)>edge){const v=b.rb.linvel(),d=x<200?1:-1;b.rb.wakeUp();b.rb.setLinvel({x:d*Math.max(1.2,d*v.x),y:v.y,z:v.z},true);}}
+>  // the sweep: a highlighted piece the cane reaches is carried forward with it (and steered toward the tray's width)
+>  if(t>=CP63.sweep0&&t<CP63.sweep1+.25){const z=cp63CaneZ(t),zn=cp63CaneZ(t+1/60),vz=Math.max(2.2,(zn-z)*60*M*1.08);
+>   for(const o of X.picks){const b=o.b;if(o.done)continue;if(b.dead){o.done=true;continue;}const p=b.rb.translation(),x=p.x/M,pz=p.z/M;
+>    if(pz>T.FRONT+4){o.done=true;continue;}
+>    if(!o.on){if(z<pz-cp63R(b)-4)continue;o.on=true;}
+>    if(t>=CP63.sweep1&&!CP63.offEdge)continue;
+>    const v=b.rb.linvel(),keep=Math.max(PAY_L+28,Math.min(PAY_R-28,x)),vx=(keep-x)*.1+v.x*.3;
+>    b.rb.wakeUp();b.rb.setLinvel({x:vx,y:Math.max(v.y,.35),z:Math.max(v.z,vz)},true);}}
+>  if(!CP63.offEdge&&t>=CP63.sweep1&&!fx.stop){fx.stop=1;for(const o of X.picks){if(!o.on||o.done||o.b.dead)continue;const v=o.b.rb.linvel();o.b.rb.setLinvel({x:v.x*.3,y:v.y,z:Math.min(v.z,.2)},true);}}
+>  if(t>=CP63.end){cp63Stop();}}
+> function cp63Stop(){if(!CP63X)return;CP63X=null;if(pawDance&&pawDance.cp63)stopPawDance();}
+> // --- the power: the Tuxedo's button now plays Formal inspection ---
+> PGP.tuxedo={id:'inspect',name:'FORMAL INSPECTION',col:'#ffd76a'};
+> const __cp63Icon=pgpIcon;
+> pgpIcon=function(id,x,y,k,c){if(id!=='inspect')return __cp63Icon(id,x,y,k,c);ctx.save();ctx.translate(x,y);ctx.scale(k,k);
+>  ctx.strokeStyle=c;ctx.lineWidth=2.6;ctx.beginPath();ctx.arc(-2,-2,8,0,7);ctx.stroke();ctx.fillStyle='rgba(255,255,255,.18)';ctx.fill();
+>  ctx.lineWidth=1.4;ctx.setLineDash([2,1.5]);ctx.beginPath();ctx.moveTo(4,4);ctx.quadraticCurveTo(10,10,7,15);ctx.stroke();ctx.setLineDash([]);
+>  ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(-2,-2,5,3.6,4.6);ctx.stroke();ctx.restore();};
+> const __cp63How=pgpHow;pgpHow=function(cat){return __cp63How(cat);};
+> const __cp63Use=pgpUse;
+> pgpUse=function(){const cat=pgpCat(),P=PGP[cat];if(P.id!=='inspect')return __cp63Use();
+>  PG.powers[cat]=pgpCount(cat)-1;pgSave();stopDrops();try{diagEvent('powers','use '+P.id+' left='+PG.powers[cat]+' level='+pglSel());}catch(e){}
+>  callout(P.name+'!',{color:P.col,dur:1.4});try{navigator.vibrate&&navigator.vibrate([60,40,90]);}catch(e){}
+>  cp63Start();PGPX={id:'inspect',t:0,dur:CP63.end};};
+> const __cp63PgpTick=pgpTick;
+> pgpTick=function(dt){const was=PGPX&&PGPX.id==='inspect'?PGPX:null;__cp63PgpTick(dt);if(was)cp63Tick(was.t);};
+> const __cp63PgpEnd=pgpEnd;pgpEnd=function(){const X=PGPX;__cp63PgpEnd();if(X&&X.id==='inspect')cp63Stop();};
+> // counts as busy while it plays (no second power; a power earned meanwhile is awarded after)
+> const __cp63SideGame=pgpSideGame;pgpSideGame=function(){return __cp63SideGame()||!!CP63X;};
+> // what happened to the picked pieces (for the report): paid over the front, or lost over a side
+> const __cp63Fall=typeof fallOff==='function'?fallOff:null;
+> if(__cp63Fall){fallOff=function(b,...a){const X=CP63X;if(X&&!b.dead){const q=b.rb.translation();if(Math.abs(q.x/M-200)>(T.R-T.L)/2-2&&q.z/M<T.FRONT-4)CP63.stats.anySide++;else if(q.z/M>=T.FRONT-30)CP63.stats.anyFront++;}
+>  if(X&&X.picks.some(o=>o.b===b)){const q=b.rb.translation(),x=q.x/M,side=Math.abs(x-200)>(T.R-T.L)/2-2&&q.z/M<T.FRONT-4;(side?CP63.stats.lostSide:CP63.stats.paid).push(b.id||b.kind);}return __cp63Fall(b,...a);};}
+> // ---------- end CP-63 ----------
+> 
+> // ---------- CP-58 add-on (UAT 85; Jenny, Nov 17): the Yawn eats food only; milk leaves an empty bottle ----------
+> // The wheel's Yawn only takes food (cheese, shrimp, tuna, fish biscuit, sardine, egg, milk); toys are never taken. With no
+> // food in reach the mitt takes a few top coins as before. Milk: the cat drinks it (white drips instead of crumbs), then
+> // tosses the empty bottle onto the board, where it is a real piece with milk's own size, collider and weight. Pushed off
+> // (front or side) it plays a plain bottle clink and is gone: it is never a prize, never counted, never picked up.
+> // At most 2 empty bottles on the board; with 2 already there the cat keeps the third (it isn't thrown).
+> // New art: img/art/cp58-milk-empty.png, made from Jenny's milk B with the milk gone (milk B itself is unchanged).
+> const CP58_FOOD=['cheese','shrimp','tuna','biscuit','sardine','egg','milk'];
+> const CP58_BOTTLE={max:2,toss:4.27,fly:.42,h:70,stats:{tossed:0,kept:0,off:0,side:0}};
+> let CP58_BOTTLE_ART=null;
+> cp58RunwayLoad('img/art/cp58-milk-empty.png',im=>{CP58_BOTTLE_ART=im;});
+> function cp58Bottles(){let n=0;for(const b of bodies)if(b.bottle&&!b.dead)n++;return n;}
+> // The empty bottle draws exactly like milk (same size, anchor and occlusion), with the empty painting.
+> const __cp58BottleDraw=drawPrize;
+> drawPrize=function(kind,id,x,y,s){if(id!=='bottle')return __cp58BottleDraw(kind,id,x,y,s);if(!CP58_BOTTLE_ART)return;
+>  const old=WILD_ART.milk;WILD_ART.milk=CP58_BOTTLE_ART;try{return __cp58BottleDraw(kind,'milk',x,y,s);}finally{WILD_ART.milk=old;}};
+> // A plain glass clink.
+> sfx.cp58Clink=function(vol=1){if(!this._w2ok())return;const t=this._pgT(),B=(t0,f,a,d)=>this._pgBell(t0,f,a,d);
+>  B(t,2489,.12*vol,.3);B(t,3951,.05*vol,.18);B(t+.075,2637,.06*vol,.22);};
+> // At the gulp: the drunk milk's bottle stays in the mitt, then is tossed onto the board in front of the pusher.
+> function cp58BottleGulp(Y){const g=Y.grabs.find(g=>g.held&&!g.coins&&g.id==='milk');if(!g)return;
+>  if(cp58Bottles()>=CP58_BOTTLE.max){CP58_BOTTLE.stats.kept++;return;}
+>  const z=rand(PUSH_MAX+50,PUSH_MAX+150),x=200+g.side*rand(15,70);Y.bottle={g,x,z,landed:false};}
+> function cp58BottleLand(B){if(cp58Bottles()>=CP58_BOTTLE.max){CP58_BOTTLE.stats.kept++;return;}
+>  const b=addCoin('item','bottle',B.x,CP58_BOTTLE.h,B.z,yawTurn(0),{x:0,y:-3,z:.4},{x:0,y:0,z:0});b.bottle=true;b.rb.enableCcd(true);
+>  CP58_BOTTLE.stats.tossed++;try{diagEvent('wild2','cp58 empty bottle tossed');}catch(e){}}
+> const __cp58BottleTick=w2YawnTick;
+> w2YawnTick=function(dt){const Y=W2_YAWN;__cp58BottleTick(dt);
+>  if(Y&&Y.cp58&&Y.bottle&&!Y.bottle.landed&&Y.t>=CP58_BOTTLE.toss+CP58_BOTTLE.fly){Y.bottle.landed=true;cp58BottleLand(Y.bottle);}};
+> // Drawn over the board like the held prizes: in the mitt by the mouth, then an arc with a spin down to where it lands.
+> const __cp58BottleText=yawnText;
+> yawnText=function(){__cp58BottleText();const Y=W2_YAWN;if(!Y||!Y.cp58||!Y.bottle||Y.bottle.landed||!CP58_BOTTLE_ART)return;
+>  const B=Y.bottle,g=B.g,t=Y.t,m=cp58Mouth(),S0={x:m.x+g.side*14,y:m.y+8,s:1.05};let p=S0,r=0;
+>  if(t>=CP58_BOTTLE.toss){const u=Math.min(1,(t-CP58_BOTTLE.toss)/CP58_BOTTLE.fly),E=skyScreen(B.x,B.z,CP58_BOTTLE.h);
+>   p={x:S0.x+(E.x-S0.x)*u,y:S0.y+(E.y-S0.y)*u-70*Math.sin(Math.PI*u),s:S0.s+(E.s-S0.s)*u};r=g.side*u*Math.PI*1.5;}
+>  ctx.save();ctx.translate(p.x,p.y);ctx.rotate(r);drawPrize('item','bottle',0,0,p.s);ctx.restore();};
+> // Over the edge: a clink and gone (front or side). Squeezed through the table it goes back on top, as coins do.
+> const __cp58BottleFall=fallOff;
+> fallOff=function(b,x){if(!b||!b.bottle)return __cp58BottleFall.apply(this,arguments);if(b.dead)return;
+>  const t=b.rb.translation(),z=t.z/M,inside=Math.abs(x-200)<=(T.R-T.L)/2-2;
+>  if(inside&&z<T.FRONT-30){b.rb.setTranslation({x:(200+(x-200)*.6)*M,y:30*M,z:Math.max(z,PUSH_MAX+COIN_R+4)*M},true);b.rb.setLinvel({x:0,y:0,z:0},true);b.rb.setAngvel({x:0,y:0,z:0},true);return;}
+>  const at=screenOf(t.x/M,z,t.y/M),side=!inside&&z<T.FRONT-4;
+>  if(side)falling.push({x:at.x,y:at.y,vx:x<200?-40:40,vy:60,kind:'item',id:'bottle',won:false,t:0,s:at.s,gutter:true,__screenStart:at,__sourceX:at.x,__sourceY:at.y});
+>  else{const p=proj(x,T.FRONT);falling.push({x:p.x,y:p.y+4,vx:0,vy:60,kind:'item',id:'bottle',won:false,t:0,s:p.s,__screenStart:at,__sourceX:p.x,__sourceY:p.y+4});}
+>  CP58_BOTTLE.stats[side?'side':'off']++;try{sfx.cp58Clink(1);}catch(e){}
+>  removeCoin(b);};
+> const __cp58BottleGutter=gutterOff;
+> gutterOff=function(b,x){if(b&&b.bottle)return fallOff(b,x);return __cp58BottleGutter.apply(this,arguments);};
+> // ---------- end CP-58 add-on ----------
+> 
+> // ---------- CP-64 Jackpot cascade (UAT 86, Jenny Nov 17) ----------
+> // The wheel's JACKPOT slice (about 2%) starts a short, timed cascade of bonus drops (mostly prizes) instead of 25 coins:
+> // the "bonkers" look of the CP-59 bug, but a state with its own end and caps. The round timer, Turbo, the bonus clock and
+> // the out-of-coins clock are held while it runs; goal prizes it drops count as usual. A win during it waits for its end.
+> // Drops use the normal bonus marker, whistle and landing (wildLandBonus) and the frozen pickup as it is.
+> const CP64={drops:8.4,  // s of drops; the tail (last drops landing) brings it to about 9-9.5 s
+>  gap:.16,               // s between drops (about 6 a second)
+>  maxDrops:48,           // drops per Jackpot at most
+>  maxPieces:210,         // no new drop while the board holds this many pieces
+>  maxPrizes:28,          // ... or this many prizes
+>  maxQuakes:2,           // Quake coins per Jackpot at most
+>  hard:11,               // s: it always ends by then, whatever happens
+>  turbo:true,            // the pusher runs at Turbo speed (WILD_TURBO_PERIOD) while it lasts, so the prizes spill
+>  stats:null};
+> function cp64Side(){return !!(WILD.dance||WILD.toss||WILD.chase||WILD.petGame||WILD.pounce);}
+> function cp64Start(){
+>  WILD.jpPending=false;
+>  WILD.jp={t:0,next:0,n:0,prizes:0,rain:0,quakes:0,skipped:0,peak:0,heldDance:WILD.dancePending||null,heldForce:!!WILD.danceForce,period:PUSH_PERIOD};
+>  if(CP64.turbo&&PUSH_PERIOD>WILD_TURBO_PERIOD)wildSetPeriod(WILD_TURBO_PERIOD);
+>  WILD.dancePending=null;WILD.danceForce=false;
+>  callout('JACKPOT!',{color:'#ffd23f',dur:1.8});wildConfetti(60);
+>  try{diagEvent('jackpot','start left='+WILD.left.toFixed(1));}catch(e){}
+> }
+> function cp64End(why){
+>  const J=WILD.jp;if(!J)return;WILD.jp=null;
+>  if(PUSH_PERIOD!==J.period)wildSetPeriod(J.period);
+>  CP64.stats={n:J.n,prizes:J.prizes,rain:J.rain,quakes:J.quakes,skipped:J.skipped,peak:J.peak,t:+J.t.toFixed(2),why};
+>  if(WILD.phase==='play'){WILD.lastPay=time;
+>   if(WILD.winHeld)WILD.dancePending=null; // a held win goes first; the round is won, so a waiting Dance break is skipped
+>   else{if(J.heldDance&&!WILD.dancePending)WILD.dancePending=J.heldDance;if(J.heldForce)WILD.danceForce=true;}
+>   if(why==='done')callout('JACKPOT OVER',{color:'#ffe08a',dur:1.2});}
+>  try{diagEvent('jackpot','end '+why+' drops='+J.n+' prizes='+J.prizes);}catch(e){}
+> }
+> function cp64Drop(J){
+>  let pieces=0,prizes=0;for(const b of bodies)if(!b.dead){pieces++;if(b.kind==='item'&&!b.bottle)prizes++;}
+>  pieces+=WILD.incoming.length;J.peak=Math.max(J.peak,pieces);
+>  if(pieces>=CP64.maxPieces||prizes>=CP64.maxPrizes){J.skipped++;return;}
+>  const r=Math.random();let kind=r<.8?'item':r<.9?'rain5':'quake';
+>  if(kind==='quake'&&J.quakes>=CP64.maxQuakes)kind='item';
+>  if(kind==='rain5'&&cp61Crowded())kind='item'; // CP-61: no rain on a crowded board
+>  let id=kind==='item'?WILD_COLLECTION[Math.random()*WILD_GOAL|0]:null;
+>  if(id&&id===WILD.star&&!wildMissing().includes(id)){const o=WILD_COLLECTION.filter(i=>i!==WILD.star);id=o[Math.random()*o.length|0];} // one star prize, as in normal bonus drops
+>  const front=Math.random()<.7,y=CP64.y?rand(...CP64.y):front?rand(650,740):rand(500,650),x=200+rand(-1,1)*(tableHalfAt(y)-(front?85:50)); // mostly near the front edge, away from the sides
+>  WILD.incoming.push({kind,id,x,y,t:rand(.55,.9),t0:.9,jp:true});WILD.bonusN++;sfx.wild('whistle',1);
+>  J.n++;if(kind==='item')J.prizes++;else if(kind==='quake')J.quakes++;else J.rain++;
+> }
+> // the round's tick: the Jackpot holds the clocks while it runs
+> const __cp64Tick=wildTick;
+> wildTick=function(dt){
+>  if(!WILD.on){WILD.jp=null;WILD.jpPending=false;return __cp64Tick(dt);}
+>  const paused=inventoryOpen||panel.style.display==='block'||cp51Paused;
+>  if(WILD.jp&&(WILD.phase!=='play'||board.status!=='playing'))cp64End('round over');
+>  if(!paused&&WILD.jpPending&&!WILD.jp&&!cp64Side()&&WILD.phase==='play'&&board.status==='playing')cp64Start();
+>  const J=WILD.jp;if(!J||paused)return __cp64Tick(dt);
+>  if(WILD.dancePending){if(!J.heldDance)J.heldDance=WILD.dancePending;WILD.dancePending=null;} // a full Happy Cat meter waits for the end
+>  if(WILD.danceForce){J.heldForce=true;WILD.danceForce=false;}
+>  // hold the clocks (kept away from 0 inside, so nothing can run out during it; put back after)
+>  const left=WILD.left,turbo=WILD.turbo,next=WILD.nextBonus;
+>  WILD.left=Math.max(left,1);if(turbo>0)WILD.turbo=Math.max(turbo,1);WILD.nextBonus=Math.max(next,1);WILD.lastPay=time;
+>  __cp64Tick(dt);
+>  if(WILD.phase==='play'){WILD.left=left;if(WILD.turbo>0)WILD.turbo=turbo;WILD.nextBonus=next;WILD.lastPay=time;}
+>  if(WILD.jp!==J)return;
+>  J.t+=dt;
+>  if(J.t<CP64.drops){J.next-=dt;while(J.next<=0&&J.n<CP64.maxDrops){J.next+=CP64.gap;cp64Drop(J);}}
+>  else if(!WILD.incoming.some(o=>o.jp)||J.t>=CP64.hard)cp64End(J.t>=CP64.hard?'hard stop':'done');
+> };
+> // a win during the Jackpot waits for its end (as one during a Dance break does); anything else ends it at once
+> const __cp64Finish=wildFinish;
+> wildFinish=function(win,reason){
+>  if(win&&WILD.on&&(WILD.jp||WILD.jpPending)&&WILD.phase==='play'){
+>   if(!WILD.jpWinHeld){WILD.jpWinHeld=true;WILD.winHeld=true;callout('ALL '+WILD_GOAL+'! JACKPOT!',{color:'#7dff6a',dur:1.4});try{diagEvent('jackpot','win held');}catch(e){}}
+>   return;}
+>  WILD.jpWinHeld=false;if(WILD.jp)cp64End('round over');WILD.jpPending=false;return __cp64Finish(win,reason);
+> };
+> const __cp64Reset=wildReset,__cp64Exit=wildExit;
+> wildReset=function(){WILD.jp=null;WILD.jpPending=false;WILD.jpWinHeld=false;return __cp64Reset();};
+> wildExit=function(){WILD.jp=null;WILD.jpPending=false;WILD.jpWinHeld=false;return __cp64Exit();};
+> // the wheel: JACKPOT (about 2%) starts the cascade once the dance break is over; the other slices are unchanged
+> for(const s of W2_WHEEL){if(s.kind==='jackpot'){s.label='JACKPOT';s.w=.02;}else if(s.kind==='quake')s.w=.22;else if(s.kind==='again')s.w=.17;else if(s.kind==='prize')s.w=.17;}
+> {let y=0;for(const s of W2_WHEEL)if(s.kind==='yawn')s.w=y++?.12:.13;}
+> const __cp64Apply=w2ApplySlice;
+> w2ApplySlice=function(s,D){if(s.kind==='jackpot'){WILD.jpPending=true;sfx.wild('win',1);try{diagEvent('jackpot','wheel');}catch(e){}return;}return __cp64Apply(s,D);};
+> // Developer: start a Jackpot now (opens a round if needed; starts right after GO, or after a running side game)
+> function cp64StartNow(){
+>  if(!WILD.on)wildEnter();
+>  if(WILD.phase==='card'||WILD.phase==='end'){if(WILD.phase==='end')wildReset();wildStartCountdown();}
+>  WILD.jpPending=true;panel.style.display='none';try{diagEvent('jackpot','start-now');}catch(e){}
+> }
+> const __cp64DevHtml=wildDevHtml,__cp64DevBind=wildDevBind;
+> wildDevHtml=function(){return __cp64DevHtml().replace('<button id="w2-spin" class="wide">','<button id="cp64-now" class="wide">Start a Jackpot now</button><button id="w2-spin" class="wide">');};
+> wildDevBind=function(panel){__cp64DevBind(panel);const b=panel.querySelector&&panel.querySelector('#cp64-now');if(b)b.onclick=cp64StartNow;};
+> // Jenny (Nov 17): during a Jackpot a prize over the side is lost as normal, but shows no "LOST THE …!" banner
+> const __cp64Gutter=gutterOff;
+> gutterOff=function(b,x){if(!WILD.jp)return __cp64Gutter(b,x);const co=callout;callout=function(t,o){if(/^LOST THE /.test(String(t)))return;return co.apply(this,arguments);};
+>  try{return __cp64Gutter(b,x);}finally{callout=co;}};
+> 
+> // CP-69: drawing only. CP63 eye origin, timing, mitt path and sweep remain unchanged.
+> cp63Monocle=function(){const X=CP63X,t=X.t;
+>  const k=Math.min(1,t/CP63.monoIn),drop=t<CP63.monoIn?(1-k)*-70+Math.sin(k*Math.PI)*-8:0,bounce=t>=CP63.monoIn&&t<CP63.monoIn+.25?Math.sin((t-CP63.monoIn)/.25*Math.PI)*3:0;
+>  const out=t>CP63.monoOut?(t-CP63.monoOut)/(CP63.end-CP63.monoOut):0;
+>  const sx=420/(ART.head.pgW||ART.head.width),sy=240/(ART.head.pgH||ART.head.height),cx=-10+500*sx,cy=-25+515*sy+drop+bounce+out*out*90;
+>  try{const m=ctx.getTransform(),q=m.transformPoint({x:cx,y:cy}),z=scale*renderPixelRatio;X.eye={x:q.x/z,y:q.y/z};}catch(e){}
+>  ctx.save();
+>  ctx.drawImage(WILD_ART['cp69-hat'],-10,-25,420,240);
+>  // Entire tie canvas shifted down 26 head-space units, clear of the tongue.
+>  ctx.drawImage(WILD_ART['cp69-bowtie'],-10,1,420,240);
+>  if(out<1){ctx.globalAlpha=Math.min(1,t/.12)*(1-out);ctx.translate(cx,cy);ctx.rotate(out*1.4);ctx.drawImage(WILD_ART['cp69-monocle'],-10-cx,-25-cy+drop+bounce+out*out*90,420,240);}
+>  ctx.restore();
+> };
+> cp63DrawCane=function(t){const a=cp63CaneVis(t);if(a<=0)return;
+>  const z=Math.min(cp63CaneZ(t),T.FRONT+30),sp=cp63CaneSpan(z),slide=cp63E((t-CP63.caneIn)/.35),xl=sp.xr-(sp.xr-sp.xl)*slide,A=skyScreen(xl,z,14),B=skyScreen(sp.xr,z,14);
+>  ctx.save();ctx.globalAlpha=a;
+>  // Crook rises beyond the unchanged right mitt; shaft follows the original sweep span.
+>  ctx.translate(A.x-5*B.s,A.y);ctx.rotate(-.4);
+>  ctx.drawImage(WILD_ART['cp69-cane'],262,330,922,185,0,-28*B.s,B.x-A.x+20*B.s,60*B.s);
+>  ctx.restore();
+> };
+> 
+> // CP-70: move the existing DOM nodes after all original handlers are bound.
+> // No IDs, handlers or hidden controls are removed. Native details is closed each opening.
+> const __cp70Credits=openCredits;
+> openCredits=function(){const result=__cp70Credits.apply(this,arguments);if(!S.dev||!panel.querySelector||panel.querySelector('#cp70-main'))return result;
+>  const main=document.createElement('div');main.id='cp70-main';main.className='set';
+>  const title=document.createElement('h3');title.textContent='Developer';main.appendChild(title);
+>  const engineer=document.createElement('details');engineer.id='cp70-engineer';
+>  const summary=document.createElement('summary');summary.textContent='Engineer tools';engineer.appendChild(summary);
+>  // The old panel's coin button was unreachable; expose the same grant here.
+>  if(!panel.querySelector('[data-coins="1000"]')){const b=document.createElement('button');b.dataset.coins='1000';b.className='wide';b.textContent='+1,000 coins';b.onclick=()=>{S.coins+=1000;save();b.textContent='✓ '+S.coins.toLocaleString
+>  const close=panel.querySelector('#close');
+>  for(const n of Array.from(panel.children)){if(n===close||n.tagName==='H2')continue;engineer.appendChild(n);}
+>  panel.appendChild(main);
+>  const groups=[['Basics',['#devmode','#sound-test','#checkupd','#diag-send-file']],['Levels',['#pgl-all','#pgl-pass','#pgt-reset']],['Give',['[data-coins="1000"]','#pg-give','#pgt-powers','#pgt-cats']],['Start now',['#dance-now','#w2-spin',
+>  for(const [label,selectors]of groups){const h=document.createElement('h3');h.textContent=label;main.appendChild(h);for(const sel of selectors){const nodes=Array.from(engineer.querySelectorAll(sel)),seen=new Set();for(const [i,n]of nodes.en
+>  const reset=engineer.querySelector('#pg-reset');if(reset)main.appendChild(reset);
+>  panel.appendChild(engineer);return result;
+> };
+> 
+> // ---------- CP-64 add-on (UAT 89, Jenny Nov 17): Jackpot prizes don't fill the Dance meter ----------
+> // "You win so many prizes that you end up having some sort of side game right afterward." Every piece a Jackpot drops is
+> // tagged when it lands (b.jp); collecting a tagged prize, during the Jackpot or after it ends, adds nothing to the Happy
+> // Cat (Dance) meter, so no Dance break starts because of it. Every other prize fills the meter as before, and a meter
+> // that was already full before the Jackpot behaves as before (held, then its Dance break). Pickup itself is unchanged.
+> const __cp64mLand=wildLandBonus;
+> wildLandBonus=function(o){if(!o||!o.jp)return __cp64mLand(o);const ac=addCoin;
+>  addCoin=function(){const b=ac.apply(this,arguments);if(b)b.jp=true;return b;};
+>  try{return __cp64mLand(o);}finally{addCoin=ac;}};
+> const __cp64mPrize=wildPrizeCollected;
+> wildPrizeCollected=function(b,x){if(!b||!b.jp)return __cp64mPrize(b,x);const df=danceFill;danceFill=function(){};
+>  try{return __cp64mPrize(b,x);}finally{danceFill=df;}};
