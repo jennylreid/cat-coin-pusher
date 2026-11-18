@@ -325,6 +325,25 @@ wrapped; state in `CP63X`, settings in `CP63` (timing table, `max:5`, `maxPrizes
 - Stand-ins drawn in code: monocle, chain, cane, rings, lens beam, button icon. Real art later (one piece at a time).
 - The frozen pickup is untouched (pieces leave through the normal front-edge payout).
 
+## Jackpot cascade (CP-64, UAT 86, Jenny's go Nov 17, 2026)
+- The wheel's JACKPOT slice (weight .02, about 2%; was JACKPOT 25 at 5%) sets `WILD.jpPending`. Once no side game runs
+  (`cp64Side()`), the round is in play and not paused, `cp64Start()` opens `WILD.jp`: a timed state that drops a bonus
+  every `CP64.gap` (0.16 s) for `CP64.drops` (8.4 s) through the normal `WILD.incoming` marker/whistle/`wildLandBonus`,
+  then ends when its last drops have landed (about 9 s), or at `CP64.hard` (11 s) whatever happens. Block
+  `work/cp86/cp64-jackpot.js`, appended by `work/cp86/build.py`.
+- Mix: 80% prizes from the round's collection (the star only while it's missing), 10% Rain 5 (a prize instead on a
+  crowded board, `cp61Crowded`), 10% Quake (at most 2). 70% land near the front edge (depth 650-740). Caps: 48 drops,
+  no drop while the board holds 210 pieces or 28 prizes. The pusher runs at Turbo speed while it lasts (period
+  restored at the end).
+- The outermost `wildTick` wrapper holds the round timer, Turbo, the bonus clock and the out-of-coins clock (values are
+  kept at 1 s or more inside the inner tick and put back after, so none can run out during it). A full Happy Cat meter
+  (`dancePending`/`danceForce`) is held and starts its Dance break after the Jackpot. A win waits for the end
+  (`wildFinish` wrapper, "ALL n! JACKPOT!"); any other finish (END ROUND, Home, `wildReset`/`wildExit`) ends it at once.
+- During a Jackpot a prize over the side is lost as normal but shows no "LOST THE …!" banner (Jenny, Nov 17): a
+  `gutterOff` wrapper drops those callouts while `WILD.jp` is set.
+- Developer: "Start a Jackpot now" (`cp64StartNow`, above "Wild 2: spin the wheel now"). Checks `work/cp86/checks86.cjs`;
+  real-browser stills `work/cp86/shots86.cjs`.
+
 ## The wheel's Yawn (CP-58, UAT 79, Jenny's approval Nov 16, 2026)
 - The prize wheel's YAWN slices (both wheels; `danceTick` stage `yawn`) call `cp58StartYawn()`. It's a 4.75 s moment.
   The cat yawns with the Runway round-yawn face (`img/art/cp58-yawn-face.webp`, a whole head on the head canvas,

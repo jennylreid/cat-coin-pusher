@@ -95,3 +95,38 @@ Already on the way: Pause with Finish (CP-51), which handles the half-empty boar
   coins for the shop since it is too confusing." PM: agree. Coins are what you push; the shop should use Catnip, which
   already shows on the top bar. Shop-only prizes give Catnip a purpose (e.g. the peacock feather). Open: how Catnip is
   earned. Simple to medium.
+
+- **Reference boards (Jenny, Nov 17):** private shot `Screenshots/ref-pusher-top-2026-11-17.webp`, a real high-limit
+  machine (other people's footage; not for Git).
+  1. "tokens/coins sit on the pusher": a pile rides on top of the pusher. As the pusher pulls back, the back wall
+     scrapes pieces off onto the board. PM: a natural refill that also fixes the long-push "gaping hole". Medium (the
+     pieces ride a moving body; check performance).
+  2. A giant stack falls (`Screenshots/ref-stack-fall-{1,2,3}-2026-11-17.webp`): a huge tower of chips stands
+     behind the pusher, tips over and floods the board with chips. PM: a big set-piece moment, a natural reward for a
+     "knock over the tower" goal or a big win. The catch is performance: hundreds of pieces. It needs fewer, bigger
+     pieces (the big coins idea) or a cap. Medium to complex.
+
+- **Level complete screen (Jenny, Nov 17):** "I really like the level complete experience in Hole em all"
+  (`Screenshots/ref-hole-level-complete-2026-11-17.webp`, private). It has a big bold "Level Complete!", three big
+  glossy stars with sparkles, one big Continue button, and an "Up Next" bar (1/3) towards the next reward. PM: ours is
+  a small end card with a plain-text stars line and two buttons. The "Up Next" bar could show progress to the next
+  cat, recipe or chest. Medium (UI and art; the stars need new art).
+  What she liked about the motion: "the words were spelled out like our cat coin title page... then stars splatted onto
+  the screen." PM: reuse our title's letter-by-letter animation for the message, then the stars land one at a time with
+  a squash and a thump. Simple to medium; the stars need art.
+
+- **Unlock ladder (Jenny, Nov 17):** an "Up Next" bar on level complete counts boards towards the next unlock. "new
+  cats, recipes, shop items,... we can use all these things. I like it. It will tie gameplay together." PM: this is
+  the backbone that links boards, Porch, Kitchen and Shop. Decide the order and spacing (e.g. every 3 boards) in the
+  design session. The bar ships with CP-66.
+
+- **Home shows what's coming (Jenny, Nov 17, Hole em All):** `Screenshots/ref-hole-home-2026-11-17.webp` (private).
+  "walking me through an introduction that includes a storyline and episodes... so far doesn't bug me. I can see future
+  goals... something will unlock at level 12. There are chests that are going to open later. there are things that
+  unlock at various levels." On screen: locked icons with their level (Lvl 6, 25, 36, 51), two chests filling (2/10,
+  6/20), an "Unlock at Level 12" banner, one big "Level 03" button.
+  PM: this is the unlock ladder made visible on Home. Locked doors with a level number are cheap and give a reason to
+  keep going. The filling chests are our Keys and chests (#5). Keep any storyline light (the cats' visits), since
+  episodes are a lot of content. Ties to CP-60 (Home) and CP-66 part 2.
+  **Decided (Jenny, Nov 17):** "our storyline will just be cat visits." Blocker: "we just need great cat art and we
+  struggle with that."

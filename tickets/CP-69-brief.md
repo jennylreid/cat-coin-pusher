@@ -35,3 +35,15 @@ untouched.
 
 ## Report
 Top of `tickets/CP-69.md`. Never use Claude or message anyone; the PM reads the report. Don't start other work.
+
+## Round 2 (Jenny's picks, Nov 17)
+- **Bow tie:** "I prefer the shape of bow tie A, but I want it black and I want it bigger." Bow tie A's shape, in
+  black, bigger (wider).
+- **Hat:** "I think I like C for the hat, but I want it wider"; "the hat bigger as well. So both should be wider."
+  Hat C, bigger and wider.
+- **Monocle:** "I actually prefer the silver." Monocle C, as it is.
+- **Cane:** "we need the cane to be thicker." Show both handles: one option with a crook (a small rounded hook, not a shepherd's hook) and one with a knob top (Jenny: "I should look at both crook and knob"; the point is which is easier to see). Thicker, so
+  it reads at phone size. Colour: keep cane A's black with the gold collar unless it doesn't read; say which.
+- Make 2 options each for the bow tie and hat (sizes or proportions) and the 2 canes above, on the real Tuxedo at 412x915 as before
+  (with the silver monocle), plus the cane on the board. Update the top of `tickets/CP-69.md` and **stop**. Phase B
+  still waits for the PM's go.

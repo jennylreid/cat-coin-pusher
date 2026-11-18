@@ -1,0 +1,48 @@
+[
+ {
+  "sz": "412x915",
+  "realSeconds": 9.53,
+  "left0": 45,
+  "stats": {
+   "n": 48,
+   "prizes": 41,
+   "rain": 5,
+   "quakes": 2,
+   "skipped": 0,
+   "peak": 92,
+   "t": 8.42,
+   "why": "done"
+  },
+  "left": 45,
+  "phase": "play",
+  "win": false,
+  "got": 4,
+  "pieces": 87,
+  "errs": [],
+  "build": "2026.11.17 UAT 86",
+  "clipFrames": 49
+ },
+ {
+  "sz": "360x640",
+  "realSeconds": 8.71,
+  "left0": 45,
+  "stats": {
+   "n": 42,
+   "prizes": 36,
+   "rain": 4,
+   "quakes": 2,
+   "skipped": 11,
+   "peak": 99,
+   "t": 8.42,
+   "why": "done"
+  },
+  "left": 45,
+  "phase": "play",
+  "win": false,
+  "got": 3,
+  "pieces": 95,
+  "errs": [],
+  "build": "2026.11.17 UAT 86",
+  "clipFrames": 0
+ }
+]

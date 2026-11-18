@@ -1,0 +1,108 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp57-title\\release-title.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp86\\release.html",
+ "passed": true,
+ "passedN": 9,
+ "failed": [],
+ "notes": {
+  "word": {
+   "per": [
+    {
+     "at": 0.6,
+     "takes": [
+      1.208
+     ],
+     "code": 0
+    },
+    {
+     "at": 0.7,
+     "takes": [
+      1.355
+     ],
+     "code": 0
+    },
+    {
+     "at": 0.783,
+     "takes": [
+      1.222
+     ],
+     "code": 0
+    },
+    {
+     "at": 0.883,
+     "takes": [
+      1.231
+     ],
+     "code": 0
+    },
+    {
+     "at": 0.967,
+     "takes": [
+      1.227
+     ],
+     "code": 0
+    },
+    {
+     "at": 1.05,
+     "takes": [
+      1.047
+     ],
+     "code": 0
+    },
+    {
+     "at": 1.15,
+     "takes": [
+      1.079
+     ],
+     "code": 0
+    }
+   ],
+   "steel": 0,
+   "rec": 0,
+   "land": 0
+  },
+  "errs": [],
+  "fallback": {
+   "per": [
+    {
+     "at": 0.6,
+     "takes": [],
+     "code": 7
+    },
+    {
+     "at": 0.7,
+     "takes": [],
+     "code": 7
+    },
+    {
+     "at": 0.783,
+     "takes": [],
+     "code": 7
+    },
+    {
+     "at": 0.883,
+     "takes": [],
+     "code": 7
+    },
+    {
+     "at": 0.967,
+     "takes": [],
+     "code": 7
+    },
+    {
+     "at": 1.05,
+     "takes": [],
+     "code": 7
+    },
+    {
+     "at": 1.15,
+     "takes": [],
+     "code": 7
+    }
+   ],
+   "steel": 7,
+   "rec": 0,
+   "land": 0
+  }
+ }
+}
