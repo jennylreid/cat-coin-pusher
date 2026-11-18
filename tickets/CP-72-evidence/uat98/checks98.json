@@ -1,0 +1,217 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp98\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\release.html",
+ "passed": true,
+ "passedN": 5,
+ "failed": [],
+ "notes": {
+  "paths": {
+   "paths": [
+    {
+     "start": 235,
+     "before": true,
+     "segsSame": true,
+     "finishSame": true,
+     "end": true,
+     "hangS": 1.45,
+     "fullS": 1,
+     "tiltDeg": 20,
+     "tiltWithFace": true,
+     "asUAT96": true
+    },
+    {
+     "start": 312,
+     "before": true,
+     "segsSame": true,
+     "finishSame": true,
+     "end": true,
+     "hangS": 1.45,
+     "fullS": 1,
+     "tiltDeg": 20,
+     "tiltWithFace": true,
+     "asUAT96": true
+    },
+    {
+     "start": 173,
+     "before": true,
+     "segsSame": true,
+     "finishSame": true,
+     "end": true,
+     "hangS": 1.45,
+     "fullS": 1,
+     "tiltDeg": 20,
+     "tiltWithFace": true,
+     "asUAT96": true
+    }
+   ],
+   "stillSwitch": true,
+   "cream": true
+  },
+  "play": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "len": [
+     8.87,
+     8.42
+    ],
+    "kitsDone": [
+     true,
+     true
+    ],
+    "carried": [
+     "egg",
+     "rain5",
+     "coin",
+     "rain5"
+    ],
+    "paid": [
+     "egg",
+     "rain5",
+     "coin",
+     "rain5"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "len": [
+     9.02,
+     8.57
+    ],
+    "kitsDone": [
+     true,
+     true
+    ],
+    "carried": [
+     "tuna",
+     "rain10"
+    ],
+    "paid": [
+     "tuna",
+     "rain10"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "len": [
+     9.2,
+     8.77
+    ],
+    "kitsDone": [
+     true,
+     true
+    ],
+    "carried": [
+     "tuna",
+     "rain5",
+     "rain5"
+    ],
+    "paid": [
+     "tuna",
+     "rain5",
+     "rain5"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "len": [
+     9.03,
+     8.6
+    ],
+    "kitsDone": [
+     true,
+     true
+    ],
+    "carried": [
+     "silver",
+     "rain10",
+     "rain5",
+     "tuna"
+    ],
+    "paid": [
+     "rain10",
+     "silver",
+     "tuna",
+     "rain5"
+    ],
+    "fails": []
+   }
+  ],
+  "screen": [
+   {
+    "sz": "412x915",
+    "tag": "",
+    "shots": [
+     "1-start",
+     "2-middle",
+     "3-end"
+    ],
+    "box": {
+     "l": 14.2,
+     "r": 385.8,
+     "t": 244.2,
+     "b": 762.9
+    },
+    "errs": 0,
+    "H": 888.3495145631068,
+    "worst": {
+     "r": 385.8,
+     "u": 0.82,
+     "f": {
+      "cx": 200,
+      "hw": 185.8
+     }
+    }
+   },
+   {
+    "sz": "412x915",
+    "tag": "-before",
+    "shots": [
+     "middle"
+    ],
+    "box": null,
+    "errs": 0
+   },
+   {
+    "sz": "360x640",
+    "tag": "",
+    "shots": [
+     "1-start",
+     "2-middle",
+     "3-end"
+    ],
+    "box": {
+     "l": 14.2,
+     "r": 385.8,
+     "t": 148.2,
+     "b": 695.3
+    },
+    "errs": 0,
+    "H": 720,
+    "worst": {
+     "r": 385.8,
+     "u": 0.83,
+     "f": {
+      "cx": 200,
+      "hw": 185.8
+     }
+    }
+   },
+   {
+    "sz": "360x640",
+    "tag": "-before",
+    "shots": [
+     "middle"
+    ],
+    "box": null,
+    "errs": 0
+   }
+  ]
+ }
+}

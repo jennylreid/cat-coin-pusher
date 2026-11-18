@@ -38928,7 +38928,7 @@ wildFinish=function(win,reason){
  WILD.chasePending=null;return __laserFinish(win,reason);
 };
 // Laser mode has no happy meter or dance break; Laser chase is its side game.
-danceStart=function(){if(WILD.laser||WILD.chase)return;return __laserDanceStart();};
+danceStart=function(){if((WILD.laser&&!W2_DEV_WHEEL)||WILD.chase)return;return __laserDanceStart();}; /* CP-80 */
 danceFill=function(n,x){if(WILD.laser)return;return __laserDanceFill(n,x);};
 wildRainCollected=function(b,x){
  if(b.kind!=='laser')return __laserRain(b,x);
@@ -42908,6 +42908,15 @@ openCredits=function(){const r=__cp79Credits.apply(this,arguments);try{
  for(const k of CP79.CHOICES){const b=document.createElement('button');b.dataset.yawn=k;b.style.marginRight='6px';
   b.onclick=()=>{CP79.set(k);paint();setTimeout(()=>{try{sfx.wild2('yawn',1);}catch(e){}},k==='today'||CP79.bufs[k]?0:250);};btns.push(b);box.appendChild(b);}
  paint();const sum=eng.querySelector('summary');if(sum&&sum.nextSibling)eng.insertBefore(box,sum.nextSibling);else eng.appendChild(box);}catch(e){}return r;};
+
+
+// ---------- CP-80 (Nov 18): the Developer wheel on the Siamese (Laser chase) board ----------
+// "Wheel lands on ..." and "spin the wheel now" fake a perfect Dance break (danceStart, then the wheel). The laser board has
+// no Dance break on purpose, so its danceStart refused and w2StartWheelNow threw at GO: no wheel. While the Developer-forced
+// start builds its finale (W2_DEV_WHEEL), the laser guard lets it through (edit in build.py); a running Laser chase still
+// waits, as Treat toss and Pet do. w2StartWheelNow is reached only from those Developer buttons: normal play is unchanged.
+var W2_DEV_WHEEL=false;
+{const __cp80Wheel=w2StartWheelNow;w2StartWheelNow=function(){if(WILD.chase){WILD.wheelForce=true;return;}W2_DEV_WHEEL=true;try{return __cp80Wheel.apply(this,arguments);}finally{W2_DEV_WHEEL=false;}};}
 
 </script>
 

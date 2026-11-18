@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.18 UAT 97';
+const BUILD = '2026.11.18 UAT 98';
 
 
 
@@ -42635,9 +42635,9 @@ function z72Path(k,aim){const z0=Math.max(pusherY,PUSH_MAX)+4,z1=z0+80,zF=T.FRON
    segs.push({k:'flip',d:F.d,f:u=>({x:A.x,z:A.z+(B.z-A.z)*u,h:F.h*Math.sin(u*Math.PI),rot:-2*Math.PI*z72E(u),dir:1,pose:'leap'})});at=B;}});
  run(at,{x:at.x,z:zF});
  segs.push({k:'skid',d:.16,f:u=>({x:at.x,z:zF+4*Math.sin(u*Math.PI/2),h:0,skid:u,dir:1})});
- if(k.id===0){const H=Z72.leapHang,L={...H,dx:Math.max(-H.edge,Math.min(H.edge,at.x-200))+200-at.x},o0=L.top,top=o=>({x:at.x,z:zF+4+o*60,h:40*Math.sin(Math.min(1,o)*Math.PI*.8),grow:1+o*.9,dir:1,pose:'leap',puff:Math.min(1,o/.12)}); /* CP-72 rework: the poof hangs */
+ if(k.id===0){const H=Z72.leapHang,show=H.style==='crazy',L={...H,dx:Math.max(-H.edge,Math.min(H.edge,at.x-200))+200-at.x,hang:show?H.faceHang:H.hang,tilt:show?(at.x>200?-1:1)*H.tilt:0,face:show},o0=L.top, /* CP-72 hang rework: showing off */top=o=>({x:at.x,z:zF+4+o*60,h:40*Math.sin(Math.min(1,o)*Math.PI*.8),grow:1+o*.9,dir:1,pose:'leap',puff:Math.min(1,o/.12)}); /* CP-72 rework: the poof hangs */
   segs.push({k:'leap',d:.4*o0,f:u=>({...top(u*o0),fade:1})});
-  segs.push({k:'leap',d:L.hang,f:u=>{const P=top(o0),e=z72E(u/.18);return {...P,x:P.x+L.dx*e,h:P.h+3*Math.sin(u*Math.PI*4),grow:P.grow*(1+(L.big-1)*e),fade:1};}});
+  segs.push({k:'leap',d:L.hang,f:u=>{const P=top(o0),e=z72E(u/.18),F=L.face?z72E(u*L.hang/L.faceIn)*(1-z72E((u*L.hang-L.hang+L.faceOut)/L.faceOut)):0;return {...P,x:P.x+L.dx*e,lean:L.tilt*F||undefined,face:F||undefined,h:P.h+3*Math.sin(u*Math.PI*4),grow:P.grow*(1+(L.big-1)*e),fade:1};}});
   segs.push({k:'leap',d:.4*(1-o0),f:u=>{const P=top(o0+u*(1-o0)),e=1-z72E(u/.6);return {...P,x:P.x+L.dx*e,grow:P.grow*(1+(L.big-1)*e),fade:Math.max(0,1-u)};}});}
  else segs.push({k:'leap',d:.4,f:u=>({x:at.x,z:zF+4+u*60,h:40*Math.sin(Math.min(1,u)*Math.PI*.8),grow:1+u*.9,fade:Math.max(0,1-u),dir:1,pose:'leap',puff:0})});
  let t=0;for(const g of segs){g.t0=t;t+=g.d;}k.segs=segs;k.len=t;}
@@ -42730,7 +42730,7 @@ function z72Draw(){const X=Z72X;if(!X)return;ctx.save();ctx.setTransform(scale*r
   // spook jump: a burst of shock lines round the kitten as it shoots up
   if(P.seg==='spook'&&P.u<.35){const c=skyScreen(P.x,P.z,P.h+30);ctx.save();ctx.globalAlpha=alpha*(1-P.u/.35);ctx.strokeStyle='#fff';ctx.lineWidth=2.5*g.s;
    for(let i=0;i<6;i++){const an=-Math.PI/2+(i-2.5)*.42,r0=34*g.s,r1=(48+P.u*60)*g.s;ctx.beginPath();ctx.moveTo(c.x+Math.cos(an)*r0,c.y+Math.sin(an)*r0);ctx.lineTo(c.x+Math.cos(an)*r1,c.y+Math.sin(an)*r1);ctx.stroke();}ctx.restore();}
-  const p=skyScreen(P.x,P.z,P.h);z72Kitten(p.x,p.y,s,k.coat,(t-k.t0)*22+k.id,P.dir,P.skid||0,alpha,P.lean||0,P.puff||0,P.rot||0,P.pose);}
+  const p0=skyScreen(P.x,P.z,P.h),p=P.face?cp72Face(p0,s,P.face,P.lean):{x:p0.x,y:p0.y,s};z72Kitten(p.x,p.y,p.s, /* CP-72 hang rework: the close-up */k.coat,(t-k.t0)*22+k.id,P.dir,P.skid||0,alpha,P.lean||0,P.puff||0,P.rot||0,P.pose);}
  /* CP-72 add-on: no "2× PUSHER" over the kittens */
  ctx.restore();}
 // --- the power: the Orange cat's button now plays this Zoomies ---
@@ -42893,6 +42893,24 @@ function cp78Rim(){const p=cp78RimPath();ctx.save();ctx.lineJoin='round';ctx.lin
  ctx.strokeStyle='#0a2d29';ctx.lineWidth=3.2;ctx.stroke(p);ctx.restore();}
 // Repaint the table once while the title is up (not on the first frame of a round), as soon as the art is loaded.
 (function cp78Early(){try{if(typeof ART!=='undefined'&&ART.table&&ART.table.getContext){if(!__cp78TableDone)cp78CleanTable();return;}}catch(e){}setTimeout(cp78Early,250);})();
+
+// ---------- CP-72 hang rework (UAT 98; Jenny, Nov 18: "During the hang the ginger kitten moves toward the middle of the
+// screen and tilts about 20 degrees, for extra crazy energy." Then: "the idea is to make the cat come at you in a silly way,
+// right? It's almost like a joke, because it is so cute. It knows it's cute, so it kind of puts itself right in your face
+// for a second." And: "Showing off is a good way to frame it.") ----------
+// Showing off: at the top of its final leap the puffed ginger kitten comes right up to the screen - centred, big and close,
+// tilted 20 degrees - holds there about a second, then drops back into its leap and lands where it does now. The close-up
+// is as big as the screen allows (90% of its width, 70% of its height, tilt included), so it fits at 360x640 too.
+// To go back to UAT 96's hang (hangs 1 s at the top of the leap, 1.5x, upright, in place), set style to 'still'.
+Object.assign(Z72.leapHang,{style:'crazy', // 'crazy' (showing off) | 'still' (UAT 96)
+ faceHang:1.45,faceIn:.2,faceOut:.25, // the hang (s) in the showing-off style: comes at you, holds about 1 s, drops back
+ tilt:20*Math.PI/180,faceW:.9,faceH:.7,faceY:.57}); // tilt; close-up size as parts of the screen; its centre (part of the screen's height)
+// screen place and size of the close-up, blended from the kitten's place on the board (F 0..1)
+// (the kitten tilts about its feet, so its feet are placed to keep its middle, about 46 units above them at this size,
+// on the screen's centre line)
+function cp72Face(p0,s,F,lean){const L=Z72.leapHang,S=Math.min(L.faceW*W/92,L.faceH*H/118),c=46*S,fx=200-c*Math.sin(lean||0),fy=H*L.faceY+c*Math.cos(lean||0);
+ return {x:p0.x+(fx-p0.x)*F,y:p0.y+(fy-p0.y)*F,s:s+(S-s)*F*F};} // it grows mostly once centred, so it stays on the screen on the way
+// ---------- end CP-72 hang rework ----------
 
 </script>
 

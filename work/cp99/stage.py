@@ -1,4 +1,4 @@
-# CP-79 Yawn sound staging (UAT 99), on published UAT 98 (from work/cp96/stage.py): complete game-only update for installed APK7.
+# CP-79 Yawn sound + CP-80 Siamese dev wheel staging (UAT 99), on published UAT 98 (from work/cp96/stage.py): complete game-only update for installed APK7.
 # Only index.html changes (the 3 sounds are embedded in it); the other runtime files are carried over byte for byte from the
 # published UAT 98 JSON. Lays the runtime out in boot99/ for the real-browser check:
 #   python stage.py --boot-only ; PORT=8797 node yawncheck.cjs boot99 > <evidence>/real-browser-boot.json ; python stage.py
@@ -30,8 +30,8 @@ for k,b64 in files.items():
     if not f.exists() or f.read_bytes()!=b:f.parent.mkdir(parents=True,exist_ok=True);f.write_bytes(b);wrote+=1
 print('boot folder',G,'files written',wrote)
 if '--boot-only' in sys.argv or DEV:sys.exit(0)
-names=['checks79.json']+sorted(f.name for f in e.glob('checks*-on99.json'))
-assert len(names)>=9,('missing regression results',names)
+names=['checks79.json','checks80.json']+sorted(f.name for f in e.glob('checks*-on99.json'))
+assert len(names)>=10,('missing regression results',names)
 for name in names:
     c=json.loads((e/name).read_text(encoding='utf-8'));assert Path(c['build'])==rel.resolve(),(name,'not run on this release.html')
     assert c['passed'] is True and not c['failed'],(name,c['failed'])

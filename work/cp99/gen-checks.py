@@ -10,8 +10,8 @@ rel=base.relative_to(p.parent).as_posix()
 C0=(" {const S=fs.readFileSync(src,'utf8');let B=fs.readFileSync(path.resolve(__dirname,'../%s'),'utf8');let m=[1];"
  "if(require('crypto').createHash('sha256').update(B).digest('hex')!=='%s')m=[];"
  "const E=JSON.parse(fs.readFileSync(path.join(__dirname,'edits.json'),'utf8'));for(const [a,b] of E.edits){if(B.split(a).length!==2)m=[];B=B.split(a).join(b);}"
- "const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,'cp79-yawn.js'),'utf8')+String.fromCharCode(10)+B.slice(i);\n"
- "  check('0 the build is published %s + build name + the CP-79 block (everything else unchanged)',S===B&&m.length===1);}\n")%(rel,v['baseSHA256'],v['base'])
+ "for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,f),'utf8')+String.fromCharCode(10)+B.slice(i);}\n"
+ "  check('0 the build is published %s + build name + CP-79/CP-80 (everything else unchanged)',S===B&&m.length===1);}\n")%(rel,v['baseSHA256'],v['base'])
 made=[]
 for f in sorted(S.glob('checks*.cjs')):
     s=f.read_text(encoding='utf-8');m=re.match(r'checks(\w+?)(?:-on\d+)?\.cjs$',f.name);o='checks%s-on99.cjs'%m.group(1)

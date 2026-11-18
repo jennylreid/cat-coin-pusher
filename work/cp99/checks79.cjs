@@ -49,8 +49,8 @@ async function run(file,{choice=null,spy=false,muted=false}={}){
  r.errs=J(g,'__errs');g.close();return r;}
 (async()=>{
  {const S=fs.readFileSync(src,'utf8');let B=fs.readFileSync(base,'utf8');let m=[1];for(const [a,b] of E.edits){if(B.split(a).length!==2)m=[];B=B.split(a).join(b);}
-  const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,'cp79-yawn.js'),'utf8')+String.fromCharCode(10)+B.slice(i);
-  check('0 the build is the base ('+path.basename(path.dirname(base))+') + build name + the CP-79 block (nothing else)',S===B&&m.length===1);}
+  for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,f),'utf8')+String.fromCharCode(10)+B.slice(i);}
+  check('0 the build is the base ('+path.basename(path.dirname(base))+') + build name + the CP-80 edit + the CP-79 and CP-80 blocks (nothing else)',S===B&&m.length===1);}
  {const js=fs.readFileSync(path.join(__dirname,'cp79-yawn.js'),'utf8'),r={};let ok=true;for(const k of ['A2','B2','AB']){const m=js.match(new RegExp(k+':"([A-Za-z0-9+/=]+)"'));
    const same=!!m&&Buffer.from(m[1],'base64').equals(fs.readFileSync(path.resolve(__dirname,'../cp79-yawn-sound/audio/yawn-sound-'+k+'.mp3')));r[k]=same;ok=ok&&same;}
   check('1 the 3 embedded sounds are the Step 1b files (A2, B2, AB), byte for byte',ok,r);}

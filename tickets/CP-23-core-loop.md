@@ -120,3 +120,8 @@ level ladder and Up Next unlocks.
   PM notes: a new dance is a natural Up Next unlock. Rhythms are small work (a new beat list); the music is the hard
   part (one catchy track per dance that we're allowed to use), so make one second dance first. Keep early dances
   forgiving (difficulty ramp).
+- **Side games per cat, and the wheel (found Nov 18, CP-80).** Today the Tuxedo, Orange (Treat toss), Ragdoll (Pet the
+  cat) and Tortie (Mouse pounce) have the Dance break plus their own side game; the Siamese's Laser chase *replaces* the
+  Dance break. The wheel (Yawn, Jackpot) only comes after a perfect Dance break, so Siamese players never get the wheel.
+  This grew piece by piece, not by design. Decide in the plan: does every cat get the Dance break plus its own side
+  game, or does the side game replace it, and how is the wheel earned on each board?
