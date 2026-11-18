@@ -1,0 +1,26 @@
+﻿{
+    "displayName":  "2026.11.16 UAT 81",
+    "version":  20261116235952,
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "2c44b18d715e031e756ecf5856b477f50c48b349b769110b97e9cab9169efdfc",
+    "stagedJSONSHA256":  "94d1326e687c4682e64d7089db8eb7e9b7884363c420ab0ee540ea5983c813bf",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "985625c87fd72ae6be6f13741d9320fa13dbf692a9367731f6f4140ed107f6f0",
+    "jsonBytes":  53943137,
+    "runtimeFiles":  65,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+                              "img/art/cp62-bowtie-a.png",
+                              "img/art/cp62-bowtie-b.png",
+                              "img/art/cp62-bowtie-c.png"
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.16 UAT 80",
+    "backup":  "uat/backups/before-UAT81-20261116235952",
+    "evidence":  "tickets/CP-62-evidence/uat81",
+    "authorization":  "Jenny: add bow ties too to the random per-prize A/B/C colour variation. UAT 81 only, on UAT 80.",
+    "localPublication":  "verified"
+}

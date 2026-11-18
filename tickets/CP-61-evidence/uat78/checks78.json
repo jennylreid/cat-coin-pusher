@@ -1,0 +1,590 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp78\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp77\\release.html",
+ "passed": true,
+ "passedN": 9,
+ "failed": [],
+ "notes": {
+  "merge+rain new": {
+   "plainBefore": 141,
+   "plainAfter10s": 136,
+   "merged": 0,
+   "newGold5": 0,
+   "rainScheduled": {
+    "gold5": 5
+   },
+   "landed": {
+    "gold5": 5
+   }
+  },
+  "merge+rain UAT 77": {
+   "plainBefore": 107,
+   "plainAfter10s": 97,
+   "merged": 2,
+   "newGold5": 2,
+   "rainScheduled": {
+    "coin": 22,
+    "silver": 3
+   },
+   "landed": {
+    "coin": 2,
+    "silver": 1,
+    "vanished": 18,
+    "gold5": 4
+   }
+  },
+  "mid": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "yawn": "wheel",
+    "top": 16,
+    "off": [
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "offUAT77": 4,
+    "bottom": [
+     21,
+     22,
+     22
+    ],
+    "gaps": [
+     2,
+     2
+    ],
+    "errs": 0,
+    "weight": 7
+   },
+   {
+    "fps": 60,
+    "seed": 1,
+    "yawn": "power",
+    "top": 16,
+    "off": [
+     "coin",
+     "silver",
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "offUAT77": 4,
+    "bottom": [
+     21,
+     22,
+     22
+    ],
+    "gaps": [
+     3,
+     2
+    ],
+    "errs": 0,
+    "weight": 6
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "yawn": "wheel",
+    "top": 12,
+    "off": [
+     "item",
+     "note",
+     "coin",
+     "silver",
+     "coin",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "offUAT77": 5,
+    "bottom": [
+     20,
+     22,
+     22
+    ],
+    "gaps": [
+     2,
+     2
+    ],
+    "errs": 0,
+    "weight": 10
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "yawn": "power",
+    "top": 12,
+    "off": [
+     "coin",
+     "item",
+     "note",
+     "coin",
+     "silver",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "offUAT77": 6,
+    "bottom": [
+     20,
+     22,
+     22
+    ],
+    "gaps": [
+     2,
+     2
+    ],
+    "errs": 0,
+    "weight": 10
+   },
+   {
+    "fps": 60,
+    "seed": 3,
+    "yawn": "wheel",
+    "top": 17,
+    "off": [
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "offUAT77": 4,
+    "bottom": [
+     22,
+     20,
+     20
+    ],
+    "gaps": [
+     1,
+     1
+    ],
+    "errs": 0,
+    "weight": 6
+   },
+   {
+    "fps": 60,
+    "seed": 3,
+    "yawn": "power",
+    "top": 17,
+    "off": [
+     "item",
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "offUAT77": 4,
+    "bottom": [
+     22,
+     20,
+     20
+    ],
+    "gaps": [
+     1,
+     1
+    ],
+    "errs": 0,
+    "weight": 6
+   },
+   {
+    "fps": 60,
+    "seed": 4,
+    "yawn": "wheel",
+    "top": 25,
+    "off": [
+     "coin",
+     "coin",
+     "coin",
+     "silver",
+     "coin",
+     "coin",
+     "silver"
+    ],
+    "offUAT77": 6,
+    "bottom": [
+     20,
+     20,
+     20
+    ],
+    "gaps": [
+     3,
+     3
+    ],
+    "errs": 0,
+    "weight": 7
+   },
+   {
+    "fps": 60,
+    "seed": 4,
+    "yawn": "power",
+    "top": 25,
+    "off": [
+     "coin",
+     "coin",
+     "silver",
+     "coin",
+     "coin",
+     "coin",
+     "silver"
+    ],
+    "offUAT77": 6,
+    "bottom": [
+     20,
+     20,
+     20
+    ],
+    "gaps": [
+     3,
+     3
+    ],
+    "errs": 0,
+    "weight": 7
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "yawn": "wheel",
+    "top": 17,
+    "off": [
+     "coin",
+     "coin",
+     "silver",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "offUAT77": 5,
+    "bottom": [
+     20,
+     20,
+     20
+    ],
+    "gaps": [
+     0,
+     0
+    ],
+    "errs": 0,
+    "weight": 6
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "yawn": "power",
+    "top": 17,
+    "off": [
+     "coin",
+     "silver",
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "offUAT77": 5,
+    "bottom": [
+     20,
+     20,
+     20
+    ],
+    "gaps": [
+     3,
+     0
+    ],
+    "errs": 0,
+    "weight": 6
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "yawn": "wheel",
+    "top": 16,
+    "off": [
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "offUAT77": 4,
+    "bottom": [
+     21,
+     19,
+     20
+    ],
+    "gaps": [
+     2,
+     2
+    ],
+    "errs": 0,
+    "weight": 8
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "yawn": "power",
+    "top": 16,
+    "off": [
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "offUAT77": 5,
+    "bottom": [
+     21,
+     20,
+     20
+    ],
+    "gaps": [
+     2,
+     2
+    ],
+    "errs": 0,
+    "weight": 8
+   },
+   {
+    "fps": 30,
+    "seed": 3,
+    "yawn": "wheel",
+    "top": 16,
+    "off": [
+     "coin",
+     "coin",
+     "silver",
+     "silver",
+     "item",
+     "item"
+    ],
+    "offUAT77": 3,
+    "bottom": [
+     22,
+     20,
+     20
+    ],
+    "gaps": [
+     1,
+     0
+    ],
+    "errs": 0,
+    "weight": 8
+   },
+   {
+    "fps": 30,
+    "seed": 3,
+    "yawn": "power",
+    "top": 16,
+    "off": [
+     "silver",
+     "coin",
+     "coin",
+     "silver",
+     "coin",
+     "item"
+    ],
+    "offUAT77": 3,
+    "bottom": [
+     22,
+     20,
+     20
+    ],
+    "gaps": [
+     1,
+     0
+    ],
+    "errs": 0,
+    "weight": 7
+   },
+   {
+    "fps": 30,
+    "seed": 4,
+    "yawn": "wheel",
+    "top": 21,
+    "off": [
+     "coin",
+     "note",
+     "coin",
+     "coin",
+     "silver",
+     "silver",
+     "item"
+    ],
+    "offUAT77": 3,
+    "bottom": [
+     21,
+     23,
+     23
+    ],
+    "gaps": [
+     2,
+     2
+    ],
+    "errs": 0,
+    "weight": 8
+   },
+   {
+    "fps": 30,
+    "seed": 4,
+    "yawn": "power",
+    "top": 21,
+    "off": [
+     "coin",
+     "note",
+     "coin",
+     "coin",
+     "silver",
+     "silver",
+     "item"
+    ],
+    "offUAT77": 3,
+    "bottom": [
+     21,
+     23,
+     23
+    ],
+    "gaps": [
+     2,
+     2
+    ],
+    "errs": 0,
+    "weight": 8
+   }
+  ],
+  "early": [
+   {
+    "seed": 1,
+    "top": 6,
+    "off": [
+     "item",
+     "rain5",
+     "quake",
+     "item"
+    ]
+   },
+   {
+    "seed": 2,
+    "top": 4,
+    "off": [
+     "rain5",
+     "item",
+     "rain5",
+     "item"
+    ]
+   }
+  ],
+  "full": {
+   "control": {
+    "bottom": 22,
+    "top": 45,
+    "emptyCells": 0,
+    "pieces": 163,
+    "offSides": 2
+   },
+   "wheel": {
+    "before": {
+     "bottom": 24,
+     "top": 45,
+     "emptyCells": 0,
+     "pieces": 165
+    },
+    "after": {
+     "bottom": 21,
+     "top": 36,
+     "emptyCells": 1,
+     "pieces": 157,
+     "offSides": 8
+    },
+    "paidIn10s": 25,
+    "errs": []
+   },
+   "power": {
+    "power": "yawn",
+    "before": {
+     "bottom": 24,
+     "top": 45,
+     "emptyCells": 0,
+     "pieces": 165
+    },
+    "after": {
+     "bottom": 21,
+     "top": 36,
+     "emptyCells": 1,
+     "pieces": 157,
+     "offSides": 8
+    },
+    "paidIn10s": 21,
+    "errs": []
+   }
+  },
+  "dance": {
+   "new": [
+    {
+     "beats": 16,
+     "taps": 16,
+     "hits": 16,
+     "bank": {
+      "coin": 16,
+      "rain5": 0,
+      "rain10": 0
+     },
+     "coins": 16,
+     "rainCoins": 0,
+     "poured": {
+      "silver": 3,
+      "coin": 13,
+      "quake": 1
+     },
+     "danceCoins": 16,
+     "errs": []
+    },
+    {
+     "beats": 16,
+     "taps": 16,
+     "hits": 16,
+     "bank": {
+      "coin": 15,
+      "rain5": 1,
+      "rain10": 0
+     },
+     "coins": 15,
+     "rainCoins": 1,
+     "poured": {
+      "rain5": 1,
+      "coin": 12,
+      "silver": 3,
+      "item": 1
+     },
+     "danceCoins": 15,
+     "errs": []
+    }
+   ],
+   "uat77": {
+    "beats": 16,
+    "taps": 16,
+    "hits": 16,
+    "bank": {
+     "coin": 0,
+     "rain5": 0,
+     "rain10": 0
+    },
+    "coins": 0,
+    "rainCoins": 0,
+    "poured": {
+     "item": 1
+    },
+    "danceCoins": 0,
+    "errs": []
+   }
+  }
+ }
+}

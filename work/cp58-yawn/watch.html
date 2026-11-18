@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CP-58 Yawn prototype</title>
+<style>
+:root{--bg:#1b1026;--panel:#2a1a3e;--ink:#f4ecff;--muted:#b9a6d6;--accent:#ffd23f}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,sans-serif}
+.wrap{display:flex;gap:24px;padding:16px;flex-wrap:wrap;align-items:flex-start}
+iframe{width:412px;height:915px;border:0;border-radius:18px;background:#000;flex:none}
+.side{max-width:440px}
+h1{font-size:22px;margin:0 0 6px}
+button{font:600 15px system-ui;padding:10px 14px;margin:4px 6px 4px 0;border-radius:10px;border:1px solid #6b5a8a;background:#3a2d52;color:var(--ink);cursor:pointer}
+button.big{background:var(--accent);color:#2a0b3e;border-color:var(--accent);font-size:18px;padding:12px 20px}
+.note{color:var(--muted);font-size:13px}
+ol{padding-left:20px}
+#st{font:12px ui-monospace,monospace;color:var(--muted);white-space:pre-wrap}
+</style></head><body>
+<div class="wrap">
+<iframe id="g" src="game/proto.html?level=1"></iframe>
+<div class="side">
+<h1>CP-58 Yawn prototype</h1>
+<p class="note">The real game (UAT 74) with the new Yawn in place of the old one. Not a release. Tap the board once to turn sound on.</p>
+<p><button class="big" id="play">▶ Play the Yawn</button></p>
+<p><button data-lv="1">New round: Level 1 (cheese, shrimp)</button><button data-lv="3">New round: Level 3 (5 prizes)</button></p>
+<p><button id="cheese">Add cheese</button><button id="sardine">Add sardine</button><button id="shrimp">Add shrimp</button></p>
+<p class="note">The board needs a moment after a new round starts (countdown). The round clock is topped up each time you play the Yawn.</p>
+<h2 style="font-size:16px">The beats (about 4.75 s)</h2>
+<ol>
+<li>0–1.4 s: big yawn: head back, eyes squeezed, mouth wide, “YAAAWN…”, both mitts stretch up and out and shiver.</li>
+<li>1.5 s: eyes pop open and side-eye up and away.</li>
+<li>1.4–2.25 s: one mitt drapes out and down onto the board, casually.</li>
+<li>2.45 s: it grabs the prize nearest the front (a goal prize first); 2.8 s: the other mitt grabs a second one.</li>
+<li>3.1–4.2 s: both carried to the mouth, four chomps with crumbs, “NOM.”, Happy eyes.</li>
+<li>4.3 s: stolen goal prizes come back as the game's bonus drop: “IT'LL DROP BACK!”.</li>
+</ol>
+<div id="st"></div>
+</div></div>
+<script>
+const g=document.getElementById('g'),W=()=>g.contentWindow,st=document.getElementById('st');
+document.getElementById('play').onclick=()=>{try{const ok=W().cp58DemoPlay();st.textContent=ok?'Playing…':'Not ready: wait for the round to start (or it is already playing).';}catch(e){st.textContent='Still loading…';}};
+for(const b of document.querySelectorAll('[data-lv]'))b.onclick=()=>{g.src='game/proto.html?level='+b.dataset.lv+'&r='+Date.now();st.textContent='';};
+for(const id of ['cheese','sardine','shrimp'])document.getElementById(id).onclick=()=>{try{W().cp58DemoPrize(id);}catch(e){}};
+setInterval(()=>{try{const s=W().cp58DemoState();if(!s.yawn&&st.textContent==='Playing…')st.textContent='';st.dataset.s=JSON.stringify(s);}catch(e){}},500);
+</script>
+</body></html>

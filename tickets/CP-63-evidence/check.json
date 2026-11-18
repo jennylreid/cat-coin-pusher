@@ -1,0 +1,526 @@
+{
+ "sum": {
+  "runs": 15,
+  "started": 15,
+  "picked": 60,
+  "paid": 60,
+  "pickedLostSide": 0,
+  "anySide": 0,
+  "anyFront": 78,
+  "errs": 0,
+  "allLocked": true,
+  "allClean": true
+ },
+ "out": [
+  {
+   "level": 1,
+   "seed": 3,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "shrimp",
+      "cheese"
+     ]
+    ],
+    "paid": [
+     "cheese",
+     "shrimp"
+    ],
+    "lostSide": [],
+    "anyFront": 2,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 1,
+   "seed": 7,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "shrimp",
+      "cheese"
+     ]
+    ],
+    "paid": [
+     "cheese",
+     "shrimp"
+    ],
+    "lostSide": [],
+    "anyFront": 2,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 1,
+   "seed": 11,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "shrimp",
+      "cheese"
+     ]
+    ],
+    "paid": [
+     "cheese",
+     "shrimp"
+    ],
+    "lostSide": [],
+    "anyFront": 2,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 2,
+   "seed": 3,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "box",
+      "milk",
+      "quake",
+      "rain5",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "rain5",
+     "box",
+     "quake",
+     "milk",
+     "rain5"
+    ],
+    "lostSide": [],
+    "anyFront": 8,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 2,
+   "seed": 7,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "box",
+      "milk",
+      "quake",
+      "rain5",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "rain5",
+     "box",
+     "quake",
+     "milk",
+     "rain5"
+    ],
+    "lostSide": [],
+    "anyFront": 8,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 2,
+   "seed": 11,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "box",
+      "milk",
+      "quake",
+      "rain5",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "rain5",
+     "box",
+     "quake",
+     "milk",
+     "rain5"
+    ],
+    "lostSide": [],
+    "anyFront": 8,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 3,
+   "seed": 3,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "box",
+      "egg",
+      "rain5",
+      "rain5",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "rain5",
+     "rain5",
+     "box",
+     "egg",
+     "rain5"
+    ],
+    "lostSide": [],
+    "anyFront": 7,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 3,
+   "seed": 7,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "box",
+      "egg",
+      "rain5",
+      "rain5",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "rain5",
+     "rain5",
+     "box",
+     "egg",
+     "rain5"
+    ],
+    "lostSide": [],
+    "anyFront": 7,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 3,
+   "seed": 11,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "box",
+      "egg",
+      "rain5",
+      "rain5",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "rain5",
+     "rain5",
+     "box",
+     "egg",
+     "rain5"
+    ],
+    "lostSide": [],
+    "anyFront": 7,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 4,
+   "seed": 3,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "feather",
+      "milk",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "feather",
+     "milk",
+     "rain5"
+    ],
+    "lostSide": [],
+    "anyFront": 4,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 4,
+   "seed": 7,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "feather",
+      "milk",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "feather",
+     "milk",
+     "rain5"
+    ],
+    "lostSide": [],
+    "anyFront": 4,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 4,
+   "seed": 11,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "feather",
+      "milk",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "feather",
+     "milk",
+     "rain5"
+    ],
+    "lostSide": [],
+    "anyFront": 4,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 5,
+   "seed": 3,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "ball",
+      "feather",
+      "quake",
+      "rain5",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "rain5",
+     "quake",
+     "feather",
+     "rain5",
+     "ball"
+    ],
+    "lostSide": [],
+    "anyFront": 5,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 5,
+   "seed": 7,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "ball",
+      "feather",
+      "quake",
+      "rain5",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "rain5",
+     "quake",
+     "feather",
+     "rain5",
+     "ball"
+    ],
+    "lostSide": [],
+    "anyFront": 5,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  },
+  {
+   "level": 5,
+   "seed": 11,
+   "cat": "tuxedo",
+   "ok": true,
+   "lockedDuring": true,
+   "secondTapIgnored": true,
+   "stats": {
+    "runs": 1,
+    "picked": [
+     [
+      "ball",
+      "feather",
+      "quake",
+      "rain5",
+      "rain5"
+     ]
+    ],
+    "paid": [
+     "rain5",
+     "quake",
+     "feather",
+     "rain5",
+     "ball"
+    ],
+    "lostSide": [],
+    "anyFront": 5,
+    "anySide": 0
+   },
+   "after": {
+    "on": false,
+    "pgpx": false,
+    "dance": false
+   },
+   "errs": []
+  }
+ ]
+}

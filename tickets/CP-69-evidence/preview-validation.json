@@ -1,0 +1,14 @@
+{
+  "source": "work/cp85/release.html",
+  "build": "2026.11.17 UAT 85",
+  "preview": [
+    412,
+    915
+  ],
+  "mode": "Read-only desktop fixture; in-memory accessory overlays",
+  "options": [
+    "a",
+    "b",
+    "c"
+  ]
+}

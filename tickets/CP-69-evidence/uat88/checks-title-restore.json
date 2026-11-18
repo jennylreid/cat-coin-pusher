@@ -1,0 +1,55 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp88\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp87\\release.html",
+ "production": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\prod07\\release.html",
+ "passed": true,
+ "passedN": 8,
+ "failed": [],
+ "notes": {
+  "per": [
+   {
+    "at": 0.6,
+    "steel": 1,
+    "buffers": 0,
+    "nodes": 7
+   },
+   {
+    "at": 0.7,
+    "steel": 1,
+    "buffers": 0,
+    "nodes": 7
+   },
+   {
+    "at": 0.783,
+    "steel": 1,
+    "buffers": 0,
+    "nodes": 7
+   },
+   {
+    "at": 0.883,
+    "steel": 1,
+    "buffers": 0,
+    "nodes": 7
+   },
+   {
+    "at": 0.967,
+    "steel": 1,
+    "buffers": 0,
+    "nodes": 7
+   },
+   {
+    "at": 1.05,
+    "steel": 1,
+    "buffers": 0,
+    "nodes": 7
+   },
+   {
+    "at": 1.15,
+    "steel": 1,
+    "buffers": 0,
+    "nodes": 7
+   }
+  ],
+  "errs": []
+ }
+}

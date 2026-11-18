@@ -1,3 +1,15 @@
+## CP-69 / CP-57 / CP-70 — UAT 88
+
+Pinned published UAT 87; `work/cp88/build.py` calls the CP-57 title-final builder, preloads four approved CP-69 accessory paintings, then appends drawing overrides and the CP-70 Developer DOM wrapper. Hat and lowered tie draw only from the inspection-only monocle hook; gold monocle retains eye origin/drop/out timing, crook cane retains original sweep span with a visible angled grip. Physics, inspection state machine and frozen pickup unchanged. `developer.js` moves bound nodes, preserves IDs, keeps duplicates and tuning in native closed details; +1,000 grants the old panel's same coin amount. `prepare.py`, `audit.py`, adapted behavioral suites and real-browser `browser.cjs` provide validation. Publication/anonymous cloud verification use the existing UAT item; 70-file game-only APK7 payload. Phone test/report: `tickets/CP-69.md`.
+
+## CP-62 bow tie colours — UAT 81
+
+Jenny added bow tie A/B/C variation. On pinned UAT 80, `work/cp81/build.py` adds only the build label and three palette preloads (`img/art/cp62-bowtie-{a,b,c}.png`) to the existing CP62_ART mechanism. UI stays red A; each body keeps its red/blue/plum painting through pickup/loss and the wheel Yawn. Runtime 65 files. No size/collider, RNG or pickup motion/audio changes. Evidence/report: `tickets/CP-62-evidence/uat81/`, `tickets/CP-62.md`. Phone UAT pending.
+
+## CP-62 prize art and colours — UAT 80, November 16, 2026
+
+`work/cp80/build.py` pins published UAT 79. Shared `WILD_ART` defaults: milk B, mouse A, bell A, notes C, bowtie A, yarn A; cushion keeps C. Jenny additionally authorized random existing A/B/C paintings per notes, yarn and cushion prize. `colours.js` loads those palettes, assigns stable per-object art through a WeakMap and an independent colour RNG, and transfers only the art index into pooled pickup/loss objects. Five render call sites pass their owning object (board, falling, pickup, loss and CP-58 held prize). UI icons use the default painting. Shared cache is restored after each variant draw. No gameplay RNG, prize IDs, sizes, colliders, levels, pickup motion/timing/sounds or multi-drop rules change. New file names: `img/art/cp62-*.png` (15); runtime has 62 files. Checks/evidence: `tickets/CP-62-evidence/uat80/`; source `work/cp80/`. Phone UAT pending.
+
 ## CP-52 prize artwork — UAT 69, November 16, 2026
 
 `work/cp69/build.py` pins published UAT 68 and preloads three approved 128×128 PNGs into `WILD_ART` during `loadArt`: `img/art/cp52-feather.png` (D), `cp52-ball.png` (C), `cp52-cushion.png` (C). The `.pgl` cache flag lets the existing ball branch reuse its PNG. All existing `wildPrizeArt`/`drawPrize` consumers use them; no size, aspect, opaque-share, collider or pickup code changes. Game-only APK7 payload now contains 40 files: the previous 37 plus these three PNGs. Future staging must preserve these files rather than rebuilding non-HTML assets solely from APK7. Source PNG copies live in `work/cp69/art/`; approved originals and options in `tickets/CP-52-evidence/`. Checks and phone-size screenshots: `tickets/CP-52-evidence/uat69/`. Production unchanged.
@@ -297,3 +309,75 @@ Module `work/cp68/cp51.js`, inserted by `work/cp68/build.py` on pinned UAT 67; c
 - Coin limit: CP-48's 45 own-coin limit is retired. `cp48Full()` now means `cp51Pieces()` (plain coins + silver + gold 5s) >= `CP51_BACKSTOP` = 120, using CP-48's slow-down (one drop per `CP48_SLOW` = 1 s, "Board full"). A hard block at 120 was tried and made non-stop tapping lose far more (11/30 vs 19/30). Rain budget (100) and merging (130) unchanged.
 - Pause: `cp51Paused`. Appended to the 12 existing `inventoryOpen||panel.style.display==='block'` pause checks (not `drawTreatAward`, so a pickup stays on screen); `step` and `update` wrappers skip physics and the game update while paused but still call `wildTick` (side games keep their own pause bookkeeping, e.g. the dance shifts its beat clock) and `bgmTick` (`bgmWanted` is false while paused). Button: a pill around the round timer (`cp51Btn`, hud.left+5, bannerY±15), only in a round in play. Pop-up `cp51Rects`/`cp51DrawPop`, taps in `wildPointer` (outermost). Finish = `wildFinish(false,'finish')` (end card "ROUND OVER"; prizes and coins kept by `pgRoundEnd`), or a win if every prize is in. Home = the round's top Home button's own tap path. Auto-pause: `window.appPaused(true)` (native onPause, screen off) and `visibilitychange` hidden. Diag events `pause`/`resume`.
 - Level 1 is the intro: `PGL_LEVELS[0]` has no rain coins and no Quake; its bonus drops are plain `coin` (a missing goal prize still comes back as itself). Since UAT 70 its cheese and shrimp are back at production's Oct 31 spots, `['cheese',140,610],['shrimp',260,690]`, and the pop-up's Finish button reads END ROUND (same behaviour).
+
+
+## CP-56 Phase B (UAT 72, November 16, 2026)
+Pinned UAT 71 plus sock B, biscuit A, sardine B, egg B, box A. work/cp72/build.py preloads 128px PNGs into WILD_ART for all shared consumers; same size/collider and frozen pickup. Validation: checks72.cjs; package/publication: stage.py, publish.ps1, verify-cloud.py. Complete 45-file game-only update; report tickets/CP-56.md.
+
+## Formal inspection: the Tuxedo's power (CP-63, UAT 84, Nov 17, 2026)
+The Tuxedo's power button plays Formal inspection instead of the YAWN power (BASE-1 item 7). Code: the `CP-63` block at
+the end of the script (`work/cp63-uat/cp63-added.js`); `PGP.tuxedo={id:'inspect',...}`; `pgpUse`/`pgpTick`/`pgpEnd`
+wrapped; state in `CP63X`, settings in `CP63` (timing table, `max:5`, `maxPrizes:2`, `topOnly`, `offEdge`, `words`).
+- Beats (about 4.4 s, the game runs at full speed): monocle drops onto the eye (0-0.45 s); a lens visits the chosen pieces
+  back to front, each gets a gold ring (0.55-1.95 s); the right mitt lays a cane behind them (to 2.45 s) and sweeps forward
+  to past the front edge (to 3.55 s); lit pieces riding the cane are steered inside the tray's width; mitt home, monocle off.
+- Pick rule (`cp63Pick`): goal prizes > other prizes > Quake > Rain coins by value > plain coins, then nearest the front;
+  at most 2 prizes; a coin only if it lies on top of the pile (the bottom layer is never chosen).
+- A lit piece is eased back from a side edge for the whole power (never lost over a side).
+- Guards: the button is locked while it plays (`PGPX`); a wheel YAWN waits for it (`CP63X` in the dance's yawn stage);
+  Home, round end and pause go through `pgpEnd`/the power tick and leave nothing behind.
+- Stand-ins drawn in code: monocle, chain, cane, rings, lens beam, button icon. Real art later (one piece at a time).
+- The frozen pickup is untouched (pieces leave through the normal front-edge payout).
+
+## Jackpot cascade (CP-64, UAT 86, Jenny's go Nov 17, 2026)
+- The wheel's JACKPOT slice (weight .02, about 2%; was JACKPOT 25 at 5%) sets `WILD.jpPending`. Once no side game runs
+  (`cp64Side()`), the round is in play and not paused, `cp64Start()` opens `WILD.jp`: a timed state that drops a bonus
+  every `CP64.gap` (0.16 s) for `CP64.drops` (8.4 s) through the normal `WILD.incoming` marker/whistle/`wildLandBonus`,
+  then ends when its last drops have landed (about 9 s), or at `CP64.hard` (11 s) whatever happens. Block
+  `work/cp86/cp64-jackpot.js`, appended by `work/cp86/build.py`.
+- Mix: 80% prizes from the round's collection (the star only while it's missing), 10% Rain 5 (a prize instead on a
+  crowded board, `cp61Crowded`), 10% Quake (at most 2). 70% land near the front edge (depth 650-740). Caps: 48 drops,
+  no drop while the board holds 210 pieces or 28 prizes. The pusher runs at Turbo speed while it lasts (period
+  restored at the end).
+- The outermost `wildTick` wrapper holds the round timer, Turbo, the bonus clock and the out-of-coins clock (values are
+  kept at 1 s or more inside the inner tick and put back after, so none can run out during it). A full Happy Cat meter
+  (`dancePending`/`danceForce`) is held and starts its Dance break after the Jackpot. A win waits for the end
+  (`wildFinish` wrapper, "ALL n! JACKPOT!"); any other finish (END ROUND, Home, `wildReset`/`wildExit`) ends it at once.
+- During a Jackpot a prize over the side is lost as normal but shows no "LOST THE …!" banner (Jenny, Nov 17): a
+  `gutterOff` wrapper drops those callouts while `WILD.jp` is set.
+- Jackpot prizes don't fill the Dance (Happy Cat) meter (Jenny, Nov 17; UAT 89): a `wildLandBonus` wrapper tags every
+  piece a Jackpot drop lands (`b.jp`, via a temporary `addCoin` wrapper), and a `wildPrizeCollected` wrapper skips
+  `danceFill` for tagged prizes, also after the Jackpot has ended. Other prizes fill it as before. Block
+  `work/cp89/cp64-meter.js` (UAT 88 + label + this block, `work/cp89/build.py`); check `work/cp89/check-meter.cjs`.
+- Developer: "Start a Jackpot now" (`cp64StartNow`, above "Wild 2: spin the wheel now"). Checks `work/cp86/checks86.cjs`;
+  real-browser stills `work/cp86/shots86.cjs`.
+
+## The wheel's Yawn (CP-58, UAT 79, Jenny's approval Nov 16, 2026)
+- The prize wheel's YAWN slices (both wheels; `danceTick` stage `yawn`) call `cp58StartYawn()`. It's a 4.75 s moment.
+  The cat yawns with the Runway round-yawn face (`img/art/cp58-yawn-face.webp`, a whole head on the head canvas,
+  fading in and out). The mitts stretch and shiver, then the cat side-eyes away (the game's pupils). One mitt drapes
+  down and grabs the prize nearest the front, with goal prizes first. The other mitt grabs a second. Both are eaten,
+  with Runway's squinting eyes (`img/art/cp58-yawn-eyes.png`), four chomps, "NOM." and crumbs. Each stolen goal prize
+  then comes back through `WILD.incoming` (the bonus drop): "IT'LL DROP BACK!".
+- It never touches coins. While a prize is in the mitt, `wildMissing()` doesn't count it, so the bonus-drop clock can't
+  make a duplicate. A prize that's gone before the mitt reaches it is simply missed (`g.missed`).
+- The Tuxedo's YAWN power stays CP-61's sweep (`w2StartYawn`). `w2YawnTick` hands anything that isn't CP-58 to it.
+  Powers aren't usable during the CP-58 Yawn (`pgpReady`), and the wheel waits for a running power Yawn to end.
+- **Since UAT 82 (Jenny, Nov 17):** an eaten prize is lost at the gulp, the same as a side loss (`cp58Lost`: lost sound,
+  icon shake, "LOST THE …!", lost count, the star's return), with no rail flash or tumble. It comes back only through
+  the normal bonus drop, and there's no drop-back. With no prize in reach, the mitt takes up to 4 coins lying on top,
+  where most lie together (`cp58CoinTargets`). They are re-checked at the grab (UAT 83).
+- **Since UAT 85 (Jenny, Nov 17):** the Yawn takes food only (`CP58_FOOD`: cheese, shrimp, tuna, biscuit, sardine, egg,
+  milk); toys are never taken. Milk is drunk, and its empty bottle is tossed onto the board (`cp58BottleGulp` / `cp58BottleLand`, block
+  `work/cp85/cp58-bottle.js`). The bottle is `addCoin('item','bottle')` with `b.bottle=true`: milk's collider and
+  drawing (`drawPrize` swaps in `img/art/cp58-milk-empty.png`). `fallOff`/`gutterOff` catch it before every prize
+  handler: it clinks (`sfx.cp58Clink`), falls and is removed, and is never a prize or counted. At most
+  `CP58_BOTTLE.max` (2) are on the board. `cp63Pick` skips bottles. Any new code that loops over `kind==='item'` bodies
+  must skip `b.bottle`.
+- **Real-browser boot check (since UAT 82):** the desktop harness strips the boot line (`Promise.all([RAPIER.init(),
+  loadArt()])`), so a const used by loadArt and declared below it (CP62_ART in UAT 80/81) only fails in a real browser.
+  Before publishing, run `work/cp83/bootcheck.cjs <runtime folder>` (headless Chrome, real time, the full runtime
+  folder).
+- Timings are in `CP58` at the top of the block. Source is `work/cp79/build.py`: the approved prototype
+  (`work/cp58-yawn/`) plus the listed edits. Checks are in `work/cp79/checks79.cjs`.
+

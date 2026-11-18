@@ -1,0 +1,29 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp88\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp86\\base85.html",
+ "passed": true,
+ "passedN": 6,
+ "failed": [],
+ "notes": {
+  "level8": {
+   "piecesBefore": 92,
+   "peakDuring": 131,
+   "tickMsNormal": 20.49,
+   "tickMsJackpotMean": 32.01,
+   "tickMsJackpotWorstSecond": 38.14,
+   "uat85SameSecondsMean": 22.96,
+   "uat85WorstSecond": 27.93,
+   "perSecond": [
+    24.81,
+    22.33,
+    29.38,
+    32.25,
+    31.24,
+    34.69,
+    38.02,
+    37.22,
+    38.14
+   ]
+  }
+ }
+}

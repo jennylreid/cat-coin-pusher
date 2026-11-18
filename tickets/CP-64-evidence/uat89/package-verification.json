@@ -1,0 +1,20 @@
+{
+  "displayName": "2026.11.17 UAT 89",
+  "version": 20261118000000,
+  "apkVersion": 7,
+  "base": "cp88",
+  "baselineJSONSHA256": "5c48ea1b3cefec13e867a9e6ffa80924c4d627571a65c0b007542efe5b323c9c",
+  "stagedJSONSHA256": "9ccb135f3c4c1118ead62e1d8353a2f9fe6cbadf6eb6c95e9ccb3e52654b8aff",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "9f0ebf0383d6626f4a7fcdfc03477af4d9218b832358aade21888df79536fe69",
+  "runtimeFiles": 70,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "backup": "uat/backups/before-UAT89-20261118000000",
+  "evidence": "tickets/CP-64-evidence/uat89",
+  "authorization": "CP-64 add-on (Jenny, Nov 17): Jackpot prizes don't fill the Dance meter; UAT only",
+  "nativeChange": false,
+  "jsonBytes": 54926782
+}

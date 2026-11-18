@@ -1,0 +1,10 @@
+[
+ [
+  "const BUILD = '2026.11.16 UAT 83';",
+  "const BUILD = '2026.11.17 UAT 84';"
+ ],
+ [
+  "if(W2_YAWN&&!W2_YAWN.cp58)return;",
+  "if((W2_YAWN&&!W2_YAWN.cp58)||CP63X)return; /* CP-63: the wheel's Yawn waits for an inspection */"
+ ]
+]

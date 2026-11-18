@@ -1,0 +1,47 @@
+PASS 0 only the title coin line and the CP57T block differ from the base
+runway art img/art/cp58-yawn-face.webp TypeError: Cannot read properties of null (reading 'loadImage')
+    at c.__loadImage (C:\Users\jenny\OneDrive\work\CoinPusher\work\cp33\runtime.cjs:36:127)
+    at evalmachine.<anonymous>:41610:62
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+runway art img/art/cp58-yawn-eyes.png TypeError: Cannot read properties of null (reading 'loadImage')
+    at c.__loadImage (C:\Users\jenny\OneDrive\work\CoinPusher\work\cp33\runtime.cjs:36:127)
+    at evalmachine.<anonymous>:41610:62
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+runway art img/art/cp58-milk-empty.png TypeError: Cannot read properties of null (reading 'loadImage')
+    at c.__loadImage (C:\Users\jenny\OneDrive\work\CoinPusher\work\cp33\runtime.cjs:36:127)
+    at evalmachine.<anonymous>:41610:62
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+PASS 1 default Title sound is A
+PASS 2 the Developer panel has "Title sound" and "Replay title" null
+PASS 3 "Title sound" cycles A > B > C > D > A and saves it on the phone [["B","B"],["C","C"],["D","D"],["A","A"]]
+PASS 4 "Replay title" closes Settings and restarts the title
+PASS 5A Title sound A: 7 letters, each exactly one A tap at its landing, production's level (G x v/0.8) and pitch 0.96-1.08, no clink [[0.6,[{"k":"A","v":0.05927,"r":1.078}],0],[0.7,[{"k":"A","v":0.05927,"r":1.002}],0],[0.783,[{"k":"A","v":0.05927,"r":1.071}],0],[0.883,[{"k":"A","v":0.05927,"r":0.982}],0],[0.967,[{"k":"A","v":0.05927,"r":1.078}],0],[1.05,[{"k":"A","v":0.05927,"r":1.02}],0],[1.15,[{"k":"A","v":0.05927,"r":1.074}],0]]
+PASS 6A neighbouring letters differ in pitch by at least 2% [1.078,1.002,1.071,0.982,1.078,1.02,1.074]
+PASS 5B Title sound B: 7 letters, each exactly one B tap at its landing, production's level (G x v/0.8) and pitch 0.96-1.08, no clink [[0.6,[{"k":"B","v":0.02345,"r":0.991}],0],[0.7,[{"k":"B","v":0.02345,"r":1.055}],0],[0.783,[{"k":"B","v":0.02345,"r":0.977}],0],[0.883,[{"k":"B","v":0.02345,"r":1.068}],0],[0.967,[{"k":"B","v":0.02345,"r":1.032}],0],[1.05,[{"k":"B","v":0.02345,"r":0.979}],0],[1.15,[{"k":"B","v":0.02345,"r":1}],0]]
+PASS 6B neighbouring letters differ in pitch by at least 2% [0.991,1.055,0.977,1.068,1.032,0.979,1]
+PASS 5C Title sound C: 7 letters, each exactly one C tap at its landing, production's level (G x v/0.8) and pitch 0.96-1.08, no clink [[0.6,[{"k":"C","v":0.06436,"r":1.068}],0],[0.7,[{"k":"C","v":0.06436,"r":0.962}],0],[0.783,[{"k":"C","v":0.06436,"r":1.07}],0],[0.883,[{"k":"C","v":0.06436,"r":0.996}],0],[0.967,[{"k":"C","v":0.06436,"r":1.028}],0],[1.05,[{"k":"C","v":0.06436,"r":0.98}],0],[1.15,[{"k":"C","v":0.06436,"r":1.008}],0]]
+PASS 6C neighbouring letters differ in pitch by at least 2% [1.068,0.962,1.07,0.996,1.028,0.98,1.008]
+PASS 7 Title sound D: production's clink on every letter, no tap [[1,0],[1,0],[1,0],[1,0],[1,0],[1,0],[1,0]]
+PASS 8 muted: silent
+PASS 9 no frame errors []
+runway art img/art/cp58-yawn-face.webp TypeError: Cannot read properties of null (reading 'loadImage')
+    at c.__loadImage (C:\Users\jenny\OneDrive\work\CoinPusher\work\cp33\runtime.cjs:36:127)
+    at evalmachine.<anonymous>:41610:62
+runway art img/art/cp58-yawn-eyes.png TypeError: Cannot read properties of null (reading 'loadImage')
+    at c.__loadImage (C:\Users\jenny\OneDrive\work\CoinPusher\work\cp33\runtime.cjs:36:127)
+    at evalmachine.<anonymous>:41610:62
+runway art img/art/cp58-milk-empty.png TypeError: Cannot read properties of null (reading 'loadImage')
+    at c.__loadImage (C:\Users\jenny\OneDrive\work\CoinPusher\work\cp33\runtime.cjs:36:127)
+    at evalmachine.<anonymous>:41610:62
+PASS 10 before the taps decode: production's clink on every letter (never silent)
+runway art img/art/cp58-yawn-face.webp TypeError: Cannot read properties of null (reading 'loadImage')
+    at c.__loadImage (C:\Users\jenny\OneDrive\work\CoinPusher\work\cp33\runtime.cjs:36:127)
+    at evalmachine.<anonymous>:41610:62
+runway art img/art/cp58-yawn-eyes.png TypeError: Cannot read properties of null (reading 'loadImage')
+    at c.__loadImage (C:\Users\jenny\OneDrive\work\CoinPusher\work\cp33\runtime.cjs:36:127)
+    at evalmachine.<anonymous>:41610:62
+runway art img/art/cp58-milk-empty.png TypeError: Cannot read properties of null (reading 'loadImage')
+    at c.__loadImage (C:\Users\jenny\OneDrive\work\CoinPusher\work\cp33\runtime.cjs:36:127)
+    at evalmachine.<anonymous>:41610:62
+PASS 11 a saved choice is used after a restart
+PASS 12 production untouched

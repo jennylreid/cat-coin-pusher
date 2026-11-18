@@ -1,0 +1,62 @@
+{
+ "reg1": {
+  "source": "dragon-studio-cash-register-kaching-376867.mp3",
+  "start": 0.092,
+  "len": 1.005,
+  "loud": -9.2,
+  "peak": 1.314,
+  "gainToEven": 0.635,
+  "peakAfter": 0.835,
+  "loudAfter": -13.14
+ },
+ "reg2": {
+  "source": "dragon-studio-register-cha-ching-376896.mp3",
+  "start": 0.07,
+  "len": 1.027,
+  "loud": -14.71,
+  "peak": 1.015,
+  "gainToEven": 1.198,
+  "peakAfter": 0.98,
+  "loudAfter": -15.01
+ },
+ "reg3": {
+  "source": "freesound_community-cash-register-purchase-87313.mp3",
+  "start": 0.134,
+  "len": 1.25,
+  "loud": -12.45,
+  "peak": 1.269,
+  "gainToEven": 0.923,
+  "peakAfter": 0.98,
+  "loudAfter": -14.69
+ },
+ "reg4": {
+  "source": "freesound_community-cha-ching-7053.mp3",
+  "start": 0.56,
+  "len": 1.25,
+  "loud": -9.91,
+  "peak": 1.126,
+  "gainToEven": 0.689,
+  "peakAfter": 0.776,
+  "loudAfter": -13.14
+ },
+ "reg5": {
+  "source": "modestas123123-cash-register-kaching-sound-effect-125042.mp3",
+  "start": 0.56,
+  "len": 1.25,
+  "loud": -19.13,
+  "peak": 0.895,
+  "gainToEven": 1.993,
+  "peakAfter": 0.98,
+  "loudAfter": -18.34
+ },
+ "reg6": {
+  "source": "vadim_makes_sound-retro-cash-register-ka-ching-with-coin-drawer-1-546555.mp3",
+  "start": 0.063,
+  "len": 1.25,
+  "loud": -13.45,
+  "peak": 0.887,
+  "gainToEven": 1.036,
+  "peakAfter": 0.919,
+  "loudAfter": -13.14
+ }
+}

@@ -1,0 +1,696 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp82\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp82\\base81.html",
+ "passed": false,
+ "passedN": 8,
+ "failed": [
+  "2 no prize in reach (all prizes removed), Level 1 and 3 x 3 seeds x 60/30 fps: the mitt eats 1 coins each time, all lying on top of the pile; no frame errors"
+ ],
+ "notes": {
+  "wheel": [
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 1,
+    "grabbed": [
+     "cheese*"
+    ],
+    "eaten": [
+     "cheese"
+    ],
+    "coinsTaken": 0,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {
+     "cheese": {
+      "t": 2.1,
+      "danceOver": true
+     }
+    },
+    "dup": [],
+    "calls": [
+     "NOM.",
+     "LOST THE CHEESE!",
+     "BONUS DROP INCOMING!"
+    ],
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 2,
+    "grabbed": [
+     "cheese*"
+    ],
+    "eaten": [
+     "cheese"
+    ],
+    "coinsTaken": 0,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {
+     "cheese": {
+      "t": 2.1,
+      "danceOver": true
+     }
+    },
+    "dup": [],
+    "calls": [
+     "NOM.",
+     "LOST THE CHEESE!",
+     "BONUS DROP INCOMING!",
+     "LOST THE CHEESE!",
+     "BONUS DROP INCOMING!"
+    ],
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 3,
+    "grabbed": [
+     "cheese*"
+    ],
+    "eaten": [
+     "cheese"
+    ],
+    "coinsTaken": 0,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {
+     "cheese": {
+      "t": 2.1,
+      "danceOver": true
+     }
+    },
+    "dup": [],
+    "calls": [
+     "NOM.",
+     "LOST THE CHEESE!",
+     "BONUS DROP INCOMING!"
+    ],
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 1,
+    "grabbed": [
+     "coinsx1"
+    ],
+    "eaten": [],
+    "coinsTaken": 1,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {},
+    "dup": [],
+    "calls": [
+     "NOM."
+    ],
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 2,
+    "grabbed": [
+     "cheese*"
+    ],
+    "eaten": [
+     "cheese"
+    ],
+    "coinsTaken": 0,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {
+     "cheese": {
+      "t": 2.1,
+      "danceOver": true
+     }
+    },
+    "dup": [],
+    "calls": [
+     "NOM.",
+     "LOST THE CHEESE!",
+     "BONUS DROP INCOMING!"
+    ],
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 3,
+    "grabbed": [
+     "cheese*"
+    ],
+    "eaten": [],
+    "coinsTaken": 0,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {},
+    "dup": [],
+    "calls": [],
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 1,
+    "grabbed": [
+     "egg*",
+     "box*"
+    ],
+    "eaten": [
+     "egg",
+     "box"
+    ],
+    "coinsTaken": 0,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {
+     "egg": {
+      "t": 2.1,
+      "danceOver": true
+     },
+     "box": {
+      "t": 4.1,
+      "danceOver": true
+     },
+     "notes": {
+      "t": 7.3,
+      "danceOver": true
+     }
+    },
+    "dup": [],
+    "calls": [
+     "NOM.",
+     "LOST THE EGG!",
+     "LOST THE BOX!",
+     "BONUS DROP INCOMING!",
+     "BONUS DROP INCOMING!"
+    ],
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 2,
+    "grabbed": [
+     "egg*",
+     "box*"
+    ],
+    "eaten": [
+     "egg",
+     "box"
+    ],
+    "coinsTaken": 0,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {
+     "egg": {
+      "t": 2.1,
+      "danceOver": true
+     },
+     "box": {
+      "t": 4.1,
+      "danceOver": true
+     },
+     "notes": {
+      "t": 7.3,
+      "danceOver": true
+     }
+    },
+    "dup": [],
+    "calls": [
+     "NOM.",
+     "LOST THE EGG!",
+     "LOST THE BOX!",
+     "BONUS DROP INCOMING!",
+     "BONUS DROP INCOMING!"
+    ],
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 3,
+    "grabbed": [
+     "sardine*",
+     "box*"
+    ],
+    "eaten": [
+     "sardine",
+     "box"
+    ],
+    "coinsTaken": 0,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {
+     "box": {
+      "t": 2.1,
+      "danceOver": true
+     },
+     "bowtie": {
+      "t": 7.3,
+      "danceOver": true
+     },
+     "egg": {
+      "t": 9.8,
+      "danceOver": true
+     }
+    },
+    "dup": [],
+    "calls": [
+     "NOM.",
+     "LOST THE SARDINE!",
+     "LOST THE BOX!",
+     "BONUS DROP INCOMING!"
+    ],
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 1,
+    "grabbed": [
+     "box*",
+     "egg*"
+    ],
+    "eaten": [
+     "box",
+     "egg"
+    ],
+    "coinsTaken": 0,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {
+     "egg": {
+      "t": 2.1,
+      "danceOver": true
+     },
+     "box": {
+      "t": 4.1,
+      "danceOver": true
+     },
+     "notes": {
+      "t": 7.2,
+      "danceOver": true
+     }
+    },
+    "dup": [],
+    "calls": [
+     "NOM.",
+     "LOST THE BOX!",
+     "LOST THE EGG!",
+     "BONUS DROP INCOMING!",
+     "BONUS DROP INCOMING!"
+    ],
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 2,
+    "grabbed": [
+     "egg*",
+     "box*"
+    ],
+    "eaten": [
+     "egg",
+     "box"
+    ],
+    "coinsTaken": 0,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {
+     "egg": {
+      "t": 2.1,
+      "danceOver": true
+     },
+     "box": {
+      "t": 4.1,
+      "danceOver": true
+     },
+     "notes": {
+      "t": 7.2,
+      "danceOver": true
+     }
+    },
+    "dup": [],
+    "calls": [
+     "NOM.",
+     "LOST THE EGG!",
+     "LOST THE BOX!",
+     "BONUS DROP INCOMING!",
+     "BONUS DROP INCOMING!"
+    ],
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 3,
+    "grabbed": [
+     "box*",
+     "egg*"
+    ],
+    "eaten": [
+     "box",
+     "egg"
+    ],
+    "coinsTaken": 0,
+    "lostCounted": true,
+    "noDropBack": true,
+    "missingAfterGulp": true,
+    "lostCall": true,
+    "back": {
+     "egg": {
+      "t": 2.1,
+      "danceOver": true
+     },
+     "box": {
+      "t": 6.1,
+      "danceOver": true
+     },
+     "notes": {
+      "t": 7.2,
+      "danceOver": true
+     }
+    },
+    "dup": [],
+    "calls": [
+     "NOM.",
+     "LOST THE BOX!",
+     "LOST THE EGG!",
+     "BONUS DROP INCOMING!",
+     "BONUS DROP INCOMING!"
+    ],
+    "errs": 0
+   }
+  ],
+  "coins": [
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 1,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 2,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 3,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 1,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 2,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 3,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 1,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 2,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 3,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 1,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 2,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 3,
+    "grabbed": [
+     {
+      "id": "coins",
+      "goal": false,
+      "coins": 1
+     }
+    ],
+    "taken": [
+     "coin"
+    ],
+    "allTop": true,
+    "errs": 0
+   }
+  ],
+  "power": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "off": [
+     "item",
+     "item",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "offUAT81": [
+     "item",
+     "item",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "errs": 0
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "off": [
+     "item",
+     "note",
+     "silver",
+     "item",
+     "item"
+    ],
+    "offUAT81": [
+     "item",
+     "note",
+     "silver",
+     "item",
+     "item"
+    ],
+    "errs": 0
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "off": [
+     "item",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "offUAT81": [
+     "item",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "errs": 0
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "off": [
+     "coin",
+     "note",
+     "coin",
+     "silver",
+     "item"
+    ],
+    "offUAT81": [
+     "coin",
+     "note",
+     "coin",
+     "silver",
+     "item"
+    ],
+    "errs": 0
+   }
+  ]
+ }
+}

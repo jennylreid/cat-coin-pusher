@@ -1,0 +1,18 @@
+[
+ {
+  "sz": "412x915",
+  "grabs": [
+   "milk"
+  ],
+  "bottles": 1,
+  "errs": []
+ },
+ {
+  "sz": "360x640",
+  "grabs": [
+   "milk"
+  ],
+  "bottles": 1,
+  "errs": []
+ }
+]

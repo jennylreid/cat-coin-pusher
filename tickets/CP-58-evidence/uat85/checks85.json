@@ -1,0 +1,692 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp85\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp85\\base84.html",
+ "passed": true,
+ "passedN": 11,
+ "failed": [],
+ "notes": {
+  "food": [
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 1,
+    "onBoard": [
+     "sardine",
+     "sock",
+     "biscuit",
+     "egg",
+     "box"
+    ],
+    "grabs": [
+     "egg",
+     "biscuit"
+    ],
+    "itemsEaten": [
+     "egg",
+     "biscuit"
+    ],
+    "coins": 0,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 2,
+    "onBoard": [
+     "sardine",
+     "sock",
+     "biscuit",
+     "egg",
+     "box"
+    ],
+    "grabs": [
+     "egg",
+     "sardine"
+    ],
+    "itemsEaten": [
+     "egg",
+     "sardine"
+    ],
+    "coins": 0,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 1,
+    "onBoard": [
+     "sardine",
+     "sock",
+     "biscuit",
+     "egg",
+     "box"
+    ],
+    "grabs": [
+     "egg",
+     "biscuit"
+    ],
+    "itemsEaten": [
+     "egg",
+     "biscuit"
+    ],
+    "coins": 0,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 2,
+    "onBoard": [
+     "sardine",
+     "sock",
+     "biscuit",
+     "egg",
+     "box"
+    ],
+    "grabs": [
+     "egg",
+     "sardine"
+    ],
+    "itemsEaten": [
+     "egg",
+     "sardine"
+    ],
+    "coins": 0,
+    "errs": 0
+   },
+   {
+    "level": 4,
+    "fps": 60,
+    "seed": 1,
+    "onBoard": [
+     "egg",
+     "milk",
+     "feather",
+     "ball",
+     "sock",
+     "biscuit",
+     "sardine",
+     "milk",
+     "box",
+     "egg",
+     "ball"
+    ],
+    "grabs": [
+     "egg",
+     "milk"
+    ],
+    "itemsEaten": [
+     "egg",
+     "milk"
+    ],
+    "coins": 0,
+    "errs": 0
+   },
+   {
+    "level": 4,
+    "fps": 60,
+    "seed": 2,
+    "onBoard": [
+     "egg",
+     "milk",
+     "feather",
+     "ball",
+     "sock",
+     "biscuit",
+     "sardine",
+     "milk",
+     "box",
+     "egg",
+     "ball",
+     "feather"
+    ],
+    "grabs": [
+     "milk",
+     "egg"
+    ],
+    "itemsEaten": [
+     "milk",
+     "egg"
+    ],
+    "coins": 0,
+    "errs": 0
+   },
+   {
+    "level": 4,
+    "fps": 30,
+    "seed": 1,
+    "onBoard": [
+     "egg",
+     "milk",
+     "feather",
+     "ball",
+     "sock",
+     "biscuit",
+     "sardine",
+     "milk",
+     "box",
+     "egg",
+     "ball"
+    ],
+    "grabs": [
+     "egg",
+     "milk"
+    ],
+    "itemsEaten": [
+     "egg",
+     "milk"
+    ],
+    "coins": 0,
+    "errs": 0
+   },
+   {
+    "level": 4,
+    "fps": 30,
+    "seed": 2,
+    "onBoard": [
+     "egg",
+     "milk",
+     "feather",
+     "ball",
+     "sock",
+     "biscuit",
+     "sardine",
+     "milk",
+     "box",
+     "egg",
+     "ball",
+     "feather"
+    ],
+    "grabs": [
+     "milk",
+     "egg"
+    ],
+    "itemsEaten": [
+     "milk",
+     "egg"
+    ],
+    "coins": 0,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "fps": 60,
+    "seed": 1,
+    "onBoard": [
+     "ball",
+     "milk",
+     "sock",
+     "egg",
+     "sardine",
+     "box",
+     "feather",
+     "biscuit",
+     "ball",
+     "egg",
+     "sock",
+     "milk",
+     "sardine",
+     "box"
+    ],
+    "grabs": [
+     "sardine",
+     "milk"
+    ],
+    "itemsEaten": [
+     "sardine",
+     "milk"
+    ],
+    "coins": 0,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "fps": 60,
+    "seed": 2,
+    "onBoard": [
+     "ball",
+     "milk",
+     "sock",
+     "egg",
+     "sardine",
+     "box",
+     "feather",
+     "biscuit",
+     "ball",
+     "egg",
+     "sock",
+     "milk",
+     "sardine",
+     "box"
+    ],
+    "grabs": [
+     "milk",
+     "sardine"
+    ],
+    "itemsEaten": [
+     "milk",
+     "sardine"
+    ],
+    "coins": 0,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "fps": 30,
+    "seed": 1,
+    "onBoard": [
+     "ball",
+     "milk",
+     "sock",
+     "egg",
+     "sardine",
+     "box",
+     "feather",
+     "biscuit",
+     "ball",
+     "egg",
+     "sock",
+     "milk",
+     "sardine",
+     "box"
+    ],
+    "grabs": [
+     "sardine",
+     "milk"
+    ],
+    "itemsEaten": [
+     "sardine",
+     "milk"
+    ],
+    "coins": 0,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "fps": 30,
+    "seed": 2,
+    "onBoard": [
+     "ball",
+     "milk",
+     "sock",
+     "egg",
+     "sardine",
+     "box",
+     "feather",
+     "biscuit",
+     "ball",
+     "egg",
+     "sock",
+     "milk",
+     "sardine",
+     "box"
+    ],
+    "grabs": [
+     "milk",
+     "sardine"
+    ],
+    "itemsEaten": [
+     "milk",
+     "sardine"
+    ],
+    "coins": 0,
+    "errs": 0
+   }
+  ],
+  "toys": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "taken": [
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "toysBefore": 5,
+    "errs": 0
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "taken": [
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "toysBefore": 5,
+    "errs": 0
+   },
+   {
+    "fps": 60,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "taken": [
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "toysBefore": 5,
+    "errs": 0
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "taken": [
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "toysBefore": 6,
+    "errs": 0
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "taken": [
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "toysBefore": 6,
+    "errs": 0
+   },
+   {
+    "fps": 30,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "taken": [
+     "coin",
+     "coin",
+     "coin",
+     "coin"
+    ],
+    "toysBefore": 6,
+    "errs": 0
+   }
+  ],
+  "milk": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "milk"
+    ],
+    "eaten": [
+     "milk"
+    ],
+    "tossAt": 4.22,
+    "bottle": [
+     {
+      "id": "bottle",
+      "kind": "item",
+      "x": 264,
+      "y": 17,
+      "z": 401,
+      "r": 30,
+      "half": 9
+     }
+    ],
+    "stats": {
+     "tossed": 1,
+     "kept": 0,
+     "off": 1,
+     "side": 1
+    },
+    "clinks": 2,
+    "awards": 0,
+    "haveSame": true,
+    "lostAdded": 1,
+    "missSame": true,
+    "left": 0,
+    "fallingBottle": true,
+    "errs": []
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "milk"
+    ],
+    "eaten": [
+     "milk"
+    ],
+    "tossAt": 4.22,
+    "bottle": [
+     {
+      "id": "bottle",
+      "kind": "item",
+      "x": 121,
+      "y": 17,
+      "z": 468,
+      "r": 30,
+      "half": 9
+     }
+    ],
+    "stats": {
+     "tossed": 1,
+     "kept": 0,
+     "off": 1,
+     "side": 1
+    },
+    "clinks": 2,
+    "awards": 0,
+    "haveSame": true,
+    "lostAdded": 1,
+    "missSame": true,
+    "left": 0,
+    "fallingBottle": true,
+    "errs": []
+   },
+   {
+    "fps": 60,
+    "seed": 3,
+    "grabs": [
+     "milk"
+    ],
+    "eaten": [
+     "milk"
+    ],
+    "tossAt": 4.22,
+    "bottle": [
+     {
+      "id": "bottle",
+      "kind": "item",
+      "x": 148,
+      "y": 17,
+      "z": 461,
+      "r": 30,
+      "half": 9
+     }
+    ],
+    "stats": {
+     "tossed": 1,
+     "kept": 0,
+     "off": 1,
+     "side": 1
+    },
+    "clinks": 2,
+    "awards": 0,
+    "haveSame": true,
+    "lostAdded": 1,
+    "missSame": true,
+    "left": 0,
+    "fallingBottle": true,
+    "errs": []
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "milk"
+    ],
+    "eaten": [
+     "milk"
+    ],
+    "tossAt": 4.23,
+    "bottle": [
+     {
+      "id": "bottle",
+      "kind": "item",
+      "x": 264,
+      "y": 17,
+      "z": 400,
+      "r": 30,
+      "half": 9
+     }
+    ],
+    "stats": {
+     "tossed": 1,
+     "kept": 0,
+     "off": 1,
+     "side": 1
+    },
+    "clinks": 2,
+    "awards": 0,
+    "haveSame": true,
+    "lostAdded": 1,
+    "missSame": true,
+    "left": 0,
+    "fallingBottle": true,
+    "errs": []
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "milk"
+    ],
+    "eaten": [
+     "milk"
+    ],
+    "tossAt": 4.23,
+    "bottle": [
+     {
+      "id": "bottle",
+      "kind": "item",
+      "x": 129,
+      "y": 17,
+      "z": 453,
+      "r": 30,
+      "half": 9
+     }
+    ],
+    "stats": {
+     "tossed": 1,
+     "kept": 0,
+     "off": 1,
+     "side": 1
+    },
+    "clinks": 2,
+    "awards": 0,
+    "haveSame": true,
+    "lostAdded": 1,
+    "missSame": true,
+    "left": 0,
+    "fallingBottle": true,
+    "errs": []
+   },
+   {
+    "fps": 30,
+    "seed": 3,
+    "grabs": [
+     "milk"
+    ],
+    "eaten": [
+     "milk"
+    ],
+    "tossAt": 4.23,
+    "bottle": [
+     {
+      "id": "bottle",
+      "kind": "item",
+      "x": 178,
+      "y": 25,
+      "z": 404,
+      "r": 30,
+      "half": 9
+     }
+    ],
+    "stats": {
+     "tossed": 1,
+     "kept": 0,
+     "off": 1,
+     "side": 1
+    },
+    "clinks": 2,
+    "awards": 0,
+    "haveSame": true,
+    "lostAdded": 1,
+    "missSame": true,
+    "left": 0,
+    "fallingBottle": true,
+    "errs": []
+   }
+  ],
+  "power": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "same": true,
+    "n": 11
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "same": true,
+    "n": 9
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "same": true,
+    "n": 11
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "same": true,
+    "n": 11
+   }
+  ],
+  "level8": {
+   "pieces": 79,
+   "tickMsNone": 3.942,
+   "tickMsTwoBottles": 4.683,
+   "runs": {
+    "none": [
+     3.05,
+     3.626,
+     4.589,
+     4.504
+    ],
+    "two": [
+     3.35,
+     3.603,
+     5.604,
+     6.174
+    ]
+   }
+  }
+ }
+}

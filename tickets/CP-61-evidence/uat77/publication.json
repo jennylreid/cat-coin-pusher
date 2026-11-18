@@ -1,0 +1,21 @@
+﻿{
+    "version":  20261116235800,
+    "displayName":  "2026.11.16 UAT 77",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "5a51de0dd167bc90424b79d15582e123f7074054deb959497274ac651e338d97",
+    "stagedJSONSHA256":  "327b569cd00d156a1c46e87b327a8dca2b389bf6081ef375fd472b5e8cbffce1",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "14ce68c66185da57a61889f7b9938d6ef7e91781c851d8e3b28cfb94f2097261",
+    "jsonBytes":  52587676,
+    "runtimeFiles":  45,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.16 UAT 76",
+    "backup":  "uat/backups/before-UAT77-20261116235800",
+    "evidence":  "tickets/CP-61-evidence/uat77",
+    "authorization":  "UAT 77: CP-61 follow-up (Jenny via PM, Nov 16: \u0027Tuxedo Yawn power: same limit (a few top items, just not bottom layer).\u0027 Publish as UAT 77 on UAT 76); UAT only",
+    "localPublication":  "verified"
+}

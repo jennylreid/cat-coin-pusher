@@ -1,0 +1,1 @@
+[["const BUILD = '2026.11.16 UAT 78';", "const BUILD = '2026.11.16 UAT 79';"], ["if(D.stage==='yawn'){if(!D.yawnStarted){D.yawnStarted=true;w2StartYawn();}if(!W2_YAWN)w2Next(D,'done');return;}", "if(D.stage==='yawn'){if(!D.yawnStarted){if(W2_YAWN&&!W2_YAWN.cp58)return;D.yawnStarted=true;cp58StartYawn();}if(!W2_YAWN)w2Next(D,'done');return;} // CP-58: the wheel's Yawn"]]

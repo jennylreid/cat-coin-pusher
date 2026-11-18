@@ -1,0 +1,88 @@
+{
+  "options": [
+    {
+      "id": "hat-a",
+      "prompt": "Use case: stylized-concept. Create a single isolated painted game accessory, transparent PNG, no text, no labels, no shadow outside object. Match CatCoin approved prize art: polished warmly lit hand-painted 3D illustration, crisp silhouette, rich material shading, restrained highlights, readable at phone size. Reference cheese is style only; head is proportion context only, never paint a cat or any other accessory. Subject: option A top hat, classic tall black silk cylinder, gently flared crown, broad elliptical brim, burgundy satin band. Front view slightly above, symmetric, whole object with margins. Hat only.",
+      "master": "masters/hat-a.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    },
+    {
+      "id": "hat-b",
+      "prompt": "Use case: stylized-concept. Create a single isolated painted game accessory, transparent PNG, no text, no labels, no shadow outside object. Match CatCoin approved prize art: polished warmly lit hand-painted 3D illustration, crisp silhouette, rich material shading, restrained highlights, readable at phone size. Reference cheese is style only; head is proportion context only, never paint a cat or any other accessory. Subject: option B top hat, shorter jaunty black velvet crown, subtle tapered sides, curved elliptical brim, deep midnight blue satin band with slim gold piping. Front view slightly above, whole object with margins. Hat only. Clean cutout without atmospheric glow.",
+      "master": "masters/hat-b.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    },
+    {
+      "id": "hat-c",
+      "prompt": "Use case: stylized-concept. Create a single isolated painted game accessory, transparent PNG, no text, no labels, no shadow outside object. Match CatCoin approved prize art: polished warmly lit hand-painted 3D illustration, crisp silhouette, rich material shading, restrained highlights, readable at phone size. Reference cheese is style only; head is proportion context only, never paint a cat or any other accessory. Subject: option C top hat, elegant straight charcoal silk crown, flatter narrow elliptical brim, warm ivory satin band with a simple narrow black centre stripe. Whole object front view slightly above, margins all sides. Hat only, clean transparent cutout, no glow.",
+      "master": "masters/hat-c.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    },
+    {
+      "id": "bowtie-a",
+      "prompt": "Create a single burgundy red satin bow tie accessory for a friendly cartoon cat in a cozy mobile game. Broad classic butterfly wings, wrapped central knot, soft folds. Polished painted illustration with warm lighting, crisp edges and rich silk shading. Front view, horizontal and symmetrical. Only the bow tie, complete silhouette with margins, transparent background. No character, no text.",
+      "master": "masters/bowtie-a.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    },
+    {
+      "id": "bowtie-b",
+      "prompt": "A single midnight blue satin bow tie accessory for a friendly cartoon cat in a cozy mobile game. Rounded full butterfly wings, compact central knot, fine gold edge stitching. Polished painted illustration, rich silk shading, warm light, crisp silhouette. Front view horizontal symmetrical, isolated accessory only, complete with margins. Transparent PNG, no text.",
+      "master": "masters/bowtie-b.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    },
+    {
+      "id": "bowtie-c",
+      "prompt": "A single warm ivory silk bow tie accessory for a friendly cartoon cat in a cozy mobile game. Pointed diamond butterfly wings, neat black satin central knot. Polished painted illustration, soft fabric folds and warm shading, crisp silhouette. Front view horizontal symmetrical, isolated accessory only, complete with margins. Transparent PNG, no text.",
+      "master": "masters/bowtie-c.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    },
+    {
+      "id": "monocle-a",
+      "prompt": "Single gold monocle accessory for a friendly cartoon cat mobile game. Front view round slender polished warm gold rim and completely transparent lens centre, one small white curved reflection only. Fine linked gold chain attached at lower left, hanging down and curling to the left; chain takes about half the ring diameter below and half a diameter to the left. Lens circle occupies upper right of complete silhouette. Painted polished game illustration, crisp warm shaded metal. Transparent PNG background and clear centre; no face, no eye, no character, no text. Whole item with margin.",
+      "master": "masters/monocle-a.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    },
+    {
+      "id": "monocle-b",
+      "prompt": "Single monocle accessory for a friendly cartoon cat game. Round antique brass rim with a narrow beaded outer edge, fully transparent empty glass centre, one restrained curved white glint. Delicate linked brass chain attached lower left, descending half a ring diameter then curling left half a diameter. Circle at upper right of whole silhouette. Front view painted game illustration, warm shaded polished metal, crisp edges. Transparent PNG background and centre, no character, no eye, no text. Complete item with margin.",
+      "master": "masters/monocle-b.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    },
+    {
+      "id": "monocle-c",
+      "prompt": "Single monocle accessory for a friendly cartoon cat game. Round polished silver rim with a slim inner gold line, fully transparent empty lens centre and one subtle white curved glint. Fine silver linked chain attached lower left, descending half a ring diameter then curling left half a diameter. Circle at upper right of whole silhouette. Front view painted game illustration, softly shaded polished metal, crisp edges. Transparent PNG background and centre, no character, no eye, no text. Complete item with margin.",
+      "master": "masters/monocle-c.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    },
+    {
+      "id": "cane-a",
+      "prompt": "Single formal walking cane game accessory, painted polished illustration for a cozy cartoon cat mobile game. Long slim black lacquer shaft lying horizontally, silver ferrule at LEFT end, curved crook handle curling UP at RIGHT end, narrow warm gold collar below crook. Entire silhouette about eight times wider than tall; crook modest, shaft straight, uniform thin thickness. Warm highlights and crisp edges, transparent PNG background, whole item with margins. No hands, no character, no text.",
+      "master": "masters/cane-a.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    },
+    {
+      "id": "cane-b",
+      "prompt": "Single formal walking cane game accessory, painted polished illustration for a cozy cartoon cat mobile game. Long slim dark walnut wood shaft lying horizontally, silver ferrule at LEFT end, black smooth crook handle curling UP at RIGHT end, engraved brass collar below crook. Entire silhouette about eight times wider than tall; crook modest, shaft straight, uniform thin thickness. Rich wood shading, restrained warm highlights, crisp edges, transparent PNG background, whole item with margins. No hands, no character, no text.",
+      "master": "masters/cane-b.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    },
+    {
+      "id": "cane-c",
+      "prompt": "Single formal walking cane game accessory, painted polished illustration for a cozy cartoon cat mobile game. Long slim midnight blue lacquer shaft lying horizontally, silver ferrule at LEFT end, polished ivory crook handle curling UP at RIGHT end, slim gold collar below crook. Entire silhouette about eight times wider than tall; crook modest, shaft straight, uniform thin thickness. Restrained warm highlights, crisp edges, transparent PNG background, whole item with margins. No hands, no character, no text.",
+      "master": "masters/cane-c.png",
+      "tool": "built-in image_gen",
+      "transparent_background": true
+    }
+  ]
+}

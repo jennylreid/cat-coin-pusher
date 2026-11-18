@@ -1,0 +1,25 @@
+{
+  "displayName": "2026.11.17 UAT 88",
+  "version": 20261117235959,
+  "apkVersion": 7,
+  "base": "cp87",
+  "baselineJSONSHA256": "7cd44fd607f76540842f3e5064c843c1f4dfdf37e91d0e3643bf08d4b2a55d7c",
+  "stagedJSONSHA256": "5c48ea1b3cefec13e867a9e6ffa80924c4d627571a65c0b007542efe5b323c9c",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "71b35eb9ada651b8389a386b8900a87e98876c28e01dac58aa55bb9fefa77c07",
+  "runtimeFiles": 70,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [
+    "img/art/cp69-bowtie.png",
+    "img/art/cp69-cane.png",
+    "img/art/cp69-hat.png",
+    "img/art/cp69-monocle.png"
+  ],
+  "backup": "uat/backups/before-UAT88-20261117235959",
+  "evidence": "tickets/CP-69-evidence/uat88",
+  "authorization": "CP-69 Phase B GO: CP-69 art, CP-57 production title sound restore, CP-70 Developer cleanup; UAT only",
+  "nativeChange": false,
+  "jsonBytes": 54925398
+}

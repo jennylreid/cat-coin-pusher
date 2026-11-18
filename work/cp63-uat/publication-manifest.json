@@ -1,0 +1,20 @@
+{
+  "version": 20261117235955,
+  "displayName": "2026.11.17 UAT 84",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "db227d3cfb7a22bb80a1a478ed8a2ee62aa71a5fc0343c6e95fa41dc4f7e0fc0",
+  "stagedJSONSHA256": "b1772159d3cb01b3c6f446fcb9fa0509639194751f24e67e49b78f5cd67dee73",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "804947f1c261415000705f76e0cf33b2a61b76a9bcc73f1fb56134b680fbc682",
+  "jsonBytes": 53967381,
+  "runtimeFiles": 65,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.16 UAT 83",
+  "backup": "uat/backups/before-UAT84-20261117235955",
+  "evidence": "tickets/CP-63-evidence/uat84",
+  "authorization": "UAT 84: CP-63 Formal inspection replaces the Tuxedo's YAWN power, stand-in monocle and cane (Jenny via PM, Nov 17: \"you could push it to UAT tonight\"); UAT only"
+}

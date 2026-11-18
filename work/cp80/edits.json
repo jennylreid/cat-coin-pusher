@@ -1,0 +1,22 @@
+[
+  [
+    "drawPrize(b.kind, b.id, c.x, c.y, c.s);",
+    "cp62DrawPrize(b.kind, b.id, c.x, c.y, c.s,b);"
+  ],
+  [
+    "drawPrize(f.kind, f.id, f.x, f.y, f.s);",
+    "cp62DrawPrize(f.kind, f.id, f.x, f.y, f.s,f);"
+  ],
+  [
+    "drawPrize('item',f.id,0,prizeCenterLift(f.id,q.s),q.s);",
+    "cp62DrawPrize('item',f.id,0,prizeCenterLift(f.id,q.s),q.s,f);"
+  ],
+  [
+    "drawPrize('item',f.id,f.x,f.y+prizeCenterLift(f.id,sc)+e*6*f.s,sc);",
+    "cp62DrawPrize('item',f.id,f.x,f.y+prizeCenterLift(f.id,sc)+e*6*f.s,sc,f);"
+  ],
+  [
+    "drawPrize('item',g.id,0,0,s);",
+    "cp62DrawPrize('item',g.id,0,0,s,g.b);"
+  ]
+]

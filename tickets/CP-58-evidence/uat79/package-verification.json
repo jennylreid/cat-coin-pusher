@@ -1,0 +1,24 @@
+{
+  "version": 20261116235950,
+  "displayName": "2026.11.16 UAT 79",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "e538e2a233efe699e71a526d926d1a03acdc65fb714b1d9a1d1ff351847cc3b5",
+  "stagedJSONSHA256": "3fb837a9c8d3b8465cc76e4f49486aa85179d7d19b3672f902099aed92cb8075",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "6858c05ed7a6d7bc28687673d16e79355289aa9bc682676430ca24a3b0a3772a",
+  "jsonBytes": 53555001,
+  "runtimeFiles": 47,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [
+    "img/art/cp58-yawn-eyes.png",
+    "img/art/cp58-yawn-face.webp"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.16 UAT 78",
+  "backup": "uat/backups/before-UAT79-20261116235950",
+  "evidence": "tickets/CP-58-evidence/uat79",
+  "authorization": "UAT 79: CP-58 step 2 (Jenny via PM, Nov 16: \"CP-58: the round yawn (3) with Runway eyes is approved. Build it into UAT.\"; the wheel's YAWN slices; publish as UAT 79 on UAT 78); UAT only"
+}

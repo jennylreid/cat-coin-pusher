@@ -1,0 +1,103 @@
+{
+  "method": "Built-in image_gen; one prize/variant per call. No fallback API.",
+  "files": [
+    {
+      "id": "milk-a",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One upright small milk carton, ivory paperboard, sky-blue lower panel, folded peaked top, subtle paper seams, three-quarter view, charming rounded volume. No writing.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-3fed934e-6c48-4aa1-a64d-97613965af0c.png"
+    },
+    {
+      "id": "milk-b",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One upright glass milk bottle filled with creamy white milk, round pale blue metal cap, thick subtly blue glass edge and soft reflections, short rounded shoulders. No label.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-619e3c37-3bc7-4294-a4a9-edaae0827528.png"
+    },
+    {
+      "id": "milk-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One upright little milk carton, cream paperboard, turquoise lower panel, folded blue top with visible lip, three-quarter view, soft rounded corners. No writing.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-75d247b4-65ae-4518-a54c-4d88de94da27.png"
+    },
+    {
+      "id": "mouse-a",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One soft gray felt toy mouse facing left, plump teardrop body, large round pink ears, tiny black bead eye, pink stitched nose, curved thin cord tail extending right. Clearly a handmade cat toy.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-e265d81b-45f0-48a1-9339-85345931b24c.png"
+    },
+    {
+      "id": "mouse-b",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One warm oatmeal plush toy mouse facing left, plump body, dusty rose round ears, tiny dark bead eye and stitched nose, curved brown cord tail extending right. Short velvety nap, no fluffy fur.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-3cec0090-bf6a-4ef2-84d7-955cc7cf4d05.png"
+    },
+    {
+      "id": "mouse-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One blue-gray fabric toy mouse facing left, rounded plump body, cream belly, rose inner round ears, small black bead eye, pink nose, curled fabric cord tail to right, subtle seam.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-5e970843-a2d4-4b81-9de6-096921e90f85.png"
+    },
+    {
+      "id": "bell-a",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One round golden spherical jingle bell, red hanging loop at top, curved horizontal seam, dark keyhole-shaped sound opening low on front, polished warm brass with controlled highlights.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-3a76bd62-c74a-4963-8f6f-936de987ee94.png"
+    },
+    {
+      "id": "bell-b",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One round honey-brass spherical cat jingle bell, solid small brass ring at top, deep curved equatorial seam, dark keyhole sound slit on lower front, softly brushed metal.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-463078b4-e9b8-4ba7-ad48-4d1a0d5332d8.png"
+    },
+    {
+      "id": "bell-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One round rose-gold spherical cat jingle bell, deep teal hanging loop top, equatorial seam, clear dark keyhole sound opening lower front, reflective warm copper shading.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-e4c2e0d6-9aea-46f2-9cd0-99939a6b5368.png"
+    },
+    {
+      "id": "notes-a",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One joined pair of golden musical eighth notes, bold thick stems rising from oval note heads, joined diagonal beam at top, bevelled dimensional gold metal, clean recognizable silhouette. No decorative extra notes.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-ee21cf9e-7787-4056-94fd-7f24edf993f8.png"
+    },
+    {
+      "id": "notes-b",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One joined pair of lavender-purple enamel musical eighth notes, bold thick stems rising from oval note heads, joined diagonal beam at top, bevelled dimensional purple enamel with subtle gold bevel edges, clean recognizable silhouette. No decorative extra notes.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-92da9f93-088a-421e-9ab7-e70af1948168.png"
+    },
+    {
+      "id": "notes-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One joined pair of turquoise enamel musical eighth notes, bold thick stems rising from oval note heads, joined diagonal beam at top, bevelled dimensional turquoise enamel with deep teal edges, clean recognizable silhouette. No decorative extra notes.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-6f327ecd-a508-4fda-b2ad-6bcef9fdd645.png"
+    },
+    {
+      "id": "bowtie-a",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One crimson red satin bow tie, horizontal symmetrical broad triangular folded wings, small rectangular rounded centre knot, rich silk folds and soft highlights. No long ribbon tails.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-cc94f455-f872-4e9f-b81c-cdb19b0a1f11.png"
+    },
+    {
+      "id": "bowtie-b",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One deep royal blue satin bow tie, horizontal broad symmetrical wings, plump centre knot, elegant dimensional folded silk and luminous blue highlights. No ribbon tails.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-bdf5aba6-0101-41dd-8e33-34f574802c35.png"
+    },
+    {
+      "id": "yarn-a",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One round dusty rose yarn ball, thick soft wool strands wrapping in overlapping curved diagonal bands, clear dimensional winding and short curled loose yarn end on lower right.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-b4cd0c59-0959-4706-8323-8a82e0534ae6.png"
+    },
+    {
+      "id": "yarn-b",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One round teal-blue yarn ball, thick wool strands winding in overlapping curved diagonal bands, tactile soft fibers without fuzz cloud, short curled loose yarn end on lower right.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-860d7284-be3a-4ec0-a77b-7075b370975f.png"
+    },
+    {
+      "id": "yarn-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One round honey-gold yarn ball, thick warm wool strands wrapping in layered curved diagonal bands, clear round dimensional volume, short curled loose yarn end lower right.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-9139728e-d95d-4c2b-8514-7dc8764da733.png"
+    },
+    {
+      "id": "bowtie-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One warm plum-purple velvet bow tie, horizontal broad symmetrical wings, dusty rose centre knot, soft sculpted fabric folds, restrained highlights. No long ribbon tails. Background must be entirely alpha zero outside the fabric silhouette. No haze or backdrop.",
+      "src": "C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-8809eddf-c40e-4cb4-9d1d-a7a8f897fedd.png"
+    }
+  ],
+  "discarded": [
+    {
+      "id": "bowtie-c",
+      "prompt": "Use case: stylized-concept. Paint ONE isolated CatCoin prize sprite on genuine transparent background. Polished full-colour painted casual game item matching approved dimensional cheese, shrimp, tuna and toasted biscuit in the viewed contact sheet: rich soft shading, restrained highlights, clear dark coloured edge and tactile materials. Entire subject visible, transparent margins, square canvas, readable at 32px. No text, labels, UI, frame, ground, external shadow, extra objects or sparkles. One warm plum-purple velvet bow tie, horizontal broad symmetrical wings, dusty rose centre knot, soft sculpted fabric folds, restrained highlights. No long ribbon tails.",
+      "output_hint": "Generated images are saved to C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c as C:\\Users\\jenny\\.codex\\generated_images\\01a1e77e-b6e0-7b20-af74-372c91ead76c\\exec-51be4103-1dac-4411-bd9f-06ee332fb7a9.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "reason": "Visible background artifact"
+    }
+  ]
+}

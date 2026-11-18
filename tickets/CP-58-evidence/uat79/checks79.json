@@ -1,0 +1,451 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp79\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp78\\release.html",
+ "passed": true,
+ "passedN": 8,
+ "failed": [],
+ "notes": {
+  "wheel": [
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 1,
+    "taken": 1,
+    "grabbed": [
+     "cheese*"
+    ],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     82,
+     77
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 2,
+    "taken": 1,
+    "grabbed": [
+     "cheese*"
+    ],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     80,
+     80
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 60,
+    "seed": 3,
+    "taken": 1,
+    "grabbed": [
+     "cheese*"
+    ],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     85,
+     84
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 1,
+    "taken": 0,
+    "grabbed": [],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     81,
+     78
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 2,
+    "taken": 1,
+    "grabbed": [
+     "cheese*"
+    ],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     79,
+     80
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   },
+   {
+    "level": 1,
+    "fps": 30,
+    "seed": 3,
+    "taken": 0,
+    "grabbed": [
+     "cheese*"
+    ],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     83,
+     80
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 1,
+    "taken": 2,
+    "grabbed": [
+     "egg*",
+     "box*"
+    ],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     88,
+     90
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 2,
+    "taken": 2,
+    "grabbed": [
+     "egg*",
+     "box*"
+    ],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     87,
+     87
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 3,
+    "taken": 2,
+    "grabbed": [
+     "sardine*",
+     "box*"
+    ],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     89,
+     84
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 1,
+    "taken": 2,
+    "grabbed": [
+     "box*",
+     "egg*"
+    ],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     91,
+     91
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 2,
+    "taken": 2,
+    "grabbed": [
+     "egg*",
+     "box*"
+    ],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     87,
+     86
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 3,
+    "taken": 2,
+    "grabbed": [
+     "box*",
+     "egg*"
+    ],
+    "coinsTaken": 0,
+    "goalsBack": true,
+    "dup": [],
+    "coins": [
+     91,
+     89
+    ],
+    "missing": [
+     [],
+     []
+    ],
+    "ended": true,
+    "danceDone": true,
+    "errs": 0
+   }
+  ],
+  "power": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "off": [
+     "item",
+     "item",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "offUAT78": [
+     "item",
+     "item",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "coins": [
+     88,
+     88
+    ],
+    "errs": 0
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "off": [
+     "item",
+     "note",
+     "silver",
+     "item",
+     "item"
+    ],
+    "offUAT78": [
+     "item",
+     "note",
+     "silver",
+     "item",
+     "item"
+    ],
+    "coins": [
+     84,
+     84
+    ],
+    "errs": 0
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "off": [
+     "item",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "offUAT78": [
+     "item",
+     "coin",
+     "coin",
+     "item"
+    ],
+    "coins": [
+     86,
+     86
+    ],
+    "errs": 0
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "off": [
+     "coin",
+     "note",
+     "coin",
+     "silver",
+     "item"
+    ],
+    "offUAT78": [
+     "coin",
+     "note",
+     "coin",
+     "silver",
+     "item"
+    ],
+    "coins": [
+     82,
+     82
+    ],
+    "errs": 0
+   }
+  ],
+  "powerDuring": {
+   "seed": 4,
+   "fps": 60,
+   "level": 3,
+   "yawn": "wheel",
+   "coinsBefore": 88,
+   "aliveBefore": {
+    "sardine": 1,
+    "sock": 1,
+    "biscuit": 1,
+    "egg": 1,
+    "box": 2,
+    "bowtie": 1
+   },
+   "missingBefore": [],
+   "readyDuring": false,
+   "cp58At2": true,
+   "readyAfter": true,
+   "cp58": false,
+   "grabs": [],
+   "ended": true,
+   "yawnRemoved": [
+    "item:box",
+    "item:egg"
+   ],
+   "offSides": [
+    "item"
+   ],
+   "danceDone": true,
+   "coinsAfter": 91,
+   "aliveAfter": {
+    "sardine": 1,
+    "sock": 1,
+    "biscuit": 1,
+    "bowtie": 1,
+    "box": 1
+   },
+   "have": {
+    "egg": true
+   },
+   "missingAfter": [],
+   "phase": "play",
+   "stats": {
+    "runs": 1,
+    "grabbed": [
+     "box",
+     "egg"
+    ],
+    "replaced": [
+     "egg"
+    ]
+   },
+   "errs": []
+  },
+  "wheelWaits": "cp61 cp61 cp61 cp61 cp61 cp61 cp61 cp61 cp61 cp61 cp61 cp61 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 cp58 - - - - - - - - -",
+  "art": {
+   "loaded": [
+    true,
+    true,
+    1536,
+    1536
+   ],
+   "used": {
+    "face": 42,
+    "eyes": 43
+   },
+   "errs": []
+  }
+ }
+}

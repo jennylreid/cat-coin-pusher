@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CP-54 Coin Landing</title>
+<style>
+:root{--bg:#1d1030;--card:#2a1846;--ink:#fff3dc;--dim:#c9b8e0;--acc:#ffd23f;--btn:#4a2c78;--btn2:#6b40a8;--line:#3c2560}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,Segoe UI,sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:24px;margin:0 0 4px}h2{font-size:19px;margin:0 0 4px;color:var(--acc)}
+p{margin:6px 0}.dim{color:var(--dim);font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:14px 0}
+.row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+button{background:var(--btn);color:var(--ink);border:1px solid var(--btn2);border-radius:8px;padding:9px 14px;font:inherit;cursor:pointer}
+button:hover{background:var(--btn2)}button.on{background:var(--acc);color:#2a1846;border-color:var(--acc)}
+button.stop{background:#6a2030;border-color:#a03048}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;position:sticky;top:0;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--line);z-index:2}
+small{color:var(--dim)}code{color:var(--acc)}
+</style></head><body><main>
+<h1>Coin landing sound: listen and pick</h1>
+<p class="dim">CP-54, phase A. Nothing here is in the game. Use headphones or your PC speakers; the phone will sound thinner.</p>
+<div class="bar"><button class="stop" id="stopAll">Stop</button>
+<label>Volume <input type="range" id="vol" min="0" max="1.5" step="0.05" value="1"></label><span id="status" class="dim">Loading…</span></div>
+
+<div class="card"><h2>Today: what the game plays now</h2>
+<p>When your coin lands on the board, the game picks one of 5 sounds at random (never the same twice in a row): the recorded landing <code>coin-land.mp3</code> or one of 4 drops on the pile made in code (CP-46). The title screen plays only the code-made "steel" clink.</p>
+<div class="row"><button data-play="today:single">One coin</button><button data-play="today:hold">Holding (a coin every 0.40 s)</button><button data-play="today:taps">Fast taps (4 a second)</button></div>
+<div class="row"><button data-play="title:letters">Title: the word drops in</button><button data-play="title:pile">Title: coin pile-up</button></div>
+</div>
+
+<!--CARDS-->
+
+<div class="card"><h2>How these play</h2>
+<p class="dim">Holding plays a coin every 0.40 s for 6 s; fast taps play one every 0.25–0.30 s for 6 s. Like the game, a landing within 0.09 s of the last is skipped, and each coin picks a different variant from the one before. Candidates A–D also vary pitch by ±6% each time (E doesn't: it plays exactly as UAT 59 did), the same range the game's code-made clink uses; the game doesn't vary a landing's volume, so neither does this page. A–D are matched in loudness to today's 4 code-made drops, the level CP-46 set against the music (loudest 100 ms above 250 Hz; E stays at the game's own level, so it is louder; <span id="levels"></span>).</p>
+</div>
+</main>
+<script>
+const SOUNDS=/*SOUNDS*/{};
+const CANDS=/*CANDS*/[];
+let ac=null,master=null,noiseBuf=null,out=null,live=[],timers=[];const bufs={};
+function setStatus(s){document.getElementById('status').textContent=s;}
+function b64(s){const b=atob(s),a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a.buffer;}
+async function init(){if(ac)return;ac=new (window.AudioContext||window.webkitAudioContext)();
+ out=ac.createGain();out.gain.value=+document.getElementById('vol').value;out.connect(ac.destination);
+ master=ac.createGain();master.gain.value=.55;master.connect(out); // the game's effects master
+ noiseBuf=mkNoise(ac);
+ for(const [k,v] of Object.entries(SOUNDS))bufs[k]=await ac.decodeAudioData(b64(v));
+ await calibrate();setStatus('Ready');}
+function mkNoise(c){const b=c.createBuffer(1,c.sampleRate*.5,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;return b;}
+
+// ---------- the game's own code (work/cp70/release.html, UAT 70), ported unchanged; c = audio context, dst = master ----------
+function tone(c,dst,f,t0,dur,type,vol,fEnd){const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(f,t0);
+ if(fEnd)o.frequency.exponentialRampToValueAtTime(fEnd,t0+dur);g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(vol,t0+.004);
+ g.gain.exponentialRampToValueAtTime(.0001,t0+dur);o.connect(g);g.connect(dst);o.start(t0);o.stop(t0+dur+.03);live.push(o);}
+function noise(c,dst,nb,t0,dur,vol,freq,q){const s=c.createBufferSource(),f=c.createBiquadFilter(),g=c.createGain();s.buffer=nb;s.loop=true;f.type='bandpass';f.frequency.value=freq;f.Q.value=q||1;
+ g.gain.setValueAtTime(vol,t0);g.gain.exponentialRampToValueAtTime(.0001,t0+dur);s.connect(f);f.connect(g);g.connect(dst);s.start(t0);s.stop(t0+dur+.02);live.push(s);}
+// steelAt: "a coin hitting stainless steel" (title clink; the game's synth landing fallback)
+function steelAt(c,dst,nb,t,v,pitch,settle){const p=(pitch||1)*(.94+Math.random()*.12);
+ noise(c,dst,nb,t,.012,.45*v,6000,.6);noise(c,dst,nb,t,.03,.12*v,2500*p,1.5);
+ for(const [f,a,d] of [[1350,.9,.09],[2870,.6,.07],[4230,.5,.05],[5960,.35,.04],[7810,.22,.03]])tone(c,dst,f*p,t,d/Math.sqrt(p),'sine',.09*v*a);
+ if(!settle)return;let gap=.055,a=.45;for(let i=0,n=3+(Math.random()*2|0);i<n;i++){t+=gap;gap*=.65;a*=.7;noise(c,dst,nb,t,.008,.3*v*a,5500,.8);tone(c,dst,2870*p,t,.05,'sine',.05*v*a);tone(c,dst,4230*p,t,.035,'sine',.04*v*a);}}
+// CP-46 note player (sfx.fx46)
+function fx46(c,dst,nb,e,t,sc){const vol=e.vol*sc;if(!(vol>0))return;const o=e.o,a=o.a||.005;let src;
+ if(e.k===0){src=c.createOscillator();src.type=e.type;src.frequency.setValueAtTime(e.f,t);if(o.fEnd)src.frequency.exponentialRampToValueAtTime(o.fEnd,t+(o.glide||e.dur));}
+ else{src=c.createBufferSource();src.buffer=nb;src.loop=true;}
+ const g=c.createGain();g.gain.setValueAtTime(.0001,t);if(o.lin)g.gain.linearRampToValueAtTime(vol,t+a);else g.gain.exponentialRampToValueAtTime(vol,t+a);
+ if(o.hold)g.gain.exponentialRampToValueAtTime(Math.max(1e-4,vol*(o.sus??1)),t+Math.max(a+.001,o.hold));g.gain.exponentialRampToValueAtTime(.0001,t+e.dur);
+ let out=src;if(o.lp||o.hp||o.bp){const f=c.createBiquadFilter();f.type=o.lp?'lowpass':o.hp?'highpass':'bandpass';f.frequency.value=o.lp||o.hp||o.bp;f.Q.value=o.q??(o.bp?1:0);src.connect(f);out=f;}
+ out.connect(g);g.connect(dst);if(e.k===0){src.start(t);src.stop(t+e.dur+.03);}else{src.start(t,e.off);src.stop(t+e.dur+.02);}live.push(src);}
+// CP-46 coin kit and the 4 "drop on pile" variants, recorded into note lists exactly as the game does at start-up
+const PILE=(()=>{let seedS=4646>>>0;const rand=()=>{seedS=(seedS*1664525+1013904223)>>>0;return seedS/4294967296;};let ev=null;
+ const K={rand,tone(f,t,dur,type,vol,o={}){if(vol>0)ev.push({t,k:0,f,dur,type,vol,o});},noise(t,dur,vol,o={}){if(vol>0)ev.push({t,k:1,dur,vol,o,off:rand()*.4});}};
+ const PARTIALS=[[1350,.9,.09],[2870,.6,.07],[4230,.5,.05],[5960,.35,.04],[7810,.22,.03]];
+ const C={};C.strike=(t,v,p=1,ring=1,bright=1)=>{K.noise(t,.01,.4*v*bright,{bp:6000,q:.6});K.noise(t,.025,.12*v,{bp:2500*p,q:1.5});for(const [f,a,d] of PARTIALS)K.tone(f*p,t,d*ring/Math.sqrt(p),'sine',.09*v*a);};
+ C.settle=(t,v,p,n,gap=.055)=>{let a=.45;for(let i=0;i<n;i++){t+=gap;gap*=.66;a*=.72;K.noise(t,.008,.3*v*a,{bp:5500,q:.8});K.tone(2870*p,t,.05,'sine',.05*v*a);K.tone(4230*p,t,.035,'sine',.04*v*a);}};
+ C.thud=(t,v,f=190)=>{K.tone(f,t,.09,'sine',.3*v,{fEnd:f*.55});K.noise(t,.05,.14*v,{bp:750,q:.9});};
+ const clinks=[[1.15,0,.7],[1.3,.028,.6],[1.0,0,.9],[1.45,.018,.5]].map(([p,dbl,ring],k)=>()=>{C.strike(.02,.7,p,ring);if(dbl)C.strike(.02+dbl,.35,p*1.07,ring*.8);if(k===2)C.settle(.02,.5,p,2,.04);});
+ const piles=[[1.0,3,[.06,.11]],[.9,4,[.05]],[1.1,2,[.07,.1,.16]],[.95,5,[]]].map(([p,n,nb],k)=>()=>{C.thud(.02,.8,170+k*15);C.strike(.025,.8,p,.9);nb.forEach((d,j)=>C.strike(.025+d,.3-j*.06,p*(1.15+j*.12),.6));C.settle(.03,.9,p,n);});
+ const GAIN=0.742531937830136,L=[];
+ for(const f of clinks){ev=[];f();} // same order as the game, so the noise offsets match
+ for(const f of piles){ev=[];f();const t0=Math.min(...ev.map(e=>e.t));for(const e of ev){e.t-=t0;e.vol*=GAIN;}ev.sort((a,b)=>a.t-b.t);L.push(ev);}
+ return L;})();
+
+// ---------- today's landing: the recording (HTMLAudio at volume .25, no pitch change, cut at 0.84 s) or a pile variant ----------
+function playRec(c,dst,buf,t,gain,rate){const s=c.createBufferSource(),g=c.createGain();s.buffer=buf;s.playbackRate.value=rate||1;g.gain.value=gain;s.connect(g);g.connect(dst);s.start(t);live.push(s);}
+const POOL=[];function recLand(c,dst,t){ // recordedSfx 'land': pool 3, volume .25, cut at .84 s, no pitch change
+ let i=POOL.findIndex(v=>v.end<=t);if(i<0){i=POOL.length<3?POOL.length:(POOL.cur=((POOL.cur||0)+1)%3);}
+ const v=POOL[i];if(v&&v.end>t){try{v.s.stop(t);}catch(e){}}
+ const s=c.createBufferSource(),g=c.createGain();s.buffer=bufs.today;g.gain.value=.25;s.connect(g);g.connect(dst);s.start(t);s.stop(t+.84);live.push(s);POOL[i]={s,end:t+.84};}
+const last={};function pickNo(key,n){let i=Math.floor(Math.random()*n);if(n>1&&i===last[key])i=(i+1)%n;last[key]=i;return i;}
+function todayLand(c,dst,mst,nb,t,forceI){const i=forceI??pickNo('today',5);if(i===4)recLand(c,dst,t);else for(const e of PILE[i])fx46(c,mst,nb,e,t+e.t,1);}
+
+// ---------- candidate D: change hitting a pile of change, made in code with the same calls (no files) ----------
+// A dry clack, then 5-8 tiny, tightly damped jingles from the coins around it (high and scattered, all over in ~0.2 s).
+// No low "plop", no pitch sweep and no long pure ring, which is what makes today's synth sound like a drop of water.
+function pileOfChange(c,dst,nb,t,p){const r=Math.random;
+ noise(c,dst,nb,t,.006,.55,4200*p,.7);noise(c,dst,nb,t,.03,.16,1500*p,.9);noise(c,dst,nb,t+.002,.05,.08,7500,.6);
+ for(const [f,a] of [[3150,.5],[4720,.4],[6610,.3]])tone(c,dst,f*p*(.97+r()*.06),t,.022,'sine',.06*a);
+ const n=5+(r()*4|0);let tt=t+.012,amp=.42;
+ for(let i=0;i<n;i++){tt+=.012+r()*.03;amp*=.78+r()*.12;const q=p*(.8+r()*.7);
+  noise(c,dst,nb,tt,.005+r()*.004,amp*.5,(4000+r()*4000)*q,.9);
+  tone(c,dst,(2900+r()*3200)*q,tt,.015+r()*.02,'sine',.05*amp);if(r()<.5)tone(c,dst,(5200+r()*3000)*q,tt,.012+r()*.012,'sine',.03*amp);}}
+
+// ---------- candidates ----------
+const GAINS={};
+const TITLE_PILE=(.35*.35)/.8; // the title pile-up plays its clink at .35x.35, against .8 for a board landing's steel clink
+const POUR_DB=-9,POUR_DELAY=.012;let POUR_GAIN=1; // F: the pour sits 9 dB under the take and starts 12 ms after the strike
+function fLand(c,dst,cd,t,ti,pi,sc=1){const G=.25*(GAINS[cd.id]||1)*sc,i=ti??pickNo(cd.id,cd.files.length),j=pi??pickNo(cd.id+'p',cd.pour.length);
+ playRec(c,dst,bufs[cd.files[i]],t,G,.94+Math.random()*.12);playRec(c,dst,bufs[cd.pour[j]],t+POUR_DELAY,G*POUR_GAIN,.94+Math.random()*.12);}
+function candLand(c,dst,mst,nb,cd,t,forceI,sc=1){if(cd.uat59)return recLand(c,dst,t);if(cd.pour)return fLand(c,dst,cd,t,forceI,undefined,sc);const rate=.94+Math.random()*.12;
+ if(cd.synth){const g=c.createGain();g.gain.value=(GAINS[cd.id]||1)*sc;g.connect(mst);pileOfChange(c,g,nb,t,rate);return;}
+ const i=forceI??pickNo(cd.id,cd.files.length);playRec(c,dst,bufs[cd.files[i]],t,.25*(GAINS[cd.id]||1)*sc,rate);}
+
+// ---------- level matching (offline): loudest 100 ms above 250 Hz, as in CP-46 ----------
+async function loud(fn){const sr=44100,c=new OfflineAudioContext(1,sr*1.2,sr),hp=c.createBiquadFilter();hp.type='highpass';hp.frequency.value=250;hp.connect(c.destination);
+ const m=c.createGain();m.gain.value=.55;m.connect(hp);fn(c,hp,m,mkNoise(c));const d=(await c.startRendering()).getChannelData(0),w=sr*.1;let best=0,acc=0;
+ for(let i=0;i<d.length;i++){acc+=d[i]*d[i];if(i>=w)acc-=d[i-w]*d[i-w];if(i>=w-1)best=Math.max(best,acc/w);}return 10*Math.log10(best+1e-12);}
+async function calibrate(){ // reference: today's 4 code-made drops (the level CP-46 set against the music)
+ const pile=[];for(let i=0;i<4;i++)pile.push(await loud((c,d,m,nb)=>{for(const e of PILE[i])fx46(c,m,nb,e,e.t,1);}));
+ const ref=pile.reduce((a,b)=>a+b,0)/4,rec=await loud((c,d)=>playRec(c,d,bufs.today,0,.25)),parts=[];
+ const avg=async fs=>{let s=0;for(const f of fs)s+=await loud((c,d)=>playRec(c,d,bufs[f],0,.25));return s/fs.length;};
+ for(const cd of CANDS){if(cd.uat59)continue;let s=0,n=0;
+  if(cd.pour){POUR_GAIN=Math.pow(10,((await avg(cd.files))+POUR_DB-(await avg(cd.pour)))/20);GAINS[cd.id]=1;
+   for(let i=0;i<cd.files.length;i++)for(let j=0;j<cd.pour.length;j++){s+=await loud((c,d)=>fLand(c,d,cd,0,i,j));n++;}}
+  else if(cd.synth){for(let k=0;k<8;k++){s+=await loud((c,d,m,nb)=>pileOfChange(c,m,nb,0,1));n++;}}
+  else for(const f of cd.files){s+=await loud((c,d)=>playRec(c,d,bufs[f],0,.25));n++;}
+  const db=ref-s/n;GAINS[cd.id]=Math.pow(10,db/20);parts.push(cd.id+' '+(db>=0?'+':'')+db.toFixed(1)+' dB');}
+ window.LEVELS={ref,rec,pile,gains:{...GAINS}};
+ document.getElementById('levels').textContent='gain applied: '+parts.join(', ')+'. Today\'s recorded landing is '+(rec-ref).toFixed(1)+' dB louder than its code-made drops, and the page plays it as the game does';}
+
+// ---------- the drop patterns ----------
+function stopAll(){POOL.length=0;for(const id of timers)clearTimeout(id);timers=[];for(const s of live){try{s.stop();}catch(e){}}live=[];document.querySelectorAll('button.on').forEach(b=>b.classList.remove('on'));}
+function schedule(times,fn,btn){stopAll();btn.classList.add('on');let lastT=-9;const t0=ac.currentTime+.08;
+ for(const dt of times){if(dt-lastT<.09)continue;lastT=dt;timers.push(setTimeout(()=>fn(ac.currentTime+.03),dt*1000));}
+ timers.push(setTimeout(()=>btn.classList.remove('on'),(times[times.length-1]+.8)*1000));}
+function pattern(kind){if(kind==='single')return[0];const L=[];
+ if(kind==='hold')for(let t=0;t<6;t+=.4)L.push(t);
+ else if(kind==='taps'){let t=0;while(t<6){L.push(t);t+=.25+Math.random()*.05;}}
+ else if(kind==='pile'){let t=0;while(t<6){L.push(t);t+=-Math.log(1-Math.random())/7;}} // title pile-up: ~7 coins a second land
+ return L;}
+async function play(spec,btn){await init();if(ac.state==='suspended')await ac.resume();const [who,kind]=spec.split(':');
+ if(who==='today')return schedule(pattern(kind),t=>todayLand(ac,out,master,noiseBuf,t),btn);
+ if(who==='title'){ // the title screen: sfx.pg('coin',v) = steelAt(.35*v, pitch 1-1.4, no settle); Pickup volume 1
+  if(kind==='letters'){stopAll();btn.classList.add('on');const t0=ac.currentTime+.05;for(let i=0;i<7;i++)steelAt(ac,master,noiseBuf,t0+i*.09,.35*.8,1+Math.random()*.4,false);timers.push(setTimeout(()=>btn.classList.remove('on'),1200));return;}
+  let lastC=-9;return schedule(pattern('pile'),t=>{if(t-lastC<.07)return;lastC=t;steelAt(ac,master,noiseBuf,t,.35*.35,1+Math.random()*.4,false);},btn);}
+ const cd=CANDS.find(c=>c.id===who);if(kind==='pile'){let lastC=-9;return schedule(pattern('pile'),t=>{if(t-lastC<.07)return;lastC=t;if(cd.uat59)return steelAt(ac,master,noiseBuf,t,.35*.35,1+Math.random()*.4,false);candLand(ac,out,master,noiseBuf,cd,t,undefined,TITLE_PILE);},btn);}
+ schedule(pattern(kind),t=>candLand(ac,out,master,noiseBuf,cd,t),btn);}
+document.addEventListener('click',e=>{const b=e.target.closest('button[data-play]');if(b)play(b.dataset.play,b);});
+document.getElementById('stopAll').onclick=()=>{if(ac)stopAll();};
+document.getElementById('vol').oninput=e=>{if(out)out.gain.value=+e.target.value;};
+setStatus('Click any button to start');
+</script></body></html>

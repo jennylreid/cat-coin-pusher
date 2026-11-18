@@ -1,0 +1,212 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp73\\release.html",
+ "sets": {
+  "bump": {
+   "replaces": "sfx.clink(1)",
+   "codeLoudDb": -37.43,
+   "takes": [
+    {
+     "take": "bump1",
+     "loudDb": -26.67,
+     "peak": 0.491
+    },
+    {
+     "take": "bump2",
+     "loudDb": -28.31,
+     "peak": 0.472
+    },
+    {
+     "take": "bump3",
+     "loudDb": -27.32,
+     "peak": 0.467
+    },
+    {
+     "take": "bump4",
+     "loudDb": -26.99,
+     "peak": 0.47
+    },
+    {
+     "take": "bump5",
+     "loudDb": -29.1,
+     "peak": 0.472
+    },
+    {
+     "take": "bump6",
+     "loudDb": -29.11,
+     "peak": 0.488
+    },
+    {
+     "take": "bump7",
+     "loudDb": -29.87,
+     "peak": 0.469
+    },
+    {
+     "take": "bump8",
+     "loudDb": -29.37,
+     "peak": 0.479
+    }
+   ],
+   "gain": 0.3512,
+   "peakAtVol1": 0.172
+  },
+  "drop": {
+   "replaces": "sfx.wild2('land',1)",
+   "codeLoudDb": -46.53,
+   "takes": [
+    {
+     "take": "A1",
+     "loudDb": -28.97,
+     "peak": 0.375
+    },
+    {
+     "take": "A2",
+     "loudDb": -30.87,
+     "peak": 0.397
+    },
+    {
+     "take": "A3",
+     "loudDb": -30.85,
+     "peak": 0.333
+    },
+    {
+     "take": "C1",
+     "loudDb": -31.64,
+     "peak": 0.369
+    },
+    {
+     "take": "C2",
+     "loudDb": -31.62,
+     "peak": 0.348
+    },
+    {
+     "take": "C3",
+     "loudDb": -31.24,
+     "peak": 0.292
+    }
+   ],
+   "gain": 0.1646,
+   "peakAtVol1": 0.065
+  },
+  "spill": {
+   "replaces": "sfx.wild('topple',1)",
+   "codeLoudDb": -37.54,
+   "takes": [
+    {
+     "take": "B1",
+     "loudDb": -32.28,
+     "peak": 0.2
+    },
+    {
+     "take": "B2",
+     "loudDb": -32.86,
+     "peak": 0.165
+    },
+    {
+     "take": "B3",
+     "loudDb": -30.13,
+     "peak": 0.177
+    }
+   ],
+   "gain": 0.5135,
+   "peakAtVol1": 0.103
+  },
+  "pour": {
+   "replaces": "sfx.dance('pour',1)",
+   "codeLoudDb": -37.38,
+   "takes": [
+    {
+     "take": "pour1",
+     "loudDb": -24.24,
+     "peak": 0.473
+    },
+    {
+     "take": "pour2",
+     "loudDb": -23.38,
+     "peak": 0.468
+    }
+   ],
+   "gain": 0.2097,
+   "peakAtVol1": 0.099
+  },
+  "tray": {
+   "refDb": -29.35,
+   "takes": [
+    {
+     "take": "tray1",
+     "loudDb": -28.27,
+     "peak": 0.455
+    },
+    {
+     "take": "tray2",
+     "loudDb": -22.43,
+     "peak": 0.493
+    },
+    {
+     "take": "tray3",
+     "loudDb": -28.41,
+     "peak": 0.47
+    },
+    {
+     "take": "tray4",
+     "loudDb": -23.85,
+     "peak": 0.466
+    },
+    {
+     "take": "tray5",
+     "loudDb": -25.57,
+     "peak": 0.499
+    },
+    {
+     "take": "tray6",
+     "loudDb": -26.39,
+     "peak": 0.496
+    }
+   ],
+   "gain": 0.6661,
+   "peakAtVol1": 0.332,
+   "todayCoinOffAsPlayedDb": -72.55,
+   "intendedCoinOffHitDb": -39.35,
+   "coinLandingDb": -21.35
+  },
+  "spillBed": {
+   "refDb": -29.35,
+   "takes": [
+    {
+     "take": "B1",
+     "loudDb": -32.28,
+     "peak": 0.2
+    },
+    {
+     "take": "B2",
+     "loudDb": -32.86,
+     "peak": 0.165
+    },
+    {
+     "take": "B3",
+     "loudDb": -30.13,
+     "peak": 0.177
+    }
+   ],
+   "gain": 1.3186,
+   "peakAtVol1": 0.264,
+   "coinSpillRecordingDb": -33.78
+  },
+  "pourBed": {
+   "refDb": -29.35,
+   "takes": [
+    {
+     "take": "pour1",
+     "loudDb": -24.24,
+     "peak": 0.473
+    },
+    {
+     "take": "pour2",
+     "loudDb": -23.38,
+     "peak": 0.468
+    }
+   ],
+   "gain": 0.5286,
+   "peakAtVol1": 0.25
+  }
+ }
+}

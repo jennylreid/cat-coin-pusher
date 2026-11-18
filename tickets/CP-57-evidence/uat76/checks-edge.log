@@ -1,0 +1,10 @@
+PASS 0 only the build name and the CP57E block differ from the base
+PASS 1 a single coin over the edge: one real tray take, at full single level [{"set":"tray","i":0,"v":0.641,"d":0,"r":0.992}]
+PASS 2 a spill (12 coins in 0.4 s): a spill bed, plus per-coin real takes that vary (no take twice in a row, different levels and timing) {"beds":["spillBed","pourBed"],"trays":7,"jit":6,"vols":7}
+PASS 2b a spill is thinned: fewer per-coin takes than coins (at most one per 50 ms) {"trays":7}
+PASS 3 10+ coins within a second: a pour bed [{"set":"spillBed","i":-1,"v":1.319,"d":0,"r":1.039},{"set":"pourBed","i":-1,"v":0.529,"d":0,"r":1.059}]
+PASS 4 no HTMLAudio coin-off/spill for plain coins any more 0
+PASS 5 muted: nothing plays
+PASS 6 a prize over the edge still goes its old way (register in the bell slot), no tray take [{"set":"other","i":-1,"v":0.729,"d":0,"r":1}]
+PASS 7 no frame errors []
+PASS 8 production untouched

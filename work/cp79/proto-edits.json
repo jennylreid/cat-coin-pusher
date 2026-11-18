@@ -1,0 +1,42 @@
+{
+ "cp58-yawn.js": [
+  [
+   "// ---------- CP-58 PROTOTYPE (Jenny, Nov 16): the Yawn, stretch, side-eye and grab ----------",
+   "// ---------- CP-58 (Jenny, Nov 16; UAT 79): the wheel's Yawn: yawn, stretch, side-eye, grab and eat ----------"
+  ],
+  [
+   "w2StartYawn=function(){",
+   "function cp58StartYawn(){ // the wheel's YAWN slices only; the Tuxedo's power keeps CP-61's w2StartYawn"
+  ],
+  [
+   "w2YawnTick=function(dt){\n const Y=W2_YAWN;if(!Y)return;if(!Y.cp58){return;}",
+   "const __cp61YawnTick=w2YawnTick;\nw2YawnTick=function(dt){\n const Y=W2_YAWN;if(!Y)return;if(!Y.cp58)return __cp61YawnTick(dt);"
+  ],
+  [
+   "// ---------- end CP-58 prototype ----------",
+   ""
+  ],
+  [
+   "held:false,gone:false,bites:0});",
+   "held:false,gone:false,bites:0});cp58PrizeScreen(grabs[grabs.length-1]);"
+  ],
+  [
+   "if(t>=T0.hit&&!g.held){g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;if(!g.b.dead)removeCoin(g.b);",
+   "if(t>=T0.hit&&!g.held&&!g.missed){if(g.b.dead){g.missed=true;return;}g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;removeCoin(g.b);"
+  ],
+  [
+   "if(Y.grabs.length){sfx.wild2('catch',1);",
+   "if(Y.grabs.some(g=>g.held)){sfx.wild2('catch',1);"
+  ],
+  [
+   "if(Y.grabs.length){pgSfx('plop',1);",
+   "if(Y.grabs.some(g=>g.held)){pgSfx('plop',1);"
+  ]
+ ],
+ "runway-face.js": [
+  [
+   "(typeof __loadImage==='function'?__loadImage(src)",
+   "(typeof __loadImage==='function'?Promise.resolve().then(()=>__loadImage(src))"
+  ]
+ ]
+}

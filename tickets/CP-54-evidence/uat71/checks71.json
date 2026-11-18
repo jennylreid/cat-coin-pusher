@@ -1,0 +1,105 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp71\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp70\\release.html",
+ "passed": true,
+ "passedN": 12,
+ "failed": [],
+ "notes": {
+  "landings": {
+   "UAT 70 hold": {
+    "reached": true,
+    "rounds": 2,
+    "drops": 140,
+    "boardFull": 8,
+    "lands": 138,
+    "rec": 26,
+    "pile": 112,
+    "filler": 0,
+    "silent": 0,
+    "cp54": null,
+    "errs": []
+   },
+   "UAT 70 taps": {
+    "reached": true,
+    "rounds": 2,
+    "drops": 173,
+    "boardFull": 23,
+    "lands": 170,
+    "rec": 36,
+    "pile": 129,
+    "filler": 0,
+    "silent": 5,
+    "cp54": null,
+    "errs": []
+   },
+   "UAT 71 hold": {
+    "reached": true,
+    "rounds": 2,
+    "drops": 139,
+    "boardFull": 9,
+    "lands": 138,
+    "rec": 114,
+    "pile": 0,
+    "filler": 24,
+    "silent": 0,
+    "cp54": {
+     "coins": 145,
+     "E": 119,
+     "A": 26,
+     "silent": 0,
+     "why": {
+      "played": 119,
+      "cooldown": 2,
+      "cap": 24
+     }
+    },
+    "errs": []
+   },
+   "UAT 71 taps": {
+    "reached": true,
+    "rounds": 3,
+    "drops": 175,
+    "boardFull": 21,
+    "lands": 170,
+    "rec": 89,
+    "pile": 0,
+    "filler": 81,
+    "silent": 0,
+    "cp54": {
+     "coins": 177,
+     "E": 94,
+     "A": 83,
+     "silent": 0,
+     "why": {
+      "played": 94,
+      "cooldown": 2,
+      "cap": 81
+     }
+    },
+    "errs": []
+   }
+  },
+  "title": {
+   "wordDrop": {
+    "rec": 5,
+    "filler": 2
+   },
+   "pileUp": {
+    "coins": 17,
+    "rec": 17,
+    "filler": 0
+   },
+   "stats": {
+    "coins": 24,
+    "E": 22,
+    "A": 2,
+    "silent": 0,
+    "why": {
+     "played": 22,
+     "cooldown": 2
+    }
+   }
+  },
+  "titleErrs": []
+ }
+}

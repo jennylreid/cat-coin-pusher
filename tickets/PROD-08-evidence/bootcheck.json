@@ -1,0 +1,39 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\prod08\\release.html",
+ "buildSHA256": "098c51c9ebe1f010b4129b2625f596a68e242212973cc84bd8e3bb47450a2c96",
+ "runtimeFolder": "work/prod08/boot08 (UAT 89's 70 files, index.html = the production build)",
+ "browser": "headless Chrome, real time, work/prod08/bootcheck.cjs",
+ "passed": true,
+ "failed": [],
+ "result": {
+  "dir": "boot08",
+  "steps": [
+   "title with art at 920 ms",
+   "round in play at 4280 ms"
+  ],
+  "errors": [],
+  "title": true,
+  "build": "2026.11.17",
+  "screen": "title",
+  "play": true,
+  "state": {
+   "level": 1,
+   "prizes": [
+    "cheese",
+    "shrimp"
+   ],
+   "cp62": 4,
+   "runway": true,
+   "bottleArt": true,
+   "jackpot": 0.02,
+   "meterAddon": true
+  }
+ },
+ "uat89SameRun": {
+  "build": "2026.11.17 UAT 89",
+  "title": true,
+  "play": true,
+  "errors": [],
+  "sameState": true
+ }
+}

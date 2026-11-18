@@ -1,0 +1,46 @@
+{
+ "level": 3,
+ "seed": 7,
+ "extras": [
+  "rain5",
+  "rain10",
+  "quake"
+ ],
+ "before": [
+  "box",
+  "egg",
+  "quake",
+  "rain10",
+  "rain5"
+ ],
+ "picks": [
+  "box",
+  "egg",
+  "quake",
+  "rain10",
+  "rain5"
+ ],
+ "stats": {
+  "runs": 1,
+  "picked": [
+   [
+    "box",
+    "egg",
+    "quake",
+    "rain10",
+    "rain5"
+   ]
+  ],
+  "paid": [
+   "rain5",
+   "quake"
+  ],
+  "lostSide": [],
+  "anyFront": 6,
+  "anySide": 0
+ },
+ "errs": [],
+ "powers": 0,
+ "frames": 210,
+ "playFrame": 15
+}

@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "releaseSHA256": "71b35eb9ada651b8389a386b8900a87e98876c28e01dac58aa55bb9fefa77c07",
+  "reproducible": true,
+  "scope": "title final recipe + four art preloads + drawing overrides + Developer DOM wrapper only",
+  "developerListExact": true,
+  "engineerCollapsed": true,
+  "powerOnlyArt": true
+}
