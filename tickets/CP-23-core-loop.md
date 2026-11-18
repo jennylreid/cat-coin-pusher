@@ -92,3 +92,7 @@ Store category Casual. Genre line "a cozy coin pusher". Tagline "Push coins. Coo
 A side game straight after a Jackpot "will not be too much... for the really high-level player... it'd be totally
 fun. But it's way too much for a beginner." PM: back-to-back events unlock with level. Early levels keep big moments
 apart; later levels allow them to chain.
+
+## Power balance (Jenny, Nov 17)
+"We're making it too easy with all these powers." Zoomies capped at 1 prize per use (CP-72). PM: in the powers pass,
+give each power one clear, felt result that helps but never wins a board by itself, and scale its strength with level.

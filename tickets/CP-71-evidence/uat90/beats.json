@@ -1,0 +1,26 @@
+[
+ {
+  "sz": "412x915",
+  "grabs": [
+   "coins"
+  ],
+  "stats": {
+   "rummages": 1,
+   "knocked": 3,
+   "eaten": 0
+  },
+  "errs": []
+ },
+ {
+  "sz": "360x640",
+  "grabs": [
+   "coins"
+  ],
+  "stats": {
+   "rummages": 1,
+   "knocked": 4,
+   "eaten": 0
+  },
+  "errs": []
+ }
+]

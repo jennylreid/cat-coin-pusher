@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.17 UAT 89';
+const BUILD = '2026.11.17 UAT 90';
 
 
 
@@ -41996,6 +41996,7 @@ function cp58Mitt(side,t){
     if(t<T0.hover){const u=(t-T0.from)/(T0.hover-T0.from),k=cp58Ease(u);P=cp58Lerp(S,H,k);P.x+=side*55*Math.sin(Math.PI*k);P.r+=-side*.25*Math.sin(Math.PI*k);} // the casual drape: out wide, then down
    }else if(t<T0.hover){P=cp58Lerp(S,R,cp58Ease((t-CP58.peak)/.6));}
    if(!P&&t<T0.hit){const from=i===0?H:cp58Lerp(S,R,cp58Ease((T0.hover-CP58.peak)/.6));P=cp58Lerp(from,C,cp58Ease((t-T0.hover)/(T0.hit-T0.hover)));}
+   if(!P&&g.coins&&t>=T0.hit)P=cp71Mitt(g,side,t,T0,C,R); /* CP-71 */
    if(!P&&t<T0.home){const fl=t-T0.hit<.08?Math.sin((t-T0.hit)/.08*Math.PI):0;P=cp58Lerp(C,chin(),cp58Ease((t-T0.hit)/CP58.carry));P.x-=side*10*fl;}
    if(!P&&t<CP58.back){P=chin();P.y+=Y.chew||0;}
    if(!P){P=cp58Lerp(chin(),R,cp58Ease((t-CP58.back)/(CP58.end-CP58.back-.05)));}
@@ -42017,7 +42018,7 @@ pawGaze=function(){const Y=W2_YAWN;if(!Y||!Y.cp58)return __cp58PawGaze();const t
 function cp58Face(){const Y=W2_YAWN,t=Y.t;
  try{const m=ctx.getTransform(),k=scale*renderPixelRatio,p=m.transformPoint({x:199.5,y:171});Y.mouth={x:p.x/k,y:p.y/k};}catch(e){}
  const yawn=t>.05&&t<CP58.eyesOpen?cp58Ease((t-.05)/.35)*(1-cp58Ease((t-1.25)/.22)):0;
- const eat=t>CP58.eat&&t<CP58.end-.15;
+ const eat=t>CP58.eat&&t<CP58.end-.15&&!(Y.grabs[0]&&Y.grabs[0].coins);
  ctx.save();ctx.translate(-10,-25);ctx.scale(420/1536,240/1024);
  if((t>.25&&t<CP58.eyesOpen-.05)||eat){ // eyes shut: squeezed flat for the yawn (placeholder), the Happy face's arcs while eating
   ctx.globalAlpha=1;ctx.fillStyle='#000';for(const c of [480,1056]){ctx.beginPath();ctx.ellipse(c,525,183,148,0,0,7);ctx.fill();}
@@ -42036,14 +42037,14 @@ function cp58Face(){const Y=W2_YAWN,t=Y.t;
  ctx.restore();}
 const __cp58Pupils=drawTrackingPupils;
 drawTrackingPupils=function(){const Y=W2_YAWN;if(!Y||!Y.cp58)return __cp58Pupils();const t=Y.t;
- const shut=(t>.25&&t<CP58.eyesOpen-.05)||(t>CP58.eat&&t<CP58.end-.15);if(!shut)__cp58Pupils();cp58Face();};
+ const shut=(t>.25&&t<CP58.eyesOpen-.05)||(t>CP58.eat&&t<CP58.end-.15&&!(Y.grabs[0]&&Y.grabs[0].coins));if(!shut)__cp58Pupils();cp58Face();};
 const __cp61YawnTick=w2YawnTick;
 w2YawnTick=function(dt){
  const Y=W2_YAWN;if(!Y)return;if(!Y.cp58)return __cp61YawnTick(dt);Y.t+=dt;happyUntil=0;const t=Y.t,fx=Y.fx;
  if(t>=CP58.eyesOpen&&!fx.look){fx.look=1;sfx.wild2('tick',.8);}
  Y.grabs.forEach((g,i)=>{const T0=cp58Times(i);
   if(t>=T0.hover&&!g.whoosh){g.whoosh=1;sfx.paw40&&sfx.paw40('whoosh',1);}
-  if(t>=T0.hit&&!g.held&&!g.missed){if(g.coins){const top=c=>!c.dead&&c.rb.translation().y/M-cp61Half(c)>=COIN_HALF*1.5;const L=[g.b,...g.coins.filter(c=>c!==g.b)].filter(top);if(!L.length){g.missed=true;return;}g.b=L[0];g.coins=L.slice(1);}if(g.b.dead){g.missed=true;return;}g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;removeCoin(g.b);if(g.coins){g.coins=g.coins.filter(c=>c!==g.b&&!c.dead);g.kinds=[g.b.kind,...g.coins.map(c=>c.kind)];for(const c of g.coins)removeCoin(c);}sfx.paw40&&sfx.paw40('swipe',1);CP58.stats.grabbed.push(g.id);
+  if(t>=T0.hit&&!g.held&&!g.missed){if(g.coins){const top=c=>!c.dead&&c.rb.translation().y/M-cp61Half(c)>=COIN_HALF*1.5;const L=[g.b,...g.coins.filter(c=>c!==g.b)].filter(top);if(!L.length){g.missed=true;return;}g.b=L[0];g.coins=L.slice(1);}if(g.b.dead){g.missed=true;return;}if(g.coins){if(!g.rummage)cp71Rummage(g);return;} /* CP-71: never eats coins */g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;removeCoin(g.b);if(g.coins){g.coins=g.coins.filter(c=>c!==g.b&&!c.dead);g.kinds=[g.b.kind,...g.coins.map(c=>c.kind)];for(const c of g.coins)removeCoin(c);}sfx.paw40&&sfx.paw40('swipe',1);CP58.stats.grabbed.push(g.id);
    try{diagEvent('wild2','cp58 grab '+g.id);}catch(e){}}});
  // chewing
  Y.chew=0;Y.chewOpen=0;for(const c of CP58.chomps){const u=(t-c)/.22;if(u>=0&&u<1){Y.chewOpen=Math.sin(u*Math.PI);Y.chew=5*Math.sin(u*Math.PI);}}
@@ -42051,7 +42052,7 @@ w2YawnTick=function(dt){
   if(i===0)callout('NOM.',{color:'#ffd23f',dur:.9});const m=cp58Mouth();for(let k=0;k<7;k++)Y.crumbs.push({x:m.x+rand(-14,14),y:m.y+rand(-4,6),vx:rand(-70,70),vy:rand(-120,-30),t:0,c:Y.grabs.every(g=>!g.held||g.id==='milk')?(Math.random()<.5?'#ffffff':'#f1ece0'):Math.random()<.5?'#f4c24a':'#e8a060'});}}});
  if(t>=CP58.gulp&&!fx.gulp){fx.gulp=1;if(Y.grabs.some(g=>g.held)){pgSfx('plop',1);for(const g of Y.grabs)g.gone=true;for(const g of Y.grabs)if(g.held&&!g.coins)cp58Lost(g);cp58BottleGulp(Y);}}
  for(let i=Y.crumbs.length-1;i>=0;i--){const c=Y.crumbs[i];c.t+=dt;c.x+=c.vx*dt;c.y+=c.vy*dt;c.vy+=520*dt;if(c.t>.8)Y.crumbs.splice(i,1);}
- if(t>=CP58.end){W2_YAWN=null;if(pawDance&&pawDance.yawn)stopPawDance();try{pgSfx('purr',.6);}catch(e){}}
+ if(t>=(Y.knockEnd||CP58.end)){W2_YAWN=null;if(pawDance&&pawDance.yawn)stopPawDance();try{pgSfx('purr',.6);}catch(e){}}
 };
 // While a stolen prize is in the cat's mitt, the bonus-drop clock doesn't count it as missing (it comes back at the end).
 const __cp58Missing=wildMissing;
@@ -42084,7 +42085,7 @@ function cp58RunwayK(t){ // fade in 0.05-0.30 s, hold, fade out 1.25-1.47 s (the
  return t>.05&&t<CP58.eyesOpen?cp58Ease((t-.05)/.25)*(1-cp58Ease((t-1.25)/.22)):0;}
 const __cp58FaceOrig=cp58Face;
 cp58Face=function(){const Y=W2_YAWN,t=Y.t,k=cp58RunwayK(t);
- const eat=t>CP58.eat&&t<CP58.end-.15;
+ const eat=t>CP58.eat&&t<CP58.end-.15&&!(Y.grabs[0]&&Y.grabs[0].coins);
  if(!CP58_RUNWAY||!CP58_RUNWAY_EYES)return __cp58FaceOrig();
  ctx.save();ctx.translate(-10,-25);ctx.scale(420/1536,240/1024);
  if(eat){ // Runway's squinting eyes, then the prototype's chewing mouth (unchanged)
@@ -42095,7 +42096,7 @@ cp58Face=function(){const Y=W2_YAWN,t=Y.t,k=cp58RunwayK(t);
  ctx.restore();};
 // The normal face keeps its pupils under the yawn fade (the Runway face covers them at full strength); shut while eating.
 drawTrackingPupils=function(){const Y=W2_YAWN;if(!Y||!Y.cp58)return __cp58Pupils();const t=Y.t;
- const eat=t>CP58.eat&&t<CP58.end-.15,k=cp58RunwayK(t);
+ const eat=t>CP58.eat&&t<CP58.end-.15&&!(Y.grabs[0]&&Y.grabs[0].coins),k=cp58RunwayK(t);
  if(!eat&&k<1)__cp58Pupils();cp58Face();};
 // No power while the CP-58 Yawn plays (a power Yawn would cut it short with a prize still in the mitt).
 const __cp58PgpReady=pgpReady;pgpReady=function(){return __cp58PgpReady()&&!(W2_YAWN&&W2_YAWN.cp58);};
@@ -42261,12 +42262,12 @@ drawPaws=function(){if(CP63X){ctx.save();try{cp63DrawBoard();}finally{ctx.restor
 // --- the clock (runs inside the power's own tick, so pause/Home stop it) ---
 function cp63Tick(t){const X=CP63X;if(!X)return;X.t=t;happyUntil=0;const fx=X.fx;
  if(t>=CP63.monoIn&&!fx.on){fx.on=1;pgSfx('ding',.6);}
- if(t>=CP63.look0&&!fx.hmm){fx.hmm=1;callout(CP63.words[0],{color:'#ffe27a',dur:1});}
+ if(t>=CP63.look0&&!fx.hmm){fx.hmm=1;cp73Say(CP63.words[0],'#ffe27a',CP73.dur.hmm);}
  const L=cp63LensAt(t);if(L&&L.arrived){const o=X.tour[L.i];if(o.lit==null){o.lit=t;pgSfx('ding',.55+.1*L.i);}}
  if(t>=CP63.look1&&!fx.all){fx.all=1;for(const o of X.tour)if(o.lit==null)o.lit=t;}
  if(t>=CP63.caneIn&&!fx.cane){fx.cane=1;try{sfx.paw40('whoosh',1);}catch(e){}}
  if(t>=CP63.sweep0&&!fx.sweep){fx.sweep=1;try{sfx.paw40('swipe',1);}catch(e){}}
- if(t>=CP63.sweep0+.5&&!fx.word){fx.word=1;if(X.picks.length)callout(CP63.words[1],{color:'#ffe27a',dur:1.1});}
+ if(t>=CP63.sweep0+.5&&!fx.word){fx.word=1;if(X.picks.length)cp73Say(CP63.words[1],'#ffe27a',CP73.dur.splendid);}
  if(t>=CP63.monoOut&&!fx.off){fx.off=1;pgSfx('flip',.7);}
  // a lit piece never goes over a side: near a side edge it is eased back toward the middle (the whole power)
  for(const o of X.picks){const b=o.b;if(o.done||b.dead||o.lit==null)continue;const p=b.rb.translation(),x=p.x/M,z=p.z/M,edge=tableHalfAt(Math.min(T.FRONT,z))-cp63R(b)*.7;
@@ -42293,7 +42294,7 @@ const __cp63How=pgpHow;pgpHow=function(cat){return __cp63How(cat);};
 const __cp63Use=pgpUse;
 pgpUse=function(){const cat=pgpCat(),P=PGP[cat];if(P.id!=='inspect')return __cp63Use();
  PG.powers[cat]=pgpCount(cat)-1;pgSave();stopDrops();try{diagEvent('powers','use '+P.id+' left='+PG.powers[cat]+' level='+pglSel());}catch(e){}
- callout(P.name+'!',{color:P.col,dur:1.4});try{navigator.vibrate&&navigator.vibrate([60,40,90]);}catch(e){}
+ cp73Say(P.name+'!',P.col,CP73.dur.intro);try{navigator.vibrate&&navigator.vibrate([60,40,90]);}catch(e){}
  cp63Start();PGPX={id:'inspect',t:0,dur:CP63.end};};
 const __cp63PgpTick=pgpTick;
 pgpTick=function(dt){const was=PGPX&&PGPX.id==='inspect'?PGPX:null;__cp63PgpTick(dt);if(was)cp63Tick(was.t);};
@@ -42505,6 +42506,63 @@ wildLandBonus=function(o){if(!o||!o.jp)return __cp64mLand(o);const ac=addCoin;
 const __cp64mPrize=wildPrizeCollected;
 wildPrizeCollected=function(b,x){if(!b||!b.jp)return __cp64mPrize(b,x);const df=danceFill;danceFill=function(){};
  try{return __cp64mPrize(b,x);}finally{danceFill=df;}};
+
+// ---------- CP-71 (Jenny, Nov 17; UAT 90): the Yawn never eats coins ----------
+// With food in reach nothing changes (grab, eat; milk drunk and its bottle tossed). With no food in reach the mitt comes
+// down onto the top coins as before (same pick: up to 4 lying on top where most lie together, re-checked), rummages for a
+// moment, then flicks them back over the rear edge of the table: they arc back with a spin, drop behind the table with
+// the game's real coin sounds, and are gone. No carry to the mouth, no chewing, no eating face; the Yawn ends early.
+// Never the bottom layer (only coins still lying on top when the mitt flicks), so no gap.
+const CP71={rummage:.32,flyMin:.55,flyMax:.75,after:1.25,stats:{rummages:0,knocked:0,eaten:0}};
+function cp71Top(c){return !c.dead&&c.rb.translation().y/M-cp61Half(c)>=COIN_HALF*1.5;}
+// at the mitt's hit (coins): rummage, then knock at g.knockAt
+function cp71Rummage(g){const Y=W2_YAWN;g.rummage=true;g.knockAt=Y.t+CP71.rummage;Y.knockEnd=g.knockAt+CP71.after;CP71.stats.rummages++;
+ sfx.paw40&&sfx.paw40('swipe',.7);try{diagEvent('wild2','cp71 rummage');}catch(e){}}
+function cp71Knock(g){const Y=W2_YAWN;g.knocked=true;const L=[g.b,...(g.coins||[]).filter(c=>c!==g.b)].filter(cp71Top);
+ Y.flyers=Y.flyers||[];
+ L.forEach((c,i)=>{const p=c.rb.translation(),x=p.x/M,z=p.z/M,h=p.y/M;
+  Y.flyers.push({kind:c.kind,x0:x,z0:z,h0:h,x1:x+rand(-30,30),z1:T.BACK-rand(20,55),dur:rand(CP71.flyMin,CP71.flyMax),t:-i*.06,peak:rand(70,110),
+   spin:rand(9,14)*(Math.random()<.5?-1:1),played:0});removeCoin(c);});
+ CP71.stats.knocked+=L.length;if(L.length)sfx.paw40&&sfx.paw40('whoosh',.8);try{diagEvent('wild2','cp71 knocked '+L.length+' coins behind the table');}catch(e){}}
+// the mitt for a coin grab after its hit: a quick rummage on the spot, then a flick up and back to rest
+function cp71Mitt(g,side,t,T0,C,R){const k=t-T0.hit;
+ if(k<CP71.rummage)return {x:C.x+side*9*Math.sin(k*30),y:C.y+3*Math.sin(k*44),r:C.r+.1*Math.sin(k*30)};
+ const u=(k-CP71.rummage)/.55;if(u>=1)return R;const F={x:C.x-side*6,y:C.y-60,r:C.r-side*.3};
+ return u<.3?cp58Lerp(C,F,cp58Ease(u/.3)):cp58Lerp(F,R,cp58Ease((u-.3)/.7));}
+function cp71At(f){const u=Math.max(0,Math.min(1,f.t/f.dur));
+ return {u,x:f.x0+(f.x1-f.x0)*u,z:f.z0+(f.z1-f.z0)*u,h:f.h0+(-50-f.h0)*u+f.peak*4*u*(1-u)};}
+const __cp71Tick=w2YawnTick;
+w2YawnTick=function(dt){const Y=W2_YAWN;__cp71Tick(dt);if(!Y||!Y.cp58)return;
+ for(const g of Y.grabs)if(g.rummage&&!g.knocked&&Y.t>=g.knockAt)cp71Knock(g);
+ if(Y.flyers)for(const f of Y.flyers){f.t+=dt;
+  if(f.t>=0&&!f.played){f.played=1;try{pgSfx('coin',.8);}catch(e){}}
+  if(f.t>=f.dur&&f.played===1){f.played=2;try{pgSfx('coin',.3);}catch(e){}}}};
+// drawn over the board like the held prizes; hidden once it drops below the table's rear edge (behind the table)
+const __cp71Text=yawnText;
+yawnText=function(){__cp71Text();const Y=W2_YAWN;if(!Y||!Y.cp58||!Y.flyers)return;
+ for(const f of Y.flyers){if(f.t<0||f.t>=f.dur)continue;const a=cp71At(f);if(a.z<T.BACK&&a.h<0)continue;
+  const e=skyScreen(a.x,a.z,Math.max(a.h,-50)),sp=sprite(f.kind==='silver'?'coin':f.kind),r=sp.half*e.s,ang=f.t*f.spin;
+  ctx.save();ctx.translate(e.x,e.y);ctx.rotate(ang*.3);ctx.scale(1,.25+.75*Math.abs(Math.cos(ang)));ctx.drawImage(sp.cv,-r,-r,2*r,2*r);ctx.restore();}};
+// ---------- end CP-71 ----------
+// ---------- CP-73 (Jenny, Nov 17; UAT 90): Formal inspection's words stay out of the beam ----------
+// "FORMAL INSPECTION!", "HMM." and "SPLENDID." no longer use the big callout over the board (which also queued behind
+// other callouts and could land on the beam). They show small and brief in the band above the cat's head (the goal-row
+// band the hat already covers), same lettering and colour, same pop sound and buzz. "FORMAL INSPECTION!" lasts 0.5 s,
+// gone before the lens starts (CP63.look0 = 0.55 s). Formal inspection's behaviour, timing, art and sounds are unchanged.
+const CP73={dur:{intro:.5,hmm:1,splendid:1.1},msgs:[]};
+function cp73Say(word,color,dur){rand(-0.12,0.12);rand(-10,10); // the two random draws callout() made, so the game's randomness stays as in UAT 89
+ CP73.msgs.length=0;CP73.msgs.push({word:String(word).toUpperCase(),color,dur,t0:time});
+ try{sfx.bam();}catch(e){}try{navigator.vibrate&&navigator.vibrate(45);}catch(e){}}
+function cp73Band(){const R=cp50RowLayout();return {cy:R.cy,h:Math.max(18,R.D)};}
+function cp73Draw(){const c=CP73.msgs[0];if(!c)return;const t=time-c.t0;if(t<0||t>=c.dur){if(t>=c.dur)CP73.msgs.shift();return;}
+ const B=cp73Band(),font=px=>`italic 900 ${px}px Impact, "Arial Black", system-ui`,pop=t<.1?.6+t/.1*.5:t<.2?1.1-(t-.1):1;
+ ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.globalAlpha=Math.max(0,Math.min(1,(c.dur-t)*6,t*12));
+ ctx.font=font(40);const w=ctx.measureText(c.word).width,size=Math.min(B.h*.8,28,40*250/w);
+ ctx.translate(200,B.cy);ctx.scale(pop,pop);ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.font=font(size);
+ ctx.lineWidth=Math.max(4,size/5);ctx.strokeStyle='#111';ctx.strokeText(c.word,0,0);ctx.fillStyle=c.color;ctx.fillText(c.word,0,0);
+ ctx.fillStyle='rgba(255,255,255,.4)';ctx.fillText(c.word,-1,-2);ctx.restore();}
+const __cp73Callout=drawCallout;drawCallout=function(){__cp73Callout();try{cp73Draw();}catch(e){}};
+// ---------- end CP-73 ----------
 
 </script>
 

@@ -1,0 +1,24 @@
+﻿{
+    "version":  20261118000001,
+    "displayName":  "2026.11.17 UAT 90",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "9ccb135f3c4c1118ead62e1d8353a2f9fe6cbadf6eb6c95e9ccb3e52654b8aff",
+    "stagedJSONSHA256":  "dcb1c58b46cd1efe22b77e52b2d1688fb9aea4a731968ea1c428918fd53bb848",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "562a95f8236885530c9bfe70a49ea34310e3397a2a6d888dd95273511aafa224",
+    "jsonBytes":  54934298,
+    "runtimeFiles":  70,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.17 UAT 89",
+    "backup":  "uat/backups/before-UAT90-20261118000001",
+    "evidence":  "tickets/CP-71-evidence/uat90",
+    "authorization":  "UAT 90: CP-71 (Jenny, Nov 17: \"CP-71 Yawn: never eats coins. No food in reach = the mitt knocks a few top coins behind the table, no chewing. Go, next UAT.\"); UAT only",
+    "localPublication":  "verified"
+}

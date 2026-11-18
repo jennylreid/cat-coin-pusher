@@ -85,7 +85,13 @@ CP-54, 56, 57, 58, 61, 62, 63, 64, 69." **Phone receipt pending Jenny.**
     update.
   - All 70 files are present and the index.html hash matches.
   - Details: `PROD-08-evidence/cloud-verification.json`.
-- **GitHub:** see the line at the end of this report.
+- **GitHub:** committed to `main` and pushed: `b992c31` "CP-54, 56, 57, 58, 61, 62, 63, 64, 69, PROD-08: UAT 89 promoted
+  to production".
+  - It contains the UAT 89 checkpoint tree, root index.html (the production build), `work/prod08`, and this report and
+    its evidence.
+  - CP-55 and CP-23 work in progress is left out.
+  - No update JSONs, APKs, WAV/MP3, reference images or keystores.
+  - WIP checkpoint `172831f` on `wip/uat`. The repo is back on `wip/uat`.
 
 ## Limits
 - Desktop checks don't prove phone receipt, sound or frame rate.

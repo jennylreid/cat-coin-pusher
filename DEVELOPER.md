@@ -374,6 +374,12 @@ wrapped; state in `CP63X`, settings in `CP63` (timing table, `max:5`, `maxPrizes
   handler: it clinks (`sfx.cp58Clink`), falls and is removed, and is never a prize or counted. At most
   `CP58_BOTTLE.max` (2) are on the board. `cp63Pick` skips bottles. Any new code that loops over `kind==='item'` bodies
   must skip `b.bottle`.
+- **Since UAT 90 (CP-71, Jenny, Nov 17): the Yawn never eats coins.** A coin grab (`g.coins`) is never held:
+  `cp71Rummage` at the hit, then `cp71Knock` flicks the coins still lying on top back over the rear edge. Each coin is
+  removed and drawn as a flyer (`Y.flyers`, `cp71At`) to behind the table (z < T.BACK, below the top). `cp71Mitt` drives
+  the mitt; the eating face is off on coin runs; `Y.knockEnd` ends the Yawn early. Block `work/cp90/cp71-knock.js`.
+- **CP-73 (UAT 90):** Formal inspection's words go through `cp73Say` (band above the head, `cp50RowLayout`), not
+  `callout()`. It draws the same two `rand()` values callout did, so the RNG stream matches. Block `work/cp90/cp73-words.js`.
 - **Real-browser boot check (since UAT 82):** the desktop harness strips the boot line (`Promise.all([RAPIER.init(),
   loadArt()])`), so a const used by loadArt and declared below it (CP62_ART in UAT 80/81) only fails in a real browser.
   Before publishing, run `work/cp83/bootcheck.cjs <runtime folder>` (headless Chrome, real time, the full runtime
