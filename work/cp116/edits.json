@@ -1,0 +1,28 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp115\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 115';",
+   "const BUILD = '2026.11.19 UAT 116';"
+  ],
+  [
+   "let pick='head';try{const v=localStorage.getItem(KEY);if(CHOICES.includes(v))pick=v;}catch(e){}",
+   "let pick='E';try{const v=localStorage.getItem(KEY);if(CHOICES.includes(v))pick=v;}catch(e){} /* CP-86 mitts final: E */"
+  ],
+  [
+   "CHOICES=['head','B','C','D','E','F'],",
+   "CHOICES=['E'], /* CP-86 mitts final: Jenny picked E */"
+  ],
+  [
+   "up:.6,down:.6,",
+   "up:.6,down:.2, /* CP-86 mitts final: a quick 0.2 s return, after a longer hold */"
+  ],
+  [
+   "if(!S.dev||!eng||eng.querySelector('#cp86-mitts'))return r;",
+   "if(CP86M.CHOICES.length<2||!S.dev||!eng||eng.querySelector('#cp86-mitts'))return r; /* CP-86 mitts final: no choice to show */"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp86-final.js"
+ ]
+}

@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.19 UAT 115';
+const BUILD = '2026.11.19 UAT 116';
 
 
 
@@ -43952,10 +43952,10 @@ const __cp88Exit=wildExit;wildExit=function(){CP88.bank={laser:0,fish:0,mousecoi
 // motion is replaced. The approved mitts are only moved and turned; drawing only: the mitts' resting colliders are not moved.
 // Developer choice: Settings -> Developer -> Engineer tools -> "Sonic meow mitts" (saved on this phone,
 // catpusher.uat.cp86mitts.v1). The pick is read when a meow starts, so a meow never switches pose halfway.
-const CP86M=(()=>{const KEY='catpusher.uat.cp86mitts.v1',CHOICES=['head','B','C','D','E','F'],NAMES={head:'Above the head',B:'B: forward and out',C:'C: pointing forward',D:'D: Dancing pose',E:'E: Dancing, then above the head',F:'F: Above the head, then Dancing'}; /* CP-86 mitts D E F */
- let pick='head';try{const v=localStorage.getItem(KEY);if(CHOICES.includes(v))pick=v;}catch(e){}
+const CP86M=(()=>{const KEY='catpusher.uat.cp86mitts.v1',CHOICES=['E'], /* CP-86 mitts final: Jenny picked E */NAMES={head:'Above the head',B:'B: forward and out',C:'C: pointing forward',D:'D: Dancing pose',E:'E: Dancing, then above the head',F:'F: Above the head, then Dancing'}; /* CP-86 mitts D E F */
+ let pick='E';try{const v=localStorage.getItem(KEY);if(CHOICES.includes(v))pick=v;}catch(e){} /* CP-86 mitts final: E */
  function set(k){if(!CHOICES.includes(k))return;pick=k;try{localStorage.setItem(KEY,k);}catch(e){}try{diagEvent('cp86','mitts='+k);}catch(e){}}
- return {KEY,CHOICES,NAMES,set,get(){return pick;},up:.6,down:.6,
+ return {KEY,CHOICES,NAMES,set,get(){return pick;},up:.6,down:.2, /* CP-86 mitts final: a quick 0.2 s return, after a longer hold */
   // a = the left mitt's turn as seen (the right one mirrors it); dx is outward from the cat's middle, dy down the screen
   POSE:{head:{dx:48,dy:-185,a:.43},B:{dx:13,dy:163.4,a:.35},C:{dx:-85,dy:203.4,a:-.35},D:{dx:-12,dy:-30,a:-.12},E:{seq:['D','head']},F:{seq:['head','D']}},swap:[3,3.75] /* CP-86 mitts D E F: E and F travel from the first pose to the second between swap[0] and swap[1] s (the eyes open at 3.75 s) */,stats:{meows:{}}};})();
 function cp86MPick(){const X=PGPX;if(!X)return CP86M.get();if(!X.cp86m){X.cp86m=CP86M.get();CP86M.stats.meows[X.cp86m]=(CP86M.stats.meows[X.cp86m]||0)+1;}return X.cp86m;}
@@ -43982,12 +43982,38 @@ const __cp86MUpdate=update;update=function(){const r=__cp86MUpdate.apply(this,ar
 // the choice in Engineer tools, under the sound choices
 const __cp86MCredits=openCredits;
 openCredits=function(){const r=__cp86MCredits.apply(this,arguments);try{
- const eng=panel.querySelector&&panel.querySelector('#cp70-engineer');if(!S.dev||!eng||eng.querySelector('#cp86-mitts'))return r;
+ const eng=panel.querySelector&&panel.querySelector('#cp70-engineer');if(CP86M.CHOICES.length<2||!S.dev||!eng||eng.querySelector('#cp86-mitts'))return r; /* CP-86 mitts final: no choice to show */
  const box=document.createElement('div');box.id='cp86-mitts';const hd=document.createElement('h3');hd.textContent='Sonic meow mitts';box.appendChild(hd);
  const btns=[];const paint=()=>btns.forEach(b=>{const on=b.dataset.m===CP86M.get();b.textContent=(on?'✓ ':'')+CP86M.NAMES[b.dataset.m];b.style.fontWeight=on?'700':'400';});
  for(const k of CP86M.CHOICES){const b=document.createElement('button');b.dataset.m=k;b.style.margin='0 6px 6px 0';b.onclick=()=>{CP86M.set(k);paint();};btns.push(b);box.appendChild(b);}
  paint();const sum=eng.querySelector('summary');if(sum&&sum.nextSibling)eng.insertBefore(box,sum.nextSibling);else eng.appendChild(box);}catch(e){}return r;};
 // ---------- end CP-86 mitts ----------
+
+// ---------- CP-86 mitts final: the return (Jenny, Nov 19: "The fade is in the midst as they move down from above the head back
+// down to base... I prefer it if that split second is used to keep the hands or the mitts above the head a little bit
+// longer.") ----------
+// What read as a fade: the mitts are drawn in front of the head during the meow and behind it otherwise (the idle mitts are
+// drawn before the head). Back at rest they overlap the cheeks, so on the face's switch frame their upper half vanished
+// behind the head in one frame, while still moving. They were always fully opaque, same art, same size.
+// Now: the mitts hold above the head until CP86F.drop; then come down quickly in front of the face to just under the
+// cheeks (rest + CP86F.dip, where no part of them overlaps the head, so drawing them in front or behind the head gives the
+// same picture), arriving at CP86F.under; they change layer there, on that frame, and tuck up into rest behind the head
+// by the face's switch (CP86.tail before the end), so the face still switches on a still cat. Always fully opaque.
+const CP86F={drop:4.65,under:4.8,dip:95};
+// where the idle mitts rest, for the way they are being drawn now (the rest pose or the idle mitts)
+function cp86FRest(side){if(isRestPose()){const R=cp58Rest(side),m=__cp86Paw(side);return {x:R.x+m.x,y:R.y+m.y,a:-.12};}const b=__cp86MittRest(side);return {x:b.x,y:b.y,a:MITT_TURN};}
+function cp86FDip(side){const r=cp86FRest(side),R=cp58Rest(side);return {dx:side*(r.x-R.x),dy:r.y-R.y+CP86F.dip,a:r.a};}
+const __cp86FTarget=cp86MTarget;
+cp86MTarget=function(side){const T=__cp86FTarget(side),X=PGPX;if(!X||X.id!=='sonic'||X.t<CP86F.drop)return T;
+ const R=cp58Rest(side),d=cp86FDip(side),D={x:R.x+side*d.dx,y:R.y+d.dy,a:d.a},k=cp58Ease((X.t-CP86F.drop)/(CP86F.under-CP86F.drop));
+ return {x:T.x+(D.x-T.x)*k,y:T.y+(D.y-T.y)*k,a:T.a+(D.a-T.a)*k};};
+// full weight until the mitts are under the cheeks, then eased to 0 (rest) by the face's switch
+cp86MWeight=function(){const X=PGPX;if(!X||X.id!=='sonic'||cp86K()<=0)return 0;const end=cp86End(X);
+ return cp58Ease(X.t/CP86M.up)*(X.t<CP86F.under?1:cp58Ease((end-X.t)/(end-CP86F.under)));};
+// in front of the head until the mitts are under the cheeks; behind it (where the idle mitts belong) from then on
+const __cp86FOnTop=cp86MOnTop;
+cp86MOnTop=function(){return __cp86FOnTop()&&!(PGPX&&PGPX.t>=CP86F.under);};
+// ---------- end CP-86 mitts final ----------
 
 </script>
 
