@@ -79,4 +79,7 @@ loaded; Zoomies ending peek only and today's sound; the lab off; no UAT keys. Sa
   published: the same OneDrive item, ETag `{578FC2C8…},12` (was `,11`); version 20261118200000, apkVersion 17 = installed, newer
   than 20261117200000, so the production app takes it as a game update; 78 files; index.html hash matches.
   `PROD-09-evidence/cloud-verification.json`.
-- **GitHub:** see below.
+- **GitHub:** committed to `main` and pushed: `5c60209` "CP-71, 72, 73, 75, 78, 80, 82, PROD-09: UAT 105 promoted to production".
+  It contains the UAT 105 checkpoint tree for those tickets (work/cp90 to cp105 with cp104-lab, ticket recipes, CP-75 art), root
+  index.html (the production build), `work/prod09`, CODEX_BRIEF/DEVELOPER, and this report and its evidence. Unpublished and later
+  work (CP-74, CP-81, CP-84 to 86, work/cp104, cp106 onward) stays off main. WIP checkpoint: `d508788` on wip/uat.
