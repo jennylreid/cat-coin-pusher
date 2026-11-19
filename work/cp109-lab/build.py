@@ -6,6 +6,9 @@ p=Path(__file__).parent;W=p.parent;v=json.loads((p/'release-version.json').read_
 shutil.copyfile(W/'cp83lab'/'cp83-lab.js',p/'cp83-lab.js')
 base=W/v['base']/'release.html';s=base.read_bytes();assert hashlib.sha256(s).hexdigest()==v['baseSHA256'],('base changed',base);s=s.decode('utf-8')
 old=(W/'cp104-lab'/'cp83-lab.js').read_bytes().decode('utf-8');new=(p/'cp83-lab.js').read_bytes().decode('utf-8')
+# UAT 108 removed the Engineer tools picker from UAT 104's block (work/cp108/build.py); the old block is that version
+i=old.index("{const __labCredits=openCredits;");j=old.index("return r;};}",i)+len("return r;};}")
+old=old[:i]+'/* CP-83: the Board lab picker is removed (PM, Nov 18: no lab state can reach normal play) */'+old[j:]
 m=re.search(r"const BUILD = '([^']+)';",s)
 EDITS=[(m.group(0),"const BUILD = '%s';"%v['displayName']),(old,new)]
 for a,b in EDITS:

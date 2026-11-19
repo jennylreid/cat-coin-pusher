@@ -61,16 +61,32 @@ async function levelRun(file,lv,seed,cat,store){const g=await boot(file,seed,sto
  // 9. round 3: Pusher chains starts plain with 3 hint coins, a 3-coin preview, and a pair-built chain bursts from one coin
  {const g=await boot(src,4);g.run(`labStart('chain')`);g.until("WILD.phase==='play'",900);g.ticks(20);
   const st=J(g,`{on:LAB.on(),coloured:bodies.filter(b=>!b.dead&&LAB3.tint[b.id]).map(b=>b.id).sort(),ahead:LAB3.ahead.length,clock:wildClock(),text:LAB.def().lab.text,budget:LAB.def().budget}`);
-  // lay a red pair and a green pair touching it on the back rows, then land a red coin on the reds
+  // lay a red pair and a green pair beside it in the second row, then land a red coin on the reds
   g.run(`{const c=bodies.filter(b=>!b.dead&&b.kind==='coin'&&!LAB3.tint[b.id]).map(b=>({b,q:b.rb.translation()})).filter(o=>o.q.z/M<420).sort((a,b)=>a.q.x-b.q.x||a.q.z-b.q.z);
    const at=(x,z)=>c.map(o=>o.b).filter(b=>!b.lab3T).sort((a,b)=>Math.hypot(a.rb.translation().x/M-x,a.rb.translation().z/M-z)-Math.hypot(b.rb.translation().x/M-x,b.rb.translation().z/M-z))[0];
-   const r1=at(147,341),r2=at(200,341),g1=at(147,394),g2=at(200,394);r1.id=r2.id='lab-red';g1.id=g2.id='lab-green';r1.lab3T=r2.lab3T=g1.lab3T=g2.lab3T=1;
+   const r1=at(147,341),r2=at(200,341),g1=at(253,341),g2=at(306,341);r1.id=r2.id='lab-red';g1.id=g2.id='lab-green';r1.lab3T=r2.lab3T=g1.lab3T=g2.lab3T=1;
    const t=bodies.find(b=>!b.dead&&b.kind==='coin'&&!LAB3.tint[b.id]&&b.rb.translation().z/M>600);const p=r1.rb.translation();t.rb.setTranslation({x:p.x+0*M,y:p.y+COIN_HALF*2.2*M,z:p.z-(COIN_R*1.2)*M},true);t.id='lab-red';t.lab3Wait=true;t.fresh=false;t.lab3T=null;}`);
   g.ticks(40);const r=J(g,'{tap:LAB3.stats.tapBest,chains:LAB3.stats.chains,got:LAB.st.got,errs:__errs.length}');
   const off=await boot(src,4);const btn=J(off,"(()=>{S.dev=false;const a=labhBtn();S.dev=true;PGU.screen='main';const b=labhBtn();return {off:a,on:!!b};})()");off.close&&off.close();
   notes.round3={st,r,btn};
-  check('9 round 3 Pusher chains: starts plain gold with one hint coin of each colour, a 3-coin preview and "'+st.budget+' drops"; a red coin landing on a red pair bursts it and the touching green pair chains (one tap '+r.tap+', chain x'+r.chains+'); the Home "Board lab" button only with Developer on; no frame errors',
-   st.on&&JSON.stringify(st.coloured)===JSON.stringify(['lab-blue','lab-green','lab-red'])&&st.ahead===3&&st.clock===st.budget+' drops'&&r.tap>=5&&r.chains>=2&&!r.errs&&btn.off===null&&btn.on,{st,r,btn});g.close&&g.close();}
+  check('9 round 3 Pusher chains: starts plain gold with one hint coin of each colour, a 3-coin preview and "'+st.budget+' drops"; a red coin landing on a red pair bursts it and the touching green pair chains (one tap '+r.tap+', chain x'+r.chains+'); no Home "Board lab" button with Developer off (its look and list are checked in the real browser); no frame errors',
+   st.on&&JSON.stringify(st.coloured)===JSON.stringify(['lab-blue','lab-green','lab-red'])&&st.ahead===3&&st.clock===st.budget+' drops'&&r.tap>=5&&r.chains>=2&&!r.errs&&btn.off===null,{st,r,btn});g.close&&g.close();}
+ // 10. leaving the lab always returns to normal play; PLAY never starts a lab board; nothing lab-related on a level
+ {const g=await boot(src,6);const lv0=J(g,'PG.lv');const ways={};
+  const level=()=>J(g,"{lab:LAB.on(),sel:LAB.st.sel,name:pglOn()&&pglOn().name,want:PGL_LEVELS[pglSel()-1].name,cols:LAB2.cols.length,clock:wildClock(),coloured:bodies.filter(b=>!b.dead&&b.id&&/^lab-/.test(b.id)).length,row:(()=>{const t=[];const w=wildText;wildText=function(x,...a){t.push(x);};const wi=wildIcon,cd=cp50Draw;wildIcon=()=>{};cp50Draw=()=>{};try{cp50DrawRow();}finally{wildText=w;wildIcon=wi;cp50Draw=cd;}return t;})()}");
+  const normal=r=>!r.lab&&!r.sel&&r.name===r.want&&r.cols===0&&r.coloured===0&&/^\d+:\d\d$/.test(r.clock)&&!r.row.some(x=>/LAB/.test(x));
+  // a: mid-round, the round's own top Home button (cp51Home presses it) -> the guard puts normal play back
+  g.run("labhPlay('lanes')");g.until("WILD.phase==='play'",900);g.ticks(30);ways.midRoundIn=J(g,'{lab:LAB.on(),cols:LAB2.cols.length}');g.run("cp51Home();");g.ticks(5);ways.afterHome=level();
+  // b: PLAY from Home afterwards starts the normal level
+  g.run("pgStartRound();");g.until("WILD.phase==='play'",900);g.ticks(20);ways.play=level();
+  // c: a lab round to its end, then the list's Home
+  g.run("labhPlay('chain')");g.until("WILD.phase==='play'",900);g.ticks(20);g.run("wildFinish(false,'coins')");g.ticks(150);ways.listBack=J(g,'{shown:LABH.shownEnd,result:LABH.result}');g.run('labhHome()');g.ticks(5);ways.listHome=level();
+  g.run("pgStartRound();");g.until("WILD.phase==='play'",900);g.ticks(20);ways.play2=level();
+  // d: nothing is saved: a fresh start is normal play
+  const g2=await boot(src,6);ways.fresh=J(g2,'{sel:LAB.st.sel,lab:LAB.on()}');g2.close&&g2.close();
+  ways.lv=JSON.stringify(J(g,'PG.lv'))===JSON.stringify(lv0);ways.errs=J(g,'__errs').length;notes.leave=ways;
+  check('10 leaving the lab always returns to normal play: the round’s own Home mid-round, PLAY afterwards, the end of a round then the list’s Home, and a fresh start all give the selected level with no lab pieces, coloured coins, drop budget or "LAB" goal row; no Engineer tools picker; level save unchanged; no frame errors',
+   ways.midRoundIn.lab&&ways.midRoundIn.cols===2&&normal(ways.afterHome)&&normal(ways.play)&&ways.listBack.shown&&normal(ways.listHome)&&normal(ways.play2)&&!ways.fresh.sel&&!ways.fresh.lab&&ways.lv&&!ways.errs&&!/__labCredits/.test(fs.readFileSync(src,'utf8')),ways);g.close&&g.close();}
  check('8 production and the UAT channel untouched',sha(prodJ)===prod0&&sha(uatJ)===uat0);
  fs.writeFileSync(path.join(out,'checks'+U+'.json'),JSON.stringify({build:src,base,passed:failed.length===0,passedN:passed.length,failed,notes},null,1));if(failed.length)process.exitCode=1;
 })().catch(e=>{console.error(e);process.exit(1)});

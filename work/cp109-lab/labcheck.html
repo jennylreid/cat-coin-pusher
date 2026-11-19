@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- CP-83 round 2 real-browser check (from UAT 103's): loads ?dir=<folder>/index.html (the full runtime folder, as on the phone) in a frame,
+<!-- CP-83 UAT 109 real-browser check: no Board lab picker in Engineer tools (Tower fall and Timing strip still there), then Home > Board lab: loads ?dir=<folder>/index.html (the full runtime folder, as on the phone) in a frame,
      waits for the title with art, starts a Level 1 round (lab off: normal level), then Settings -> Developer -> Engineer tools has
      "Board lab" with Off + 10 boards and "Tower fall" (Today ticked); tapping "Cup shot" closes Settings and starts a round on it (14 red coins, goal row);
      tapping Off then a normal round is Level 1 again. Writes JSON into #result. -->
@@ -26,9 +26,21 @@ g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.p
      w.eval('openCredits();');const off=Array.from(w.document.querySelectorAll('#cp83-lab button')).find(b=>b.dataset.lab==='');if(off)off.click();
      w.eval("wildExit();PG.lv.sel=1;pgPlay(PGU.boardCat||'tuxedo');if(WILD.phase!=='card')wildReset();wildStartCountdown();");}catch(e){res.errors.push(String(e));}},6000);
    setTimeout(()=>{try{res.after=JSON.parse(w.eval("JSON.stringify({on:LAB.on(),phase:WILD.phase,level:pglLevel().name,cols:LAB2.cols.length,clock:wildClock()})"));
-    res.cp83=res.build===(new URLSearchParams(location.search).get('build')||'')&&!res.normal.lab&&res.ui.inEngineer&&res.ui.title==='Board lab'&&res.ui.labels.length===11&&res.ui.tower.join('|')==='✓ Today|Topple'&&res.ui.timing.join('|')==='✓ Off|On'&&res.ui.labels[0].indexOf('Off')>=0
-     &&res.ui.panelAfter==='none'&&res.lab.on&&res.lab.phase==='play'&&res.lab.cols===0&&res.lab.clock==='18 drops'&&!res.after.on&&res.after.level===res.normal.level&&res.after.cols===0&&/^[0-9]+:[0-9][0-9]$/.test(res.after.clock);
-    res.steps.push('off again: '+JSON.stringify(res.after)+'; cp83 '+res.cp83);}catch(e){res.errors.push(String(e));}done();},14000);
+        res.cp83=res.build===(new URLSearchParams(location.search).get('build')||'')&&!res.normal.lab&&!res.ui.inEngineer&&res.ui.tower.join('|')==='✓ Today|Topple'&&res.ui.timing.join('|')==='✓ Off|On'&&!res.after.on&&res.after.cols===0&&/^[0-9]+:[0-9][0-9]$/.test(res.after.clock);
+    res.steps.push('off again: '+JSON.stringify(res.after)+'; cp83 '+res.cp83);
+     // Home > Board lab: the button, the list, a round from it, the list back with the result, Home
+     w.eval("S.dev=true;LAB.set(null);if(WILD.on){wildReset();}PGU.screen='main';");}catch(e){res.errors.push(String(e));}},14000);
+   setTimeout(()=>{try{const B=JSON.parse(w.eval('JSON.stringify(labhBtn())'));res.home={btn:B};if(B)w.eval('pgMainTap({x:'+(B.x+B.w/2)+',y:'+(B.y+B.h/2)+'})');
+     const el=w.document.querySelector('#cp83home');res.home.open=!!el&&el.style.display==='flex';res.home.boards=el?el.querySelectorAll('.bd').length:0;res.home.start=el&&el.querySelector('.next')?el.querySelector('.next').textContent:null;
+     res.home.sw=el?Array.from(el.querySelectorAll('.sw button.on')).map(b=>b.textContent):[];
+     const cup=el&&el.querySelector('.bd[data-k="cup"]');if(cup)cup.click();res.home.closed=el&&el.style.display==='none';}catch(e){res.errors.push(String(e));}},15500);
+   setTimeout(()=>{try{res.home.round=JSON.parse(w.eval("JSON.stringify({on:LAB.on(),phase:WILD.phase,clock:wildClock()})"));w.eval("wildFinish(false,'coins')");}catch(e){res.errors.push(String(e));}},21000);
+   setTimeout(()=>{try{const el=w.document.querySelector('#cp83home');res.home.back=el&&el.style.display==='flex';res.home.res=el&&el.querySelector('.res')?el.querySelector('.res').textContent:null;
+     res.home.next=el&&el.querySelector('.next')?el.querySelector('.next').textContent:null;const h=el&&el.querySelector('[data-a="home"]');if(h)h.click();
+     res.home.after=JSON.parse(w.eval("JSON.stringify({on:LAB.on(),screen:PGU.screen,open:document.querySelector('#cp83home').style.display})"));
+     res.cp83home=!!(res.home.btn&&res.home.open&&res.home.boards===11&&/Start: Tall tower/.test(res.home.start||'')&&res.home.sw.join('|')==='Today|Off'&&res.home.closed&&res.home.round.on&&res.home.round.phase!=='end'
+      &&res.home.back&&/Cup shot: out of coins/.test(res.home.res||'')&&/Next board: Bumper/.test(res.home.next||'')&&!res.home.after.on&&res.home.after.screen==='main'&&res.home.after.open==='none');
+     res.cp83=res.cp83&&res.cp83home;res.steps.push('home lab: '+JSON.stringify(res.home)+'; cp83home '+res.cp83home);}catch(e){res.errors.push(String(e));}done();},26000);
    return;}
   if(Date.now()-t0>80000){res.steps.push('timeout');clearInterval(iv);done();}
  }catch(e){res.errors.push(String(e));}},250);};

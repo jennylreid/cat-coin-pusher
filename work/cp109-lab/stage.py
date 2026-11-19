@@ -1,6 +1,6 @@
-# CP-83 round 2 UAT 104 staging, on published UAT 103 (from work/cp103/stage.py): complete game-only update for installed APK7.
+# CP-83 UAT 109 staging (Home > Board lab + round 3), on the published base (from work/cp104-lab/stage.py): complete game-only update for installed APK7.
 # Only index.html changes; the other runtime files are carried over byte for byte from the published UAT 101 JSON.
-#   python stage.py --boot-only ; REVIEW_PORT=8797 node labcheck.cjs boot104 > <evidence>/real-browser-boot.json ; python stage.py
+#   python stage.py --boot-only ; REVIEW_PORT=8797 node labcheck.cjs boot109 > <evidence>/real-browser-boot.json ; python stage.py
 from pathlib import Path
 import json,base64,hashlib,subprocess,sys,os
 p=Path(__file__).parent;r=p.parents[1];DEV=os.environ.get('DEV')=='1'
@@ -27,8 +27,8 @@ for k,b64 in files.items():
     if not f.exists() or f.read_bytes()!=b:f.parent.mkdir(parents=True,exist_ok=True);f.write_bytes(b);wrote+=1
 print('boot folder',G,'files written',wrote)
 if '--boot-only' in sys.argv or DEV:sys.exit(0)
-names=['checks104.json']+sorted(f.name for f in e.glob('checks*-on104.json'))
-NEED=['checks104.json','checks64-on104.json'] # CP-83 brief: the change's checks + one frozen-pickup suite + the real-browser boot; the rest run after publication
+names=['checks109.json']+sorted(f.name for f in e.glob('checks*-on109.json'))
+NEED=['checks109.json','checks64-on109.json'] # CP-83 brief: the change's checks + one frozen-pickup suite + the real-browser boot; the rest run after publication
 assert all(n in names for n in NEED),('missing results',names)
 for name in names:
     c=json.loads((e/name).read_text(encoding='utf-8'));assert Path(c['build'])==rel.resolve(),(name,'not run on this release.html')
@@ -40,5 +40,5 @@ t.write_text(json.dumps(out,separators=(',',':')),encoding='utf-8');size=t.stat(
 m={**{k:v[k] for k in ('version','displayName','apkVersion')},'baselineJSONSHA256':sha(raw),'stagedJSONSHA256':sha(t.read_bytes()),'apkSHA256':sha(apk),'releaseHTMLSHA256':sha(h),'jsonBytes':size,
    'runtimeFiles':len(files),'changedRuntimeFiles':['index.html'],'addedRuntimeFiles':[],'embeddedAPKBytes':0,'nativeChange':False,'base':pin['displayName'],
    'backup':f"uat/backups/before-UAT{uat}-{v['version']}",'evidence':e.relative_to(r).as_posix(),'checks':names,
-   'authorization':f"UAT {uat}: CP-83 round 2 (Jenny, Nov 18: \"make aim and timing matter ... A board counts only if skilled drops clearly beat random ones.\"; towers \"that fall in a really fun way\"); PM: \"build round 2 on the published UAT 103 as UAT 104\"; UAT only"}
+   'authorization':f"UAT {uat}: CP-83 Home > Board lab + round 3 Pusher chains (Jenny, Nov 18: \"Just give me a button on the home screen with all the lab boards so I can work through them all, please.\"; \"Let's go with A, please, for CP 83.\"); PM: \"Yours is UAT 109, built on 108\"; UAT only"}
 (p/'publication-manifest.json').write_text(json.dumps(m,indent=2));(e/'package-verification.json').write_text(json.dumps(m,indent=2));print(json.dumps(m,indent=2))

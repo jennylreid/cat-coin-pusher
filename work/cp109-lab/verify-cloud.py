@@ -1,8 +1,8 @@
 import urllib.request,hashlib,json,time
 from pathlib import Path
-root=Path(__file__).resolve().parents[2];stage=root/'work/cp104-lab'
+root=Path(__file__).resolve().parents[2];stage=root/'work/cp109-lab'
 url=(root/'work/uat15/download-url.txt').read_text().strip()
-url+=('&' if '?' in url else '?')+'cp104verify='+str(time.time_ns())
+url+=('&' if '?' in url else '?')+'cp109verify='+str(time.time_ns())
 request=urllib.request.Request(url,headers={'Cache-Control':'no-cache, no-store, max-age=0'})
 with urllib.request.urlopen(request,timeout=30) as response:
     digest=hashlib.sha256();size=0

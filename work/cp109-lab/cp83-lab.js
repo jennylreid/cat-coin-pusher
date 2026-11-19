@@ -123,15 +123,7 @@ function labWin(){const st=LAB.st;if(st.pending)return;st.pending=true;st.winAt=
 function labStart(k){LAB.set(k);try{panel.style.display='none';}catch(e){}if(!k)return;
  try{if(!PG)pgInit();const cat=PGU.boardCat||PG.current||'tuxedo';if(PGU.screen==='title'&&PGU.title){PGU.title.t=9;pgTitleDone();}
   if(WILD.on)wildExit();pgPlay(PG.open[cat]?cat:'tuxedo');if(WILD.phase!=='card')wildReset();wildStartCountdown();}catch(e){try{diagEvent('cp83','start failed '+e);}catch(_){}}}
-{const __labCredits=openCredits;
- openCredits=function(){const r=__labCredits.apply(this,arguments);try{
-  const eng=panel.querySelector&&panel.querySelector('#cp70-engineer');if(!S.dev||!eng||eng.querySelector('#cp83-lab'))return r;
-  const box=document.createElement('div');box.id='cp83-lab';const hd=document.createElement('h3');hd.textContent='Board lab';box.appendChild(hd);
-  const note=document.createElement('p');note.style.margin='0 0 6px';note.style.fontSize='12px';note.textContent='Tap a board to play it now. Lasts until the app closes or Off.';box.appendChild(note);
-  const btns=[];const paint=()=>btns.forEach(b=>{const k=b.dataset.lab,on=(LAB.st.sel||'')===k;const nm=k?LAB.B[k].name+': '+LAB.B[k].lab.text:'Off (normal levels)';b.textContent=(on?'✓ ':'')+nm;b.style.fontWeight=on?'700':'400';});
-  for(const k of ['',...LAB.ORDER]){const b=document.createElement('button');b.dataset.lab=k;b.className='wide';b.style.display='block';b.style.margin='4px 0';b.style.textAlign='left';
-   b.onclick=()=>{labStart(k||null);paint();};btns.push(b);box.appendChild(b);}
-  paint();const sum=eng.querySelector('summary');if(sum&&sum.nextSibling)eng.insertBefore(box,sum.nextSibling);else eng.appendChild(box);}catch(e){}return r;};}
+/* CP-83: the Board lab picker is removed (PM, Nov 18: no lab state can reach normal play) */
 // ---------- CP-83 round 2 (Jenny, Nov 18: "make aim and timing matter ... A board counts only if skilled drops clearly beat
 // random ones.") ----------
 // Lab-only board pieces that react to where you drop, drawn in code (stand-in art). They are added as fixed colliders when a
@@ -283,7 +275,8 @@ function labBudget(){return LAB.on()&&WILD.on&&LAB.def().budget?LAB.def().budget
 //  - trigger: your coin lands touching 2+ coins of its colour -> that group (3+) bursts (checked only as it lands, so groups
 //    the pile pushes together later wait for you);
 //  - chain: a bursting group sets off any touching group of 2+ of the NEXT colour in the cycle red -> green -> blue -> red,
-//    0.2 s later, and so on ("CHAIN x3!  11").
+//    0.2 s later, and so on ("CHAIN x3!  11"). A pair right in front of a burst can be kicked apart first: build pairs
+//    side by side.
 // So you lay pairs side by side in cycle order, then drop the third coin of the first pair. Burst coins are kicked forward
 // and turn gold. Goal kind 'chain': N coins burst from one tap (all its chain steps together). Normal extras, drop budget.
 const LAB3={colors:['lab-red','lab-green','lab-blue'],tint:{'lab-red':['#ff3a2e','#a8281e'],'lab-blue':['#2f7bff','#1e4aa8','color'],'lab-green':['#3adf5a','#1e8a30']},
@@ -351,7 +344,7 @@ LAB.ORDER.push('chain');
 // puzzles" when that button is there (CP-87), else under PLAY. It opens a list of every lab board by round, each with its name
 // and goal, plus the Tower fall and Timing strip switches (the same settings as in Engineer tools). Tap a board to play it;
 // when the round ends the list comes back with the result and a "Next board" button, and boards played this session are
-// ticked. "Home" turns the lab off and goes back to Home. Engineer tools keeps its own Board lab section too.
+// ticked. "Home" turns the lab off and goes back to Home. This is the only way into the lab (no Engineer tools picker).
 const LABH={el:null,active:false,last:null,played:{},won:{},result:'',opened:0};
 const LABH_ROUNDS=[['Round 1',['tower','edge','pins','wall','mice','red']],['Round 2',['lanes','cup','bumper','gate']],['Round 3',['chain']]];
 function labhOrder(){return LABH_ROUNDS.flatMap(r=>r[1]).filter(k=>LAB.B[k]);}
@@ -388,6 +381,10 @@ function labhHome(){labhClose();LABH.active=false;LABH.result='';LAB.set(null);t
 // Home: the button
 function labhBtn(){if(!S.dev||!PG)return null;const L=PGA.L,R=pgMainRects();if(!L||!L.play)return null;const w=176,h=36;
  let y=(typeof cp87Btn==='function'&&cp87Btn())?cp87Btn().y+cp87Btn().h+10:L.play.y+L.play.h+14;y=Math.min(y,R.bot-h-2);return {x:200-w/2,y,w,h};}
+// leaving the lab always returns to normal play: whenever Home shows with a lab board still chosen and the list closed (the
+// round's own Home button, or any other way back), the lab is turned off and the normal level rebuilt. A lab choice is never
+// saved, so a fresh start is always normal play.
+{const __labhGuard=update;update=function(dt){__labhGuard(dt);try{if(LAB.st.sel&&PGU&&PGU.screen==='main'&&!(LABH.el&&LABH.el.style.display==='flex')){LAB.set(null);LABH.active=false;LABH.result='';if(WILD.on){wildReset();}}}catch(e){}};}
 function labhFree(){return PGU.screen==='main'&&!PGU.win&&!PGU.pick&&!PGU.modes&&!PGU.door&&!(LABH.el&&LABH.el.style.display==='flex');}
 {const __labhDraw=pgDrawMain;pgDrawMain=function(dt){const r=__labhDraw(dt);try{if(labhFree()){const b=labhBtn();if(b){
    uiRound(b.x,b.y,b.w,b.h,18,'rgba(47,181,168,.92)','rgba(220,255,250,.85)',1.5);
