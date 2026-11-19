@@ -1,0 +1,32 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp104-lab\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.18 UAT 104';",
+   "const BUILD = '2026.11.18 UAT 105';"
+  ],
+  [
+   "const KEY='catpusher.uat.cp72zsound.v1',CHOICES=['today','P1','P2','P3'],",
+   "const KEY='catpusher.uat.cp72zsound.v1',CHOICES=['today'], /* CP-72 (UAT 105): P1-P3 dropped, today's sound stays */"
+  ],
+  [
+   "if(!S.dev||!eng||eng.querySelector('#cp72-zsound'))return r;",
+   "if(CP72Z.CHOICES.length<2||!S.dev||!eng||eng.querySelector('#cp72-zsound'))return r; /* CP-72 (UAT 105): no choice to show */"
+  ],
+  [
+   "CHOICES=['peek','short','hang'],",
+   "CHOICES=['peek'], /* CP-72 (UAT 105): only Peek-a-boo */"
+  ],
+  [
+   "if(!S.dev||!eng||eng.querySelector('#cp72-ending'))return r;",
+   "if(CP72E.CHOICES.length<2||!S.dev||!eng||eng.querySelector('#cp72-ending'))return r; /* CP-72 (UAT 105): no choice to show */"
+  ],
+  [
+   "<h3><span>Test this build</span><span>UAT 62</span></h3>'",
+   "<h3><span>Test this build</span><span>'+BUILD.split(' ').slice(-2).join(' ')+'</span></h3>'"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp72-small.js"
+ ]
+}

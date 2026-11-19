@@ -1,0 +1,542 @@
+[
+ {
+  "t": 4.567,
+  "face86": 1,
+  "k": 1,
+  "p": 0.036,
+  "hx": 1.08,
+  "hy": 0.22,
+  "ml": [
+   -0.3,
+   1.5
+  ],
+  "mr": [
+   0.3,
+   4.3
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.583,
+  "face86": 1,
+  "k": 1,
+  "p": 0.034,
+  "hx": 1.21,
+  "hy": 0.2,
+  "ml": [
+   -0.5,
+   1.3
+  ],
+  "mr": [
+   0.5,
+   1.3
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.6,
+  "face86": 1,
+  "k": 1,
+  "p": 0.031,
+  "hx": 0.3,
+  "hy": 0.19,
+  "ml": [
+   0.4,
+   4.1
+  ],
+  "mr": [
+   -0.4,
+   1.3
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.617,
+  "face86": 1,
+  "k": 0.93,
+  "p": 0.029,
+  "hx": -0.8,
+  "hy": 0.16,
+  "ml": [
+   1.4,
+   6.3
+  ],
+  "mr": [
+   -1.4,
+   1.1
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.633,
+  "face86": 1,
+  "k": 0.87,
+  "p": 0.027,
+  "hx": -1.1,
+  "hy": 0.14,
+  "ml": [
+   1.6,
+   7.9
+  ],
+  "mr": [
+   -1.6,
+   0.9
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.65,
+  "face86": 1,
+  "k": 0.8,
+  "p": 0.025,
+  "hx": -0.47,
+  "hy": 0.12,
+  "ml": [
+   0.9,
+   8.7
+  ],
+  "mr": [
+   -0.9,
+   0.8
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.667,
+  "face86": 1,
+  "k": 0.73,
+  "p": 0.023,
+  "hx": 0.44,
+  "hy": 0.1,
+  "ml": [
+   -0.1,
+   8.9
+  ],
+  "mr": [
+   0.1,
+   0.7
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.683,
+  "face86": 1,
+  "k": 0.67,
+  "p": 0.021,
+  "hx": 0.83,
+  "hy": 0.09,
+  "ml": [
+   -0.5,
+   8.4
+  ],
+  "mr": [
+   0.5,
+   0.6
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.7,
+  "face86": 1,
+  "k": 0.6,
+  "p": 0.02,
+  "hx": 0.5,
+  "hy": 0.07,
+  "ml": [
+   -0.2,
+   7.4
+  ],
+  "mr": [
+   0.2,
+   0.5
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.717,
+  "face86": 1,
+  "k": 0.53,
+  "p": 0.018,
+  "hx": -0.16,
+  "hy": 0.06,
+  "ml": [
+   0.4,
+   6.1
+  ],
+  "mr": [
+   -0.4,
+   0.4
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.733,
+  "face86": 1,
+  "k": 0.47,
+  "p": 0.017,
+  "hx": -0.55,
+  "hy": 0.05,
+  "ml": [
+   0.7,
+   4.6
+  ],
+  "mr": [
+   -0.7,
+   0.3
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.75,
+  "face86": 1,
+  "k": 0.4,
+  "p": 0.016,
+  "hx": -0.41,
+  "hy": 0.04,
+  "ml": [
+   0.5,
+   3
+  ],
+  "mr": [
+   -0.5,
+   0.3
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.767,
+  "face86": 1,
+  "k": 0.33,
+  "p": 0.015,
+  "hx": 0,
+  "hy": 0.03,
+  "ml": [
+   0.1,
+   1.6
+  ],
+  "mr": [
+   -0.1,
+   0.2
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.783,
+  "face86": 1,
+  "k": 0.27,
+  "p": 0.014,
+  "hx": 0.27,
+  "hy": 0.02,
+  "ml": [
+   -0.2,
+   0.5
+  ],
+  "mr": [
+   0.2,
+   0.1
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.8,
+  "face86": 1,
+  "k": 0.2,
+  "p": 0.013,
+  "hx": 0.23,
+  "hy": 0.02,
+  "ml": [
+   -0.2,
+   0.1
+  ],
+  "mr": [
+   0.2,
+   0.4
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.817,
+  "face86": 1,
+  "k": 0.13,
+  "p": 0.012,
+  "hx": 0.04,
+  "hy": 0.01,
+  "ml": [
+   0,
+   0.1
+  ],
+  "mr": [
+   0,
+   0.6
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.833,
+  "face86": 1,
+  "k": 0.07,
+  "p": 0.011,
+  "hx": -0.05,
+  "hy": 0,
+  "ml": [
+   0.1,
+   0
+  ],
+  "mr": [
+   -0.1,
+   0.5
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.85,
+  "face86": 1,
+  "k": 0,
+  "p": 0.01,
+  "hx": 0,
+  "hy": 0,
+  "ml": [
+   0,
+   0
+  ],
+  "mr": [
+   0,
+   0
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.867,
+  "face86": 0.89,
+  "k": null,
+  "p": null,
+  "hx": 0,
+  "hy": 0,
+  "ml": [
+   0,
+   0
+  ],
+  "mr": [
+   0,
+   0
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.883,
+  "face86": 0.78,
+  "k": null,
+  "p": null,
+  "hx": 0,
+  "hy": 0,
+  "ml": [
+   0,
+   0
+  ],
+  "mr": [
+   0,
+   0
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.9,
+  "face86": 0.67,
+  "k": null,
+  "p": null,
+  "hx": 0,
+  "hy": 0,
+  "ml": [
+   0,
+   0
+  ],
+  "mr": [
+   0,
+   0
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.917,
+  "face86": 0.56,
+  "k": null,
+  "p": null,
+  "hx": 0,
+  "hy": 0,
+  "ml": [
+   0,
+   0
+  ],
+  "mr": [
+   0,
+   0
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.933,
+  "face86": 0.44,
+  "k": null,
+  "p": null,
+  "hx": 0,
+  "hy": 0,
+  "ml": [
+   0,
+   0
+  ],
+  "mr": [
+   0,
+   0
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.95,
+  "face86": 0.33,
+  "k": null,
+  "p": null,
+  "hx": 0,
+  "hy": 0,
+  "ml": [
+   0,
+   0
+  ],
+  "mr": [
+   0,
+   0
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.967,
+  "face86": 0.22,
+  "k": null,
+  "p": null,
+  "hx": 0,
+  "hy": 0,
+  "ml": [
+   0,
+   0
+  ],
+  "mr": [
+   0,
+   0
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 4.983,
+  "face86": 0.11,
+  "k": null,
+  "p": null,
+  "hx": 0,
+  "hy": 0,
+  "ml": [
+   0,
+   0
+  ],
+  "mr": [
+   0,
+   0
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ },
+ {
+  "t": 5,
+  "face86": 0,
+  "k": null,
+  "p": null,
+  "hx": 0,
+  "hy": 0,
+  "ml": [
+   0,
+   0
+  ],
+  "mr": [
+   0,
+   0
+  ],
+  "eyes": 1,
+  "face": "normal",
+  "art": "head",
+  "pose": false
+ }
+]

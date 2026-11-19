@@ -1,0 +1,28 @@
+﻿{
+    "version":  20261118000017,
+    "displayName":  "2026.11.18 UAT 106",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "4eb73334c9ba13ce9ce9b3bfca4849b5ae9d4ed16b69f2835d05d6e4893441f6",
+    "stagedJSONSHA256":  "766bcff279eafb0682dc7ef7e7022628f12cf369e2faa80383a83d84cf8c053e",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "455b061a1c627f540886c2568cb561599ffad6e59c22ea2c8d4bfe5f7ecada20",
+    "jsonBytes":  59044883,
+    "runtimeFiles":  78,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.18 UAT 105",
+    "backup":  "uat/backups/before-UAT106-20261118000017",
+    "evidence":  "tickets/CP-74-evidence/uat106",
+    "checks":  [
+                   "checks106.json",
+                   "checks64-on106.json"
+               ],
+    "authorization":  "UAT 106: CP-74 Hug try 6 (Jenny, Nov 18: \"This passes for UAT. It\u0027s not perfect, but it\u0027s so much better. I want to take a look at it in the build.\"); PM: \"Build try 6 on the published UAT 105 as UAT 106 ... You have a go to publish\"; UAT only",
+    "localPublication":  "verified"
+}

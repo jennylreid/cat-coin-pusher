@@ -1,0 +1,2047 @@
+PASS 0 the three CP-59 lines are in the build
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 1 the cascade repro ends with the win, no bonus drops during the break, no frame errors (same as UAT 105) {"held":true,"secs":27.5,"phase":"end","status":"won","win":true,"bonusDrops":0,"left0":46.00000000000023,"left":46.00000000000023,"dance":null,"pieces":77,"errs":[]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 2 perfect dance (wheel): identical to UAT 105 tick by tick (ends at tick 1398, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1398,"endP":1398,"wheel":[3,3]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 2 half the beats: identical to UAT 105 tick by tick (ends at tick 792, stages count/ > dance/ > finale/total > finale/pour > finale/done > -) {"endU":792,"endP":792,"wheel":[null,null]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 2 no taps: identical to UAT 105 tick by tick (ends at tick 710, stages count/ > dance/ > finale/total > finale/done > -) {"endU":710,"endP":710,"wheel":[null,null]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 2 perfect dance, seed 9: identical to UAT 105 tick by tick (ends at tick 1389, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1389,"endP":1389,"wheel":[4,4]}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 2 wheel lands on QUAKE COIN (slice 0): identical to UAT 105 tick by tick (ends at tick 1398, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1398,"endP":1398,"wheel":[0,0]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 2 wheel lands on DANCE AGAIN (slice 1): identical to UAT 105 tick by tick (ends at tick 2791, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":2791,"endP":2791,"wheel":[1,1]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 2 wheel lands on YAWN (slice 2): identical to UAT 105 tick by tick (ends at tick 1654, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/yawn > finale/done > -) {"endU":1654,"endP":1654,"wheel":[2,2]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 2 wheel lands on PRIZE YOU NEED (slice 3): identical to UAT 105 tick by tick (ends at tick 1398, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1398,"endP":1398,"wheel":[3,3]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 2 wheel lands on PRIZE YOU NEED (slice 4): identical to UAT 105 tick by tick (ends at tick 1398, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1398,"endP":1398,"wheel":[4,4]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 2 wheel lands on JACKPOT (slice 5): identical to UAT 105 tick by tick (ends at tick 1433, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/settle > finale/done > -) {"endU":1433,"endP":1433,"wheel":[5,5]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 2 wheel lands on YAWN (slice 6): identical to UAT 105 tick by tick (ends at tick 1654, stages count/ > dance/ > finale/perfect > finale/total > finale/pour > finale/wheel > finale/yawn > finale/done > -) {"endU":1654,"endP":1654,"wheel":[6,6]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 3 seven simultaneous pickups: identical frame trace and sound calls to UAT 105
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 5 tuxedo power (inspect) identical to UAT 105 tick by tick, ends cleanly, no frame errors {"id":["inspect","inspect"],"ended":true}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 5 orange power (zoomies72) identical to UAT 105 tick by tick, ends cleanly, no frame errors {"id":["zoomies72","zoomies72"],"ended":true}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 5 siamese power (cp82title) identical to UAT 105 tick by tick, ends cleanly, no frame errors {"id":["cp82title","cp82title"],"ended":true}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 5 tortie power (cp82title) identical to UAT 105 tick by tick, ends cleanly, no frame errors {"id":["cp82title","cp82title"],"ended":true}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 6 the Yawn on the orange board (wheel slice) identical to UAT 105 tick by tick, no frame errors {"saw":[true,true]}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 6 the Yawn on the ragdoll board (wheel slice) identical to UAT 105 tick by tick, no frame errors {"saw":[true,true]}
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 7 the tuxedo board (CP-78 clean-up) draws the same as UAT 105 (top 85% of the screen: below it UAT 105 shows its Developer timing strip and the footer label differs by name)
+Image failed img/art/cp75-yawn-face-orange.webp
+runway art img/art/cp75-yawn-face-orange.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-orange.png
+runway art img/art/cp75-yawn-eyes-orange.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-ragdoll.webp
+runway art img/art/cp75-yawn-face-ragdoll.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-ragdoll.png
+runway art img/art/cp75-yawn-eyes-ragdoll.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-siamese.webp
+runway art img/art/cp75-yawn-face-siamese.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-siamese.png
+runway art img/art/cp75-yawn-eyes-siamese.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-face-tortie.webp
+runway art img/art/cp75-yawn-face-tortie.webp TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+Image failed img/art/cp75-yawn-eyes-tortie.png
+runway art img/art/cp75-yawn-eyes-tortie.png TypeError [ERR_INVALID_PROTOCOL]: Protocol "c:" not supported. Expected "http:"
+    at new ClientRequest (node:_http_client:392:11)
+    at request (node:http:108:10)
+    at Object.get (node:http:119:15)
+    at makeRequest (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:90:6)
+    at data (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:50:9)
+    at new Promise (<anonymous>)
+    at Object.loadImage (C:\Users\jenny\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@napi-rs\canvas\load-image.js:49:26) {
+  code: 'ERR_INVALID_PROTOCOL'
+}
+PASS 7 the orange board (CP-78 clean-up) draws the same as UAT 105 (top 85% of the screen: below it UAT 105 shows its Developer timing strip and the footer label differs by name)
+PASS 4 production untouched

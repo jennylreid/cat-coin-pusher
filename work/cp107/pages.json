@@ -1,0 +1,27 @@
+{
+ "paw-swat": {
+  "file": "cp84-puzzles\\paw-swat.html",
+  "bytes": 105047,
+  "sha256": "0deb2d95547ca2a0f946edd913019662905bdb86c29c08febfb75fb481267864"
+ },
+ "cat-cafe": {
+  "file": "cp84-puzzles\\cat-cafe.html",
+  "bytes": 103003,
+  "sha256": "be5a995f320975a51295db578a2bc6928c7c61e2a6d2b56386d0f096d3719c9e"
+ },
+ "pocket-pounce": {
+  "file": "cp85-puzzles\\pocket-pounce.html",
+  "bytes": 14756,
+  "sha256": "48583123b4e1b0c8a55ec48a4be22c57cca4076d73395026c04c0050b788945f"
+ },
+ "moon-mint": {
+  "file": "cp85-puzzles\\moon-mint.html",
+  "bytes": 14833,
+  "sha256": "0c995c8db606b9f7ea90555b33564065d4c5225faac627aecdfebd9167b54129"
+ },
+ "whisker-spark": {
+  "file": "cp85-puzzles\\whisker-spark.html",
+  "bytes": 14640,
+  "sha256": "4a1fddc4c40d0c05e4de7a25884f8845399b7fe7e9278854d9d1f30d51af95c6"
+ }
+}

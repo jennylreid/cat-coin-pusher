@@ -1,0 +1,121 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp86-build\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp105\\release.html",
+ "passed": false,
+ "passedN": 5,
+ "failed": [
+  "1 Sonic meow (Siamese, 2 seeds x 60/30 fps): the eyes are the squint until the last meow (3.75 s), then open (fully by 3.9 s) to the end; the mitts push and knead during the meow (up to 30+ units from rest), never lift (no offset upward), and are exactly at rest outside it; the yawn face is off during the title, switches in on the first frame of the action, stays while the meows and rings play, and switches back in one frame 0.1 s before the end with the cat already at rest (no fades); off after; the game is identical to the base every frame (power clock, 2x reach, coins, every piece); no errors"
+ ],
+ "notes": {
+  "timeline": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "stillAtExit": false,
+    "afterMax": 0,
+    "mittMax": 47.2,
+    "mittMinY": 0,
+    "mittOutside": 0,
+    "eyesClosed": true,
+    "eyesOpen": true,
+    "same": true,
+    "frames": 422,
+    "errs": 0,
+    "art": true,
+    "ok": false
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "stillAtExit": false,
+    "afterMax": 0,
+    "mittMax": 47.2,
+    "mittMinY": 0,
+    "mittOutside": 0,
+    "eyesClosed": true,
+    "eyesOpen": true,
+    "same": true,
+    "frames": 422,
+    "errs": 0,
+    "art": true,
+    "ok": false
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "stillAtExit": true,
+    "afterMax": 0,
+    "mittMax": 47.2,
+    "mittMinY": 0,
+    "mittOutside": 0,
+    "eyesClosed": true,
+    "eyesOpen": true,
+    "same": true,
+    "frames": 212,
+    "errs": 0,
+    "art": true
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "stillAtExit": true,
+    "afterMax": 0,
+    "mittMax": 47.2,
+    "mittMinY": 0,
+    "mittOutside": 0,
+    "eyesClosed": true,
+    "eyesOpen": true,
+    "same": true,
+    "frames": 212,
+    "errs": 0,
+    "art": true
+   }
+  ],
+  "screen": [
+   {
+    "sz": "412x915",
+    "diffOutside": 0,
+    "diffFramesOutsideAction": 0,
+    "actionFramesChanged": 49,
+    "box": [
+     0,
+     214,
+     823,
+     895
+    ],
+    "shot": 1,
+    "headBottom": 1067,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "sz": "360x640",
+    "diffOutside": 0,
+    "diffFramesOutsideAction": 0,
+    "actionFramesChanged": 49,
+    "box": [
+     0,
+     186,
+     710,
+     734
+    ],
+    "shot": 1,
+    "headBottom": 887,
+    "errs": 0,
+    "ok": true
+   }
+  ]
+ }
+}

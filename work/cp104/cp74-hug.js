@@ -5,9 +5,11 @@
 // (CP74_ART, revision 2: one shoulder mirrored, a left and a right arm, fixed canvases):
 // - Title first (the rule for every power, CP-82): "HUG!" shows big and alone for 1.2 s, then the hug starts 1.25 s after the
 //   tap with no words over it ("NO SIDE FALLS" is gone; other callouts wait until it ends).
-// - The shoulders come forward at the top and tuck behind the head; each arm unfolds forward: the
+// - (UAT 104f) The resting mitts travel down from beside the head to the lower corners while each arm unfolds as in try 4,
+//   and at the end they travel back up while the arm folds away (upper arm first). Earlier: each arm unfolds forward: the
 //   forearm opens from the elbow with the mitt leading while the upper arm swings down from the shoulder onto the side of
-//   the board, gently (about 1.3 s, eased), the painting cut at the elbow into two pieces (UAT 104c; 104a grew, 104b swung); the approved
+//   the board, in one graceful eased move (about 1.4 s; the mitt fades in), and folds back the same way, the painting cut at the elbow into
+//   two pieces (UAT 104d; 104a grew, 104b swung, 104c popped and bent backwards on the way out); the approved
 //   big mitts (same image and size, only moved and turned in 40 degrees) sit in the lower corners like a funnel. The idle
 //   mitts lift away meanwhile and come back after.
 // - The arms are the gutter walls: today's two colliders (same size and place) exist while the arms are fully in, for 6 s.
@@ -16,13 +18,14 @@
 //   the arms' edge. Drawn right after the machine: under the coins, falling prizes and the head. Mitts below the front lip
 //   (off-screen on short phones, which then show the arms only).
 const Z74={
- IN:1.45,    // in (UAT 104c): shoulders forward 0-0.35 s; each forearm + mitt unfolds forward from the elbow 0.1-1.2 s (the mitt
-             // leads), the upper arm swings down from the shoulder onto the board's side 0.3-1.4 s; slow start and end
- ON:1.4,     // the gutter walls go up once the arms are in place...
+ IN:1.5,     // in (UAT 104f): shoulders forward 0-0.35 s; the arm unfolds as in try 4 (forearm 0.1-1.4 s, upper arm 0.15-1.5 s,
+             // one eased move) while the mitts the player sees beside the head travel down to the lower corners (0.1-1.5 s)
+ ON:1.5,     // the gutter walls go up once the arms are in place...
  HOLD:6,     // ...and stay 6 s (as before)
- OUT:1.3,    // let go: the mitts draw back and the forearms fold 0-1.0 s, upper arms swing away 0.2-1.2, shoulders back 1.0-1.3
- FOLD1:.6,   // folded, the upper arm is swung 35 degrees out about the shoulder...
- FOLD2:2.45, // ...and the forearm folded back 140 degrees about the elbow, tucked up beside the cat
+ OUT:1.5,    // let go: the reach played backwards, frame for frame (same 1.5 s), the mitts travelling back up to beside the head
+ REST_TURN:.12, // the resting mitt's turn (drawPaws, rest pose) - where each mitt starts and ends
+ FOLD1:.5,   // the arm (try 4): folded, the upper arm is swung 29 degrees out about the shoulder...
+ FOLD2:1.6,  // ...and the forearm bent 92 degrees at the elbow (the way a cat's elbow bends; it only ever opens to straight)
  ELBOW:560,  // where the arm painting is cut into upper arm and forearm (reference y; Codex's canvas row 1000 of 2080)
  MITT_W:182, // the approved idle-mitt size (MITT_W), unchanged
  MITT_DX:174, // each mitt's centre from the middle (lower corners)
@@ -44,8 +47,11 @@ function z74On(){const X=PGPX;return !!(X&&X.z74&&WILD.on&&!inventoryOpen);}
 function z74Env(t){const o=t-(Z74.ON+Z74.HOLD);
  const io=u=>{u=z74Clamp(u,0,1);return u<.5?4*u*u*u:1-Math.pow(-2*u+2,3)/2;}; // ease in and out: slow start, slow end
  // fore: forearm + mitt (0 folded, 1 open); upper: upper arm (0 swung out, 1 on the board's side)
- if(o<0)return {sh:z74Ease(z74Seg(t,0,.35)),fore:io(z74Seg(t,.1,1.2)),upper:io(z74Seg(t,.3,1.4)),idle:1-z74Seg(t,0,.3),hold:t>=Z74.IN,arm:1};
- return {sh:1-z74Ease(z74Seg(o,1.0,1.3)),fore:1-io(z74Seg(o,0,1.0)),upper:1-io(z74Seg(o,.2,1.2)),idle:z74Seg(o,1.1,1.3),hold:false,arm:1};}
+ // reach: 0 = the mitt resting beside the head, 1 = in the lower corner (the arm follows it)
+ // letting go is the reach played backwards, frame for frame: the same curves at reversed time (r runs from 1.5 back to 0)
+ const at=x=>({sh:z74Ease(z74Seg(x,0,.35)),fore:io(z74Seg(x,.1,1.4)),upper:io(z74Seg(x,.15,1.5)),reach:io(z74Seg(x,.1,1.5))});
+ if(o<0)return {...at(t),hold:t>=Z74.IN,arm:1};
+ const r=Z74.ON-o*(Z74.ON/Z74.OUT);return {...at(r),hold:false,arm:1};}
 // the arm painting cut at the elbow into two pieces (no repainting): the upper arm with a rounded end at the elbow, and the
 // forearm whose top fades over the upper arm; plus the arm's centre line per canvas row (for the pivots). Made once.
 function z74Pieces(){if(Z74.pieces)return Z74.pieces;const im=Z74.img.left;if(!im)return null;const W=im.width,Hh=im.height,k=Hh/Z74.REF.armH,cut=Math.round((Z74.ELBOW-Z74.REF.armTop)*k);
@@ -56,16 +62,21 @@ function z74Pieces(){if(Z74.pieces)return Z74.pieces;const im=Z74.img.left;if(!i
  // rounded elbow end: keep the rows above the cut, and below it only inside a half-ellipse
  ug.globalCompositeOperation='destination-in';ug.beginPath();ug.rect(0,0,W,cut);ug.ellipse(centre(cut),cut,half(cut)+2,ov,0,0,Math.PI);ug.fill();
  const lo=document.createElement('canvas'),top=cut-ov;lo.width=W;lo.height=Hh-top;const lg=lo.getContext('2d');lg.drawImage(im,0,-top);
- lg.globalCompositeOperation='destination-in';const gr=lg.createLinearGradient(0,0,0,ov*2);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(0,0,0,1)');lg.fillStyle=gr;lg.fillRect(0,0,W,lo.height);
+ lg.globalCompositeOperation='destination-in';const gr=lg.createLinearGradient(0,0,0,ov);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(0,0,0,1)');lg.fillStyle=gr;lg.fillRect(0,0,W,lo.height);
  return Z74.pieces={up,lo,k,cut,top,pivotRow:Math.round(70*k),pivotX:centre(Math.round(70*k)),elbowX:centre(cut)};}
-// the arm, left side (the right side is drawn mirrored about x 200): draws the upper arm, the forearm and (mitt) the mitt
-function z74LeftArm(L,e,ay,ys,mitt,kn){const P=z74Pieces();if(!P)return;const R=Z74.REF,sx=R.armW/(P.up.width),sy=ys/P.k; // canvas px -> screen units
+// where the left mitt is (screen units) at reach u: from its resting place beside the head (as drawPaws draws it) down a
+// curve that keeps out to the side, to its place in the lower corner; its turn goes from the resting turn to 40 degrees
+function z74MittPath(L,u){const x0=200-135,y0=VIEW.y+180*VIEW.zy+45,x2=200-Z74.MITT_DX,y2=L.mittY,cx=Math.min(x0,x2)-30,cy=(y0+y2)/2,a=1-u;
+ return {x:a*a*x0+2*a*u*cx+u*u*x2,y:a*a*y0+2*a*u*cy+u*u*y2,turn:Z74.REST_TURN+(Z74.MITT_TURN-Z74.REST_TURN)*u};}
+// the left arm, as try 4: the upper arm swung out about the shoulder by FOLD1*(1-upper), the forearm bent at the elbow by
+// FOLD2*(1-fore) (the same way on the way in and out, never past straight), the forearm fading in as it comes into view.
+// The mitt (mitt=true) is the resting mitt travelling down its curve (z74MittPath), always fully drawn.
+function z74LeftArm(L,e,ay,ys,mitt,kn){if(mitt){const T=z74MittPath(L,e.reach);z74Mitt(T.x,T.y+kn,-1,1,T.turn);return;}
+ const P=z74Pieces();if(!P)return;const R=Z74.REF,sx=R.armW/(P.up.width),sy=ys/P.k; // canvas px -> screen units
  const px=R.armX+P.pivotX*sx,py=ay+P.pivotRow*sy,ex=R.armX+P.elbowX*sx,ey=ay+P.cut*sy;
- ctx.save();ctx.translate(px,py);ctx.rotate(Z74.FOLD1*(1-e.upper));ctx.translate(-px,-py);
- if(!mitt)ctx.drawImage(P.up,R.armX,ay,R.armW,P.up.height*sy);
+ ctx.save();ctx.translate(px,py);ctx.rotate(Z74.FOLD1*(1-e.upper));ctx.translate(-px,-py);ctx.drawImage(P.up,R.armX,ay,R.armW,P.up.height*sy);
  ctx.translate(ex,ey);ctx.rotate(Z74.FOLD2*(1-e.fore));ctx.translate(-ex,-ey);
- if(!mitt)ctx.drawImage(P.lo,R.armX,ay+P.top*sy,R.armW,P.lo.height*sy);
- else z74Mitt(200-Z74.MITT_DX,L.mittY+kn,-1,1);
+ const fa=z74Ease(z74Seg(e.fore,.1,.6));if(fa>0){ctx.globalAlpha*=fa;ctx.drawImage(P.lo,R.armX,ay+P.top*sy,R.armW,P.lo.height*sy);}
  ctx.restore();}
 // --- layout (screen units, 400 wide), from the game's own projection every frame ---
 function z74Layout(){const hw=(T.R-T.L)/2,F=skyScreen(200-hw,T.FRONT,0),lip=F.y,chin=w43ChinY();
@@ -104,21 +115,19 @@ function z74Body(L,e){const r=z74RimPts();if(!r)return;const R=Z74.REF,ys=(r.lef
  // the board's own rim again, over the arms' edge
  ctx.save();ctx.setTransform(...Z74.rimM);__z74Rim();ctx.restore();}
 // the approved mitt (ART.paw: the Ragdoll's copy on this board), drawn exactly as the idle mitt (drawRestMitt, MITT_W)
-function z74Mitt(x,y,s,a){if(a<=0)return;ctx.save();ctx.globalAlpha=a;ctx.translate(x,y);if(s>0)ctx.scale(-1,1);ctx.rotate(-Z74.MITT_TURN);drawRestMitt(Z74.MITT_W);ctx.restore();}
+function z74Mitt(x,y,s,a,turn){if(a<=0)return;ctx.save();ctx.globalAlpha=a;ctx.translate(x,y);if(s>0)ctx.scale(-1,1);ctx.rotate(-(turn===undefined?Z74.MITT_TURN:turn));drawRestMitt(Z74.MITT_W);ctx.restore();}
 function z74DrawLayer(){const X=PGPX,e=z74Env(X.t),L=z74Layout();Z74.L=L;
  ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);
  z74Body(L,e);
- // mitts: on the end of each forearm (they lead as it unfolds), then settle in the lower corners and knead gently;
- // clipped to outside the board like the arms, so one swinging past the front corner passes behind it (held, they are below the lip)
+ // mitts: the resting mitts themselves, travelling from beside the head to the lower corners (never faded or hidden), then
+ // kneading gently; drawn here, under the coins, so they never cover a coin on the way
  const hidden=sweepTime>0||catquakeTime>0;
  const r=z74RimPts(),R=Z74.REF;if(!r||hidden){ctx.restore();return;}const ys=(r.left[r.left.length-1].y-r.left[0].y)/(R.rimBot-R.rimTop),ay=r.left[0].y+(R.armTop-R.rimTop)*ys;
- for(const s of [-1,1]){const kn=e.hold?3*Math.sin(X.t*Math.PI*2*1.3+(s>0?Math.PI:0)):0;ctx.save();z74ClipOutside(r);if(s>0){ctx.translate(400,0);ctx.scale(-1,1);}ctx.globalAlpha=Math.min(1,e.sh*1.5);z74LeftArm(L,e,ay,ys,true,kn);ctx.restore();}
+ for(const s of [-1,1]){const kn=e.hold?3*Math.sin(X.t*Math.PI*2*1.3+(s>0?Math.PI:0)):0;ctx.save();if(s>0){ctx.translate(400,0);ctx.scale(-1,1);}z74LeftArm(L,e,ay,ys,true,kn);ctx.restore();}
  ctx.restore();}
 // drawn right after the machine: under the coins (falling coins and the pickup stay in front) and under the head
 const __z74Machine=drawMachine;drawMachine=function(){const r=__z74Machine.apply(this,arguments);if(z74On()&&Z74.drawnF!==Z74.f){Z74.drawnF=Z74.f;try{z74DrawLayer();}catch(e){Z74.err=String(e);}}return r;};
-// the idle mitts lift away while the Hug comes in and drop back when it lets go (sweep/quake keep their own mitts)
-const __z74Paws=drawPaws;drawPaws=function(){if(!z74On()||sweepTime>0||catquakeTime>0)return __z74Paws();
- const k=z74Env(PGPX.t).idle;if(k<=0)return;ctx.save();ctx.globalAlpha*=k;ctx.translate(0,-(1-k)*110);try{__z74Paws();}finally{ctx.restore();}};
+const __z74Paws=drawPaws;drawPaws=function(){if(!z74On()||sweepTime>0||catquakeTime>0)return __z74Paws();}; // during the hug the resting mitts are drawn travelling (z74DrawLayer)
 // --- the power: title first (CP-82's path: the big "HUG!" alone, then this starts 1.25 s after the tap) ---
 CP82.ids.push('hug');
 CP82A.hug=function(){PGPX={id:'hug',z74:1,t:0,dur:Z74.ON+Z74.HOLD+Z74.OUT,cols:null,hearts:[],acc:0,pop:0,clasp:false};Z74.stats.uses++;

@@ -1,0 +1,35 @@
+<!doctype html>
+<!-- CP-83 round 2 real-browser check (from UAT 103's): loads ?dir=<folder>/index.html (the full runtime folder, as on the phone) in a frame,
+     waits for the title with art, starts a Level 1 round (lab off: normal level), then Settings -> Developer -> Engineer tools has
+     "Board lab" with Off + 10 boards and "Tower fall" (Today ticked); tapping "Cup shot" closes Settings and starts a round on it (14 red coins, goal row);
+     tapping Off then a normal round is Level 1 again. Writes JSON into #result. -->
+<html><head><meta charset="utf-8"><title>board lab check</title></head><body>
+<iframe id="g" style="width:400px;height:889px;border:0"></iframe><pre id="result">PENDING</pre>
+<script>
+const dir=new URLSearchParams(location.search).get('dir')||'boot103',g=document.getElementById('g'),out=document.getElementById('result');
+const res={dir,steps:[],errors:[]};const done=()=>{out.textContent=JSON.stringify(res);};
+g.src=dir+'/index.html';
+g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));
+ const t0=Date.now();const iv=setInterval(()=>{try{
+  const txt=w.document.body.innerText||'';if(/Could not start/.test(txt)){res.steps.push('could not start: '+txt.slice(0,160));clearInterval(iv);return done();}
+  const ok=w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0");
+  if(ok&&!res.title){res.title=true;res.build=w.eval('BUILD');res.steps.push('title with art at '+(Date.now()-t0)+' ms');
+   w.eval("if(!PG)pgInit();PGU.title.t=9;pgTitleDone();PG.lv.passed=0;PG.lv.sel=1;wildReset();PGU.screen='board';pgStartRound();");}
+  if(res.title&&!res.play&&w.eval("WILD.phase==='play'")){res.play=true;clearInterval(iv);res.steps.push('round in play at '+(Date.now()-t0)+' ms');
+   res.normal=JSON.parse(w.eval("JSON.stringify({lab:LAB.on(),level:pglLevel().name,red:bodies.filter(b=>!b.dead&&b.id==='lab-red').length})"));
+   w.eval('S.dev=true;openCredits();');const box=w.document.querySelector('#cp83-lab'),eng=w.document.querySelector('#cp70-engineer');
+   const btns=box?Array.from(box.querySelectorAll('button')):[];
+   res.ui={inEngineer:!!(box&&eng&&eng.contains(box)),title:box&&box.querySelector('h3')?box.querySelector('h3').textContent:null,labels:btns.map(b=>b.textContent),panelShown:w.eval("panel.style.display")};
+   res.ui.tower=Array.from(w.document.querySelectorAll('#cp83-tower button')).map(b=>b.textContent);res.ui.timing=Array.from(w.document.querySelectorAll('#cp83-timing button')).map(b=>b.textContent);
+   const red=btns.find(b=>b.dataset.lab==='cup');if(red)red.click();res.ui.panelAfter=w.eval("panel.style.display");
+   setTimeout(()=>{try{res.lab=JSON.parse(w.eval("JSON.stringify({on:LAB.on(),phase:WILD.phase,cols:LAB2.cols.length,clock:wildClock(),left:LAB.st.left,msg:wildMessage()})"));res.steps.push('cup board: '+JSON.stringify(res.lab));
+     w.eval('openCredits();');const off=Array.from(w.document.querySelectorAll('#cp83-lab button')).find(b=>b.dataset.lab==='');if(off)off.click();
+     w.eval("wildExit();PG.lv.sel=1;pgPlay(PGU.boardCat||'tuxedo');if(WILD.phase!=='card')wildReset();wildStartCountdown();");}catch(e){res.errors.push(String(e));}},6000);
+   setTimeout(()=>{try{res.after=JSON.parse(w.eval("JSON.stringify({on:LAB.on(),phase:WILD.phase,level:pglLevel().name,cols:LAB2.cols.length,clock:wildClock()})"));
+    res.cp83=res.build===(new URLSearchParams(location.search).get('build')||'')&&!res.normal.lab&&res.ui.inEngineer&&res.ui.title==='Board lab'&&res.ui.labels.length===11&&res.ui.tower.join('|')==='✓ Today|Topple'&&res.ui.timing.join('|')==='✓ Off|On'&&res.ui.labels[0].indexOf('Off')>=0
+     &&res.ui.panelAfter==='none'&&res.lab.on&&res.lab.phase==='play'&&res.lab.cols===0&&res.lab.clock==='18 drops'&&!res.after.on&&res.after.level===res.normal.level&&res.after.cols===0&&/^[0-9]+:[0-9][0-9]$/.test(res.after.clock);
+    res.steps.push('off again: '+JSON.stringify(res.after)+'; cp83 '+res.cp83);}catch(e){res.errors.push(String(e));}done();},14000);
+   return;}
+  if(Date.now()-t0>80000){res.steps.push('timeout');clearInterval(iv);done();}
+ }catch(e){res.errors.push(String(e));}},250);};
+</script></body></html>

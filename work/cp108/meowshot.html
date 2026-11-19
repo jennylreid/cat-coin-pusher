@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- CP-86 real-browser check (eyes closed early in the meow, open after the last meow): loads ?dir=<folder>/index.html (the full runtime folder, as on the phone) in a 412x915 frame,
+     starts a round on the Siamese board, uses Sonic meow; at 0.5 s (title) and at ~1 s into the meow it asks the runner to
+     take a screenshot (window.__shot), checks the yawn face is off in the title and full in the meow, off after. -->
+<html><head><meta charset="utf-8"><title>meow face check</title><style>body{margin:0}</style></head><body>
+<iframe id="g" style="width:412px;height:915px;border:0;display:block"></iframe><pre id="result">PENDING</pre>
+<script>
+const dir=new URLSearchParams(location.search).get('dir'),g=document.getElementById('g'),out=document.getElementById('result');
+const res={dir,steps:[],errors:[]};const done=()=>{out.textContent=JSON.stringify(res);};const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+window.__shot=null;const shot=async n=>{window.__shot=n;for(let i=0;i<40&&window.__shot;i++)await sleep(100);};
+g.src=dir+'/index.html';
+g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));
+ const t0=Date.now();const iv=setInterval(async()=>{try{
+  const ok=w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0");
+  if(ok&&!res.title){res.title=true;res.build=w.eval('BUILD');clearInterval(iv);
+   w.eval("if(!PG)pgInit();PGU.title.t=9;pgTitleDone();for(const c of PG_CATS)PG.open[c]=true;PG.lv.passed=Math.max(2,PG_SWITCH_LEVEL);PG.lv.sel=3;wildReset();pgPlay('siamese');if(WILD.phase==='end')wildReset();wildStartCountdown();");
+   for(let i=0;i<60&&w.eval("WILD.phase")!=='play';i++)await sleep(250);res.play=w.eval("WILD.phase")==='play';await sleep(2500);
+   w.eval("WILD.left=60;WILD.nextBonus=999;PG.powers.siamese=1;");res.art=w.eval("!!(CP75_ART.siamese&&CP75_ART.siamese.face)");
+   const B=JSON.parse(w.eval('JSON.stringify(pgpButton())'));w.eval('powerTap({x:'+(B.x+B.w/2)+',y:'+(B.y+B.h/2)+'})');
+   await sleep(500);res.title05={id:w.eval("PGPX&&PGPX.id"),k:+w.eval('cp86K()')};await shot('title');
+   for(let i=0;i<40&&+w.eval("PGPX&&PGPX.id==='sonic'?PGPX.t:0")<.9;i++)await sleep(50);res.meow={id:w.eval("PGPX&&PGPX.id"),t:+w.eval('PGPX?PGPX.t:0').toFixed(2),k:+w.eval('cp86K()'),eyes:+w.eval('cp86Open()'),cat:w.eval('CP75_CAT')};await shot('meow-closed');
+   for(let i=0;i<80&&+w.eval("PGPX&&PGPX.id==='sonic'?PGPX.t:0")<4.2;i++)await sleep(50);res.open={t:+w.eval('PGPX?PGPX.t:0').toFixed(2),k:+w.eval('cp86K()'),eyes:+w.eval('cp86Open()')};await shot('meow-open');
+   for(let i=0;i<60&&w.eval('!!PGPX');i++)await sleep(250);await sleep(300);res.after={k:+w.eval('cp86K()'),status:w.eval('board.status')};await shot('after');
+   res.cp86=res.play&&res.art&&res.title05.id==='cp82title'&&res.title05.k===0&&res.meow.id==='sonic'&&res.meow.k===1&&res.meow.eyes===0&&res.open.k===1&&res.open.eyes===1&&res.meow.cat==='siamese'&&res.after.k===0&&!res.errors.length;done();}
+  if(Date.now()-t0>80000){res.steps.push('timeout');clearInterval(iv);done();}
+ }catch(e){res.errors.push(String(e));done();}},250);};
+</script></body></html>

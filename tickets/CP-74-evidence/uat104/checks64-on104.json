@@ -1,9 +1,11 @@
 {
  "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp104\\release.html",
  "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\ref78-cp86-base85.html",
- "passed": true,
- "passedN": 10,
- "failed": [],
+ "passed": false,
+ "passedN": 9,
+ "failed": [
+  "8 production and the UAT channel untouched (not published)"
+ ],
  "notes": {
   "wheel": {
    "before": [
@@ -377,21 +379,21 @@
   "level8": {
    "piecesBefore": 92,
    "peakDuring": 131,
-   "tickMsNormal": 13.43,
-   "tickMsJackpotMean": 17.23,
-   "tickMsJackpotWorstSecond": 27.84,
-   "uat85SameSecondsMean": 8.15,
-   "uat85WorstSecond": 11.08,
+   "tickMsNormal": 9.23,
+   "tickMsJackpotMean": 15.31,
+   "tickMsJackpotWorstSecond": 20.18,
+   "uat85SameSecondsMean": 10.84,
+   "uat85WorstSecond": 16.52,
    "perSecond": [
-    14.42,
-    14.09,
-    16.81,
-    18.45,
+    10.61,
+    11.33,
+    17.8,
+    17.39,
+    13.84,
+    16.58,
+    15.41,
     14.6,
-    12.93,
-    20.67,
-    15.26,
-    27.84
+    20.18
    ]
   }
  }

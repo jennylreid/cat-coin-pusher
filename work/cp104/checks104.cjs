@@ -40,17 +40,17 @@ async function levelRun(file,lv,seed,cat){const g=await boot(file,seed);
  // 1. title first, then the hug; walls exactly while the arms are in; the button locked; the hug ends clean
  {const g=await ragdollRound(src,1);g.run("if(!PG.powers)PG.powers={};PG.powers.ragdoll=2");const n0=J(g,'world.colliders.len()'),c0=J(g,'pgpCount()');g.run(TAP);
   g.run("globalThis.__words=[];{const __wt=wildText;wildText=function(t,...a){if(PGPX&&PGPX.id==='hug')__words.push(t);return __wt.call(this,t,...a);};}");
-  const tr=[];let lock=null;for(let i=0;i<60*9.5;i++){g.tick();const s=J(g,"[PGPX&&PGPX.id,PGPX?+PGPX.t.toFixed(3):-1,CP82W&&CP82W.word,world.colliders.len()]");s[3]-=n0;tr.push([+(i/60+1/60).toFixed(3),...s]);
+  const tr=[];let lock=null;for(let i=0;i<60*11.5;i++){g.tick();const s=J(g,"[PGPX&&PGPX.id,PGPX?+PGPX.t.toFixed(3):-1,CP82W&&CP82W.word,world.colliders.len()]");s[3]-=n0;tr.push([+(i/60+1/60).toFixed(3),...s]);
    if(i===150){const c=J(g,'pgpCount()');g.run('{const b=pgpButton();powerTap({x:b.x+b.w/2,y:b.y+b.h/2});}');lock=[c,J(g,'pgpCount()')];}}
   const title=tr.filter(r=>r[1]==='cp82title'),hug=tr.filter(r=>r[1]==='hug'),walls=hug.filter(r=>r[4]===2);
   notes.timeline={titleFrom:title[0],titleTo:title.at(-1),hugFrom:hug[0],hugTo:hug.at(-1),wallsFrom:walls[0],wallsTo:walls.at(-1),end:tr.at(-1)};
   check('1 tap: "HUG!" alone from the tap to 1.25 s (no walls, no arms), then the hug starts (1.25 s after the tap)',title.length&&title[0][3]==='HUG!'&&title.every(r=>r[4]===0)&&Math.abs(hug[0][0]-1.25)<=1/30&&hug[0][2]<=1/30+1e-9,notes.timeline);
-  check('2 the gutter walls (2 colliders) are up from 0.75 s of the hug (arms in place) to 6.75 s (6 s), the hug lasts 7.45 s, then nothing is left',walls.length&&walls[0][2]>=.75&&walls[0][2]<=.77&&walls.at(-1)[2]>=6.73&&walls.at(-1)[2]<6.75+1/60&&hug.at(-1)[2]>=7.43&&tr.at(-1)[1]===null&&tr.at(-1)[4]===0,notes.timeline);
+  check('2 the gutter walls (2 colliders) are up from 1.5 s of the hug (arms in place) to 7.5 s (6 s), the hug lasts 9 s; both walls are removed then (other bodies may drop meanwhile)',walls.length&&walls[0][2]>=1.5&&walls[0][2]<=1.52&&walls.at(-1)[2]>=7.48&&walls.at(-1)[2]<7.5+1/60&&hug.at(-1)[2]>=8.98&&tr.at(-1)[1]===null&&(()=>{const i=tr.indexOf(walls.at(-1));return tr[i+1][4]===tr[i][4]-2;})(),notes.timeline);
   check('3 the power button is locked during the power (with 2 powers held, a second tap 2.5 s in uses nothing; the first used one)',c0===2&&lock&&lock[0]===lock[1]&&lock[0]===1,{c0,lock});
   const ws=J(g,'__words');check('4 no words drawn over the hug ("NO SIDE FALLS" gone)',ws.length===0,ws);
   check('5 no frame errors, no Hug drawing error',J(g,'__errs').length===0&&J(g,'Z74.err||null')===null,[J(g,'__errs'),J(g,'Z74.err||null')]);g.close&&g.close();}
  // 2. the walls are today's: same two colliders (size, place, friction) as UAT 103's Hug
- {const desc=async file=>{const g=await ragdollRound(file,2);const n0=J(g,'world.colliders.len()');g.run(TAP);g.ticks(file===src?60*(1.25+1):10);
+ {const desc=async file=>{const g=await ragdollRound(file,2);const n0=J(g,'world.colliders.len()');g.run(TAP);g.ticks(file===src?60*(1.25+1.8):10);
    const d=J(g,`(()=>{const o=[];world.colliders.forEach(c=>o.push(c));return o.slice(${n0}).map(c=>{const t=c.translation(),h=c.halfExtents();return [+(t.x/M).toFixed(2),+(t.y/M).toFixed(2),+(t.z/M).toFixed(2),+(h.x/M).toFixed(2),+(h.y/M).toFixed(2),+(h.z/M).toFixed(2),+c.friction().toFixed(3)]});})()`);g.close&&g.close();return d;};
   const a=await desc(src),b=await desc(base);check('6 the gutter walls are UAT 103\'s colliders exactly (size, place, friction)',a.length===2&&JSON.stringify(a)===JSON.stringify(b),{uat104:a,uat103:b});}
  // 3. a callout made during the hug (3 s after the tap) waits and shows after it (as CP-82's check 2)
@@ -68,10 +68,10 @@ async function levelRun(file,lv,seed,cat){const g=await boot(file,seed);
    const g=await make({sourceFile:path.resolve(__dirname,'../cp74-hug/game104/uat104.html'),render:true,seed:7,pixelRatio:1,width:w,height:h,storage:{'catpusher.uat.devdefault.v1':'1'}});g.c.Path2D=N.Path2D;g.run=s=>vm.runInContext(s,g.c);
    for(const k of ['shoulder','left','right']){g.c.__im=await N.loadImage(Buffer.from(g.run('CP74_ART.'+k).split(',')[1],'base64'));g.run('Z74.img.'+k+'=__im');}
    g.run('S.muted=true;S.dev=false');for(let i=0;i<140;i++)g.tick();g.run('z74DemoRound(3)');let j=0;while(g.run('WILD.phase')!=='play'&&j++<1500)g.tick();g.run('z74DemoQuiet()');for(let i=0;i<150;i++)g.tick();
-   g.run('z74DemoPlay()');let tt=0;const moments=[];for(const at of [1.25+.2,1.25+.4,1.25+.6,1.25+.75,1.25+.85,4,1.25+6.75+.1,1.25+6.75+.3,1.25+6.75+.45]){while(tt<at-1e-6){g.tick();tt+=1/60;}g.run('draw()');
+   g.run('z74DemoPlay()');let tt=0;const moments=[];for(const at of [1.25+.3,1.25+.6,1.25+.9,1.25+1.2,1.25+1.4,4,1.25+7.5+.3,1.25+7.5+.7,1.25+7.5+1.1]){while(tt<at-1e-6){g.tick();tt+=1/60;}g.run('draw()');
    const r0=JSON.parse(g.run('JSON.stringify({rim:z74RimPts(),k:scale*renderPixelRatio,err:Z74.err||null,id:PGPX&&PGPX.id,t:PGPX&&PGPX.t})'));
    const cv=g.c.document.getElementById('cv'),mask=N.createCanvas(cv.width,cv.height),mg=mask.getContext('2d');g.c.__mg=mg;
-   g.run('{const c0=ctx;ctx=__mg;try{z74DrawLayer();}finally{ctx=c0;}}');const md=mg.getImageData(0,0,mask.width,mask.height).data,mw=mask.width,k=r0.k;
+   g.run(at===4?'{const c0=ctx;ctx=__mg;try{z74DrawLayer();}finally{ctx=c0;}}':'{const c0=ctx;ctx=__mg;try{ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);z74Body(z74Layout(),z74Env(PGPX.t));}finally{ctx=c0;}}'); /* travelling, the mitts are the resting mitts on their way (drawn under the coins); held, everything */const md=mg.getImageData(0,0,mask.width,mask.height).data,mw=mask.width,k=r0.k;
    // the board (screen units): inside the rim, 4 units in from the sides and back, down to the front lip
    const poly=[...r0.rim.left.map(p=>[p.x+4,p.y]),...r0.rim.right.slice().reverse().map(p=>[p.x-4,p.y])],yTop=r0.rim.left[0].y+4,yBot=r0.rim.left.at(-1).y-3; // inside: 4 units in from the sides and back, down to the front edge (the rim outline ends 3 units below it, __NF+3)
    const inside=(x,y)=>{let c=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const [xi,yi]=poly[i],[xj,yj]=poly[j];if((yi>y)!==(yj>y)&&x<(xj-xi)*(y-yi)/(yj-yi)+xi)c=!c;}return c;};
@@ -79,7 +79,7 @@ async function levelRun(file,lv,seed,cat){const g=await boot(file,seed);
    const rx=(y,side)=>{const pts=r0.rim[side];for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i];if(y<=b.y){const t=Math.max(0,Math.min(1,(y-a.y)/(b.y-a.y||1)));return a.x+(b.x-a.x)*t;}}return pts.at(-1).x;};
    for(let py=Math.ceil((r0.rim.left[0].y+40)*k);py<Math.floor((r0.rim.left.at(-1).y-6)*k);py++){const y=(py+.5)/k;for(const [side,s] of [['left',-1],['right',1]]){const px=Math.round((rx(y,side)+s*4)*k);if(px>=0&&px<mw){edgeN++;if(md[(py*mw+px)*4+3]<250)edge++;}}}
    const held=at===4,r={size:[w,h],hugT:+(r0.t||0).toFixed(2),boardPixels:inn,artPixelsOverBoard:over,overAt:over?bb.map(v=>Math.round(v)):null,armEdgeSamples:held?edgeN:null,armEdgeGaps:held?edge:null,err:r0.err};rows.push(r);if(over||r0.err||r0.id!=='hug'||(held&&(edge||!edgeN)))ok=false;}g.close();}
-  check('9 at 412x915 and 360x640, swinging in (5 moments), held, and swinging out (3 moments): shoulders, arms and mitts draw nothing over the board (inside the CP-78 rim); held, the arms meet the rim with no gap along the sides',ok,rows);}
+  check('9 at 412x915 and 360x640, reaching (5 moments) and folding away (3 moments) the shoulders and arms, and held also the mitts, draw nothing over the board (inside the CP-78 rim; travelling mitts pass under the coins); held, the arms meet the rim with no gap along the sides',ok,rows);}
  // 6. no Hug: normal play identical to UAT 103 (Ragdoll and Tuxedo boards)
  {const runs=[];let ok=true;for(const [lv,cat,seed] of [[3,'ragdoll',1],[5,'tuxedo',2]]){const a=await levelRun(src,lv,seed,cat),b=await levelRun(base,lv,seed,cat);
    const same=a.trace===b.trace&&!a.errs&&!b.errs;runs.push({lv,cat,seed,same});if(!same)ok=false;}

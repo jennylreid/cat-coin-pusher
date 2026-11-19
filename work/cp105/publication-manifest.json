@@ -1,0 +1,28 @@
+{
+  "version": 20261118000016,
+  "displayName": "2026.11.18 UAT 105",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "69d105eef5d87c3a60d4a60b7dc943cf3971f590412bbc2d63778738b0e8655b",
+  "stagedJSONSHA256": "4eb73334c9ba13ce9ce9b3bfca4849b5ae9d4ed16b69f2835d05d6e4893441f6",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "d08597d1a6e355071a67742cd070a687156b7dd40ea791d3d71b1f57b4e6db39",
+  "jsonBytes": 58804787,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.18 UAT 104",
+  "backup": "uat/backups/before-UAT105-20261118000016",
+  "evidence": "tickets/CP-72-evidence/uat105",
+  "checks": [
+    "checks105.json",
+    "checks104-on105.json",
+    "checks64-on105.json",
+    "checks72-on105.json",
+    "checks72s-on105.json"
+  ],
+  "authorization": "UAT 105: CP-72 Zoomies ending final (Jenny, Nov 18, via PM: \"CP-72 Zoomies ending: only peek-a-boo. Kitten stays small: the puffed one hangs back and peeks at normal size (at most a little bigger), no blow-up and no screen-sized cat. Remove the other ending choices. Next UAT.\"; PM: also remove the Zoomies sound P1-P3 choice and fix stale build labels); UAT only"
+}

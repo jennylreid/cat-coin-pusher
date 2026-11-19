@@ -233,3 +233,7 @@ normal extras on.
   number of coins and one goal ("Clear the tuna in 8 drops"); works only if round 2 shows aim/timing can matter.
   (2) A separate cat-themed mini-game: more variety, but it's a second game to design, draw and test. PM pick: decide
   after board lab round 2. Take Pixel Flow's feeling (a satisfying solvable board), not its gameplay.
+- **Lab boards (Jenny, Nov 18):** "More than likely, these are just going to be additional boards in the main gameplay...
+  They're just slightly different setups." The ones she likes join the board library (layouts for the reset and setups
+  for daily challenges); the rest are dropped. Next lab idea: tall stacks standing on the pusher deck that get scraped
+  off and topple (her reference shot).

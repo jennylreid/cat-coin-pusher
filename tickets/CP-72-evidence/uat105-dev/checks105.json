@@ -1,11 +1,9 @@
 {
  "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp105\\release-dev.html",
  "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp103\\release.html",
- "passed": false,
- "passedN": 5,
- "failed": [
-  "5 production and the UAT channel untouched"
- ],
+ "passed": true,
+ "passedN": 6,
+ "failed": [],
  "notes": {
   "paths": {
    "onlyPeek": true,
