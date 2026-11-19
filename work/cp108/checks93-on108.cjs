@@ -14,7 +14,7 @@ async function inspect(file,w,h,{noCane=false,each}){const g=await make33({sourc
  let ms=100000;g.c.performance={now:()=>ms,timeOrigin:0};const t=g.tick.bind(g);g.tick=()=>{ms+=1000/60;t();};g.run=s=>vm.runInContext(s,g.c);
  const ticks=n=>{for(let i=0;i<n;i++)g.tick();},tap=(x,y)=>{const s=g.run('scale');g.pointer('pointerdown',x*s,y*s);g.pointer('pointerup',x*s,y*s);};
  g.run("globalThis.__errs=[];const fe=frameError;frameError=function(e){__errs.push(String(e&&e.stack||e).slice(0,300));return fe(e);}");
- g.run('S.dev=false;S.muted=true');ticks(150);tap(200,700);ticks(40);
+ g.run('S.dev=false;S.muted=true;if(typeof cp86FloatHold==="function")cp86FloatHold=function(){};'); /* UAT 108: CP-86 holds floating texts during powers, so a text UAT 92 drew during Formal inspection now waits; that hold is checked in checks86 #5, and is off here so these frames compare the power's own drawing */ticks(150);tap(200,700);ticks(40);
  g.run("pglLv().passed=2;pglLv().sel=3;pgSave();if(WILD.phase==='card')wildReset();");ticks(10);g.c.draw();
  const pl=J(g,'PGA.L.play');tap(pl.x+pl.w/2,pl.y+pl.h/2);let k=0;while(g.run("WILD.phase")!=='play'&&k++<900)g.tick();
  for(let i=0;i<600;i++){if(i%30==0)tap(200+100*Math.sin(i/40),560);g.tick();}

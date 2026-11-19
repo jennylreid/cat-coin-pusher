@@ -5,7 +5,7 @@ const {game}=require('../cp43/harness.cjs');const make=require('../cp33/runtime.
 const N=require('C:/Users/jenny/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/@napi-rs/canvas');
 const V=JSON.parse(fs.readFileSync(path.join(__dirname,'release-version.json')));
 const E=JSON.parse(fs.readFileSync(path.join(__dirname,'edits.json'),'utf8'));
-const src=path.resolve(__dirname,'release.html'),base=path.resolve(E.base),out=path.resolve(__dirname,'../../tickets/CP-87-evidence/uat107');fs.mkdirSync(out,{recursive:true});
+const src=path.resolve(__dirname,'release.html'),base=path.resolve(JSON.parse(fs.readFileSync(path.join(__dirname,'../cp106-hug/edits.json'),'utf8')).base) /* UAT 107: the comparison base stays UAT 105, as checks106 was written */,out=path.resolve(__dirname,'../../tickets/CP-87-evidence/uat107');fs.mkdirSync(out,{recursive:true});
 const root=path.resolve(__dirname,'../..'),sha=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
 const prodJ=path.join(root,'phone/CatCoinPusher-game.json'),uatJ=path.join(root,'uat/CatCoinPusher-UAT-game.json'),prod0=sha(prodJ),uat0=sha(uatJ);
 let passed=[],failed=[],notes={};function check(n,b,info){(b?passed:failed).push(n);console.log((b?'PASS ':'FAIL ')+n+(info!==undefined?' '+JSON.stringify(info).slice(0,1500):''));}

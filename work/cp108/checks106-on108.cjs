@@ -48,7 +48,7 @@ async function levelRun(file,lv,seed,cat){const g=await boot(file,seed);
   const ws=J(g,'__words');check('4 no words drawn over the hug ("NO SIDE FALLS" gone)',ws.length===0,ws);
   check('5 no frame errors, no Hug drawing error',J(g,'__errs').length===0&&J(g,'Z74.err||null')===null,[J(g,'__errs'),J(g,'Z74.err||null')]);g.close&&g.close();}
  // 2. the walls are today's: same two colliders (size, place, friction) as UAT 105's Hug
- {const desc=async file=>{const g=await ragdollRound(file,2);const n0=J(g,'world.colliders.len()');g.run(TAP);g.ticks(file===src?60*(1.25+1.8):10);
+ {const desc=async file=>{const g=await ragdollRound(file,2);const n0=J(g,'world.colliders.len()');g.run(TAP);g.ticks(60*(1.25+1.8)); /* UAT 108: the reference (UAT 107) Hug also opens with its title since UAT 106, so both wait the same */
    const d=J(g,`(()=>{const o=[];world.colliders.forEach(c=>o.push(c));return o.slice(${n0}).map(c=>{const t=c.translation(),h=c.halfExtents();return [+(t.x/M).toFixed(2),+(t.y/M).toFixed(2),+(t.z/M).toFixed(2),+(h.x/M).toFixed(2),+(h.y/M).toFixed(2),+(h.z/M).toFixed(2),+c.friction().toFixed(3)]});})()`);g.close&&g.close();return d;};
   const a=await desc(src),b=await desc(base);check('6 the gutter walls are UAT 105\'s colliders exactly (size, place, friction)',a.length===2&&JSON.stringify(a)===JSON.stringify(b),{uat104:a,uat103:b});}
  // 3. a callout made during the hug (3 s after the tap) waits and shows after it (as CP-82's check 2)

@@ -76,11 +76,14 @@ async function midRound(file,{cat,seed,level=3,secs=10,fps=60,render=false,w=400
    rows.push(row);
    if(!(row.shots.length===3&&row.shots[0][1]==='cp82title'&&row.shots[0][2]>=0&&row.shots.slice(1).every(s=>s[1]===P.id&&s[2]<0)&&!row.words.length&&!row.errs))ok=false;g.close();}
   notes.screen=rows;check('3 at 412x915 and 360x640: stills of each title alone and the action under way with no title or words drawn over it (UAT 100 drew "2× REACH" over the Sonic meow rings)',ok,rows);}
- // 4. Hug, Formal inspection and Zoomies are not touched by CP-82: same start as in UAT 100
+ // 4. Formal inspection and Zoomies are not touched by CP-82: same start as in UAT 100; Hug follows the title-first rule from UAT 106 (CP-74)
  {const rows=[];let ok=true;for(const [cat,id] of [['ragdoll','hug'],['tuxedo','inspect'],['orange','zoomies72']]){const r={cat};
-   for(const [tag,file] of [['a',src],['b',base]]){const {g,tk}=await midRound(file,{cat,seed:4});g.run(TAP);const s=[];for(let i=0;i<90;i++){tk();if(i%15===0)s.push(J(g,"[PGPX?PGPX.id:null,PGPX?+PGPX.t.toFixed(3):-1,callouts.map(c=>c.word).join('|')]"));}r[tag]=s;r[tag+'errs']=J(g,'__errs').length;g.close();}
-   r.same=JSON.stringify(r.a)===JSON.stringify(r.b)&&r.a[0][0]===id&&!r.aerrs&&!r.berrs;if(!r.same)ok=false;rows.push(r);}
-  check('4 Hug (still its callout and "NO SIDE FALLS"), Formal inspection and Zoomies start exactly as in UAT 100',ok,rows.map(r=>[r.cat,r.same,r.a[1]]));}
+   for(const [tag,file] of [['a',src],['b',base]]){const {g,tk}=await midRound(file,{cat,seed:4});g.run(TAP);const s=[];for(let i=0;i<90;i++){tk();if(i%15===0)s.push(J(g,"[PGPX?PGPX.id:null,PGPX?+PGPX.t.toFixed(3):-1,callouts.map(c=>c.word).join('|'),typeof CP82W!=='undefined'&&CP82W?CP82W.word:null]"));}r[tag]=s;r[tag+'errs']=J(g,'__errs').length;g.close();}
+   // UAT 106 (CP-74): Hug now follows the CP-82 rule: "HUG!" alone (PGPX cp82title) until 1.25 s after the tap, then the hug
+   if(id==='hug'){const title=r.a.filter(x=>x[0]==='cp82title'),hug=r.a.filter(x=>x[0]==='hug');
+    r.same=title.length>0&&title.every(x=>x[3]==='HUG!')&&r.a[0][0]==='cp82title'&&hug.length>0&&hug[0][1]<.1&&r.a.indexOf(hug[0])===r.a.length-1&&!r.aerrs;}
+   else r.same=JSON.stringify(r.a.map(x=>x.slice(0,3)))===JSON.stringify(r.b.map(x=>x.slice(0,3)))&&r.a[0][0]===id&&!r.aerrs&&!r.berrs;if(!r.same)ok=false;rows.push(r);}
+  check('4 Hug opens with its name first ("HUG!" alone until 1.25 s, then the hug; UAT 106, CP-74), Formal inspection and Zoomies start exactly as in UAT 100',ok,rows.map(r=>[r.cat,r.same,r.a[1],r.a[r.a.length-1]]));}
  check('5 production and the UAT channel untouched',sha(prodJ)===prod0&&sha(uatJ)===uat0);
  fs.writeFileSync(path.join(out,'checks101-on107.json'),JSON.stringify({build:src,base,passed:failed.length===0,passedN:passed.length,failed,notes},null,1));if(failed.length)process.exitCode=1;
 })().catch(e=>{console.error(e);process.exit(1)});

@@ -75,8 +75,8 @@ async function burst(file){const g=await game(file,{seed:5,render:true});
  // 5: the other cats' powers
  {const r={};for(const cat of ['tuxedo','ragdoll','siamese','tortie']){const one=async f=>{const {g,tk}=await midRound(f,{seed:2,level:3,fps:60,cat});g.run(TAP);for(let i=0;i<30;i++)tk();const s=g.run("(PGPX?PGPX.id:'-')+(typeof CP63X!=='undefined'&&CP63X?'+inspect':'')+(typeof Z72X!=='undefined'&&Z72X?'+z72':'')");for(let i=0;i<8*60;i++)tk();const e=J(g,'__errs').length;g.close();return s+(e?' errors':'');};
    r[cat]=[await one(src),await one(base)];}
-  const CP82={siamese:'sonic',tortie:'tortitude'}; // UAT 101 (CP-82): Sonic meow and Tortitude start with their title (cp82title), their action 1.25 s later (checks101)
-  check("5 the other cats' powers are unchanged (same power starts as in the base UAT, no kittens, no errors; on UAT 101 Sonic meow and Tortitude start with their CP-82 title instead)",Object.entries(r).every(([c,[a,b]])=>(CP82[c]?a==='cp82title'&&b===CP82[c]:a===b)&&!/z72|errors/.test(a)),r);}
+  const CP82={siamese:'sonic',tortie:'tortitude',ragdoll:'hug'}; // UAT 101 (CP-82): Sonic meow and Tortitude start with their title (cp82title), their action 1.25 s later (checks101); UAT 106 (CP-74): Hug too
+  check("5 the other cats' powers are unchanged (same power starts as in the base UAT, no kittens, no errors; on UAT 101 Sonic meow and Tortitude, and on UAT 106 Hug, start with their CP-82 title instead)",Object.entries(r).every(([c,[a,b]])=>(CP82[c]?a==='cp82title'&&b===CP82[c]:a===b)&&!/z72|errors/.test(a)),r);}
  check('6 production and the UAT channel untouched',sha(prodJ)===prod0&&sha(uatJ)===uat0);
  fs.writeFileSync(path.join(out,'checks72-on107.json'),JSON.stringify({build:src,base,passed:failed.length===0,passedN:passed.length,failed,notes},null,1));if(failed.length)process.exitCode=1;
 })().catch(e=>{console.error(e);process.exit(1)});
