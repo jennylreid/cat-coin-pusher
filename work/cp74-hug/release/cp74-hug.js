@@ -69,27 +69,29 @@ function z74Pieces(){if(Z74.pieces)return Z74.pieces;const im=Z74.img.left;if(!i
 // where the left mitt is (screen units) at reach u: from its resting place beside the head (as drawPaws draws it) down a
 // curve that keeps out to the side, to its place in the lower corner; its turn goes from the resting turn to 40 degrees
 // the left mitt's path at reach u: from exactly where the board's resting mitt is drawn (drawPaws: mittRest(side), turned by
-// MITT_TURN plus its tiny wobble) to its place in the lower corner, turning to 40 degrees, same size throughout. On the way it
-// keeps out in the strip beside the board: its centre at most 72 left of the board's rim (partly off the screen's edge if need be).
+// MITT_TURN plus its tiny wobble) to its place in the lower corner, turning to 40 degrees, same size throughout; drawn behind the
+// coins all the way, so it never covers a coin or a prize.
 function z74RimXAt(y){const r=z74RimPts();if(!r)return 200;const P=r.left;if(y<=P[0].y)return P[0].x;for(let i=1;i<P.length;i++)if(y<=P[i].y){const a=P[i-1],b=P[i];return a.x+(b.x-a.x)*(y-a.y)/((b.y-a.y)||1);}return P[P.length-1].x;}
 function z74MittPath(L,u){const m=mittRest(-1),x0=m.x,y0=m.y,x2=200-Z74.MITT_DX,y2=L.mittY,t0=-(MITT_TURN+Math.sin(time*1.7)*.018);
- const y=y0+(y2-y0)*u,lx=x0+(x2-x0)*u,sm=v=>v*v*(3-2*v),w=sm(z74Seg(u,0,.15))*(1-sm(z74Seg(u,.8,1))),x=lx+w*(Math.min(lx,z74RimXAt(y)-72)-lx);
+ const y=y0+(y2-y0)*u,x=x0+(x2-x0)*u; // a straight line, always on screen (routing it out to the side took the paw and arm off the screen's edge)
  return {x,y,ox:x-x2,oy:y-y2,turn:t0+(Z74.MITT_TURN-t0)*u};}
 function z74DrawMitts(){const X=PGPX,e=z74Env(X.t),L=Z74.L||z74Layout(),r=z74RimPts(),R=Z74.REF;if(!r)return;
  const ys=(r.left[r.left.length-1].y-r.left[0].y)/(R.rimBot-R.rimTop),ay=r.left[0].y+(R.armTop-R.rimTop)*ys;
  ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);
  for(const s of [-1,1]){const kn=e.hold?3*Math.sin(X.t*Math.PI*2*1.3+(s>0?Math.PI:0)):0;ctx.save();if(s>0){ctx.translate(400,0);ctx.scale(-1,1);}z74LeftArm(L,e,ay,ys,true,kn);ctx.restore();}
  ctx.restore();}
-// the left arm (try 7): Codex's whole arm painting, straight, never bent or scaled. It slides along the paw's whole path, its
-// end always under the paw; at reach 1 it is in place along the board's side. It moves with the shoulder (z74ShoulderAt) and is only drawn below the line
-// through the shoulder's middle, which the shoulder painting covers. The mitt (mitt=true) is the resting mitt travelling.
+// the left arm (try 8): Codex's whole arm painting, in its approved place along the board's side (never moved, bent, cut into
+// pieces or scaled), revealed behind the paw as the paw reaches down: the visible arm runs from behind the shoulder to the paw's
+// wrist at every frame (the reveal edge is under the paw). It is only drawn below the line through the shoulder's middle.
+// The mitt (mitt=true) is the resting mitt travelling.
 function z74ShoulderAt(L,e){const R=Z74.REF,k=e.sh,ln=e.reach,Ln=Z74.LEAN; // the left shoulder's centre offset from its place
  return {x:(1-k)*60-Ln.dx*ln,y:-(1-k)*40+Ln.dy*ln,cx:R.shX,cy:L.shY-R.shUp};}
 function z74LeftArm(L,e,ay,ys,mitt,kn){const T=z74MittPath(L,e.reach);if(mitt){z74Mitt(T.x,T.y+kn,-1,1,T.turn);return;}
  const R=Z74.REF,ah=R.armH*ys,im=z74Pre('left',R.armW,ah);if(!im)return;const S=z74ShoulderAt(L,e);
- const ox=T.ox,oy=T.oy; // the arm moves with the paw (same offset from its place): its end stays under the paw
- ctx.save();ctx.beginPath();ctx.rect(-200,S.cy+S.y,800,H+400);ctx.clip();
- ctx.drawImage(im,R.armX+ox,ay+oy,R.armW,ah);ctx.restore();}
+ // the arm stays in its approved place along the board's side and is revealed behind the paw: from the shoulder's middle
+ // down to just under the paw's centre (the paw covers that edge), so the visible arm always ends at the paw's wrist
+ ctx.save();ctx.beginPath();ctx.rect(-200,S.cy+S.y,800,Math.max(0,T.y+20-(S.cy+S.y)));ctx.clip();
+ ctx.drawImage(im,R.armX,ay,R.armW,ah);ctx.restore();}
 // --- layout (screen units, 400 wide), from the game's own projection every frame ---
 function z74Layout(){const hw=(T.R-T.L)/2,F=skyScreen(200-hw,T.FRONT,0),lip=F.y,chin=w43ChinY();
  const mittY=lip+Z74.MITT_DY,shY=chin+30;
