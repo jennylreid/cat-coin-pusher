@@ -1,0 +1,17 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp116\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 116';",
+   "const BUILD = '2026.11.19 UAT 117';"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp90-kittens.js"
+ ],
+ "addedRuntimeFiles": {
+  "img/art/cp90-ginger-run.webp": "work/cp90-kittens/ginger-run.png (lossless WebP, art/cp90-ginger-run.webp)",
+  "img/art/cp90-cream-run.webp": "work/cp90-kittens/cream-run.png (lossless WebP, art/cp90-cream-run.webp)",
+  "img/art/cp90-ginger-peek.webp": "work/cp90-kittens/ginger-peek.png (lossless WebP, art/cp90-ginger-peek.webp)"
+ }
+}

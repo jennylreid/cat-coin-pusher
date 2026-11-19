@@ -1,0 +1,37 @@
+<!doctype html>
+<!-- UAT 117 (CP-90) real-browser check (from UAT 105's endcheck): loads ?dir=<folder>/index.html (the full runtime) in a frame;
+     the three painted kitten files load; the default is Painted; Engineer tools has "Zoomies kittens" right under "Yawn sound"
+     with Painted (ticked) / Original; tapping Original ticks and saves it, tapping Painted puts it back; Zoomies on the Orange
+     board then draws the painted kittens, the original puff and the painted peek, and ends cleanly. -->
+<html><head><meta charset="utf-8"><title>zoomies ending check</title></head><body>
+<iframe id="g" style="width:400px;height:889px;border:0"></iframe><pre id="result">PENDING</pre>
+<script>
+const dir=new URLSearchParams(location.search).get('dir')||'boot117',g=document.getElementById('g'),out=document.getElementById('result');
+const res={dir,steps:[],errors:[]};const done=()=>{out.textContent=JSON.stringify(res);};
+try{localStorage.removeItem('catpusher.uat.cp90kittens.v1');}catch(e){}
+g.src=dir+'/index.html';
+g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));
+ const t0=Date.now();const iv=setInterval(()=>{try{
+  const txt=w.document.body.innerText||'';if(/Could not start/.test(txt)){res.steps.push('could not start: '+txt.slice(0,160));clearInterval(iv);return done();}
+  const ok=w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0");
+  if(ok&&!res.title){res.title=true;res.build=w.eval('BUILD');res.steps.push('title with art at '+(Date.now()-t0)+' ms');
+   w.eval("if(!PG)pgInit();PGU.title.t=9;pgTitleDone();PG.lv.passed=0;PG.lv.sel=1;wildReset();PGU.screen='board';pgStartRound();");}
+  if(res.title&&!res.play&&w.eval("WILD.phase==='play'")){res.play=true;clearInterval(iv);res.steps.push('round in play at '+(Date.now()-t0)+' ms');
+   res.default=JSON.parse(w.eval("JSON.stringify({pick:CP90.get(),art:Object.fromEntries(Object.entries(CP90.art).map(([k,v])=>[k,v.naturalWidth+'x'+v.naturalHeight]))})"));
+   w.eval('S.dev=true;openCredits();');const box=w.document.querySelector('#cp90-kittens'),eng=w.document.querySelector('#cp70-engineer');
+   const btns=box?Array.from(box.querySelectorAll('button')):[];res.ui={inEngineer:!!(box&&eng&&eng.contains(box)),afterYawn:!!(box&&box.previousElementSibling&&box.previousElementSibling.id==='cp79-yawn'),title:box&&box.querySelector('h3')?box.querySelector('h3').textContent:null,labels:btns.map(b=>b.textContent)};
+   const o=btns.find(b=>b.dataset.k==='original');if(o)o.click();res.ui.afterOriginal=btns.map(b=>b.textContent);res.ui.savedOriginal=w.localStorage.getItem('catpusher.uat.cp90kittens.v1');res.ui.pickOriginal=w.eval('CP90.get()');
+   const pt=btns.find(b=>b.dataset.k==='painted');if(pt)pt.click();res.ui.afterPainted=btns.map(b=>b.textContent);res.ui.savedPainted=w.localStorage.getItem('catpusher.uat.cp90kittens.v1');
+   const close=w.document.querySelector('#close');if(close)close.click();w.eval('S.dev=false');
+   setTimeout(()=>{try{w.eval("for(const c of PG_CATS)PG.open[c]=true;PG.lv.passed=Math.max(PG.lv.passed,PG_SWITCH_LEVEL);wildExit();pgPlay('orange');if(WILD.phase==='end')wildReset();wildStartCountdown();");res.steps.push('Orange board');}catch(e){res.errors.push(String(e));}},1500);
+   setTimeout(()=>{try{w.eval("WILD.left=60;WILD.nextBonus=999;PG.powers=PG.powers||{};PG.powers.orange=1;globalThis.__s0=JSON.stringify(CP90.stats);");
+    const B=JSON.parse(w.eval('JSON.stringify(pgpButton())'));w.eval('powerTap({x:'+(B.x+B.w/2)+',y:'+(B.y+B.h/2)+'})');res.zstarted=w.eval("!!PGPX&&PGPX.id==='zoomies72'");res.zt0=Date.now();res.steps.push('zoomies tapped: '+res.zstarted);}catch(e){res.errors.push(String(e));}},6500);
+   setTimeout(()=>{try{res.zend=w.eval('!Z72X&&!PGPX');res.stats0=JSON.parse(w.eval('__s0'));res.stats=JSON.parse(w.eval('JSON.stringify(CP90.stats)'));
+    res.cp90=res.build==='2026.11.19 UAT 117'&&res.default.pick==='painted'&&['ginger','cream','peek'].every(k=>res.default.art[k]==='512x640')&&res.ui.inEngineer&&res.ui.afterYawn&&res.ui.title==='Zoomies kittens'
+     &&res.ui.labels.join('|')==='✓ Painted|Original'&&res.ui.afterOriginal.join('|')==='Painted|✓ Original'&&res.ui.savedOriginal==='original'&&res.ui.pickOriginal==='original'
+     &&res.ui.afterPainted.join('|')==='✓ Painted|Original'&&res.ui.savedPainted==='painted'&&res.zstarted&&res.zend&&res.stats.painted-res.stats0.painted>50&&res.stats.original-res.stats0.original>20&&res.stats.peek-res.stats0.peek>10;
+    res.steps.push('zoomies over: '+res.zend+', painted '+(res.stats.painted-res.stats0.painted)+', original (puff) '+(res.stats.original-res.stats0.original)+', peek '+(res.stats.peek-res.stats0.peek)+' frames; cp90 '+res.cp90);}catch(e){res.errors.push(String(e));}done();},19000);
+   return;}
+  if(Date.now()-t0>80000){res.steps.push('timeout');clearInterval(iv);done();}
+ }catch(e){res.errors.push(String(e));}},250);};
+</script></body></html>
