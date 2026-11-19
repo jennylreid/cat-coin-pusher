@@ -1,0 +1,19 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp116\\release.html",
+ "passed": true,
+ "failed": [],
+ "passedList": [
+  "0 the build is published 2026.11.19 UAT 115 + build name + 4 CP-86 mitts final edits + cp86-final.js (everything else unchanged)",
+  "1 all five puzzle pages are embedded byte for byte",
+  "1b the button code touches no storage; the puzzles only use their own cp84-/cp85- keys",
+  "2 level 1 tuxedo seed 4: the round plays identically to the base",
+  "2 level 3 orange seed 11: the round plays identically to the base",
+  "2 level 5 siamese seed 7: the round plays identically to the base",
+  "3 Home shows the Daily puzzles button under PLAY, inside the screen",
+  "3b a tap on it opens the puzzles and the game pauses (no frames run)",
+  "3c closing returns to a running Home",
+  "3d PLAY still starts a round",
+  "3e no frame errors",
+  "4 production untouched"
+ ]
+}
