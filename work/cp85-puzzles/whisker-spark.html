@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#241c37">
+<title>Whisker Spark · CatCoin Daily</title>
+<style>
+:root{color-scheme:dark;--bg:#241c37;--panel:#534071;--accent:#e3bbff;--text:#fff3e6;--muted:#e5d9d5}
+*{box-sizing:border-box}body{margin:0;min-height:100svh;background:radial-gradient(ellipse at top,var(--panel),transparent 74%),var(--bg);color:var(--text);font:16px system-ui,sans-serif}
+main{width:min(100%,460px);margin:auto;padding:clamp(12px,3vh,28px) 16px 16px}button{color:inherit;font:inherit;touch-action:manipulation;cursor:pointer}button:disabled{cursor:default}button:focus-visible{outline:3px solid white;outline-offset:2px}
+header,.hero,.score,nav,#levels,#controls{display:flex;align-items:center;justify-content:space-between;gap:5px}
+.brand{font-size:.83rem;color:var(--accent);letter-spacing:.13em;font-weight:800;text-transform:uppercase}h1{font:700 clamp(2.3rem,10vw,3.55rem)/.94 Georgia,serif;margin:7px 0;letter-spacing:-.055em}
+.cat{width:76px;height:66px;flex-shrink:0;filter:drop-shadow(0 4px 0 #0004)}
+.rules{color:var(--muted);font-size:.94rem;line-height:1.35;margin:4px 0 12px}
+.score{border-top:1px solid #fff3;padding:8px 0;font-weight:750}#meter{height:4px;background:#fff2;border-radius:9px;overflow:hidden}#meter i{display:block;height:100%;background:var(--accent)}
+#board{position:relative;margin:10px 0 0;padding:8px;border:1px solid #fff3;border-radius:17px;background:#09071161;box-shadow:inset 0 1px 8px #0005}
+#grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.tile,.well{min-width:0;border:1px solid #fff4;border-radius:10px;background:#fff1}
+.tile{height:clamp(59px,7.4vh,68px);display:grid;place-content:center;position:relative}.tile.window{border:2px solid var(--accent);background:#fff2}.tile.covered{opacity:.55;border-style:dashed}.tile.empty{border-style:dashed;background:#0002}
+.well{height:clamp(182px,22vh,205px);padding:5px 3px;display:flex;flex-direction:column;justify-content:flex-end;gap:4px}.pocket{width:100%;min-height:24px;display:flex;align-items:center;justify-content:center;gap:4px;padding:2px;border-radius:4px;background:#100d1d80}.pocket.front{outline:1px solid #fff9;background:#fff2}.well-label{font-weight:700;font-size:.84rem}
+.coinset{display:grid;grid-template-columns:repeat(5,max-content);gap:2px;justify-content:center}.num{font-size:.77rem;font-weight:850;text-shadow:0 1px 2px #000}.tile .num{position:absolute;bottom:0;right:4px}
+.coin{--size:9px;display:inline-grid;place-content:center;width:var(--size);height:var(--size);border-radius:50%;border:1px solid var(--edge);background:radial-gradient(circle at 32% 25%,#fff9,transparent 60%),var(--metal);color:#231525;box-shadow:0 1px 1px #000a;font-size:calc(var(--size)*.69);font-weight:900;line-height:1}
+[data-color=r]{--metal:#f5828c;--edge:#ffc1be}[data-color=b]{--metal:#6edbdc;--edge:#b4ffef}[data-color=y]{--metal:#ffca65;--edge:#ffe9a7}
+#controls{justify-content:center;min-height:54px;flex-wrap:wrap}#controls:empty{display:none}.queue{display:flex;align-items:center;gap:5px;font-size:.88rem}.queue .coin,.shot .coin{--size:17px}.queue .next{--size:22px}
+.small,.shot{min-height:44px;border:1px solid #fff4;border-radius:9px;background:#fff1;padding:0 10px;font-weight:700;font-size:.87rem}.shot{display:flex;align-items:center;gap:5px;border-color:var(--edge)}#levels .small{min-width:44px}.small[aria-current=true]{background:var(--accent);color:#201626}
+#status{min-height:42px;display:grid;place-items:center;text-align:center;font-size:.87rem;color:var(--muted);margin:1px 0 3px}
+#burst{position:absolute;z-index:2;left:50%;top:47%;translate:-50% -50%;border-radius:99px;padding:5px 14px;background:var(--accent);color:#201626;font-size:1.25rem;font-weight:900;white-space:nowrap;pointer-events:none;box-shadow:0 4px 16px #0008}.fly{position:fixed;z-index:3;pointer-events:none;--size:13px}
+@media(max-width:375px){h1{font-size:2.125rem}.cat{width:64px;height:58px}}
+</style>
+</head>
+<body><main>
+<header><span class="brand">CatCoin Daily</span><button class="small" id="sound" aria-pressed="true">Sound on</button></header>
+<div class="hero"><h1>Whisker Spark</h1><svg class="cat" viewBox="0 0 90 75" aria-hidden="true"><path fill="#e3bbff" stroke="#1e1728" stroke-width="2" d="M13 35 15 7Q17 2 22 7L36 18Q45 15 54 18L70 6Q75 3 76 9L79 37Q85 61 61 67Q45 72 27 67Q6 62 13 35Z"/><path fill="#c96f7d" d="m19 13 11 10-12 6Zm52 0 2 16-12-6Z"/><path fill="#fff3dc" d="M45 56Q29 43 22 54Q23 66 44 66Q65 68 69 54Q62 44 45 56Z"/><path d="M28 40q4-6 8 0m17 0q4-6 8 0m-20 7 4 3 4-3m-4 3q-4 7-8 3m8-3q4 7 8 3M5 45l15 3M4 53l16-1m65-7-15 3m16 5-16-1" fill="none" stroke="#2e2030" stroke-width="2" stroke-linecap="round"/></svg></div>
+<p class="rules">Clear the coins. Tap a stack to fire through its row and column. Every stack of that colour along both lines clears at once.</p>
+<div class="score"><span id="left"></span><span id="shots"></span></div><div id="meter" aria-hidden="true"><i></i></div>
+<div id="board"><div id="grid"></div><output id="burst" aria-hidden="true" hidden></output></div>
+<div id="controls"></div><p id="status" role="status"></p>
+<nav aria-label="Boards"><div id="levels"></div><button class="small" id="reset">Restart</button></nav>
+</main><script>
+"use strict";
+const mode = "cross";
+const boards = [
+  {
+    "name": "First spark",
+    "tiles": [
+      "r6",
+      "r9",
+      "b1",
+      "y7",
+      "r10",
+      "b6",
+      "y5",
+      "y4",
+      "b8"
+    ],
+    "par": 3,
+    "hint": "Look for a stack where two matching lines meet."
+  },
+  {
+    "name": "Across the rug",
+    "tiles": [
+      "b6",
+      "y9",
+      "b11",
+      "b8",
+      "r5",
+      "y8",
+      "r9",
+      "r1",
+      "y8",
+      "y5",
+      "b6",
+      "r1"
+    ],
+    "par": 7,
+    "hint": "A stack can be the only bridge between two matches."
+  },
+  {
+    "name": "The last stitch",
+    "tiles": [
+      "y11",
+      "r9",
+      "b7",
+      "r8",
+      "r1",
+      "r8",
+      "b18",
+      "y4",
+      "b7",
+      "y8",
+      "y13",
+      "b6"
+    ],
+    "par": 4,
+    "hint": "Save the stacks that connect the biggest crosses."
+  }
+];
+const colors = {r:["Rose","♥",523.25],b:["Mint","◆",659.25],y:["Honey","✦",783.99]};
+const el = id => document.getElementById(id);
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+let level, tiles, queue, turns, total, left, offset, audio;
+let busy = false, muted = false;
+const size = stack => Number(stack.slice(1));
+const open = () => [0,1,2].map(i => (i+offset)%6);
+const done = () => !left || !turns;
+const name = stack => size(stack)+" "+colors[stack[0]][0]+" coins";
+function coin(color, extra = "") {
+  return '<span aria-hidden="true" class="coin '+extra+'" data-color="'+color+'">'+colors[color][1]+'</span>';
+}
+function pile(stack) {
+  return '<span aria-hidden="true" class="coinset">'+coin(stack[0]).repeat(size(stack))+'</span><span class="num">'+size(stack)+'</span>';
+}
+function tile(i, cls, label, content, disabled) {
+  const attrs = ' class="'+cls+'" data-i="'+i+'" aria-label="'+label+'"';
+  if (mode === "orbit") return '<div role="img"'+attrs+'>'+content+'</div>';
+  return '<button'+attrs+(disabled?" disabled":"")+'>'+content+'</button>';
+}
+function load(index) {
+  const board = boards[index];
+  level = index;
+  tiles = structuredClone(board.tiles);
+  queue = [...(board.queue || "")];
+  turns = board.par || queue.length;
+  total = left = tiles.flat().reduce((sum,s) => sum + size(s),0);
+  offset = 0;
+  render();
+}
+function render(message) {
+  el("left").textContent = left+" coins left";
+  el("shots").textContent = turns+(turns===1?" shot left":" shots left");
+  el("meter").firstElementChild.style.width = 100*(total-left)/total+"%";
+  if (mode === "tunnel") {
+    el("grid").innerHTML = tiles.map((lane,i) => {
+      const pockets = lane.slice().reverse().map((s,j) =>
+        '<span class="pocket '+(j===lane.length-1?"front":"")+'">'+pile(s)+'</span>').join("");
+      return tile(i,"well","Pocket "+(i+1)+", "+(lane.length?lane.map(name).join(", "):"empty"),
+        pockets+'<span class="well-label">Pocket '+(i+1)+'</span>',done()||!lane.length);
+    }).join("");
+    el("controls").innerHTML = !done() ? '<div class="queue" role="img" aria-label="Shot order: '+
+      queue.slice(0,7).map(c=>colors[c][0]).join(", ")+'"><strong>Next</strong>'+coin(queue[0],"next")+
+      (queue.length>1?' <span>then</span> '+queue.slice(1,7).map(c=>coin(c)).join(""):"")+'</div>' : "";
+  } else {
+    const order = mode==="orbit" ? [0,1,2,5,4,3].map(i=>(i+offset)%6) : tiles.map((_,i)=>i);
+    el("grid").innerHTML = order.map(i=>{
+      const stack = tiles[i], exposed = open().includes(i);
+      const cls = mode==="orbit" ? exposed?" window":" covered" : "";
+      return tile(i,"tile"+cls+(stack?"":" empty"),(stack?name(stack):"Empty")+
+        (mode==="orbit"?(exposed?", open window":", covered"):", tile "+(i+1)),stack?pile(stack):"·",done()||!stack);
+    }).join("");
+    el("controls").innerHTML = mode==="orbit" ? Object.keys(colors).map(c=>
+      '<button class="shot" data-color="'+c+'"'+(done()?" disabled":"")+'>'+coin(c)+colors[c][0]+'</button>').join("") : "";
+  }
+  el("levels").innerHTML = boards.map((board,i)=>'<button class="small" data-level="'+i+
+    '" aria-current="'+(i===level)+'" aria-label="Board '+(i+1)+': '+board.name+'">'+(i+1)+'</button>').join("");
+  el("status").textContent = !left ? "Cleared! "+(level<boards.length-1?"Try board "+(level+2)+".":"All coins collected.") :
+    !turns ? "Out of shots. Restart for another try." : message || boards[level].hint;
+}
+function tone(at,freq,duration,volume) {
+  const oscillator = audio.createOscillator();
+  const gain = audio.createGain();
+  oscillator.frequency.value = freq;
+  gain.gain.setValueAtTime(volume,at);
+  gain.gain.exponentialRampToValueAtTime(.0001,at+duration);
+  oscillator.connect(gain).connect(audio.destination);
+  oscillator.start(at);
+  oscillator.stop(at+duration);
+}
+function sound(color,n) {
+  if (muted) return;
+  try {
+    audio ||= new AudioContext();
+    audio.resume().catch(()=>{});
+    const now = audio.currentTime, base = colors[color][2];
+    for(let i=0;i<Math.min(n,25);i++){
+      const pitch = [1,1.125,1.25,1.5,1.667,2][Math.floor(i/3)%6];
+      tone(now+i*.025,base*pitch,.09,.075);
+      tone(now+i*.025,base*pitch*2.71,.036,.024);
+    }
+    if(n>=12) [1,1.25,1.5].forEach((p,i)=>tone(now+.57+i*.044,base*p,.22,.06));
+  } catch {}
+}
+function fly(sources, duration) {
+  const cat = document.querySelector(".cat");
+  const dest = cat.getBoundingClientRect();
+  if(sources.length>=12) cat.animate([
+    {transform:"none"},{transform:"rotate(-10deg) translateY(-8px)"},{transform:"none"}
+  ],{duration:430,delay:300});
+  sources.forEach((source,i)=>{
+    const {x,y} = source.getBoundingClientRect(), flying = source.cloneNode(true);
+    flying.classList.add("fly");
+    Object.assign(flying.style,{left:x+"px",top:y+"px"});
+    document.body.append(flying);
+    const dx=dest.x+dest.width/2-x, dy=dest.y+dest.height*.7-y, arc=(i%5-2)*14;
+    flying.animate([
+      {transform:"translate(0,0)"},
+      {transform:"translate("+(dx*.32+arc)+"px,"+(dy*.25-24)+"px) rotate(100deg) scale(1.4)",offset:.4},
+      {transform:"translate("+dx+"px,"+dy+"px) rotate(320deg) scale(.15)",opacity:.1}
+    ],{duration:340,delay:i/sources.length*(duration-340),fill:"both",easing:"ease-in-out"})
+      .finished.then(()=>flying.remove());
+    source.style.visibility="hidden";
+  });
+}
+function feedback(origin, keyboard, color, sources) {
+  const n = sources.length;
+  const active = origin.dataset.color ? 'button[data-color="'+origin.dataset.color+'"]' : 'button[data-i="'+origin.dataset.i+'"]';
+  const finish = message => {
+    render(message);
+    if (keyboard) {
+      const next = document.querySelector(active);
+      (next&&!next.disabled?next:el("reset")).focus();
+    }
+  };
+  if (!n) {
+    finish("No match. The windows moved one slot.");
+    return;
+  }
+  busy = true;
+  sound(color,n);
+  const burst = el("burst"), duration = n>10?690:345;
+  const label = n>=12?" coin rush!":n===1?" coin":" coins";
+  burst.textContent = "+"+(reducedMotion.matches?n:1)+label;
+  burst.hidden = false;
+  if (!reducedMotion.matches) {
+    origin.animate([{filter:"brightness(1)"},{filter:"brightness(2)"},{filter:"brightness(1)"}],220);
+    fly(sources,duration);
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min(1,(now-start)/duration);
+      burst.textContent = "+"+Math.max(1,Math.ceil(n*progress))+label;
+      if (progress<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  setTimeout(()=>{
+    busy = false;
+    burst.hidden = true;
+    finish(n+(n===1?" coin collected.":" coins collected.")+(mode==="orbit"?" Windows moved.":""));
+  },duration+190);
+}
+function shoot(origin, keyboard) {
+  if (busy || done()) return;
+  const i = Number(origin.dataset.i);
+  let color, sources;
+  if (mode==="tunnel") {
+    color = queue[0];
+    const lane = tiles[i];
+    if (lane[0]?.[0]!==color) {
+      el("status").textContent = "Aim for "+colors[color][0]+" at a pocket mouth.";
+      return;
+    }
+    let depth = 0;
+    while (lane[depth]?.[0]===color) depth++;
+    sources = [...origin.querySelectorAll(".pocket")].slice(-depth).flatMap(p=>[...p.querySelectorAll(".coin")]);
+    lane.splice(0,depth);
+    queue.shift();
+  } else {
+    color = mode==="orbit"?origin.dataset.color:tiles[i][0];
+    const targets = mode==="orbit" ? open().filter(j=>tiles[j]?.[0]===color) :
+      tiles.flatMap((s,j)=>s?.[0]===color&&(Math.floor(j/3)===Math.floor(i/3)||j%3===i%3)?[j]:[]);
+    sources = targets.flatMap(j=>[...document.querySelectorAll('[data-i="'+j+'"] .coin')]);
+    targets.forEach(j=>tiles[j]=null);
+    if(mode==="orbit") offset=(offset+1)%6;
+  }
+  left -= sources.length;
+  turns--;
+  feedback(origin,keyboard,color,sources);
+}
+for(const id of ["grid","controls"]) el(id).addEventListener("click",e=>{
+  const button=e.target.closest("button");
+  if(button) shoot(button,e.detail===0);
+});
+el("levels").addEventListener("click",e=>{
+  const button=e.target.closest("[data-level]");
+  if(!button||busy) return;
+  load(Number(button.dataset.level));
+  if(e.detail===0) el("levels").children[level].focus();
+});
+el("reset").addEventListener("click",()=>{if(!busy) load(level);});
+el("sound").addEventListener("click",e=>{
+  muted=!muted;
+  e.target.textContent=muted?"Sound off":"Sound on";
+  e.target.setAttribute("aria-pressed",String(!muted));
+});
+load(0);
+</script></body></html>
