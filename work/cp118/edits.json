@@ -1,0 +1,16 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp117\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 117';",
+   "const BUILD = '2026.11.19 UAT 118';"
+  ],
+  [
+   "for(const f of floats)if(!PGPX)f.cp86seen=1;",
+   "for(const f of floats)if(!PGPX&&!CP86T)f.cp86seen=1; /* CP-86 held beat: texts wait through the tail */"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp86-beat.js"
+ ]
+}

@@ -1,0 +1,31 @@
+﻿{
+    "version":  20261119000029,
+    "displayName":  "2026.11.19 UAT 118",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "34c945a40396602ccaae8fe8e8573d75252e891c8e2cf99e65ffdc4015e7b29d",
+    "stagedJSONSHA256":  "731aaf251718b1856c948026ac2907e60da6fd394817d1eb8088be2840d1fa7c",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "2855c00f07704e397d72a8535aefe9066af08118ff32fff5ab463ea28d3d9040",
+    "jsonBytes":  59891509,
+    "runtimeFiles":  81,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.19 UAT 117",
+    "backup":  "uat/backups/before-UAT118-20261119000029",
+    "evidence":  "tickets/CP-86-evidence/uat118",
+    "checks":  [
+                   "checks112-on118.json",
+                   "checks64-on118.json",
+                   "checks88-on118.json",
+                   "checks90-on118.json",
+                   "checks86m.json"
+               ],
+    "authorization":  "UAT 118: CP-86 Sonic meow held beat after the rings (PM, Nov 19, Jenny\u0027s words: \"the sound wave should stop, and then there should be a beat where the cat\u0027s still in the sonic meow pose\"; PM: \"UAT number: 118, on 117\"); UAT only",
+    "localPublication":  "verified"
+}

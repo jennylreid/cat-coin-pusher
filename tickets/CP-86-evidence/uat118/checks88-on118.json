@@ -1,0 +1,265 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp118\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp110-hug\\release.html",
+ "passed": true,
+ "passedN": 8,
+ "failed": [],
+ "notes": {
+  "bank": [
+   {
+    "cat": "orange",
+    "fps": 60,
+    "pickupSame": true,
+    "baseStarted": true,
+    "buildStarted": false,
+    "bank": 1,
+    "shown": true,
+    "tapStarts": true,
+    "bankAfter": 0,
+    "hiddenWhile": true,
+    "endedAndShown": true,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "cat": "orange",
+    "fps": 30,
+    "pickupSame": true,
+    "baseStarted": true,
+    "buildStarted": false,
+    "bank": 1,
+    "shown": true,
+    "tapStarts": true,
+    "bankAfter": 0,
+    "hiddenWhile": true,
+    "endedAndShown": true,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "cat": "siamese",
+    "fps": 60,
+    "pickupSame": true,
+    "baseStarted": true,
+    "buildStarted": false,
+    "bank": 1,
+    "shown": true,
+    "tapStarts": true,
+    "bankAfter": 0,
+    "hiddenWhile": true,
+    "endedAndShown": true,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "cat": "siamese",
+    "fps": 30,
+    "pickupSame": true,
+    "baseStarted": true,
+    "buildStarted": false,
+    "bank": 1,
+    "shown": true,
+    "tapStarts": true,
+    "bankAfter": 0,
+    "hiddenWhile": true,
+    "endedAndShown": true,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "cat": "tortie",
+    "fps": 60,
+    "pickupSame": true,
+    "baseStarted": true,
+    "buildStarted": false,
+    "bank": 1,
+    "shown": true,
+    "tapStarts": true,
+    "bankAfter": 0,
+    "hiddenWhile": true,
+    "endedAndShown": true,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "cat": "tortie",
+    "fps": 30,
+    "pickupSame": true,
+    "baseStarted": true,
+    "buildStarted": false,
+    "bank": 1,
+    "shown": true,
+    "tapStarts": true,
+    "bankAfter": 0,
+    "hiddenWhile": true,
+    "endedAndShown": true,
+    "errs": 0,
+    "ok": true
+   }
+  ],
+  "screen": [
+   {
+    "sz": "412x915",
+    "cat": "orange",
+    "btn": {
+     "x": 266,
+     "y": 64,
+     "w": 34,
+     "h": 34
+    },
+    "quake": {
+     "x": 210,
+     "y": 54,
+     "w": 42,
+     "h": 42
+    },
+    "home": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "hb": 98,
+    "errs": 0,
+    "clearOfHome": true,
+    "inHeader": true,
+    "ok": true
+   },
+   {
+    "sz": "412x915",
+    "cat": "siamese",
+    "btn": {
+     "x": 266,
+     "y": 64,
+     "w": 34,
+     "h": 34
+    },
+    "quake": {
+     "x": 210,
+     "y": 54,
+     "w": 42,
+     "h": 42
+    },
+    "home": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "hb": 98,
+    "errs": 0,
+    "clearOfHome": true,
+    "inHeader": true,
+    "ok": true
+   },
+   {
+    "sz": "412x915",
+    "cat": "tortie",
+    "btn": {
+     "x": 266,
+     "y": 64,
+     "w": 34,
+     "h": 34
+    },
+    "quake": {
+     "x": 210,
+     "y": 54,
+     "w": 42,
+     "h": 42
+    },
+    "home": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "hb": 98,
+    "errs": 0,
+    "clearOfHome": true,
+    "inHeader": true,
+    "ok": true
+   },
+   {
+    "sz": "360x640",
+    "cat": "orange",
+    "btn": {
+     "x": 266,
+     "y": 64,
+     "w": 34,
+     "h": 34
+    },
+    "quake": {
+     "x": 210,
+     "y": 54,
+     "w": 42,
+     "h": 42
+    },
+    "home": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "hb": 98,
+    "errs": 0,
+    "clearOfHome": true,
+    "inHeader": true,
+    "ok": true
+   },
+   {
+    "sz": "360x640",
+    "cat": "siamese",
+    "btn": {
+     "x": 266,
+     "y": 64,
+     "w": 34,
+     "h": 34
+    },
+    "quake": {
+     "x": 210,
+     "y": 54,
+     "w": 42,
+     "h": 42
+    },
+    "home": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "hb": 98,
+    "errs": 0,
+    "clearOfHome": true,
+    "inHeader": true,
+    "ok": true
+   },
+   {
+    "sz": "360x640",
+    "cat": "tortie",
+    "btn": {
+     "x": 266,
+     "y": 64,
+     "w": 34,
+     "h": 34
+    },
+    "quake": {
+     "x": 210,
+     "y": 54,
+     "w": 42,
+     "h": 42
+    },
+    "home": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "hb": 98,
+    "errs": 0,
+    "clearOfHome": true,
+    "inHeader": true,
+    "ok": true
+   }
+  ]
+ }
+}
