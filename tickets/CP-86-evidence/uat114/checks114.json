@@ -1,0 +1,223 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp86-mitts\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp113\\release.html",
+ "passed": true,
+ "passedN": 11,
+ "failed": [],
+ "notes": {
+  "tower": {
+   "today": {
+    "towers": 5,
+    "standing": 4,
+    "stats": {
+     "tips": 0,
+     "retips": 0,
+     "bursts": 0,
+     "edge": 0
+    },
+    "errs": 0,
+    "mode": "today"
+   },
+   "topple": {
+    "towers": 5,
+    "standing": 0,
+    "stats": {
+     "tips": 50,
+     "retips": 0,
+     "bursts": 5,
+     "edge": 0
+    },
+    "errs": 0,
+    "mode": "topple"
+   }
+  },
+  "boards": {
+   "rows": [
+    {
+     "k": "lanes",
+     "on": true,
+     "left": 24,
+     "budget": 24,
+     "cols": 2,
+     "clock": "24 drops",
+     "extras": true,
+     "timer": true,
+     "w0": {
+      "pending": true,
+      "got": 0,
+      "phase": "play"
+     },
+     "w2": {
+      "phase": "end",
+      "win": true
+     }
+    },
+    {
+     "k": "cup",
+     "on": true,
+     "left": 18,
+     "budget": 18,
+     "cols": 0,
+     "clock": "18 drops",
+     "extras": true,
+     "timer": true,
+     "w0": {
+      "pending": true,
+      "got": 6,
+      "phase": "play"
+     },
+     "w2": {
+      "phase": "end",
+      "win": true
+     }
+    },
+    {
+     "k": "bumper",
+     "on": true,
+     "left": 28,
+     "budget": 28,
+     "cols": 1,
+     "clock": "28 drops",
+     "extras": true,
+     "timer": true,
+     "w0": {
+      "pending": true,
+      "got": 12,
+      "phase": "play"
+     },
+     "w2": {
+      "phase": "end",
+      "win": true
+     }
+    },
+    {
+     "k": "gate",
+     "on": true,
+     "left": 14,
+     "budget": 14,
+     "cols": 1,
+     "clock": "14 drops",
+     "extras": true,
+     "timer": true,
+     "w0": {
+      "pending": true,
+      "got": 0,
+      "phase": "play"
+     },
+     "w2": {
+      "phase": "end",
+      "win": true
+     }
+    }
+   ],
+   "bud": {
+    "left": 0,
+    "released": 18,
+    "phase": "end",
+    "why": "coins",
+    "got": 0
+   },
+   "bud2": {
+    "phase": "end",
+    "why": "coins",
+    "win": false,
+    "got": 0
+   },
+   "off": {
+    "on": false,
+    "cols": 0,
+    "clock": "1:00",
+    "name": "First push",
+    "lv": {
+     "passed": 0,
+     "sel": 1,
+     "stars": {}
+    }
+   }
+  },
+  "round3": {
+   "st": {
+    "on": true,
+    "coloured": [
+     "lab-blue",
+     "lab-green",
+     "lab-red"
+    ],
+    "ahead": 3,
+    "clock": "20 drops",
+    "text": "Burst 11 in one tap",
+    "budget": 20
+   },
+   "r": {
+    "tap": 6,
+    "chains": 2,
+    "got": 6,
+    "errs": 0
+   },
+   "btn": {
+    "off": null,
+    "on": false
+   }
+  },
+  "leave": {
+   "midRoundIn": {
+    "lab": true,
+    "cols": 2
+   },
+   "afterHome": {
+    "lab": false,
+    "sel": null,
+    "name": "First push",
+    "want": "First push",
+    "cols": 0,
+    "clock": "1:00",
+    "coloured": 0,
+    "row": []
+   },
+   "play": {
+    "lab": false,
+    "sel": null,
+    "name": "First push",
+    "want": "First push",
+    "cols": 0,
+    "clock": "1:00",
+    "coloured": 0,
+    "row": [
+     "Level 1 · First push"
+    ]
+   },
+   "listBack": {
+    "shown": true,
+    "result": "Pusher chains: out of coins (0 of 11)"
+   },
+   "listHome": {
+    "lab": false,
+    "sel": null,
+    "name": "First push",
+    "want": "First push",
+    "cols": 0,
+    "clock": "1:00",
+    "coloured": 0,
+    "row": []
+   },
+   "play2": {
+    "lab": false,
+    "sel": null,
+    "name": "First push",
+    "want": "First push",
+    "cols": 0,
+    "clock": "1:00",
+    "coloured": 0,
+    "row": [
+     "Level 1 · First push"
+    ]
+   },
+   "fresh": {
+    "sel": null,
+    "lab": false
+   },
+   "lv": true,
+   "errs": 0
+  }
+ }
+}

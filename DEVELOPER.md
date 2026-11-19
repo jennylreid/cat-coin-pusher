@@ -10,6 +10,15 @@ Block `work/cp111/cp88-bank.js` (`work/cp111/setup.py <base> <UAT number>` write
 Block `work/cp83lab/cp83-lab.js` (build `work/cp109-lab/` swaps UAT 108's CP-83 block for it). No Engineer tools picker (`__labCredits` replaced by a comment, as UAT 108 did). `LABH`: a DOM list `#cp83home` opened by the Home button (`labhBtn`, drawn in a `pgDrawMain` wrapper, tapped in a `pgMainTap` wrapper; only with `S.dev`), `labhPlay(k)` -> `labStart`, round end (`wildTick` wrapper, `WILD.endT>1.8`) reopens the list with the result; `labhHome()` turns the lab off. Guard (`update` wrapper): Home showing with `LAB.st.sel` set and the list closed -> `LAB.set(null)` + `wildReset()`, so the round's own Home (`cp51Home`) can't leave a lab board selected. `LAB3` Pusher chains: colours on `b.id` ('lab-red/green/blue', tinted coin sprite), preview `LAB3.ahead`, trigger only within 0.4 s of landing (group of 3+), chain to touching groups of 2+ of the next colour (red -> green -> blue). Test traps: the release has CRLF line endings, so read sources as bytes or with node's fs when matching blocks; UAT 108's checks72s/80 reference chain keeps UAT 104's block with its picker.
 
 ## CP-86 Sonic meow face — UAT 108, November 18, 2026
+**UAT 114 (Nov 19): the mitts have three options** (`work/cp86-mitts/cp86-mitts.js` + five marked edits). `CP86M` holds the
+Developer choice (Engineer tools > "Sonic meow mitts", `catpusher.uat.cp86mitts.v1`; default `head`, also `B`, `C`), latched on
+the meow's first update (`cp86MPick`, stored on PGPX). `cp86MTarget(side)`: head = cp58Mitt's Yawn stretch (cp58Rest +
+side*48, -185, seen turn .43); B/C = the mock-ups, offsets from cp58Rest. `cp86MittOff(side,path,base)` now takes the drawing
+path ('rest' = pawMotion around cp58Rest, 'wait' = idle mitts at mittRest + the drawMittArm turn) and that path's resting
+place, so a pose lands on the same spot and turn either way; weight `cp86MWeight()` eases in over 0.6 s and out over 0.6 s to
+the face switch; the shake (`cp86Pose`) stays on top. `cp86MOnTop()` (head option only, while cp86K>0) moves the idle mitts'
+drawing from before the head to the HUD pass (after the head), as the rest pose and Yawn draw them. Checks
+`work/cp86-mitts/checks86m.cjs` (made by `make-checks86m.py`); stills `mittshot.cjs`.
 Block `work/cp108/cp86-meow.js` (`work/cp108/setup.py <base>` writes `build.py` and builds it on a published base). Drawing only, plus the floating-text hold.
 - **Face:** during Sonic meow's action (`PGPX.id==='sonic'`, Siamese art on screen: `CP75_CAT`) `drawTrackingPupils` draws `CP75_ART.siamese.face` over the normal face on the head canvas, as CP-58 does. `cp86K()` is 1 from the action's first frame until `dur-CP86.tail` (0.1 s), else 0: no fades (Jenny: "Fades don't work").
 - **Eyes:** `cp86Open()` is 1 from `CP86.openAt` (3.75 s, the last meow). Open eyes = the current head art (`cp86HeadArt()`, same choice as the head draw) clipped to the two eye ellipses `CP86.eyeArea`/`eyeR`, at full strength, then the normal pupils. They stay solid until the face switches back.
