@@ -10,6 +10,11 @@ Block `work/cp111/cp88-bank.js` (`work/cp111/setup.py <base> <UAT number>` write
 Block `work/cp83lab/cp83-lab.js` (build `work/cp109-lab/` swaps UAT 108's CP-83 block for it). No Engineer tools picker (`__labCredits` replaced by a comment, as UAT 108 did). `LABH`: a DOM list `#cp83home` opened by the Home button (`labhBtn`, drawn in a `pgDrawMain` wrapper, tapped in a `pgMainTap` wrapper; only with `S.dev`), `labhPlay(k)` -> `labStart`, round end (`wildTick` wrapper, `WILD.endT>1.8`) reopens the list with the result; `labhHome()` turns the lab off. Guard (`update` wrapper): Home showing with `LAB.st.sel` set and the list closed -> `LAB.set(null)` + `wildReset()`, so the round's own Home (`cp51Home`) can't leave a lab board selected. `LAB3` Pusher chains: colours on `b.id` ('lab-red/green/blue', tinted coin sprite), preview `LAB3.ahead`, trigger only within 0.4 s of landing (group of 3+), chain to touching groups of 2+ of the next colour (red -> green -> blue). Test traps: the release has CRLF line endings, so read sources as bytes or with node's fs when matching blocks; UAT 108's checks72s/80 reference chain keeps UAT 104's block with its picker.
 
 ## CP-86 Sonic meow face — UAT 108, November 18, 2026
+**UAT 115 (Nov 19): choices D, E, F** (`work/cp115/`, four marked in-place edits to the UAT 114 block). D = the Dancing pose's
+centre (`POSE.D`: cp58Rest, 12 in, 30 up, seen turn -.12). E/F = `{seq:[first,second]}`: `cp86MTarget` eases from the first pose
+to the second between `CP86M.swap` [3, 3.75] s (3.75 = `CP86.openAt`, the eyes opening). `cp86MOnTop()` is true for every
+choice but B and C, so D/E/F draw in front of the head with no mid-meow layer change.
+
 **UAT 114 (Nov 19): the mitts have three options** (`work/cp86-mitts/cp86-mitts.js` + five marked edits). `CP86M` holds the
 Developer choice (Engineer tools > "Sonic meow mitts", `catpusher.uat.cp86mitts.v1`; default `head`, also `B`, `C`), latched on
 the meow's first update (`cp86MPick`, stored on PGPX). `cp86MTarget(side)`: head = cp58Mitt's Yawn stretch (cp58Rest +
