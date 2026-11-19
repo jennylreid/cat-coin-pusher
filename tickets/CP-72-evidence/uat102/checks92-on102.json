@@ -1,0 +1,374 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp102\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\ref78-cp91-release.html",
+ "passed": true,
+ "passedN": 6,
+ "failed": [],
+ "notes": {
+  "timeline": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "picksSame": true,
+    "picked": [
+     "box",
+     "egg",
+     "quake",
+     "rain5",
+     "rain5"
+    ],
+    "pickedRemovedSame": true,
+    "pickedRemoved": [
+     "item:box,item:egg,quake:,rain5:,rain5:",
+     "item:box,item:egg,quake:,rain5:,rain5:"
+    ],
+    "allRemoved": [
+     11,
+     11
+    ],
+    "words": [
+     {
+      "w": "FORMAL INSPECTION!",
+      "from": 0,
+      "to": 1.18
+     },
+     {
+      "w": "SPLENDID.",
+      "from": 4.97,
+      "to": 6.05
+     }
+    ],
+    "oldWords": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "bam": [
+     2,
+     3
+    ],
+    "draws": [
+     6,
+     6
+    ],
+    "clink": [
+     [
+      1.25
+     ],
+     [
+      -1
+     ]
+    ],
+    "actionBeforeLead": 0,
+    "len": [
+     6.05,
+     4.4
+    ],
+    "locked": true,
+    "charge": 1,
+    "errs": 0,
+    "calls": [
+     "COIN RAIN ×5!"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "picksSame": true,
+    "picked": [
+     "egg",
+     "box",
+     "rain5",
+     "rain5",
+     "rain5"
+    ],
+    "pickedRemovedSame": true,
+    "pickedRemoved": [
+     "item:box,item:egg,rain5:,rain5:,rain5:",
+     "item:box,item:egg,rain5:,rain5:,rain5:"
+    ],
+    "allRemoved": [
+     9,
+     9
+    ],
+    "words": [
+     {
+      "w": "FORMAL INSPECTION!",
+      "from": 0,
+      "to": 1.18
+     },
+     {
+      "w": "SPLENDID.",
+      "from": 4.97,
+      "to": 6.05
+     }
+    ],
+    "oldWords": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "bam": [
+     2,
+     3
+    ],
+    "draws": [
+     6,
+     6
+    ],
+    "clink": [
+     [
+      1.25
+     ],
+     [
+      -1
+     ]
+    ],
+    "actionBeforeLead": 0,
+    "len": [
+     6.05,
+     4.4
+    ],
+    "locked": true,
+    "charge": 1,
+    "errs": 0,
+    "calls": [
+     "COIN RAIN ×5!",
+     "COIN RAIN ×5!"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "picksSame": true,
+    "picked": [
+     "box",
+     "egg",
+     "quake",
+     "rain5",
+     "rain5"
+    ],
+    "pickedRemovedSame": true,
+    "pickedRemoved": [
+     "item:box,item:egg,quake:,rain5:,rain5:",
+     "item:box,item:egg,quake:,rain5:,rain5:"
+    ],
+    "allRemoved": [
+     11,
+     11
+    ],
+    "words": [
+     {
+      "w": "FORMAL INSPECTION!",
+      "from": 0,
+      "to": 1.17
+     },
+     {
+      "w": "SPLENDID.",
+      "from": 4.97,
+      "to": 6.03
+     }
+    ],
+    "oldWords": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "bam": [
+     2,
+     3
+    ],
+    "draws": [
+     6,
+     6
+    ],
+    "clink": [
+     [
+      1.27
+     ],
+     [
+      -1
+     ]
+    ],
+    "actionBeforeLead": 0,
+    "len": [
+     6.03,
+     4.4
+    ],
+    "locked": true,
+    "charge": 1,
+    "errs": 0,
+    "calls": [
+     "COIN RAIN ×5!"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "picksSame": true,
+    "picked": [
+     "egg",
+     "box",
+     "rain5",
+     "rain5",
+     "rain5"
+    ],
+    "pickedRemovedSame": true,
+    "pickedRemoved": [
+     "item:box,item:egg,rain5:,rain5:,rain5:",
+     "item:box,item:egg,rain5:,rain5:,rain5:"
+    ],
+    "allRemoved": [
+     11,
+     11
+    ],
+    "words": [
+     {
+      "w": "FORMAL INSPECTION!",
+      "from": 0,
+      "to": 1.17
+     },
+     {
+      "w": "SPLENDID.",
+      "from": 4.97,
+      "to": 6.03
+     }
+    ],
+    "oldWords": [
+     "FORMAL INSPECTION!",
+     "HMM.",
+     "SPLENDID."
+    ],
+    "bam": [
+     2,
+     3
+    ],
+    "draws": [
+     6,
+     6
+    ],
+    "clink": [
+     [
+      1.27
+     ],
+     [
+      -1
+     ]
+    ],
+    "actionBeforeLead": 0,
+    "len": [
+     6.03,
+     4.4
+    ],
+    "locked": true,
+    "charge": 1,
+    "errs": 0,
+    "calls": [
+     "COIN RAIN ×5!",
+     "COIN RAIN ×5!",
+     "COIN RAIN ×5!"
+    ],
+    "fails": []
+   }
+  ],
+  "layout": [
+   {
+    "sz": "412x915",
+    "frames": 137,
+    "overlaps": [],
+    "words": {
+     "FORMAL INSPECTION!": {
+      "top": 427.3,
+      "bottom": 613.6,
+      "left": 16.6,
+      "right": 399.7
+     },
+     "SPLENDID.": {
+      "top": 472.1,
+      "bottom": 568.8,
+      "left": 42.6,
+      "right": 370.3
+     }
+    },
+    "introOnly": true,
+    "otherCallout": [],
+    "shots": [
+     "1-formal-inspection",
+     "2-monocle",
+     "3-beam",
+     "4-sweep",
+     "5-splendid"
+    ],
+    "errs": 0
+   },
+   {
+    "sz": "360x640",
+    "frames": 137,
+    "overlaps": [],
+    "words": {
+     "FORMAL INSPECTION!": {
+      "top": 396.3,
+      "bottom": 567.9,
+      "left": 17.2,
+      "right": 394.4
+     },
+     "SPLENDID.": {
+      "top": 426.6,
+      "bottom": 537.5,
+      "left": 33.4,
+      "right": 364.9
+     }
+    },
+    "introOnly": true,
+    "otherCallout": [],
+    "shots": [
+     "1-formal-inspection",
+     "2-monocle",
+     "3-beam",
+     "4-sweep",
+     "5-splendid"
+    ],
+    "errs": 0
+   }
+  ],
+  "powerText": {
+   "cats": [
+    {
+     "c": "tuxedo",
+     "line": "Dance break · power: Formal inspection",
+     "button": "FORMAL INSPECTION",
+     "desc": "A monocle spots the best pieces; the cane sweeps them forward."
+    },
+    {
+     "c": "orange",
+     "line": "Treat toss · power: Zoomies",
+     "button": "ZOOMIES",
+     "desc": "Two kittens shove pieces off the front; the pusher runs double speed."
+    },
+    {
+     "c": "ragdoll",
+     "line": "Pet the cat · power: Hug",
+     "button": "HUG",
+     "desc": "Flops over the board and blocks both side gutters for 6 s."
+    },
+    {
+     "c": "siamese",
+     "line": "Laser chase · power: Sonic meow",
+     "button": "SONIC MEOW",
+     "desc": "A big meow shakes the board; the pusher reaches twice as far."
+    },
+    {
+     "c": "tortie",
+     "line": "Mouse pounce · power: Tortitude",
+     "button": "TORTITUDE",
+     "desc": "A fiery burst shoves a big group of coins forward."
+    }
+   ],
+   "match": true,
+   "yawnText": false
+  }
+ }
+}

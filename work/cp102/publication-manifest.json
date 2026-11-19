@@ -1,0 +1,29 @@
+{
+  "version": 20261118000013,
+  "displayName": "2026.11.18 UAT 102",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "35830a39c47f4d8d2e52d8b20908ad1496b975cf80dd02f04a61804230d076a8",
+  "stagedJSONSHA256": "a2a4f4704910d3a3759767c9e12243825edf25088ce66f67b2a8d44b29146d11",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "424653448753d19bf80505b4426bfe2ee0267dd6b06035b1889f644b3a044ac4",
+  "jsonBytes": 58760147,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.18 UAT 101",
+  "backup": "uat/backups/before-UAT102-20261118000013",
+  "evidence": "tickets/CP-72-evidence/uat102",
+  "checks": [
+    "checks102.json",
+    "checks101-on102.json",
+    "checks64-on102.json",
+    "checks72-on102.json",
+    "checks72s-on102.json",
+    "checks72z-on102.json"
+  ],
+  "authorization": "UAT 102: CP-72 peek-a-boo ending as the default 'Zoomies ending' (Jenny, Nov 18, via PM: \"keep this small jump, but before leaving the screen, pause at the edge of the screen with just the eyes showing, just for a moment.\"; \"go with the peekaboo ending also.\") + CP-72 Level 7 side guard (\"nudge prizes only while they're sliding toward a side; resting edge prizes stay put. Into UAT 102.\"); UAT only"
+}

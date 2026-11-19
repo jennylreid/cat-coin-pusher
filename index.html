@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.18 UAT 101';
+const BUILD = '2026.11.18 UAT 102';
 
 
 
@@ -42668,7 +42668,7 @@ function z72Tick(dt){const X=Z72X;if(!X)return;X.t+=dt;const t=X.t;
  // no prize (and nothing a kitten shoves) goes over a side while Zoomies runs: near a side edge it is eased back
  for(const b of bodies){if(b.dead||b.kind==='stack')continue;const mine=X.taken.has(b);if(b.kind!=='item'&&!mine)continue;const q=b.rb.translation(),x=q.x/M,z=q.z/M;
   if(z>=T.FRONT-6||z<pusherY)continue;const edge=tableHalfAt(Math.min(T.FRONT,z))-z72R(b)*1.1;
-  if(Math.abs(x-200)>edge){const v=b.rb.linvel(),d=x<200?1:-1;b.rb.wakeUp();b.rb.setLinvel({x:d*Math.max(1.6,d*v.x),y:v.y,z:v.z},true);Z72.stats.eased=(Z72.stats.eased|0)+1;}}
+  if(Math.abs(x-200)>edge){const v=b.rb.linvel(),d=x<200?1:-1;if(-d*v.x<=CP72G.out)continue; /* CP-72 Level 7: only while sliding toward the side, and only enough to stop it */b.rb.wakeUp();b.rb.setLinvel({x:d*CP72G.back,y:v.y,z:v.z},true);Z72.stats.eased=(Z72.stats.eased|0)+1;}}
  // the shove: a shoved piece slides straight on toward you (steered inside the tray's width) and over the front edge
  for(const o of X.carry){const b=o.b;if(o.done)continue;if(b.dead){o.done=true;continue;}const q=b.rb.translation(),x=q.x/M,z=q.z/M;
   if(z>T.FRONT+4){o.done=true;continue;}
@@ -43002,10 +43002,10 @@ openCredits=function(){const r=__cp72zCredits.apply(this,arguments);try{
 // unchanged, so the hang lasts 0.85 s (was 1.45 s). Everything else in Zoomies is unchanged.
 // Settings -> Developer -> Engineer tools -> "Zoomies ending": Short close-up (this one, default) / Hang (UAT 96's: the
 // poofed kitten hangs 1 s at 1.5x, no close-up), saved on this phone (localStorage catpusher.uat.cp72ending.v1).
-const CP72E=(()=>{const KEY='catpusher.uat.cp72ending.v1',CHOICES=['short','hang'],NAMES={short:'Short close-up',hang:'Hang'},hold=.4;
+const CP72E=(()=>{const KEY='catpusher.uat.cp72ending.v2',CHOICES=['peek','short','hang'],NAMES={peek:'Peek-a-boo',short:'Short close-up',hang:'Hang'},hold=.4; /* CP-72 peek-a-boo (UAT 102) */
  const L=Z72.leapHang;L.faceHang=L.faceIn+hold+L.faceOut;
- let pick='short';try{const v=localStorage.getItem(KEY);if(CHOICES.includes(v))pick=v;}catch(e){}
- const apply=()=>{L.style=pick==='hang'?'still':'crazy';};apply();
+ let pick='peek';try{const v=localStorage.getItem(KEY);if(CHOICES.includes(v))pick=v;}catch(e){}
+ const apply=()=>{L.style=pick==='hang'?'still':pick==='peek'?'peek':'crazy';};apply();
  function set(k){if(!CHOICES.includes(k))return;pick=k;try{localStorage.setItem(KEY,k);}catch(e){}apply();}
  return {KEY,CHOICES,NAMES,hold,set,get:()=>pick};})();
 // the choice in Engineer tools, under "Zoomies sound"
@@ -43088,6 +43088,39 @@ openCredits=function(){const r=__cp72zfCredits.apply(this,arguments);try{
    const go=()=>{try{if(CP72Z.get()!==k)return;if(CP72Z.bufs[k]){if(CP72Z.play(k,1))setTimeout(()=>CP72Z.stop(.3),2000);return;}
     CP72Z.load(k);if(Date.now()-t0<4000)setTimeout(go,100);}catch(e){}};go();};}}catch(e){}return r;};
 // ---------- end CP-72 Zoomies sound fix ----------
+
+// ---------- CP-72 peek-a-boo ending (UAT 102; Jenny, Nov 18: "keep this small jump, but before leaving the screen, pause
+// at the edge of the screen with just the eyes showing, just for a moment." / "go with the peekaboo ending also.") ----------
+// Style 'peek' (Engineer tools "Zoomies ending" -> Peek-a-boo, now the default): the ginger kitten's final leap is UAT 96's
+// hang (puffed, about 1.5x, not tilted); then instead of shrinking away it drops to the bottom edge of the screen and stops
+// there with just the top of its head and its eyes showing, looking at you, for a moment (fur settling back down), then
+// ducks out of sight. Drawn with the kittens' own drawing (z72Kitten), at the size it had in the hang; drawn last so the
+// screen edge is the real edge. The rest of Zoomies is unchanged.
+const CP72P={drop:.24,hold:.5,duck:.14, eyes:7}; // seconds: fall to the edge, the peek, ducking away; eyes this far (kitten units) above the edge
+function cp72PeekLen(){return CP72P.drop+CP72P.hold+CP72P.duck;}
+const __cp72pPath=z72Path;
+z72Path=function(k,aim){const L=Z72.leapHang,peek=k.id===0&&L.style==='peek';if(peek)L.style='still';
+ try{__cp72pPath(k,aim);}finally{if(peek)L.style='peek';}
+ if(!peek)return;const segs=k.segs,hang=segs[segs.length-2],Ph=hang.f(1);segs.pop();
+ for(const [n,d] of [['drop',CP72P.drop],['hold',CP72P.hold],['duck',CP72P.duck]])segs.push({k:'leap',d,f:u=>({...Ph,h:Ph.h,fade:0,pk:n,pu:u})});
+ let t=0;for(const g of segs){g.t0=t;t+=g.d;}k.len=t;};
+// the peek, over everything: from where the hang ended to the bottom edge, held, then down out of sight
+function cp72PeekDraw(){const X=Z72X,k=X&&X.kits[0];if(!k||k.gone||!k.P||!k.P.pk)return;const P=k.P,C=CP72P;
+ const g=skyScreen(P.x,P.z,0),p0=skyScreen(P.x,P.z,P.h),s=g.s*Z72.size/48*(P.grow||1),bottom=ctx.canvas.height/(scale*renderPixelRatio);
+ const at=bottom+(33-C.eyes)*s; // the kitten's feet: its eyes (33 units up, front view) sit C.eyes units above the edge
+ let y,puff,pose;
+ if(P.pk==='drop'){const e=z72E(P.pu);y=p0.y+(at-p0.y)*e;puff=Math.max(0,1-P.pu*1.6);pose=P.pu<.5?'leap':undefined;}
+ else if(P.pk==='hold'){y=at;puff=0;pose=undefined;}
+ else{const e=P.pu*P.pu;y=at+e*40*s;puff=0;pose=undefined;}
+ ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);
+ z72Kitten(p0.x,y,s,k.coat,Math.PI,1,0,1,0,puff,0,pose);ctx.restore();}
+const __cp72pFrame=draw;draw=function(){const r=__cp72pFrame.apply(this,arguments);try{cp72PeekDraw();}catch(e){}return r;};
+// CP-72 Level 7 (UAT 102; Jenny, Nov 18: "nudge prizes only while they're sliding toward a side; resting edge prizes stay
+// put."): Zoomies' side guard (in z72Tick) now acts only while a piece moves toward the nearer side faster than `out` (m/s;
+// 0.05 = 5 table units/s), and then only stops that slide (sideways speed set to `back` inward, 0.15 m/s) instead of sending
+// it inward at 1.6 m/s. Prizes resting at an edge (Level 7, "Edge of the table") stay where they are.
+var CP72G={out:.05,back:.15};
+// ---------- end CP-72 peek-a-boo ----------
 
 </script>
 

@@ -152,3 +152,66 @@ level ladder and Up Next unlocks.
   Laser chase, Tortie = Mouse pounce), plus one power each. CP-81 not doing. Open for the plan: how the other four cats
   reach the wheel (e.g. a perfect side game, once each is winnable), and making each side game as good as the Dance break.
   The per-cat Yawn art stays in the game for later use.
+
+## Jenny, Nov 18 (evening): prizes, and the core pusher isn't fun enough yet
+- Prizes: "we have quite a lot of prizes... it's really easy to add prizes [Codex does them in one pass]... I suggest that
+  we introduce them rather slowly, and that a lot of the stuff we have doesn't need to all be crammed into the early
+  levels... it's a lot of material to work with to create this game flow."
+- Core gameplay: "one problem we have is that the main gameplay, which is the coin pusher... it's just not fully fleshed
+  out. It's probably not good enough. I'd like it to be as fun as Pixel Flow... basically only has the one game, but it's
+  entertaining enough to keep playing virtually endlessly, because there's always a new board and it's an enjoyable
+  feeling to solve one of the boards... I would almost say it's not my kind of game... But [Bear Coin] I definitely
+  enjoyed it. I just don't know what about it I enjoyed."
+- PM view (for discussion): make each board feel *solvable*, like a Pixel Flow puzzle: every level built around one
+  clear goal and one "trick" (a tower to topple, a ledge to clear, a prize hanging on the edge), where *where* you drop
+  matters and a good drop sets off a satisfying cascade. The coin wallet (no timer) makes each drop count. New prizes
+  arrive a few at a time as unlocks, not all in the first levels. First step: Jenny replays Bear Coin for 10 minutes and
+  notes the moments that feel good; we turn those into board rules.
+- Jenny, Nov 18: confirms the loop: no timer, play as long as you have coins, run out and come back later; cooking takes
+  real time ("maybe a half hour, maybe 40 minutes"). Timed boards as challenges: "maybe we have timed games every day, 3
+  of them or something, and you can win for the day... That gives people a reason to come back every day. And it would be
+  great if we could rank people." Asked whether a beta can go on the Play Store.
+  PM: daily challenges first with personal goals (win the day, a streak, your best score), no server needed; rankings
+  later via Google Play Games leaderboards, testable with testers in a Play testing track. Play Store needs: a developer
+  account, an AAB build, Play signing, a privacy policy and data-safety form; new personal accounts must run a closed test
+  (about 12 testers for 14 days, check current rule) before going public. Internal testing (up to 100 testers) is fast.
+- **Board reset ("pinsetter"), Jenny, Nov 18.** "I like seeing the cane clear the board. We could have the pusher push
+  all the way to the end of the board, clearing the entire thing and then resetting the board in front of the player's
+  eyes with a new setup... a button that is generally disabled, but over time it fills up... purely based on time or
+  maybe based on number of coins played... once it's full, it becomes enabled, and then the player can choose to reset
+  the board at any time... they could just play endlessly on the same board if they want to, but they could also reset
+  it and then they'll get some fun new setup... a bit like when you're bowling and the pins all get swiped off and
+  cleared, and then new pins get set up." Also: beating your own best is the daily-challenge goal; no Play Store until
+  "I'm pretty proud of it."
+  PM: strong idea; gives the endless board a "new board" moment. Open: does the sweep pay out what it clears (risk: a
+  jackpot button saved for loaded boards; PM leans no or a little, like swept pins); fill by coins played rather than
+  time (the wallet already gates time); is a reset a new level or a new layout of the same level? Medium effort.
+  **Decided, Jenny, Nov 18:** the sweep does not pay out; the meter fills by coins played; a reset is not a level ("you're
+  not winning a previous board in order to start a new board. You're just getting sick of a board"). Bonus: it rescues a
+  board with a big gap (e.g. after Sonic meow). Open for the plan: how resets and levels/goals fit together (e.g. does a
+  reset keep the current level's goal with a new layout?).
+
+## Jenny, Nov 18 (evening): no board goals; open board + daily challenges
+"I'm not really sure we should have goals on the board because we're not trying to win a board anymore... the goal
+[is] I want to make cat food... or I want to attract a certain cat... or I want to generate coins... I want to collect
+prizes to sell for coins so I can get special ingredients. So I think we'll have 3 timed game challenges per day. And
+then we'll have just an open board. You can just play endlessly as long as you have coins. And when you run out of
+coins, you're forced to take a break. And on that endless board, you have the ability to reset it... a meter that has
+to fill before it enables the player to start a new board."
+PM: this replaces rule 1 (levels with goals) and changes rule 9 (Up Next on level complete). Goals come from the
+player's own aims: recipes, cats, coins. Open questions are listed in the conversation and below once answered.
+Answers (Jenny, Nov 18): timed boards have very clear goals. Prizes sell for Catnip; Catnip buys special ingredients
+(keeps the two separate). Cats: switch cat while on the board, any board (endless or timed): "the board and the cat
+choice are two totally different things. I get the same board regardless of which cat I choose. So it's weird to have
+to choose a cat before entering the board... The only reason not to is... difficulty in fitting the controls in the
+screen." PM: tap the cat's name chip on the board (already there) to swap; the cat's side game and power come with it;
+no swap while a side game or power is running. Still open: what gives a sense of progress (PM pick: attracting cats
+unlocks recipes and new prizes) and whether the 10 levels become board layouts for resets and challenges (PM pick: yes).
+- **Visiting cats are not the playing cats (Jenny, Nov 18):** "Regarding the cats we attract to the yard or whatever, I
+  don't want it to be the cats we're playing on the board with. I just want it to be really nice cat art." So: the five
+  playing cats (Tuxedo, Orange, Ragdoll, Siamese, Tortie) are helpers with side games and powers; visitors attracted by
+  recipes are a separate collection of beautiful cat illustrations (one image each, plus maybe a photo pose), shown on
+  the Porch/yard and in the Album. PM note: this keeps visitor art cheap per cat (no pose sets). Open: do new playing
+  cats ever unlock, or are the five fixed for now?
+  Answer (Jenny, Nov 18): five playing cats is already ambitious ("5 side games, 5 special powers"); no new playing cats
+  planned. Focus on bringing each of the five up to the Tuxedo's level.
