@@ -1,0 +1,26 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp86-mitts\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 114';",
+   "const BUILD = '2026.11.19 UAT 115';"
+  ],
+  [
+   "CHOICES=['head','B','C'],NAMES={head:'Above the head',B:'B: forward and out',C:'C: pointing forward'};",
+   "CHOICES=['head','B','C','D','E','F'],NAMES={head:'Above the head',B:'B: forward and out',C:'C: pointing forward',D:'D: Dancing pose',E:'E: Dancing, then above the head',F:'F: Above the head, then Dancing'}; /* CP-86 mitts D E F */"
+  ],
+  [
+   "POSE:{head:{dx:48,dy:-185,a:.43},B:{dx:13,dy:163.4,a:.35},C:{dx:-85,dy:203.4,a:-.35}}",
+   "POSE:{head:{dx:48,dy:-185,a:.43},B:{dx:13,dy:163.4,a:.35},C:{dx:-85,dy:203.4,a:-.35},D:{dx:-12,dy:-30,a:-.12},E:{seq:['D','head']},F:{seq:['head','D']}},swap:[3,3.75] /* CP-86 mitts D E F: E and F travel from the first pose to the second between swap[0] and swap[1] s (the eyes open at 3.75 s) */"
+  ],
+  [
+   "function cp86MTarget(side){const P=CP86M.POSE[cp86MPick()]||CP86M.POSE.head,R=cp58Rest(side);",
+   "function cp86MTarget(side){let P=CP86M.POSE[cp86MPick()]||CP86M.POSE.head;if(P.seq){const A=CP86M.POSE[P.seq[0]],B=CP86M.POSE[P.seq[1]],t=PGPX?PGPX.t:0,k=cp58Ease((t-CP86M.swap[0])/(CP86M.swap[1]-CP86M.swap[0]));P={dx:A.dx+(B.dx-A.dx)*k,dy:A.dy+(B.dy-A.dy)*k,a:A.a+(B.a-A.a)*k};}const R=cp58Rest(side); /* CP-86 mitts D E F */"
+  ],
+  [
+   "function cp86MOnTop(){return cp86K()>0&&cp86MPick()==='head'&&",
+   "function cp86MOnTop(){return cp86K()>0&&cp86MPick()!=='B'&&cp86MPick()!=='C' /* CP-86 mitts D E F: in front of the head for Above the head, D, E, F */&&"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": []
+}
