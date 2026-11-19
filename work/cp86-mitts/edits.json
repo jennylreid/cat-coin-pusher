@@ -1,0 +1,32 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp113\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 113';",
+   "const BUILD = '2026.11.19 UAT 114';"
+  ],
+  [
+   "pawMotion=function(side=0){const m=__cp86Paw(side);if(!side)return m;const o=cp86MittOff(side);",
+   "pawMotion=function(side=0){const m=__cp86Paw(side);if(!side)return m;const o=cp86MittOff(side,'rest',m); /* CP-86 mitts */"
+  ],
+  [
+   "mittRest=function(side){const r=__cp86MittRest(side);CP86.side=side;const o=cp86MittOff(side);",
+   "mittRest=function(side){const r=__cp86MittRest(side);CP86.side=side;const o=cp86MittOff(side,'wait',r); /* CP-86 mitts */"
+  ],
+  [
+   "drawMittArm=function(w,h){const o=CP86.side?cp86MittOff(CP86.side):null;",
+   "drawMittArm=function(w,h){const o=CP86.side?cp86MittOff(CP86.side,'wait',__cp86MittRest(CP86.side)):null; /* CP-86 mitts */"
+  ],
+  [
+   "if(sweepTime===0&&catquakeTime===0&&powerFace()!=='happy'&&!isRestPose()){ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);drawPaws();ctx.restore();}",
+   "if(sweepTime===0&&catquakeTime===0&&powerFace()!=='happy'&&!isRestPose()&&!(typeof cp86MOnTop==='function'&&cp86MOnTop())){ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);drawPaws();ctx.restore();} /* CP-86 mitts */"
+  ],
+  [
+   "if(sweepTime>0||catquakeTime>0||isRestPose())drawPaws();drawPawTouchGuides();",
+   "if(sweepTime>0||catquakeTime>0||isRestPose()||(typeof cp86MOnTop==='function'&&cp86MOnTop()))drawPaws();drawPawTouchGuides(); /* CP-86 mitts */"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp86-mitts.js"
+ ]
+}
