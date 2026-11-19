@@ -14,7 +14,7 @@ const LAB=(()=>{
   tower:{name:'Tall tower',tag:'Lab',coins:60,secs:150,lab:{kind:'topple',n:1,text:'Topple the tower',unit:'tower'},goal:['tuna'],star:null,
    // one tall tower near the front with the tuna on top: push it over the edge (or tip it) for the tuna and a pour of coins
    blocks:[[[200,650,15]]],btop:[['tuna',0,0]],towers:[],p:[],rain:[['rain5',96,480],['rain5',304,480]],quake:null,mark:[0]},
-  edge:{name:'Cliff edge',tag:'Lab',coins:50,secs:150,lab:{kind:'collect',text:'Get all 3 prizes',row:'Get all 3'},goal:['cheese','shrimp','tuna'],star:null,
+  edge:{name:'Cliff edge',tag:'Lab',coins:60,secs:150,lab:{kind:'collect',text:'Get all 3 prizes',row:'Get all 3'},goal:['cheese','shrimp','tuna'],star:null,
    // a second layer of coins along the front edge; the cheese is perched on it, the shrimp and tuna sit further back on
    // their own sides, so each needs its own push down its lane
    ledge:{y:[659,712],x:[70,330]},perch:[['cheese',95,700]],p:[['shrimp',200,630],['tuna',305,575]],towers:[],rain:[],quake:null},

@@ -215,3 +215,7 @@ unlocks recipes and new prizes) and whether the 10 levels become board layouts f
   cats ever unlock, or are the five fixed for now?
   Answer (Jenny, Nov 18): five playing cats is already ambitious ("5 side games, 5 special powers"); no new playing cats
   planned. Focus on bringing each of the five up to the Tuxedo's level.
+- **Pusher sound (parked, Jenny, Nov 18):** the Zoomies-only coin sounds (P1-P3) "make no sense... we need a different
+  pusher sound, but not specifically for zoomies... What we have today is fine with me as well... I just don't care at
+  the moment." Zoomies keeps today's sound; the P1-P3 Developer choice is removed in a later build. A new general
+  pusher sound is a later idea.

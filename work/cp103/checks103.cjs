@@ -33,8 +33,8 @@ async function levelRun(file,lv,seed,cat){const g=await boot(file,seed);
  {const g=await boot(src,3);const lv0=J(g,'PG.lv'),rec0=J(g,'PG.recipes||{}');const rows=[];let ok2=true,ok3=true,ok4=true;
   for(const k of BOARDS){g.run(`labStart('${k}')`);const inPlay=g.until("WILD.phase==='play'",900);g.ticks(30);
    const s=J(g,`{on:LAB.on(),coins:S.coins,left:Math.round(WILD.left),def:{coins:LAB.def().coins,secs:LAB.def().secs},items:bodies.filter(b=>!b.dead&&b.kind==='item').map(b=>b.id),stacks:bodies.filter(b=>!b.dead&&b.kind==='stack').length,goalStacks:bodies.filter(b=>!b.dead&&b.labGoal).length,red:bodies.filter(b=>!b.dead&&b.id==='lab-red').length,msg:wildMessage(),plain:bodies.filter(b=>!b.dead&&(b.kind==='coin'||b.kind==='silver')).length+bodies.filter(b=>!b.dead&&b.kind==='stack').reduce((a,b)=>a+b.n,0)}`);
-   // draw the goal row: capture the texts drawn
-   g.run("globalThis.__txt=[];{const __wt=wildText;wildText=function(t,...a){__txt.push(t);return __wt.call(this,t,...a);};try{cp50DrawRow();}finally{wildText=__wt;}}");const txt=J(g,'__txt');
+   // draw the goal row: capture the texts drawn (icons stubbed: this runner has no art loaded)
+   g.run("globalThis.__txt=[];{const __wt=wildText,__wi=wildIcon,__cd=cp50Draw;wildText=function(t,...a){__txt.push(t);return __wt.call(this,t,...a);};wildIcon=()=>{};cp50Draw=()=>{};try{cp50DrawRow();}finally{wildText=__wt;wildIcon=__wi;cp50Draw=__cd;}}");const txt=J(g,'__txt');
    const d=J(g,`LAB.def()`);const want={tower:{items:['tuna'],goalStacks:1},edge:{items:['cheese','shrimp','tuna']},pins:{goalStacks:6},wall:{items:['yarn','bell','duck']},mice:{items:Array(7).fill('mouse')},red:{red:14}}[k];
    let good=inPlay&&s.on&&s.coins<=d.coins&&s.left<=d.secs&&s.left>=d.secs-2&&txt[0]==='LAB · '+d.name&&txt.length>=2&&s.plain<=90;
    if(want.items)good=good&&JSON.stringify(s.items.slice().sort())===JSON.stringify(want.items.slice().sort());

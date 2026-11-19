@@ -1,0 +1,28 @@
+﻿{
+    "version":  20261118000014,
+    "displayName":  "2026.11.18 UAT 103",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "a2a4f4704910d3a3759767c9e12243825edf25088ce66f67b2a8d44b29146d11",
+    "stagedJSONSHA256":  "3e28facf8d2c78e5884717a7a91b7796fcb7d8a9af14ee8629e2778ebc0fb2e2",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "8d9eee781044fceded19dd719a119cc3ae4c8ee498e8d667116705fe699beba6",
+    "jsonBytes":  58777719,
+    "runtimeFiles":  78,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.18 UAT 102",
+    "backup":  "uat/backups/before-UAT103-20261118000014",
+    "evidence":  "tickets/CP-83-evidence/uat103",
+    "checks":  [
+                   "checks103.json",
+                   "checks64-on103.json"
+               ],
+    "authorization":  "UAT 103: CP-83 Board lab (Jenny, Nov 18: \"CP-83 Board lab: 5-6 board setups ... in the real game, chosen with a Developer picker. I play them and pick the fun ones.\"); PM: \"UAT 102 is out ... Build the board lab on it\"; UAT only",
+    "localPublication":  "verified"
+}
