@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.19 UAT 112';
+const BUILD = '2026.11.19 UAT 113';
 
 
 
@@ -43927,13 +43927,13 @@ powerTap=function(p){if(cp88Shown()&&contains(cp88Btn(),p)){stopDrops();if(cp88R
 function cp88Icon(k,x,y,s){const sp=sprite(k);if(sp&&sp.cv)ctx.drawImage(sp.cv,x-s/2,y-s/2,s,s);}
 const __cp88DrawPB=drawPowerButtons;
 drawPowerButtons=function(){__cp88DrawPB.apply(this,arguments);if(!cp88Shown())return;const k=cp88Kind(),b=cp88Btn(),x=b.x+b.w/2,y=b.y+b.h/2,n=CP88.bank[k],on=cp88Ready(),c=CP88.COL[k];
- const pu=time-CP88.pulse,s=pu<2.5?1+.12*Math.abs(Math.sin(pu*7)):1;
+ let pu=time-CP88.pulse;if(!(pu>=0))pu=9;const s=pu<2.5?1+.12*Math.abs(Math.sin(pu*7)):1; /* CP-88 hotfix: a pulse from before the game clock restarted is over */
  ctx.save();ctx.translate(x,y);ctx.scale(s*CP88R/21,s*CP88R/21);ctx.globalAlpha=on||n>0?1:.65;uiCircle(0,0,21,'#3a1d50',c,1.6);uiCircle(0,0,17,'#5a2d74');cp88Icon(k,0,0,27);
  if(pu<2.5){ctx.globalAlpha=Math.max(0,1-pu/2.5);ctx.strokeStyle=c;ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,0,21+pu*10,0,7);ctx.stroke();}
  ctx.restore();ctx.save();uiCircle(b.x+b.w+1,b.y+7,8,'#f6df9b','#835f2e',1);ctx.fillStyle='#243e43';ctx.font='bold 11px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(n,b.x+b.w+1,b.y+7);ctx.restore();};
 // charges last for the round
-const __cp88Reset=wildReset;wildReset=function(){CP88.bank={laser:0,fish:0,mousecoin:0};return __cp88Reset.apply(this,arguments);};
-const __cp88Exit=wildExit;wildExit=function(){CP88.bank={laser:0,fish:0,mousecoin:0};return __cp88Exit.apply(this,arguments);};
+const __cp88Reset=wildReset;wildReset=function(){CP88.bank={laser:0,fish:0,mousecoin:0};CP88.pulse=-9; /* CP-88 hotfix */return __cp88Reset.apply(this,arguments);};
+const __cp88Exit=wildExit;wildExit=function(){CP88.bank={laser:0,fish:0,mousecoin:0};CP88.pulse=-9; /* CP-88 hotfix */return __cp88Exit.apply(this,arguments);};
 // ---------- end CP-88 ----------
 
 </script>

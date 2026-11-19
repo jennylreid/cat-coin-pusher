@@ -1,0 +1,30 @@
+<!doctype html>
+<!-- Stuck-countdown probe (PM, Nov 19): in a real browser, the way a player does it: the Siamese board, a laser chase running
+     (its coin, started as the game starts it), then the round's Home button tapped (through the round's pointer handler, as
+     cp51Home replays it), then another cat's board opened (pgPlay, then its start card's countdown). Records whether that
+     board reaches play within 12 s, and its state. ?dir=<runtime folder>&cat=<board to open after> -->
+<html><head><meta charset="utf-8"><title>stuck probe</title><style>body{margin:0}</style></head><body>
+<iframe id="g" style="width:412px;height:915px;border:0;display:block"></iframe><pre id="result">PENDING</pre>
+<script>
+const q=new URLSearchParams(location.search),dir=q.get('dir'),next=q.get('cat')||'orange',g=document.getElementById('g'),out=document.getElementById('result');
+const res={dir,next,steps:[],errors:[]};const done=()=>{out.textContent=JSON.stringify(res);};const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+g.onload=async()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));try{
+ const t0=Date.now();while(!w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0")){if(Date.now()-t0>80000)throw new Error('boot timeout');await sleep(250);}
+ res.build=w.eval('BUILD');w.eval("globalThis.__fe=[];{const f=frameError;frameError=function(e){if(__fe.length<20)__fe.push(String(e&&e.stack||e).slice(0,500));return f.apply(this,arguments);};}");const st=()=>JSON.parse(w.eval("JSON.stringify({screen:PGU.screen,cat:PGU.boardCat,on:WILD.on,phase:WILD.phase,status:board.status,chase:!!WILD.chase,toss:!!WILD.toss,pounce:!!WILD.pounce,paused:typeof cp51Paused!=='undefined'?cp51Paused:null,panel:panel.style.display,inv:inventoryOpen})"));
+ w.eval("if(!PG)pgInit();PGU.title.t=9;pgTitleDone();for(const c of PG_CATS)PG.open[c]=true;PG.lv.passed=Math.max(2,PG_SWITCH_LEVEL);PG.lv.sel=3;");
+ w.eval("pgPlay('siamese');if(WILD.phase!=='card')wildReset();wildStartCountdown();");
+ for(let i=0;i<80&&w.eval("WILD.phase")!=='play';i++)await sleep(250);res.steps.push(['siamese in play',st()]);await sleep(1000);
+ // the laser coin over the edge (the game's own hook), then (on UAT 111) a tap on the slot; older builds start it themselves
+ w.eval("WILD.nextBonus=999;wildRainCollected({kind:'laser',id:'laser',dead:false,rb:{translation:()=>({x:200*M,y:0,z:T.FRONT*M})}},200)");
+ await sleep(800);if(w.eval("typeof cp88Btn==='function'")){const b=JSON.parse(w.eval('JSON.stringify(cp88Btn())'));w.eval('powerTap({x:'+(b.x+b.w/2)+',y:'+(b.y+b.h/2)+'})');}
+ for(let i=0;i<40&&!w.eval('!!WILD.chase');i++)await sleep(100);await sleep(1500);res.steps.push(['chase running',st()]);
+ // the round's Home button, tapped as a player taps it
+ w.eval("(()=>{const b=wildButton();(typeof __cp51Pointer==='function'?__cp51Pointer:wildPointer)({timeStamp:0,pointerId:-1,preventDefault(){}},{x:b.x+b.w/2,y:b.y+b.h/2});})()");
+ await sleep(1500);res.steps.push(['after Home',st()]);
+ // open the next cat's board as from the cat screen, then its start card's countdown
+ w.eval(`pgPlay('${next}')`);await sleep(1200);res.steps.push(['board opened',st()]);
+ w.eval("if(WILD.phase==='card')wildStartCountdown();");
+ let ok=false;for(let i=0;i<48;i++){await sleep(250);if(w.eval("WILD.phase")==='play'){ok=true;break;}}res.steps.push(['12 s later',st()]);res.reachedPlay=ok;res.frameErrors=JSON.parse(w.eval('JSON.stringify(__fe)'));
+}catch(e){res.errors.push(String(e));}done();};
+g.src=dir+'/index.html';
+</script></body></html>

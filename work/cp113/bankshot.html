@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- CP-88 real-browser check: loads ?dir=<folder>/index.html (the full runtime folder, as on the phone) in a 412x915 frame. On the
+     Siamese, Orange and Tortie boards: the slot shows; the board's coin over the edge (the game's own hook) banks 1 charge and
+     the side game does not start by itself (3 s); a tap on the slot starts it and uses the charge. Screenshots of the Siamese
+     slot empty and with a charge (window.__shot). Writes JSON into #result. -->
+<html><head><meta charset="utf-8"><title>bank slot check</title><style>body{margin:0}</style></head><body>
+<iframe id="g" style="width:412px;height:915px;border:0;display:block"></iframe><pre id="result">PENDING</pre>
+<script>
+const dir=new URLSearchParams(location.search).get('dir'),g=document.getElementById('g'),out=document.getElementById('result');
+const res={dir,boards:{},errors:[]};const done=()=>{out.textContent=JSON.stringify(res);};const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+window.__shot=null;const shot=async n=>{window.__shot=n;for(let i=0;i<60&&window.__shot;i++)await sleep(100);};
+const C={siamese:['laser','chase'],orange:['fish','toss'],tortie:['mousecoin','pounce']};
+// each board in a fresh game (as opening it on the phone), so one board's side game can't leave state for the next
+const load=()=>new Promise(r=>{g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));r(w);};g.src=dir+'/index.html?r='+Math.random();});
+(async()=>{try{for(const cat of ['siamese','orange','tortie']){const w=await load();const t0=Date.now();
+  while(!w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0")){if(Date.now()-t0>80000)throw new Error('timeout '+cat);await sleep(250);}
+  res.title=true;res.build=w.eval('BUILD');w.eval("if(!PG)pgInit();PGU.title.t=9;pgTitleDone();for(const c of PG_CATS)PG.open[c]=true;PG.lv.passed=Math.max(2,PG_SWITCH_LEVEL);PG.lv.sel=3;");
+  const [kind,game]=C[cat],r={};
+  w.eval(`if(WILD.on)wildExit();pgPlay('${cat}');if(WILD.phase!=='card')wildReset();wildStartCountdown();`);
+  for(let i=0;i<80&&w.eval("WILD.phase")!=='play';i++)await sleep(250);r.play=w.eval("WILD.phase")==='play';
+  r.state=JSON.parse(w.eval("JSON.stringify({phase:WILD.phase,status:board.status,mode:WILD.mode})"));res.play=res.play!==false&&r.play;await sleep(1500);
+  w.eval("WILD.left=90;WILD.nextBonus=999;");r.shown=w.eval('cp88Shown()');r.kind=w.eval('cp88Kind()');if(cat==='siamese')await shot('slot-empty');
+  w.eval(`wildRainCollected({kind:'${kind}',id:'${kind}',dead:false,rb:{translation:()=>({x:200*M,y:0,z:T.FRONT*M})}},200)`);
+  let started=false;for(let i=0;i<12;i++){await sleep(250);if(w.eval(`!!WILD.${game}`))started=true;}r.autoStart=started;r.bank=+w.eval(`CP88.bank.${kind}`);
+  if(cat==='siamese')await shot('slot-one');
+  const b=JSON.parse(w.eval('JSON.stringify(cp88Btn())'));w.eval('powerTap({x:'+(b.x+b.w/2)+',y:'+(b.y+b.h/2)+'})');
+  let s=false;for(let i=0;i<20&&!s;i++){await sleep(100);s=w.eval(`!!WILD.${game}`);}r.tapStarts=s;r.bankAfter=+w.eval(`CP88.bank.${kind}`);r.hidden=!w.eval('cp88Shown()');
+  if(cat==='siamese'){await sleep(1500);await shot('laser-running');}
+  r.ok=r.play&&r.shown&&r.kind===kind&&!r.autoStart&&r.bank===1&&r.tapStarts&&r.bankAfter===0&&r.hidden;res.boards[cat]=r;}
+ res.cp88=res.build==='2026.11.19 UAT 113'&&Object.values(res.boards).every(r=>r.ok)&&!res.errors.length;}catch(e){res.errors.push(String(e));}done();})();
+</script></body></html>

@@ -1,0 +1,29 @@
+﻿{
+    "version":  20261119000024,
+    "displayName":  "2026.11.19 UAT 113",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "25801698727dde0219302cbf2b98758001e3dc83ffe75f76f7e0c623f87d0f25",
+    "stagedJSONSHA256":  "ff7ff909e0cf8f0eedef42face54ac13879abd558b01799dd317e0562a4b757b",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "e4227ef3693f96aa4afc0c8223975ef480d982910f99e8b372808aa69e6099a1",
+    "jsonBytes":  59442087,
+    "runtimeFiles":  78,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.19 UAT 112",
+    "backup":  "uat/backups/before-UAT113-20261119000024",
+    "evidence":  "tickets/CP-88-evidence/uat113",
+    "checks":  [
+                   "checks112-on113.json",
+                   "checks64-on113.json",
+                   "checks88-on113.json"
+               ],
+    "authorization":  "UAT 113: CP-88 hotfix (PM, Nov 19: \"Go: hotfix on the published UAT 112 as UAT 113. The two-line fix...\"; the slot pulse froze the next board\u0027s countdown); UAT only",
+    "localPublication":  "verified"
+}
