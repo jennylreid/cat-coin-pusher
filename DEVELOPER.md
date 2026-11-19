@@ -29,7 +29,13 @@ Production **2026.11.15 / APK17**, numeric 20261115224800 = Baseline 1 (UAT 64, 
 
 ## GitHub WIP checkpoint (November 12, 2026)
 
-After publishing a UAT, run `python work/checkpoint.py`. It copies the published UAT runtime, the work/cpNN build sources, ticket reports and text evidence (and .png evidence from CP-33 on) and the main docs into the cat-coin-pusher repo, commits on branch `wip/uat` (never main) and pushes. `--dry-run` shows what would change.
+After publishing a UAT, run `python work/checkpoint.py` (`--dry-run` first shows what would change). Since OPS-03 (Nov 18) it commits only what the published build uses, never every work folder:
+- the published UAT runtime (index.html, img/, lib/);
+- the published build's own work folder (found by matching its release.html to the published UAT; `--build work/<folder>` to name it), source and scripts only (no boot*/ game*/ art/ logs/ runtime copies, no *-game.json);
+- that build's ticket: the evidence folder its publication-manifest.json names (text files) and tickets/<ID>.md, -brief.md, -ticket.md;
+- the main docs (GAMEPLAY_DESIGN, SPEC, DEVELOPER, AGENTS, CODEX_BRIEF) and the script itself.
+
+Add more with `--include work/<folder or file>` (e.g. the source folder a build copies its blocks from, `--include work/cp74-hug/release`), `--ticket <ID>`, `--evidence <folder>`, and `--png` for the evidence folders' .png stills (off by default; they are large). `--exclude <path>` leaves something out; `--message "..."` sets the commit subject. It commits on branch `wip/uat` only (never main) and pushes; banned files (Screenshots/, ibear-*, ref-*, keystores, .env, WAV/MP3 via .gitignore) are never copied, and it stops above 5 MB per file.
 
 ## CP-25 production baseline — November 1, 2026
 

@@ -15,7 +15,7 @@ The game is called **CatCoin** from Oct 20, 2026; the folder, app IDs, file name
 - Test and report only what the ticket changes. Do not re-verify or mention untouched files unless a safety check fails. Balance numbers are needed only for physics or landing changes.
 - Tickets and reports stay short and complete. Use standard terms: ticket, scope, acceptance criteria, baseline, regression, UAT, sign-off, promotion, cherry-pick, hotfix, backlog, on-model.
 - Close-out (Jenny, Oct 20): every ticket ends with a commit and a push to GitHub. Bring the ticket's source changes into C:/Users/jenny/GitHub/cat-coin-pusher, commit with a message naming the ticket, and push. Never commit other games' reference images (Screenshots/ibear-*, Screenshots/ref-*) or anything the repo's .gitignore excludes.
-- After publishing a UAT, run `python work/checkpoint.py`. (WIP checkpoint on branch `wip/uat`; main stays sign-off only.)
+- After publishing a UAT, run `python work/checkpoint.py` (add `--include work/<source folder>` if the build copies blocks from one). It commits only the published build's folder, its ticket report and text evidence, and the docs (OPS-03). (WIP checkpoint on branch `wip/uat`; main stays sign-off only.)
 - Write tickets/<ID>.md with changes, relevant validation, limits and any pending decision before saying done. Place useful screenshots/evidence beside it; Claude reviews the report and Jenny tests on her phone.
 - Keep technical docs current. Review fixes go first; wait if Jenny's approval or a dependent review is still needed. Do not ask again for actions already authorized.
 
