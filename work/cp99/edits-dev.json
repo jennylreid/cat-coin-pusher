@@ -1,0 +1,22 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp96\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.18 UAT 96';",
+   "const BUILD = '2026.11.18 UAT 99 (dev on UAT 96)';"
+  ],
+  [
+   "danceStart=function(){if(WILD.laser||WILD.chase)return;return __laserDanceStart();};",
+   "danceStart=function(){if((WILD.laser&&!W2_DEV_WHEEL)||WILD.chase)return;return __laserDanceStart();}; /* CP-80 */"
+  ],
+  [
+   "_playBufAt(b,v,delay=0,r=1){",
+   "_playBufH(b,v){if(!this._w2ok()||!b||!(v>0))return null;const s=ac.createBufferSource(),g=ac.createGain();s.buffer=b;g.gain.value=v;s.connect(g);g.connect(master);s.start();return {stop:(f=.15)=>{try{const t=ac.currentTime;g.gain.cancelScheduledValues(t);g.gain.setValueAtTime(g.gain.value,t);g.gain.linearRampToValueAtTime(0,t+f);s.stop(t+f+.02);}catch(e){}}};}, /* CP-72 add-on */\n    _playBufAt(b,v,delay=0,r=1){"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp79-yawn.js",
+  "cp80-wheel.js",
+  "cp72-zsound.js"
+ ]
+}

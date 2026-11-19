@@ -1,0 +1,12 @@
+{
+ "frames": 299,
+ "fps": 30,
+ "soundAt": 1.617,
+ "errs": [],
+ "clips": {
+  "P1": "zoomies-sound-P1.mp4",
+  "P2": "zoomies-sound-P2.mp4",
+  "P3": "zoomies-sound-P3.mp4",
+  "today": "zoomies-sound-today.mp4"
+ }
+}

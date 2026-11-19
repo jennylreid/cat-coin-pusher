@@ -1,0 +1,28 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp100\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.18 UAT 100';",
+   "const BUILD = '2026.11.18 UAT 102 (dev on UAT 100)';"
+  ],
+  [
+   "const KEY='catpusher.uat.cp72ending.v1',CHOICES=['short','hang'],NAMES={short:'Short close-up',hang:'Hang'},hold=.4;",
+   "const KEY='catpusher.uat.cp72ending.v2',CHOICES=['peek','short','hang'],NAMES={peek:'Peek-a-boo',short:'Short close-up',hang:'Hang'},hold=.4; /* CP-72 peek-a-boo (UAT 102) */"
+  ],
+  [
+   " let pick='short';try{const v=localStorage.getItem(KEY);",
+   " let pick='peek';try{const v=localStorage.getItem(KEY);"
+  ],
+  [
+   " const apply=()=>{L.style=pick==='hang'?'still':'crazy';};apply();",
+   " const apply=()=>{L.style=pick==='hang'?'still':pick==='peek'?'peek':'crazy';};apply();"
+  ],
+  [
+   "if(Math.abs(x-200)>edge){const v=b.rb.linvel(),d=x<200?1:-1;b.rb.wakeUp();b.rb.setLinvel({x:d*Math.max(1.6,d*v.x),y:v.y,z:v.z},true);",
+   "if(Math.abs(x-200)>edge){const v=b.rb.linvel(),d=x<200?1:-1;if(-d*v.x<=CP72G.out)continue; /* CP-72 Level 7: only while sliding toward the side, and only enough to stop it */b.rb.wakeUp();b.rb.setLinvel({x:d*CP72G.back,y:v.y,z:v.z},true);"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp72-peek.js"
+ ]
+}

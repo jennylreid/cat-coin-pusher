@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- UAT 102 (CP-72) real-browser check (from UAT 100's): loads ?dir=<folder>/index.html (the full runtime folder, as on the phone) in a frame,
+     waits for the title with art, starts a Level 1 round, then: (1) the default ending is Peek-a-boo (style peek) and the side guard (CP72G) is in;
+     (2) Settings -> Developer -> Engineer tools has "Zoomies ending" right under "Zoomies sound": Peek-a-boo (ticked) / Short close-up / Hang;
+     tapping Hang ticks and saves it; tapping Peek-a-boo puts it back; (3) Zoomies on the Orange board plays to the end:
+     the ginger kitten peeks from the bottom edge (about 0.5 s) and the power ends cleanly. Writes JSON into #result. -->
+<html><head><meta charset="utf-8"><title>zoomies ending check</title></head><body>
+<iframe id="g" style="width:400px;height:889px;border:0"></iframe><pre id="result">PENDING</pre>
+<script>
+const dir=new URLSearchParams(location.search).get('dir')||'boot102',g=document.getElementById('g'),out=document.getElementById('result');
+const res={dir,steps:[],errors:[]};const done=()=>{out.textContent=JSON.stringify(res);};
+try{localStorage.removeItem('catpusher.uat.cp72ending.v2');}catch(e){}
+g.src=dir+'/index.html';
+g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));
+ const t0=Date.now();const iv=setInterval(()=>{try{
+  const txt=w.document.body.innerText||'';if(/Could not start/.test(txt)){res.steps.push('could not start: '+txt.slice(0,160));clearInterval(iv);return done();}
+  const ok=w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0");
+  if(ok&&!res.title){res.title=true;res.build=w.eval('BUILD');res.steps.push('title with art at '+(Date.now()-t0)+' ms');
+   w.eval("if(!PG)pgInit();PGU.title.t=9;pgTitleDone();PG.lv.passed=0;PG.lv.sel=1;wildReset();PGU.screen='board';pgStartRound();");}
+  if(res.title&&!res.play&&w.eval("WILD.phase==='play'")){res.play=true;clearInterval(iv);res.steps.push('round in play at '+(Date.now()-t0)+' ms');
+   res.default=JSON.parse(w.eval("JSON.stringify({pick:CP72E.get(),style:Z72.leapHang.style,guard:typeof CP72G==='object'?CP72G:null})"));
+   w.eval('S.dev=true;openCredits();');const box=w.document.querySelector('#cp72-ending'),eng=w.document.querySelector('#cp70-engineer');
+   const btns=box?Array.from(box.querySelectorAll('button')):[];res.ui={inEngineer:!!(box&&eng&&eng.contains(box)),afterZsound:!!(box&&box.previousElementSibling&&box.previousElementSibling.id==='cp72-zsound'),
+    title:box&&box.querySelector('h3')?box.querySelector('h3').textContent:null,labels:btns.map(b=>b.textContent),zsound:!!w.document.querySelector('#cp72-zsound'),yawn:!!w.document.querySelector('#cp79-yawn')};
+   const hang=btns.find(b=>b.dataset.ze==='hang');if(hang)hang.click();res.ui.afterHang=btns.map(b=>b.textContent);res.ui.savedHang=w.localStorage.getItem('catpusher.uat.cp72ending.v2');res.ui.styleHang=w.eval('Z72.leapHang.style');
+   const sh=btns.find(b=>b.dataset.ze==='peek');if(sh)sh.click();res.ui.afterShort=btns.map(b=>b.textContent);res.ui.savedShort=w.localStorage.getItem('catpusher.uat.cp72ending.v2');res.ui.styleShort=w.eval('Z72.leapHang.style');
+   const close=w.document.querySelector('#close');if(close)close.click();w.eval('S.dev=false');
+   setTimeout(()=>{try{w.eval("for(const c of PG_CATS)PG.open[c]=true;PG.lv.passed=Math.max(PG.lv.passed,PG_SWITCH_LEVEL);wildExit();pgPlay('orange');if(WILD.phase==='end')wildReset();wildStartCountdown();");res.steps.push('Orange board');}catch(e){res.errors.push(String(e));}},1500);
+   setTimeout(()=>{try{w.eval("WILD.left=60;WILD.nextBonus=999;PG.powers=PG.powers||{};PG.powers.orange=1;globalThis.__peekT=0;{const u=update;update=function(dt){u(dt);try{const k=Z72X&&Z72X.kits[0];if(k&&k.P&&!k.gone&&k.P.pk==='hold')__peekT+=dt;}catch(e){}};}");
+    const B=JSON.parse(w.eval('JSON.stringify(pgpButton())'));w.eval('powerTap({x:'+(B.x+B.w/2)+',y:'+(B.y+B.h/2)+'})');res.zstarted=w.eval("!!PGPX&&PGPX.id==='zoomies72'");res.zt0=Date.now();res.steps.push('zoomies tapped: '+res.zstarted);}catch(e){res.errors.push(String(e));}},6500);
+   setTimeout(()=>{try{res.zend=w.eval('!Z72X&&!PGPX');res.peekHeld=+(+w.eval('__peekT')).toFixed(2);
+    res.cp72p=res.build==='2026.11.18 UAT 102'&&res.default.pick==='peek'&&res.default.style==='peek'&&!!res.default.guard&&res.ui.inEngineer&&res.ui.afterZsound&&res.ui.title==='Zoomies ending'
+     &&res.ui.labels.join('|')==='✓ Peek-a-boo|Short close-up|Hang'&&res.ui.afterHang.join('|')==='Peek-a-boo|Short close-up|✓ Hang'&&res.ui.savedHang==='hang'&&res.ui.styleHang==='still'
+     &&res.ui.afterShort.join('|')==='✓ Peek-a-boo|Short close-up|Hang'&&res.ui.savedShort==='peek'&&res.ui.styleShort==='peek'&&res.ui.zsound&&res.ui.yawn&&res.zstarted&&res.zend&&res.peekHeld>=.4&&res.peekHeld<=.6;
+    res.steps.push('zoomies over: '+res.zend+', peek held '+res.peekHeld+' s; cp72p '+res.cp72p);}catch(e){res.errors.push(String(e));}done();},19000);
+   return;}
+  if(Date.now()-t0>80000){res.steps.push('timeout');clearInterval(iv);done();}
+ }catch(e){res.errors.push(String(e));}},250);};
+</script></body></html>

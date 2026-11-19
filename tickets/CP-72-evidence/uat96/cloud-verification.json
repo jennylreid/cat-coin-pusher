@@ -1,0 +1,11 @@
+{
+  "httpStatus": 200,
+  "etag": "\"{5FCB1BAF-F716-4F1D-9283-4B6D9B86F317},131\"",
+  "bytes": 57559454,
+  "sha256": "5adc251abe41c1750dc98e3ceeb12400842d7a56d15451baf090adee9ec1cc31",
+  "version": 20261118000007,
+  "sameSharedItemAsBaseline": true,
+  "anonymousDownload": true,
+  "displayName": "2026.11.18 UAT 96",
+  "phoneEvidence": "pending"
+}

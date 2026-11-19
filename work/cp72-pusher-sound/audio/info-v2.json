@@ -1,0 +1,41 @@
+{
+ "P1": {
+  "before": {
+   "mean": -29.4,
+   "max": -1.0
+  },
+  "after": {
+   "mean": -20.4,
+   "max": -0.1
+  },
+  "makeup_dB": 17.4,
+  "filter": "acompressor=threshold=-28dB:ratio=5:attack=2:release=80:makeup=1,volume=17.40dB,alimiter=limit=0.89:attack=1:release=40:level=disabled",
+  "bytes": 98828
+ },
+ "P2": {
+  "before": {
+   "mean": -30.8,
+   "max": -1.0
+  },
+  "after": {
+   "mean": -20.2,
+   "max": -0.9
+  },
+  "makeup_dB": 19.4,
+  "filter": "acompressor=threshold=-28dB:ratio=5:attack=2:release=80:makeup=1,volume=19.40dB,alimiter=limit=0.89:attack=1:release=40:level=disabled",
+  "bytes": 98828
+ },
+ "P3": {
+  "before": {
+   "mean": -21.8,
+   "max": -1.0
+  },
+  "after": {
+   "mean": -20.0,
+   "max": -2.3
+  },
+  "makeup_dB": 13.6,
+  "filter": "acompressor=threshold=-28dB:ratio=5:attack=2:release=80:makeup=1,volume=13.60dB,alimiter=limit=0.89:attack=1:release=40:level=disabled",
+  "bytes": 98828
+ }
+}

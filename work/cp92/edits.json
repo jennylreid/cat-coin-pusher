@@ -1,0 +1,55 @@
+{
+ "edits": [
+  [
+   "const BUILD = '2026.11.18 UAT 91';",
+   "const BUILD = '2026.11.18 UAT 92';"
+  ],
+  [
+   "cp73Say(P.name+'!',P.col,CP73.dur.intro);try{navigator.vibrate&&navigator.vibrate([60,40,90]);}catch(e){}\n cp63Start();PGPX={id:'inspect',t:0,dur:CP63.end};",
+   "cp73Big(P.name+'!',P.col,CP73B.intro,0,cp73Draws());try{navigator.vibrate&&navigator.vibrate([60,40,90]);}catch(e){}\n cp63Start();PGPX={id:'inspect',t:0,dur:cp73Total()};"
+  ],
+  [
+   "if(was)cp63Tick(was.t);};",
+   "if(was&&was.t>=CP73B.lead)cp63Tick(was.t-CP73B.lead);}; /* CP-73 rework */"
+  ],
+  [
+   "pgSfx('clink',1);try{diagEvent('powers','cp63 inspect '",
+   "try{diagEvent('powers','cp63 inspect '"
+  ],
+  [
+   "function cp63Tick(t){const X=CP63X;if(!X)return;X.t=t;happyUntil=0;const fx=X.fx;",
+   "function cp63Tick(t){const X=CP63X;if(!X)return;X.t=t;happyUntil=0;const fx=X.fx;if(!fx.go){fx.go=1;pgSfx('clink',1);}"
+  ],
+  [
+   "if(t>=CP63.look0&&!fx.hmm){fx.hmm=1;cp73Say(CP63.words[0],'#ffe27a',CP73.dur.hmm);}",
+   "if(t>=CP63.look0&&!fx.hmm){fx.hmm=1;cp73Draws(); /* CP-73 rework: HMM. dropped */}"
+  ],
+  [
+   "if(t>=CP63.sweep0+.5&&!fx.word){fx.word=1;if(X.picks.length)cp73Say(CP63.words[1],'#ffe27a',CP73.dur.splendid);}",
+   "if(t>=CP63.sweep0+.5&&!fx.word){fx.word=1;if(X.picks.length)CP73B.pend=cp73Draws();}\n if(t>=CP73B.splAt&&CP73B.pend&&!fx.spl){fx.spl=1;cp73Big(CP63.words[1],'#ffe27a',CP73B.splDur,PGPX.t,CP73B.pend);CP73B.pend=null;}"
+  ],
+  [
+   "const PGL_CATINFO={tuxedo:{game:'Dance break',power:'Yawn'}",
+   "const PGL_CATINFO={tuxedo:{game:'Dance break',power:'Formal inspection'}"
+  ],
+  [
+   "ctx.fillText(open?C.name:'???',r.x+94,r.y+20,170);",
+   "ctx.fillText(open?C.name:'???',r.x+94,r.y+(open?15:20),170);"
+  ],
+  [
+   "if(open){ctx.fillText(I.game+' \u00b7 power: '+I.power,r.x+94,r.y+42,250);ctx.fillText('Prizes:',r.x+94,r.y+63);const px=r.x+94+ctx.measureText('Prizes: ').width;C.own.forEach((id,i)=>pgPrizeIcon(id,px+14+i*30,r.y+60,24));",
+   "if(open){ctx.fillText(I.game+' \u00b7 power: '+I.power,r.x+94,r.y+33,250);ctx.font='italic 11px system-ui';ctx.fillStyle='#cbb8ee';ctx.fillText(CP73D[r.c]||'',r.x+94,r.y+49,250);ctx.font='12px system-ui';ctx.fillStyle='#e8dcff';ctx.fillText('Prizes:',r.x+94,r.y+67);const px=r.x+94+ctx.measureText('Prizes: ').width;C.own.forEach((id,i)=>pgPrizeIcon(id,px+14+i*30,r.y+65,22));"
+  ],
+  [
+   "ctx.fillText(I.power+' \u00d7'+pw,r.x+r.w-14,r.y+63);",
+   "ctx.fillText(I.power+' \u00d7'+pw,r.x+r.w-14,r.y+67);"
+  ],
+  [
+   "ctx.fillText(pglCatLine(M2.cat)+' \u00b7 Cats, between rounds',200,y+100);",
+   "ctx.fillText(pglCatLine(M2.cat)+' \u00b7 Cats, between rounds',200,y+100,384);"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp73-rework.js"
+ ]
+}

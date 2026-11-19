@@ -1,0 +1,24 @@
+{
+  "build": "2026.11.18 UAT 97",
+  "cases": [
+    {
+      "lv": 9,
+      "cat": "tuxedo",
+      "playing": true,
+      "boardCat": "tuxedo"
+    },
+    {
+      "lv": 1,
+      "cat": "orange",
+      "playing": true,
+      "boardCat": "orange"
+    },
+    {
+      "lv": 5,
+      "cat": "ragdoll",
+      "playing": true,
+      "boardCat": "ragdoll"
+    }
+  ],
+  "errors": []
+}

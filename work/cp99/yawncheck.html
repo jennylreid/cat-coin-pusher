@@ -1,0 +1,59 @@
+<!doctype html>
+<!-- UAT 99 (CP-79) real-browser check: loads ?dir=<folder>/index.html (the full runtime folder, as on the phone) in a frame,
+     waits for the title with art, starts a Level 1 round, then: (1) Chrome decodes the 3 embedded sounds (A2, B2, AB);
+     (2) Settings -> Developer -> Engineer tools has "Yawn sound" with Today/A2/B2/AB, Today ticked; tapping B2 ticks it,
+     saves it and plays it once; (3) a wheel Yawn then plays B2 (CP79.stats); (4) CP-72 add-on: Chrome decodes the 3 Zoomies sounds, "Zoomies sound" sits under it
+     with Today/P1/P2/P3, tapping P2 saves it, and Zoomies on the Orange board plays P2 and stops it at the end. Writes JSON into #result. -->
+<html><head><meta charset="utf-8"><title>yawn sound check</title></head><body>
+<iframe id="g" style="width:400px;height:889px;border:0"></iframe><pre id="result">PENDING</pre>
+<script>
+const dir=new URLSearchParams(location.search).get('dir')||'boot99',g=document.getElementById('g'),out=document.getElementById('result');
+const res={dir,steps:[],errors:[]};const done=()=>{out.textContent=JSON.stringify(res);};
+try{localStorage.removeItem('catpusher.uat.cp79yawn.v1');}catch(e){}
+g.src=dir+'/index.html';
+g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));
+ const t0=Date.now();const iv=setInterval(async()=>{try{
+  const txt=w.document.body.innerText||'';if(/Could not start/.test(txt)){res.steps.push('could not start: '+txt.slice(0,160));clearInterval(iv);return done();}
+  const ok=w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0");
+  if(ok&&!res.title){res.title=true;res.build=w.eval('BUILD');res.steps.push('title with art at '+(Date.now()-t0)+' ms');
+   w.eval("if(!PG)pgInit();PGU.title.t=9;pgTitleDone();PG.lv.passed=0;PG.lv.sel=1;wildReset();PGU.screen='board';pgStartRound();");}
+  if(res.title&&!res.play&&w.eval("WILD.phase==='play'")){res.play=true;clearInterval(iv);res.steps.push('round in play at '+(Date.now()-t0)+' ms');
+   // (1) real decoding of the 3 embedded sounds
+   res.decoded={};for(const k of ['A2','B2','AB']){try{const b=atob(w.eval('CP79.B64.'+k)),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);
+    const oc=new OfflineAudioContext(1,48000,48000);const buf=await oc.decodeAudioData(u.buffer);res.decoded[k]=+buf.duration.toFixed(2);}catch(e){res.decoded[k]=String(e);}}
+   res.steps.push('decoded: '+JSON.stringify(res.decoded));
+   res.defaultPick=w.eval('CP79.get()');
+   // (2) the Engineer tools choice
+   w.eval('S.dev=true;openCredits();');const box=w.document.querySelector('#cp79-yawn'),eng=w.document.querySelector('#cp70-engineer');
+   const btns=box?Array.from(box.querySelectorAll('button')):[];res.ui={inEngineer:!!(box&&eng&&eng.contains(box)),labels:btns.map(b=>b.textContent)};
+   const b2=btns.find(b=>b.dataset.yawn==='B2');if(b2)b2.click();
+   res.ui.afterTap=btns.map(b=>b.textContent);res.ui.saved=w.localStorage.getItem('catpusher.uat.cp79yawn.v1');res.ui.pick=w.eval('CP79.get()');
+   const close=w.document.querySelector('#close');if(close)close.click();w.eval('S.dev=false');
+   setTimeout(()=>{try{res.previewPlayed=w.eval('JSON.stringify(CP79.stats.played)');
+    // (3) a wheel Yawn plays B2
+    w.eval("WILD.left=60;WILD.nextBonus=999;WILD.dance={phase:'finale',stage:'yawn',st:0,finT:9,fx:[],bank:{coin:0,rain5:0,rain10:0},coins:0,rainCoins:0,hits:0};");res.steps.push('wheel yawn started');}catch(e){res.errors.push(String(e));}},1500);
+   setTimeout(()=>{try{res.yawnRunning=w.eval('!!W2_YAWN&&!!W2_YAWN.cp58');res.played=JSON.parse(w.eval('JSON.stringify(CP79.stats.played)'));
+    res.steps.push('yawn running: '+res.yawnRunning+', played '+JSON.stringify(res.played));}catch(e){res.errors.push(String(e));}},3200);
+   setTimeout(()=>{try{res.yawnEnd=w.eval('!W2_YAWN');
+    res.cp79=Object.values(res.decoded).every(d=>typeof d==='number'&&d>.9&&d<1.7)&&res.defaultPick==='today'&&res.ui.inEngineer&&res.ui.labels.join('|')==='✓ Today|A2|B2|AB'
+     &&res.ui.afterTap.join('|')==='Today|A2|✓ B2|AB'&&res.ui.saved==='B2'&&res.ui.pick==='B2'&&res.yawnRunning&&(res.played.B2||0)>=2&&res.yawnEnd;
+    res.steps.push('yawn over: '+res.yawnEnd+'; cp79 '+res.cp79);}catch(e){res.errors.push(String(e));}zoomies();},8500);
+   // (4) CP-72 add-on: the Zoomies sound choice
+   async function zoomies(){try{res.zdecoded={};for(const k of ['P1','P2','P3']){try{const b=atob(w.eval('CP72Z.B64.'+k)),u=new Uint8Array(b.length);for(let i=0;i<b.length;i++)u[i]=b.charCodeAt(i);
+     const oc=new OfflineAudioContext(1,48000,48000);const buf=await oc.decodeAudioData(u.buffer);res.zdecoded[k]=+buf.duration.toFixed(2);}catch(e){res.zdecoded[k]=String(e);}}
+    res.zdefault=w.eval('CP72Z.get()');w.eval('S.dev=true;openCredits();');const box=w.document.querySelector('#cp72-zsound'),eng=w.document.querySelector('#cp70-engineer');
+    const btns=box?Array.from(box.querySelectorAll('button')):[];res.zui={inEngineer:!!(box&&eng&&eng.contains(box)),afterYawn:!!(box&&box.previousElementSibling&&box.previousElementSibling.id==='cp79-yawn'),labels:btns.map(b=>b.textContent)};
+    const p2=btns.find(b=>b.dataset.zs==='P2');if(p2)p2.click();res.zui.afterTap=btns.map(b=>b.textContent);res.zui.saved=w.localStorage.getItem('catpusher.uat.cp72zsound.v1');
+    const close=w.document.querySelector('#close');if(close)close.click();w.eval('S.dev=false');
+    setTimeout(()=>{try{w.eval("for(const c of PG_CATS)PG.open[c]=true;PG.lv.passed=Math.max(PG.lv.passed,PG_SWITCH_LEVEL);wildExit();pgPlay('orange');if(WILD.phase==='end')wildReset();wildStartCountdown();");res.steps.push('Orange board');}catch(e){res.errors.push(String(e));}},2600);
+    setTimeout(()=>{try{w.eval("WILD.left=60;PG.powers=PG.powers||{};PG.powers.orange=1;");const B=JSON.parse(w.eval('JSON.stringify(pgpButton())'));w.eval('powerTap({x:'+(B.x+B.w/2)+',y:'+(B.y+B.h/2)+'})');res.zstarted=w.eval("!!PGPX&&PGPX.id==='zoomies72'");res.steps.push('zoomies tapped: '+res.zstarted);}catch(e){res.errors.push(String(e));}},7600);
+    setTimeout(()=>{try{res.zplaying=w.eval('CP72Z.playing&&!!Z72X');res.zplayed=JSON.parse(w.eval('JSON.stringify(CP72Z.stats.played)'));res.steps.push('during zoomies: playing '+res.zplaying+' '+JSON.stringify(res.zplayed));}catch(e){res.errors.push(String(e));}},10600);
+    setTimeout(()=>{try{res.zend=w.eval('!Z72X&&!PGPX');res.zstopped=w.eval('!CP72Z.playing&&CP72Z.stats.stopped>=2');
+     res.cp72z=Object.values(res.zdecoded).every(d=>typeof d==='number'&&d>6.9&&d<7.2)&&res.zdefault==='today'&&res.zui.inEngineer&&res.zui.afterYawn&&res.zui.labels.join('|')==='✓ Today|P1|P2|P3'
+      &&res.zui.afterTap.join('|')==='Today|P1|✓ P2|P3'&&res.zui.saved==='P2'&&res.zstarted&&res.zplaying&&(res.zplayed.P2||0)>=2&&res.zend&&res.zstopped;
+     res.steps.push('zoomies over: '+res.zend+', stopped '+res.zstopped+'; cp72z '+res.cp72z);}catch(e){res.errors.push(String(e));}done();},19600);
+   }catch(e){res.errors.push(String(e));done();}}
+   return;}
+  if(Date.now()-t0>80000){res.steps.push('timeout');clearInterval(iv);done();}
+ }catch(e){res.errors.push(String(e));}},250);};
+</script></body></html>

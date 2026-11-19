@@ -1,0 +1,62 @@
+<!doctype html>
+<!-- UAT 101 (CP-82 + CP-72 Zoomies sound fix) real-browser check: loads ?dir=<folder>/index.html (the full runtime folder, as on the phone) in a frame,
+     waits for the title with art, starts a Level 1 round, then on the Siamese board and then the Tortie board uses the power:
+     at 0.5 s the big name shows alone (no action yet), at 1.25 s the action is under way (Sonic meow: 2x reach; Tortitude:
+     flames) with no title, and the power ends cleanly. Writes JSON into #result. -->
+<html><head><meta charset="utf-8"><title>power titles check</title></head><body>
+<iframe id="g" style="width:400px;height:889px;border:0"></iframe><pre id="result">PENDING</pre>
+<script>
+const dir=new URLSearchParams(location.search).get('dir')||'boot101',g=document.getElementById('g'),out=document.getElementById('result');
+const res={dir,steps:[],errors:[],powers:{}};const done=()=>{out.textContent=JSON.stringify(res);};
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+g.src=dir+'/index.html';
+async function power(w,cat,id){const r={};
+ w.eval(`for(const c of PG_CATS)PG.open[c]=true;PG.lv.passed=Math.max(PG.lv.passed,PG_SWITCH_LEVEL);wildExit();pgPlay('${cat}');if(WILD.phase==='end')wildReset();wildStartCountdown();`);
+ for(let i=0;i<60&&w.eval("WILD.phase")!=='play';i++)await sleep(250);r.play=w.eval("WILD.phase")==='play';
+ await sleep(1500);
+ w.eval(`WILD.left=60;WILD.nextBonus=999;PG.powers=PG.powers||{};PG.powers.${cat}=1;`);
+ const B=JSON.parse(w.eval('JSON.stringify(pgpButton())'));const t0=performance.now();w.eval('powerTap({x:'+(B.x+B.w/2)+',y:'+(B.y+B.h/2)+'})');
+ await sleep(500);r.at05=JSON.parse(w.eval("JSON.stringify({id:PGPX&&PGPX.id,big:cp82BigT(),word:CP82W&&CP82W.word,reach:pglReach()})"));
+ await sleep(1100);r.at16=JSON.parse(w.eval("JSON.stringify({id:PGPX&&PGPX.id,big:cp82BigT(),reach:pglReach(),flames:PGPX&&PGPX.flames?PGPX.flames.length:0})"));
+ for(let i=0;i<40&&w.eval('!!PGPX');i++)await sleep(250);r.endAfter=+((performance.now()-t0)/1000).toFixed(1);r.clean=w.eval('!PGPX&&!CP82W');r.endState=JSON.parse(w.eval("JSON.stringify({status:board.status,phase:WILD.phase,left:+WILD.left.toFixed(1)})"));
+ r.ok=r.play&&r.at05.id==='cp82title'&&r.at05.big>=0&&r.at05.reach===1&&r.at16.id===id&&r.at16.big<0&&(id!=='sonic'||r.at16.reach===2)&&(id!=='tortitude'||r.at16.flames===46)&&r.clean;
+ res.powers[id]=r;res.steps.push(id+': '+r.ok);return r.ok;}
+// CP-72 Zoomies sound fix: the three recordings decode when Engineer tools opens; their in-game level (x CP72Z.gain) against
+// the yawn recordings (x CP79.gain), which Jenny hears; a tap waits for a slow decode (1.5 s here) and then plays; in Zoomies
+// the picked one plays.
+async function zcheck(w){const r={};w.eval('S.dev=true;openCredits();');const box=w.document.querySelector('#cp72-zsound');r.box=!!box;
+ r.asked=JSON.parse(w.eval("JSON.stringify(['P1','P2','P3'].map(k=>!!CP72Z.asked[k]))"));r.gain=+w.eval('CP72Z.gain');
+ w.eval("for(const k of ['A2','B2','AB'])CP79.load(k);");
+ for(let i=0;i<40&&!w.eval("['P1','P2','P3'].every(k=>CP72Z.bufs[k])&&['A2','B2','AB'].every(k=>CP79.bufs[k])");i++)await sleep(250);
+ r.level=JSON.parse(w.eval(`JSON.stringify((()=>{const db=(b,g)=>{const d=b.getChannelData(0);let s=0;for(let i=0;i<d.length;i++)s+=d[i]*d[i];return +(20*Math.log10(Math.sqrt(s/d.length)*g)).toFixed(1);};const o={};
+  for(const k of ['P1','P2','P3'])o[k]={dB:CP72Z.bufs[k]?db(CP72Z.bufs[k],CP72Z.gain):null,sr:CP72Z.bufs[k]&&CP72Z.bufs[k].sampleRate,s:CP72Z.bufs[k]&&+CP72Z.bufs[k].duration.toFixed(2)};
+  for(const k of ['A2','B2','AB'])o[k]={dB:CP79.bufs[k]?db(CP79.bufs[k],CP79.gain):null};return o;})())`));
+ // a slow phone decode: P2 forgotten and decoded again 1.5 s late; tap P2
+ w.eval("delete CP72Z.bufs.P2;CP72Z.asked.P2=false;globalThis.__dec=sfx._dec;sfx._dec=function(ab,cb){return __dec.call(this,ab,x=>setTimeout(()=>cb(x),1500));};");
+ const p0=+w.eval('CP72Z.stats.played.P2||0');const b2=Array.from(box.querySelectorAll('button')).find(b=>b.dataset.zs==='P2');b2.click();
+ await sleep(800);r.at08=+w.eval('CP72Z.stats.played.P2||0')-p0;r.labels=Array.from(box.querySelectorAll('button')).map(b=>b.textContent);r.saved=w.localStorage.getItem('catpusher.uat.cp72zsound.v1');
+ await sleep(2400);r.at32=+w.eval('CP72Z.stats.played.P2||0')-p0;w.eval('sfx._dec=__dec;');
+ // in Zoomies (P1 picked)
+ Array.from(box.querySelectorAll('button')).find(b=>b.dataset.zs==='P1').click();await sleep(2500);
+ const close=w.document.querySelector('#close');if(close)close.click();w.eval('S.dev=false');
+ w.eval("for(const c of PG_CATS)PG.open[c]=true;wildExit();pgPlay('orange');if(WILD.phase==='end')wildReset();wildStartCountdown();");
+ for(let i=0;i<60&&w.eval("WILD.phase")!=='play';i++)await sleep(250);await sleep(1500);
+ const q0=+w.eval('CP72Z.stats.played.P1||0');w.eval("WILD.left=60;WILD.nextBonus=999;PG.powers.orange=1;");const B=JSON.parse(w.eval('JSON.stringify(pgpButton())'));w.eval('powerTap({x:'+(B.x+B.w/2)+',y:'+(B.y+B.h/2)+'})');
+ await sleep(3000);r.inZoomies=+w.eval('CP72Z.stats.played.P1||0')-q0;r.playingInZ=w.eval('CP72Z.playing');
+ for(let i=0;i<60&&w.eval('!!PGPX');i++)await sleep(250);await sleep(400);r.stoppedAfter=!w.eval('CP72Z.playing');
+ w.localStorage.removeItem('catpusher.uat.cp72zsound.v1');
+ const L=r.level,yaw=Math.min(L.A2.dB,L.B2.dB,L.AB.dB);
+ r.ok=r.box&&r.asked.every(Boolean)&&r.gain===.35&&['P1','P2','P3'].every(k=>L[k].dB!=null&&L[k].dB>=yaw-3&&L[k].s===7)&&r.at08===0&&r.at32===1&&r.labels.join('|')==='Today|P1|✓ P2|P3'&&r.saved==='P2'&&r.inZoomies===1&&r.playingInZ&&r.stoppedAfter;
+ res.zsound=r;res.steps.push('zoomies sound: '+r.ok);return r.ok;}
+g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));
+ const t0=Date.now();const iv=setInterval(async()=>{try{
+  const txt=w.document.body.innerText||'';if(/Could not start/.test(txt)){res.steps.push('could not start: '+txt.slice(0,160));clearInterval(iv);return done();}
+  const ok=w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0");
+  if(ok&&!res.title){res.title=true;res.build=w.eval('BUILD');res.steps.push('title with art at '+(Date.now()-t0)+' ms');
+   w.eval("if(!PG)pgInit();PGU.title.t=9;pgTitleDone();PG.lv.passed=0;PG.lv.sel=1;wildReset();PGU.screen='board';pgStartRound();");}
+  if(res.title&&!res.play&&w.eval("WILD.phase==='play'")){res.play=true;clearInterval(iv);res.steps.push('round in play at '+(Date.now()-t0)+' ms');
+   try{const a=await power(w,'siamese','sonic'),b=await power(w,'tortie','tortitude');const c=await zcheck(w);res.cp82=res.build==='2026.11.18 UAT 101'&&a&&b&&c;}catch(e){res.errors.push(String(e));}
+   done();return;}
+  if(Date.now()-t0>80000){res.steps.push('timeout');clearInterval(iv);done();}
+ }catch(e){res.errors.push(String(e));}},250);};
+</script></body></html>

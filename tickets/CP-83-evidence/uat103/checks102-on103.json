@@ -1,0 +1,463 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp103\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp101\\release.html",
+ "passed": true,
+ "passedN": 7,
+ "failed": [],
+ "notes": {
+  "paths": {
+   "short": true,
+   "hang": true,
+   "cream": true,
+   "paths": [
+    {
+     "upToHangEnd": true,
+     "segsBefore": true,
+     "peekSegs": [
+      "leap:0.2400",
+      "leap:0.5000",
+      "leap:0.1400"
+     ],
+     "hang": {
+      "s": 1,
+      "puff": true,
+      "tilt": true,
+      "grow": 2.344
+     },
+     "hidden": true,
+     "peekS": {
+      "drop": 0.25,
+      "hold": 0.5,
+      "duck": 0.13
+     },
+     "longer": 0.73
+    },
+    {
+     "upToHangEnd": true,
+     "segsBefore": true,
+     "peekSegs": [
+      "leap:0.2400",
+      "leap:0.5000",
+      "leap:0.1400"
+     ],
+     "hang": {
+      "s": 1,
+      "puff": true,
+      "tilt": true,
+      "grow": 2.344
+     },
+     "hidden": true,
+     "peekS": {
+      "drop": 0.25,
+      "hold": 0.5,
+      "duck": 0.13
+     },
+     "longer": 0.73
+    },
+    {
+     "upToHangEnd": true,
+     "segsBefore": true,
+     "peekSegs": [
+      "leap:0.2400",
+      "leap:0.5000",
+      "leap:0.1400"
+     ],
+     "hang": {
+      "s": 1,
+      "puff": true,
+      "tilt": true,
+      "grow": 2.344
+     },
+     "hidden": true,
+     "peekS": {
+      "drop": 0.23,
+      "hold": 0.5,
+      "duck": 0.15
+     },
+     "longer": 0.73
+    }
+   ]
+  },
+  "play": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "len": [
+     9.15,
+     8.42
+    ],
+    "carried": [
+     "egg",
+     "rain5",
+     "coin",
+     "rain5"
+    ],
+    "paid": [
+     "egg",
+     "rain5",
+     "coin",
+     "rain5"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "len": [
+     9.28,
+     8.57
+    ],
+    "carried": [
+     "tuna",
+     "rain10"
+    ],
+    "paid": [
+     "tuna",
+     "rain10"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "len": [
+     9.5,
+     8.77
+    ],
+    "carried": [
+     "tuna",
+     "rain5",
+     "rain5"
+    ],
+    "paid": [
+     "tuna",
+     "rain5",
+     "rain5"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "len": [
+     9.3,
+     8.6
+    ],
+    "carried": [
+     "silver",
+     "rain10",
+     "rain5",
+     "tuna"
+    ],
+    "paid": [
+     "rain10",
+     "silver",
+     "tuna",
+     "rain5"
+    ],
+    "fails": []
+   }
+  ],
+  "screen": [
+   {
+    "sz": "412x915",
+    "shots": [
+     "1-hang",
+     "2-drop",
+     "3-peek",
+     "4-duck"
+    ],
+    "peek": {
+     "eyeTop": 850.9,
+     "eyeBot": 887.2,
+     "earTop": 811.2,
+     "bottom": 888.3,
+     "x": 266.9,
+     "headW": 46.8
+    },
+    "duckEnd": {
+     "earTop": 910.2,
+     "bottom": 888.3
+    },
+    "errs": 0
+   },
+   {
+    "sz": "360x640",
+    "shots": [
+     "1-hang",
+     "2-drop",
+     "3-peek",
+     "4-duck"
+    ],
+    "peek": {
+     "eyeTop": 682.6,
+     "eyeBot": 718.9,
+     "earTop": 642.9,
+     "bottom": 720,
+     "x": 301.5,
+     "headW": 46.8
+    },
+    "duckEnd": {
+     "earTop": 752.9,
+     "bottom": 720
+    },
+    "errs": 0
+   }
+  ],
+  "choice": {
+   "fresh": {
+    "pick": "peek",
+    "style": "peek",
+    "choices": [
+     "Peek-a-boo",
+     "Short close-up",
+     "Hang"
+    ]
+   },
+   "afterSet": {
+    "style": "crazy",
+    "saved": "short"
+   },
+   "backPeek": {
+    "style": "peek",
+    "saved": "peek"
+   },
+   "oldV1Hang": {
+    "pick": "peek",
+    "style": "peek",
+    "choices": [
+     "Peek-a-boo",
+     "Short close-up",
+     "Hang"
+    ]
+   },
+   "savedShort": {
+    "pick": "short",
+    "style": "crazy",
+    "choices": [
+     "Peek-a-boo",
+     "Short close-up",
+     "Hang"
+    ]
+   },
+   "savedHang": {
+    "pick": "hang",
+    "style": "still",
+    "choices": [
+     "Peek-a-boo",
+     "Short close-up",
+     "Hang"
+    ]
+   },
+   "junk": {
+    "pick": "peek",
+    "style": "peek",
+    "choices": [
+     "Peek-a-boo",
+     "Short close-up",
+     "Hang"
+    ]
+   }
+  },
+  "sideGuard": {
+   "level7": {
+    "seed1": {
+     "new": {
+      "side": [],
+      "edgeN": 6,
+      "edgeMove": [
+       3,
+       1.2,
+       0.1,
+       1,
+       4.6,
+       2.1
+      ],
+      "errs": 0
+     },
+     "base": {
+      "side": [],
+      "edgeN": 6,
+      "edgeMove": [
+       56.3,
+       60.1,
+       68.3,
+       68,
+       68,
+       66.7
+      ],
+      "errs": 0
+     }
+    },
+    "seed2": {
+     "new": {
+      "side": [],
+      "edgeN": 6,
+      "edgeMove": [
+       1.7,
+       1.2,
+       1.4,
+       0.1,
+       2.5
+      ],
+      "errs": 0
+     },
+     "base": {
+      "side": [],
+      "edgeN": 6,
+      "edgeMove": [
+       37.7,
+       47.7,
+       63.8,
+       54.8,
+       68.5
+      ],
+      "errs": 0
+     }
+    }
+   },
+   "levels": [
+    {
+     "lv": 1,
+     "seed": 1,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 1,
+     "seed": 2,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 2,
+     "seed": 1,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 2,
+     "seed": 2,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 3,
+     "seed": 1,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 3,
+     "seed": 2,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 4,
+     "seed": 1,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 4,
+     "seed": 2,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 5,
+     "seed": 1,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 5,
+     "seed": 2,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 6,
+     "seed": 1,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 6,
+     "seed": 2,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 7,
+     "seed": 1,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 7,
+     "seed": 2,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 8,
+     "seed": 1,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 8,
+     "seed": 2,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 9,
+     "seed": 1,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 9,
+     "seed": 2,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 10,
+     "seed": 1,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    },
+    {
+     "lv": 10,
+     "seed": 2,
+     "sideNew": 0,
+     "sideBase": 0,
+     "errs": 0
+    }
+   ]
+  }
+ }
+}

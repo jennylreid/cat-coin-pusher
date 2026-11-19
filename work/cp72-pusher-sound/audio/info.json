@@ -1,0 +1,49 @@
+{
+ "today": {
+  "what": "sfx.wild('turbo') rendered offline",
+  "seconds": 1.25,
+  "rawRMS_dBFS": -36.2
+ },
+ "P1": {
+  "source": "776505__nicoproson__several-coins-on-wood-top.wav",
+  "kind": "original",
+  "segments": [
+   [
+    17.8,
+    24.8
+   ]
+  ],
+  "looped": false,
+  "seconds": 7.0
+ },
+ "P2": {
+  "source": "563265__cupido-1__coin-push-on-table.wav",
+  "kind": "original",
+  "segments": [
+   [
+    53.0,
+    60.0
+   ]
+  ],
+  "looped": false,
+  "seconds": 7.0
+ },
+ "P3": {
+  "source": "485770__spacejoe__coins-sliding-off-table-1.wav",
+  "kind": "original",
+  "segments": [
+   [
+    2.0,
+    3.05
+   ],
+   [
+    3.3,
+    4.95
+   ]
+  ],
+  "looped": true,
+  "seconds": 7.0
+ },
+ "gameGain": 0.11,
+ "note": "in game: play at gameGain x the wild() volume, stopped when Zoomies ends"
+}

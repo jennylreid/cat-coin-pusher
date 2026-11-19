@@ -1,0 +1,57 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\prod09\\release.html",
+ "buildSHA256": "34b7db2b12447ef3aaa27ea9f004aaf41e5ae824bb893fec366334495c28a691",
+ "runtimeFolder": "work/prod09/boot09 (UAT 105's 78 files, index.html = the production build)",
+ "browser": "headless Chrome, real time, work/prod09/bootcheck.cjs",
+ "passed": true,
+ "failed": [],
+ "result": {
+  "dir": "boot09",
+  "steps": [
+   "title with art at 9869 ms",
+   "round in play at 19008 ms"
+  ],
+  "errors": [],
+  "title": true,
+  "build": "2026.11.18",
+  "screen": "title",
+  "play": true,
+  "state": {
+   "level": 1,
+   "prizes": [
+    "cheese",
+    "shrimp"
+   ],
+   "cp62": 4,
+   "runway": true,
+   "bottleArt": true,
+   "jackpot": 0.02,
+   "meterAddon": true,
+   "dev": false,
+   "cp75": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "zoomies": "peek",
+   "endings": [
+    "peek"
+   ],
+   "sounds": [
+    "today"
+   ],
+   "cp78": true,
+   "cp82": true,
+   "lab": true,
+   "uatKeys": []
+  }
+ },
+ "uat105SameRun": {
+  "build": "2026.11.18 UAT 105",
+  "title": true,
+  "play": true,
+  "errors": [],
+  "sameState": true
+ }
+}

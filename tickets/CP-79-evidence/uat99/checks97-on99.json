@@ -1,0 +1,806 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp99\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp96\\release.html",
+ "passed": true,
+ "passedN": 6,
+ "failed": [],
+ "notes": {
+  "play": [
+   {
+    "level": 3,
+    "cat": "orange",
+    "seed": 3,
+    "fps": 60,
+    "same": true,
+    "pieces": 73,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "cat": "orange",
+    "seed": 3,
+    "fps": 30,
+    "same": true,
+    "pieces": 67,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "cat": "orange",
+    "seed": 8,
+    "fps": 60,
+    "same": true,
+    "pieces": 71,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "cat": "orange",
+    "seed": 8,
+    "fps": 30,
+    "same": true,
+    "pieces": 65,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "cat": "tuxedo",
+    "seed": 3,
+    "fps": 60,
+    "same": true,
+    "pieces": 59,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "cat": "tuxedo",
+    "seed": 3,
+    "fps": 30,
+    "same": true,
+    "pieces": 63,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "cat": "tuxedo",
+    "seed": 8,
+    "fps": 60,
+    "same": true,
+    "pieces": 63,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "cat": "tuxedo",
+    "seed": 8,
+    "fps": 30,
+    "same": true,
+    "pieces": 69,
+    "errs": 0
+   },
+   {
+    "level": 5,
+    "cat": "ragdoll",
+    "seed": 3,
+    "fps": 60,
+    "same": true,
+    "pieces": 85,
+    "errs": 0
+   },
+   {
+    "level": 5,
+    "cat": "ragdoll",
+    "seed": 3,
+    "fps": 30,
+    "same": true,
+    "pieces": 85,
+    "errs": 0
+   },
+   {
+    "level": 5,
+    "cat": "ragdoll",
+    "seed": 8,
+    "fps": 60,
+    "same": true,
+    "pieces": 89,
+    "errs": 0
+   },
+   {
+    "level": 5,
+    "cat": "ragdoll",
+    "seed": 8,
+    "fps": 30,
+    "same": true,
+    "pieces": 87,
+    "errs": 0
+   }
+  ],
+  "beside": {
+   "aTeal": 111,
+   "aRise": 31,
+   "bTeal": 3340,
+   "bRise": 5051,
+   "rows": [
+    {
+     "sz": "412x915",
+     "cat": "tuxedo",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       50,
+       109
+      ],
+      [
+       "yawn",
+       81,
+       110
+      ],
+      [
+       "power",
+       55,
+       0
+      ],
+      [
+       "power2",
+       68,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "tuxedo",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       51,
+       5740
+      ],
+      [
+       "yawn",
+       6847,
+       10276
+      ],
+      [
+       "power",
+       1499,
+       2
+      ],
+      [
+       "power2",
+       1182,
+       170
+      ]
+     ],
+     "armCalls": 4,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "orange",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       7411,
+       109
+      ],
+      [
+       "yawn",
+       5664,
+       110
+      ],
+      [
+       "power",
+       7337,
+       111
+      ],
+      [
+       "power2",
+       7418,
+       109
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "orange",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       7421,
+       5697
+      ],
+      [
+       "yawn",
+       12472,
+       10276
+      ],
+      [
+       "power",
+       7340,
+       5600
+      ],
+      [
+       "power2",
+       7422,
+       5348
+      ]
+     ],
+     "armCalls": 4,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "ragdoll",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       56,
+       109
+      ],
+      [
+       "yawn",
+       87,
+       110
+      ],
+      [
+       "power",
+       56,
+       91
+      ],
+      [
+       "power2",
+       56,
+       90
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "ragdoll",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       57,
+       5715
+      ],
+      [
+       "yawn",
+       6773,
+       10256
+      ],
+      [
+       "power",
+       57,
+       4906
+      ],
+      [
+       "power2",
+       57,
+       4739
+      ]
+     ],
+     "armCalls": 4,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "siamese",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       57,
+       109
+      ],
+      [
+       "yawn",
+       87,
+       110
+      ],
+      [
+       "power",
+       57,
+       75
+      ],
+      [
+       "power2",
+       56,
+       71
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "siamese",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       57,
+       5726
+      ],
+      [
+       "yawn",
+       6757,
+       10256
+      ],
+      [
+       "power",
+       54,
+       5428
+      ],
+      [
+       "power2",
+       55,
+       5374
+      ]
+     ],
+     "armCalls": 4,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "tortie",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       2923,
+       109
+      ],
+      [
+       "yawn",
+       2471,
+       110
+      ],
+      [
+       "power",
+       4407,
+       110
+      ],
+      [
+       "power2",
+       2908,
+       109
+      ],
+      [
+       "dance",
+       1288,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "tortie",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       2926,
+       5717
+      ],
+      [
+       "yawn",
+       9266,
+       10276
+      ],
+      [
+       "power",
+       4409,
+       5606
+      ],
+      [
+       "power2",
+       2913,
+       5604
+      ],
+      [
+       "dance",
+       2680,
+       2
+      ]
+     ],
+     "armCalls": 5,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "tuxedo",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       35,
+       59
+      ],
+      [
+       "yawn",
+       35,
+       59
+      ],
+      [
+       "power",
+       38,
+       0
+      ],
+      [
+       "power2",
+       50,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "tuxedo",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       39,
+       3370
+      ],
+      [
+       "yawn",
+       4561,
+       6902
+      ],
+      [
+       "power",
+       1077,
+       10
+      ],
+      [
+       "power2",
+       823,
+       95
+      ]
+     ],
+     "armCalls": 4,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "orange",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       5135,
+       59
+      ],
+      [
+       "yawn",
+       3783,
+       59
+      ],
+      [
+       "power",
+       5226,
+       59
+      ],
+      [
+       "power2",
+       5133,
+       59
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "orange",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       5151,
+       3340
+      ],
+      [
+       "yawn",
+       8336,
+       6902
+      ],
+      [
+       "power",
+       5230,
+       3094
+      ],
+      [
+       "power2",
+       5146,
+       3098
+      ]
+     ],
+     "armCalls": 4,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "ragdoll",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       40,
+       59
+      ],
+      [
+       "yawn",
+       39,
+       59
+      ],
+      [
+       "power",
+       40,
+       45
+      ],
+      [
+       "power2",
+       40,
+       45
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "ragdoll",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       44,
+       3349
+      ],
+      [
+       "yawn",
+       4500,
+       6887
+      ],
+      [
+       "power",
+       41,
+       2809
+      ],
+      [
+       "power2",
+       41,
+       2698
+      ]
+     ],
+     "armCalls": 4,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "siamese",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       40,
+       59
+      ],
+      [
+       "yawn",
+       39,
+       59
+      ],
+      [
+       "power",
+       40,
+       47
+      ],
+      [
+       "power2",
+       38,
+       36
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "siamese",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       44,
+       3352
+      ],
+      [
+       "yawn",
+       4484,
+       6887
+      ],
+      [
+       "power",
+       40,
+       3097
+      ],
+      [
+       "power2",
+       39,
+       3115
+      ]
+     ],
+     "armCalls": 4,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "tortie",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       2012,
+       59
+      ],
+      [
+       "yawn",
+       1636,
+       59
+      ],
+      [
+       "power",
+       2193,
+       59
+      ],
+      [
+       "power2",
+       2008,
+       59
+      ],
+      [
+       "dance",
+       1087,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "tortie",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       2023,
+       3352
+      ],
+      [
+       "yawn",
+       6174,
+       6902
+      ],
+      [
+       "power",
+       2206,
+       3203
+      ],
+      [
+       "power2",
+       2017,
+       3273
+      ],
+      [
+       "dance",
+       2277,
+       8
+      ]
+     ],
+     "armCalls": 5,
+     "errs": 0
+    }
+   ]
+  },
+  "edges": {
+   "wood": 0,
+   "rims": 31,
+   "frames": 31,
+   "dark": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "cols": [
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ]
+   ]
+  }
+ }
+}

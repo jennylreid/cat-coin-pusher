@@ -1,0 +1,1020 @@
+{
+ "sum": {
+  "runs": 15,
+  "carried": 36,
+  "paid": 36,
+  "prizesCarried": 15,
+  "lostSide": 0,
+  "sideWithPower": 3,
+  "sideWithout": 2,
+  "prizesOffSideWithPower": [
+   "tuna@10.03",
+   "tuna@11.55",
+   "feather@8.38"
+  ],
+  "prizesOffSideWithout": [
+   "tuna@10.9",
+   "tuna@10.72"
+  ],
+  "prizesOverFrontWithPower": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "prizesOverFrontWithout": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "maxPrizesPerUse": 1,
+  "held": 13,
+  "avgPaid": 2.4,
+  "allOk": true,
+  "lock": true,
+  "periodDuring": [
+   1.6
+  ],
+  "periodAfter": [
+   3.2
+  ],
+  "leftovers": 0,
+  "errors": 0
+ },
+ "runs": [
+  {
+   "level": 1,
+   "seed": 3,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "cheese",
+     "s": 4.88,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "shrimp"
+   ],
+   "carried": [
+    "cheese"
+   ],
+   "paid": [
+    "cheese"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 0,
+   "errs": []
+  },
+  {
+   "level": 1,
+   "seed": 3,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "cheese",
+    "shrimp"
+   ],
+   "errs": []
+  },
+  {
+   "level": 1,
+   "seed": 7,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "cheese",
+     "s": 4.88,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "shrimp"
+   ],
+   "carried": [
+    "cheese"
+   ],
+   "paid": [
+    "cheese"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 0,
+   "errs": []
+  },
+  {
+   "level": 1,
+   "seed": 7,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "cheese",
+    "shrimp"
+   ],
+   "errs": []
+  },
+  {
+   "level": 1,
+   "seed": 11,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "cheese",
+     "s": 4.87,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "shrimp"
+   ],
+   "carried": [
+    "cheese"
+   ],
+   "paid": [
+    "cheese"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 0,
+   "errs": []
+  },
+  {
+   "level": 1,
+   "seed": 11,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "cheese",
+    "shrimp"
+   ],
+   "errs": []
+  },
+  {
+   "level": 2,
+   "seed": 3,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "milk",
+     "s": 4.78,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "feather",
+    "ball",
+    "egg",
+    "box",
+    "tuna"
+   ],
+   "carried": [
+    "rain5",
+    "milk",
+    "coin"
+   ],
+   "paid": [
+    "rain5",
+    "milk",
+    "coin"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 1,
+   "errs": []
+  },
+  {
+   "level": 2,
+   "seed": 3,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 1,
+   "sideItems": [
+    {
+     "id": "tuna",
+     "s": 10.9
+    }
+   ],
+   "frontItems": [],
+   "prizesLeft": [
+    "feather",
+    "ball",
+    "egg",
+    "milk",
+    "box"
+   ],
+   "errs": []
+  },
+  {
+   "level": 2,
+   "seed": 7,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "milk",
+     "s": 4.88,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "feather",
+    "ball",
+    "egg",
+    "box",
+    "tuna"
+   ],
+   "carried": [
+    "rain5",
+    "milk"
+   ],
+   "paid": [
+    "rain5",
+    "milk"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 1,
+   "errs": []
+  },
+  {
+   "level": 2,
+   "seed": 7,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "feather",
+    "ball",
+    "egg",
+    "milk",
+    "box",
+    "tuna"
+   ],
+   "errs": []
+  },
+  {
+   "level": 2,
+   "seed": 11,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "ball",
+     "s": 4.75,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "feather",
+    "egg",
+    "milk",
+    "box",
+    "tuna"
+   ],
+   "carried": [
+    "rain5",
+    "ball"
+   ],
+   "paid": [
+    "rain5",
+    "ball"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 1,
+   "errs": []
+  },
+  {
+   "level": 2,
+   "seed": 11,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "feather",
+    "ball",
+    "egg",
+    "milk",
+    "box",
+    "tuna"
+   ],
+   "errs": []
+  },
+  {
+   "level": 3,
+   "seed": 3,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "egg",
+     "s": 2.97,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "sardine",
+    "sock",
+    "biscuit",
+    "box",
+    "tuna"
+   ],
+   "carried": [
+    "egg",
+    "rain5",
+    "rain5",
+    "rain5"
+   ],
+   "paid": [
+    "egg",
+    "rain5",
+    "rain5",
+    "rain5"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 0,
+   "errs": []
+  },
+  {
+   "level": 3,
+   "seed": 3,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "sardine",
+    "sock",
+    "biscuit",
+    "egg",
+    "box",
+    "tuna"
+   ],
+   "errs": []
+  },
+  {
+   "level": 3,
+   "seed": 7,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "biscuit",
+     "s": 3.23,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "sardine",
+    "sock",
+    "egg",
+    "box",
+    "tuna"
+   ],
+   "carried": [
+    "biscuit",
+    "rain5",
+    "rain5"
+   ],
+   "paid": [
+    "biscuit",
+    "rain5",
+    "rain5"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 0,
+   "errs": []
+  },
+  {
+   "level": 3,
+   "seed": 7,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "sardine",
+    "sock",
+    "biscuit",
+    "egg",
+    "box",
+    "tuna"
+   ],
+   "errs": []
+  },
+  {
+   "level": 3,
+   "seed": 11,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 1,
+   "sideItems": [
+    {
+     "id": "tuna",
+     "s": 10.03
+    }
+   ],
+   "frontItems": [
+    {
+     "id": "sock",
+     "s": 3.2,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "sardine",
+    "biscuit",
+    "egg",
+    "box"
+   ],
+   "carried": [
+    "sock",
+    "rain5",
+    "silver",
+    "rain5"
+   ],
+   "paid": [
+    "sock",
+    "rain5",
+    "silver",
+    "rain5"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 0,
+   "errs": []
+  },
+  {
+   "level": 3,
+   "seed": 11,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "sardine",
+    "sock",
+    "biscuit",
+    "egg",
+    "box",
+    "tuna"
+   ],
+   "errs": []
+  },
+  {
+   "level": 4,
+   "seed": 3,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "egg",
+     "s": 3.82,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "milk",
+    "feather",
+    "ball",
+    "sock",
+    "biscuit",
+    "sardine",
+    "milk",
+    "box",
+    "egg",
+    "ball",
+    "feather",
+    "tuna"
+   ],
+   "carried": [
+    "egg",
+    "rain5"
+   ],
+   "paid": [
+    "egg",
+    "rain5"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 13,
+   "held": 4,
+   "errs": []
+  },
+  {
+   "level": 4,
+   "seed": 3,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "egg",
+    "milk",
+    "feather",
+    "ball",
+    "sock",
+    "biscuit",
+    "sardine",
+    "milk",
+    "box",
+    "egg",
+    "ball",
+    "feather",
+    "tuna"
+   ],
+   "errs": []
+  },
+  {
+   "level": 4,
+   "seed": 7,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "egg",
+     "s": 3.78,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "milk",
+    "feather",
+    "ball",
+    "sock",
+    "biscuit",
+    "sardine",
+    "milk",
+    "box",
+    "egg",
+    "ball",
+    "feather",
+    "tuna"
+   ],
+   "carried": [
+    "egg",
+    "rain5"
+   ],
+   "paid": [
+    "egg",
+    "rain5"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 3,
+   "errs": []
+  },
+  {
+   "level": 4,
+   "seed": 7,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "egg",
+    "milk",
+    "feather",
+    "ball",
+    "sock",
+    "biscuit",
+    "sardine",
+    "milk",
+    "box",
+    "egg",
+    "ball",
+    "feather",
+    "tuna"
+   ],
+   "errs": []
+  },
+  {
+   "level": 4,
+   "seed": 11,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "milk",
+     "s": 4.32,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "egg",
+    "feather",
+    "ball",
+    "sock",
+    "biscuit",
+    "sardine",
+    "milk",
+    "box",
+    "egg",
+    "ball",
+    "feather",
+    "tuna"
+   ],
+   "carried": [
+    "rain5",
+    "milk"
+   ],
+   "paid": [
+    "rain5",
+    "milk"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 20,
+   "held": 3,
+   "errs": []
+  },
+  {
+   "level": 4,
+   "seed": 11,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "egg",
+    "milk",
+    "feather",
+    "ball",
+    "sock",
+    "biscuit",
+    "sardine",
+    "milk",
+    "box",
+    "egg",
+    "ball",
+    "feather",
+    "tuna"
+   ],
+   "errs": []
+  },
+  {
+   "level": 5,
+   "seed": 3,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [
+    {
+     "id": "egg",
+     "s": 3.03,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "milk",
+    "sock",
+    "ball",
+    "feather",
+    "tuna"
+   ],
+   "carried": [
+    "egg",
+    "quake",
+    "rain5"
+   ],
+   "paid": [
+    "egg",
+    "quake",
+    "rain5"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 0,
+   "errs": []
+  },
+  {
+   "level": 5,
+   "seed": 3,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "egg",
+    "milk",
+    "sock",
+    "ball",
+    "feather",
+    "tuna"
+   ],
+   "errs": []
+  },
+  {
+   "level": 5,
+   "seed": 7,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 1,
+   "sideItems": [
+    {
+     "id": "tuna",
+     "s": 11.55
+    }
+   ],
+   "frontItems": [
+    {
+     "id": "milk",
+     "s": 3.27,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "egg",
+    "sock",
+    "ball",
+    "feather"
+   ],
+   "carried": [
+    "milk",
+    "quake",
+    "rain5"
+   ],
+   "paid": [
+    "milk",
+    "quake",
+    "rain5"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 0,
+   "held": 0,
+   "errs": []
+  },
+  {
+   "level": 5,
+   "seed": 7,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 0,
+   "sideItems": [],
+   "frontItems": [],
+   "prizesLeft": [
+    "egg",
+    "milk",
+    "sock",
+    "ball",
+    "feather",
+    "tuna"
+   ],
+   "errs": []
+  },
+  {
+   "level": 5,
+   "seed": 11,
+   "power": true,
+   "ok": true,
+   "ends": 6,
+   "powers": 0,
+   "periodDuring": 1.6,
+   "lockHeld": true,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 1,
+   "sideItems": [
+    {
+     "id": "feather",
+     "s": 8.38
+    }
+   ],
+   "frontItems": [
+    {
+     "id": "milk",
+     "s": 3.23,
+     "during": true
+    }
+   ],
+   "prizesLeft": [
+    "egg",
+    "sock",
+    "ball",
+    "tuna",
+    "feather"
+   ],
+   "carried": [
+    "milk",
+    "quake",
+    "rain5"
+   ],
+   "paid": [
+    "milk",
+    "quake",
+    "rain5"
+   ],
+   "lostSide": [],
+   "kits": 2,
+   "eased": 1,
+   "held": 0,
+   "errs": []
+  },
+  {
+   "level": 5,
+   "seed": 11,
+   "power": false,
+   "periodAfter": 3.2,
+   "left": false,
+   "side": 1,
+   "sideItems": [
+    {
+     "id": "tuna",
+     "s": 10.72
+    }
+   ],
+   "frontItems": [],
+   "prizesLeft": [
+    "egg",
+    "milk",
+    "sock",
+    "ball",
+    "feather"
+   ],
+   "errs": []
+  }
+ ]
+}

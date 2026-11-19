@@ -1,0 +1,2493 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp98\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\ref78-cp93-release.html",
+ "passed": true,
+ "passedN": 4,
+ "failed": [],
+ "notes": {
+  "timeline": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "a": {
+     "title": {
+      "from": 0.02,
+      "to": 1.18
+     },
+     "started": 1.25,
+     "zoomT0": 1.25,
+     "len": 8.87,
+     "kits": 2,
+     "callMoves": [],
+     "heldAfter": 0,
+     "words": [],
+     "draws": 2,
+     "bam": 1,
+     "rev": [
+      1.25
+     ],
+     "used": 1,
+     "errs": 0,
+     "clean": true
+    },
+    "b": {
+     "title": null,
+     "started": 0.02,
+     "zoomT0": 0,
+     "len": 7,
+     "kits": 2,
+     "callMoves": [
+      [
+       0.03,
+       "ZOOMIES!"
+      ],
+      [
+       0.05,
+       "ZOOMIES!"
+      ],
+      [
+       0.07,
+       "ZOOMIES!"
+      ],
+      [
+       0.08,
+       "ZOOMIES!"
+      ],
+      [
+       0.1,
+       "ZOOMIES!"
+      ],
+      [
+       0.12,
+       "ZOOMIES!"
+      ],
+      [
+       0.13,
+       "ZOOMIES!"
+      ],
+      [
+       0.15,
+       "ZOOMIES!"
+      ],
+      [
+       0.17,
+       "ZOOMIES!"
+      ],
+      [
+       0.18,
+       "ZOOMIES!"
+      ],
+      [
+       0.2,
+       "ZOOMIES!"
+      ],
+      [
+       0.22,
+       "ZOOMIES!"
+      ],
+      [
+       0.23,
+       "ZOOMIES!"
+      ],
+      [
+       0.25,
+       "ZOOMIES!"
+      ],
+      [
+       0.27,
+       "ZOOMIES!"
+      ],
+      [
+       0.28,
+       "ZOOMIES!"
+      ],
+      [
+       0.3,
+       "ZOOMIES!"
+      ],
+      [
+       0.32,
+       "ZOOMIES!"
+      ],
+      [
+       0.33,
+       "ZOOMIES!"
+      ],
+      [
+       0.35,
+       "ZOOMIES!"
+      ],
+      [
+       0.37,
+       "ZOOMIES!"
+      ],
+      [
+       0.38,
+       "ZOOMIES!"
+      ],
+      [
+       0.4,
+       "ZOOMIES!"
+      ],
+      [
+       0.42,
+       "ZOOMIES!"
+      ],
+      [
+       0.43,
+       "ZOOMIES!"
+      ],
+      [
+       0.45,
+       "ZOOMIES!"
+      ],
+      [
+       0.47,
+       "ZOOMIES!"
+      ],
+      [
+       0.48,
+       "ZOOMIES!"
+      ],
+      [
+       0.5,
+       "ZOOMIES!"
+      ],
+      [
+       0.52,
+       "ZOOMIES!"
+      ],
+      [
+       0.53,
+       "ZOOMIES!"
+      ],
+      [
+       0.55,
+       "ZOOMIES!"
+      ],
+      [
+       0.57,
+       "ZOOMIES!"
+      ],
+      [
+       0.58,
+       "ZOOMIES!"
+      ],
+      [
+       0.6,
+       "ZOOMIES!"
+      ],
+      [
+       0.62,
+       "ZOOMIES!"
+      ],
+      [
+       0.63,
+       "ZOOMIES!"
+      ],
+      [
+       0.65,
+       "ZOOMIES!"
+      ],
+      [
+       0.67,
+       "ZOOMIES!"
+      ],
+      [
+       0.68,
+       "ZOOMIES!"
+      ],
+      [
+       0.7,
+       "ZOOMIES!"
+      ],
+      [
+       0.72,
+       "ZOOMIES!"
+      ],
+      [
+       0.73,
+       "ZOOMIES!"
+      ],
+      [
+       0.75,
+       "ZOOMIES!"
+      ],
+      [
+       0.77,
+       "ZOOMIES!"
+      ],
+      [
+       0.78,
+       "ZOOMIES!"
+      ],
+      [
+       0.8,
+       "ZOOMIES!"
+      ],
+      [
+       0.82,
+       "ZOOMIES!"
+      ],
+      [
+       0.83,
+       "ZOOMIES!"
+      ],
+      [
+       0.85,
+       "ZOOMIES!"
+      ],
+      [
+       0.87,
+       "ZOOMIES!"
+      ],
+      [
+       0.88,
+       "ZOOMIES!"
+      ],
+      [
+       0.9,
+       "ZOOMIES!"
+      ],
+      [
+       0.92,
+       "ZOOMIES!"
+      ],
+      [
+       0.93,
+       "ZOOMIES!"
+      ],
+      [
+       0.95,
+       "ZOOMIES!"
+      ],
+      [
+       0.97,
+       "ZOOMIES!"
+      ],
+      [
+       0.98,
+       "ZOOMIES!"
+      ],
+      [
+       1,
+       "ZOOMIES!"
+      ],
+      [
+       1.02,
+       "ZOOMIES!"
+      ],
+      [
+       1.03,
+       "ZOOMIES!"
+      ],
+      [
+       1.05,
+       "ZOOMIES!"
+      ],
+      [
+       1.07,
+       "ZOOMIES!"
+      ],
+      [
+       1.08,
+       "ZOOMIES!"
+      ],
+      [
+       1.1,
+       "ZOOMIES!"
+      ],
+      [
+       1.12,
+       "ZOOMIES!"
+      ],
+      [
+       1.13,
+       "ZOOMIES!"
+      ],
+      [
+       1.15,
+       "ZOOMIES!"
+      ],
+      [
+       1.17,
+       "ZOOMIES!"
+      ],
+      [
+       1.18,
+       "ZOOMIES!"
+      ],
+      [
+       1.2,
+       "ZOOMIES!"
+      ],
+      [
+       1.22,
+       "ZOOMIES!"
+      ],
+      [
+       1.23,
+       "ZOOMIES!"
+      ],
+      [
+       1.25,
+       "ZOOMIES!"
+      ],
+      [
+       1.27,
+       "ZOOMIES!"
+      ],
+      [
+       1.28,
+       "ZOOMIES!"
+      ],
+      [
+       1.3,
+       "ZOOMIES!"
+      ],
+      [
+       1.32,
+       "ZOOMIES!"
+      ],
+      [
+       1.33,
+       "ZOOMIES!"
+      ],
+      [
+       1.35,
+       "ZOOMIES!"
+      ],
+      [
+       1.37,
+       "ZOOMIES!"
+      ],
+      [
+       1.38,
+       "ZOOMIES!"
+      ],
+      [
+       1.4,
+       "ZOOMIES!"
+      ],
+      [
+       5.72,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.73,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.75,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.77,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.78,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.8,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.82,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.83,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.85,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.87,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.88,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.9,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.92,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.93,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.95,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.97,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.98,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.02,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.03,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.05,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.07,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.08,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.1,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.12,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.13,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.15,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.17,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.18,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.2,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.22,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.23,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.25,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.27,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.28,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.3,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.32,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.33,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.35,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.37,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.38,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.4,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.42,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.43,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.45,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.47,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.48,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.5,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.52,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.53,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.55,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.57,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.58,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.6,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.62,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.63,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.65,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.67,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.68,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.7,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.72,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.73,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.75,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.77,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.78,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.8,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.82,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.83,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.85,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.87,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.88,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.9,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.92,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.93,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.95,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.97,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.98,
+       "COIN RAIN ×5!"
+      ],
+      [
+       -1,
+       "COIN RAIN ×5!"
+      ]
+     ],
+     "heldAfter": 0,
+     "words": [],
+     "draws": 2,
+     "bam": 3,
+     "rev": [
+      -1
+     ],
+     "used": 1,
+     "errs": 0,
+     "clean": true
+    },
+    "fails": []
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "a": {
+     "title": {
+      "from": 0.02,
+      "to": 1.18
+     },
+     "started": 1.25,
+     "zoomT0": 1.25,
+     "len": 9.02,
+     "kits": 2,
+     "callMoves": [],
+     "heldAfter": 0,
+     "words": [],
+     "draws": 2,
+     "bam": 1,
+     "rev": [
+      1.25
+     ],
+     "used": 1,
+     "errs": 0,
+     "clean": true
+    },
+    "b": {
+     "title": null,
+     "started": 0.02,
+     "zoomT0": 0,
+     "len": 7,
+     "kits": 2,
+     "callMoves": [
+      [
+       0.03,
+       "ZOOMIES!"
+      ],
+      [
+       0.05,
+       "ZOOMIES!"
+      ],
+      [
+       0.07,
+       "ZOOMIES!"
+      ],
+      [
+       0.08,
+       "ZOOMIES!"
+      ],
+      [
+       0.1,
+       "ZOOMIES!"
+      ],
+      [
+       0.12,
+       "ZOOMIES!"
+      ],
+      [
+       0.13,
+       "ZOOMIES!"
+      ],
+      [
+       0.15,
+       "ZOOMIES!"
+      ],
+      [
+       0.17,
+       "ZOOMIES!"
+      ],
+      [
+       0.18,
+       "ZOOMIES!"
+      ],
+      [
+       0.2,
+       "ZOOMIES!"
+      ],
+      [
+       0.22,
+       "ZOOMIES!"
+      ],
+      [
+       0.23,
+       "ZOOMIES!"
+      ],
+      [
+       0.25,
+       "ZOOMIES!"
+      ],
+      [
+       0.27,
+       "ZOOMIES!"
+      ],
+      [
+       0.28,
+       "ZOOMIES!"
+      ],
+      [
+       0.3,
+       "ZOOMIES!"
+      ],
+      [
+       0.32,
+       "ZOOMIES!"
+      ],
+      [
+       0.33,
+       "ZOOMIES!"
+      ],
+      [
+       0.35,
+       "ZOOMIES!"
+      ],
+      [
+       0.37,
+       "ZOOMIES!"
+      ],
+      [
+       0.38,
+       "ZOOMIES!"
+      ],
+      [
+       0.4,
+       "ZOOMIES!"
+      ],
+      [
+       0.42,
+       "ZOOMIES!"
+      ],
+      [
+       0.43,
+       "ZOOMIES!"
+      ],
+      [
+       0.45,
+       "ZOOMIES!"
+      ],
+      [
+       0.47,
+       "ZOOMIES!"
+      ],
+      [
+       0.48,
+       "ZOOMIES!"
+      ],
+      [
+       0.5,
+       "ZOOMIES!"
+      ],
+      [
+       0.52,
+       "ZOOMIES!"
+      ],
+      [
+       0.53,
+       "ZOOMIES!"
+      ],
+      [
+       0.55,
+       "ZOOMIES!"
+      ],
+      [
+       0.57,
+       "ZOOMIES!"
+      ],
+      [
+       0.58,
+       "ZOOMIES!"
+      ],
+      [
+       0.6,
+       "ZOOMIES!"
+      ],
+      [
+       0.62,
+       "ZOOMIES!"
+      ],
+      [
+       0.63,
+       "ZOOMIES!"
+      ],
+      [
+       0.65,
+       "ZOOMIES!"
+      ],
+      [
+       0.67,
+       "ZOOMIES!"
+      ],
+      [
+       0.68,
+       "ZOOMIES!"
+      ],
+      [
+       0.7,
+       "ZOOMIES!"
+      ],
+      [
+       0.72,
+       "ZOOMIES!"
+      ],
+      [
+       0.73,
+       "ZOOMIES!"
+      ],
+      [
+       0.75,
+       "ZOOMIES!"
+      ],
+      [
+       0.77,
+       "ZOOMIES!"
+      ],
+      [
+       0.78,
+       "ZOOMIES!"
+      ],
+      [
+       0.8,
+       "ZOOMIES!"
+      ],
+      [
+       0.82,
+       "ZOOMIES!"
+      ],
+      [
+       0.83,
+       "ZOOMIES!"
+      ],
+      [
+       0.85,
+       "ZOOMIES!"
+      ],
+      [
+       0.87,
+       "ZOOMIES!"
+      ],
+      [
+       0.88,
+       "ZOOMIES!"
+      ],
+      [
+       0.9,
+       "ZOOMIES!"
+      ],
+      [
+       0.92,
+       "ZOOMIES!"
+      ],
+      [
+       0.93,
+       "ZOOMIES!"
+      ],
+      [
+       0.95,
+       "ZOOMIES!"
+      ],
+      [
+       0.97,
+       "ZOOMIES!"
+      ],
+      [
+       0.98,
+       "ZOOMIES!"
+      ],
+      [
+       1,
+       "ZOOMIES!"
+      ],
+      [
+       1.02,
+       "ZOOMIES!"
+      ],
+      [
+       1.03,
+       "ZOOMIES!"
+      ],
+      [
+       1.05,
+       "ZOOMIES!"
+      ],
+      [
+       1.07,
+       "ZOOMIES!"
+      ],
+      [
+       1.08,
+       "ZOOMIES!"
+      ],
+      [
+       1.1,
+       "ZOOMIES!"
+      ],
+      [
+       1.12,
+       "ZOOMIES!"
+      ],
+      [
+       1.13,
+       "ZOOMIES!"
+      ],
+      [
+       1.15,
+       "ZOOMIES!"
+      ],
+      [
+       1.17,
+       "ZOOMIES!"
+      ],
+      [
+       1.18,
+       "ZOOMIES!"
+      ],
+      [
+       1.2,
+       "ZOOMIES!"
+      ],
+      [
+       1.22,
+       "ZOOMIES!"
+      ],
+      [
+       1.23,
+       "ZOOMIES!"
+      ],
+      [
+       1.25,
+       "ZOOMIES!"
+      ],
+      [
+       1.27,
+       "ZOOMIES!"
+      ],
+      [
+       1.28,
+       "ZOOMIES!"
+      ],
+      [
+       1.3,
+       "ZOOMIES!"
+      ],
+      [
+       1.32,
+       "ZOOMIES!"
+      ],
+      [
+       1.33,
+       "ZOOMIES!"
+      ],
+      [
+       1.35,
+       "ZOOMIES!"
+      ],
+      [
+       1.37,
+       "ZOOMIES!"
+      ],
+      [
+       1.38,
+       "ZOOMIES!"
+      ],
+      [
+       1.4,
+       "ZOOMIES!"
+      ],
+      [
+       5.2,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.22,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.23,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.25,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.27,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.28,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.3,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.32,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.33,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.35,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.37,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.38,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.4,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.42,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.43,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.45,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.47,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.48,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.5,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.52,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.53,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.55,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.57,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.58,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.6,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.62,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.63,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.65,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.67,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.68,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.7,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.72,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.73,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.75,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.77,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.78,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.8,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.82,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.83,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.85,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.87,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.88,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.9,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.92,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.93,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.95,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.97,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.98,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.02,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.03,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.05,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.07,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.08,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.1,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.12,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.13,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.15,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.17,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.18,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.2,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.22,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.23,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.25,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.27,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.28,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.3,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.32,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.33,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.35,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.37,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.38,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.4,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.42,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.43,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.45,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.47,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.5,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.52,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.53,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.55,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.57,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.58,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.6,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.62,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.63,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.65,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.67,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.68,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.7,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.72,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.73,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.75,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.77,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.78,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.8,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.82,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.83,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.85,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.87,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.88,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.9,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.92,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.93,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.95,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.97,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.98,
+       "COIN RAIN ×10!"
+      ],
+      [
+       7,
+       "COIN RAIN ×10!"
+      ],
+      [
+       -1,
+       "COIN RAIN ×10!"
+      ]
+     ],
+     "heldAfter": 0,
+     "words": [],
+     "draws": 2,
+     "bam": 3,
+     "rev": [
+      -1
+     ],
+     "used": 1,
+     "errs": 0,
+     "clean": true
+    },
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "a": {
+     "title": {
+      "from": 0.03,
+      "to": 1.17
+     },
+     "started": 1.27,
+     "zoomT0": 1.25,
+     "len": 9.2,
+     "kits": 2,
+     "callMoves": [],
+     "heldAfter": 0,
+     "words": [],
+     "draws": 2,
+     "bam": 1,
+     "rev": [
+      1.27
+     ],
+     "used": 1,
+     "errs": 0,
+     "clean": true
+    },
+    "b": {
+     "title": null,
+     "started": 0.03,
+     "zoomT0": 0,
+     "len": 7,
+     "kits": 2,
+     "callMoves": [
+      [
+       0.07,
+       "ZOOMIES!"
+      ],
+      [
+       0.1,
+       "ZOOMIES!"
+      ],
+      [
+       0.13,
+       "ZOOMIES!"
+      ],
+      [
+       0.17,
+       "ZOOMIES!"
+      ],
+      [
+       0.2,
+       "ZOOMIES!"
+      ],
+      [
+       0.23,
+       "ZOOMIES!"
+      ],
+      [
+       0.27,
+       "ZOOMIES!"
+      ],
+      [
+       0.3,
+       "ZOOMIES!"
+      ],
+      [
+       0.33,
+       "ZOOMIES!"
+      ],
+      [
+       0.37,
+       "ZOOMIES!"
+      ],
+      [
+       0.4,
+       "ZOOMIES!"
+      ],
+      [
+       0.43,
+       "ZOOMIES!"
+      ],
+      [
+       0.47,
+       "ZOOMIES!"
+      ],
+      [
+       0.5,
+       "ZOOMIES!"
+      ],
+      [
+       0.53,
+       "ZOOMIES!"
+      ],
+      [
+       0.57,
+       "ZOOMIES!"
+      ],
+      [
+       0.6,
+       "ZOOMIES!"
+      ],
+      [
+       0.63,
+       "ZOOMIES!"
+      ],
+      [
+       0.67,
+       "ZOOMIES!"
+      ],
+      [
+       0.7,
+       "ZOOMIES!"
+      ],
+      [
+       0.73,
+       "ZOOMIES!"
+      ],
+      [
+       0.77,
+       "ZOOMIES!"
+      ],
+      [
+       0.8,
+       "ZOOMIES!"
+      ],
+      [
+       0.83,
+       "ZOOMIES!"
+      ],
+      [
+       0.87,
+       "ZOOMIES!"
+      ],
+      [
+       0.9,
+       "ZOOMIES!"
+      ],
+      [
+       0.93,
+       "ZOOMIES!"
+      ],
+      [
+       0.97,
+       "ZOOMIES!"
+      ],
+      [
+       1,
+       "ZOOMIES!"
+      ],
+      [
+       1.03,
+       "ZOOMIES!"
+      ],
+      [
+       1.07,
+       "ZOOMIES!"
+      ],
+      [
+       1.1,
+       "ZOOMIES!"
+      ],
+      [
+       1.13,
+       "ZOOMIES!"
+      ],
+      [
+       1.17,
+       "ZOOMIES!"
+      ],
+      [
+       1.2,
+       "ZOOMIES!"
+      ],
+      [
+       1.23,
+       "ZOOMIES!"
+      ],
+      [
+       1.27,
+       "ZOOMIES!"
+      ],
+      [
+       1.3,
+       "ZOOMIES!"
+      ],
+      [
+       1.33,
+       "ZOOMIES!"
+      ],
+      [
+       1.37,
+       "ZOOMIES!"
+      ],
+      [
+       4.53,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.57,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.6,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.63,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.67,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.7,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.73,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.77,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.8,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.83,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.87,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.9,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.93,
+       "COIN RAIN ×5!"
+      ],
+      [
+       4.97,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.03,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.07,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.1,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.13,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.17,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.2,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.23,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.27,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.3,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.33,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.37,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.4,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.43,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.47,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.5,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.53,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.57,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.6,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.63,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.67,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.7,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.73,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.77,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.87,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.9,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.93,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.97,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.03,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.07,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.1,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.13,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.17,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.2,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.23,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.27,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.3,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.33,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.37,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.4,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.43,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.47,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.5,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.53,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.57,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.6,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.63,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.67,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.7,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.73,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.77,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.8,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.83,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.87,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.9,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.93,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.97,
+       "COIN RAIN ×5!"
+      ],
+      [
+       7,
+       "COIN RAIN ×5!"
+      ],
+      [
+       -1,
+       "COIN RAIN ×5!"
+      ]
+     ],
+     "heldAfter": 0,
+     "words": [],
+     "draws": 2,
+     "bam": 3,
+     "rev": [
+      -1
+     ],
+     "used": 1,
+     "errs": 0,
+     "clean": true
+    },
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "a": {
+     "title": {
+      "from": 0.03,
+      "to": 1.17
+     },
+     "started": 1.27,
+     "zoomT0": 1.25,
+     "len": 9.03,
+     "kits": 2,
+     "callMoves": [],
+     "heldAfter": 0,
+     "words": [],
+     "draws": 2,
+     "bam": 1,
+     "rev": [
+      1.27
+     ],
+     "used": 1,
+     "errs": 0,
+     "clean": true
+    },
+    "b": {
+     "title": null,
+     "started": 0.03,
+     "zoomT0": 0,
+     "len": 7,
+     "kits": 2,
+     "callMoves": [
+      [
+       0.07,
+       "ZOOMIES!"
+      ],
+      [
+       0.1,
+       "ZOOMIES!"
+      ],
+      [
+       0.13,
+       "ZOOMIES!"
+      ],
+      [
+       0.17,
+       "ZOOMIES!"
+      ],
+      [
+       0.2,
+       "ZOOMIES!"
+      ],
+      [
+       0.23,
+       "ZOOMIES!"
+      ],
+      [
+       0.27,
+       "ZOOMIES!"
+      ],
+      [
+       0.3,
+       "ZOOMIES!"
+      ],
+      [
+       0.33,
+       "ZOOMIES!"
+      ],
+      [
+       0.37,
+       "ZOOMIES!"
+      ],
+      [
+       0.4,
+       "ZOOMIES!"
+      ],
+      [
+       0.43,
+       "ZOOMIES!"
+      ],
+      [
+       0.47,
+       "ZOOMIES!"
+      ],
+      [
+       0.5,
+       "ZOOMIES!"
+      ],
+      [
+       0.53,
+       "ZOOMIES!"
+      ],
+      [
+       0.57,
+       "ZOOMIES!"
+      ],
+      [
+       0.6,
+       "ZOOMIES!"
+      ],
+      [
+       0.63,
+       "ZOOMIES!"
+      ],
+      [
+       0.67,
+       "ZOOMIES!"
+      ],
+      [
+       0.7,
+       "ZOOMIES!"
+      ],
+      [
+       0.73,
+       "ZOOMIES!"
+      ],
+      [
+       0.77,
+       "ZOOMIES!"
+      ],
+      [
+       0.8,
+       "ZOOMIES!"
+      ],
+      [
+       0.83,
+       "ZOOMIES!"
+      ],
+      [
+       0.87,
+       "ZOOMIES!"
+      ],
+      [
+       0.9,
+       "ZOOMIES!"
+      ],
+      [
+       0.93,
+       "ZOOMIES!"
+      ],
+      [
+       0.97,
+       "ZOOMIES!"
+      ],
+      [
+       1,
+       "ZOOMIES!"
+      ],
+      [
+       1.03,
+       "ZOOMIES!"
+      ],
+      [
+       1.07,
+       "ZOOMIES!"
+      ],
+      [
+       1.1,
+       "ZOOMIES!"
+      ],
+      [
+       1.13,
+       "ZOOMIES!"
+      ],
+      [
+       1.17,
+       "ZOOMIES!"
+      ],
+      [
+       1.2,
+       "ZOOMIES!"
+      ],
+      [
+       1.23,
+       "ZOOMIES!"
+      ],
+      [
+       1.27,
+       "ZOOMIES!"
+      ],
+      [
+       1.3,
+       "ZOOMIES!"
+      ],
+      [
+       1.33,
+       "ZOOMIES!"
+      ],
+      [
+       1.37,
+       "ZOOMIES!"
+      ],
+      [
+       5.13,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.17,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.2,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.23,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.27,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.3,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.33,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.37,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.4,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.43,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.47,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.5,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.53,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.57,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.6,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.63,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.67,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.7,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.73,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.77,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.8,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.83,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.87,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.9,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.93,
+       "COIN RAIN ×5!"
+      ],
+      [
+       5.97,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.03,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.07,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.1,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.13,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.17,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.2,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.23,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.27,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.3,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.33,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.37,
+       "COIN RAIN ×5!"
+      ],
+      [
+       6.43,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.47,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.5,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.53,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.57,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.6,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.63,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.67,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.7,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.73,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.77,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.8,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.83,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.87,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.9,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.93,
+       "COIN RAIN ×10!"
+      ],
+      [
+       6.97,
+       "COIN RAIN ×10!"
+      ],
+      [
+       7,
+       "COIN RAIN ×10!"
+      ],
+      [
+       -1,
+       "COIN RAIN ×10!"
+      ]
+     ],
+     "heldAfter": 0,
+     "words": [],
+     "draws": 2,
+     "bam": 3,
+     "rev": [
+      -1
+     ],
+     "used": 1,
+     "errs": 0,
+     "clean": true
+    },
+    "fails": []
+   }
+  ],
+  "screen": [
+   {
+    "sz": "412x915",
+    "leap": {
+     "0": {
+      "minPuffAfter": 1,
+      "maxPuff": 1
+     },
+     "1": {
+      "minPuffAfter": 0,
+      "maxPuff": 0
+     }
+    },
+    "shots": [
+     "1-title",
+     "2-kittens",
+     "3-kittens",
+     "4-poof-leap"
+    ],
+    "titleKits": 0,
+    "words": [],
+    "errs": 0
+   },
+   {
+    "sz": "360x640",
+    "leap": {
+     "0": {
+      "minPuffAfter": 1,
+      "maxPuff": 1
+     },
+     "1": {
+      "minPuffAfter": 0,
+      "maxPuff": 0
+     }
+    },
+    "shots": [
+     "1-title",
+     "2-kittens",
+     "3-kittens",
+     "4-poof-leap"
+    ],
+    "titleKits": 0,
+    "words": [],
+    "errs": 0
+   }
+  ]
+ }
+}

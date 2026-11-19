@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CP-72 Zoomies prototype</title>
+<style>
+:root{--bg:#1b1026;--panel:#2a1a3e;--ink:#f4ecff;--muted:#b9a6d6;--accent:#ffb03a}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,sans-serif}
+.wrap{display:flex;gap:24px;padding:16px;flex-wrap:wrap;align-items:flex-start}
+iframe{width:412px;height:915px;max-width:100%;border:0;border-radius:18px;background:#000;flex:none}
+.side{max-width:440px}
+h1{font-size:22px;margin:0 0 6px}
+button{font:600 15px system-ui;padding:10px 14px;margin:4px 6px 4px 0;border-radius:10px;border:1px solid #6b5a8a;background:#3a2d52;color:var(--ink);cursor:pointer}
+button.big{background:var(--accent);color:#2a0b3e;border-color:var(--accent);font-size:18px;padding:12px 20px}
+.note{color:var(--muted);font-size:13px}
+ol{padding-left:20px}
+#st{font:12px ui-monospace,monospace;color:var(--muted);white-space:pre-wrap}
+</style></head><body>
+<div class="wrap">
+<iframe id="g" src="game/proto.html?level=3"></iframe>
+<div class="side">
+<h1>CP-72 Zoomies prototype</h1>
+<p class="note">The real game (UAT 89) on the Orange cat's board, with the power button playing the new Zoomies. Not a release. Tap the board once to turn the sound on.</p>
+<p><button class="big" id="play">▶ Play Zoomies</button></p>
+<p><button data-src="proto" data-lv="3">New round: Level 3</button><button data-src="proto" data-lv="5">New round: Level 5</button><button data-src="current" data-lv="3">Today's Zoomies (UAT 89), Level 3</button></p>
+<p>Add on top of the pile: <button data-add="rain5">Rain 5</button><button data-add="rain10">Rain 10</button><button data-add="quake">Quake coin</button><button data-add="tuna">Tuna</button></p>
+<p class="note">After a new round there's a countdown first. Playing the power adds one charge and tops up the round clock.</p>
+<h2 style="font-size:16px">The beats (revision 2, about 8 s)</h2>
+<ol>
+<li>0 s: "ZOOMIES!", the turbo rev and a meow. The pusher runs at double speed for 7 s (turbo slide sound, gold streaks, "2× PUSHER").</li>
+<li>0.4 s and 0.95 s: two kittens pop out at the back (chirp), crouch in a play-bow (front low, rear up, tail hooked, wide eyes), wiggle, and bolt.</li>
+<li>They tear down the board in a low sprint, zigzagging, with stunts on the way: a circle, a sideways arched-back hop, a straight-up spook jump (fur and tail puffed straight out), a flip.</li>
+<li>What they run into while heading toward you is shoved forward over the front edge: at most 1 prize per use, plus Rain, Quake and top coins (up to 3 per kitten, 6 in all). Other prizes are held at the lip while it runs.</li>
+<li>Each kitten skids at the front edge and leaps off toward you, stretched out.</li>
+</ol>
+<div id="st"></div>
+</div></div>
+<script>
+const g=document.getElementById('g'),W=()=>g.contentWindow,st=document.getElementById('st');
+document.getElementById('play').onclick=()=>{try{const ok=W().z72DemoPlay();st.textContent=ok?'Playing…':'Not ready: wait for the round to start (or it is already playing).';}catch(e){st.textContent='Still loading…';}};
+for(const b of document.querySelectorAll('[data-lv]'))b.onclick=()=>{g.src='game/'+b.dataset.src+'.html?level='+b.dataset.lv+'&r='+Date.now();st.textContent='';};
+for(const b of document.querySelectorAll('[data-add]'))b.onclick=()=>{try{W().z72DemoAdd(b.dataset.add);}catch(e){}};
+setInterval(()=>{try{const s=W().z72DemoState();if(!s.power&&st.textContent==='Playing…'&&s.stats)st.textContent='Carried by kittens: '+s.stats.carried.join(', ')+'\nPaid over the front: '+s.stats.paid.length+'; lost over a side: '+s.stats.lostSide.length;}catch(e){}},500);
+</script>
+</body></html>

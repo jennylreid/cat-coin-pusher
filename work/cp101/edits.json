@@ -1,0 +1,17 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp100\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.18 UAT 100';",
+   "const BUILD = '2026.11.18 UAT 101';"
+  ],
+  [
+   "wildText('2\u00d7 REACH',200,w43ChinY()+28,26,'#6ad8ff','#0b2a3e',5);}",
+   "/* CP-82: no \"2\u00d7 REACH\" over the rings */}"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp82-titles.js",
+  "cp72-zfix.js"
+ ]
+}

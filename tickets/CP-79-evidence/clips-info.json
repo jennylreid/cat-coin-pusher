@@ -1,0 +1,12 @@
+{
+ "frames": 93,
+ "fps": 30,
+ "yawnSoundAt": 0.483,
+ "errs": [],
+ "clips": {
+  "A": "yawn-sound-A.mp4",
+  "B": "yawn-sound-B.mp4",
+  "C": "yawn-sound-C.mp4",
+  "today": "yawn-sound-today.mp4"
+ }
+}

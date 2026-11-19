@@ -1,0 +1,21 @@
+{
+  "version": 20261118000008,
+  "displayName": "2026.11.18 UAT 97",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "5adc251abe41c1750dc98e3ceeb12400842d7a56d15451baf090adee9ec1cc31",
+  "stagedJSONSHA256": "5ae0ea334eaaaafdf08b856b99489c887f331146657f52537451c7528e6146c5",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "9d3f975a51b5382a69f0407e7ff46110de571ede4a1b62a6975c727626c87899",
+  "jsonBytes": 57561938,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.18 UAT 96",
+  "backup": "uat/backups/before-UAT97-20261118000008",
+  "evidence": "tickets/CP-78-evidence/uat97",
+  "authorization": "UAT 97: CP-78 Board clean-up (Jenny, Nov 18: \"CP-78 Board clean-up: approved. Mitts stay where they are. Into the next UAT.\"; PM go after UAT 96 was out); UAT only"
+}

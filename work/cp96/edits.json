@@ -1,0 +1,16 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp95\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.18 UAT 95';",
+   "const BUILD = '2026.11.18 UAT 96';"
+  ],
+  [
+   "segs.push({k:'leap',d:.4,f:u=>({x:at.x,z:zF+4+u*60,h:40*Math.sin(Math.min(1,u)*Math.PI*.8),grow:1+u*.9,fade:Math.max(0,1-u),dir:1,pose:'leap',puff:k.id===0?Math.min(1,u/.12):0})}); /* CP-72 add-on: poof */",
+   "if(k.id===0){const H=Z72.leapHang,L={...H,dx:Math.max(-H.edge,Math.min(H.edge,at.x-200))+200-at.x},o0=L.top,top=o=>({x:at.x,z:zF+4+o*60,h:40*Math.sin(Math.min(1,o)*Math.PI*.8),grow:1+o*.9,dir:1,pose:'leap',puff:Math.min(1,o/.12)}); /* CP-72 rework: the poof hangs */\n  segs.push({k:'leap',d:.4*o0,f:u=>({...top(u*o0),fade:1})});\n  segs.push({k:'leap',d:L.hang,f:u=>{const P=top(o0),e=z72E(u/.18);return {...P,x:P.x+L.dx*e,h:P.h+3*Math.sin(u*Math.PI*4),grow:P.grow*(1+(L.big-1)*e),fade:1};}});\n  segs.push({k:'leap',d:.4*(1-o0),f:u=>{const P=top(o0+u*(1-o0)),e=1-z72E(u/.6);return {...P,x:P.x+L.dx*e,grow:P.grow*(1+(L.big-1)*e),fade:Math.max(0,1-u)};}});}\n else segs.push({k:'leap',d:.4,f:u=>({x:at.x,z:zF+4+u*60,h:40*Math.sin(Math.min(1,u)*Math.PI*.8),grow:1+u*.9,fade:Math.max(0,1-u),dir:1,pose:'leap',puff:0})});"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp72-hang.js"
+ ]
+}

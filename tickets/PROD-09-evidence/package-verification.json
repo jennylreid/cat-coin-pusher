@@ -1,0 +1,35 @@
+{
+  "displayName": "2026.11.18",
+  "version": 20261118200000,
+  "apkVersion": 17,
+  "baselineJSONSHA256": "05d080a2f970eb7fd40aa98f7a2070e14a5d4624abe891fe901c2c744a45dc44",
+  "productionAPKSHA256": "df205863d0bf755276f7f4acf301b3c573788ccef09b8f8bc0cd0263121e8e45",
+  "uatJSONSHA256": "4eb73334c9ba13ce9ce9b3bfca4849b5ae9d4ed16b69f2835d05d6e4893441f6",
+  "uatAPKSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "stagedJSONSHA256": "ae4564ad4dce0f2a3c6091dd73dc6262a49ae1f2bcd3518d75b73fd325e91bb4",
+  "releaseHTMLSHA256": "34b7db2b12447ef3aaa27ea9f004aaf41e5ae824bb893fec366334495c28a691",
+  "sourceHTML": "work/cp105/release.html",
+  "sourceHTMLSHA256": "d08597d1a6e355071a67742cd070a687156b7dd40ea791d3d71b1f57b4e6db39",
+  "jsonBytes": 58803924,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFilesFromUAT105": [
+    "img/art/cp75-yawn-eyes-orange.png",
+    "img/art/cp75-yawn-eyes-ragdoll.png",
+    "img/art/cp75-yawn-eyes-siamese.png",
+    "img/art/cp75-yawn-eyes-tortie.png",
+    "img/art/cp75-yawn-face-orange.webp",
+    "img/art/cp75-yawn-face-ragdoll.webp",
+    "img/art/cp75-yawn-face-siamese.webp",
+    "img/art/cp75-yawn-face-tortie.webp"
+  ],
+  "unchangedRuntimeFilesMatchProduction": 69,
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "updateURL": "production (work/prod04/download-url.txt, APK17 assets/update-url.txt)",
+  "backup": "backups/before-PROD-09-20261118200000",
+  "evidence": "tickets/PROD-09-evidence",
+  "authorization": "Jenny, Nov 18, 2026: \"Let's get this stuff to production before we continue to update UAT.\" (after the PM listed CP-71, 72, 73, 75, 78, 80, 82)"
+}

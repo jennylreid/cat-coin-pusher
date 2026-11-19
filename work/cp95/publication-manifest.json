@@ -1,0 +1,30 @@
+{
+  "version": 20261118000006,
+  "displayName": "2026.11.18 UAT 95",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "3b6113a5fadcde70b77e34b816acd0079e18e69589d2732b26274b0f4beaa4d9",
+  "stagedJSONSHA256": "129ab65b622ce0edd37d566aaec007483ce6b75fe0fe24020f2bfb70c893beb0",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "a522d3c21735550eaa1e779165fc75529ca1edcf69c4b69ef9b876837e51d209",
+  "jsonBytes": 57556298,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [
+    "img/art/cp75-yawn-eyes-orange.png",
+    "img/art/cp75-yawn-eyes-ragdoll.png",
+    "img/art/cp75-yawn-eyes-siamese.png",
+    "img/art/cp75-yawn-eyes-tortie.png",
+    "img/art/cp75-yawn-face-orange.webp",
+    "img/art/cp75-yawn-face-ragdoll.webp",
+    "img/art/cp75-yawn-face-siamese.webp",
+    "img/art/cp75-yawn-face-tortie.webp"
+  ],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.18 UAT 94",
+  "backup": "uat/backups/before-UAT95-20261118000006",
+  "evidence": "tickets/CP-75-evidence/uat95",
+  "authorization": "UAT 95: CP-75 Yawn faces (Jenny, Nov 18, via PM: \"CP-75 Yawn faces: approved. Eyes stay yellow; Siamese as is; mitts tinted per cat. Into the next UAT.\"); UAT only"
+}

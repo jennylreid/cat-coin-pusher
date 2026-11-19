@@ -1,0 +1,10 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp103\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\ref78-cp94-release.html",
+ "passed": true,
+ "passedN": 7,
+ "failed": [],
+ "notes": {
+  "reference": "frames and play compared with published UAT 94 renamed to the UAT 98 build name (ref-uat94-named103.html): the build name is drawn on screen"
+ }
+}

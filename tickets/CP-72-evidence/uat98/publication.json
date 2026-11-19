@@ -1,0 +1,24 @@
+﻿{
+    "version":  20261118000009,
+    "displayName":  "2026.11.18 UAT 98",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "5ae0ea334eaaaafdf08b856b99489c887f331146657f52537451c7528e6146c5",
+    "stagedJSONSHA256":  "6452ea7b89bbec9ef99649b80bee02665d7e8f019d4b83aa629bdd750ddc10d0",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "ded56e2e1427b1b79e7f501608f2f85347e2fbfd83a2397886539513b6b6e66f",
+    "jsonBytes":  57564894,
+    "runtimeFiles":  78,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.18 UAT 97",
+    "backup":  "uat/backups/before-UAT98-20261118000009",
+    "evidence":  "tickets/CP-72-evidence/uat98",
+    "authorization":  "UAT 98: CP-72 hang rework (Jenny, Nov 18: \"CP-72 hang UAT 96: rework. During the hang the ginger kitten moves toward the middle of the screen and tilts about 20 degrees, for extra crazy energy. Rest unchanged. Next UAT after 97. Yes, we\u0027ll try it.\"; \"It knows it\u0027s cute, so it kind of puts itself right in your face for a second.\" \"Showing off is a good way to frame it.\"; PM go after UAT 97 was out); UAT only",
+    "localPublication":  "verified"
+}

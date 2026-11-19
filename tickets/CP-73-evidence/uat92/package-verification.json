@@ -1,0 +1,21 @@
+{
+  "version": 20261118000003,
+  "displayName": "2026.11.18 UAT 92",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "de980836b40fc714055120e7d7a994f80b8bb57b8cdd2c216f6e77ef30982d30",
+  "stagedJSONSHA256": "3d857a2b62a8c7dcaf0ce402dc3b275f6ecd12aa38e48462321cd6c8520869df",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "520fa87fc67f14c4041b131b2c2be7bc1b2dea94b5eff7a55df95dec76f2ab0c",
+  "jsonBytes": 54967190,
+  "runtimeFiles": 70,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.18 UAT 91",
+  "backup": "uat/backups/before-UAT92-20261118000003",
+  "evidence": "tickets/CP-73-evidence/uat92",
+  "authorization": "UAT 92: CP-73 rework (Jenny, Nov 18: \"CP-73 rework: big 'FORMAL INSPECTION!' first, action starts only after it's gone; drop 'HMM.'; big 'SPLENDID.' after the sweep. UAT 92.\" \"Do it.\"); UAT only"
+}

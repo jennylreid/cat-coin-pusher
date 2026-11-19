@@ -1,0 +1,40 @@
+{
+ "edits": [
+  [
+   "const BUILD = '2026.11.17 UAT 89';",
+   "const BUILD = '2026.11.17 UAT 90';"
+  ],
+  [
+   "if(g.b.dead){g.missed=true;return;}g.held=true;",
+   "if(g.b.dead){g.missed=true;return;}if(g.coins){if(!g.rummage)cp71Rummage(g);return;} /* CP-71: never eats coins */g.held=true;"
+  ],
+  [
+   "if(!P&&t<T0.home){const fl=",
+   "if(!P&&g.coins&&t>=T0.hit)P=cp71Mitt(g,side,t,T0,C,R); /* CP-71 */\n   if(!P&&t<T0.home){const fl="
+  ],
+  [
+   "t>CP58.eat&&t<CP58.end-.15",
+   "t>CP58.eat&&t<CP58.end-.15&&!(Y.grabs[0]&&Y.grabs[0].coins)"
+  ],
+  [
+   "if(t>=CP58.end){W2_YAWN=null;",
+   "if(t>=(Y.knockEnd||CP58.end)){W2_YAWN=null;"
+  ],
+  [
+   "callout(P.name+'!',{color:P.col,dur:1.4});try{navigator.vibrate&&navigator.vibrate([60,40,90]);}catch(e){}\n cp63Start();",
+   "cp73Say(P.name+'!',P.col,CP73.dur.intro);try{navigator.vibrate&&navigator.vibrate([60,40,90]);}catch(e){}\n cp63Start();"
+  ],
+  [
+   "callout(CP63.words[0],{color:'#ffe27a',dur:1});",
+   "cp73Say(CP63.words[0],'#ffe27a',CP73.dur.hmm);"
+  ],
+  [
+   "callout(CP63.words[1],{color:'#ffe27a',dur:1.1});",
+   "cp73Say(CP63.words[1],'#ffe27a',CP73.dur.splendid);"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp71-knock.js",
+  "cp73-words.js"
+ ]
+}

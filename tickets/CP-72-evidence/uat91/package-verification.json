@@ -1,0 +1,21 @@
+{
+  "version": 20261118000002,
+  "displayName": "2026.11.18 UAT 91",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "dcb1c58b46cd1efe22b77e52b2d1688fb9aea4a731968ea1c428918fd53bb848",
+  "stagedJSONSHA256": "de980836b40fc714055120e7d7a994f80b8bb57b8cdd2c216f6e77ef30982d30",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "9ea4cef276468b6c66c4339d9147d5e0cbbd6f98753d8703ba5920824ac1137b",
+  "jsonBytes": 54961530,
+  "runtimeFiles": 70,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.17 UAT 90",
+  "backup": "uat/backups/before-UAT91-20261118000002",
+  "evidence": "tickets/CP-72-evidence/uat91",
+  "authorization": "UAT 91: CP-72 (Jenny, Nov 18: \"CP-72 Zoomies v2: approved; no hold at the edge (an occasional second prize is fine). Step 2 go, into the next UAT.\"); UAT only"
+}
