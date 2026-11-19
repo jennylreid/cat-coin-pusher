@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.18 UAT 103';
+const BUILD = '2026.11.18 UAT 104';
 
 
 
@@ -43169,7 +43169,7 @@ const LAB=(()=>{
 {const __labLevel=pglLevel;pglLevel=function(n){if(LAB.on())return LAB.def();return __labLevel(n);};}
 // Level 1's quiet rules apply: no cat sky-drop prizes, bonus prize drops become rain 5 (a needed prize lost off a side still
 // comes back), so nothing but the board's own pieces is in play
-{const __labLv1=cp50Lv1;cp50Lv1=function(){if(LAB.on())return true;return __labLv1();};}
+{const __labLv1=cp50Lv1;cp50Lv1=function(){if(LAB.on())return !LAB.def().extras;return __labLv1();};} // round-2 boards (extras:true) keep the normal extras
 {const __labGoalText=pglGoalText;pglGoalText=function(){if(LAB.on())return 'Lab: '+LAB.def().lab.text;return __labGoalText();};}
 
 // the layout extras: a coin ledge (second layer), red coins, goal towers
@@ -43238,7 +43238,10 @@ function labWin(){const st=LAB.st;if(st.pending)return;st.pending=true;st.winAt=
 
 {const __labMsg=wildMessage;wildMessage=function(){const m=__labMsg.apply(this,arguments);if(LAB.on()&&typeof m==='string'&&m.startsWith('Collect all'))return LAB.def().lab.row||LAB.def().lab.text;return m;};}
 // the end card and Pause read the board's own count ("3 of 5 mice") instead of "n of m prizes" on the counting boards
-{const __labFill=ctx.fillText;ctx.fillText=function(t,...a){if(typeof t==='string'&&t.indexOf(' prizes')>=0&&LAB.on()){const G=LAB.def().lab;
+{const __labFill=ctx.fillText;ctx.fillText=function(t,...a){
+  // the drop budget where the clock was: a coin over the clock icon, the number, then a small "drops"
+  if(typeof t==='string'&&/^\d+ drops$/.test(t)&&labBudget()){const [x,y]=a,n=t.split(' ')[0];const fs0=ctx.fillStyle;ctx.save();uiCircle(x-12,y,9,'#2a0b3e',null,0);const sp=sprite('coin');ctx.drawImage(sp.cv,x-20,y-8,16,16);ctx.fillStyle=fs0;
+   const r=__labFill.call(this,n,x,y);const w=ctx.measureText(n).width;ctx.font='bold 11px system-ui';__labFill.call(this,'drops',x+w+3,y+1);ctx.restore();return r;}if(typeof t==='string'&&t.indexOf(' prizes')>=0&&LAB.on()){const G=LAB.def().lab;
   if(G.kind!=='collect')t=t.replace(/\d+ of \d+ prizes/,Math.min(LAB.st.got,G.n)+' of '+G.n+' '+G.unit);}return __labFill.call(this,t,...a);};}
 // the picker: Settings -> Developer -> Engineer tools -> "Board lab"
 function labStart(k){LAB.set(k);try{panel.style.display='none';}catch(e){}if(!k)return;
@@ -43253,6 +43256,149 @@ function labStart(k){LAB.set(k);try{panel.style.display='none';}catch(e){}if(!k)
   for(const k of ['',...LAB.ORDER]){const b=document.createElement('button');b.dataset.lab=k;b.className='wide';b.style.display='block';b.style.margin='4px 0';b.style.textAlign='left';
    b.onclick=()=>{labStart(k||null);paint();};btns.push(b);box.appendChild(b);}
   paint();const sum=eng.querySelector('summary');if(sum&&sum.nextSibling)eng.insertBefore(box,sum.nextSibling);else eng.appendChild(box);}catch(e){}return r;};}
+// ---------- CP-83 round 2 (Jenny, Nov 18: "make aim and timing matter ... A board counts only if skilled drops clearly beat
+// random ones.") ----------
+// Lab-only board pieces that react to where you drop, drawn in code (stand-in art). They are added as fixed colliders when a
+// lab board that has them is built, and removed whenever any board is built or the Wild board is left. Normal play has none.
+//   rails:[[x0,z0,x1,z1],...]  low walls that split the board into lanes
+//   cup:{x,z,r}               a hole: a coin whose centre passes over it drops in (counts, pays 1 coin)
+//   bumpers:[{x,z,r}]         a post that kicks away any coin that touches it (counts once per coin)
+//   gate:{x0,x1,z,pad:{x,z,r},open}  a bar across the front; a coin you dropped in the last 3 s crossing the pad opens it
+// Goal kinds added: cup (N coins in the cup), bump (N coins bumped).
+const LAB2={cols:[],flash:0,gateOpen:0,gateUp:true,gateCol:null,stats:{cup:0,bump:0,gate:0}};
+function lab2Clear(){for(const c of LAB2.cols){try{world.removeCollider(c,true);}catch(e){}}LAB2.cols=[];LAB2.gateCol=null;LAB2.gateOpen=0;LAB2.gateUp=true;LAB2.flash=0;}
+function lab2Seg(px,pz,x0,z0,x1,z1){const dx=x1-x0,dz=z1-z0,t=Math.max(0,Math.min(1,((px-x0)*dx+(pz-z0)*dz)/(dx*dx+dz*dz)));return Math.hypot(px-x0-t*dx,pz-z0-t*dz);}
+function lab2Wall(x0,z0,x1,z1,h,th){const len=Math.hypot(x1-x0,z1-z0),a=Math.atan2(x1-x0,z1-z0);
+ return world.createCollider(RAPIER.ColliderDesc.cuboid(th/2*M,h/2*M,len/2*M).setTranslation((x0+x1)/2*M,h/2*M,(z0+z1)/2*M).setRotation({x:0,y:Math.sin(a/2),z:0,w:Math.cos(a/2)}).setFriction(.2));}
+function lab2Build(L){lab2Clear();if(!L)return;
+ const near=f=>{for(const b of [...bodies]){if(b.dead)continue;const q=b.rb.translation();if(f(q.x/M,q.z/M,b))removeCoin(b);}};
+ for(const [x0,z0,x1,z1] of L.rails||[]){near((x,z)=>lab2Seg(x,z,x0,z0,x1,z1)<COIN_R+5);LAB2.cols.push(lab2Wall(x0,z0,x1,z1,30,6));}
+ for(const B of L.bumpers||[]){near((x,z)=>Math.hypot(x-B.x,z-B.z)<B.r+COIN_R+3);LAB2.cols.push(world.createCollider(RAPIER.ColliderDesc.cylinder(18*M,B.r*M).setTranslation(B.x*M,18*M,B.z*M).setFriction(.1).setRestitution(.6)));}
+ if(L.cup)near((x,z)=>Math.hypot(x-L.cup.x,z-L.cup.z)<L.cup.r+COIN_R);
+ if(L.gate){const G=L.gate;near((x,z)=>Math.abs(z-G.z)<COIN_R+5&&x>G.x0-COIN_R&&x<G.x1+COIN_R);near((x,z)=>Math.hypot(x-G.pad.x,z-G.pad.z)<G.pad.r);
+  LAB2.gateCol=lab2Wall(G.x0,G.z,G.x1,G.z,30,8);LAB2.cols.push(LAB2.gateCol);}}
+{const __lab2Prefill=wildPrefill;wildPrefill=function(){const r=__lab2Prefill.apply(this,arguments);try{lab2Build(LAB.on()&&WILD.on?LAB.def():null);}catch(e){try{diagEvent('cp83','pieces '+e);}catch(_){}}return r;};}
+{const __lab2Exit=wildExit;wildExit=function(){lab2Clear();return __lab2Exit.apply(this,arguments);};}
+// play: the cup takes coins, bumpers kick, the switch opens the gate
+function lab2Tick(dt){if(!LAB.on()||!WILD.on)return;const L=LAB.def();if(!(L.cup||L.bumpers||L.gate))return;LAB2.flash=Math.max(0,LAB2.flash-dt);
+ const playing=board.status==='playing'&&WILD.phase==='play';
+ for(const b of [...bodies]){if(b.dead||(b.kind!=='coin'&&b.kind!=='silver'))continue;const q=b.rb.translation(),x=q.x/M,z=q.z/M,y=q.y/M;
+  if(L.cup&&y<COIN_HALF*2+2&&Math.hypot(x-L.cup.x,z-L.cup.z)<L.cup.r){removeCoin(b);LAB2.stats.cup++;S.coins+=1;board.remaining=S.coins;const p=proj(L.cup.x,L.cup.z);floats.push({text:'+1',x:p.x,y:p.y-14,t:0});sfx.wild('drip',.8);
+   if(playing&&L.lab.kind==='cup'&&LAB.st.got<L.lab.n)labScore(L.cup.x);continue;}
+  for(const B of L.bumpers||[]){const d=Math.hypot(x-B.x,z-B.z);if(d<B.r+COIN_R+1.5&&y<20&&!(b.lab2Kick>time-.6)){b.lab2Kick=time;const ux=(x-B.x)/d,uz=(z-B.z)/d,v=b.rb.linvel();
+    b.rb.setLinvel({x:v.x+ux*1.6,y:v.y+.5,z:v.z+uz*1.6+.5},true);LAB2.flash=.18;sfx.clink(.6);if(!b.lab2Bumped){b.lab2Bumped=true;LAB2.stats.bump++;if(playing&&L.lab.kind==='bump'&&LAB.st.got<L.lab.n)labScore(B.x);}}}
+  if(L.gate&&b.input&&b.mouthAt>time-3&&Math.hypot(x-L.gate.pad.x,z-L.gate.pad.z)<L.gate.pad.r&&LAB2.gateOpen<=0){LAB2.gateOpen=L.gate.open;LAB2.stats.gate++;sfx.wild('whistle',1);
+   const p=proj(L.gate.pad.x,L.gate.pad.z);floats.push({text:'GATE OPEN!',x:p.x,y:p.y-14,t:0,big:true});}}
+ if(L.gate&&LAB2.gateCol){const G=L.gate;if(LAB2.gateOpen>0){LAB2.gateOpen-=dt;if(LAB2.gateUp){LAB2.gateCol.setEnabled(false);LAB2.gateUp=false;}}
+  else if(!LAB2.gateUp){const busy=bodies.some(b=>{if(b.dead)return false;const q=b.rb.translation();return Math.abs(q.z/M-G.z)<COIN_R+6&&q.x/M>G.x0-COIN_R&&q.x/M<G.x1+COIN_R;});if(!busy){LAB2.gateCol.setEnabled(true);LAB2.gateUp=true;}}}}
+{const __lab2Update=update;update=function(dt){__lab2Update(dt);try{lab2Tick(dt);}catch(e){}};}
+// drawing (after the table, before the coins)
+function lab2Poly(pts,fill,stroke){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.closePath();ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1.2;ctx.stroke();}}
+function lab2DrawWall(x0,z0,x1,z1,h,top,side){const a=screenOf(x0,z0,0),b=screenOf(x1,z1,0),c=screenOf(x1,z1,h),d=screenOf(x0,z0,h);lab2Poly([a,b,c,d],side,'rgba(0,0,0,.35)');
+ ctx.strokeStyle=top;ctx.lineWidth=Math.max(2,4*c.s);ctx.beginPath();ctx.moveTo(d.x,d.y);ctx.lineTo(c.x,c.y);ctx.stroke();}
+function lab2Ellipse(x,z,r,h,fill,stroke,lw){const c=screenOf(x,z,h),e=screenOf(x+r,z,h),f=screenOf(x,z+r,h);ctx.beginPath();ctx.ellipse(c.x,c.y,Math.max(1,Math.abs(e.x-c.x)),Math.max(1,Math.abs(f.y-c.y)),0,0,7);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||2;ctx.stroke();}}
+function lab2Draw(){if(!LAB.on()||!WILD.on)return;const L=LAB.def();if(!(L.rails||L.cup||L.bumpers||L.gate))return;ctx.save();
+ if(L.cup){lab2Ellipse(L.cup.x,L.cup.z,L.cup.r+5,0,'#2a1708','#ffd23f',3);lab2Ellipse(L.cup.x,L.cup.z,L.cup.r,0,'#050302',null);}
+ if(L.gate){const G=L.gate,on=LAB2.gateOpen>0;lab2Ellipse(G.pad.x,G.pad.z,G.pad.r,0,on?'rgba(125,255,106,.9)':'rgba(255,90,90,.85)','#2a0b3e',2);
+  const c=screenOf(G.pad.x,G.pad.z,0);ctx.fillStyle='#2a0b3e';ctx.font='bold 10px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('SWITCH',c.x,c.y);
+  if(!on)lab2DrawWall(G.x0,G.z,G.x1,G.z,30,'#ff6a5a','rgba(160,40,40,.85)');else lab2DrawWall(G.x0,G.z,G.x1,G.z,3,'#7dff6a','rgba(40,140,40,.6)');}
+ for(const [x0,z0,x1,z1] of L.rails||[])lab2DrawWall(x0,z0,x1,z1,30,'#9ff0ff','rgba(30,110,140,.85)');
+ for(const B of L.bumpers||[]){const k=LAB2.flash>0;lab2Ellipse(B.x,B.z,B.r,0,'#5a1f6e',null);
+  const a=screenOf(B.x-B.r,B.z,0),b=screenOf(B.x+B.r,B.z,0),c=screenOf(B.x+B.r,B.z,36),d=screenOf(B.x-B.r,B.z,36);lab2Poly([a,b,c,d],k?'#ffb0ff':'#c04ad8',null);
+  lab2Ellipse(B.x,B.z,B.r,36,k?'#fff2a0':'#ff8ad8','#5a1f6e',2);}
+ ctx.restore();}
+{const __lab2Machine=drawMachine;drawMachine=function(...a){const r=__lab2Machine.apply(this,a);try{lab2Draw();}catch(e){}return r;};}
+// the boards
+Object.assign(LAB.B,{
+ lanes:{name:'Three lanes',tag:'Lab',coins:200,secs:900,budget:24,extras:true,lab:{kind:'collect',text:'Get the tuna',row:'Get the tuna'},goal:['tuna'],star:null,
+  // two rails fan out from the drop zone and split the board into three lanes; the tuna waits at the front of the left one
+  rails:[[163,300,108,748],[237,300,292,748]],p:[['tuna',78,640]],towers:[],rain:[],quake:null},
+ cup:{name:'Cup shot',tag:'Lab',coins:200,secs:900,budget:18,extras:true,lab:{kind:'cup',n:6,text:'Sink 6 coins in the cup',unit:'coins in the cup'},goal:[],star:null,
+  // a hole on the left of the board: coins pushed over it drop in
+  cup:{x:150,z:430,r:30},p:[],towers:[],rain:[],quake:null},
+ bumper:{name:'Bumper',tag:'Lab',coins:200,secs:900,budget:28,extras:true,lab:{kind:'bump',n:12,text:'Bump 12 coins',unit:'coins bumped'},goal:[],star:null,
+  // a pinball post just in front of the right-hand drop lanes: coins pushed into it get kicked
+  bumpers:[{x:248,z:345,r:18}],p:[],towers:[],rain:[],quake:null},
+ gate:{name:'Switch gate',tag:'Lab',coins:200,secs:900,budget:14,extras:true,lab:{kind:'collect',text:'Get the cheese',row:'Open the gate:'},goal:['cheese'],star:null,
+  // a red bar across the front middle; a coin you drop onto the switch (back left) opens it for 4 s
+  gate:{x0:105,x1:295,z:738,pad:{x:122,z:296,r:17},open:3},p:[['cheese',200,690]],towers:[],rain:[],quake:null}});
+LAB.ORDER.push('lanes','cup','bumper','gate');
+// Timing light (every lab board): measured on UAT 103 (Level 3, 2 coins a stroke, 30 strokes x 3 seeds), coins dropped
+// while the pusher is between about 35% and 60% of its cycle (most of the way through its push) send about 90 pieces over the
+// front per 100 coins; random timing about 50; dropped while it's fully back about 37. Nothing about the physics changes: a
+// strip on the pusher's front edge lights green during that window so the player can see and learn it, and a drop made
+// inside it says "Good timing!" (at most once every 1.5 s). Developer switch: Engineer tools -> "Timing strip": Off (default)
+// / On, saved on the phone (catpusher.uat.cp83timing.v1); when On it shows in every round (levels too). Drawing only.
+const LAB2T={from:.35,to:.6,lastSay:-9,good:0,drops:0,KEY:'catpusher.uat.cp83timing.v1',mode:'off'};
+try{const v=localStorage.getItem(LAB2T.KEY);if(v==='on'||v==='off')LAB2T.mode=v;}catch(e){}
+LAB2T.on=()=>LAB2T.mode==='on';LAB2T.set=k=>{if(k!=='on'&&k!=='off')return;LAB2T.mode=k;try{localStorage.setItem(LAB2T.KEY,k);}catch(e){}};
+function lab2InWindow(){const ph=pushPhase/PUSH_PERIOD;return ph>=LAB2T.from&&ph<=LAB2T.to;}
+function lab2DrawLight(){if(!LAB2T.on()||!WILD.on||WILD.phase!=='play')return;const on=lab2InWindow(),h=TONGUE_H*.75;
+ const a=screenOf(200-PUSH_HALF+6,pusherY,h),b=screenOf(200+PUSH_HALF-6,pusherY,h);ctx.save();ctx.lineCap='round';
+ ctx.strokeStyle=on?'rgba(125,255,106,.95)':'rgba(255,255,255,.18)';ctx.lineWidth=Math.max(3,7*a.s);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+ if(on){ctx.strokeStyle='rgba(125,255,106,.35)';ctx.lineWidth=Math.max(8,18*a.s);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}ctx.restore();}
+{const __lab2tMachine=drawMachine;drawMachine=function(...a){const r=__lab2tMachine.apply(this,a);try{lab2DrawLight();}catch(e){}return r;};}
+{const __lab2tDrop=tryDrop;tryDrop=function(...a){const r=__lab2tDrop.apply(this,a);try{if(r!==false&&WILD.on&&WILD.phase==='play'&&(LAB2T.on()||LAB.on())){LAB2T.drops++;if(lab2InWindow()){LAB2T.good++;
+   if(LAB2T.on()&&time-LAB2T.lastSay>1.5){LAB2T.lastSay=time;const p=screenOf(200,pusherY+40,0);floats.push({text:'Good timing!',x:p.x,y:p.y,t:0});}}}}catch(e){}return r;};}
+// Tower fall (Jenny, Nov 18: "It would be fun if they were really stacked up with towers that fall in a really fun way").
+// Developer switch: Settings -> Developer -> Engineer tools -> "Tower fall": Today (default) / Topple. Saved on the phone
+// (catpusher.uat.cp83tower.v1). Applies to every tower on every board while it is on (levels included), never otherwise.
+// Today a tower gets one tip, only when it is moving fast; if that tip doesn't take it past 14 degrees it stands back up and
+// is never tipped again, so the pile slides it along until it goes over an edge whole. Topple changes three things:
+//  1. tip: once a tower has been shoved its limit, it is tipped (whatever its speed) by a push at its top twice today's, in
+//     the way the pile is moving it (forward if it isn't moving);
+//  2. it keeps being tipped: while it is still upright and the pile is still moving it, another tip every 0.4 s;
+//  3. it falls, then bursts: it leans to 48 degrees (or 0.7 s past 14) before it comes apart, and comes apart the way the old
+//     Board 3 terraces did (each coin keeps the tower's spin, spreads out, the spill recording plays).
+// Heavier towers (3x, same look) were tried for Jenny's "different size coins": no better than Topple (slightly more went
+// over an edge whole), so not offered. Bigger coins would mean resizing the approved coin art, so size wasn't tried.
+// Pusher, coin physics and the frozen pickup are unchanged.
+const LABT=(()=>{const KEY='catpusher.uat.cp83tower.v1',NAMES={today:'Today',topple:'Topple'};let mode='today';
+ try{const v=localStorage.getItem(KEY);if(v in NAMES)mode=v;}catch(e){}
+ const stats={tips:0,retips:0,bursts:0,edge:0};
+ return {KEY,NAMES,stats,on:()=>mode==='topple',get:()=>mode,set(k){if(!(k in NAMES))return;mode=k;try{localStorage.setItem(KEY,k);}catch(e){}try{diagEvent('cp83','tower '+k);}catch(_){}}};})();
+const LABT_COS48=Math.cos(48*Math.PI/180);LABT.minSpeed=.02; // m/s (2 units a second): being pushed, not resting
+function labtTilt(b){return qrot(b.rb.rotation(),{x:0,y:1,z:0}).y;}
+function labtTip(b){const v=b.rb.linvel(),sp=Math.hypot(v.x,v.z);const ux=sp>1e-4?v.x/sp:0,uz=sp>1e-4?v.z/sp:1;
+ const t=b.rb.translation(),top=qrot(b.rb.rotation(),{x:0,y:b.half*M,z:0}),k=b.rb.mass()*TOWER_TIP_PUSH*2;
+ b.rb.applyImpulseAtPoint({x:ux*k,y:0,z:uz*k},{x:t.x+top.x,y:t.y+top.y,z:t.z+top.z},true);b.labtAt=time;}
+function labtTick(){if(!LABT.on())return;
+ for(const b of bodies){if(b.dead||b.kind!=='stack')continue;const up=labtTilt(b);
+  // shoved past its limit and still standing while the pile keeps moving it: another tip every 0.4 s
+  if((b.tipping||b.moved>b.limit)&&up>.99&&time-(b.labtAt??-9)>.4){const v=b.rb.linvel();if(Math.hypot(v.x,v.z)>LABT.minSpeed){b.tipping=true;labtTip(b);LABT.stats.tips++;}}}}
+{const __labtUpdate=update;update=function(dt){__labtUpdate(dt);try{labtTick();}catch(e){}};}
+{const __labtBreak=breakStack;
+ breakStack=function(b){if(!LABT.on()||!b||b.dead)return __labtBreak(b);const t=b.rb.translation(),up=labtTilt(b);
+  if(t.y>=0&&up>LABT_COS48){if(b.labtLean==null)b.labtLean=time;if(time-b.labtLean<.7)return;} // still falling: let it lean
+  if(t.y<0)LABT.stats.edge++;else LABT.stats.bursts++;
+  const B0=BOARD;BOARD=Object.create(B0,{id:{value:'tuna-terraces',enumerable:true}});try{return __labtBreak(b);}finally{BOARD=B0;}};}
+// the switch in Engineer tools, under "Board lab"
+{const __labtCredits=openCredits;
+ openCredits=function(){const r=__labtCredits.apply(this,arguments);try{
+  const eng=panel.querySelector&&panel.querySelector('#cp70-engineer');if(!S.dev||!eng||eng.querySelector('#cp83-tower'))return r;
+  const box=document.createElement('div');box.id='cp83-tower';const hd=document.createElement('h3');hd.textContent='Tower fall';box.appendChild(hd);
+  const btns=[];const paint=()=>btns.forEach(b=>{const on=b.dataset.tf===LABT.get();b.textContent=(on?'✓ ':'')+LABT.NAMES[b.dataset.tf];b.style.fontWeight=on?'700':'400';});
+  for(const k of ['today','topple']){const b=document.createElement('button');b.dataset.tf=k;b.style.marginRight='6px';b.onclick=()=>{LABT.set(k);paint();};btns.push(b);box.appendChild(b);}
+  paint();const lab=eng.querySelector('#cp83-lab');if(lab&&lab.nextSibling)eng.insertBefore(box,lab.nextSibling);else eng.appendChild(box);}catch(e){}return r;};}
+{const __lab2tCredits=openCredits;
+ openCredits=function(){const r=__lab2tCredits.apply(this,arguments);try{
+  const eng=panel.querySelector&&panel.querySelector('#cp70-engineer');if(!S.dev||!eng||eng.querySelector('#cp83-timing'))return r;
+  const box=document.createElement('div');box.id='cp83-timing';const hd=document.createElement('h3');hd.textContent='Timing strip';box.appendChild(hd);
+  const btns=[];const N={off:'Off',on:'On'};const paint=()=>btns.forEach(b=>{const on=b.dataset.ts===LAB2T.mode;b.textContent=(on?'✓ ':'')+N[b.dataset.ts];b.style.fontWeight=on?'700':'400';});
+  for(const k of ['off','on']){const b=document.createElement('button');b.dataset.ts=k;b.style.marginRight='6px';b.onclick=()=>{LAB2T.set(k);paint();};btns.push(b);box.appendChild(b);}
+  paint();const tf=eng.querySelector('#cp83-tower');if(tf&&tf.nextSibling)eng.insertBefore(box,tf.nextSibling);else eng.appendChild(box);}catch(e){}return r;};}
+// Drop budget (round-2 boards, Jenny: "the timer gives me way too much time"; the plan is a coin wallet, CP-23): no round
+// timer; a fixed number of drops to reach the goal, shown where the clock was ("18 drops"). Coins won still go to the wallet
+// as usual; the budget only counts drops. When it is used up and the goal isn't met within 4 s of the last drop, the round
+// ends as "out of coins". Sized from the skilled-vs-random bot runs (with the extras on).
+const LABB={last:-9};
+function labBudget(){return LAB.on()&&WILD.on&&LAB.def().budget?LAB.def().budget:0;}
+{const __labbReset=wildReset;wildReset=function(){const r=__labbReset.apply(this,arguments);LAB.st.left=labBudget();LABB.last=-9;return r;};}
+{const __labbDrop=tryDrop;tryDrop=function(...a){if(labBudget()&&WILD.phase==='play'&&LAB.st.left<=0)return false;const n0=board.released;const r=__labbDrop.apply(this,a);
+  if(labBudget()&&board.released>n0){LAB.st.left=Math.max(0,LAB.st.left-(board.released-n0));LABB.last=time;}return r;};}
+{const __labbTick=wildTick;wildTick=function(dt){if(labBudget()&&WILD.phase==='play')WILD.left=Math.max(WILD.left,600);const r=__labbTick(dt);
+  if(labBudget()&&WILD.phase==='play'&&board.status==='playing'&&LAB.st.left<=0&&!LAB.st.pending&&time-LABB.last>4)wildFinish(false,'coins');return r;};}
+{const __labbClock=wildClock;wildClock=function(){if(labBudget())return (LAB.st.left|0)+' drops';return __labbClock();};}
 // ---------- end CP-83 ----------
 
 </script>

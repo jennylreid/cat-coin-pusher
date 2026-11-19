@@ -16,3 +16,6 @@ const res={};const ok=(n,v,d)=>{res[n]={pass:!!v,detail:d};};
  for(const [name,how] of [['home','wildExit()'],['roundEnd','WILD.left=0']]){g=await game();const n=g.run('world.colliders.len()');g.run('z74DemoPlay()');for(let i=0;i<120;i++)g.tick();
   try{g.run(how);}catch(e){}for(let i=0;i<240;i++)g.tick();ok(name+'MidPower',g.run('PGPX===null')&&g.run('world.colliders.len()')===n,{px:g.run('PGPX&&PGPX.t'),cols:g.run('world.colliders.len()')-n});g.close();}
  console.log(JSON.stringify({build:path.join(__dirname,'game','proto.html'),passed:Object.values(res).every(r=>typeof r!=='object'||!('pass' in r)||r.pass),res},null,1));})().catch(e=>{console.error(e);process.exit(1)});
+
+// UAT 104: the harness has no Image decoding; load the Hug art (CP74_ART data URIs) the way the page would
+async function __z74LoadArt(g){const run=s=>require('vm').runInContext(s,g.c);if(run('typeof CP74_ART')!=='object')return;const N=require('C:/Users/jenny/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/@napi-rs/canvas');for(const k of ['shoulder','left','right']){const u=run('CP74_ART.'+k);g.c.__z74im=await N.loadImage(Buffer.from(u.split(',')[1],'base64'));run('Z74.img.'+k+'=__z74im');}}

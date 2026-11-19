@@ -1,0 +1,29 @@
+{
+ "shoulder": {
+  "source": "hug-shoulder-v2-800x640.png",
+  "sourceSHA256": "ac770625841135933dc59d75dcf159af508a79c41e2bfbc9c51102777bbb668f",
+  "size": [
+   800,
+   640
+  ],
+  "webpBytes": 35222
+ },
+ "left": {
+  "source": "hug-left-arm-v2-800x2080.png",
+  "sourceSHA256": "51ef66fcc44b517b4ff1cc340e8bbecbe59fb9a991002cc4019ef082aeac7907",
+  "size": [
+   800,
+   2080
+  ],
+  "webpBytes": 43772
+ },
+ "right": {
+  "source": "hug-right-arm-v2-800x2080.png",
+  "sourceSHA256": "07d5d5106dd48b31152e337c9cbc7230abe063aff1fd5b04a4690dfe75f0f39c",
+  "size": [
+   800,
+   2080
+  ],
+  "webpBytes": 43130
+ }
+}

@@ -1,0 +1,25 @@
+{
+  "version": 20261118000015,
+  "displayName": "2026.11.18 UAT 104",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "3e28facf8d2c78e5884717a7a91b7796fcb7d8a9af14ee8629e2778ebc0fb2e2",
+  "stagedJSONSHA256": "1012afb6902c5d4c45627203f4683c86050e1cf13ecf7b38367e017defb9a8ab",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "f44c0f6f3b4b596ac594668679af364ca60484ca2d1c38fbfc1a1de2baf0e7e8",
+  "jsonBytes": 59011347,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.18 UAT 103",
+  "backup": "uat/backups/before-UAT104-20261118000015",
+  "evidence": "tickets/CP-74-evidence/uat104",
+  "checks": [
+    "checks104.json",
+    "checks64-on104.json"
+  ],
+  "authorization": "UAT 104: CP-74 Hug with Codex's art (Jenny, Nov 18: \"CP-74 Hug layout: approved. Title first, then the hug with no words over it; small phones arms only is fine. Then Codex art.\" and \"go ahead and get started on that. I think it looks decent.\"); PM: \"Build on the current published UAT (103 ...) as UAT 104\"; UAT only"
+}

@@ -219,3 +219,17 @@ unlocks recipes and new prizes) and whether the 10 levels become board layouts f
   pusher sound, but not specifically for zoomies... What we have today is fine with me as well... I just don't care at
   the moment." Zoomies keeps today's sound; the P1-P3 Developer choice is removed in a later build. A new general
   pusher sound is a later idea.
+
+## Board lab round 1 result (Jenny, Nov 18, UAT 103)
+All six lab boards "meh". "Our 10 boards are way better than any of these boards. It would be fun if they were really
+stacked up with towers that fall in a really fun way... They're just boring." And: "without all the extras, without all
+the prizes dropping and all the extra powers, it's just boring." Try different coin sizes.
+PM takeaway: the pushing is the calm base; the fun is the rhythm of moments on top (prize drops, powers, side games,
+wheel, Jackpot) and towers that topple spectacularly. Plan item: design the *pacing* of moments (how often something
+exciting happens, how it builds), with the board as the stage. Round 2 tests aim/timing and toppling towers with the
+normal extras on.
+- **Daily challenge, maybe a different game (Jenny, Nov 18):** "Maybe the daily timed game has to be something totally
+  different. A little more like pixel flow." PM: two options. (1) Coin puzzles: hand-built setups with a small fixed
+  number of coins and one goal ("Clear the tuna in 8 drops"); works only if round 2 shows aim/timing can matter.
+  (2) A separate cat-themed mini-game: more variety, but it's a second game to design, draw and test. PM pick: decide
+  after board lab round 2. Take Pixel Flow's feeling (a satisfying solvable board), not its gameplay.
