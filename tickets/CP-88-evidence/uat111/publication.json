@@ -1,0 +1,29 @@
+﻿{
+    "version":  20261119000022,
+    "displayName":  "2026.11.19 UAT 111",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "8f00e74a47e91e12049170aa99a115e76ac375e839652c2809a14a616830b926",
+    "stagedJSONSHA256":  "87658972b5fefd61105ca2b0b36a07c7d13a9d9ee2633ac750ad77582582036b",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "15f570f001b0d12c7830740cb98ed6557a50a2ef9cf18caa9d15e5093448f067",
+    "jsonBytes":  59440927,
+    "runtimeFiles":  78,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.19 UAT 110",
+    "backup":  "uat/backups/before-UAT111-20261119000022",
+    "evidence":  "tickets/CP-88-evidence/uat111",
+    "checks":  [
+                   "checks88.json",
+                   "checks110-on111.json",
+                   "checks64-on111.json"
+               ],
+    "authorization":  "UAT 111: CP-88 bank side-game coins (Jenny, Nov 19, via PM: \"CP-88 Bank side-game coins: laser, fish and mouse coins go to a tap-to-start slot instead of starting at once. Dance break unchanged. Next UAT.\"; PM: UAT 111 on UAT 110); UAT only",
+    "localPublication":  "verified"
+}
