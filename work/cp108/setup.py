@@ -16,8 +16,7 @@ assert bh==m['releaseHTMLSHA256'],'base release.html is not what it published'
 step=2 if base=='cp106-hug' else 1
 v={'displayName':'2026.11.18 UAT 108','version':m['version']+step,'apkVersion':7,'base':base,'baseSHA256':bh}
 (p/'release-version.json').write_text(json.dumps(v),encoding='utf-8')
-if (p/'art').exists():shutil.rmtree(p/'art')
-shutil.copytree(B/'art',p/'art')
+shutil.copytree(B/'art',p/'art',dirs_exist_ok=True) # copied over (OneDrive can lock the folder against deletion)
 (p/'build.py').write_text('''"""UAT 108 = CP-86 Sonic meow face (see setup.py). Build name + the block cp86-meow.js.
 Usage: python build.py -> release.html on the base in release-version.json"""
 from pathlib import Path
@@ -25,6 +24,10 @@ import json,hashlib,re
 p=Path(__file__).parent;W=p.parent;v=json.loads((p/'release-version.json').read_text())
 base=W/v['base']/'release.html';s=base.read_bytes();assert hashlib.sha256(s).hexdigest()==v['baseSHA256'],('base changed',base);s=s.decode('utf-8')
 m=re.search(r"const BUILD = '([^']+)';",s);EDITS=[(m.group(0),"const BUILD = '%s';"%v['displayName'])]
+# CP-83 (PM, Nov 18): no Board lab picker in Settings > Engineer tools, so no lab state can reach normal play (the lab's
+# choice is not saved, so without the picker it is always off)
+i=s.index("{const __labCredits=openCredits;");j=s.index("return r;};}",i)+len("return r;};}")
+EDITS.append((s[i:j],"/* CP-83: the Board lab picker is removed (PM, Nov 18: no lab state can reach normal play) */"))
 for a,b in EDITS:
     n=s.count(a);assert n==1,(a[:60],n);s=s.replace(a,b)
 ADD=['cp86-meow.js']
@@ -39,7 +42,7 @@ C0=(" {const S=fs.readFileSync(src,'utf8');let B=fs.readFileSync(path.resolve(__
  "if(require('crypto').createHash('sha256').update(B).digest('hex')!=='%s')m=[];"
  "const E=JSON.parse(fs.readFileSync(path.join(__dirname,'edits.json'),'utf8'));for(const [a,b] of E.edits){if(B.split(a).length!==2)m=[];B=B.split(a).join(b);}"
  "for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,f),'utf8')+String.fromCharCode(10)+B.slice(i);}\n"
- "  check('0 the build is published %s + build name + cp86-meow.js (everything else unchanged)',S===B&&m.length===1);}\n")%(base,bh,m['displayName'])
+ "  check('0 the build is published %s + build name + Board lab picker removed + cp86-meow.js (everything else unchanged)',S===B&&m.length===1);}\n")%(base,bh,m['displayName'])
 bn=m['displayName']
 made=[];hand=[]
 for f in sorted(B.glob('checks*.cjs')):
@@ -53,6 +56,7 @@ for f in sorted(B.glob('checks*.cjs')):
         hand.append(o)
     s=re.sub(r"'\.\./\.\./tickets/CP-\d+-evidence/uat\d+'","'../../tickets/CP-86-evidence/uat108'",s)
     s=re.sub(r"'\.\./\.\./tickets/CP-\d+-evidence/uat'","'../../tickets/CP-86-evidence/uat'",s)
+    s=re.sub(r"'\.\./\.\./tickets/CP-\d+-evidence/'\+\(DEV\?'dev':'uat\d+'\)","'../../tickets/CP-86-evidence/uat108'",s)
     s=s.replace(f.name.replace('.cjs','.json'),o.replace('.cjs','.json'))
     s=s.replace("base=E.base,","base=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../%s/edits.json'),'utf8')).base,"%base)
     s=s.replace(".join(\"const BUILD = '%s';\")"%bn,".join(\"const BUILD = '%s';\")"%v['displayName']).replace('named'+bn.split()[-1]+'.html','named108.html')

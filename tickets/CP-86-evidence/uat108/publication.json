@@ -1,0 +1,30 @@
+﻿{
+    "version":  20261118000019,
+    "displayName":  "2026.11.18 UAT 108",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "bc133848cc9449f9962ad9a13d36442d5b7f9fa96bdf1f6748d0561acc3551a3",
+    "stagedJSONSHA256":  "62251b1472d9643e37bc9a58f50ac1db68cf1e318247f703dc0ae3ffbc7a0b45",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "8a4cf430634ed756ff75b9f5e7e8e1b04ff6bafd09fd105ff83892844b69a5b2",
+    "jsonBytes":  59407835,
+    "runtimeFiles":  78,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.18 UAT 107",
+    "backup":  "uat/backups/before-UAT108-20261118000019",
+    "evidence":  "tickets/CP-86-evidence/uat108",
+    "checks":  [
+                   "checks86.json",
+                   "checks101-on108.json",
+                   "checks107-on108.json",
+                   "checks64-on108.json"
+               ],
+    "authorization":  "UAT 108: CP-86 Sonic meow face v4 + floating texts wait for powers (Jenny, Nov 18, via PM: \"Sonic meow is approved for UAT.\"; PM: UAT 108 on UAT 107); UAT only",
+    "localPublication":  "verified"
+}

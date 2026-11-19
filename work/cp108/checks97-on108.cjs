@@ -38,8 +38,8 @@ function besideCount(g){g.c.draw();const R=J(g,REGION),cv=g.c.document.getElemen
   if(R0>150&&G>100&&B<110&&R0>G&&R0-B>80)gold++;else if(R0<45&&G>45&&G<130&&B<G+8&&G>B-4&&G-R0>35)teal++;}}return {gold,teal,n};}
 (async()=>{
  // 0. the build
- {const S=fs.readFileSync(src,'utf8');let B=fs.readFileSync(path.resolve(__dirname,'../cp106-hug/release.html'),'utf8');let m=[1];if(require('crypto').createHash('sha256').update(B).digest('hex')!=='455b061a1c627f540886c2568cb561599ffad6e59c22ea2c8d4bfe5f7ecada20')m=[];const E=JSON.parse(fs.readFileSync(path.join(__dirname,'edits.json'),'utf8'));for(const [a,b] of E.edits){if(B.split(a).length!==2)m=[];B=B.split(a).join(b);}for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,f),'utf8')+String.fromCharCode(10)+B.slice(i);}
-  check('0 the build is published 2026.11.18 UAT 106 + build name + cp86-meow.js (everything else unchanged)',S===B&&m.length===1);}
+ {const S=fs.readFileSync(src,'utf8');let B=fs.readFileSync(path.resolve(__dirname,'../cp107/release.html'),'utf8');let m=[1];if(require('crypto').createHash('sha256').update(B).digest('hex')!=='32ee00c953968677c31c49ca7607761ce351285226a36bc21a69244c8e15f1bd')m=[];const E=JSON.parse(fs.readFileSync(path.join(__dirname,'edits.json'),'utf8'));for(const [a,b] of E.edits){if(B.split(a).length!==2)m=[];B=B.split(a).join(b);}for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,f),'utf8')+String.fromCharCode(10)+B.slice(i);}
+  check('0 the build is published 2026.11.18 UAT 107 + build name + Board lab picker removed + cp86-meow.js (everything else unchanged)',S===B&&m.length===1);}
  // 1. play unchanged: same taps, the wheel's Yawn and the cat's power, drawn every frame (render), against UAT 96
  {const rows=[];let ok=true;for(const [level,cat] of [[3,'orange'],[9,'tuxedo'],[5,'ragdoll']])for(const seed of [3,8])for(const fps of [60,30]){const sig=[];
    for(const f of [src,base]){const {g,tk}=await midRound(f,{seed,level,fps,cat,render:true});const s=[];s.push(g.run(SIG));

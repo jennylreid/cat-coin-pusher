@@ -5,6 +5,10 @@ import json,hashlib,re
 p=Path(__file__).parent;W=p.parent;v=json.loads((p/'release-version.json').read_text())
 base=W/v['base']/'release.html';s=base.read_bytes();assert hashlib.sha256(s).hexdigest()==v['baseSHA256'],('base changed',base);s=s.decode('utf-8')
 m=re.search(r"const BUILD = '([^']+)';",s);EDITS=[(m.group(0),"const BUILD = '%s';"%v['displayName'])]
+# CP-83 (PM, Nov 18): no Board lab picker in Settings > Engineer tools, so no lab state can reach normal play (the lab's
+# choice is not saved, so without the picker it is always off)
+i=s.index("{const __labCredits=openCredits;");j=s.index("return r;};}",i)+len("return r;};}")
+EDITS.append((s[i:j],"/* CP-83: the Board lab picker is removed (PM, Nov 18: no lab state can reach normal play) */"))
 for a,b in EDITS:
     n=s.count(a);assert n==1,(a[:60],n);s=s.replace(a,b)
 ADD=['cp86-meow.js']

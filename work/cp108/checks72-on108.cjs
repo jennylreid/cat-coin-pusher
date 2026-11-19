@@ -46,8 +46,8 @@ async function burst(file){const g=await game(file,{seed:5,render:true});
  g.run("treatAwards.length=0;popSeed=0x2f6b4e1d;globalThis.__sounds=[];sfx.pickup=function(...a){__sounds.push(a)};S.muted=false;for(const [i,id] of ['sock','biscuit','sardine','egg','box','sock','cheese'].entries())queueTreatAward(id,70+i*40,null,false,'item')");
  const trace=[];for(let i=0;i<160;i++){g.tick();trace.push(J(g,'treatAwards.map(f=>({id:f.id,t:f.t,tr:f.tr,tm:f.tm,td:f.td,x0:f.x0,y0:f.y0,peak:f.peak,arrived:f.arrived,done:f.done}))'));}g.close();return JSON.stringify({trace,sounds:J(g,'__sounds')});}
 (async()=>{
- {const S=fs.readFileSync(src,'utf8');let B=fs.readFileSync(path.resolve(__dirname,'../cp106-hug/release.html'),'utf8');let m=[1];if(require('crypto').createHash('sha256').update(B).digest('hex')!=='455b061a1c627f540886c2568cb561599ffad6e59c22ea2c8d4bfe5f7ecada20')m=[];const E=JSON.parse(fs.readFileSync(path.join(__dirname,'edits.json'),'utf8'));for(const [a,b] of E.edits){if(B.split(a).length!==2)m=[];B=B.split(a).join(b);}for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,f),'utf8')+String.fromCharCode(10)+B.slice(i);}
-  check('0 the build is published 2026.11.18 UAT 106 + build name + cp86-meow.js (everything else unchanged)',S===B&&m.length===1);}
+ {const S=fs.readFileSync(src,'utf8');let B=fs.readFileSync(path.resolve(__dirname,'../cp107/release.html'),'utf8');let m=[1];if(require('crypto').createHash('sha256').update(B).digest('hex')!=='32ee00c953968677c31c49ca7607761ce351285226a36bc21a69244c8e15f1bd')m=[];const E=JSON.parse(fs.readFileSync(path.join(__dirname,'edits.json'),'utf8'));for(const [a,b] of E.edits){if(B.split(a).length!==2)m=[];B=B.split(a).join(b);}for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,f),'utf8')+String.fromCharCode(10)+B.slice(i);}
+  check('0 the build is published 2026.11.18 UAT 107 + build name + Board lab picker removed + cp86-meow.js (everything else unchanged)',S===B&&m.length===1);}
  // 1 + 2: the power through the real button
  notes.power=[];let ok1=true,shoved=0,paid=0,prizesShoved=0;
  const LV=(process.env.LEVELS||'1,2,3,4,5').split(',').map(Number);
@@ -75,7 +75,7 @@ async function burst(file){const g=await game(file,{seed:5,render:true});
  // 5: the other cats' powers
  {const r={};for(const cat of ['tuxedo','ragdoll','siamese','tortie']){const one=async f=>{const {g,tk}=await midRound(f,{seed:2,level:3,fps:60,cat});g.run(TAP);for(let i=0;i<30;i++)tk();const s=g.run("(PGPX?PGPX.id:'-')+(typeof CP63X!=='undefined'&&CP63X?'+inspect':'')+(typeof Z72X!=='undefined'&&Z72X?'+z72':'')");for(let i=0;i<8*60;i++)tk();const e=J(g,'__errs').length;g.close();return s+(e?' errors':'');};
    r[cat]=[await one(src),await one(base)];}
-  const CP82={siamese:'sonic',tortie:'tortitude'}; // UAT 101 (CP-82): Sonic meow and Tortitude start with their title (cp82title), their action 1.25 s later (checks101)
+  const CP82={siamese:'sonic',tortie:'tortitude',ragdoll:'hug'}; // UAT 101 (CP-82): Sonic meow and Tortitude start with their title (cp82title), their action 1.25 s later (checks101); UAT 106 (CP-74): Hug too
   check("5 the other cats' powers are unchanged (same power starts as in the base UAT, no kittens, no errors; on UAT 101 Sonic meow and Tortitude start with their CP-82 title instead)",Object.entries(r).every(([c,[a,b]])=>(CP82[c]?a==='cp82title'&&b===CP82[c]:a===b)&&!/z72|errors/.test(a)),r);}
  check('6 production and the UAT channel untouched',sha(prodJ)===prod0&&sha(uatJ)===uat0);
  fs.writeFileSync(path.join(out,'checks72-on108.json'),JSON.stringify({build:src,base,passed:failed.length===0,passedN:passed.length,failed,notes},null,1));if(failed.length)process.exitCode=1;

@@ -33,7 +33,7 @@ const STATE="JSON.stringify({p:PGPX?[PGPX.id,+PGPX.t.toFixed(4)]:null,reach:pglR
  if(process.env.BUILD_DIR){const D=process.env.BUILD_DIR,E=JSON.parse(fs.readFileSync(path.join(D,'edits.json'),'utf8')),V=JSON.parse(fs.readFileSync(path.join(D,'release-version.json'),'utf8'));
   let B=fs.readFileSync(base,'utf8'),m=sha(base)===V.baseSHA256;for(const [a,b] of E.edits){if(B.split(a).length!==2)m=false;B=B.split(a).join(b);}
   for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(D,f),'utf8')+String.fromCharCode(10)+B.slice(i);}
-  check('0 the build is the published base + build name + cp86-meow.js (everything else unchanged)',fs.readFileSync(src,'utf8')===B&&m&&E.edits.length===1);}
+  check('0 the build is the published base + build name + the Board lab picker removed (CP-83) + cp86-meow.js (everything else unchanged)',fs.readFileSync(src,'utf8')===B&&m&&E.edits.length===2&&/Board lab picker is removed/.test(E.edits[1][1]));}
  // 1. Sonic meow on the Siamese board (2 seeds x 60/30 fps): the face is off during the title, fades in over 0.15 s of the
  // action, is full while the meows and rings play, fades out over the last 0.4 s, off after; the game itself is identical
  // to the base (power clock, reach, coins and every piece's position, every frame); no errors

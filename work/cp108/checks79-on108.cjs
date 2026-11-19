@@ -48,8 +48,8 @@ async function run(file,{choice=null,spy=false,muted=false}={}){
   g.run("CP79.set('AB')");r.saved=J(g,"localStorage.getItem('"+KEY+"')");}
  r.errs=J(g,'__errs');g.close();return r;}
 (async()=>{
- {const S=fs.readFileSync(src,'utf8');let B=fs.readFileSync(path.resolve(__dirname,'../cp106-hug/release.html'),'utf8');let m=[1];if(require('crypto').createHash('sha256').update(B).digest('hex')!=='455b061a1c627f540886c2568cb561599ffad6e59c22ea2c8d4bfe5f7ecada20')m=[];const E=JSON.parse(fs.readFileSync(path.join(__dirname,'edits.json'),'utf8'));for(const [a,b] of E.edits){if(B.split(a).length!==2)m=[];B=B.split(a).join(b);}for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,f),'utf8')+String.fromCharCode(10)+B.slice(i);}
-  check('0 the build is published 2026.11.18 UAT 106 + build name + cp86-meow.js (everything else unchanged)',S===B&&m.length===1);}
+ {const S=fs.readFileSync(src,'utf8');let B=fs.readFileSync(path.resolve(__dirname,'../cp107/release.html'),'utf8');let m=[1];if(require('crypto').createHash('sha256').update(B).digest('hex')!=='32ee00c953968677c31c49ca7607761ce351285226a36bc21a69244c8e15f1bd')m=[];const E=JSON.parse(fs.readFileSync(path.join(__dirname,'edits.json'),'utf8'));for(const [a,b] of E.edits){if(B.split(a).length!==2)m=[];B=B.split(a).join(b);}for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,f),'utf8')+String.fromCharCode(10)+B.slice(i);}
+  check('0 the build is published 2026.11.18 UAT 107 + build name + Board lab picker removed + cp86-meow.js (everything else unchanged)',S===B&&m.length===1);}
  {const js=fs.readFileSync(path.join(__dirname,'../cp99/cp79-yawn.js'),'utf8'),r={};let ok=true;for(const k of ['A2','B2','AB']){const m=js.match(new RegExp(k+':"([A-Za-z0-9+/=]+)"'));
    const same=!!m&&Buffer.from(m[1],'base64').equals(fs.readFileSync(path.resolve(__dirname,'../cp79-yawn-sound/audio/yawn-sound-'+k+'.mp3')));r[k]=same;ok=ok&&same;}
   check('1 the 3 embedded sounds are the Step 1b files (A2, B2, AB), byte for byte',ok,r);}

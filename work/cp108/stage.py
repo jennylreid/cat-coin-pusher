@@ -28,7 +28,7 @@ for k,b64 in files.items():
 print('boot folder',G,'files written',wrote)
 if '--boot-only' in sys.argv or DEV:sys.exit(0)
 names=['checks86.json']+sorted(f.name for f in e.glob('checks*-on108.json'))
-NEED=['checks86.json','checks64-on108.json','checks101-on108.json','checks106-on108.json'] # PM, Nov 18: the change's checks + one frozen-pickup suite + the real-browser boot; the rest run after publication
+NEED=['checks86.json','checks64-on108.json','checks101-on108.json','checks107-on108.json'] # PM, Nov 18: the change's checks + one frozen-pickup suite + the real-browser boot; the rest run after publication
 assert all(n in names for n in NEED),('missing results',names)
 for name in names:
     c=json.loads((e/name).read_text(encoding='utf-8'));assert Path(c['build'])==rel.resolve(),(name,'not run on this release.html')
