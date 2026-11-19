@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.19 UAT 111';
+const BUILD = '2026.11.19 UAT 112';
 
 
 
@@ -43553,6 +43553,7 @@ const CP74_ART={
 // (CP74_ART, revision 2: one shoulder mirrored, a left and a right arm, fixed canvases):
 // - Title first (the rule for every power, CP-82): "HUG!" shows big and alone for 1.2 s, then the hug starts 1.25 s after the
 //   tap with no words over it ("NO SIDE FALLS" is gone; other callouts wait until it ends).
+// - (try 9) The shoulders lead; each paw lifts slightly, reaches along an arc with ease-out and presses as it plants.
 // - (try 8) The shoulder's soft lower edge only over arm fur (no haze); the paws behind the coins from the first frame and out
 //   to the side; the arm moves with its paw. (try 7, after UAT 106) No elbow, no fades: the resting mitts travel forward and down to the lower corners at constant
 //   size, each straight painted arm slides out from behind its shoulder under its mitt, and the shoulders lean forward into
@@ -43599,7 +43600,11 @@ function z74Env(t){const o=t-(Z74.ON+Z74.HOLD);
  const io=u=>{u=z74Clamp(u,0,1);return u<.5?4*u*u*u:1-Math.pow(-2*u+2,3)/2;}; // ease in and out: slow start, slow end
  // sh: shoulders out from behind the head (0 tucked, 1 out); reach: 0 = mitts resting beside the head, arms hidden behind the
  // shoulders; 1 = mitts in the lower corners, arms along the board's sides. Letting go = the same curves at reversed time.
- const at=x=>({sh:io(z74Seg(x,0,.4)),reach:io(z74Seg(x,.1,1.5))});
+ // try 9: the shoulders lead; each paw lifts (anticipation), reaches along an arc with ease-out, then presses as it plants
+ const out=u=>1-Math.pow(1-z74Clamp(u,0,1),3),bump=u=>{u=z74Clamp(u,0,1);return Math.sin(Math.PI*u);};
+ const at=x=>({sh:io(z74Seg(x,0,.4)),reach:out(z74Seg(x,.4,1.3)),
+  lift:bump(z74Seg(x,.2,.6))*(1-z74Seg(x,.4,.6)*.5), // up and back before it goes, eased away once the reach is under way
+  press:bump(z74Seg(x,1.3,1.5))});
  if(o<0)return {...at(t),hold:t>=Z74.IN,arm:1};
  const r=Z74.ON-o*(Z74.ON/Z74.OUT);return {...at(r),hold:false,arm:1};}
 // the arm painting cut at the elbow into two pieces (no repainting): the upper arm with a rounded end at the elbow, and the
@@ -43620,9 +43625,11 @@ function z74Pieces(){if(Z74.pieces)return Z74.pieces;const im=Z74.img.left;if(!i
 // MITT_TURN plus its tiny wobble) to its place in the lower corner, turning to 40 degrees, same size throughout; drawn behind the
 // coins all the way, so it never covers a coin or a prize.
 function z74RimXAt(y){const r=z74RimPts();if(!r)return 200;const P=r.left;if(y<=P[0].y)return P[0].x;for(let i=1;i<P.length;i++)if(y<=P[i].y){const a=P[i-1],b=P[i];return a.x+(b.x-a.x)*(y-a.y)/((b.y-a.y)||1);}return P[P.length-1].x;}
-function z74MittPath(L,u){const m=mittRest(-1),x0=m.x,y0=m.y,x2=200-Z74.MITT_DX,y2=L.mittY,t0=-(MITT_TURN+Math.sin(time*1.7)*.018);
- const y=y0+(y2-y0)*u,x=x0+(x2-x0)*u; // a straight line, always on screen (routing it out to the side took the paw and arm off the screen's edge)
- return {x,y,ox:x-x2,oy:y-y2,turn:t0+(Z74.MITT_TURN-t0)*u};}
+function z74MittPath(L,u,e){const m=mittRest(-1),x0=m.x,y0=m.y,x2=200-Z74.MITT_DX,y2=L.mittY,t0=-(MITT_TURN+Math.sin(time*1.7)*.018);
+ const cx=Math.max(4,Math.min(x0,x2)-34),cy=y0+(y2-y0)*.45,a=1-u; // control point: out to the side, part-way down (an arc toward the player)
+ let x=a*a*x0+2*a*u*cx+u*u*x2,y=a*a*y0+2*a*u*cy+u*u*y2;
+ const lf=e&&e.lift||0,pr=e&&e.press||0;x+=6*lf;y+=-14*lf+5*pr; // lift: up and back towards the head; press: down as it plants
+ const tw=u*u*(3-2*u);return {x,y,ox:x-x2,oy:y-y2,turn:t0+(Z74.MITT_TURN-t0)*tw};}
 function z74DrawMitts(){const X=PGPX,e=z74Env(X.t),L=Z74.L||z74Layout(),r=z74RimPts(),R=Z74.REF;if(!r)return;
  const ys=(r.left[r.left.length-1].y-r.left[0].y)/(R.rimBot-R.rimTop),ay=r.left[0].y+(R.armTop-R.rimTop)*ys;
  ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);
@@ -43634,7 +43641,7 @@ function z74DrawMitts(){const X=PGPX,e=z74Env(X.t),L=Z74.L||z74Layout(),r=z74Rim
 // The mitt (mitt=true) is the resting mitt travelling.
 function z74ShoulderAt(L,e){const R=Z74.REF,k=e.sh,ln=e.reach,Ln=Z74.LEAN; // the left shoulder's centre offset from its place
  return {x:(1-k)*60-Ln.dx*ln,y:-(1-k)*40+Ln.dy*ln,cx:R.shX,cy:L.shY-R.shUp};}
-function z74LeftArm(L,e,ay,ys,mitt,kn){const T=z74MittPath(L,e.reach);if(mitt){z74Mitt(T.x,T.y+kn,-1,1,T.turn);return;}
+function z74LeftArm(L,e,ay,ys,mitt,kn){const T=z74MittPath(L,e.reach,e);if(mitt){z74Mitt(T.x,T.y+kn,-1,1,T.turn);return;}
  const R=Z74.REF,ah=R.armH*ys,im=z74Pre('left',R.armW,ah);if(!im)return;const S=z74ShoulderAt(L,e);
  // the arm stays in its approved place along the board's side and is revealed behind the paw: from the shoulder's middle
  // down to just under the paw's centre (the paw covers that edge), so the visible arm always ends at the paw's wrist
@@ -43677,7 +43684,7 @@ function z74Body(L,e){const r=z74RimPts();if(!r)return;const R=Z74.REF,ys=(r.lef
  ctx.save();z74ClipOutside(r);
  // each side composed in a layer: the arm (whole painting, straight) sliding out with its paw; on top of it only, the shoulder's
  // soft lower edge (never over the sky: no haze); then the shoulder's solid part, leaning into the reach
- const parts=z74ShoulderParts(),k=e.sh,ln=e.reach,Ln=Z74.LEAN,S=z74ShoulderAt(L,e),Tp=z74MittPath(L,e.reach),c0=ctx,Ly=z74Layer();
+ const parts=z74ShoulderParts(),k=e.sh,ln=e.reach,Ln=Z74.LEAN,S=z74ShoulderAt(L,e),Tp=z74MittPath(L,e.reach,e),c0=ctx,Ly=z74Layer();
  for(const s of [-1,1]){Ly.g.save();Ly.g.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);Ly.g.clearRect(-200,-200,800,H+400);
   ctx=Ly.g;try{
    ctx.save();if(s>0){ctx.translate(400,0);ctx.scale(-1,1);}z74LeftArm(L,e,ay,ys,false,0);ctx.restore();
