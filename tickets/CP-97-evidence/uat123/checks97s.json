@@ -1,0 +1,133 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp123\\release.html",
+ "passed": true,
+ "passedN": 12,
+ "failed": [],
+ "results": [
+  {
+   "name": "0 the build is its base + build name + cp97-switch.js (everything else unchanged)",
+   "ok": true,
+   "info": "cp122-giant"
+  },
+  {
+   "name": "1 timed level: tapping the chip does nothing",
+   "ok": true
+  },
+  {
+   "name": "2 endless: tapping the chip opens a row of the 5 cats, no coin dropped",
+   "ok": true,
+   "info": {
+    "faces": [
+     "tuxedo",
+     "orange",
+     "ragdoll",
+     "siamese",
+     "tortie"
+    ]
+   }
+  },
+  {
+   "name": "3 tap the Orange face: Orange takes over (mode treats, power Orange), same board pieces, coins, meter, board and banked laser; no drop",
+   "ok": true,
+   "info": {
+    "after": {
+     "uids": 83,
+     "coins": 272,
+     "meter": 40,
+     "key": "L1",
+     "laser": 2,
+     "cat": "orange",
+     "cur": "orange",
+     "mode": "treats",
+     "pcat": "orange",
+     "open": false,
+     "rel": 40,
+     "phase": "play"
+    },
+    "same": true
+   }
+  },
+  {
+   "name": "4 a tap outside the open row closes it and drops nothing",
+   "ok": true
+  },
+  {
+   "name": "5 locked (lock sound, no row) with a side-game coin on the board; also locked by a power, Dance break, pending side game, Jackpot, sweep, incoming coin; free otherwise",
+   "ok": true,
+   "info": {
+    "lk1": true,
+    "lk": {
+     "power": true,
+     "dance": true,
+     "toss": true,
+     "jackpot": true,
+     "sweep": true,
+     "incoming": true,
+     "free": false
+    }
+   }
+  },
+  {
+   "name": "6 switching keeps each cat's own counters on this board (Tuxedo note already used stays used; Dance meter kept); Siamese brings laser mode",
+   "ok": true,
+   "info": {
+    "sm": {
+     "mode": "laser",
+     "laser": true,
+     "noteN": 9
+    },
+    "tb": {
+     "noteN": 1,
+     "happy": 0.5,
+     "mode": null
+    }
+   }
+  },
+  {
+   "name": "7 a cat new to this board starts fresh, its first side-game coin counted from now (Ragdoll heart after bonus 40)",
+   "ok": true,
+   "info": {
+    "mode": "cozy",
+    "heartAt": 42,
+    "bonusN": 40
+   }
+  },
+  {
+   "name": "8 NEW BOARD: the switched cat stays, memory cleared",
+   "ok": true
+  },
+  {
+   "name": "9 no frame errors with the row open, then locked",
+   "ok": true,
+   "info": []
+  },
+  {
+   "name": "11 NEW BOARD: the pusher travels past the front edge, about 4.4 s, pays nothing (wallet, pantry), at most 1 piece left, next board in order, play resumes",
+   "ok": true,
+   "info": {
+    "s0": {
+     "coins": 272,
+     "pantry": "{\"cheese\":0,\"shrimp\":1,\"tuna\":0}",
+     "key": "L2",
+     "pieces": 63
+    },
+    "s1": {
+     "coins": 272,
+     "pantry": "{\"cheese\":0,\"shrimp\":1,\"tuna\":0}",
+     "key": "L3",
+     "left": 2,
+     "pusher": 190,
+     "phase": "play",
+     "front": 760
+    },
+    "maxZ": 794,
+    "secs": 4.42,
+    "pieces": 63
+   }
+  },
+  {
+   "name": "10 production untouched",
+   "ok": true
+  }
+ ]
+}
