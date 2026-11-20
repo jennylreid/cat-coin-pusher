@@ -399,6 +399,15 @@ settings in `Z72` (timing, speeds, stunt plans, caps). The old Zoomies code (sid
   plays; Home, round end and reset go through `pgpEnd` (kittens gone, pusher back to normal).
 - The frozen pickup is untouched.
 
+## The Orange's Dance break (CP-94, UAT 120, Nov 19, 2026)
+- On the Orange's own level boards (`WILD.mode==='treats'`, `PGU.boardCat==='orange'`), `wildFeature('dance')` is on next to Treat toss (each waits for the other; the CP-88 slot refuses a tap during the dance). Same trigger as the Tuxedo (meter of 4 prizes, music-note coin).
+- The dance (`cp94-orange-dance.js`, `CP94`): a half-beat grid (`D.per=2`, `D.beat` = half a beat at 108 BPM), 32 slots, `D.rest[k]` marks slots without a tap (19 taps). `danceSlot` judges a tap against the nearest tap slot; a tap on a rest is off the beat. Perfect = `D.hits===D.taps` -> the wheel.
+- The in-place edits in `work/cp94-orange/build.py` all pass straight through when `D.rest`/`D.per`/`D.px` are unset, so the Tuxedo's dance is byte-for-byte the same in play, sound and motion (checks94o check 8).
+- Moves: `cp94State`/`cp94Motion` via pawMotion (swipes, quick-run climbs, the pounce); faces via petDrawHead (Sharp Grin on runs, Wild on the pounce), instant swaps, only the Orange's recoloured approved art.
+- Music: `CP94_TRACKS` A/B/C on `sfx.cp94Loud` (synth voices); saved in `catpusher.uat.cp94music.v1`; Developer > Engineer tools "Orange dance music".
+- HUD: the Dance meter starts right of the CP-88 slot on that board (`danceMeterShift()`); elsewhere unmoved. Picture comparisons on the Orange board must blank that HUD box (see `work/cp120/checks90-on120.cjs`).
+- CP-98: `drawHappyFeatures` draws `CP75_ART[cat].eyes` (+ the happy mouth) for the Orange, Ragdoll, Siamese and Tortie instead of the Tuxedo's black patches and arcs.
+
 ## Jackpot cascade (CP-64, UAT 86, Jenny's go Nov 17, 2026)
 - The wheel's JACKPOT slice (weight .02, about 2%; was JACKPOT 25 at 5%) sets `WILD.jpPending`. Once no side game runs
   (`cp64Side()`), the round is in play and not paused, `cp64Start()` opens `WILD.jp`: a timed state that drops a bonus

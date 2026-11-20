@@ -1,0 +1,32 @@
+﻿{
+    "version":  20261119000031,
+    "displayName":  "2026.11.19 UAT 120",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "48ff1d7b4925ab26988d042fdb6a6b05dbfd87d07b779f17189b873ffd7c37fb",
+    "stagedJSONSHA256":  "8a84d1150a8e0aa503198eff87036964b50b1e74f94d43301928112c39cdab39",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "cb699710edbe028f724ab315429885e77a6db2a82e9ed41aff1fe7b61bfeb07a",
+    "jsonBytes":  59941421,
+    "runtimeFiles":  81,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.19 UAT 119",
+    "backup":  "uat/backups/before-UAT120-20261119000031",
+    "evidence":  "tickets/CP-94-evidence/uat120",
+    "checks":  [
+                   "checks112-on120.json",
+                   "checks64-on120.json",
+                   "checks88-on120.json",
+                   "checks90-on120.json",
+                   "checks92e-on120.json",
+                   "checks94o.json"
+               ],
+    "authorization":  "UAT 120: CP-94 Orange dance + CP-98 each cat\u0027s own closed eyes (PM, Nov 19: \"CP-94 / UAT 120: the channel is yours... Rebuild on UAT 119 ... with the CP-98 eye fix\"); UAT only",
+    "localPublication":  "verified"
+}

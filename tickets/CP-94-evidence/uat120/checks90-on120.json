@@ -1,0 +1,220 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp120\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp116\\release.html",
+ "passed": true,
+ "passedN": 7,
+ "failed": [],
+ "notes": {
+  "original": {
+   "rows": [
+    {
+     "fps": 60,
+     "seed": 1,
+     "len": [
+      526,
+      526
+     ],
+     "same": true,
+     "mode": "original",
+     "errs": 0
+    },
+    {
+     "fps": 60,
+     "seed": 2,
+     "len": [
+      534,
+      534
+     ],
+     "same": true,
+     "mode": "original",
+     "errs": 0
+    },
+    {
+     "fps": 30,
+     "seed": 1,
+     "len": [
+      274,
+      274
+     ],
+     "same": true,
+     "mode": "original",
+     "errs": 0
+    },
+    {
+     "fps": 30,
+     "seed": 2,
+     "len": [
+      268,
+      268
+     ],
+     "same": true,
+     "mode": "original",
+     "errs": 0
+    }
+   ],
+   "pictures": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ]
+  },
+  "paintedPlay": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "same": true,
+    "mode": "painted",
+    "errs": 0
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "same": true,
+    "mode": "painted",
+    "errs": 0
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "same": true,
+    "mode": "painted",
+    "errs": 0
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "same": true,
+    "mode": "painted",
+    "errs": 0
+   }
+  ],
+  "switches": {
+   "ginger": [
+    {
+     "frame": 304,
+     "t": 3.817,
+     "from": "painted",
+     "to": "original",
+     "seg": "spook",
+     "pk": "",
+     "puff": 0.23617069616101735
+    },
+    {
+     "frame": 355,
+     "t": 4.667,
+     "from": "original",
+     "to": "painted",
+     "seg": "run",
+     "pk": "",
+     "puff": 0
+    },
+    {
+     "frame": 427,
+     "t": 5.867,
+     "from": "painted",
+     "to": "original",
+     "seg": "leap",
+     "pk": "",
+     "puff": 0.12435903187827761
+    },
+    {
+     "frame": 493,
+     "t": 6.967,
+     "from": "original",
+     "to": "peek",
+     "seg": "leap",
+     "pk": "hold",
+     "puff": 0
+    }
+   ],
+   "cream": [
+    {
+     "frame": 264,
+     "t": 3.15,
+     "from": "painted",
+     "to": "original",
+     "seg": "spook",
+     "pk": "",
+     "puff": 0.17965479940019496
+    },
+    {
+     "frame": 315,
+     "t": 4,
+     "from": "original",
+     "to": "painted",
+     "seg": "run",
+     "pk": "",
+     "puff": 0
+    }
+   ],
+   "frames": 801,
+   "leapOutFrames": 24,
+   "leapOutKittens": [
+    "cream"
+   ]
+  },
+  "stills": [
+   {
+    "sz": "412x915",
+    "mode": "painted",
+    "got": [
+     "1-both-running",
+     "2-spook-puff",
+     "3-hang-puff",
+     "4-peek"
+    ],
+    "errs": 0
+   },
+   {
+    "sz": "412x915",
+    "mode": "original",
+    "got": [
+     "1-both-running",
+     "2-spook-puff",
+     "3-hang-puff",
+     "4-peek"
+    ],
+    "errs": 0
+   },
+   {
+    "sz": "360x640",
+    "mode": "painted",
+    "got": [
+     "1-both-running",
+     "2-spook-puff",
+     "3-hang-puff",
+     "4-peek"
+    ],
+    "errs": 0
+   },
+   {
+    "sz": "360x640",
+    "mode": "original",
+    "got": [
+     "1-both-running",
+     "2-spook-puff",
+     "3-hang-puff",
+     "4-peek"
+    ],
+    "errs": 0
+   }
+  ],
+  "choice": {
+   "fresh": "painted",
+   "afterSet": [
+    "original",
+    "original"
+   ],
+   "afterBad": "original",
+   "art": [],
+   "savedOriginal": "original",
+   "savedPainted": "painted",
+   "junk": "painted"
+  }
+ }
+}
