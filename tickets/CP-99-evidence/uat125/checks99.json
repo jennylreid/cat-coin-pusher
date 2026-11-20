@@ -1,0 +1,12 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp125\\release.html",
+ "passed": true,
+ "passedChecks": [
+  "0 the build is published UAT 124 + build name + the CP-99 meter edits + cp99-meter.js (everything else unchanged)",
+  "1 tall screen (400x889): the meter is beneath the board, between the front edge and the corner text, scaled to fit",
+  "2 short screen (360x640): no room beneath, so just under the top bar, full size, above the highest treat (~197)",
+  "3 the toss plays exactly as on UAT 124 on both screens (treats, catches, streak, count, coins, every piece, every frame)",
+  "4 production and the UAT channel untouched"
+ ],
+ "failed": []
+}
