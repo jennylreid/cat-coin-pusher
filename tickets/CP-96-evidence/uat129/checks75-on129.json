@@ -1,0 +1,14 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp129\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\ref78-cp94-release.html",
+ "passed": false,
+ "passedN": 4,
+ "failed": [
+  "3 the Tuxedo's yawn frames are pixel-identical to UAT 94 (360x640 and 412x915, yawn and eating)",
+  "4 every cat: frames before and after the yawn are pixel-identical to UAT 94 (normal faces, per-cat mitts; the Orange with its UAT 120 Dance meter box blanked); other cats differ only during the yawn",
+  "5 every cat: the yawn plays the same as UAT 94 (grabs, eating, prizes, coins, score); no frame errors"
+ ],
+ "notes": {
+  "reference": "frames and play compared with published UAT 94 renamed to the UAT 98 build name (ref-uat94-named129.html): the build name is drawn on screen"
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp129\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\ref78-cp92-release.html",
+ "passed": false,
+ "passedN": 3,
+ "failed": [
+  "2 at both sizes: without the cane, every 6th frame of the power is pixel-identical to UAT 92 (mitt, outfit, monocle, beam, rings, pieces, words); the cane shows on exactly the same frames as in UAT 92"
+ ],
+ "notes": {
+  "hold": [
+   {
+    "sz": "412x915",
+    "frames": 17,
+    "bad": [],
+    "gap": [
+     21.4,
+     31.4
+    ],
+    "errs": [],
+    "stills": [
+     "1-picks-it-up",
+     "2-sweep",
+     "3-front-edge"
+    ]
+   },
+   {
+    "sz": "360x640",
+    "frames": 17,
+    "bad": [],
+    "gap": [
+     21,
+     31.4
+    ],
+    "errs": [],
+    "stills": [
+     "1-picks-it-up",
+     "2-sweep",
+     "3-front-edge"
+    ]
+   }
+  ],
+  "unchanged": [
+   {
+    "sz": "412x915",
+    "frames": 61,
+    "same": false,
+    "visSame": true,
+    "errs": 0
+   },
+   {
+    "sz": "360x640",
+    "frames": 61,
+    "same": false,
+    "visSame": true,
+    "errs": 0
+   }
+  ]
+ }
+}
