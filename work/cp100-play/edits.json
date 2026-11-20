@@ -1,0 +1,68 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp126\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 126';",
+   "const BUILD = '2026.11.19 UAT 127';"
+  ],
+  [
+   "ctx.fillText('Endless board',200,b.y+b.h/2+1);",
+   "ctx.fillText('All boards',200,b.y+b.h/2+1); /* CP-100 */"
+  ],
+  [
+   "pgSfx('tap');endStart();return;}}}catch(e){}return __endMainTap(p);",
+   "pgSfx('tap');cp100Open();return;}}}catch(e){}return __endMainTap(p); /* CP-100 */"
+  ],
+  [
+   "if(over>0){const c=over*pgSell(id);PG.coins+=c;pgFloat('+'+c,x,y,'#ffd23f');pgSfx('clink');}",
+   "if(over>0){const c=over*pgSell(id);PG.catnip+=c;pgFloat('+'+c+' Catnip',x,y,'#8dff9a');pgSfx('clink');} /* CP-100 */"
+  ],
+  [
+   "return Object.keys(m).some(i=>!pgWinnable(i)&&PG.coins>=pgBuy(i));}",
+   "return Object.keys(m).some(i=>!pgWinnable(i)&&PG.catnip>=pgBuy(i));} /* CP-100 */"
+  ],
+  [
+   "off=Sh.tab==='buy'&&(PG.coins<price||pgHave(r.id)>=pgCap());",
+   "off=Sh.tab==='buy'&&(PG.catnip<price||pgHave(r.id)>=pgCap()); /* CP-100 */"
+  ],
+  [
+   "PG.items[r.id]--;PG.coins+=pgSell(r.id);",
+   "PG.items[r.id]--;PG.catnip+=pgSell(r.id); /* CP-100 */"
+  ],
+  [
+   "const p=pgBuy(r.id);if(PG.coins<p||pgHave(r.id)>=pgCap()){pgSfx('lock');return;}PG.coins-=p;",
+   "const p=pgBuy(r.id);if(PG.catnip<p||pgHave(r.id)>=pgCap()){pgSfx('lock');return;}PG.catnip-=p; /* CP-100 */"
+  ],
+  [
+   "else{PG.coins+=25;callout('+25 COINS TO THE JAR',{color:'#ffd23f',dur:1.2});}",
+   "else{PG.catnip+=3;callout('+3 CATNIP',{color:'#8dff9a',dur:1.2});} /* CP-100 */"
+  ],
+  [
+   "pgShopTap=function(r){const c=PG.coins;const out=__pgShopTapR(r);if(PG.coins>c)pgScreenReact('nod');",
+   "pgShopTap=function(r){const c=PG.catnip;const out=__pgShopTapR(r);if(PG.catnip>c)pgScreenReact('nod'); /* CP-100 */"
+  ],
+  [
+   "const c=PG.coins,n=PG.catnip;ctx.fillStyle='#ffd76a';ctx.fillText(c+' coins',16,y);",
+   "const c=(typeof cp100Coins==='function'?cp100Coins():PG.coins),n=PG.catnip;ctx.fillStyle='#ffd76a';ctx.fillText(c+' coins',16,y); /* CP-100 */"
+  ],
+  [
+   "ctx.fillStyle='#ffd76a';ctx.fillText(PG.coins,163,y+1,48);\n const cx=163+Math.min(48,ctx.measureText(String(PG.coins)).width)+15;",
+   "ctx.fillStyle='#ffd76a';ctx.fillText((typeof cp100Coins==='function'?cp100Coins():PG.coins),163,y+1,48);\n const cx=163+Math.min(48,ctx.measureText(String((typeof cp100Coins==='function'?cp100Coins():PG.coins))).width)+15; /* CP-100 */"
+  ],
+  [
+   "ctx.fillStyle='#ffd76a';ctx.fillText(PG.coins,280,cy-7,34);",
+   "ctx.fillStyle='#ffd76a';ctx.fillText((typeof cp100Coins==='function'?cp100Coins():PG.coins),280,cy-7,34); /* CP-100 */"
+  ],
+  [
+   "ctx.fillStyle='#ffd76a';ctx.fillText(PG.coins,40,y+1,70);\n const cx=40+Math.min(70,ctx.measureText(String(PG.coins)).width)+18;",
+   "ctx.fillStyle='#ffd76a';ctx.fillText((typeof cp100Coins==='function'?cp100Coins():PG.coins),40,y+1,70);\n const cx=40+Math.min(70,ctx.measureText(String((typeof cp100Coins==='function'?cp100Coins():PG.coins))).width)+18; /* CP-100 */"
+  ],
+  [
+   " // the coin jar: fills with your coins\n const jx=200,jy=pgTop()+160,jw=120,jh=120,fill=Math.min(1,PG.coins/600);Sh.jarT+=dt;const wob=Sh.jarT<.3?Math.sin(Sh.jarT*40)*3*(1-Sh.jarT/.3):0;\n ctx.save();ctx.translate(jx+wob,jy);ctx.fillStyle='rgba(200,230,255,.18)';ctx.strokeStyle='#d8eeff';ctx.lineWidth=3;ctx.beginPath();ctx.roundRect(-jw/2,-jh/2,jw,jh,22);ctx.fill();ctx.stroke();ctx.fillStyle='#b88a4a';ctx.fillRect(-jw/2+8,-jh/2-12,jw-16,14);\n ctx.save();ctx.beginPath();ctx.roundRect(-jw/2+4,-jh/2+4,jw-8,jh-8,18);ctx.clip();const lvl=jh/2-4-(jh-8)*fill;for(let y=jh/2;y>lvl;y-=9)for(let x=-jw/2+10;x<jw/2;x+=16)uiCircle(x+((y/9|0)%2)*8,y,8,'#f5c632','#a8740c',1);ctx.restore();\n ctx.fillStyle='#fff';ctx.font='bold 18px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(PG.coins+' coins',0,jh/2+18);ctx.restore();\n",
+   " // CP-100: no coin jar; the Catnip balance in its place (sold prizes fly to it)\n const jx=200,jy=pgTop()+170;Sh.jarT+=dt;ctx.save();pgCatnipLeaf(jx-46,jy-36,1.6);ctx.fillStyle='#8dff9a';ctx.font='900 34px Impact, system-ui';ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(String(PG.catnip),jx-22,jy-30);ctx.font='bold 15px system-ui';ctx.fillStyle='#cfe6f4';ctx.textAlign='center';ctx.fillText('Catnip \u00b7 sell prizes for it, buy ingredients with it',200,jy+8,360);ctx.restore();\n"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp100-play.js"
+ ]
+}

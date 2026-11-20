@@ -1,0 +1,154 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp127\\release.html",
+ "passed": true,
+ "passedN": 10,
+ "failed": [],
+ "results": [
+  {
+   "name": "0 the build is its base + build name + the CP-100 edits + cp100-play.js (everything else unchanged)",
+   "ok": true,
+   "info": "cp126"
+  },
+  {
+   "name": "1 fresh save: Home shows Level boards (no Board lab button), the top bar coins are the wallet (100), a gentle first board is set",
+   "ok": true,
+   "info": {
+    "screen": "main",
+    "play": {
+     "x": 118.66666666666667,
+     "y": 553,
+     "w": 162.66666666666666,
+     "h": 52
+    },
+    "btn": {
+     "x": 112,
+     "y": 619,
+     "w": 176,
+     "h": 36
+    },
+    "lab": null,
+    "gentle": true,
+    "coins": 100,
+    "jar": 220
+   }
+  },
+  {
+   "name": "2 PLAY starts the endless board on First push with Level 1's quiet rules (no cat sky drops)",
+   "ok": true,
+   "info": {
+    "on": true,
+    "key": "L1",
+    "lv1": true,
+    "sched": 2,
+    "phase": "play",
+    "screen": "board"
+   }
+  },
+  {
+   "name": "3 the 2nd board (Line up) unlocks Tuna dish and opens the Kitchen; the quiet rules end",
+   "ok": true,
+   "info": {
+    "key": "L2",
+    "lv1": false,
+    "recipe": true,
+    "kitchen": true,
+    "seen": 2
+   }
+  },
+  {
+   "name": "4 the NEW BOARD rotation is the 10 open level boards only (goal boards are not in it)",
+   "ok": true,
+   "info": [
+    "L1",
+    "L2",
+    "L3",
+    "L4",
+    "L5",
+    "L6",
+    "L7",
+    "L8",
+    "L9",
+    "L10"
+   ]
+  },
+  {
+   "name": "5 Level boards opens its list (10), Goal boards opens its own (12, e.g. Cup shot 18 drops), neither starts a board; a board starts the endless board on it; a goal board plays with its own goal and 18 drops, the wallet untouched",
+   "ok": true,
+   "info": {
+    "L5": {
+     "open": true,
+     "mode": "goals",
+     "boards": 0,
+     "goals": 12,
+     "on": false,
+     "cup": true,
+     "levels": {
+      "open": true,
+      "mode": "levels",
+      "boards": 10,
+      "goals": 0,
+      "on": false
+     }
+    },
+    "s5": {
+     "key": "L5",
+     "on": true,
+     "left": 600,
+     "phase": "play",
+     "wallet": 100
+    },
+    "s5g": {
+     "lab": true,
+     "sel": "cup",
+     "budget": 18,
+     "left": 18,
+     "on": false,
+     "coins": 200
+    },
+    "s5h": {
+     "left": 17,
+     "wallet": 100
+    },
+    "w0": 100
+   }
+  },
+  {
+   "name": "6 Shop: selling gives Catnip (egg 1, bow tie 2), buying costs Catnip (4 / 8); the jar is never touched",
+   "ok": true,
+   "info": {
+    "s6": {
+     "nip": 3,
+     "jar": true,
+     "egg": 2,
+     "sellEgg": 1,
+     "sellBow": 2,
+     "buyEgg": 4,
+     "buyBow": 8
+    },
+    "s6b": {
+     "nip": 0,
+     "milk": 1,
+     "jar": true
+    }
+   }
+  },
+  {
+   "name": "7 the Shop and Home draw with no errors",
+   "ok": true,
+   "info": []
+  },
+  {
+   "name": "8 an existing endless save is kept as is (37 coins, Crammed), no gentle board",
+   "ok": true,
+   "info": {
+    "coins": 37,
+    "gentle": false,
+    "cur": "L4"
+   }
+  },
+  {
+   "name": "9 production untouched",
+   "ok": true
+  }
+ ]
+}
