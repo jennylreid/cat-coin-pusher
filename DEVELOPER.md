@@ -408,6 +408,12 @@ settings in `Z72` (timing, speeds, stunt plans, caps). The old Zoomies code (sid
 - HUD: the Dance meter starts right of the CP-88 slot on that board (`danceMeterShift()`); elsewhere unmoved. Picture comparisons on the Orange board must blank that HUD box (see `work/cp120/checks90-on120.cjs`).
 - CP-98: `drawHappyFeatures` draws `CP75_ART[cat].eyes` (+ the happy mouth) for the Orange, Ragdoll, Siamese and Tortie instead of the Tuxedo's black patches and arcs.
 
+## The Ragdoll's Dance break (CP-101, UAT 128, Nov 19, 2026)
+- On the Ragdoll's own level boards (`WILD.mode==='cozy'`, `PGU.boardCat==='ragdoll'`), `wildFeature('dance')` is on (`cp101-ragdoll-dance.js`, `CP101`). It uses the CP-94 grid support: `D.per=1`, `D.rest`, 18 beats in 3/4, 11 taps; `D.ragdoll` marks it (the Orange's code keys on `D.orange`).
+- Waits: `danceStart` returns while `PGPX` (the Hug) runs, so the dance stays pending; Pet the cat already waits for the dance and vice versa.
+- Moves: `cp101State`/`cp101Motion` via pawMotion (lift before each flop, limp drop with a rebound, slumped head, step dips, sway); closed eyes by returning 1 from `petSquint` during a flop (the Ragdoll's CP-75 eyes via CP-98's happy face).
+- Music: `CP101_TRACKS` A/B/C on `sfx.cp94Loud`; saved in `catpusher.uat.cp101music.v1`; Engineer tools "Ragdoll dance music".
+
 ## Jackpot cascade (CP-64, UAT 86, Jenny's go Nov 17, 2026)
 - The wheel's JACKPOT slice (weight .02, about 2%; was JACKPOT 25 at 5%) sets `WILD.jpPending`. Once no side game runs
   (`cp64Side()`), the round is in play and not paused, `cp64Start()` opens `WILD.jp`: a timed state that drops a bonus

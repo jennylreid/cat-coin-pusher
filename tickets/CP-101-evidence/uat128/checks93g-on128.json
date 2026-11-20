@@ -1,0 +1,196 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp128\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp127\\release.html",
+ "passed": true,
+ "passedN": 9,
+ "failed": [],
+ "notes": {
+  "1 Home > Board lab lists \"Giant towers\" under \"CP-93\" (list data; the page itself in a real browser), normal deck before": {
+   "before": [
+    190,
+    260
+   ],
+   "list": {
+    "rounds": [
+     [
+      "Round 1",
+      [
+       "tower",
+       "edge",
+       "pins",
+       "wall",
+       "mice",
+       "red"
+      ]
+     ],
+     [
+      "Round 2",
+      [
+       "lanes",
+       "cup",
+       "bumper",
+       "gate"
+      ]
+     ],
+     [
+      "Round 3",
+      [
+       "chain"
+      ]
+     ],
+     [
+      "CP-93",
+      [
+       "giant"
+      ]
+     ]
+    ],
+    "order": [
+     "tower",
+     "edge",
+     "pins",
+     "wall",
+     "mice",
+     "red",
+     "lanes",
+     "cup",
+     "bumper",
+     "gate",
+     "chain",
+     "giant"
+    ],
+    "name": "Giant towers"
+   }
+  },
+  "2 the board: deck 350/420, 3 towers of segments on the deck, a prize on each top, goal \"Spill all 3 giant towers\"": {
+   "deck": [
+    350,
+    420
+   ],
+   "segs": 20,
+   "towers": 3,
+   "tops": [
+    239,
+    297,
+    289
+   ],
+   "limits": true,
+   "coins": 120,
+   "goal": "Spill all 3 giant towers"
+  },
+  "3 with nothing dropped the towers stand 25 s (none let go, no segment broken, prizes still on top)": {
+   "tw": [
+    {
+     "why": null,
+     "slide": 0.3
+    },
+    {
+     "why": null,
+     "slide": 0.1
+    },
+    {
+     "why": null,
+     "slide": 0
+    }
+   ],
+   "broke": 0,
+   "tops": 3
+  },
+  "4 dropping 2 coins a stroke: towers are pushed along the deck and spill (at least 1 in 90 s, counted on the goal row), no frame errors": {
+   "tw": [
+    {
+     "why": "slide",
+     "slide": 2.6
+    },
+    {
+     "why": "slide",
+     "slide": 4.8
+    },
+    {
+     "why": null,
+     "slide": 2.3
+    }
+   ],
+   "broke": 12,
+   "spilled": 2,
+   "got": 2,
+   "bodies": 161,
+   "errs": 0,
+   "first": 66.91666666666667,
+   "drops": 58
+  },
+  "5 leaving the lab (Home) and playing Level 6: deck back to 190/260, normal towers (own tip rule, coin friction), no CP-93 parts": {
+   "h": {
+    "deck": [
+     190,
+     260
+    ],
+    "sel": null,
+    "cp": false,
+    "screen": "main"
+   },
+   "lv": {
+    "deck": [
+     190,
+     260
+    ],
+    "stacks": [
+     [
+      null,
+      true,
+      0.44999998807907104
+     ],
+     [
+      null,
+      true,
+      0.44999998807907104
+     ],
+     [
+      null,
+      true,
+      0.44999998807907104
+     ],
+     [
+      null,
+      true,
+      0.44999998807907104
+     ],
+     [
+      null,
+      true,
+      0.44999998807907104
+     ]
+    ],
+    "pusher": 201,
+    "errs": 0
+   }
+  },
+  "6 wildExit() from the giant board gives the deck back 190/260 (in the cat levels the Wild board stays on; that path is unchanged)": {
+   "mid": [
+    350,
+    420
+   ],
+   "ex": {
+    "deck": [
+     190,
+     260
+    ],
+    "wild": true,
+    "pusher": 190
+   }
+  },
+  "7 other lab boards (Tall tower) keep the normal deck and towers": {
+   "deck": [
+    190,
+    260
+   ],
+   "cp": false,
+   "stacks": [
+    [
+     null,
+     true
+    ]
+   ]
+  }
+ }
+}

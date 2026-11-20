@@ -1,0 +1,19 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp128\\release.html",
+ "passed": true,
+ "passedChecks": [
+  "1 Ragdoll board: Dance break on, the waltz (18 beats, 11 taps, 96 BPM) with track A",
+  "2 perfect waltz -> wheel (60 fps)",
+  "2 perfect waltz -> wheel (30 fps)",
+  "3 forgiving: +-0.12 s all hit; 0.24 s off misses",
+  "4 tapping every beat does not pay",
+  "5 Pet the cat and the Dance break wait for each other",
+  "6 the Hug and the Dance break never overlap (no Hug during the dance; a dance due during the Hug waits, then starts)",
+  "7 music choices A B C each play their own voices and a stop",
+  "8 the Tuxedo and Orange dances are identical to the base (slots, judging, sounds, motion)",
+  "9 the Siamese and the Tortie still have no Dance break",
+  "11 each flop after the first (which comes straight out of the count-in): mitts up (lift > 20) then limp past the drop (the coin jolt); closed eyes on the flop, open while drifting up (no in-between)",
+  "10 production and the UAT channel untouched by this run (no file writes; a change means another publish ran meanwhile)"
+ ],
+ "failed": []
+}
