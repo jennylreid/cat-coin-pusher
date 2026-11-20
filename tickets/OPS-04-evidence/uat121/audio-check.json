@@ -1,0 +1,31 @@
+{
+ "wav": "cp120/boot120/sounds/effects/paw-dance.wav",
+ "flac": "ops04/boot121/sounds/effects/paw-dance.flac",
+ "decode": {
+  "wav": {
+   "ch": 2,
+   "len": 2765074,
+   "rate": 44100
+  },
+  "flac": {
+   "ch": 2,
+   "len": 2765074,
+   "rate": 44100
+  },
+  "identical": true,
+  "maxDiff": 0
+ },
+ "duration": {
+  "wav": 62.700091,
+  "flac": 62.700091
+ },
+ "rate": {
+  "wav": 0.999718989025607,
+  "flac": 1.0000421744523864
+ },
+ "endsAfter": {
+  "wav": 3.0681999999284746,
+  "flac": 3.0652000000476836
+ },
+ "passed": true
+}

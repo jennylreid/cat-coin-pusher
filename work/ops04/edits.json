@@ -1,0 +1,15 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp120\\release.html",
+ "removedBlock": "work/cp117/cp90-kittens.js",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 120';",
+   "const BUILD = '2026.11.19 UAT 121';"
+  ],
+  [
+   "new Audio('sounds/effects/paw-dance.wav')",
+   "new Audio('sounds/effects/paw-dance.flac')"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": []
+}
