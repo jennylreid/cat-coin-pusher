@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.20 UAT 131';
+const BUILD = '2026.11.20 UAT 132';
 
 
 
@@ -39095,7 +39095,7 @@ wildDevBind=function(panel){__laserDevBind(panel);const box=panel.querySelector&
 // growl and then a hiss. Coins pour onto the board by how close to the peak you stopped; a perfect stop gets the
 // Dancing pose and a RAIN 10 coin. Only approved cat art, moved in code (ear flicks, whisker twitch, head lean, purr
 // shiver, closed eyes from the approved Happy face). Wild, Wild 2 and Boards 1-3 are unchanged.
-const PET_DEFAULTS=Object.freeze({len:9,peak:2.5,grace:1.2}); /* UAT 130: was 3.5 */
+const PET_DEFAULTS=Object.freeze({len:9,peak:3.5,grace:1.2}); /* Nov 20 follow-up: UAT 130's 2.5 reverted */
 const PET={...PET_DEFAULTS},PET_KEY='catpusher.uat.pet.v1',PET_LOG_KEY='catpusher.uat.petlog.v1';
 // [min, max, step, label, unit]
 const PET_DIALS={len:[5,15,.5,'Pet length',' s'],peak:[1.5,8,.5,'Peak timing (stroking to peak)',' s'],grace:[.4,3,.1,'Grumpy after (past peak)',' s']};
@@ -39154,7 +39154,7 @@ function petStart(){
  try{diagEvent('pet','start len='+PET.len+' peak='+peakT.toFixed(2)+' grace='+PET.grace);}catch(e){}
  petLog(WILD.petGame,['start',PET.len,+peakT.toFixed(2),PET.grace]);
 }
-function petDoneRect(){return {x:302,y:PET_HUD_Y-19,w:76,h:38};}
+function petDoneRect(){return {x:302,y:petHudY()-19,w:76,h:38};} /* Nov 20 follow-up: beneath the board */
 // pointer: down on the head starts a stroke, on an ear flicks it, anywhere else the cat glances there
 function petDown(e,p){
  const D=WILD.petGame;if(!D||D.phase!=='play')return;
@@ -39213,8 +39213,8 @@ function petTick(dt,paused){
   const speed=D.dist/Math.max(dt,1/240);D.dist=0;const rate=D.touching?Math.min(1,speed/PET_FULL_SPEED):0;
   if(rate>0){if(D.L<1){D.L=Math.min(1,D.L+rate*dt/D.peakT);}else D.over+=dt*Math.max(.35,rate);}
   else if(!D.touching){D.L=Math.max(0,D.L-.05*dt);}
-  if(!D.peaked&&D.L>=.97){D.peaked=true;sfx.pet('peak',1);D.fx.push({text:'PEAK PURR!',x:150,y:PET_HUD_Y-36,t:0,color:'#ffe066'});petLog(D,['peak']);}
-  if(!D.grr&&D.over>=D.grace*.45){D.grr=true;sfx.pet('grr',1);D.fx.push({text:'grr…',x:200,y:PET_HUD_Y-36,t:0,color:'#ff9a7a'});}
+  if(!D.peaked&&D.L>=.97){D.peaked=true;sfx.pet('peak',1);D.fx.push({text:'PEAK PURR!',x:150,y:petHudY()-36,t:0,color:'#ffe066'});petLog(D,['peak']);}
+  if(!D.grr&&D.over>=D.grace*.45){D.grr=true;sfx.pet('grr',1);D.fx.push({text:'grr…',x:200,y:petHudY()-36,t:0,color:'#ff9a7a'});}
   D.flat=Math.min(1,D.over/D.grace);
   if(D.over>=D.grace){D.hissT=0;sfx.pet('hiss',1);try{navigator.vibrate&&navigator.vibrate([30,30,60]);}catch(e){}petStop(D,'hiss');}
   else if(!D.touching&&D.liftAt!=null&&D.t-D.liftAt>=PET_STOP_GAP)petStop(D,'lift');
@@ -39359,7 +39359,7 @@ drawWildButton=function(){__petDrawWildButton();if(!PET_REG)drawPetButton();};
 
 // --- drawing: the purr meter strip below the chin, DONE, hearts and words ---
 function petDraw(){
- const D=WILD.petGame,Y=PET_HUD_Y;ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
+ const D=WILD.petGame,Y=petHudY();ctx.save(); /* Nov 20 follow-up */ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
  const fade=D.phase==='end'?Math.max(0,1-D.endT/.5):Math.min(1,(time-D.started)/.25);
  if(fade>0){ctx.globalAlpha=fade;
   uiRound(14,Y-22,372,44,20,'rgba(48,10,36,.78)','#ff8ac8',2);
@@ -42044,7 +42044,7 @@ w2YawnTick=function(dt){
  if(t>=CP58.eyesOpen&&!fx.look){fx.look=1;sfx.wild2('tick',.8);}
  Y.grabs.forEach((g,i)=>{const T0=cp58Times(i);
   if(t>=T0.hover&&!g.whoosh){g.whoosh=1;sfx.paw40&&sfx.paw40('whoosh',1);}
-  if(t>=T0.hit&&!g.held&&!g.missed){if(g.coins){const top=c=>!c.dead&&c.rb.translation().y/M-cp61Half(c)>=COIN_HALF*1.5;const L=[g.b,...g.coins.filter(c=>c!==g.b)].filter(top);if(!L.length){g.missed=true;return;}g.b=L[0];g.coins=L.slice(1);}if(g.b.dead){g.missed=true;return;}if(g.coins){if(!g.rummage)cp71Rummage(g);return;} /* CP-71: never eats coins */g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;removeCoin(g.b);if(g.coins){g.coins=g.coins.filter(c=>c!==g.b&&!c.dead);g.kinds=[g.b.kind,...g.coins.map(c=>c.kind)];for(const c of g.coins)removeCoin(c);}sfx.paw40&&sfx.paw40('swipe',1);CP58.stats.grabbed.push(g.id);
+  if(t>=T0.hit&&!g.held&&!g.missed){if(g.coins){const top=c=>!c.dead&&c.rb.translation().y/M-cp61Half(c)>=COIN_HALF*1.5;const L=[g.b,...g.coins.filter(c=>c!==g.b)].filter(c=>cp71GOnTable(c));if(!L.length){g.missed=true;return;} /* CP-71 gutter push: coins still on the table */g.b=L[0];g.coins=L.slice(1);}if(g.b.dead){g.missed=true;return;}if(g.coins){if(!g.rummage)cp71Rummage(g);return;} /* CP-71: never eats coins */g.held=true;cp58PrizeScreen(g);g.s0=g.at.s;removeCoin(g.b);if(g.coins){g.coins=g.coins.filter(c=>c!==g.b&&!c.dead);g.kinds=[g.b.kind,...g.coins.map(c=>c.kind)];for(const c of g.coins)removeCoin(c);}sfx.paw40&&sfx.paw40('swipe',1);CP58.stats.grabbed.push(g.id);
    try{diagEvent('wild2','cp58 grab '+g.id);}catch(e){}}});
  // chewing
  Y.chew=0;Y.chewOpen=0;for(const c of CP58.chomps){const u=(t-c)/.22;if(u>=0&&u<1){Y.chewOpen=Math.sin(u*Math.PI);Y.chew=5*Math.sin(u*Math.PI);}}
@@ -44909,8 +44909,7 @@ function cp100Arm(){if(CP100G.down){CP100G.armed=true;CP100G.until=0;}}
 //    side-game coin is on the board the chip is locked (padlock, faded). On the endless board it now lands in the front part
 //    (depth 600-680), like the other side-game coins (CP-92), so it goes over soon. And all five cats are in the switch row
 //    on the endless board (Jenny: all five available), whether or not a cat is open yet; that doesn't open the cat anywhere else.
-{const __u130Bonus=wildScheduleBonus;wildScheduleBonus=function(){const n0=WILD.incoming.length;const r=__u130Bonus.apply(this,arguments);
- try{if(typeof endActive==='function'&&endActive())for(let i=n0;i<WILD.incoming.length;i++){const o=WILD.incoming[i];if(o&&o.kind==='heart'){const y=rand(600,680);o.y=y;o.x=200+rand(-1,1)*(tableHalfAt(y)-70);}}}catch(e){}return r;};}
+/* UAT 132: the Ragdoll heart coin lands as in UAT 129 again (UAT 130 front landing undone, Jenny Nov 20) */
 cp97Cats=function(){return (typeof endActive==='function'&&endActive())?PG_CATS.slice():PG_CATS.filter(c=>PG.open[c]);};
 {const __u130Switch=cp97Switch;cp97Switch=function(cat){if(!(typeof endActive==='function'&&endActive())||!PG||PG.open[cat])return __u130Switch.apply(this,arguments);
  const was=PG.open[cat];PG.open[cat]=true;try{return __u130Switch.apply(this,arguments);}finally{PG.open[cat]=was;try{pgSave();}catch(e){}}};} // the switch saved with the cat open; save again without it
@@ -44928,30 +44927,333 @@ w43LostDraw=function(){for(const L of W43_LOST){const ex=L.side<0?T.L:T.R;
   if(L.star){ctx.save();ctx.globalAlpha=1-u;w43Star(x,y-30*s,14,'#ffd23f');ctx.restore();}}};
 // 5. Pet the cat's purr meter reaches its peak sooner: 2.5 s of stroking instead of 3.5 (the default; build edit). A phone
 //    still on the old default 3.5 moves to 2.5; a value tuned in Developer stays.
-try{if(PET.peak===3.5){PET.peak=2.5;}}catch(e){}
+/* Nov 20 follow-up: UAT 130's move to a 2.5 s peak is reverted */
 // ---- end UAT 130 ----
 
 
-// ---------- CP-74 Hug rescue (UAT 131): while the arms hold the gutters, pieces near a side edge slide inward ----------
+// ---------- CP-74 Hug rescue + arms hold everything (UAT 131 rescue; Jenny on UAT 131: "Fix: hug arms stop prizes completely,
+// nothing goes over: yes.") ----------
 // Jenny (UAT 129): "anything that is about to fall off the edge or close to the edge gets relocated during the hug; it gets
-// moved inward to safety." The Hug's length, art, walls and hearts are unchanged. Each tick of the 6 s hold and the let-go, any coin,
-// prize or toy on the open part of the table (from the end of the fixed side wall to the front) whose outer edge is less
-// than SAFE units from a side edge gets an inward push on its own velocity (real physics: it slides, carrying what it
-// touches; no teleport, no fade). The push eases off as it reaches SAFE, so a piece settles there instead of overshooting.
-// It keeps going through the 1.5 s let-go (the arms are still on screen), so nothing is left at an edge when the walls go.
+// moved inward to safety." Any coin, prize or toy on the open part of the table (from the end of the fixed side wall to the
+// front) whose outer edge is less than SAFE units from a side edge gets an inward push on its own velocity (real physics: it
+// slides, carrying what it touches; no teleport, no fade), easing off as it reaches SAFE. It runs from the moment the arms
+// start reaching in until the end of the let-go.
+// Why the sock got out (UAT 131): a piece already hanging over a side edge when the walls appeared ended up inside the wall,
+// whose bottom was exactly at table level, and was squeezed out underneath it (traced headless: a coin at x 372, y 0 slid out
+// under the wall 1.25 s into the hold). Fix: (1) the nudge starts as the arms start reaching in (was 0.15 s after the walls
+// went up), so a teetering piece is pulled back onto the table before the walls exist; (2) the same two walls, same place,
+// same timing, now reach from below the table top (WALL_BOT) to well above any pile (WALL_TOP), so nothing goes under or over.
 const Z74R={
  SAFE:30,    // a piece's outer edge ends at least 30 units (just over one coin radius, 26) inside the side edge
  VMAX:90,    // the fastest inward slide, units per second (a coin crosses its own width in under a second: visible, calm)
  K:8,        // per second: the push is K x the distance still to go, capped at VMAX (eases in to SAFE)
- START:.15,  // seconds after the walls go up before the gathering starts (the arms have just landed)
+ WALL_BOT:-40, // the walls start 40 below the table top (was 0: pieces at the edge could slip out underneath)
+ WALL_TOP:320, // ...and end 320 above it (was 80; piles near the sides reach about 50)
  stats:{moved:0,ticks:0,maxIn:0}};
-function z74RescueTick(X){const t=X.t-Z74.ON;if(t<Z74R.START||X.t>=Z74.ON+Z74.HOLD+Z74.OUT)return;const half=(T.R-T.L)/2,z0=GUARD_END-30,ids=X.rescued||(X.rescued=new Set());Z74R.stats.ticks++;
+function z74RescueTick(X){if(X.t>=Z74.ON+Z74.HOLD+Z74.OUT)return;const half=(T.R-T.L)/2,z0=GUARD_END-30,ids=X.rescued||(X.rescued=new Set());Z74R.stats.ticks++;
  for(const b of bodies){if(!b||b.dead||!b.rb)continue;const rb=b.rb;try{if(!rb.isEnabled()||!rb.isDynamic())continue;}catch(e){continue;}
   const p=rb.translation(),x=p.x/M,y=p.y/M,z=p.z/M;if(y<-2||z<z0||z>T.FRONT+4)continue;
   const d=x-200,gap=half-(Math.abs(d)+(b.r||COIN_R));if(gap>=Z74R.SAFE)continue;
   const want=Math.min(Z74R.VMAX,Z74R.K*(Z74R.SAFE-gap))*M,s=d<0?1:-1,v=rb.linvel();
   if(v.x*s<want){rb.setLinvel({x:s*want,y:v.y,z:v.z},true);if(!ids.has(b.uid)){ids.add(b.uid);Z74R.stats.moved++;}Z74R.stats.maxIn=Math.max(Z74R.stats.maxIn,Z74R.SAFE-gap);}}}
 const __z74RTick=pgpTick;pgpTick=function(dt){__z74RTick(dt);const X=PGPX;if(X&&X.z74){try{z74RescueTick(X);}catch(e){Z74.err=String(e);}}};
+// the same two gutter walls (same x, z, length, thickness, friction and timing), taller and reaching below the table top
+z74Walls=function(){const len=T.FRONT-GUARD_END+40,z=(GUARD_END+T.FRONT)/2,h=(Z74R.WALL_TOP-Z74R.WALL_BOT)/2,yc=(Z74R.WALL_TOP+Z74R.WALL_BOT)/2;
+ return [-1,1].map(s=>world.createCollider(RAPIER.ColliderDesc.cuboid(8*M,h*M,len/2*M).setTranslation((200+s*((T.R-T.L)/2+8))*M,yc*M,z*M).setFriction(.2)));};
+
+
+// ---- Nov 20 follow-up (PM, Nov 20, Jenny) ----
+// b) The Ragdoll's Pet the cat meter (the purr strip with DONE) sits beneath the board, the same placement as the Treat toss meter
+//    (UAT 130): centred in the room under the board when the strip fits there, otherwise just below the board's front edge.
+//    Was a fixed y 468 under the chin. Its fill, timing and DONE behaviour are unchanged; DONE's tap area moves with it.
+function petHudY(){try{const g=cp99Gap();if(g.room>=48)return g.top+g.room/2;const f=skyScreen(200,T.FRONT,0).y;return Math.min(f+2+22,H-6-22);}catch(e){return PET_HUD_Y;}}
+// a) UAT 130's Pet the cat peak (2.5 s) is reverted to 3.5 s (the default again; a phone left on 2.5 goes back).
+try{if(PET.peak===2.5){PET.peak=3.5;const d=JSON.parse(localStorage.getItem(PET_KEY)||'null');if(d&&+d.peak===2.5)petSave();}}catch(e){}
+// ---- end Nov 20 follow-up ----
+
+// ---- UAT 132: cat chip (Jenny, Nov 20: "There should never be a lock on the board unless you're in gameplay.") ----
+// f) The chip locks only while something is actively playing: a power (its action, title and held beat), a side game running
+//    or starting (its coin was just collected; it starts within about a second), the Dance break (and its wheel), the Jackpot,
+//    the sweep, the Quake, a paw swipe. It no longer locks because a side-game coin is on the board, falling in, or banked.
+cp97Locked=function(){if(!cp97On())return true;
+ if(typeof PGPX!=='undefined'&&PGPX)return true;if(typeof CP86T!=='undefined'&&CP86T)return true;
+ if(typeof pgpSideGame==='function'&&pgpSideGame())return true;
+ if(WILD.dance||WILD.dancePending||WILD.toss||WILD.tossPending||WILD.chase||WILD.chasePending||WILD.pounce||WILD.pouncePending||WILD.petGame||WILD.petPending)return true;
+ if(WILD.jp||WILD.jpPending)return true;if(END.sweep||sweepTime>0||catquakeTime>0)return true;
+ if(typeof PAW40_STATE==='object'&&PAW40_STATE&&PAW40_STATE.swipe)return true;return false;};
+// e) Switching cats with a side-game coin on the board or falling in: it becomes the new cat's side-game coin at once, in the
+//    same spot (the new cat's coin art; Tuxedo music note, Orange fish, Ragdoll heart, Siamese laser, Tortie mouse). So the
+//    board only ever holds the current cat's coin. A banked laser (CP-88 slot) stays banked, as before.
+const CP132_KIND={tuxedo:'note',orange:'fish',ragdoll:'heart',siamese:'laser',tortie:'mousecoin'},CP132={converted:0};
+function cp132Convert(){const k=CP132_KIND[PGU.boardCat||'tuxedo'];if(!k)return;
+ for(const b of [...bodies]){if(b.dead||!CP97_COINS.includes(b.kind)||b.kind===k)continue;
+  const t=b.rb.translation(),q=b.rb.rotation();removeCoin(b);addCoin(k,null,t.x/M,t.y/M,t.z/M,q);CP132.converted++;}
+ for(const o of WILD.incoming)if(CP97_COINS.includes(o.kind)&&o.kind!==k){o.kind=k;CP132.converted++;}}
+{const __cp132Sw=cp97Switch;cp97Switch=function(cat){const r=__cp132Sw.apply(this,arguments);if(r!==false)try{cp132Convert();}catch(e){try{diagEvent('cp132','convert '+e);}catch(_){}}return r;};}
+// ---- end UAT 132 cat chip ----
+
+// ---- UAT 132: no END ROUND on the endless board's pause menu (Jenny, Nov 20: it does nothing there; there are no rounds) ----
+// On the endless board the pause card loses END ROUND and its line ("Ends the round now...") and is 60 px shorter; RESUME,
+// Sound, How to play and Home are unchanged. Goal boards and the timed levels keep END ROUND as before.
+{const __p132R=cp51Rects;cp51Rects=function(){const R=__p132R.apply(this,arguments);if(!(typeof endActive==='function'&&endActive()))return R;
+  R.card={...R.card,h:R.card.h-60};for(const k of ['sound','help','home'])R[k]={...R[k],y:R[k].y-60};R.finish={x:-9999,y:-9999,w:0,h:0};return R;};}
+{const __p132D=cp51DrawPop;cp51DrawPop=function(){if(!(typeof endActive==='function'&&endActive())||CP51.view==='rules')return __p132D.apply(this,arguments);
+  const wb=wildButtonDraw,ft=ctx.fillText;wildButtonDraw=function(r,label,...a){if(label==='END ROUND')return;return wb.call(this,r,label,...a);};
+  ctx.fillText=function(t,...a){if(t==='Ends the round now. You keep your prizes and coins.')return;return ft.call(ctx,t,...a);};
+  try{return __p132D.apply(this,arguments);}finally{wildButtonDraw=wb;ctx.fillText=ft;}};}
+// Goal boards: END ROUND did nothing (found while checking this; also so on UAT 131). The goal counts as reached there
+// (WILD_GOAL), so it asked for a win, and a goal board ignores a win it hasn't earned (only Collect boards take it). Now END ROUND
+// on a goal board ends the round as not won (won if the board's own win was already on its way), and the Goal boards list comes
+// back with the result, as when the drops run out.
+{const __p132F=cp51Finish;cp51Finish=function(){if(!(typeof LAB==='object'&&LAB.on&&LAB.on()&&WILD.on))return __p132F.apply(this,arguments);
+  cp51Resume('finish');wildFinish(false,'finish');};}
+// ---- end UAT 132 pause menu ----
+
+// ---- UAT 132: a round SHOP button on Home (Jenny, Nov 20: "We need to add a shop button. A round one.") ----
+// Same style and size as Kitchen, Porch, Album, Cats and Daily, with its label; in the left column under the last shown button
+// (under ALBUM). Always there on Home (no longer waiting for a recipe that needs a bought ingredient), with the same "LEVEL 2"
+// lock as before for brand-new players. It opens the Shop screen (Sell / Buy in Catnip). It leaves the right column, so Daily
+// sits under Cats. Icon: a code-drawn shopping bag in the round buttons' style (no jar, no painted art).
+{const __s132=pgSideRects;pgSideRects=function(y0,gap){const r=__s132.apply(this,arguments).filter(b=>b.id!=='shop');
+  try{let i=0;for(const b of r)if(b.x>200){b.y=y0+(i++)*gap;b.hit={x:b.x-32,y:b.y-30,w:64,h:68};} // the right column closes up
+   const nL=r.filter(b=>b.x<200).length,nR=r.filter(b=>b.x>200).length,x=36,y=y0+nL*gap;
+   r.push({id:'shop',x,y,r:25,level:PG_DOCK_LEVEL.shop||0,hit:{x:x-32,y:y-30,w:64,h:68}});
+   if(typeof CP100==='object')CP100.side={x:W-36,y:y0+nR*gap,r:25};}catch(e){}return r;};}
+{const __s132Icon=pgDoorIcon;pgDoorIcon=function(id,x,y,t){if(id!=='shop')return __s132Icon.apply(this,arguments);
+  ctx.save();ctx.translate(x,y);
+  ctx.strokeStyle='#f6dfa4';ctx.lineWidth=5;ctx.lineCap='round';ctx.beginPath();ctx.arc(0,-12,13,Math.PI,0);ctx.stroke(); // handle
+  uiRound(-27,-14,54,42,8,'#ffb23f','#7a3a10',3); // the bag
+  ctx.fillStyle='#e8892a';ctx.fillRect(-27,-14,54,9);
+  ctx.fillStyle='#fff6d0';ctx.beginPath();ctx.arc(0,9,9,0,7);ctx.fill();pgPaw(0,10,.24,'#a8400f'); // a paw tag
+  ctx.restore();};}
+// ---- end UAT 132 SHOP button ----
+
+// ---- UAT 132: Collections and Inventory open properly from Home; a round COLLECTIONS button (Jenny, Nov 20) ----
+// Bug (Jenny on UAT 131: "When I tried to enter a board, the collection screen opened."): the small top-right card icon opened
+// Collections out of sight on Home (Home doesn't draw the old screens; only the board view does), so it popped up the next time a
+// board showed. Now Collections and Inventory, opened from Home, show at once over Home and take the taps; Close comes back to Home.
+{const __c132Open=openLoopScreen;openLoopScreen=function(){try{if(PG&&!PG_HOME_OFF&&PGU.screen==='main'){PGU.screen='board';PGU.fade=Math.max(PGU.fade||0,.15);}}catch(e){}return __c132Open.apply(this,arguments);};}
+// The cat chip (e.g. "Orange") no longer draws over the Collections or Inventory screen.
+{const __c132Tag=pgTag;pgTag=function(){if(inventoryOpen)return;return __c132Tag.apply(this,arguments);};}
+// The round COLLECTIONS button: same style and size as the others, right column under DAILY. Opens Collections (Water / Kitchen).
+{const __c132Side=pgSideRects;pgSideRects=function(y0,gap){const r=__c132Side.apply(this,arguments);try{CP100.coll={x:W-36,y:CP100.side.y+gap,r:25};}catch(e){}return r;};}
+function c132Btn(){if(PGU.screen!=='main'||typeof CP100!=='object'||!CP100.coll)return null;return CP100.coll;}
+function c132Draw(){const b=c132Btn();if(!b)return;ctx.save();ctx.translate(b.x,b.y);uiCircle(0,3,b.r,'rgba(0,0,0,.35)');
+ const g=ctx.createLinearGradient(0,-b.r,0,b.r);g.addColorStop(0,'#9b7bff');g.addColorStop(1,'#4a2a9a');uiCircle(0,0,b.r,g,'#fff6d0',2);
+ // a fan of three cards (the top bar's Collections picture, drawn bigger)
+ for(const [dx,rot,c] of [[-6,-.28,'#abd1c8'],[6,.28,'#e4f0df'],[0,0,'#2f7279']]){ctx.save();ctx.translate(dx,2);ctx.rotate(rot);uiRound(-8,-12,16,22,3,c,'#f6dfa4',1.5);ctx.restore();}
+ ctx.fillStyle='#ffd23f';ctx.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?2.2:5;ctx.lineTo(Math.cos(a)*rr,1+Math.sin(a)*rr);}ctx.closePath();ctx.fill();
+ ctx.textAlign='center';ctx.textBaseline='middle';const lab='COLLECTIONS';ctx.font='900 10px Impact, system-ui';const lw=ctx.measureText(lab).width+10;
+ uiRound(-lw/2,b.r-4,lw,15,7,'rgba(16,8,28,.9)','#9b7bff',1);ctx.fillStyle='#fff';ctx.fillText(lab,0,b.r+4);ctx.restore();}
+{const __c132DM=pgDrawMain;pgDrawMain=function(dt){const r=__c132DM(dt);try{if(endHomeFree())c132Draw();}catch(e){}return r;};}
+{const __c132MT=pgMainTap;pgMainTap=function(p){try{if(endHomeFree()){const b=c132Btn();if(b&&Math.hypot(p.x-b.x,p.y-b.y)<b.r+8){pgSfx('tap');openLoopScreen('water');return;}}}catch(e){}return __c132MT(p);};}
+// ---- end UAT 132 Collections ----
+
+// ---- UAT 132: Collections coin rewards go into the wallet (Jenny, Nov 20: "Put it in the board coins.") ----
+// Completing a collection (Water: Tuna + Shrimp, 100; Kitchen: Cheese, 50) pays into the endless board's wallet. On the endless
+// board the round's coins already are the wallet; from Home they were paid into the old round purse, which the wallet never saw.
+// The satchel's coin line shows the wallet.
+{const __cw132=placeItem;placeItem=function(id){const before={...collectionPaid},on=typeof endActive==='function'&&endActive();const r=__cw132.apply(this,arguments);
+  try{if(!on&&typeof endLoad==='function')for(const k in COLLECTIONS)if(collectionPaid[k]&&!before[k]){const amt=COLLECTIONS[k].reward;S.coins-=amt;board.remaining=S.coins;
+    const w=endLoad();w.coins=(w.coins|0)+amt;endSave();try{diagEvent('cp132','collection '+k+' +'+amt+' to wallet '+w.coins);}catch(e){}}}catch(e){}return r;};}
+collectionPurseDisplay=function(){const base=(typeof endActive==='function'&&!endActive()&&typeof cp100Coins==='function')?cp100Coins():S.coins;
+  const p=collectionPayoff;if(!p)return base;const k=Math.min(1,Math.max(0,(p.t-.2)/1.85));return base-p.reward+Math.floor(p.reward*k);};
+// ---- end UAT 132 Collections wallet ----
+
+// ---------- CP-71 gutter push (Jenny, Nov 20, on UAT 129: "The yawn takes away, it doesn't give to the player... it's
+// reaching toward the side of the board and pushing the coins into the gutter." "It should probably go after something
+// like a special coin if it's close to the edge." "It shouldn't eat coins; it should push them into the gutter.") ----------
+// Food runs are unchanged (the cat grabs and eats food as before). With no food in reach the wheel's Yawn no longer takes
+// coins away by flicking them off behind the table (they shrank into the distance): it picks a few coins lying near a SIDE
+// edge of the table's open part (a special coin near a side first, with a few ordinary coins next to it; with none, the
+// ordinary coins nearest a side where most lie together), the mitt on that side drapes down to just inside them as before
+// and pushes them outward: the coins themselves are driven by the physics over the side, past the low side lip, and fall
+// into the gutter by the game's normal path (gutterOff: lost to the player, its usual fall; nothing removed, shrunk or
+// hidden). The mitt then lifts and returns to rest. Approved mitt art, faces and the pickup are unchanged; no fades.
+const CP71G={zone:60,wide:120,max:4,dz:55,settle:.08,push:.4,after:1.0,minSpeed:120,stats:{runs:0,pushed:0,gutter:0,special:0,picks:[]}};
+function cp71GPlain(b){return b.kind==='coin'||b.kind==='silver'||b.kind==='gold5';}
+function cp71GCoin(b){return !!b&&!b.dead&&!!b.rb&&b.kind!=='item'&&b.kind!=='stack';} // any coin, special coins included; never prizes, toys or tower blocks
+// on the table's open part (the sides behind the guards are walled; the front ledge is left alone)
+function cp71GOnTable(b){if(!cp71GCoin(b))return false;const p=b.rb.translation(),x=p.x/M,z=p.z/M,y=p.y/M;
+ return y>-3&&z>=GUARD_END+COIN_R&&z<=T.FRONT-15&&Math.abs(x-200)<=tableHalfAt(z)+2;} // (picked only up to T.FRONT-45; the pusher may nudge one forward before the mitt lands)
+function cp71GGap(o){return tableHalfAt(o.z)-Math.abs(o.x-200);} // distance from the coin's centre to its side edge
+cp58CoinTargets=function(){
+ const all=[];for(const b of bodies){if(!cp71GOnTable(b))continue;const p=b.rb.translation(),o={b,x:p.x/M,z:p.z/M};if(o.z>T.FRONT-45)continue;o.side=o.x<200?-1:1;o.gap=cp71GGap(o);o.special=!cp71GPlain(b);all.push(o);}
+ if(!all.length)return [];
+ let A=null,zone=CP71G.zone;
+ // a special coin near a side first (the nearest to its edge)
+ const sp=all.filter(o=>o.special&&o.gap<=CP71G.wide).sort((a,d)=>a.gap-d.gap);if(sp.length){A=sp[0];zone=Math.max(CP71G.zone,A.gap+20);}
+ if(!A)for(const zz of [CP71G.zone,CP71G.wide,9999]){const c=all.filter(o=>o.gap<=zz);if(!c.length)continue;zone=zz;
+  for(const o of c)o.n=c.filter(q=>q.side===o.side&&Math.abs(q.z-o.z)<=CP71G.dz).length;c.sort((a,d)=>d.n-a.n||a.gap-d.gap);A=c[0];break;}
+ const pick=[A,...all.filter(o=>o!==A&&o.side===A.side&&Math.abs(o.z-A.z)<=CP71G.dz&&o.gap<=zone+30).sort((a,d)=>(a.gap+.5*Math.abs(a.z-A.z))-(d.gap+.5*Math.abs(d.z-A.z))).slice(0,CP71G.max-1)];
+ CP71G.stats.picks.push(pick.map(o=>[o.b.kind,Math.round(o.x),Math.round(o.z),Math.round(o.gap)]));if(CP71G.stats.picks.length>20)CP71G.stats.picks.shift();
+ return pick.map(o=>o.b);};
+// the side the push goes to is the target's side (the mitt on that side)
+const __cp71GGrab=cp58CoinGrab;
+cp58CoinGrab=function(grabs){__cp71GGrab(grabs);const g=grabs.find(x=>x.coins);if(!g)return;const x=g.b.rb.translation().x/M;g.side=x<200?-1:1;g.pushSide=g.side;};
+// where the mitt aims: just inside the coins (toward the middle), level with them; and where the push ends (over the side)
+function cp71GSpan(g){const L=[g.b,...(g.coins||[])].filter(cp71GCoin);if(!L.length)return null;const s=g.pushSide||g.side;
+ let z=0,xin=s>0?1e9:-1e9;for(const c of L){const p=c.rb.translation();z+=p.z/M;xin=s>0?Math.min(xin,p.x/M):Math.max(xin,p.x/M);}z/=L.length;
+ return {z,xin,xout:200+s*(tableHalfAt(z)+COIN_R*.6),s};}
+const __cp71GScreen=cp58PrizeScreen;
+cp58PrizeScreen=function(g){if(!g||!g.coins)return __cp71GScreen(g);
+ if(!g.pushing){const s=cp71GSpan(g);if(s){g.span=s;const e=skyScreen(s.xin-s.s*COIN_R*.7,s.z,0);g.at={x:e.x,y:e.y,s:e.s};}}
+ if(!g.at)return __cp71GScreen(g);return g.at;};
+// at the mitt's hit: the push starts (no rummage, no flick)
+cp71Rummage=function(g){const Y=W2_YAWN;g.rummage=true;g.pushing=true;g.pushT0=Y.t+CP71G.settle;g.knockAt=g.pushT0+CP71G.push;Y.knockEnd=g.knockAt+CP71G.after;
+ const s=g.span||cp71GSpan(g);g.span=s;
+ const e0=skyScreen(s.xin-s.s*COIN_R*.7,s.z,0),e1=skyScreen(s.xout-s.s*COIN_R*.7,s.z,0);g.pushFrom={x:e0.x,y:e0.y};g.pushTo={x:e1.x,y:e1.y};
+ g.pushList=[g.b,...(g.coins||[]).filter(c=>c!==g.b)].filter(cp71GOnTable);
+ for(const c of g.pushList){const x=c.rb.translation().x/M,z=c.rb.translation().z/M;c.cp71Side=s.s;c.cp71Speed=Math.max(CP71G.minSpeed,(tableHalfAt(z)+COIN_R*2-Math.abs(x-200))/CP71G.push*1.15);
+  try{c.rb.collider(0).setCollisionGroups(CP24.prizeGroups);}catch(e){} // past the low side lip, as a coin tipping over the side does
+  if(!cp71GPlain(c))CP71G.stats.special++;}
+ CP71G.stats.runs++;CP71G.stats.pushed+=g.pushList.length;sfx.paw40&&sfx.paw40('swipe',.8);try{diagEvent('wild2','cp71 gutter push '+g.pushList.length);}catch(e){}};
+cp71Knock=function(g){g.knocked=true;}; // nothing flies off behind the table any more
+// the mitt: settles, pushes outward over the side in step with the coins, then lifts and returns to rest
+cp71Mitt=function(g,side,t,T0,C,R){const k=t-T0.hit;
+ if(!g.pushFrom||k<CP71G.settle)return C;
+ const dx=C.x-g.pushFrom.x,dy=C.y-g.pushFrom.y,E={x:g.pushTo.x+dx,y:g.pushTo.y+dy,r:C.r+side*.15};
+ const u=(k-CP71G.settle)/CP71G.push;if(u<1)return cp58Lerp(C,E,cp58Ease(u));
+ const v=(k-CP71G.settle-CP71G.push)/.6;if(v>=1)return R;const F={x:E.x-side*6,y:E.y-50,r:E.r-side*.2};
+ return v<.25?cp58Lerp(E,F,cp58Ease(v/.25)):cp58Lerp(F,R,cp58Ease((v-.25)/.75));};
+// the coins move with the mitt: driven outward during the push until past the side, then the physics drops them in the gutter;
+// one that somehow stays on the table gets its lip back
+const __cp71GTick=w2YawnTick;
+w2YawnTick=function(dt){const Y=W2_YAWN;__cp71GTick(dt);if(!Y||!Y.cp58)return;
+ for(const g of Y.grabs){if(!g.pushing||!g.pushList)continue;const t=Y.t;if(t<g.pushT0)continue;
+  const live=t<=g.knockAt+.15;
+  for(const c of g.pushList){if(c.dead||!c.rb)continue;const p=c.rb.translation(),x=p.x/M,z=p.z/M,past=Math.abs(x-200)>tableHalfAt(z)+COIN_R*.5;
+   if(past)continue;
+   if(!live){if(!c.cp71Restored&&Math.abs(x-200)<tableHalfAt(z)-COIN_R){c.cp71Restored=1;try{c.rb.collider(0).setCollisionGroups(0xFFFFFFFF);}catch(e){}}continue;}
+   if(c.rb.isSleeping&&c.rb.isSleeping())c.rb.wakeUp();const v=c.rb.linvel(),want=c.cp71Speed*M;
+   if(v.x*c.cp71Side<want)c.rb.setLinvel({x:c.cp71Side*want,y:v.y,z:v.z*.5},true);}}};
+// counts what reached the gutter (for the checks)
+const __cp71GGutter=gutterOff;
+gutterOff=function(b,x){if(b&&b.cp71Side&&!b.dead)CP71G.stats.gutter++;return __cp71GGutter.apply(this,arguments);};
+// ---------- end CP-71 gutter push ----------
+
+
+// ---------- CP-101 rework: the Ragdoll's body behind its dancing head (Jenny on UAT 129: when the head bobs or slumps "the
+// pusher shows through with no cat body behind it"). No new art: the Hug's approved shoulder painting (CP-74 try 9,
+// CP74_ART.shoulder: its solid part and soft lower edge, the right one mirrored as in the Hug) is drawn twice under the head,
+// side by side under the chin, so they read as the cat's chest and shoulders behind the flop. Drawn for the whole Ragdoll
+// Dance break (on and off with it, no fade); clipped to outside the board's rim (never over the board, the coins or the
+// prizes); under the head and the mitts; it sways with the dance's lazy sway. Drawing only: no physics, timing or pickup change.
+const CP101B={dx:70,dy:14,k:1.15,off:false,frames:0};
+function cp101BodyOn(){const D=WILD.on&&WILD.dance;return !!(D&&D.ragdoll&&!CP101B.off&&!inventoryOpen&&!(typeof PGPX!=='undefined'&&PGPX));}
+function cp101Body(){const r=z74RimPts(),parts=z74ShoulderParts();if(!r||!parts)return;const L=z74Layout(),R=Z74.REF,x=danceBeatX();
+ const sw=x==null?0:Math.sin(Math.PI*2*x/3)*4,w=R.shW*CP101B.k,h=R.shH*CP101B.k,cy=L.chin+CP101B.dy;
+ ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);z74ClipOutside(r);
+ for(const s of [-1,1]){ctx.save();ctx.translate(200+s*CP101B.dx+sw,cy);if(s>0)ctx.scale(-1,1);
+  ctx.drawImage(parts.soft,-w/2,-h/2,w,h);ctx.drawImage(parts.solid,-w/2,-h/2,w,h);ctx.restore();}
+ ctx.restore();ctx.save();ctx.setTransform(...Z74.rimM);__z74Rim();ctx.restore();CP101B.frames++;}
+// drawn right after the machine, like the Hug's body: under the head and the mitts
+const __cp101Machine=drawMachine;drawMachine=function(){const r=__cp101Machine.apply(this,arguments);
+ if(cp101BodyOn()&&CP101B.f!==Z74.f){CP101B.f=Z74.f;try{cp101Body();}catch(e){CP101B.err=String(e);}}return r;};
+// ---------- end CP-101 rework ----------
+
+
+// ---------- CP-102 Developer tidy-up (Jenny, Nov 19: proposal approved, "1 remove +1,000 coins (the jar is gone), keep the
+// prize gift; 2 Start Dance break now at the top of Developer"; Nov 20: "Developer: a start-now button for every side game and
+// power, broken Treat toss button removed. CP-102 in 132: yes.") UAT Developer panel only (production has no Developer panel).
+// 1. The panel, rearranged from its own buttons (every element ID and saved setting kept; removed buttons are hidden, their
+//    code stays): Developer = Endless board, Start now (Dance break first, then one button per side game and per power, the
+//    wheel, Jackpot, Cat visits), Basics. Engineer tools = Give, Dance and music, Start a board round, Previews, Boards and
+//    tuning, Logs, Reset.
+// 2. Start now: each button starts that side game or power at once on the board in play (the endless board included; from
+//    Home, the current cat's board), with no coin or power needed and nothing taken from the player's own stock. If another
+//    side game or power is running it starts as soon as that one ends.
+// 3. Start Dance break now: the current cat's board and its own dance; a cat with no dance yet gets a short note instead.
+// 4. Developer only: a "Music A B C" row under the Dance break lane for a cat with a music choice (Orange, Ragdoll). A tap
+//    switches the music from the next beat and saves it (the same choice as in Engineer tools); it is never a dance tap.
+const CP102={want:null,log:[],
+ GAMES:[{id:'toss',name:'Treat toss',pend:'tossPending',run:'toss'},{id:'chase',name:'Laser chase',pend:'chasePending',run:'chase'},
+  {id:'pet',name:'Pet the cat',pend:'petPending',run:'petGame'},{id:'pounce',name:'Mouse pounce',pend:'pouncePending',run:'pounce'}],
+ POWERS:['tuxedo','orange','ragdoll','siamese','tortie'],
+ CAT:{tuxedo:'Tuxedo',orange:'Orange',ragdoll:'Ragdoll',siamese:'Siamese',tortie:'Tortie'}};
+function cp102Note(t){try{callout(t,{color:'#ffd23f',dur:1.6});}catch(e){}}
+function cp102Busy(){return !!(pgpSideGame()||PGPX||sweepTime>0||catquakeTime>0||WILD.dancePending||WILD.tossPending||WILD.chasePending||WILD.petPending||WILD.pouncePending);}
+// the board in play stays (the endless board included); from Home or anywhere else, the current cat's own board
+function cp102Board(){if(!PG)pgInit();
+ if(!(WILD.on&&PGU.screen==='board')){const cat=PG.current&&PG.open[PG.current]?PG.current:'tuxedo';if(!PG.open[cat])PG.open[cat]=1;pgSwitchBoard(cat);}
+ if(WILD.phase==='card'||WILD.phase==='end'){if(WILD.phase==='end')wildReset();PGU.screen='board';wildStartCountdown();}}
+function cp102Start(kind,id){panel.style.display='none';cp102Board();
+ if(kind==='dance'&&!wildFeature('dance')){cp102Note('No dance for this cat yet');return;}
+ CP102.want={kind,id,t:time};try{diagEvent('cp102','start-now '+kind+' '+id+' board='+(PGU.boardCat||'')+(typeof endActive==='function'&&endActive()?' endless':''));}catch(e){}}
+// fires once the round is in play and nothing else is running (no coin used; the player's power stock is unchanged)
+function cp102Fire(){const W0=CP102.want;if(!W0||!WILD.on||WILD.phase!=='play'||board.status!=='playing'||(WILD.goT||0)<.8||cp102Busy())return;
+ CP102.want=null;
+ if(W0.kind==='dance'){WILD.dancePending={f:null,wait:9};}
+ else if(W0.kind==='game'){const G=CP102.GAMES.find(g=>g.id===W0.id);if(G)WILD[G.pend]={f:null,wait:9};}
+ else if(W0.kind==='power'){const cat=W0.id;if(!PG.powers)PG.powers={};PG.powers[cat]=pgpCount(cat)+1;const own=pgpCat;pgpCat=()=>cat;try{pgpUse();}finally{pgpCat=own;}}
+ CP102.log.push({kind:W0.kind,id:W0.id,board:PGU.boardCat,endless:typeof endActive==='function'&&endActive()});}
+const __cp102Update=update;update=function(dt){__cp102Update(dt);try{if(CP102.want)cp102Fire();}catch(e){CP102.err=String(e);CP102.want=null;}};
+// 3. Start Dance break now: the current cat's board and dance (not the generic Wild board)
+danceStartNow=function(){cp102Start('dance','');};
+
+// 4. the music row (Developer only): cats with a music choice
+function cp102Music(){const D=WILD.on&&WILD.dance;if(!S.dev||!D||D.phase==='finale')return null;
+ if(D.ragdoll&&typeof CP101!=='undefined')return {D,M:CP101};if(D.orange&&typeof CP94!=='undefined')return {D,M:CP94};return null;}
+function cp102MusicRects(){const Y=DANCE_LANE_Y+60;return ['A','B','C'].map((k,i)=>({k,x:150+i*50,y:Y-13,w:42,h:26}));}
+const __cp102DanceDraw=danceDraw;danceDraw=function(){const r=__cp102DanceDraw.apply(this,arguments);const m=cp102Music();if(!m)return r;
+ ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
+ const R=cp102MusicRects(),Y=R[0].y+13;uiRound(76,Y-17,248,34,17,'rgba(26,10,44,.78)','#ff9ad8',1.5);
+ ctx.font='bold 12px system-ui';ctx.fillStyle='#ffe0f4';ctx.fillText('Music',112,Y);
+ for(const b of R){const on=m.D.music===b.k;uiRound(b.x,b.y,b.w,b.h,13,on?'#ff7ad5':'rgba(255,255,255,.12)',on?'#ffffff':'rgba(255,255,255,.4)',1.2);
+  ctx.font='bold 14px system-ui';ctx.fillStyle=on?'#2a0b3e':'#ffffff';ctx.fillText(b.k,b.x+b.w/2,Y+1);}
+ ctx.restore();return r;};
+const __cp102Pointer=wildPointer;wildPointer=function(e,p){const m=cp102Music();
+ if(m&&WILD.phase==='play'){const b=cp102MusicRects().find(b=>p.x>=b.x-4&&p.x<=b.x+b.w+4&&p.y>=b.y-6&&p.y<=b.y+b.h+6);
+  if(b){if(m.D.music!==b.k){m.D.music=b.k;m.M.set(b.k);}return true;} // a music tap, never a dance tap
+  if(p.x>=72&&p.x<=328&&p.y>=cp102MusicRects()[0].y-8&&p.y<=cp102MusicRects()[0].y+34)return true;} // the row's own pill: no dance tap either
+ return __cp102Pointer.apply(this,arguments);};
+
+// 1. the panel
+const __cp102Credits=openCredits;
+openCredits=function(){const r=__cp102Credits.apply(this,arguments);try{if(S.dev)cp102Panel();}catch(e){CP102.panelErr=String(e&&e.stack||e);}return r;};
+function cp102Panel(){const P=panel,$=s=>P.querySelector(s),$$=s=>Array.from(P.querySelectorAll(s)),main=$('#cp70-main'),eng=$('#cp70-engineer');if(!main||!eng||$('#cp102-start'))return;
+ const hide=n=>{if(n)n.style.display='none';};
+ const h=t=>{const e=document.createElement('h3');e.textContent=t;return e;};
+ const box=(id,title,nodes)=>{const d=document.createElement('div');d.id='cp102-'+id;d.style.margin='0 0 10px';if(title)d.appendChild(h(title));for(const n of nodes)if(n)d.appendChild(n);return d;};
+ const btn=(id,t,f)=>{const b=document.createElement('button');b.id=id;b.className='wide';b.textContent=t;b.style.cssText='width:100%;margin:0;padding-left:6px;padding-right:6px;font-size:15px';b.onclick=f;return b;};
+ const grid=bs=>{const d=document.createElement('div');d.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 10px';for(const x of bs)d.appendChild(x);return d;};
+ // removed: the level buttons, Give all cats / cat coins, +1,000 coins, the duplicates, the old per-game start buttons (the
+ // Treat toss one switched to the Orange's board instead of starting a game)
+ for(const s of ['#pgl-all','#pgl-pass','#pgt-reset','#pgt-cats','#pg-coins','#pgl-reset','#pgt-pounce','#pgt-title','#pgt-tc','#pgp-give','#pgp-pounce','#toss-now','#laser-now','#pet-now'])hide($(s));
+ for(const b of $$('button'))if(/^\+1,000 coins$/.test(b.textContent.trim()))hide(b);
+ for(const b of $$('button'))if(b.textContent.trim()==='−'||b.textContent.trim()==='+'){const row=b.parentElement;if(row&&/Start on level/.test(row.textContent))hide(row);}
+ for(const hh of $$('h3'))if(/^Levels/.test(hh.textContent)||/^Powers \(CP-47\)/.test(hh.textContent)||/^Give$/.test(hh.textContent))hide(hh);
+ const w2=$('#w2-dev');if(w2)for(const b of w2.querySelectorAll('[data-slice]'))hide(b);
+ const pgt=$('#pgt');if(pgt)for(const d of pgt.querySelectorAll('div'))if(/Title coins/.test(d.textContent))hide(d);
+ // Developer, top to bottom
+ const title=main.querySelector('h3'),endless=$('#cp92-endless'),dance=$('#dance-now');if(dance)dance.textContent='Start Dance break now';
+ const basics=['#devmode','#sound-test','#checkupd','#diag-send-file'].map(s=>$(s)).filter(Boolean);
+ const wheel=[$('#w2-spin'),...Array.from(main.querySelectorAll('[data-slice]')),$('#cp64-now'),$('#pg-visit')].filter(Boolean);
+ const give=[$('#pgt-powers'),$('#pg-give')].filter(Boolean);if(give[0])give[0].textContent='Give powers (3 each)';
+ const reset=$('#pg-reset');
+ const games=CP102.GAMES.map(g=>btn('cp102-game-'+g.id,g.name,()=>cp102Start('game',g.id)));
+ const powers=CP102.POWERS.map(c=>btn('cp102-power-'+c,PGP[c].name.charAt(0)+PGP[c].name.slice(1).toLowerCase()+' ('+CP102.CAT[c]+')',()=>cp102Start('power',c)));
+ const note=document.createElement('p');note.style.cssText='margin:2px 0 8px;font-size:13px;opacity:.8';note.textContent='On the board you are on (Endless too); no coin or power used.';
+ const was=Array.from(main.children);main.innerHTML='';if(title)main.appendChild(title);
+ if(endless){const eh=endless.querySelector('h3');if(eh)eh.textContent='Endless board';main.appendChild(endless);}
+ const sg=h('Side games'),pw=h('Powers');sg.style.fontSize=pw.style.fontSize='14px';
+ main.appendChild(box('start','Start now',[dance,sg,grid(games),pw,grid(powers),note,...wheel]));
+ main.appendChild(box('basics','Basics',basics));
+ // Engineer tools, grouped
+ const sum=eng.querySelector('summary'),rest=Array.from(eng.children).filter(n=>n!==sum),pick=s=>$(s);
+ const groups=[['Give',give],
+  ['Dance and music',[pick('#cp101-music'),pick('#cp94-music'),pick('#cp79-yawn'),pick('#dance-dev')]],
+  ['Start a board round',[pick('#tw-start'),pick('#paw40-tip'),pick('#w2-visitor')]],
+  ['Previews',[pick('#happy-test'),pick('#dance-test'),pick('#pg-title'),pick('#pg-dhint'),pick('#safe-guides'),pick('#tap-areas')]],
+  ['Boards and tuning',[pick('#pg-dev'),pick('#wild-dev'),pick('#w2-dev'),pick('#toss-dev'),pick('#laser-dev'),pick('#pet-dev'),pick('#paw40-dev'),pick('#tw-dev'),pick('#cp83-tower'),pick('#cp83-timing'),pick('#pfx')]],
+  ['Logs',[pick('#diag-link-file'),pick('#diag-share-file'),pick('#diag-file-status')]],
+  ['Reset',[pick('#empty-purse'),reset]]];
+ for(const n of rest)n.remove();
+ for(const [t,nodes] of groups)eng.appendChild(box(t.toLowerCase().replace(/ /g,'-'),t,nodes.filter(Boolean)));
+ for(const n of rest)if(!n.isConnected){hide(n);eng.appendChild(n);} // what is left (the old "Test this build" box) stays folded away
+ for(const n of was)if(!n.isConnected){hide(n);main.appendChild(n);} // removed buttons stay in the page, hidden (IDs kept)
+}
+// ---------- end CP-102 ----------
 
 </script>
 

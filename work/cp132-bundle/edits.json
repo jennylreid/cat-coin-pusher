@@ -1,0 +1,58 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp132-hug\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.20 UAT 131';",
+   "const BUILD = '2026.11.20 UAT 132';"
+  ],
+  [
+   "const PET_DEFAULTS=Object.freeze({len:9,peak:2.5,grace:1.2}); /* UAT 130: was 3.5 */",
+   "const PET_DEFAULTS=Object.freeze({len:9,peak:3.5,grace:1.2}); /* Nov 20 follow-up: UAT 130's 2.5 reverted */"
+  ],
+  [
+   "try{if(PET.peak===3.5){PET.peak=2.5;}}catch(e){}",
+   "/* Nov 20 follow-up: UAT 130's move to a 2.5 s peak is reverted */"
+  ],
+  [
+   "function petDoneRect(){return {x:302,y:PET_HUD_Y-19,w:76,h:38};}",
+   "function petDoneRect(){return {x:302,y:petHudY()-19,w:76,h:38};} /* Nov 20 follow-up: beneath the board */"
+  ],
+  [
+   "D.fx.push({text:'PEAK PURR!',x:150,y:PET_HUD_Y-36",
+   "D.fx.push({text:'PEAK PURR!',x:150,y:petHudY()-36"
+  ],
+  [
+   "D.fx.push({text:'grr\u2026',x:200,y:PET_HUD_Y-36",
+   "D.fx.push({text:'grr\u2026',x:200,y:petHudY()-36"
+  ],
+  [
+   "const D=WILD.petGame,Y=PET_HUD_Y;ctx.save();",
+   "const D=WILD.petGame,Y=petHudY();ctx.save(); /* Nov 20 follow-up */"
+  ],
+  [
+   "{const __u130Bonus=wildScheduleBonus;wildScheduleBonus=function(){const n0=WILD.incoming.length;const r=__u130Bonus.apply(this,arguments);\r\n try{if(typeof endActive==='function'&&endActive())for(let i=n0;i<WILD.incoming.length;i++){const o=WILD.incoming[i];if(o&&o.kind==='heart'){const y=rand(600,680);o.y=y;o.x=200+rand(-1,1)*(tableHalfAt(y)-70);}}}catch(e){}return r;};}",
+   "/* UAT 132: the Ragdoll heart coin lands as in UAT 129 again (UAT 130 front landing undone, Jenny Nov 20) */"
+  ],
+  [
+   ".filter(top);if(!L.length){g.missed=true;return;}",
+   ".filter(c=>cp71GOnTable(c));if(!L.length){g.missed=true;return;} /* CP-71 gutter push: coins still on the table */"
+  ]
+ ],
+ "appended": [
+  "cp132-bundle/pet-follow.js",
+  "cp132-bundle/chip-132.js",
+  "cp132-bundle/pause-132.js",
+  "cp132-bundle/shop-132.js",
+  "cp132-bundle/coll-132.js",
+  "cp132-bundle/collwallet-132.js",
+  "cp71-ledge/cp71-gutter.js",
+  "cp101-body/cp101-body.js",
+  "cp102-dev/cp102-dev.js"
+ ],
+ "swapped": [
+  [
+   "cp132-hug/cp74-rescue.js",
+   "cp74-hold/cp74-hold.js"
+  ]
+ ]
+}

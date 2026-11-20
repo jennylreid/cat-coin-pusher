@@ -1,0 +1,25 @@
+{
+  "version": 20261119000043,
+  "displayName": "2026.11.20 UAT 132",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "1e66d6885b1f8e42ba7f73286662aefab0b632caee1f6924313c89a87f48f84a",
+  "stagedJSONSHA256": "6c494ab15fd17d097677f7bba3061c481bc04af2f7418f818e3ef886b6654ebe",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "1d360b1c371b068044669821975058b043241a374a8ca1463500e76187c0ab5d",
+  "jsonBytes": 47801393,
+  "baselineJSONBytes": 47760149,
+  "runtimeFiles": 76,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.20 UAT 131",
+  "backup": "uat/backups/before-UAT132-20261119000043",
+  "evidence": "tickets/CP-100-evidence/uat132",
+  "checks": [
+    "checks132.json"
+  ],
+  "authorization": "UAT 132: bundled round (CP-100 Home/chip items, CP-71 gutter push, CP-74 hold, CP-101 body, CP-102 Developer); PM, Nov 20: \"OK. Publish as UAT 132, fly the plane, then run the full regression.\"; UAT only"
+}

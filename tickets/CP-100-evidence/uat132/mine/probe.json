@@ -1,0 +1,593 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp132-bundle\\boot132",
+ "sizes": {
+  "412x915": {
+   "long": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 553,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 619,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 665,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 248,
+      "r": 25
+     },
+     "list": null,
+     "dev": true,
+     "level": 40
+    },
+    "lvPt": {
+     "x": 206,
+     "y": 656.11,
+     "hit": "c"
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "rows": 10,
+     "goals": 0,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    },
+    "goalPt": {
+     "x": 206,
+     "y": 703.49,
+     "hit": "c"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "rows": 0,
+     "goals": 12,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    }
+   },
+   "touch-touch": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 553,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 619,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 665,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 248,
+      "r": 25
+     },
+     "list": "none",
+     "dev": true,
+     "level": 40
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": false,
+     "clicks": [
+      "BUTTON btn:L9"
+     ],
+     "row": {
+      "tapped": "First push ✓Board 1 · Normal",
+      "list": "none",
+      "screen": "board",
+      "end": true,
+      "endKey": "L1",
+      "lab": false,
+      "frame": false,
+      "ate": 1
+     },
+     "backHome": "main"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": false,
+     "clicks": [
+      "BUTTON btn:gate"
+     ],
+     "row": {
+      "tapped": "Cup shotSink 6 coins in the cu",
+      "list": "none",
+      "screen": "board",
+      "end": false,
+      "endKey": null,
+      "lab": true,
+      "frame": false,
+      "ate": 2
+     },
+     "backHome": "main"
+    },
+    "daily": {
+     "list": "none",
+     "mode": "goals",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": true,
+     "clicks": [
+      "DIV"
+     ],
+     "row": {
+      "tapped": "‹ Puzzles",
+      "list": "none",
+      "screen": "main",
+      "end": false,
+      "endKey": null,
+      "lab": false,
+      "frame": false,
+      "ate": 2
+     },
+     "backHome": "main"
+    }
+   }
+  }
+ },
+ "errors": [
+  "probe TypeError: Cannot read properties of null (reading 'x')\n    at C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp132-bundle\\probe-follow.cjs:162:141"
+ ],
+ "t1": "main",
+ "t2": "main",
+ "u130": {
+  "412x915": {
+   "heart": {
+    "landDepth": 542,
+    "secondsLockedByHeart": 49.5
+   },
+   "row": {
+    "open": true,
+    "cats": [
+     "tuxedo",
+     "orange",
+     "ragdoll",
+     "siamese",
+     "tortie"
+    ]
+   },
+   "switched": {
+    "cat": "siamese",
+    "mode": "laser",
+    "siameseOpen": false,
+    "saved": {
+     "tuxedo": true,
+     "orange": false,
+     "ragdoll": true,
+     "siamese": false,
+     "tortie": false
+    }
+   },
+   "toss": {
+    "y": 789.5192945232017,
+    "k": 0.8415110019952579,
+    "front": 770.6890744832965,
+    "H": 888.3495145631068,
+    "on": true
+   },
+   "lost": {
+    "id": null,
+    "lostN": 0
+   },
+   "pet": {
+    "peak": 3.5,
+    "def": 3.5
+   },
+   "build": "2026.11.20 UAT 132"
+  }
+ },
+ "audit": {
+  "412x915": {
+   "R": [
+    {
+     "n": "dock.gear",
+     "kind": "rect",
+     "x": 360,
+     "y": 34,
+     "w": 40,
+     "h": 30,
+     "r": 0
+    },
+    {
+     "n": "dock.coll (Collections)",
+     "kind": "rect",
+     "x": 248,
+     "y": 35,
+     "w": 30,
+     "h": 28,
+     "r": 0
+    },
+    {
+     "n": "dock.inv (Inventory)",
+     "kind": "rect",
+     "x": 280,
+     "y": 35,
+     "w": 30,
+     "h": 28,
+     "r": 0
+    },
+    {
+     "n": "dock.modes",
+     "kind": "rect",
+     "x": 314,
+     "y": 38,
+     "w": 44,
+     "h": 22,
+     "r": 0
+    },
+    {
+     "n": "dock zone (all taps above y=100 go to the dock)",
+     "kind": "zone",
+     "x": 0,
+     "y": 0,
+     "w": 400,
+     "h": 100,
+     "r": 0
+    },
+    {
+     "n": "side kitchen",
+     "kind": "rect",
+     "x": 11,
+     "y": 123,
+     "w": 50,
+     "h": 50,
+     "r": 0
+    },
+    {
+     "n": "side porch",
+     "kind": "rect",
+     "x": 11,
+     "y": 223,
+     "w": 50,
+     "h": 50,
+     "r": 0
+    },
+    {
+     "n": "side album",
+     "kind": "rect",
+     "x": 11,
+     "y": 323,
+     "w": 50,
+     "h": 50,
+     "r": 0
+    },
+    {
+     "n": "side board",
+     "kind": "rect",
+     "x": 339,
+     "y": 123,
+     "w": 50,
+     "h": 50,
+     "r": 0
+    },
+    {
+     "n": "side shop",
+     "kind": "rect",
+     "x": 11,
+     "y": 423,
+     "w": 50,
+     "h": 50,
+     "r": 0
+    },
+    {
+     "n": "PGA.L.help",
+     "kind": "rect",
+     "x": 142,
+     "y": 510,
+     "w": 116,
+     "h": 26,
+     "r": 0
+    },
+    {
+     "n": "PGA.L.play",
+     "kind": "rect",
+     "x": 118.7,
+     "y": 553,
+     "w": 162.7,
+     "h": 52,
+     "r": 0
+    },
+    {
+     "n": "endBtn = Level boards",
+     "kind": "rect",
+     "x": 112,
+     "y": 619,
+     "w": 176,
+     "h": 36,
+     "r": 0
+    },
+    {
+     "n": "cp100GoalBtn = Goal boards",
+     "kind": "rect",
+     "x": 112,
+     "y": 665,
+     "w": 176,
+     "h": 36,
+     "r": 0
+    },
+    {
+     "n": "cp100DailyBtn",
+     "kind": "rect",
+     "x": 339,
+     "y": 223,
+     "w": 50,
+     "h": 50,
+     "r": 0
+    },
+    {
+     "n": "head (meow)",
+     "kind": "oval",
+     "x": 92,
+     "y": 128,
+     "w": 216,
+     "h": 180,
+     "r": 0
+    }
+   ],
+   "W": 400,
+   "H": 888.3495145631068,
+   "dockBottom": 100,
+   "compact": false,
+   "sideRaw": [
+    {
+     "id": "kitchen",
+     "x": 36,
+     "y": 148,
+     "r": 25,
+     "level": 0,
+     "hit": {
+      "x": 4,
+      "y": 118,
+      "w": 64,
+      "h": 68
+     }
+    },
+    {
+     "id": "porch",
+     "x": 36,
+     "y": 248,
+     "r": 25,
+     "level": 0,
+     "hit": {
+      "x": 4,
+      "y": 218,
+      "w": 64,
+      "h": 68
+     }
+    },
+    {
+     "id": "album",
+     "x": 36,
+     "y": 348,
+     "r": 25,
+     "level": 0,
+     "hit": {
+      "x": 4,
+      "y": 318,
+      "w": 64,
+      "h": 68
+     }
+    },
+    {
+     "id": "board",
+     "x": 364,
+     "y": 148,
+     "r": 25,
+     "level": 0,
+     "hit": {
+      "x": 332,
+      "y": 118,
+      "w": 64,
+      "h": 68
+     }
+    },
+    {
+     "id": "shop",
+     "x": 36,
+     "y": 448,
+     "r": 25,
+     "level": 0,
+     "hit": {
+      "x": 4,
+      "y": 418,
+      "w": 64,
+      "h": 68
+     }
+    }
+   ],
+   "overlaps": []
+  }
+ },
+ "pet": {
+  "412x915": {
+   "on": true,
+   "y": 794.6890744832965,
+   "done": {
+    "x": 302,
+    "y": 775.6890744832965,
+    "w": 76,
+    "h": 38
+   },
+   "front": 770.6890744832965,
+   "H": 888.3495145631068,
+   "peak": 3.5,
+   "def": 3.5,
+   "room": 33.660440079810314,
+   "doneTap": "end"
+  }
+ },
+ "chip132": {
+  "412x915": {
+   "heartLand": 482,
+   "heartOn": [
+    {
+     "x": 221,
+     "z": 498
+    }
+   ],
+   "lockWithCoin": false,
+   "rowOpen": true,
+   "afterSwitch": {
+    "cat": "orange",
+    "hearts": 0,
+    "fish": [
+     {
+      "x": 221,
+      "z": 527
+     }
+    ],
+    "converted": 1,
+    "lock": false
+   },
+   "lockIncoming": false,
+   "incomingAfter": [
+    "laser"
+   ],
+   "lockPet": true,
+   "afterPet": {
+    "pet": false,
+    "lock": false
+   }
+  }
+ },
+ "pause132": {
+  "412x915": {
+   "can": true,
+   "endless": {
+    "paused": true,
+    "finish": {
+     "x": -9999,
+     "y": -9999,
+     "w": 0,
+     "h": 0
+    },
+    "card": {
+     "x": 36,
+     "y": 310,
+     "w": 328,
+     "h": 226
+    },
+    "home": {
+     "x": 256,
+     "y": 484,
+     "w": 94,
+     "h": 34
+    }
+   },
+   "tapOld": {
+    "paused": true,
+    "end": true,
+    "phase": "play"
+   },
+   "home": "main",
+   "goal": {
+    "paused": true,
+    "finish": {
+     "x": 66,
+     "y": 462,
+     "w": 268,
+     "h": 40
+    },
+    "lab": true
+   },
+   "goalAfterEnd": {
+    "paused": false,
+    "phase": "end",
+    "lab": true,
+    "screen": "board",
+    "list": "flex",
+    "result": "Cup shot: round over (0 of 6)"
+   }
+  }
+ },
+ "shop132": {
+  "412x915": {
+   "side": [
+    "kitchen@36,148",
+    "porch@36,248",
+    "album@36,348",
+    "board@364,148",
+    "shop@36,448"
+   ],
+   "daily": null,
+   "name": null,
+   "after": "board",
+   "sideAfterVisit": [
+    "kitchen@36,148",
+    "porch@36,248",
+    "album@36,348",
+    "board@364,148",
+    "shop@36,448"
+   ],
+   "dailyAfterVisit": null
+  }
+ }
+}

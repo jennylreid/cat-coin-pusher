@@ -1,0 +1,131 @@
+{
+ "passed": [
+  "1 no Hug: identical to base",
+  "2 walls up/down at the same moments as base; 360 tall in the build",
+  "3 teetering socks as the arms reach in: build loses none (base loses some)",
+  "4 packed board: nothing resting on the table when the arms reach in is lost off a side, during the Hug or 3 s after (60 and 30 fps)",
+  "5 slides (max one-frame move per 60 fps frame < 6); Home / round end mid-Hug clean; no frame errors"
+ ],
+ "failed": [
+  "0 build = base + name + rescue block swapped for cp74-hold.js"
+ ],
+ "info": {
+  "0 build = base + name + rescue block swapped for cp74-hold.js": {
+   "bytes": [
+    2717545,
+    2747232
+   ]
+  },
+  "1 no Hug: identical to base": {
+   "bodies": [
+    81,
+    81
+   ]
+  },
+  "2 walls up/down at the same moments as base; 360 tall in the build": {
+   "base60": {
+    "on": 2.75,
+    "off": 8.766666666666667,
+    "wallH": 80
+   },
+   "build60": {
+    "on": 2.75,
+    "off": 8.766666666666667,
+    "wallH": 360
+   },
+   "base30": {
+    "on": 2.7666666666666666,
+    "off": 8.766666666666667,
+    "wallH": 80
+   },
+   "build30": {
+    "on": 2.7666666666666666,
+    "off": 8.766666666666667,
+    "wallH": 360
+   }
+  },
+  "3 teetering socks as the arms reach in: build loses none (base loses some)": {
+   "base60": 4,
+   "build60": 0,
+   "base30": 4,
+   "build30": 0
+  },
+  "4 packed board: nothing resting on the table when the arms reach in is lost off a side, during the Hug or 3 s after (60 and 30 fps)": {
+   "60:7": {
+    "lost": [],
+    "fellBeforeArms": 0,
+    "edgeAtLetGo": 3,
+    "maxMove": 2.98,
+    "errs": 0,
+    "moved": 49
+   },
+   "60:14": {
+    "lost": [],
+    "fellBeforeArms": 2,
+    "edgeAtLetGo": 0,
+    "maxMove": 3.63,
+    "errs": 0,
+    "moved": 48
+   },
+   "60:21": {
+    "lost": [],
+    "fellBeforeArms": 1,
+    "edgeAtLetGo": 0,
+    "maxMove": 3.5,
+    "errs": 0,
+    "moved": 43
+   },
+   "30:7": {
+    "lost": [],
+    "fellBeforeArms": 1,
+    "edgeAtLetGo": 3,
+    "maxMove": 3.85,
+    "errs": 0,
+    "moved": 50
+   },
+   "30:14": {
+    "lost": [],
+    "fellBeforeArms": 1,
+    "edgeAtLetGo": 0,
+    "maxMove": 3.97,
+    "errs": 0,
+    "moved": 43
+   },
+   "30:21": {
+    "lost": [],
+    "fellBeforeArms": 1,
+    "edgeAtLetGo": 0,
+    "maxMove": 3,
+    "errs": 0,
+    "moved": 42
+   }
+  },
+  "5 slides (max one-frame move per 60 fps frame < 6); Home / round end mid-Hug clean; no frame errors": {
+   "moves": [
+    2.98,
+    3.63,
+    3.5,
+    3.85,
+    3.97,
+    3
+   ],
+   "mid": [
+    {
+     "how": "wildExit()",
+     "px": true,
+     "cols": 0,
+     "errs": 0
+    },
+    {
+     "how": "WILD.left=0",
+     "px": true,
+     "cols": 0,
+     "errs": 0
+    }
+   ]
+  }
+ },
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp132-bundle\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp132-hug\\release.html",
+ "passed_all": false
+}
