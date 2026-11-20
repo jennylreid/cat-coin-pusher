@@ -1,0 +1,31 @@
+{
+  "version": 20261119000033,
+  "displayName": "2026.11.19 UAT 122",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "e0303b2161e37c0cdfe394d99cedb741e81563f0dae13e89e2cf5fb7a76c2ea0",
+  "stagedJSONSHA256": "ef167995efb7e4267168d2139721f5e18a23ce694055abffd4e1ea2c4f32d36d",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "392fd2a0841a2b88fa0e8172cbfb9461841d63abb86323612a5b12e99e641745",
+  "jsonBytes": 47715409,
+  "baselineJSONBytes": 47699229,
+  "runtimeFiles": 76,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.19 UAT 121",
+  "backup": "uat/backups/before-UAT122-20261119000033",
+  "evidence": "tickets/CP-93-evidence/uat122",
+  "checks": [
+    "checks93.json",
+    "checks64-on122.json",
+    "checks103-on122.json",
+    "checks122.json",
+    "checks92e-on122.json",
+    "real-browser-probe.json",
+    "labshot.json"
+  ],
+  "authorization": "UAT 122: CP-93 Giant tower board, a Board lab board (PM, Nov 19: \"Rebuild on it, run your change and pre-publish checks ... stage (report the bytes), publish UAT 122, verify the cloud copy\"); UAT only"
+}

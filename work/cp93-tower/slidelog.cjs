@@ -1,0 +1,5 @@
+const path=require('path'),vm=require('vm');const make33=require('../cp33/runtime.cjs');
+(async()=>{const seed=+(process.env.S||1);const g=await make33({sourceFile:path.resolve(__dirname,'release.html'),render:false,seed,width:412,height:915,storage:{'catpusher.uat.devdefault.v1':'1'}});
+ g.run=s=>vm.runInContext(s,g.c);g.run("S.dev=false;S.muted=true;");for(let i=0;i<150;i++)g.tick();g.run(`CP93.seed=${seed*7919};`);
+ g.run("if(!PG)pgInit();for(const c of PG_CATS)PG.open[c]=true;if(PGU.screen==='title'&&PGU.title){PGU.title.t=9;pgTitleDone();}");g.run("labStart('giant')");
+ for(let i=0;i<2100;i++){g.tick();if(i%120===0)console.log((i/60).toFixed(0),g.run("JSON.stringify(CP93.tw.map(t=>[+(t.slide||0).toFixed(1),+t.limit.toFixed(1),t.why||'-']))+' py '+Math.round(pusherY)+' near '+JSON.stringify([0,1,2].map(gi=>{const b=bodies.find(b=>!b.dead&&b.cp93===gi&&b.cp93Seg===0);if(!b)return null;const p=b.rb.translation();return bodies.filter(o=>!o.dead&&o.kind!=='stack'&&Math.hypot(o.rb.translation().x-p.x,o.rb.translation().z-p.z)<.6).map(o=>o.kind[0]+Math.round(o.rb.translation().z/M)).join(',')}))"));}})();
