@@ -1,0 +1,57 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp132-bundle\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.20 UAT 132';",
+   "const BUILD = '2026.11.20 UAT 133';"
+  ],
+  [
+   "  uiRound(14,Y-22,372,44,20,'rgba(48,10,36,.78)','#ff8ac8',2);\n  // the heart beats with the purr\n  const L=D.phase==='end'?D.result.L:D.L,beat=1+(.08+.14*L)*Math.max(0,Math.sin(time*Math.PI*2*(1.2+2.2*L)));\n  ctx.save();ctx.translate(38,Y+1);ctx.scale(beat,beat);petHeartPath(ctx,0,0,13);ctx.fillStyle=D.flat>.5?'#ff6a4a':'#ff5fa8';ctx.fill();ctx.lineWidth=2;ctx.strokeStyle='#fff';ctx.stroke();ctx.restore();\n  ctx.font='bold 10px system-ui';ctx.fillStyle='#ffd0ea';ctx.fillText('PURR',38,Y+17);\n  // the meter: fills to the PEAK star; past it, a red \"grumpy\" zone\n  const x0=62,x1=292,w=x1-x0,peakX=x0+w*.78,gx=peakX+(x1-peakX)*Math.min(1,D.flat);\n  uiRound(x0,Y-9,w,18,9,'rgba(20,4,16,.9)','rgba(255,180,220,.5)',1);\n  ctx.fillStyle='rgba(255,90,60,.28)';ctx.fillRect(peakX+8,Y-8,x1-peakX-14,16);\n  const fx=x0+(peakX-x0)*Math.min(1,L);const g=ctx.createLinearGradient(x0,0,peakX,0);g.addColorStop(0,'#ff8ac8');g.addColorStop(.8,'#ffb3dc');g.addColorStop(1,'#ffe066');\n  if(fx>x0+2)uiRound(x0+1,Y-8,fx-x0-2,16,8,g);\n  if(D.flat>0){const rg=ctx.createLinearGradient(peakX,0,x1,0);rg.addColorStop(0,'#ffb04a');rg.addColorStop(1,'#ff3a2a');uiRound(peakX,Y-8,gx-peakX,16,6,rg);}\n  // the peak star, glowing when you're there\n  const at=L>=.97&&D.flat<.4,st=at?1.25+.15*Math.sin(time*14):1;ctx.save();ctx.translate(peakX,Y);ctx.scale(st,st);ctx.fillStyle=at?'#fff6a0':'#ffd23f';ctx.strokeStyle='#5a2a00';ctx.lineWidth=1.5;\n  ctx.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,r=i%2?5:12;ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r);}ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();\n  ctx.font='bold 9px system-ui';ctx.fillStyle='#ffe066';ctx.fillText('PEAK',peakX,Y+17);",
+   "  petRing133(D,fade); /* UAT 133: the ring around the head replaces the strip (heart, meter, PEAK) */"
+  ],
+  [
+   "if(D.phase==='intro'){const u=Math.min(1,(D.t+PET_INTRO)/.3),k=(.6+.4*(1-Math.pow(1-u,3)))*(1+.04*Math.sin(time*9));ctx.save();",
+   "if(D.phase==='intro'||(D.phase==='play'&&D.t<1)){const u=Math.min(1,(D.t+PET_INTRO)/.3),k=(.6+.4*(1-Math.pow(1-u,3)))*(1+.04*Math.sin(time*9));ctx.save();if(D.phase==='play')ctx.globalAlpha=fade*(1-D.t); /* UAT 133: the title stays up through the first second of play, fading */"
+  ],
+  [
+   "else if(D.phase==='play'&&D.t<2.5&&!D.strokes&&!D.ears){",
+   "if(D.phase==='play'&&D.t>=1&&D.t<2.5&&!D.strokes&&!D.ears){ /* UAT 133: after the title */"
+  ],
+  [
+   "w:(typeof endActive==='function'&&endActive())?115:91,h:30};} /* CP-92 HUD */",
+   "w:(typeof hudWide133==='function'&&hudWide133())?115:91,h:30};} /* CP-92 HUD; UAT 133: goal boards too */"
+  ],
+  [
+   "const x=hud.left+((typeof endActive==='function'&&endActive())?102:78),y=hud.bannerY",
+   "const x=hud.left+((typeof hudWide133==='function'&&hudWide133())?102:78),y=hud.bannerY"
+  ],
+  [
+   "hud.bannerY,(typeof endActive==='function'&&endActive())?66:1e4); /* CP-92 HUD */",
+   "hud.bannerY,(typeof hudWide133==='function'&&hudWide133())?66:1e4); /* CP-92 HUD; UAT 133: goal boards too */"
+  ],
+  [
+   "ctx.fillText(board.remaining+' coins',hud.left+12,hud.mainY)",
+   "if(!(typeof LAB==='object'&&LAB.on&&LAB.on()))ctx.fillText(board.remaining+' coins',hud.left+12,hud.mainY) /* UAT 133: not on goal boards */"
+  ],
+  [
+   "wildText('ENDLESS BOARD',200,y+38,22,'#fff','#2a0b3e',5);\r\n ctx.font='bold 15px system-ui';ctx.fillStyle='#ffe8b0';ctx.textAlign='center';ctx.fillText((w.cur?'On ':'First board: ')+(nm||'')+(w.cur?' \u00b7 New board '+Math.round(Math.min(1,w.meter/END.METER)*100)+'%':''),200,y+72,330);\r\n const c=cp100Coins(),ms=endNextIn();ctx.font='bold 17px system-ui';ctx.fillStyle='#ffd76a';ctx.fillText(c+' coins'+(ms==null?' \u00b7 full':' \u00b7 +1 in '+endClockText(ms)),200,y+104,330);",
+   "{const ms=endNextIn();ctx.font='bold 17px system-ui';ctx.fillStyle='#ffd76a';ctx.textAlign='center';ctx.fillText(ms==null?'Coins full':'+1 coin in '+endClockText(ms),200,y+44,330);} /* UAT 133: no 'Endless', no board name or New board %; only the refill line (Jenny) */"
+  ],
+  [
+   "wildText('ENDLESS \u00b7 '+endName(),",
+   "wildText(endName(),"
+  ],
+  [
+   "callout('PET THE CAT!',{color:'#ff8ac8',dur:1});",
+   "/* UAT 133: one title only (the intro title, now up about 2.1 s); the 1 s callout that overlapped it is gone */"
+  ]
+ ],
+ "appended": [
+  "cp133-bundle/pet-133.js",
+  "cp133-bundle/home-133.js",
+  "cp133-round/cp133-music.js",
+  "cp133-round/cp133-chest.js",
+  "cp133-round/cp133-powers.js"
+ ],
+ "swapped": []
+}

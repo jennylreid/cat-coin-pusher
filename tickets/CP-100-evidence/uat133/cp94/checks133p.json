@@ -1,0 +1,27 @@
+{
+ "passed": true,
+ "results": {
+  "412x915": {
+   "got": {
+    "cp94-music": false,
+    "cp101-music": false,
+    "cp79-yawn": true,
+    "dance-dev": true,
+    "cp102-start": true,
+    "cp102-power-ragdoll": true
+   },
+   "errors": []
+  },
+  "360x640": {
+   "got": {
+    "cp94-music": false,
+    "cp101-music": false,
+    "cp79-yawn": true,
+    "dance-dev": true,
+    "cp102-start": true,
+    "cp102-power-ragdoll": true
+   },
+   "errors": []
+  }
+ }
+}
