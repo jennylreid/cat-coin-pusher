@@ -1,0 +1,57 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp124\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\ref78-cp92-release.html",
+ "passed": true,
+ "passedN": 4,
+ "failed": [],
+ "notes": {
+  "hold": [
+   {
+    "sz": "412x915",
+    "frames": 17,
+    "bad": [],
+    "gap": [
+     23.6,
+     31.4
+    ],
+    "errs": [],
+    "stills": [
+     "1-picks-it-up",
+     "2-sweep",
+     "3-front-edge"
+    ]
+   },
+   {
+    "sz": "360x640",
+    "frames": 17,
+    "bad": [],
+    "gap": [
+     23.5,
+     31.4
+    ],
+    "errs": [],
+    "stills": [
+     "1-picks-it-up",
+     "2-sweep",
+     "3-front-edge"
+    ]
+   }
+  ],
+  "unchanged": [
+   {
+    "sz": "412x915",
+    "frames": 61,
+    "same": true,
+    "visSame": true,
+    "errs": 0
+   },
+   {
+    "sz": "360x640",
+    "frames": 61,
+    "same": true,
+    "visSame": true,
+    "errs": 0
+   }
+  ]
+ }
+}

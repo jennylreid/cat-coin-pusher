@@ -1,0 +1,17 @@
+{
+ "sleepy-coins": {
+  "file": "cp96-minesweeper\\sleepy-coins-uat.html",
+  "bytes": 29763,
+  "sha256": "0cfe124c79b86a2ed72040b5929ed2910deaadce3bd8edfbe97f3469fa140dc1"
+ },
+ "paw-swat": {
+  "file": "cp84-puzzles\\paw-swat.html",
+  "bytes": 105047,
+  "sha256": "0deb2d95547ca2a0f946edd913019662905bdb86c29c08febfb75fb481267864"
+ },
+ "cat-cafe": {
+  "file": "cp84-puzzles\\cat-cafe.html",
+  "bytes": 103003,
+  "sha256": "be5a995f320975a51295db578a2bc6928c7c61e2a6d2b56386d0f096d3719c9e"
+ }
+}

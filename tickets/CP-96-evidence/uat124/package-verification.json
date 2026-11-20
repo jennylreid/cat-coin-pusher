@@ -1,0 +1,30 @@
+{
+  "version": 20261119000035,
+  "displayName": "2026.11.19 UAT 124",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "12e57a240ee16585b57b19dd7bcb2cfc915fc2b640c99ad8dd1b048a775aeb06",
+  "stagedJSONSHA256": "31add611925970bb3c744d30a34a17cdbcf306a8ad049ffb69ea02e2acce1eb8",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "4158b9c650a6f83998ef218d0be2745ecb798d3bb8c295e3af0c95697982b977",
+  "jsonBytes": 47708357,
+  "baselineJSONBytes": 47730037,
+  "runtimeFiles": 76,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.19 UAT 123",
+  "backup": "uat/backups/before-UAT124-20261119000035",
+  "evidence": "tickets/CP-96-evidence/uat124",
+  "checks": [
+    "checks124.json",
+    "checks64-on124.json",
+    "checks92e-on124.json",
+    "checks93g-on124.json",
+    "checks97s-on124.json",
+    "homecheck.json"
+  ],
+  "authorization": "UAT 124: CP-96 Sleepy Coins added to Home > Daily puzzles, the three CP-85 puzzles removed, 9x12 grid (Jenny via PM, Nov 19: \"Let's add that one to the daily puzzles\", \"load sleepy coins into the next build so I can test it\"; PM, Nov 19: \"Rebase Sleepy Coins on 123 ... Stage (report the bytes), publish UAT 124 and verify the cloud copy\"); UAT only"
+}

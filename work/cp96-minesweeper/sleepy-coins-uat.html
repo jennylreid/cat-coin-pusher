@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Sleepy Coins</title>
+<style>
+:root {
+  --felt: #1f6b45; --felt-dark: #154d31; --wood: #6b3f1f; --wood-light: #8a5530;
+  --ink: #fff8e7; --muted: #cfe8d6; --slot: #12422b; --slot-edge: #0c3020;
+  --gold: #f5c542; --tile: 48px;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: radial-gradient(ellipse at 50% 30%, #2a7f55 0%, var(--felt) 45%, var(--felt-dark) 100%);
+  color: var(--ink); font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden; user-select: none; -webkit-user-select: none; touch-action: manipulation;
+}
+#app { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 6px 6px 10px; gap: var(--gap, 6px); }
+#app > header, #app > #status { flex: none; }
+header { width: 100%; max-width: 520px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+header h1 { margin: 0; font-size: 21px; letter-spacing: .3px; flex: 1 1 0; white-space: nowrap; }
+header h1 small { display: block; font-size: 13px; font-weight: 500; color: var(--muted); }
+.iconbtn { width: 44px; height: 44px; border-radius: 12px; border: 0; background: rgba(0,0,0,.22); color: var(--ink); font-size: 20px; }
+#status { width: 100%; max-width: 520px; display: flex; justify-content: space-between; align-items: center; font-size: 17px; font-weight: 700; }
+#status .pill { background: rgba(0,0,0,.25); border-radius: 999px; padding: 5px 12px; display: flex; align-items: center; gap: 6px; }
+#status img { height: 20px; }
+#faceWrap { position: relative; height: var(--face-h, 56px); flex: none; display: flex; align-items: flex-end; justify-content: center; z-index: 7; }
+header .iconbtn { flex: none; margin-left: auto; }
+header > h1, header > .iconbtn { min-width: 0; }
+#face { height: 100%; transform-origin: 50% 100%; }
+#face.stretch { animation: stretch 1.6s ease-in-out; }
+#face.bob { animation: bob .45s ease-out; }
+#face.dance { animation: dance .5s ease-in-out 4; }
+@keyframes stretch { 0% { transform: scale(1,1); } 25% { transform: scale(.9,1.22) translateY(-3px); } 55% { transform: scale(1.08,.94); } 80% { transform: scale(.98,1.04); } 100% { transform: scale(1,1); } }
+@keyframes bob { 0% { transform: translateY(0); } 40% { transform: translateY(-5px) scale(1.08); } 100% { transform: translateY(0); } }
+@keyframes dance { 0%,100% { transform: rotate(0); } 25% { transform: rotate(-12deg) translateY(-3px) scale(1.1); } 75% { transform: rotate(12deg) translateY(-3px) scale(1.1); } }
+#zzz { position: absolute; left: -12px; top: -4px; font-weight: 800; color: #e8f5ff; opacity: .9; font-size: 14px; pointer-events: none; }
+#zzz span { position: absolute; animation: zfloat 2.6s linear infinite; }
+#zzz span:nth-child(2) { animation-delay: .9s; font-size: 14px; }
+#zzz span:nth-child(3) { animation-delay: 1.8s; font-size: 11px; }
+@keyframes zfloat { 0% { transform: translate(0,30px); opacity: 0; } 20% { opacity: 1; } 100% { transform: translate(18px,-20px); opacity: 0; } }
+#bubble { position: absolute; left: 50%; top: 100%; transform: translate(-50%,6px); background: #fff8e7; color: #3a2a14; font-weight: 700; font-size: 15px; padding: 6px 12px; border-radius: 14px; white-space: nowrap; opacity: 0; transition: opacity .15s; pointer-events: none; }
+#bubble.show { opacity: 1; }
+
+#boardFrame { position: relative; padding: 5px; border-radius: 16px; background: linear-gradient(180deg, var(--wood-light), var(--wood)); box-shadow: 0 6px 18px rgba(0,0,0,.35), inset 0 2px 0 rgba(255,255,255,.15); }
+#board { display: grid; grid-template-columns: repeat(var(--cols), var(--tile)); grid-auto-rows: var(--tile); gap: 2px; background: var(--slot-edge); border-radius: 10px; padding: 2px; touch-action: none; }
+.t { position: relative; perspective: 300px; }
+.t .in { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform .26s cubic-bezier(.3,.7,.4,1.3); }
+.t.open .in { transform: rotateY(180deg); }
+.t .front, .t .back { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; display: flex; align-items: center; justify-content: center; }
+.t .front { background: var(--slot); border-radius: 6px; }
+.t .front img.coin { width: 92%; height: 92%; pointer-events: none; filter: drop-shadow(0 2px 1px rgba(0,0,0,.35)); }
+.t .back { transform: rotateY(180deg); background: radial-gradient(circle at 50% 40%, #1d5a3b, var(--slot)); border-radius: 6px; box-shadow: inset 0 2px 4px rgba(0,0,0,.45); }
+.t.pressed .front img.coin { transform: scale(.9); }
+.chip { width: 82%; height: 82%; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: calc(var(--tile) * .5); color: #fff; text-shadow: 0 2px 0 rgba(0,0,0,.35); box-shadow: inset 0 -3px 0 rgba(0,0,0,.25), inset 0 2px 0 rgba(255,255,255,.35), 0 2px 3px rgba(0,0,0,.35); }
+.n1 { background: #3b82f6; } .n2 { background: #22a35a; } .n3 { background: #e5484d; } .n4 { background: #9b51e0; }
+.n5 { background: #f97316; } .n6 { background: #0ea5a4; } .n7 { background: #475569; } .n8 { background: #1f2937; }
+.paw { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; transform: scale(0); transition: transform .18s cubic-bezier(.3,.7,.4,1.6); }
+.t.flag .paw { transform: scale(1); }
+.paw svg { width: 62%; height: 62%; filter: drop-shadow(0 1px 1px rgba(0,0,0,.4)); }
+.t .back img.cat { width: 96%; pointer-events: none; }
+.t.woke .back { background: radial-gradient(circle, #ffe9a8, #f5b84a); }
+.t.wrongflag .paw svg { opacity: .45; }
+.t.pop .in { animation: pop .3s ease-out; }
+@keyframes pop { 0% { scale: 1; } 50% { scale: 1.12; } 100% { scale: 1; } }
+
+#fx { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+#plus { position: fixed; z-index: 6; pointer-events: none; font-weight: 900; font-size: 30px; color: var(--gold); text-shadow: 0 2px 0 #7a4b00, 0 0 12px rgba(255,220,120,.7); transform: translate(-50%,-50%) scale(0); transition: transform .18s cubic-bezier(.3,.7,.4,1.6), opacity .3s; opacity: 0; }
+#plus.show { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+
+#controls { width: 100%; max-width: 520px; display: flex; gap: 10px; margin-top: 4px; }
+.mode { flex: 1; height: 56px; border-radius: 16px; border: 3px solid transparent; background: rgba(0,0,0,.25); color: var(--ink); font-size: 18px; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.mode img, .mode svg { height: 30px; width: 30px; }
+.mode.on { background: #fff4d6; color: #4a3210; border-color: var(--gold); }
+#hint { font-size: 14px; color: var(--muted); text-align: center; min-height: 18px; }
+
+#card { position: fixed; left: 50%; bottom: 14px; width: min(500px, calc(100% - 24px)); transform: translate(-50%, 140%); transition: transform .35s cubic-bezier(.3,.7,.4,1.15); z-index: 8; background: #fff8e7; color: #3a2a14; border-radius: 20px; padding: 14px 16px 16px; box-shadow: 0 10px 30px rgba(0,0,0,.45); text-align: center; }
+#card.show { transform: translate(-50%, 0); }
+#card h2 { margin: 0 0 4px; font-size: 22px; }
+#card p { margin: 0 0 12px; font-size: 16px; }
+#card .row { display: flex; gap: 10px; }
+#card button { flex: 1; height: 54px; border: 0; border-radius: 14px; font-size: 19px; font-weight: 800; }
+#card .primary { background: var(--gold); color: #4a3210; box-shadow: inset 0 -3px 0 rgba(0,0,0,.18); }
+#card .secondary { background: #ead9b3; color: #4a3210; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>Sleepy Coins<small id="daylabel">Daily</small></h1>
+    <div id="faceWrap"><img id="face" alt=""><div id="zzz"><span>z</span><span>z</span><span>z</span></div><div id="bubble"></div></div>
+    <button class="iconbtn" id="mute" aria-label="Sound">🔊</button>
+  </header>
+  <div id="status">
+    <div class="pill" id="catsPill"><img id="catIcon" alt=""> <span id="catsLeft">10</span></div>
+    <div class="pill">🪙 <span id="coinsOpen">0</span>/<span id="coinsTotal">54</span></div>
+    <div class="pill">⏱ <span id="clock">0:00</span></div>
+  </div>
+  <div id="boardFrame"><div id="board"></div></div>
+  <div id="hint">Tap a coin to pick it up. Hold a coin to put a paw on it.</div>
+  <div id="controls">
+    <button class="mode on" id="modeOpen"><img id="coinIcon" alt="">Pick up</button>
+    <button class="mode" id="modePaw"><span id="pawIcon"></span>Paw</button>
+  </div>
+</div>
+<canvas id="fx"></canvas>
+<div id="plus"></div>
+<div id="card"><h2 id="cardTitle"></h2><p id="cardText"></p><div class="row" id="cardRow"></div></div>
+<script>window.IMGS={"coin": {"src": "img/art/coin.webp", "crop": [0, 0, 1254, 1254], "w": 144}, "sleep": {"src": "img/art/head-calm.png", "over": "img/art/cp58-yawn-eyes.png", "crop": [8, 22, 1520, 963], "w": 300}, "yawn": {"src": "img/art/cp58-yawn-face.webp", "crop": [4, 0, 1529, 1024], "w": 300}, "sweet": {"src": "img/art/head-sweet.webp", "crop": [11, 9, 1513, 978], "w": 300, "pupils": {"src": "img/art/pupil.webp", "rect": [483, 107, 289, 1041]}}, "grin": {"src": "img/art/head.webp", "crop": [8, 22, 1520, 963], "w": 300, "pupils": {"src": "img/art/pupil.webp", "rect": [483, 107, 289, 1041]}}, "calm": {"src": "img/art/head-calm.png", "crop": [8, 22, 1520, 963], "w": 300, "pupils": {"src": "img/art/pupil.webp", "rect": [483, 107, 289, 1041]}}};window.SOUNDS={"tick": {"src": "sounds/effects/coin-drop.mp3", "off": 0.042, "dur": 0.45}, "land": {"src": "sounds/effects/coin-land.mp3", "off": 0.025, "dur": 0.6}, "spill": {"src": "sounds/effects/coin-spill.mp3", "off": 0.591, "dur": 1.6}};</script>
+<script>
+(function () {
+'use strict';
+const COLS = 9, ROWS = 12, CATS = 18;
+const $ = id => document.getElementById(id);
+const PAW_SVG = '<svg viewBox="0 0 100 100"><g fill="#ff8fb1" stroke="#7a2946" stroke-width="4"><ellipse cx="50" cy="66" rx="22" ry="18"/><ellipse cx="24" cy="42" rx="10" ry="13"/><ellipse cx="42" cy="27" rx="10" ry="13"/><ellipse cx="60" cy="27" rx="10" ry="13"/><ellipse cx="77" cy="42" rx="10" ry="13"/></g></svg>';
+
+// ---------- seeded random ----------
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const today = new Date();
+const dayKey = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+const dayNo = Math.floor((Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) - Date.UTC(2026, 10, 19)) / 86400000) + 1;
+
+// ---------- board helpers ----------
+const N = COLS * ROWS;
+const nbr = [];
+for (let i = 0; i < N; i++) {
+  const r = Math.floor(i / COLS), c = i % COLS, L = [];
+  for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
+    if (!dr && !dc) continue; const rr = r + dr, cc = c + dc;
+    if (rr >= 0 && rr < ROWS && cc >= 0 && cc < COLS) L.push(rr * COLS + cc);
+  }
+  nbr.push(L);
+}
+function counts(cat) { return cat.map((m, i) => nbr[i].reduce((s, j) => s + cat[j], 0)); }
+function flood(cat, cnt, start, open) { // returns cells opened, BFS order with ring distance
+  const out = []; if (open[start]) return out;
+  const q = [[start, 0]]; open[start] = 1;
+  while (q.length) {
+    const [i, d] = q.shift(); out.push([i, d]);
+    if (cnt[i] === 0) for (const j of nbr[i]) if (!open[j] && !cat[j]) { open[j] = 1; q.push([j, d + 1]); }
+  }
+  return out;
+}
+// No-guess check: can simple logic (single cell + pair subset rule) clear the board from the first tap?
+function solvable(cat, first) {
+  const cnt = counts(cat), open = new Array(N).fill(0), flag = new Array(N).fill(0);
+  flood(cat, cnt, first, open);
+  let safeLeft = N - CATS - open.reduce((a, b) => a + b, 0);
+  for (let guard = 0; guard < 400 && safeLeft > 0; guard++) {
+    let moved = false; const cons = [];
+    for (let i = 0; i < N; i++) {
+      if (!open[i] || cnt[i] === 0) continue;
+      const U = nbr[i].filter(j => !open[j] && !flag[j]); if (!U.length) continue;
+      const need = cnt[i] - nbr[i].filter(j => flag[j]).length;
+      if (need === 0) { for (const j of U) if (!open[j]) { safeLeft -= flood(cat, cnt, j, open).length; moved = true; } }
+      else if (need === U.length) { for (const j of U) flag[j] = 1; moved = true; }
+      else cons.push([U, need]);
+    }
+    if (moved) continue;
+    for (const [A, a] of cons) for (const [B, b] of cons) {
+      if (A === B || A.length >= B.length || !A.every(x => B.includes(x))) continue;
+      const D = B.filter(x => !A.includes(x)), k = b - a;
+      if (k === 0) { for (const j of D) if (!open[j]) { safeLeft -= flood(cat, cnt, j, open).length; moved = true; } }
+      else if (k === D.length) { for (const j of D) flag[j] = 1; moved = true; }
+    }
+    if (!moved) return false;
+  }
+  return safeLeft === 0;
+}
+function makeBoard(seed, first) {
+  const R = rng(seed * 131 + first * 7919);
+  const fr = Math.floor(first / COLS), fc = first % COLS;
+  const pool = [];
+  for (let i = 0; i < N; i++) { const r = Math.floor(i / COLS), c = i % COLS; if (Math.abs(r - fr) > 1 || Math.abs(c - fc) > 1) pool.push(i); }
+  let fallback = null;
+  for (let tries = 0; tries < 3000; tries++) {
+    const p = pool.slice();
+    for (let k = p.length - 1; k > 0; k--) { const j = Math.floor(R() * (k + 1)); [p[k], p[j]] = [p[j], p[k]]; }
+    const cat = new Array(N).fill(0); for (let k = 0; k < CATS; k++) cat[p[k]] = 1;
+    if (!fallback) fallback = cat;
+    if (solvable(cat, first)) return { cat, tries: tries + 1, fair: true };
+  }
+  return { cat: fallback, tries: 3000, fair: false };
+}
+
+// ---------- audio ----------
+const SND = {}; let actx = null, master = null, muted = false;
+try { muted = localStorage.getItem('cp96-muted') === '1'; } catch (e) {}
+function b64ToBuf(d) { const s = atob(d.split(',')[1]); const a = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a.buffer; }
+function unlockAudio() {
+  if (actx) { if (actx.state === 'suspended') actx.resume(); return; }
+  try {
+    actx = new (window.AudioContext || window.webkitAudioContext)();
+    master = actx.createGain(); master.gain.value = 0.85; master.connect(actx.destination);
+    // a sound is either an inlined clip (data URI) or a game file played from an offset for a set length (the UAT build)
+    Object.keys(window.SOUNDS || {}).forEach(k => {
+      const v = window.SOUNDS[k], put = b => (SND[k] = { buf: b, off: v.off || 0, dur: v.dur || 0 });
+      if (typeof v === 'string') { actx.decodeAudioData(b64ToBuf(v), put, () => {}); return; }
+      const x = new XMLHttpRequest(); x.open('GET', v.src); x.responseType = 'arraybuffer'; // XHR: the app runs from file://
+      x.onload = () => { if (x.response && x.response.byteLength) actx.decodeAudioData(x.response, put, () => {}); };
+      x.send();
+    });
+  } catch (e) { actx = null; }
+}
+function play(name, rate, vol, delay) {
+  if (muted || !actx || !SND[name]) return;
+  const c = SND[name], r = rate || 1, v = vol === undefined ? 1 : vol, t = actx.currentTime + (delay || 0);
+  const src = actx.createBufferSource(); src.buffer = c.buf; src.playbackRate.value = r;
+  const g = actx.createGain(); g.gain.value = v;
+  src.connect(g); g.connect(master);
+  if (c.dur) { // the same trim as the inlined clips: from the offset, fading out over the last 40%
+    const end = t + c.dur / r; g.gain.setValueAtTime(v, t + c.dur * 0.6 / r); g.gain.linearRampToValueAtTime(0, end);
+    src.start(t, c.off, c.dur);
+  } else src.start(t);
+}
+function setMuteIcon() { $('mute').textContent = muted ? '🔈' : '🔊'; $('mute').style.opacity = muted ? .6 : 1; }
+
+// ---------- state ----------
+const S = { seed: dayKey, daily: true, cat: null, cnt: null, open: [], flag: [], st: 'ready', mode: 'open', t0: 0, tEnd: 0, opened: 0, busyUntil: 0 };
+const tiles = [];
+const RING_MS = 45;
+
+function layout() {
+  const vw = window.innerWidth, vh = window.innerHeight;
+  // fixed rows: header (small cat) 56, status 32, controls 56 (+4), frame 5*2+2*2, gaps; the hint line only when there is room
+  const tall = vh >= 700, gap = tall ? 6 : 4, faceH = tall ? 56 : 46;
+  const fixed = faceH + 32 + 60 + 14 + gap * (tall ? 5 : 4) + 16 + (tall ? 20 : 0);
+  const byW = Math.floor((Math.min(vw, 520) - 12 - 14 - (COLS - 1) * 2) / COLS);
+  const byH = Math.floor((vh - fixed - (ROWS - 1) * 2) / ROWS);
+  const t = Math.max(26, Math.min(byW, byH, 56));
+  const R = document.documentElement.style;
+  R.setProperty('--tile', t + 'px'); R.setProperty('--gap', gap + 'px'); R.setProperty('--face-h', faceH + 'px');
+  $('hint').style.display = tall ? '' : 'none';
+  $('controls').style.height = '';
+  document.querySelectorAll('.mode').forEach(m => (m.style.height = tall ? '' : '50px'));
+}
+
+function buildBoard() {
+  const b = $('board'); b.style.setProperty('--cols', COLS); b.innerHTML = ''; tiles.length = 0;
+  for (let i = 0; i < N; i++) {
+    const t = document.createElement('div'); t.className = 't'; t.dataset.i = i;
+    t.innerHTML = '<div class="in"><div class="front"><img class="coin" src="' + IMGS.coin + '" alt=""><div class="paw">' + PAW_SVG + '</div></div><div class="back"></div></div>';
+    b.appendChild(t); tiles.push(t);
+  }
+}
+
+function setFace(name, anim) {
+  const f = $('face'); f.src = IMGS[name]; // instant swap, no fade
+  $('zzz').style.display = (name === 'sleep') ? '' : 'none';
+  if (anim) { f.classList.remove('stretch', 'bob', 'dance'); void f.offsetWidth; f.classList.add(anim); }
+}
+let bubbleT = 0;
+function say(text, ms) { const b = $('bubble'); b.textContent = text; b.classList.add('show'); clearTimeout(bubbleT); bubbleT = setTimeout(() => b.classList.remove('show'), ms || 1400); }
+
+function reset(seed, daily) {
+  S.seed = seed; S.daily = daily; S.cat = null; S.cnt = null;
+  S.open = new Array(N).fill(0); S.flag = new Array(N).fill(0);
+  S.st = 'ready'; S.t0 = 0; S.tEnd = 0; S.opened = 0; S.busyUntil = 0; S.fair = null;
+  tiles.forEach(t => { t.className = 't'; t.querySelector('.back').innerHTML = ''; t.querySelector('.in').style.transitionDelay = ''; });
+  $('daylabel').textContent = daily ? 'Daily #' + dayNo : 'Practice board';
+  $('coinsTotal').textContent = N - CATS;
+  setFace('sleep'); hideCard(); updateStatus();
+  $('hint').textContent = 'Tap a coin to pick it up. Hold a coin to put a paw on it.';
+}
+
+function updateStatus() {
+  $('catsLeft').textContent = CATS - S.flag.reduce((a, b) => a + b, 0);
+  $('coinsOpen').textContent = S.opened;
+}
+function fmt(ms) { const s = Math.floor(ms / 1000); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+setInterval(() => { if (S.st === 'play') $('clock').textContent = fmt(Date.now() - S.t0); }, 250);
+
+function backHTML(i) {
+  if (S.cat[i]) return '<img class="cat" src="' + IMGS.sleep + '" alt="">';
+  const n = S.cnt[i]; return n ? '<div class="chip n' + n + '">' + n + '</div>' : '';
+}
+
+// Open a list of [index, ring] with a ripple; returns ms until done.
+function reveal(list, baseDelay) {
+  let maxD = 0;
+  const big = list.length;
+  list.forEach(([i, d], k) => {
+    const t = tiles[i]; const delay = (baseDelay || 0) + d * RING_MS;
+    t.querySelector('.back').innerHTML = backHTML(i);
+    t.querySelector('.in').style.transitionDelay = delay + 'ms';
+    t.classList.add('open'); t.classList.remove('flag');
+    maxD = Math.max(maxD, delay);
+    setTimeout(() => { t.classList.add('pop'); setTimeout(() => t.classList.remove('pop'), 320); sparkleAt(t, big > 1 ? 4 : 3); }, delay + 120);
+  });
+  // one clink per ring, pitch rising with the ring, louder for more coins in that ring
+  const rings = {}; list.forEach(([, d]) => (rings[d] = (rings[d] || 0) + 1));
+  Object.keys(rings).forEach(d => {
+    const n = rings[d]; d = +d;
+    play('tick', 0.9 + Math.min(d, 14) * 0.06, Math.min(0.45 + n * 0.08, 0.95), ((baseDelay || 0) + d * RING_MS + 60) / 1000);
+    if (n >= 3) play('tick', 1.25 + Math.min(d, 14) * 0.06, 0.35, ((baseDelay || 0) + d * RING_MS + 85) / 1000);
+  });
+  return maxD + 300;
+}
+
+function startIfNeeded(i) {
+  if (S.cat) return;
+  const b = makeBoard(S.seed, i); S.cat = b.cat; S.fair = b.fair; S.tries = b.tries; S.cnt = counts(S.cat);
+  S.st = 'play'; S.t0 = Date.now();
+}
+
+function openCell(i) {
+  if (S.st !== 'play' && S.st !== 'ready') return;
+  if (S.flag[i]) { say('Paw is on that one'); return; }
+  if (S.open[i]) { chord(i); return; }
+  startIfNeeded(i);
+  if (S.cat[i]) { lose(i); return; }
+  const list = flood(S.cat, S.cnt, i, S.open);
+  finishOpen(list, tiles[i]);
+}
+function finishOpen(list, anchor) {
+  if (!list.length) return;
+  S.opened += list.length; updateStatus();
+  const dur = reveal(list, 0);
+  if (list.length >= 6) {
+    setTimeout(() => showPlus(anchor, list.length), Math.min(dur - 200, 500));
+    if (list.length >= 14) { play('spill', 1, 0.55, Math.max(0, dur - 250) / 1000); setFace('sweet', 'bob'); setTimeout(() => S.st === 'play' && setFace('sleep'), dur + 700); }
+  }
+  if (S.opened === N - CATS) { S.st = 'won'; setTimeout(win, dur); }
+}
+function chord(i) {
+  const n = S.cnt[i]; if (!n) return;
+  const fl = nbr[i].filter(j => S.flag[j]).length;
+  const closed = nbr[i].filter(j => !S.open[j] && !S.flag[j]);
+  if (fl !== n || !closed.length) { tiles[i].classList.add('pop'); setTimeout(() => tiles[i].classList.remove('pop'), 320); return; }
+  const woke = closed.find(j => S.cat[j]);
+  if (woke !== undefined) { lose(woke); return; }
+  let all = [];
+  closed.forEach(j => { const l = flood(S.cat, S.cnt, j, S.open); all = all.concat(l.map(([k, d]) => [k, d + 1])); });
+  finishOpen(all, tiles[i]);
+}
+function togglePaw(i) {
+  if (S.open[i] || (S.st !== 'play' && S.st !== 'ready')) return;
+  S.flag[i] ^= 1; tiles[i].classList.toggle('flag', !!S.flag[i]);
+  play('land', S.flag[i] ? 1.3 : 1.0, 0.5);
+  if (navigator.vibrate) try { navigator.vibrate(18); } catch (e) {}
+  updateStatus();
+}
+
+function lose(i) {
+  S.st = 'lost'; S.tEnd = Date.now();
+  const t = tiles[i];
+  t.querySelector('.back').innerHTML = '<img class="cat" src="' + IMGS.yawn + '" alt="">';
+  t.querySelector('.in').style.transitionDelay = '0ms';
+  t.classList.add('open', 'woke'); t.classList.remove('flag');
+  setFace('yawn', 'stretch');
+  play('land', 0.6, 0.6);
+  say('Yaaawn…', 1800);
+  // the other cats stay asleep; show where they were, one by one
+  let k = 0;
+  for (let j = 0; j < N; j++) {
+    if (j === i) continue;
+    if (S.cat[j] && !S.flag[j]) {
+      const tj = tiles[j]; tj.querySelector('.back').innerHTML = backHTML(j);
+      tj.querySelector('.in').style.transitionDelay = (700 + k * 90) + 'ms'; tj.classList.add('open'); k++;
+    } else if (!S.cat[j] && S.flag[j]) tiles[j].classList.add('wrongflag');
+  }
+  setTimeout(() => setFace('sleep'), 2400);
+  setTimeout(() => showCard('You woke a cat.', 'She stretched and went back to sleep.', [['Try again', 'primary', () => reset(S.seed, S.daily)]]), 1400);
+}
+
+function win() {
+  S.tEnd = Date.now(); const time = fmt(S.tEnd - S.t0);
+  $('clock').textContent = time;
+  for (let j = 0; j < N; j++) if (S.cat[j] && !S.flag[j]) { S.flag[j] = 1; tiles[j].classList.add('flag'); }
+  updateStatus();
+  setFace('grin', 'dance'); say('All mine!', 2200);
+  play('spill', 1, 0.9); play('spill', 1.2, 0.5, 0.35);
+  coinRain();
+  let best = null;
+  if (S.daily) try { best = localStorage.getItem('cp96-day-' + dayKey); if (!best || (S.tEnd - S.t0) < +best) localStorage.setItem('cp96-day-' + dayKey, S.tEnd - S.t0); } catch (e) {}
+  setTimeout(() => showCard('All coins, no cats woken.', 'Time ' + time + (S.daily ? '. New board tomorrow.' : '.'),
+    [['Practice board', 'primary', () => reset((Math.random() * 1e9) | 0, false)], ['Replay daily', 'secondary', () => reset(dayKey, true)]]), 1600);
+}
+
+function showCard(title, text, buttons) {
+  $('cardTitle').textContent = title; $('cardText').textContent = text;
+  const row = $('cardRow'); row.innerHTML = '';
+  buttons.forEach(([label, cls, fn]) => { const b = document.createElement('button'); b.textContent = label; b.className = cls; b.onclick = () => { unlockAudio(); fn(); }; row.appendChild(b); });
+  $('card').classList.add('show');
+}
+function hideCard() { $('card').classList.remove('show'); }
+
+// ---------- fx: sparkles, +N, coin rain ----------
+const fx = $('fx'), g = fx.getContext('2d'); let parts = [], DPR = 1;
+function sizeFx() { DPR = Math.min(devicePixelRatio || 1, 2); fx.width = innerWidth * DPR; fx.height = innerHeight * DPR; fx.style.width = innerWidth + 'px'; fx.style.height = innerHeight + 'px'; g.setTransform(DPR, 0, 0, DPR, 0, 0); }
+const coinImg = new Image();
+function sparkleAt(t, n) {
+  const r = t.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+  for (let k = 0; k < n; k++) { const a = Math.random() * 6.28, v = 1 + Math.random() * 2.2; parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 1, life: 26 + Math.random() * 14, max: 40, kind: 's', s: 2 + Math.random() * 2.5 }); }
+}
+function coinRain() {
+  for (let k = 0; k < 46; k++) parts.push({ x: Math.random() * innerWidth, y: -30 - Math.random() * innerHeight * 0.8, vx: (Math.random() - .5) * 1.2, vy: 3 + Math.random() * 3, life: 200, max: 200, kind: 'c', s: 14 + Math.random() * 10, rot: Math.random() * 6, vr: (Math.random() - .5) * .3 });
+}
+let plusT = 0;
+function showPlus(t, n) {
+  const r = t.getBoundingClientRect(), p = $('plus');
+  p.style.left = Math.min(Math.max(r.left + r.width / 2, 60), innerWidth - 60) + 'px'; p.style.top = (r.top - 4) + 'px';
+  let k = 0; p.textContent = '+0'; p.classList.add('show'); clearInterval(plusT);
+  const step = Math.max(1, Math.ceil(n / 14));
+  plusT = setInterval(() => { k = Math.min(n, k + step); p.textContent = '+' + k; if (k >= n) { clearInterval(plusT); setTimeout(() => p.classList.remove('show'), 700); } }, 30);
+}
+function tick() {
+  g.clearRect(0, 0, innerWidth, innerHeight);
+  parts = parts.filter(q => q.life > 0 && q.y < innerHeight + 40);
+  for (const q of parts) {
+    q.life--; q.x += q.vx; q.y += q.vy;
+    if (q.kind === 's') { q.vy += 0.08; g.globalAlpha = Math.max(0, q.life / q.max); g.fillStyle = '#ffe58a'; g.beginPath(); g.arc(q.x, q.y, q.s, 0, 6.28); g.fill(); }
+    else { q.vy += 0.05; q.rot += q.vr; g.globalAlpha = 1; g.save(); g.translate(q.x, q.y); g.rotate(q.rot); g.scale(Math.abs(Math.cos(q.rot * 2)) * .7 + .3, 1); g.drawImage(coinImg, -q.s, -q.s, q.s * 2, q.s * 2); g.restore(); }
+  }
+  g.globalAlpha = 1; requestAnimationFrame(tick);
+}
+
+// ---------- input: tap opens (or paws in paw mode), hold = paw ----------
+const HOLD_MS = 380; let press = null;
+function tileFrom(e) { const el = document.elementFromPoint(e.clientX, e.clientY); const t = el && el.closest('.t'); return t ? +t.dataset.i : -1; }
+const board = $('board');
+board.addEventListener('pointerdown', e => {
+  unlockAudio();
+  const i = tileFrom(e); if (i < 0) return;
+  e.preventDefault();
+  press = { i, x: e.clientX, y: e.clientY, held: false };
+  if (!S.open[i]) tiles[i].classList.add('pressed');
+  press.timer = setTimeout(() => { if (press && press.i === i) { press.held = true; tiles[i].classList.remove('pressed'); togglePaw(i); } }, HOLD_MS);
+});
+function endPress(e, cancel) {
+  if (!press) return; clearTimeout(press.timer); tiles[press.i].classList.remove('pressed');
+  const p = press; press = null;
+  if (cancel || p.held) return;
+  if (Math.hypot(e.clientX - p.x, e.clientY - p.y) > 24) return;
+  if (S.mode === 'paw' && !S.open[p.i]) togglePaw(p.i); else openCell(p.i);
+}
+board.addEventListener('pointerup', e => endPress(e, false));
+board.addEventListener('pointercancel', e => endPress(e, true));
+board.addEventListener('contextmenu', e => e.preventDefault());
+function setMode(m) { S.mode = m; $('modeOpen').classList.toggle('on', m === 'open'); $('modePaw').classList.toggle('on', m === 'paw');
+  $('hint').textContent = m === 'paw' ? 'Paw mode: tap a coin to mark a sleeping cat.' : 'Tap a coin to pick it up. Hold a coin to put a paw on it.'; }
+$('modeOpen').onclick = () => setMode('open');
+$('modePaw').onclick = () => setMode('paw');
+$('mute').onclick = () => { unlockAudio(); muted = !muted; try { localStorage.setItem('cp96-muted', muted ? '1' : '0'); } catch (e) {} setMuteIcon(); };
+
+// ---------- boot ----------
+// An image is either inlined (data URI) or made here from the game's own art (the UAT build): cropped to the head,
+// scaled down, and for the sleeping face the closed-eyes layer drawn over the calm head, as the inlined stand-in was made.
+function loadImg(src) { return new Promise((ok, no) => { const im = new Image(); im.onload = () => ok(im); im.onerror = no; im.src = src; }); }
+// The open-eyed heads (Sweet, Sharp Grin) carry no pupils: the game draws its pupil layer (pupil.webp) on top, clipped to
+// each eye (drawTrackingPupils). Same here, looking straight ahead: eye centres and sizes in head-art pixels (1536x1024).
+const EYES_ART = [{ x: 500, y: 515, rx: 118, ry: 108 }, { x: 1060, y: 532, rx: 118, ry: 108 }];
+const PUPIL_W = 75, PUPIL_H = 180, PUPIL_DY = 0.24;
+async function drawPupils(g2, v, cx, cy, k) {
+  const P = v.pupils, im = await loadImg(P.src), [px, py, pw, ph] = P.rect, [fx, fy, fs] = P.frame || [0, 0, 1];
+  const map = (X, Y) => [((X - fx) * fs - cx) * k, ((Y - fy) * fs - cy) * k], s = fs * k;
+  for (const e of EYES_ART) {
+    const [ex, ey] = map(e.x, e.y);
+    g2.save(); g2.beginPath(); g2.ellipse(ex, ey, e.rx * s, e.ry * s, 0, 0, 7); g2.clip();
+    g2.drawImage(im, px, py, pw, ph, ex - PUPIL_W * s / 2, ey + e.ry * PUPIL_DY * s - PUPIL_H * s / 2, PUPIL_W * s, PUPIL_H * s);
+    g2.restore();
+  }
+  v.pupilsDrawn = true;
+}
+const LAYERS = {};
+async function prepImages() {
+  for (const k of Object.keys(IMGS)) {
+    const v = IMGS[k]; if (typeof v === 'string') { LAYERS[k] = { copy: true }; continue; }
+    try {
+      const ims = await Promise.all([v.src].concat(v.over ? [v.over] : []).map(loadImg));
+      const [x, y, w, h] = v.crop || [0, 0, ims[0].naturalWidth, ims[0].naturalHeight], W = v.w, H = Math.round(W * h / w);
+      const c = document.createElement('canvas'); c.width = W; c.height = H; const g2 = c.getContext('2d');
+      g2.imageSmoothingQuality = 'high';
+      ims.forEach(im => g2.drawImage(im, x, y, w, h, 0, 0, W, H));
+      if (v.pupils) await drawPupils(g2, v, x, y, W / w);
+      const blob = await new Promise(ok => c.toBlob(ok, 'image/png')); if (!blob) throw 0;
+      IMGS[k] = URL.createObjectURL(blob); LAYERS[k] = { over: !!v.over, pupils: !!v.pupilsDrawn, needsPupils: !!v.pupils };
+    } catch (e) { IMGS[k] = v.src; LAYERS[k] = { failed: true, needsPupils: !!v.pupils }; }
+  }
+}
+prepImages().then(() => {
+  coinImg.src = IMGS.coin;
+  $('catIcon').src = IMGS.sleep; $('coinIcon').src = IMGS.coin; $('pawIcon').innerHTML = PAW_SVG;
+  setMuteIcon(); layout(); sizeFx(); buildBoard(); reset(dayKey, true); tick();
+  window.__cp96.ready = true;
+});
+addEventListener('resize', () => { layout(); sizeFx(); });
+
+// test hook
+window.__cp96 = Object.assign(window.__cp96 || {}, { SND, S, tiles, nbr, makeBoard, solvable, counts, reset, openCell, togglePaw, setMode, COLS, ROWS, CATS, IMGS, LAYERS });
+})();
+</script>
+</body>
+</html>
