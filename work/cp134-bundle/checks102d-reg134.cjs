@@ -35,7 +35,7 @@ const WHERE=['endless:tuxedo','endless:orange','level:tuxedo','level:orange','le
  // 1 side games
  {const rows={};let ok=true;for(const w of WHERE)for(const [id,run] of Object.entries(GAMES)){const g=await game(w);const a=g.state();g.run(`cp102Start('game','${id}')`);
    let st=null;for(let i=0;i<600&&!st;i++){g.tick();if(g.run(`!!WILD.${run}`))st=g.state();}
-   const want={toss:'orange',chase:'siamese',pet:'ragdoll',pounce:'tortie'}[id],good=!!st&&st.cat===want&&st.end&& /* UAT 134 (item I): the endless board with the game's own cat */st.coins>=a.coins&&!g.errs().length;
+   const want={toss:'orange',chase:'siamese',pet:'ragdoll',pounce:'tortie'}[id],good=!!st&&st.cat===want&&st.end&&(a.end?st.coins>=a.coins:true)&& /* UAT 134 (item I): the endless board with the game's own cat; coins compared only when it starts on the endless wallet (a level's coins are another purse) */!g.errs().length;
    rows[w+' '+id]=good?'ok':{a,st,errs:g.errs()};if(!good)ok=false;g.close();}
   check('1 (UAT 134) every Side game button starts its game on the endless board with its own cat, from every board and Home, no coin used',ok,Object.fromEntries(Object.entries(rows).filter(([,v])=>v!=='ok')));res.sideGames=rows;}
  // 2 powers

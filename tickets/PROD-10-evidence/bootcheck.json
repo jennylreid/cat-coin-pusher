@@ -1,0 +1,57 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\prod10\\release.html",
+ "buildSHA256": "e6742b2c9a071eaca7e030cc65a280c5e5c975a48a8617c14fc4c3e1f67133d5",
+ "runtimeFolder": "work/prod10/boot10 (UAT 134's 76 files, index.html = the production build)",
+ "browser": "headless Chrome, real time, work/prod10/bootcheck.cjs",
+ "passed": true,
+ "failed": [],
+ "result": {
+  "dir": "boot10",
+  "steps": [
+   "title with art at 793 ms",
+   "round in play at 4255 ms"
+  ],
+  "errors": [],
+  "title": true,
+  "build": "2026.11.20",
+  "screen": "title",
+  "play": true,
+  "state": {
+   "level": 1,
+   "prizes": [
+    "cheese",
+    "shrimp"
+   ],
+   "cp62": 4,
+   "runway": true,
+   "bottleArt": true,
+   "jackpot": 0.02,
+   "meterAddon": true,
+   "dev": false,
+   "cp75": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "zoomies": "peek",
+   "endings": [
+    "peek"
+   ],
+   "sounds": [
+    "today"
+   ],
+   "cp78": true,
+   "cp82": true,
+   "lab": true,
+   "uatKeys": []
+  }
+ },
+ "uat134SameRun": {
+  "build": "2026.11.20 UAT 134",
+  "title": true,
+  "play": true,
+  "errors": [],
+  "sameState": true
+ }
+}

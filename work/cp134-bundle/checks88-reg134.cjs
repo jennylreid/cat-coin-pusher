@@ -63,7 +63,7 @@ const sideOn=(g,c)=>g.run(`!!WILD.${CATS[c].game}`);
   check('2 charges add up (2 coins = 2); a tap during a power or the wheel\'s Yawn is refused (lock sound, nothing used, nothing starts); once it has ended a tap starts the side game and uses one; a new round starts with none',ok,rows);}
  // 3. the Tuxedo (Dance break) and the Ragdoll have no slot; the Dance break is unchanged: the same Dance break start as the base
  {const rows=[];let ok=true;for(const cat of ['tuxedo','ragdoll']){const A=await midRound(src,{cat}),B=await midRound(base,{cat});const r={cat,slot:A.g.run('cp88Kind()')};
-   if(cat==='tuxedo'){A.g.run('danceStartNow()');B.g.run('danceStartNow()');for(let i=0;i<60;i++){A.tk();B.tk();}r.danceSame=A.g.run("JSON.stringify({d:!!WILD.dance,p:WILD.dance&&WILD.dance.phase})")===B.g.run("JSON.stringify({d:!!WILD.dance,p:WILD.dance&&WILD.dance.phase})")&&A.g.run('!!WILD.dance');}else r.danceSame=true;
+   if(cat==='tuxedo'){A.g.run('WILD.danceForce=true');B.g.run('WILD.danceForce=true'); /* UAT 134: danceStartNow is the Developer button, which now goes to the endless board (item I); start the dance in place on both */for(let i=0;i<60;i++){A.tk();B.tk();}r.danceSame=A.g.run("JSON.stringify({d:!!WILD.dance,p:WILD.dance&&WILD.dance.phase})")===B.g.run("JSON.stringify({d:!!WILD.dance,p:WILD.dance&&WILD.dance.phase})")&&A.g.run('!!WILD.dance');}else r.danceSame=true;
    r.errs=J(A.g,'__errs').length;A.g.close();B.g.close();r.ok=r.slot===null&&r.danceSame&&!r.errs;if(!r.ok)ok=false;rows.push(r);}
   check('3 no slot on the Tuxedo and Ragdoll boards; the Dance break starts as in the base',ok,rows);}
  // 4. with no side-game coin, play is identical to the base (every piece, coins, timer, goals) on each coin board

@@ -3,8 +3,10 @@ build, plus CP-94's checks133 (work/cp133-round/checks133.cjs). Per copy: check 
 UAT 134" (sha = publication-manifest.json's); references carry this build's name; checks72s's reference also gets this build's
 edits and blocks; output tickets/CP-100-evidence/uat134/regression.
 Test-only updates for UAT 134's intended changes (PM, Nov 20):
- - checks102d 1, 2 (item I): every Developer start-now button (side game or power) starts on the endless board with that game's
+ - checks102d 1, 2 (item I; check 1 compares coins only when it starts on the endless wallet): every Developer start-now button (side game or power) starts on the endless board with that game's
    or power's own cat, from every board and Home (was: the board kept / the endless board only when already on it).
+ - checks88 3 (item I): the Tuxedo's dance starts in place by WILD.danceForce (danceStartNow, the Developer button, now goes
+   to the endless board).
  - checks133 C2 (item H): the Ragdoll's Dance break draws the grey shoulders with the white chest (was: no grey shoulders);
    C3: the chest check stays for the Hug; the dance's board-rim change by the grey shoulders is CP-94's checks134 H1;
    C4: compared with this build without H and I (work/cp134-mine; was published UAT 132, whose build label differs);
@@ -29,9 +31,11 @@ for f in sorted(S.glob('checks*-reg133.cjs')):
         lay = ("{const EE=" + json.dumps(E['edits'], ensure_ascii=True) + ";for(const [a,b] of EE){if(B.split(a).length!==2)throw new Error('edit-134 '+a.slice(0,50));B=B.split(a).join(b);}"
                "const BL=" + json.dumps(E['blocks']) + ";for(const f of BL){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.resolve(__SELF,'..',f),'utf8')+String.fromCharCode(10)+B.slice(i);}}")
         s = rep(s, a, a + lay + " /* UAT 134: + this bundle's edits and blocks */")
+    if f.name == 'checks88-reg133.cjs':
+        s = rep(s, "if(cat==='tuxedo'){A.g.run('danceStartNow()');B.g.run('danceStartNow()');", "if(cat==='tuxedo'){A.g.run('WILD.danceForce=true');B.g.run('WILD.danceForce=true'); /* UAT 134: danceStartNow is the Developer button, which now goes to the endless board (item I); start the dance in place on both */")
     if f.name == 'checks102d-reg133.cjs':
-        s = rep(s, "const want=w.startsWith('home')?w.split(':')[1]:a.cat,good=!!st&&st.cat===want&&(w.startsWith('endless')?st.end:!st.end)&&",
-                "const want={toss:'orange',chase:'siamese',pet:'ragdoll',pounce:'tortie'}[id],good=!!st&&st.cat===want&&st.end&& /* UAT 134 (item I): the endless board with the game's own cat */")
+        s = rep(s, "const want=w.startsWith('home')?w.split(':')[1]:a.cat,good=!!st&&st.cat===want&&(w.startsWith('endless')?st.end:!st.end)&&st.coins>=a.coins&&",
+                "const want={toss:'orange',chase:'siamese',pet:'ragdoll',pounce:'tortie'}[id],good=!!st&&st.cat===want&&st.end&&(a.end?st.coins>=a.coins:true)&& /* UAT 134 (item I): the endless board with the game's own cat; coins compared only when it starts on the endless wallet (a level's coins are another purse) */")
         s = rep(s, "check('1 every Side game button starts its game on every board (endless, each cat, from Home), no coin used, the board kept'",
                 "check('1 (UAT 134) every Side game button starts its game on the endless board with its own cat, from every board and Home, no coin used'")
         s = rep(s, "const want=c,good=!!st&&st.cat===want&&(w.startsWith('endless')?st.end:true)&&", "const want=c,good=!!st&&st.cat===want&&st.end&& /* UAT 134 (item I): always the endless board */")
