@@ -1,15 +1,18 @@
-# PROD-10: production update to 2026.11.20 (UAT 134), staged
+# PROD-10: production update to 2026.11.20 (UAT 134), published Nov 20
 
-**Staged 2026.11.20 / APK17, numeric 20261120200000** (production today: 2026.11.18, 20261118200000). Game-only update for the
-installed production app; native unchanged, no new APK. Source: published UAT 134 (`work/cp134-bundle/release.html`).
-Jenny's sign-off (Nov 20, via the PM, on UAT 134): "Hug takes me to Ragdoll on the main board. Pass, we're ready."
-**Not published yet:** the engineer session's permission check blocks the production write (as in PROD-09). Jenny runs it:
-```
-powershell -NoProfile -ExecutionPolicy Bypass -File "C:\Users\jenny\OneDrive\work\CoinPusher\work\prod10\publish.ps1"
-```
-It backs up first (`backups/before-PROD-10-20261120200000`), refuses to run if production, the production APK or the staged
-file changed, writes in place (same OneDrive item and share link) and checks that UAT and the APK stay untouched. The engineer
-then runs `work/prod10/verify-cloud.py` and closes out to GitHub `main`.
+**Published 2026.11.20 / APK17, numeric 20261120200000** (was 2026.11.18, 20261118200000).
+- Game-only update for the installed production app; native unchanged, no new APK. Source: published UAT 134
+  (`work/cp134-bundle/release.html`).
+- Jenny's sign-off (Nov 20, via the PM, on UAT 134): "Hug takes me to Ragdoll on the main board. Pass, we're ready."
+- Jenny ran `work/prod10/publish.ps1` herself (the engineer session's permission check blocks production writes).
+  - Backup: `backups/before-PROD-10-20261120200000`.
+  - Local publication verified (`PROD-10-evidence/publication.json`).
+- Cloud copy verified (`PROD-10-evidence/cloud-verification.json`):
+  - 47,824,970 bytes, sha256 e24153c0...fe67;
+  - channel catpusher, com.jenny.catpusher, apkVersion 17, 76 runtime files;
+  - index.html = the production build (e6742b2c...33d5).
+- GitHub `main`: commit **fdc28ad** (UAT checkpoint tree wip/uat 0b5d619 + the production build as root index.html + work/prod10).
+- **Phone receipt pending Jenny** (check below).
 
 ## What production gets
 - Everything signed off from UAT 106 to UAT 134 (CP-71, CP-74, CP-86, CP-88, CP-92, CP-94, CP-96, CP-97, CP-98, CP-100,
