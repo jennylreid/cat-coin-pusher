@@ -1,0 +1,17 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp129\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 129';",
+   "const BUILD = '2026.11.20 UAT 130';"
+  ],
+  [
+   "const PET_DEFAULTS=Object.freeze({len:9,peak:3.5,grace:1.2});",
+   "const PET_DEFAULTS=Object.freeze({len:9,peak:2.5,grace:1.2}); /* UAT 130: was 3.5 */"
+  ]
+ ],
+ "appended": [
+  "work/cp130/cp100-ghost.js",
+  "work/cp130/cp130-fixes.js"
+ ]
+}

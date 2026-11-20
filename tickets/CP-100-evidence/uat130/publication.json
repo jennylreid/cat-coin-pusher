@@ -1,0 +1,28 @@
+﻿{
+    "version":  20261119000041,
+    "displayName":  "2026.11.20 UAT 130",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "544e4d7cea0192e83ecab9aaca651a225be2878f15d9c5ec84dd6a4a5145d4e4",
+    "stagedJSONSHA256":  "d1bae2308135bf2008f36ce0d67b0554817f6d4b04cc8a2fbcb79772ea77c8e5",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "a75cde0bd52c1e6163e57553107fa85606ffd6a88a177580b6a2b0d6871572c3",
+    "jsonBytes":  47757125,
+    "baselineJSONBytes":  47750633,
+    "runtimeFiles":  76,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.19 UAT 129",
+    "backup":  "uat/backups/before-UAT130-20261119000041",
+    "evidence":  "tickets/CP-100-evidence/uat130",
+    "checks":  [
+                   "checks130.json"
+               ],
+    "authorization":  "UAT 130: Level/Goal boards lists fix, cat chip, Treat toss meter, no red rail flash, Pet the cat peak (PM, Nov 20: \"publish as UAT 130. You have my OK; don\u0027t wait for me.\"); UAT only",
+    "localPublication":  "verified"
+}

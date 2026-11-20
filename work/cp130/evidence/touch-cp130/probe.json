@@ -1,0 +1,581 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp129\\boot129",
+ "sizes": {
+  "412x915": {
+   "long": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 553,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 619,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 665,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 348,
+      "r": 25
+     },
+     "list": null,
+     "dev": true,
+     "level": 40
+    },
+    "lvPt": {
+     "x": 206,
+     "y": 656.11,
+     "hit": "c"
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "rows": 10,
+     "goals": 0,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    },
+    "goalPt": {
+     "x": 206,
+     "y": 703.49,
+     "hit": "c"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "rows": 0,
+     "goals": 12,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    }
+   },
+   "touch-touch": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 553,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 619,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 665,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 348,
+      "r": 25
+     },
+     "list": "none",
+     "dev": true,
+     "level": 40
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": false,
+     "clicks": [
+      "BUTTON btn:L9"
+     ],
+     "row": {
+      "tapped": "First push ✓Board 1 · Normal",
+      "list": "none",
+      "screen": "board",
+      "end": true,
+      "endKey": "L1",
+      "lab": false,
+      "frame": false,
+      "ate": 1
+     },
+     "backHome": "main"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": false,
+     "clicks": [
+      "BUTTON btn:gate"
+     ],
+     "row": {
+      "tapped": "Cup shotSink 6 coins in the cu",
+      "list": "none",
+      "screen": "board",
+      "end": false,
+      "endKey": null,
+      "lab": true,
+      "frame": false,
+      "ate": 2
+     },
+     "backHome": "main"
+    },
+    "daily": {
+     "list": "none",
+     "mode": "goals",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": true,
+     "clicks": [
+      "DIV"
+     ],
+     "row": {
+      "tapped": "‹ Puzzles",
+      "list": "none",
+      "screen": "main",
+      "end": false,
+      "endKey": null,
+      "lab": false,
+      "frame": false,
+      "ate": 2
+     },
+     "backHome": "main"
+    }
+   }
+  },
+  "360x640": {
+   "long": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 513.1828571428571,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 579.1828571428571,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 625.1828571428571,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 348,
+      "r": 25
+     },
+     "list": null,
+     "dev": true,
+     "level": 40
+    },
+    "lvPt": {
+     "x": 179.99652777777777,
+     "y": 530.8292063492063,
+     "hit": "c"
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "rows": 10,
+     "goals": 0,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    },
+    "goalPt": {
+     "x": 179.99652777777777,
+     "y": 571.7180952380951,
+     "hit": "c"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "rows": 0,
+     "goals": 12,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    }
+   },
+   "touch-touch": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 513.1828571428571,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 579.1828571428571,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 625.1828571428571,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 348,
+      "r": 25
+     },
+     "list": "none",
+     "dev": true,
+     "level": 40
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": false,
+     "clicks": [
+      "BUTTON btn:L7"
+     ],
+     "row": {
+      "tapped": "First push ✓Board 1 · Normal",
+      "list": "none",
+      "screen": "board",
+      "end": true,
+      "endKey": "L1",
+      "lab": false,
+      "frame": false,
+      "ate": 1
+     },
+     "backHome": "main"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": false,
+     "clicks": [
+      "BUTTON btn:cup"
+     ],
+     "row": {
+      "tapped": "Cup shotSink 6 coins in the cu",
+      "list": "none",
+      "screen": "board",
+      "end": false,
+      "endKey": null,
+      "lab": true,
+      "frame": false,
+      "ate": 2
+     },
+     "backHome": "main"
+    },
+    "daily": {
+     "list": "none",
+     "mode": "goals",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": true,
+     "clicks": [
+      "SMALL btn:Paw SwatSwat coins u"
+     ],
+     "row": {
+      "tapped": "‹ Puzzles",
+      "list": "none",
+      "screen": "main",
+      "end": false,
+      "endKey": null,
+      "lab": false,
+      "frame": false,
+      "ate": 2
+     },
+     "backHome": "main"
+    }
+   }
+  },
+  "384x854": {
+   "long": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 553,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 619,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 665,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 348,
+      "r": 25
+     },
+     "list": null,
+     "dev": true,
+     "level": 40
+    },
+    "lvPt": {
+     "x": 192,
+     "y": 611.52,
+     "hit": "c"
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "rows": 10,
+     "goals": 0,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    },
+    "goalPt": {
+     "x": 192,
+     "y": 655.68,
+     "hit": "c"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "rows": 0,
+     "goals": 12,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    }
+   },
+   "touch-touch": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 553,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 619,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 665,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 348,
+      "r": 25
+     },
+     "list": "none",
+     "dev": true,
+     "level": 40
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": false,
+     "clicks": [
+      "BUTTON btn:L9"
+     ],
+     "row": {
+      "tapped": "First push ✓Board 1 · Normal",
+      "list": "none",
+      "screen": "board",
+      "end": true,
+      "endKey": "L1",
+      "lab": false,
+      "frame": false,
+      "ate": 1
+     },
+     "backHome": "main"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": false,
+     "clicks": [
+      "BUTTON btn:bumper"
+     ],
+     "row": {
+      "tapped": "Cup shotSink 6 coins in the cu",
+      "list": "none",
+      "screen": "board",
+      "end": false,
+      "endKey": null,
+      "lab": true,
+      "frame": false,
+      "ate": 2
+     },
+     "backHome": "main"
+    },
+    "daily": {
+     "list": "none",
+     "mode": "goals",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": true,
+     "clicks": [
+      "BUTTON btn:Paw SwatSwat coins u"
+     ],
+     "row": {
+      "tapped": "‹ Puzzles",
+      "list": "none",
+      "screen": "main",
+      "end": false,
+      "endKey": null,
+      "lab": false,
+      "frame": false,
+      "ate": 2
+     },
+     "backHome": "main"
+    }
+   }
+  }
+ },
+ "errors": [],
+ "t1": "main",
+ "t2": "main"
+}

@@ -1,0 +1,130 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp130\\boot130",
+ "sizes": {
+  "360x640": {
+   "long": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 513.1828571428571,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 579.1828571428571,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 625.1828571428571,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 348,
+      "r": 25
+     },
+     "list": null,
+     "dev": true,
+     "level": 40
+    },
+    "lvPt": {
+     "x": 179.99652777777777,
+     "y": 530.8292063492063,
+     "hit": "c"
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "rows": 10,
+     "goals": 0,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    },
+    "goalPt": {
+     "x": 179.99652777777777,
+     "y": 571.7180952380951,
+     "hit": "c"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "rows": 0,
+     "goals": 12,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    }
+   }
+  }
+ },
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "u130": {
+  "360x640": {
+   "heart": {
+    "landDepth": 654,
+    "secondsLockedByHeart": 24.6
+   },
+   "row": {
+    "open": true,
+    "cats": [
+     "tuxedo",
+     "orange",
+     "ragdoll",
+     "siamese",
+     "tortie"
+    ]
+   },
+   "switched": {
+    "cat": "siamese",
+    "mode": "laser",
+    "siameseOpen": false,
+    "saved": {
+     "tuxedo": true,
+     "orange": false,
+     "ragdoll": true,
+     "siamese": false,
+     "tortie": false
+    }
+   },
+   "toss": {
+    "y": 697,
+    "k": 0.85,
+    "front": 709.1437898089171,
+    "H": 720,
+    "on": true
+   },
+   "lost": {
+    "id": "sardine",
+    "lostN": 1
+   },
+   "pet": {
+    "peak": 2.5,
+    "def": 2.5
+   },
+   "build": "2026.11.20 UAT 130"
+  }
+ }
+}
