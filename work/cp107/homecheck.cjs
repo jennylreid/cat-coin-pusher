@@ -1,0 +1,90 @@
+// CP-87 real-Chrome check (phone emulation, touch input only) of Home > Daily puzzles on a runtime folder.
+// Usage: node homecheck.cjs <runtime folder under work/> <evidence dir>   e.g. node homecheck.cjs cp107/bootdev ../../tickets/CP-87-evidence/dev
+// Prints PASS/FAIL lines and writes homecheck.json + screenshots to the evidence dir. Needs the review server on 8795.
+const { open, sleep } = require('../cp84-puzzles/tools/cdp.cjs');
+const fs = require('fs'), path = require('path');
+const dir = process.argv[2], OUT = path.resolve(__dirname, process.argv[3]);
+fs.mkdirSync(OUT, { recursive: true });
+const results = []; let fails = 0;
+const check = (name, ok, info) => { results.push({ name, ok: !!ok, info }); if (!ok) fails++; console.log((ok ? 'PASS ' : 'FAIL ') + name + (info !== undefined ? ' ' + JSON.stringify(info) : '')); };
+const PZ = ['paw-swat', 'cat-cafe', 'pocket-pounce', 'moon-mint', 'whisker-spark'];
+
+async function toHome(p) {
+  for (let i = 0; i < 60; i++) { const s = await p.eval("typeof PGU!=='undefined'&&PGU?PGU.screen:'none'"); if (s === 'main') return true; if (s === 'title') await p.tap(200, 500); await sleep(500); }
+  return false;
+}
+async function domTap(p, sel) {
+  const r = await p.eval(`(()=>{const e=document.querySelector(${JSON.stringify(sel)});if(!e)return null;const b=e.getBoundingClientRect();return {x:b.left+b.width/2,y:b.top+b.height/2}})()`);
+  if (!r) return false; await p.tap(r.x, r.y); return true;
+}
+(async () => {
+  for (const [w, h] of [[412, 915], [360, 640]]) {
+    const tag = `${w}x${h}`;
+    const p = await open(`http://127.0.0.1:8795/work/${dir}/index.html`, { width: w, height: h });
+    await sleep(5000);
+    check(`${tag} reaches Home`, await toHome(p));
+    { const bn = await p.eval('BUILD'); results.push({ name: `${tag} build name`, ok: !process.env.EXPECT_BUILD || bn === process.env.EXPECT_BUILD, info: bn }); if (process.env.EXPECT_BUILD && bn !== process.env.EXPECT_BUILD) { fails++; console.log('FAIL build name ' + bn); } }
+    await sleep(800);
+    await p.shot(path.join(OUT, `home-${tag}.png`));
+    const b = await p.eval("(()=>{const b=cp87Btn(),r=cv.getBoundingClientRect(),L=PGA.L.play,R=pgMainRects();return {x:r.left+(b.x+b.w/2)*scale,y:r.top+(b.y+b.h/2)*scale,top:r.top+b.y*scale,bot:r.top+(b.y+b.h)*scale,playBot:r.top+(L.y+L.h)*scale,screenBot:r.top+R.bot*scale,innerH:innerHeight}})()");
+    check(`${tag} button sits below PLAY and on screen`, b.top > b.playBot && b.bot <= b.innerH, b);
+    const t0 = await p.eval('PGU.T');
+    await p.tap(b.x, b.y); await sleep(700);
+    check(`${tag} the opening tap doesn't also open a puzzle`, await p.eval('CP87.cur===null&&!document.querySelector("#cp87 iframe")'));
+    check(`${tag} tapping it opens the menu`, await p.eval("CP87.open&&getComputedStyle(document.getElementById('cp87')).display==='flex'&&PGU.screen==='main'"));
+    const tA = await p.eval('PGU.T'); await sleep(1000); const tB = await p.eval('PGU.T');
+    check(`${tag} the game is paused while the menu is open`, tB === tA, { tA, tB });
+    check(`${tag} menu lists all five`, await p.eval("[...document.querySelectorAll('#cp87 .pz')].map(e=>e.dataset.p).join()") === PZ.join());
+    await p.shot(path.join(OUT, `menu-${tag}.png`));
+    for (const id of PZ) {
+      await domTap(p, `#cp87 .pz[data-p="${id}"]`); await sleep(1800);
+      const st = await p.eval(`(()=>{const f=document.querySelector('#cp87 iframe');if(!f)return null;const d=f.contentDocument,r=f.getBoundingClientRect();return {cur:CP87.cur,shim:typeof f.contentWindow.__cp87setVol==='function',top:r.top,h:r.height,w:r.width,bodyH:d.body.scrollHeight,title:d.title}})()`);
+      check(`${tag} ${id} opens full width under the bar`, st && st.cur === id && st.shim && st.w === w && st.top >= 50 && st.h >= h - 60, st);
+      // play: one tap inside the page (sound starts after a tap), then make sure the page is alive
+      const fr = await p.eval("(()=>{const r=document.querySelector('#cp87 iframe').getBoundingClientRect();return {x:r.left,y:r.top,w:r.width,h:r.height}})()");
+      if (id === 'paw-swat' || id === 'cat-cafe') {
+        const bb = await p.eval(`(()=>{const f=document.querySelector('#cp87 iframe'),e=f.contentDocument.querySelector('[data-l="1"]');const b=e.getBoundingClientRect();return {x:b.left+b.width/2,y:b.top+b.height/2}})()`);
+        await p.tap(fr.x + bb.x, fr.y + bb.y); await sleep(1200);
+        const s2 = await p.eval("document.querySelector('#cp87 iframe').contentWindow.__cp84.S.st");
+        check(`${tag} ${id} puzzle 2 starts from a tap`, s2 === 'aim' || s2 === 'play', s2);
+      } else {
+        const bb = await p.eval(`(()=>{const d=document.querySelector('#cp87 iframe').contentDocument;const e=d.querySelector('button.shot:not([disabled])')||[...d.querySelectorAll('main button:not(.small):not([disabled])')][0];if(!e)return null;e.scrollIntoView({block:'center'});const b=e.getBoundingClientRect();return {x:b.left+b.width/2,y:b.top+b.height/2,t:e.textContent.trim().slice(0,20)}})()`);
+        if (bb) { await p.tap(fr.x + bb.x, fr.y + bb.y); await sleep(1200); }
+        check(`${tag} ${id} a control was tapped`, !!bb, bb);
+      }
+      const au = await p.eval("(()=>{const w=document.querySelector('#cp87 iframe').contentWindow;return {n:(w.__cp87ac||[]).length,vol:w.__cp87vol,states:(w.__cp87ac||[]).map(x=>x.c.state),gains:(w.__cp87ac||[]).map(x=>x.g.gain.value)}})()");
+      check(`${tag} ${id} sound runs through the app's volume after a tap`, au.n >= 1 && au.vol === 1 && au.gains.every(g => g === 1), au);
+      await p.shot(path.join(OUT, `${id}-${tag}.png`));
+      await domTap(p, '#cp87 [data-a="back"]'); await sleep(500);
+      check(`${tag} ${id} back returns to the menu and closes the page`, await p.eval("!document.querySelector('#cp87 iframe')&&CP87.cur===null&&document.querySelector('#cp87 .menu').style.display==='flex'"));
+    }
+    // app sound off -> puzzles silent
+    await p.eval('S.muted=true'); await domTap(p, '#cp87 .pz[data-p="paw-swat"]'); await sleep(1500);
+    const fr2 = await p.eval("(()=>{const r=document.querySelector('#cp87 iframe').getBoundingClientRect();return {x:r.left,y:r.top}})()");
+    const bb2 = await p.eval(`(()=>{const e=document.querySelector('#cp87 iframe').contentDocument.querySelector('[data-l="0"]');const b=e.getBoundingClientRect();return {x:b.left+b.width/2,y:b.top+b.height/2}})()`);
+    await p.tap(fr2.x + bb2.x, fr2.y + bb2.y); await sleep(800);
+    const mu = await p.eval("(()=>{const w=document.querySelector('#cp87 iframe').contentWindow;return {vol:w.__cp87vol,gains:(w.__cp87ac||[]).map(x=>x.g.gain.value)}})()");
+    check(`${tag} with the app's sound off the puzzle is silent`, mu.vol === 0 && mu.gains.length && mu.gains.every(g => g === 0), mu);
+    // background: the puzzle's sound is held, then resumes
+    await p.eval('appPaused(true)'); await sleep(300);
+    const bg = await p.eval("document.querySelector('#cp87 iframe').contentWindow.__cp87ac.map(x=>x.c.state)");
+    await p.eval('appPaused(false)'); await sleep(300);
+    const fg = await p.eval("document.querySelector('#cp87 iframe').contentWindow.__cp87ac.map(x=>x.c.state)");
+    check(`${tag} app in background holds the puzzle's sound; back in front it resumes`, bg.every(s => s === 'suspended') && fg.every(s => s === 'running'), { bg, fg });
+    await p.eval('S.muted=false');
+    // Home from inside a puzzle
+    await domTap(p, '#cp87 [data-a="home"]'); await sleep(800);
+    const t1 = await p.eval('PGU.T'); await sleep(700); const t2 = await p.eval('PGU.T');
+    check(`${tag} Home closes the puzzles and Home runs again`, await p.eval("!CP87.open&&getComputedStyle(document.getElementById('cp87')).display==='none'&&!document.querySelector('#cp87 iframe')&&PGU.screen==='main'") && t2 > t1, { t1, t2 });
+    await p.shot(path.join(OUT, `home-after-${tag}.png`));
+    // PLAY still starts a round
+    const pl = await p.eval("(()=>{const L=PGA.L.play,r=cv.getBoundingClientRect();return {x:r.left+(L.x+L.w/2)*scale,y:r.top+(L.y+L.h/2)*scale}})()");
+    await p.tap(pl.x, pl.y); await sleep(2500);
+    check(`${tag} PLAY still starts a round`, await p.eval("PGU.screen==='board'"));
+    const errs = p.logs.filter(l => /EXCEPTION|error/i.test(l));
+    check(`${tag} no errors`, errs.length === 0, errs.slice(0, 5));
+    await p.close();
+  }
+  fs.writeFileSync(path.join(OUT, 'homecheck.json'), JSON.stringify({ build: dir, passed: fails === 0, failed: results.filter(r => !r.ok).map(r => r.name), results }, null, 1));
+  console.log(fails ? 'FAILED ' + fails : 'ALL PASS'); process.exitCode = fails ? 1 : 0;
+})().catch(e => { console.error(e); process.exit(1); });

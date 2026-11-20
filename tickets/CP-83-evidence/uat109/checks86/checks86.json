@@ -1,0 +1,127 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp109-lab\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp107\\release.html",
+ "passed": false,
+ "passedN": 5,
+ "failed": [
+  "0 the build is the published base + build name + the Board lab picker removed (CP-83) + cp86-meow.js (everything else unchanged)"
+ ],
+ "notes": {
+  "timeline": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "fadeOut": true,
+    "stillAtExit": true,
+    "afterMax": 0,
+    "mittMax": 47.2,
+    "mittMinY": 0,
+    "mittOutside": 0,
+    "eyesClosed": true,
+    "eyesOpen": true,
+    "same": true,
+    "frames": 422,
+    "errs": 0,
+    "art": true,
+    "ok": true
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "fadeOut": true,
+    "stillAtExit": true,
+    "afterMax": 0,
+    "mittMax": 47.2,
+    "mittMinY": 0,
+    "mittOutside": 0,
+    "eyesClosed": true,
+    "eyesOpen": true,
+    "same": true,
+    "frames": 422,
+    "errs": 0,
+    "art": true,
+    "ok": true
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "fadeOut": true,
+    "stillAtExit": true,
+    "afterMax": 0,
+    "mittMax": 47.2,
+    "mittMinY": 0,
+    "mittOutside": 0,
+    "eyesClosed": true,
+    "eyesOpen": true,
+    "same": true,
+    "frames": 212,
+    "errs": 0,
+    "art": true,
+    "ok": true
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "fadeOut": true,
+    "stillAtExit": true,
+    "afterMax": 0,
+    "mittMax": 47.2,
+    "mittMinY": 0,
+    "mittOutside": 0,
+    "eyesClosed": true,
+    "eyesOpen": true,
+    "same": true,
+    "frames": 212,
+    "errs": 0,
+    "art": true,
+    "ok": true
+   }
+  ],
+  "screen": [
+   {
+    "sz": "412x915",
+    "diffOutside": 0,
+    "diffFramesOutsideAction": 0,
+    "actionFramesChanged": 49,
+    "box": [
+     0,
+     214,
+     823,
+     895
+    ],
+    "shot": 1,
+    "headBottom": 1067,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "sz": "360x640",
+    "diffOutside": 0,
+    "diffFramesOutsideAction": 0,
+    "actionFramesChanged": 49,
+    "box": [
+     0,
+     186,
+     710,
+     734
+    ],
+    "shot": 1,
+    "headBottom": 887,
+    "errs": 0,
+    "ok": true
+   }
+  ]
+ }
+}

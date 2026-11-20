@@ -1,0 +1,350 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp132-bundle\\boot132",
+ "sizes": {
+  "412x915": {
+   "long": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 553,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 619,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 665,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 248,
+      "r": 25
+     },
+     "list": null,
+     "dev": true,
+     "level": 40
+    },
+    "lvPt": {
+     "x": 206,
+     "y": 656.11,
+     "hit": "c"
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "rows": 10,
+     "goals": 0,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    },
+    "goalPt": {
+     "x": 206,
+     "y": 703.49,
+     "hit": "c"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "rows": 0,
+     "goals": 12,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    }
+   }
+  },
+  "360x640": {
+   "long": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 513.1828571428571,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 579.1828571428571,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 625.1828571428571,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 248,
+      "r": 25
+     },
+     "list": null,
+     "dev": true,
+     "level": 40
+    },
+    "lvPt": {
+     "x": 179.99652777777777,
+     "y": 530.8292063492063,
+     "hit": "c"
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "rows": 10,
+     "goals": 0,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    },
+    "goalPt": {
+     "x": 179.99652777777777,
+     "y": 571.7180952380951,
+     "hit": "c"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "rows": 0,
+     "goals": 12,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    }
+   }
+  }
+ },
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "u130": {
+  "412x915": {
+   "heart": {
+    "landDepth": 502,
+    "secondsLockedByHeart": 57.4
+   },
+   "row": {
+    "open": true,
+    "cats": [
+     "tuxedo",
+     "orange",
+     "ragdoll",
+     "siamese",
+     "tortie"
+    ]
+   },
+   "switched": {
+    "cat": "siamese",
+    "mode": "laser",
+    "siameseOpen": false,
+    "saved": {
+     "tuxedo": true,
+     "orange": false,
+     "ragdoll": true,
+     "siamese": false,
+     "tortie": false
+    }
+   },
+   "toss": {
+    "y": 789.5192945232017,
+    "k": 0.8415110019952579,
+    "front": 770.6890744832965,
+    "H": 888.3495145631068,
+    "on": true
+   },
+   "lost": {
+    "id": null,
+    "lostN": 0
+   },
+   "pet": {
+    "peak": 3.5,
+    "def": 3.5
+   },
+   "build": "2026.11.20 UAT 132"
+  },
+  "360x640": {
+   "heart": {
+    "landDepth": 469,
+    "secondsLockedByHeart": 61.9
+   },
+   "row": {
+    "open": true,
+    "cats": [
+     "tuxedo",
+     "orange",
+     "ragdoll",
+     "siamese",
+     "tortie"
+    ]
+   },
+   "switched": {
+    "cat": "siamese",
+    "mode": "laser",
+    "siameseOpen": false,
+    "saved": {
+     "tuxedo": true,
+     "orange": false,
+     "ragdoll": true,
+     "siamese": false,
+     "tortie": false
+    }
+   },
+   "toss": {
+    "y": 697,
+    "k": 0.85,
+    "front": 709.1437898089171,
+    "H": 720,
+    "on": true
+   },
+   "lost": {
+    "id": null,
+    "lostN": 0
+   },
+   "pet": {
+    "peak": 3.5,
+    "def": 3.5
+   },
+   "build": "2026.11.20 UAT 132"
+  }
+ },
+ "pet": {
+  "412x915": {
+   "on": true,
+   "y": 794.6890744832965,
+   "done": {
+    "x": 302,
+    "y": 775.6890744832965,
+    "w": 76,
+    "h": 38
+   },
+   "front": 770.6890744832965,
+   "H": 888.3495145631068,
+   "peak": 3.5,
+   "def": 3.5,
+   "room": 33.660440079810314,
+   "doneTap": "end"
+  },
+  "360x640": {
+   "on": true,
+   "y": 692,
+   "done": {
+    "x": 302,
+    "y": 673,
+    "w": 76,
+    "h": 38
+   },
+   "front": 709.1437898089171,
+   "H": 720,
+   "peak": 3.5,
+   "def": 3.5,
+   "room": -73.14378980891706,
+   "doneTap": "end"
+  }
+ },
+ "chip132": {
+  "412x915": {
+   "heartLand": 443,
+   "heartOn": [
+    {
+     "x": 63,
+     "z": 384
+    }
+   ],
+   "lockWithCoin": false,
+   "rowOpen": true,
+   "afterSwitch": {
+    "cat": "orange",
+    "hearts": 0,
+    "fish": [
+     {
+      "x": 63,
+      "z": 383
+     }
+    ],
+    "converted": 2,
+    "lock": false
+   },
+   "lockIncoming": false,
+   "incomingAfter": [
+    "laser"
+   ],
+   "lockPet": true,
+   "afterPet": {
+    "pet": false,
+    "lock": false
+   }
+  },
+  "360x640": {
+   "heartLand": 615,
+   "heartOn": [
+    {
+     "x": 75,
+     "z": 618
+    }
+   ],
+   "lockWithCoin": false,
+   "rowOpen": true,
+   "afterSwitch": {
+    "cat": "orange",
+    "hearts": 0,
+    "fish": [
+     {
+      "x": 68,
+      "z": 636
+     }
+    ],
+    "converted": 1,
+    "lock": false
+   },
+   "lockIncoming": false,
+   "incomingAfter": [
+    "laser"
+   ],
+   "lockPet": true,
+   "afterPet": {
+    "pet": false,
+    "lock": false
+   }
+  }
+ }
+}

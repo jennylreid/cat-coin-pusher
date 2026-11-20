@@ -1,0 +1,147 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp133-bundle\\boot133",
+ "sizes": {
+  "360x640": {
+   "long": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 513.1828571428571,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 579.1828571428571,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 625.1828571428571,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 248,
+      "r": 25
+     },
+     "list": null,
+     "dev": true,
+     "level": 40
+    },
+    "lvPt": {
+     "x": 179.99652777777777,
+     "y": 530.8292063492063,
+     "hit": "c"
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "rows": 10,
+     "goals": 0,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    },
+    "goalPt": {
+     "x": 179.99652777777777,
+     "y": 571.7180952380951,
+     "hit": "c"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "rows": 0,
+     "goals": 12,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    }
+   }
+  }
+ },
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "v133": {
+  "360x640": {
+   "home": {
+    "dock": {
+     "coll": {
+      "x": -9999,
+      "y": -9999,
+      "w": 0,
+      "h": 0
+     },
+     "inv": {
+      "x": -9999,
+      "y": -9999,
+      "w": 0,
+      "h": 0
+     },
+     "modes": {
+      "x": 314,
+      "y": 38,
+      "w": 44,
+      "h": 22
+     },
+     "gear": {
+      "x": 360,
+      "y": 34,
+      "w": 40,
+      "h": 30
+     }
+    }
+   },
+   "oldIconTaps": {
+    "opened": 0,
+    "screen": "main",
+    "inv": false
+   },
+   "banner": "At the back",
+   "petStart": {
+    "g": true,
+    "phase": "play",
+    "cat": "ragdoll",
+    "mode": "cozy",
+    "status": "playing"
+   },
+   "petAt1": "intro -0.37",
+   "done": {
+    "x": 302,
+    "y": 449,
+    "w": 76,
+    "h": 38
+   },
+   "doneTap": "end",
+   "goal": {
+    "btn": {
+     "x": 5,
+     "y": 69,
+     "w": 115,
+     "h": 30
+    },
+    "wide": true,
+    "clock": "18 drops"
+   }
+  }
+ }
+}

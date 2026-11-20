@@ -1,0 +1,22 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp112-hug\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 112';",
+   "const BUILD = '2026.11.19 UAT 113';"
+  ],
+  [
+   " const pu=time-CP88.pulse,s=pu<2.5?1+.12*Math.abs(Math.sin(pu*7)):1;",
+   " let pu=time-CP88.pulse;if(!(pu>=0))pu=9;const s=pu<2.5?1+.12*Math.abs(Math.sin(pu*7)):1; /* CP-88 hotfix: a pulse from before the game clock restarted is over */"
+  ],
+  [
+   "const __cp88Reset=wildReset;wildReset=function(){CP88.bank={laser:0,fish:0,mousecoin:0};",
+   "const __cp88Reset=wildReset;wildReset=function(){CP88.bank={laser:0,fish:0,mousecoin:0};CP88.pulse=-9; /* CP-88 hotfix */"
+  ],
+  [
+   "const __cp88Exit=wildExit;wildExit=function(){CP88.bank={laser:0,fish:0,mousecoin:0};",
+   "const __cp88Exit=wildExit;wildExit=function(){CP88.bank={laser:0,fish:0,mousecoin:0};CP88.pulse=-9; /* CP-88 hotfix */"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": []
+}

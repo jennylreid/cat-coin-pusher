@@ -1,0 +1,141 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp127\\release.html",
+ "passed": true,
+ "passedN": 13,
+ "failed": [],
+ "results": [
+  {
+   "name": "0 the build is published 2026.11.19 UAT 126 + build name + the CP-100 edits + cp100-play.js (everything else unchanged)",
+   "ok": true
+  },
+  {
+   "name": "1 endless start: 100 coins, First push, no goal message; after 70 s no clock run-down, no turbo, still playing",
+   "ok": true,
+   "info": {
+    "s1": {
+     "on": true,
+     "coins": 100,
+     "key": "L1",
+     "msg": ""
+    },
+    "s1b": {
+     "left": 599.9833333333333,
+     "phase": "play",
+     "status": "playing",
+     "turbo": 0
+    }
+   }
+  },
+  {
+   "name": "2 meter counts drops; NEW BOARD sweeps, pays nothing, next board in order (Line up), meter back to 0",
+   "ok": true,
+   "info": {
+    "m": 60,
+    "c0": 57,
+    "maxC": 57,
+    "s2": {
+     "sweep": false,
+     "key": "L2",
+     "meter": 0,
+     "phase": "play",
+     "status": "playing",
+     "coins": 57
+    }
+   }
+  },
+  {
+   "name": "3 NEW BOARD tap refused before the meter is full",
+   "ok": true
+  },
+  {
+   "name": "4 first pass in order (the 10 open boards; CP-100 moved the lab boards to Goal boards); after that random seen boards, never the same twice in a row",
+   "ok": true,
+   "info": {
+    "seq": 9,
+    "rnd": [
+     "L4",
+     "L8",
+     "L9",
+     "L2",
+     "L4",
+     "L1",
+     "L6",
+     "L2"
+    ]
+   }
+  },
+  {
+   "name": "5 a nearly empty board fills the meter within 2 s",
+   "ok": true
+  },
+  {
+   "name": "6 empty wallet: no drop, \"Out of coins · +1 in 0:30\", +1 after 30 s, no round end",
+   "ok": true,
+   "info": {
+    "s6": {
+     "drop": false,
+     "msg": "Out of coins · +1 in 0:30",
+     "clock": "+1 0:30"
+    },
+    "s6b": {
+     "coins": 1,
+     "phase": "play",
+     "status": "playing"
+    }
+   }
+  },
+  {
+   "name": "7 Home turns the endless board off, wallet saved (37), normal level rebuilt with its own coins",
+   "ok": true,
+   "info": {
+    "on": false,
+    "saved": 37,
+    "coins": 110,
+    "lvCoins": 110,
+    "phase": "card",
+    "screen": "main"
+   }
+  },
+  {
+   "name": "8 levels unchanged: the clock runs down, a laser coin banks, a new round starts with an empty slot",
+   "ok": true,
+   "info": {
+    "l0": 60,
+    "l1": 58.000000000000114,
+    "bank1": 1
+   }
+  },
+  {
+   "name": "9 endless laser: banks (1), kept after a new board, Home and an app restart",
+   "ok": true,
+   "info": {
+    "lb1": 1,
+    "lb2": 1,
+    "lb3": 1
+   }
+  },
+  {
+   "name": "10 endless fish: no bank, Treat toss starts by itself; slot hidden",
+   "ok": true,
+   "info": {
+    "hid": false,
+    "st": true
+   }
+  },
+  {
+   "name": "11 side coin: none before 100 coins played; the next bonus drop after 100 is the mouse coin, landing at depth 600-680",
+   "ok": true,
+   "info": {
+    "n99": 0,
+    "inc": [
+     648
+    ],
+    "side": 0
+   }
+  },
+  {
+   "name": "12 production untouched (phone/CatCoinPusher-game.json unchanged during the run; app IDs and channels not touched by this block)",
+   "ok": true
+  }
+ ]
+}

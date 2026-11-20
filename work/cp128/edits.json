@@ -1,0 +1,12 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp127\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 127';",
+   "const BUILD = '2026.11.19 UAT 128';"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp101-ragdoll-dance.js"
+ ]
+}

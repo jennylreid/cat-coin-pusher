@@ -58,9 +58,85 @@ Already on the way: Pause with Finish (CP-51), which handles the half-empty boar
 - **Process:** focus on gameplay one board at a time. Once there are enough approved boards, generate more by mixing
   actions, consequences and goals.
 
+## Jenny's input (Nov 16, performance and big moments)
+- **Never slow the game.** Mitigate instead (memory: never-slow-gameplay).
+- **Hard levels:** "we shouldn't have a larger number of coins. We should have more large coins." The player stays in
+  control at the same speed. PM: a big coin is a new piece (new art, bigger collider); pair it with the star coin.
+  Medium.
+- **Board-clearing moment:** an extra-long push (pusher twice as far) clears coins. The catch is the "big gaping hole",
+  where drops then make no progress. Her answer: big coins (maybe star coins) drop in to take the place of the small
+  ones. PM: Sonic meow already doubles the pusher's length, and refilling with a few big star coins solves the hole.
+  Medium.
+- **Star coin** replaces the star prize (decided Nov 16).
+- **Brainstorm (Jenny, Nov 16, "not saying we should do it"):**
+  - When the board gets too full, the cat eats some plain paw coins ("nothing completely"), and occasionally grabs a
+    prize. PM: it turns the performance limit into character. Take a few at a time from the back or sides, make it
+    visible and funny, and never leave a gap. Medium (reuses the Yawn grab).
+  - A grabbed goal prize must always be replaced by a fresh one dropping in, so there's still a chance.
+  - **Clock coin:** a power coin that adds time to the round. PM: simple (data plus new art), and a nice counter to the
+    timer pressure. Or it's a cat power for a new cat (Jenny).
+
+- **Coloured music notes (Jenny, Nov 17):** "room for various colors of musical notes". CP-62 made gold, purple and
+  turquoise notes. PM: these could carry colour for colour goals ("clear the purple notes") without touching the frozen
+  coins.
+
 ## Open questions (after the backbone)
 
 - Which goal types do early levels use?
 - What does each cat's power unlock?
 - How often should a "wanted" prize drop, so it stays scarce but findable?
 - Keep the busy multi-drop moments (they're frozen behaviour).
+
+- **Empty milk bottles (Jenny, Nov 17):** the Yawn drinks the milk and throws the empty bottle onto the board (CP-58).
+  "maybe the empty bottle is even needed at some point." PM: it could be a goal ("push off 3 empty bottles") or a
+  recipe or Porch item. Simple once CP-58 ships the piece.
+
+- **Shop (Jenny, Nov 17):** "special prizes to the shop that can only be purchased" (can't be won on a board), and "different currency than gold
+  coins for the shop since it is too confusing." PM: agree. Coins are what you push; the shop should use Catnip, which
+  already shows on the top bar. Shop-only prizes give Catnip a purpose (e.g. the peacock feather). Open: how Catnip is
+  earned. Simple to medium.
+
+- **Reference boards (Jenny, Nov 17):** private shot `Screenshots/ref-pusher-top-2026-11-17.webp`, a real high-limit
+  machine (other people's footage; not for Git).
+  1. "tokens/coins sit on the pusher": a pile rides on top of the pusher. As the pusher pulls back, the back wall
+     scrapes pieces off onto the board. PM: a natural refill that also fixes the long-push "gaping hole". Medium (the
+     pieces ride a moving body; check performance).
+  2. A giant stack falls (`Screenshots/ref-stack-fall-{1,2,3}-2026-11-17.webp`): a huge tower of chips stands
+     behind the pusher, tips over and floods the board with chips. PM: a big set-piece moment, a natural reward for a
+     "knock over the tower" goal or a big win. The catch is performance: hundreds of pieces. It needs fewer, bigger
+     pieces (the big coins idea) or a cap. Medium to complex.
+
+- **Level complete screen (Jenny, Nov 17):** "I really like the level complete experience in Hole em all"
+  (`Screenshots/ref-hole-level-complete-2026-11-17.webp`, private). It has a big bold "Level Complete!", three big
+  glossy stars with sparkles, one big Continue button, and an "Up Next" bar (1/3) towards the next reward. PM: ours is
+  a small end card with a plain-text stars line and two buttons. The "Up Next" bar could show progress to the next
+  cat, recipe or chest. Medium (UI and art; the stars need new art).
+  What she liked about the motion: "the words were spelled out like our cat coin title page... then stars splatted onto
+  the screen." PM: reuse our title's letter-by-letter animation for the message, then the stars land one at a time with
+  a squash and a thump. Simple to medium; the stars need art.
+
+- **Unlock ladder (Jenny, Nov 17):** an "Up Next" bar on level complete counts boards towards the next unlock. "new
+  cats, recipes, shop items,... we can use all these things. I like it. It will tie gameplay together." PM: this is
+  the backbone that links boards, Porch, Kitchen and Shop. Decide the order and spacing (e.g. every 3 boards) in the
+  design session. The bar ships with CP-66.
+
+- **Home shows what's coming (Jenny, Nov 17, Hole em All):** `Screenshots/ref-hole-home-2026-11-17.webp` (private).
+  "walking me through an introduction that includes a storyline and episodes... so far doesn't bug me. I can see future
+  goals... something will unlock at level 12. There are chests that are going to open later. there are things that
+  unlock at various levels." On screen: locked icons with their level (Lvl 6, 25, 36, 51), two chests filling (2/10,
+  6/20), an "Unlock at Level 12" banner, one big "Level 03" button.
+  PM: this is the unlock ladder made visible on Home. Locked doors with a level number are cheap and give a reason to
+  keep going. The filling chests are our Keys and chests (#5). Keep any storyline light (the cats' visits), since
+  episodes are a lot of content. Ties to CP-60 (Home) and CP-66 part 2.
+  **Decided (Jenny, Nov 17):** "our storyline will just be cat visits." Blocker: "we just need great cat art and we
+  struggle with that."
+
+- **Spitballing (Jenny, Nov 17, not decided):** "maybe we should have fewer prizes on the board... I don't think we
+  should have every prize on the board that we have to win the board. And maybe we shouldn't even have the concept of
+  winning a board... a finite number of coins... levels... you can run out of coins and therefore have to stop
+  playing. And maybe then you could sell your inventory for coins. Or... for catnip, or sell your catnip for
+  inventory."
+  PM opinion: yes to fewer prizes on the board (performance and scarcity). Keep levels with 1-2 goal prizes for a
+  clear goal. A persistent coin wallet that can run out and refills over time is the standard pusher model. Exchanges
+  go one way: extra prizes (beyond what recipes need) sell for Catnip, Catnip buys shop items. Two currencies, no
+  back-and-forth.

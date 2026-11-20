@@ -1,0 +1,33 @@
+﻿{
+    "version":  20261119000040,
+    "displayName":  "2026.11.19 UAT 129",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "596d96826dbfbbb195e30d0c3ca6610d221d42adedaed653fe7e8cd1baca1780",
+    "stagedJSONSHA256":  "544e4d7cea0192e83ecab9aaca651a225be2878f15d9c5ec84dd6a4a5145d4e4",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "3bbe3b82a9149b4657a1477e0c9b34683d4ee971b5bec2e2ecddf0223114ebaf",
+    "jsonBytes":  47750633,
+    "baselineJSONBytes":  47748589,
+    "runtimeFiles":  76,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.19 UAT 128",
+    "backup":  "uat/backups/before-UAT129-20261119000040",
+    "evidence":  "tickets/CP-96-evidence/uat129",
+    "checks":  [
+                   "checks129.json",
+                   "checks64-on129.json",
+                   "checks92e-on129.json",
+                   "checks93g-on129.json",
+                   "checks97s-on129.json",
+                   "homecheck.json"
+               ],
+    "authorization":  "UAT 129: CP-96 Sleepy Coins pupils fix (Jenny via PM, Nov 19: \"The cat in there is missing pupils.\"; PM, Nov 19: \"The pupils fix will be UAT 129 ... Build it on 128 once that\u0027s out, and ask me before publishing\"); UAT only",
+    "localPublication":  "verified"
+}

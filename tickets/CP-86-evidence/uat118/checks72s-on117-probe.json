@@ -1,0 +1,27 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp117\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp98\\release.html",
+ "passed": false,
+ "passedN": 2,
+ "failed": [
+  "2 every changed pixel lies inside the old streak band above the pusher"
+ ],
+ "notes": {
+  "out": {
+   "dxL": 0,
+   "dxR": 33.48559793285904,
+   "dyT": 0,
+   "dyB": 673.1297889181686,
+   "noBand": 0
+  },
+  "frames": {
+   "compared": 99,
+   "zoomies": 80,
+   "zoomiesFramesWithStreaks": 77,
+   "lengths": [
+    99,
+    99
+   ]
+  }
+ }
+}

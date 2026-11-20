@@ -1,0 +1,25 @@
+{
+  "version": 20261119000023,
+  "displayName": "2026.11.19 UAT 112",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "87658972b5fefd61105ca2b0b36a07c7d13a9d9ee2633ac750ad77582582036b",
+  "stagedJSONSHA256": "25801698727dde0219302cbf2b98758001e3dc83ffe75f76f7e0c623f87d0f25",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "ac8c09cac6321eac24106c68e9740e3d0457484126d92c91ba0a110408b73d6d",
+  "jsonBytes": 59441875,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.19 UAT 111",
+  "backup": "uat/backups/before-UAT112-20261119000023",
+  "evidence": "tickets/CP-74-evidence/uat112",
+  "checks": [
+    "checks112.json",
+    "checks64-on112.json"
+  ],
+  "authorization": "UAT 112: CP-74 Hug try 9 (Jenny, Nov 19: \"let's pass hug try number 9. It doesn't mean we won't further iterate, but for now we'll let it pass.\"); PM: \"UAT 111 is out ... Build Hug try 9 on it as UAT 112\"; UAT only"
+}

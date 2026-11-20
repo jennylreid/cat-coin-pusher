@@ -1,0 +1,29 @@
+{
+  "version": 20261119000036,
+  "displayName": "2026.11.19 UAT 125",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "31add611925970bb3c744d30a34a17cdbcf306a8ad049ffb69ea02e2acce1eb8",
+  "stagedJSONSHA256": "ec243345b69f88dfca2671c3fe1d7eeac5322035a3c536aa5debfb52199e3714",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "805c0f8422018234888da45f0302565e915f74fb2cac84af12d9842e092b6b18",
+  "jsonBytes": 47709789,
+  "baselineJSONBytes": 47708357,
+  "runtimeFiles": 76,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.19 UAT 124",
+  "backup": "uat/backups/before-UAT125-20261119000036",
+  "evidence": "tickets/CP-99-evidence/uat125",
+  "checks": [
+    "checks99.json",
+    "checks64-on125.json",
+    "checks92e-on125.json",
+    "checks93g-on125.json",
+    "checks97s-on125.json"
+  ],
+  "authorization": "UAT 125: CP-99 Treat toss meter beneath the board, top fallback on short screens (Jenny via PM, Nov 19: \"I think it'd be better beneath the board.\"; PM: \"CP-99: you're UAT 125, built on UAT 124\"); UAT only"
+}

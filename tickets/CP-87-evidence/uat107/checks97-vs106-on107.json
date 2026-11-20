@@ -1,0 +1,808 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp107\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp106-hug\\release.html",
+ "passed": false,
+ "passedN": 5,
+ "failed": [
+  "2 behind and beside the cat (412x915 and 360x640, every cat: idle, mid-Yawn, during its power, and a Dance break; beside the board and the pusher, from above the old rail to the old armrest fronts): armrests never drawn; at most 111 armrest-teal pixels in any frame (UAT 96: 59 or more idle and mid-Yawn); when the head rises for the Yawn, gold grows by at most 31 pixels (UAT 96: the band and rail add -2253 or more; the Orange and Tortie fur is gold-coloured in both builds); stills"
+ ],
+ "notes": {
+  "play": [
+   {
+    "level": 3,
+    "cat": "orange",
+    "seed": 3,
+    "fps": 60,
+    "same": true,
+    "pieces": 73,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "cat": "orange",
+    "seed": 3,
+    "fps": 30,
+    "same": true,
+    "pieces": 67,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "cat": "orange",
+    "seed": 8,
+    "fps": 60,
+    "same": true,
+    "pieces": 71,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "cat": "orange",
+    "seed": 8,
+    "fps": 30,
+    "same": true,
+    "pieces": 65,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "cat": "tuxedo",
+    "seed": 3,
+    "fps": 60,
+    "same": true,
+    "pieces": 59,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "cat": "tuxedo",
+    "seed": 3,
+    "fps": 30,
+    "same": true,
+    "pieces": 63,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "cat": "tuxedo",
+    "seed": 8,
+    "fps": 60,
+    "same": true,
+    "pieces": 63,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "cat": "tuxedo",
+    "seed": 8,
+    "fps": 30,
+    "same": true,
+    "pieces": 69,
+    "errs": 0
+   },
+   {
+    "level": 5,
+    "cat": "ragdoll",
+    "seed": 3,
+    "fps": 60,
+    "same": true,
+    "pieces": 86,
+    "errs": 0
+   },
+   {
+    "level": 5,
+    "cat": "ragdoll",
+    "seed": 3,
+    "fps": 30,
+    "same": true,
+    "pieces": 85,
+    "errs": 0
+   },
+   {
+    "level": 5,
+    "cat": "ragdoll",
+    "seed": 8,
+    "fps": 60,
+    "same": true,
+    "pieces": 93,
+    "errs": 0
+   },
+   {
+    "level": 5,
+    "cat": "ragdoll",
+    "seed": 8,
+    "fps": 30,
+    "same": true,
+    "pieces": 89,
+    "errs": 0
+   }
+  ],
+  "beside": {
+   "aTeal": 111,
+   "aRise": 31,
+   "bTeal": 59,
+   "bRise": -2253.3333333333335,
+   "rows": [
+    {
+     "sz": "412x915",
+     "cat": "tuxedo",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       50,
+       109
+      ],
+      [
+       "yawn",
+       81,
+       110
+      ],
+      [
+       "power",
+       55,
+       0
+      ],
+      [
+       "power2",
+       68,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "tuxedo",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       50,
+       109
+      ],
+      [
+       "yawn",
+       81,
+       110
+      ],
+      [
+       "power",
+       55,
+       0
+      ],
+      [
+       "power2",
+       68,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "orange",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       7411,
+       109
+      ],
+      [
+       "yawn",
+       5664,
+       110
+      ],
+      [
+       "power",
+       7337,
+       111
+      ],
+      [
+       "power2",
+       7418,
+       109
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "orange",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       7411,
+       109
+      ],
+      [
+       "yawn",
+       5664,
+       110
+      ],
+      [
+       "power",
+       7337,
+       111
+      ],
+      [
+       "power2",
+       7418,
+       109
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "ragdoll",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       56,
+       109
+      ],
+      [
+       "yawn",
+       87,
+       110
+      ],
+      [
+       "power",
+       61,
+       0
+      ],
+      [
+       "power2",
+       87,
+       108
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "ragdoll",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       56,
+       109
+      ],
+      [
+       "yawn",
+       87,
+       110
+      ],
+      [
+       "power",
+       61,
+       0
+      ],
+      [
+       "power2",
+       87,
+       108
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "siamese",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       57,
+       109
+      ],
+      [
+       "yawn",
+       87,
+       110
+      ],
+      [
+       "power",
+       56,
+       98
+      ],
+      [
+       "power2",
+       56,
+       84
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "siamese",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       57,
+       109
+      ],
+      [
+       "yawn",
+       87,
+       110
+      ],
+      [
+       "power",
+       56,
+       98
+      ],
+      [
+       "power2",
+       56,
+       84
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "tortie",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       2923,
+       109
+      ],
+      [
+       "yawn",
+       2471,
+       110
+      ],
+      [
+       "power",
+       3024,
+       0
+      ],
+      [
+       "power2",
+       3576,
+       109
+      ],
+      [
+       "dance",
+       1282,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "412x915",
+     "cat": "tortie",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       2923,
+       109
+      ],
+      [
+       "yawn",
+       2471,
+       110
+      ],
+      [
+       "power",
+       3024,
+       0
+      ],
+      [
+       "power2",
+       3576,
+       109
+      ],
+      [
+       "dance",
+       1282,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "tuxedo",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       35,
+       59
+      ],
+      [
+       "yawn",
+       35,
+       59
+      ],
+      [
+       "power",
+       38,
+       0
+      ],
+      [
+       "power2",
+       50,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "tuxedo",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       35,
+       59
+      ],
+      [
+       "yawn",
+       35,
+       59
+      ],
+      [
+       "power",
+       38,
+       0
+      ],
+      [
+       "power2",
+       50,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "orange",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       5135,
+       59
+      ],
+      [
+       "yawn",
+       3783,
+       59
+      ],
+      [
+       "power",
+       5226,
+       59
+      ],
+      [
+       "power2",
+       5133,
+       59
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "orange",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       5135,
+       59
+      ],
+      [
+       "yawn",
+       3783,
+       59
+      ],
+      [
+       "power",
+       5226,
+       59
+      ],
+      [
+       "power2",
+       5133,
+       59
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "ragdoll",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       40,
+       59
+      ],
+      [
+       "yawn",
+       39,
+       59
+      ],
+      [
+       "power",
+       44,
+       0
+      ],
+      [
+       "power2",
+       39,
+       60
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "ragdoll",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       40,
+       59
+      ],
+      [
+       "yawn",
+       39,
+       59
+      ],
+      [
+       "power",
+       44,
+       0
+      ],
+      [
+       "power2",
+       39,
+       60
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "siamese",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       40,
+       59
+      ],
+      [
+       "yawn",
+       39,
+       59
+      ],
+      [
+       "power",
+       38,
+       51
+      ],
+      [
+       "power2",
+       148,
+       34
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "siamese",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       40,
+       59
+      ],
+      [
+       "yawn",
+       39,
+       59
+      ],
+      [
+       "power",
+       38,
+       51
+      ],
+      [
+       "power2",
+       148,
+       34
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "tortie",
+     "tag": "after",
+     "frames": [
+      [
+       "idle",
+       2012,
+       59
+      ],
+      [
+       "yawn",
+       1636,
+       59
+      ],
+      [
+       "power",
+       2050,
+       0
+      ],
+      [
+       "power2",
+       2108,
+       59
+      ],
+      [
+       "dance",
+       721,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    },
+    {
+     "sz": "360x640",
+     "cat": "tortie",
+     "tag": "before",
+     "frames": [
+      [
+       "idle",
+       2012,
+       59
+      ],
+      [
+       "yawn",
+       1636,
+       59
+      ],
+      [
+       "power",
+       2050,
+       0
+      ],
+      [
+       "power2",
+       2108,
+       59
+      ],
+      [
+       "dance",
+       721,
+       0
+      ]
+     ],
+     "armCalls": 0,
+     "errs": 0
+    }
+   ]
+  },
+  "edges": {
+   "wood": 0,
+   "rims": 31,
+   "frames": 31,
+   "dark": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "cols": [
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ],
+    [
+     10,
+     45,
+     41,
+     255
+    ]
+   ]
+  }
+ }
+}

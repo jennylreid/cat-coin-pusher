@@ -1,0 +1,265 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp130\\release.html",
+ "passed": true,
+ "passedN": 13,
+ "failed": [],
+ "results": [
+  {
+   "name": "0 build is UAT 129 + build name + Pet peak default + the two blocks",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "1 412x915 touch: Level boards list opens and stays; a touch on Board 1 starts it",
+   "ok": true,
+   "info": {
+    "list": "flex",
+    "mode": "levels",
+    "screen": "main",
+    "end": false,
+    "endKey": null,
+    "lab": false,
+    "daily": false,
+    "clicks": [
+     "BUTTON btn:L9"
+    ],
+    "row": {
+     "tapped": "First push \u00e2\u0153\u201cBoard 1 \u00c2\u00b7 Normal",
+     "list": "none",
+     "screen": "board",
+     "end": true,
+     "endKey": "L1",
+     "lab": false,
+     "frame": false,
+     "ate": 1
+    },
+    "backHome": "main"
+   }
+  },
+  {
+   "name": "1 412x915 touch: Goal boards list opens and stays; a touch on Cup shot starts it",
+   "ok": true,
+   "info": {
+    "list": "flex",
+    "mode": "goals",
+    "screen": "main",
+    "end": false,
+    "endKey": null,
+    "lab": false,
+    "daily": false,
+    "clicks": [
+     "BUTTON btn:gate"
+    ],
+    "row": {
+     "tapped": "Cup shotSink 6 coins in the cu",
+     "list": "none",
+     "screen": "board",
+     "end": false,
+     "endKey": null,
+     "lab": true,
+     "frame": false,
+     "ate": 2
+    },
+    "backHome": "main"
+   }
+  },
+  {
+   "name": "2 412x915 heart coin lands in the front (depth 600-680) and leaves; then the chip opens a row of all 5 cats; switching to a cat not yet open works and does not open it",
+   "ok": true,
+   "info": {
+    "heart": {
+     "landDepth": 622,
+     "secondsLockedByHeart": 25.9
+    },
+    "row": {
+     "open": true,
+     "cats": [
+      "tuxedo",
+      "orange",
+      "ragdoll",
+      "siamese",
+      "tortie"
+     ]
+    },
+    "switched": {
+     "cat": "siamese",
+     "mode": "laser",
+     "siameseOpen": false,
+     "saved": {
+      "tuxedo": true,
+      "orange": false,
+      "ragdoll": true,
+      "siamese": false,
+      "tortie": false
+     }
+    },
+    "toss": {
+     "y": 789.5192945232017,
+     "k": 0.8415110019952579,
+     "front": 770.6890744832965,
+     "H": 888.3495145631068,
+     "on": true
+    },
+    "lost": {
+     "id": "cheese",
+     "lostN": 1
+    },
+    "pet": {
+     "peak": 2.5,
+     "def": 2.5
+    },
+    "build": "2026.11.20 UAT 130"
+   }
+  },
+  {
+   "name": "3 412x915 Treat toss meter is below the board front (or over its last strip on 360x640)",
+   "ok": true,
+   "info": {
+    "y": 789.5192945232017,
+    "k": 0.8415110019952579,
+    "front": 770.6890744832965,
+    "H": 888.3495145631068,
+    "on": true
+   }
+  },
+  {
+   "name": "5 412x915 Pet the cat peak 2.5 s",
+   "ok": true,
+   "info": {
+    "peak": 2.5,
+    "def": 2.5
+   }
+  },
+  {
+   "name": "1 360x640 touch: Level boards list opens and stays; a touch on Board 1 starts it",
+   "ok": true,
+   "info": {
+    "list": "flex",
+    "mode": "levels",
+    "screen": "main",
+    "end": false,
+    "endKey": null,
+    "lab": false,
+    "daily": false,
+    "clicks": [
+     "BUTTON btn:L7"
+    ],
+    "row": {
+     "tapped": "First push \u00e2\u0153\u201cBoard 1 \u00c2\u00b7 Normal",
+     "list": "none",
+     "screen": "board",
+     "end": true,
+     "endKey": "L1",
+     "lab": false,
+     "frame": false,
+     "ate": 1
+    },
+    "backHome": "main"
+   }
+  },
+  {
+   "name": "1 360x640 touch: Goal boards list opens and stays; a touch on Cup shot starts it",
+   "ok": true,
+   "info": {
+    "list": "flex",
+    "mode": "goals",
+    "screen": "main",
+    "end": false,
+    "endKey": null,
+    "lab": false,
+    "daily": false,
+    "clicks": [
+     "BUTTON btn:cup"
+    ],
+    "row": {
+     "tapped": "Cup shotSink 6 coins in the cu",
+     "list": "none",
+     "screen": "board",
+     "end": false,
+     "endKey": null,
+     "lab": true,
+     "frame": false,
+     "ate": 2
+    },
+    "backHome": "main"
+   }
+  },
+  {
+   "name": "2 360x640 heart coin lands in the front (depth 600-680) and leaves; then the chip opens a row of all 5 cats; switching to a cat not yet open works and does not open it",
+   "ok": true,
+   "info": {
+    "heart": {
+     "landDepth": 654,
+     "secondsLockedByHeart": 24.6
+    },
+    "row": {
+     "open": true,
+     "cats": [
+      "tuxedo",
+      "orange",
+      "ragdoll",
+      "siamese",
+      "tortie"
+     ]
+    },
+    "switched": {
+     "cat": "siamese",
+     "mode": "laser",
+     "siameseOpen": false,
+     "saved": {
+      "tuxedo": true,
+      "orange": false,
+      "ragdoll": true,
+      "siamese": false,
+      "tortie": false
+     }
+    },
+    "toss": {
+     "y": 697,
+     "k": 0.85,
+     "front": 709.1437898089171,
+     "H": 720,
+     "on": true
+    },
+    "lost": {
+     "id": "sardine",
+     "lostN": 1
+    },
+    "pet": {
+     "peak": 2.5,
+     "def": 2.5
+    },
+    "build": "2026.11.20 UAT 130"
+   }
+  },
+  {
+   "name": "3 360x640 Treat toss meter is below the board front (or over its last strip on 360x640)",
+   "ok": true,
+   "info": {
+    "y": 697,
+    "k": 0.85,
+    "front": 709.1437898089171,
+    "H": 720,
+    "on": true
+   }
+  },
+  {
+   "name": "5 360x640 Pet the cat peak 2.5 s",
+   "ok": true,
+   "info": {
+    "peak": 2.5,
+    "def": 2.5
+   }
+  },
+  {
+   "name": "4 no red rail flash: w43LostDraw draws no stroke (stills flash-lost-both-sides-*)",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "no page errors",
+   "ok": true,
+   "info": []
+  }
+ ]
+}

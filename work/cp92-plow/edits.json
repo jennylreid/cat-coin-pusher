@@ -1,0 +1,24 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp125\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 125';",
+   "const BUILD = '2026.11.19 UAT 126';"
+  ],
+  [
+   "function cp51Btn(hud){hud=hud||hudLayout();return {x:hud.left+5,y:hud.bannerY-15,w:91,h:30};}",
+   "function cp51Btn(hud){hud=hud||hudLayout();return {x:hud.left+5,y:hud.bannerY-15,w:(typeof endActive==='function'&&endActive())?115:91,h:30};} /* CP-92 HUD */"
+  ],
+  [
+   "const x=hud.left+78,y=hud.bannerY;ctx.fillRect(x,y-6,3.5,12);",
+   "const x=hud.left+((typeof endActive==='function'&&endActive())?102:78),y=hud.bannerY;ctx.fillRect(x,y-6,3.5,12); /* CP-92 HUD */"
+  ],
+  [
+   "ctx.fillText(wildClock(),hud.left+31,hud.bannerY);",
+   "ctx.fillText(wildClock(),hud.left+31,hud.bannerY,(typeof endActive==='function'&&endActive())?66:1e4); /* CP-92 HUD */"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp92-plow.js"
+ ]
+}

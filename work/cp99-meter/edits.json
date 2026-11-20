@@ -1,0 +1,20 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp123\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 123';",
+   "const BUILD = '2026.11.19 UAT CP99-dev';"
+  ],
+  [
+   "const D=WILD.toss,Y=TOSS_HUD_Y;ctx.save();",
+   "const D=WILD.toss,Y=TOSS_HUD_Y,M=cp99MeterY();ctx.save(); /* CP-99 */"
+  ],
+  [
+   "  uiRound(16,Y-20,368,40,18,'rgba(8,40,40,.72)','#5ef0c0',2);\n  // caught counter (left), treats left (middle dots), streak (right)\n  ctx.font='900 20px Impact, \"Arial Black\", system-ui';ctx.textAlign='left';ctx.fillStyle='#ffe78a';ctx.fillText('\u00d7 '+D.caught,58,Y+1);\n  const ic=D.caughtIds.length?D.caughtIds[D.caughtIds.length-1]:'cheese';drawPrize('item',ic,40,Y+5,22/prizeWidth(ic,1));\n  const left=D.n-D.next,dots=Math.min(D.n,20);for(let i=0;i<dots;i++){const on=i<Math.round(left*dots/D.n);uiCircle(130+i*(140/Math.max(1,dots-1)),Y,3,on?'#5ef0c0':'rgba(255,255,255,.18)');}\n  ctx.textAlign='right';ctx.font='bold 13px system-ui';ctx.fillStyle=D.streak>=3?'#ffd23f':'#d8fff2';ctx.fillText(D.streak>=2?'streak '+D.streak:'TAP THE TREATS',370,Y+1);ctx.textAlign='center';\n",
+   "  ctx.save();{const K=cp99MeterK();ctx.translate(200,M);ctx.scale(K,K);ctx.translate(-200,-M);} /* CP-99 */\n  uiRound(16,M-20,368,40,18,'rgba(8,40,40,.72)','#5ef0c0',2);\n  // caught counter (left), treats left (middle dots), streak (right)\n  ctx.font='900 20px Impact, \"Arial Black\", system-ui';ctx.textAlign='left';ctx.fillStyle='#ffe78a';ctx.fillText('\u00d7 '+D.caught,58,M+1);\n  const ic=D.caughtIds.length?D.caughtIds[D.caughtIds.length-1]:'cheese';drawPrize('item',ic,40,M+5,22/prizeWidth(ic,1));\n  const left=D.n-D.next,dots=Math.min(D.n,20);for(let i=0;i<dots;i++){const on=i<Math.round(left*dots/D.n);uiCircle(130+i*(140/Math.max(1,dots-1)),M,3,on?'#5ef0c0':'rgba(255,255,255,.18)');}\n  ctx.textAlign='right';ctx.font='bold 13px system-ui';ctx.fillStyle=D.streak>=3?'#ffd23f':'#d8fff2';ctx.fillText(D.streak>=2?'streak '+D.streak:'TAP THE TREATS',370,M+1);ctx.textAlign='center';\n  ctx.restore();\n"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp99-meter.js"
+ ]
+}

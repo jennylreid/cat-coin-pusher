@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Paw Swat</title>
+<style>
+  :root { --bg: #2a1d3a; --ink: #fff6e6; --panel: #3d2a52; --accent: #ffcf4a; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); overflow: hidden;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-user-select: none; user-select: none;
+    touch-action: none; -webkit-tap-highlight-color: transparent; overscroll-behavior: none; }
+  canvas { display: block; position: fixed; inset: 0; }
+  #hud { position: fixed; left: 0; right: 0; top: 0; height: 52px; display: flex; align-items: center; gap: 8px;
+    padding: 0 10px; box-sizing: border-box; pointer-events: none; }
+  #hud .t { font-weight: 800; font-size: 16px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  #hud .s { font-weight: 700; font-size: 14px; opacity: 0.9; white-space: nowrap; }
+  .btn { pointer-events: auto; border: 0; border-radius: 12px; background: var(--panel); color: var(--ink); font: 700 15px system-ui, sans-serif;
+    padding: 9px 12px; min-width: 40px; min-height: 40px; }
+  .btn.big { background: var(--accent); color: #3b1d0e; font-size: 18px; padding: 14px 22px; border-radius: 16px; }
+  #ov { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: rgba(20, 12, 32, 0.82); gap: 14px; padding: 16px; box-sizing: border-box; text-align: center; }
+  #ov.hide { display: none; }
+  #ov h1 { margin: 0; font-size: 34px; letter-spacing: 0.5px; }
+  #ov p { margin: 0; max-width: 340px; line-height: 1.4; font-size: 15px; opacity: 0.92; }
+  #ov img { width: 150px; }
+  .levels { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: min(340px, 100%); }
+  .levels .btn { padding: 14px 8px; font-size: 15px; }
+  .levels .btn small { display: block; font-weight: 600; opacity: 0.75; font-size: 12px; margin-top: 3px; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hud">
+  <button class="btn" id="bMenu" aria-label="Levels">☰</button>
+  <div class="t" id="hTitle">Paw Swat</div>
+  <div class="s" id="hStat"></div>
+  <button class="btn" id="bMute" aria-label="Sound">🔊</button>
+</div>
+<div id="ov"></div>
+<script>/*ASSETS*/</script>
+<script>/*COMMON*/</script>
+<script>
+// ---------------- Paw Swat ----------------
+// Hex wall: even rows 9 coins, odd rows 8 (shifted half a coin right). '.' = empty.
+const LEVELS = [
+  { name: 'Warm-up', note: 'Three colours. Match 3 or more.', misses: 7, rows: [
+    'RRRBBBYYY',
+     'RRBBBYYY',
+    'YYYRRRBBB',
+     'YYRRRBBB',
+    'BBBYYYRRR',
+     'BBYYYRRR',
+  ]},
+  { name: 'Two hooks', note: 'Everything hangs from two yellow hooks.', misses: 6, rows: [
+    '.YY...YY.',
+     '..Y...Y.',
+    '.RRB.GGB.',
+     'RRBBGGBB',
+    'GRRBBGGRR',
+     'GGRBBRRG',
+    '.BBGRRBB.',
+     '.BGGRB..',
+  ]},
+  { name: 'Purple knot', note: 'One purple knot holds the middle.', misses: 6, rows: [
+    'G...P...B',
+     'G..PP..B',
+    'Y.RRYRR.Y',
+     'Y.BRYB.Y',
+    'R.BBGBB.R',
+     'R.GGGG.R',
+    'B.YRRRY.B',
+     'B.YYRY.B',
+  ]},
+  { name: 'Big cat', note: 'Bank shots up the walls reach the ears.', misses: 5, rows: [
+    '.R.....R.',
+     'RR....RR',
+    '.BBGGGBB.',
+     'BYYGGYYB',
+    '.BYGPGYB.',
+     'GBBPPBBG',
+    '.GBBBBBG.',
+     '.GGBBGG.',
+    '...BYB...',
+  ]},
+];
+const COLS_E = 9, MAXROWS = 14, DANGER = 12; // a coin at row >= DANGER (after descents) loses
+const S = { st: 'menu', lv: 0, grid: [], r: 20, left: 0, top0: 60, desc: 0, misses: 0, shots: 0, cur: -1, nxt: -1,
+  aim: null, ball: null, anims: [], falls: [], face: 'wait', faceT: 0, swat: 0, rand: Math.random, endT: 0 };
+const ctx = CP.ctx;
+
+function colsOf(row) { return row % 2 ? COLS_E - 1 : COLS_E; }
+function rowH() { return S.r * Math.sqrt(3); }
+function originY() { return S.top0 + S.desc * rowH(); }
+function cellXY(row, c) { return { x: S.left + S.r + c * 2 * S.r + (row % 2 ? S.r : 0), y: originY() + S.r + row * rowH() }; }
+function valid(row, c) { return row >= 0 && row < MAXROWS && c >= 0 && c < colsOf(row); }
+function at(row, c) { return valid(row, c) ? S.grid[row][c] : -1; }
+function nbrs(row, c) {
+  const o = row % 2 ? [[0, -1], [0, 1], [-1, 0], [-1, 1], [1, 0], [1, 1]] : [[0, -1], [0, 1], [-1, -1], [-1, 0], [1, -1], [1, 0]];
+  const out = [];
+  for (const [dr, dc] of o) if (valid(row + dr, c + dc)) out.push([row + dr, c + dc]);
+  return out;
+}
+
+function layout() {
+  const W = CP.W, H = CP.H;
+  S.top0 = 58;
+  const shooterArea = 150;
+  S.r = Math.max(10, Math.min((W - 8) / 18, (H - S.top0 - shooterArea) / (Math.sqrt(3) * (DANGER - 1) + 2)));
+  S.left = (W - 18 * S.r) / 2;
+}
+CP.onResize = layout;
+
+function colorsPresent() {
+  const set = new Set();
+  for (const row of S.grid) for (const v of row) if (v >= 0) set.add(v);
+  return [...set];
+}
+function pickColor() {
+  const cs = colorsPresent();
+  if (!cs.length) return 0;
+  return cs[Math.floor(S.rand() * cs.length)];
+}
+
+function startLevel(i) {
+  S.lv = i; const L = LEVELS[i];
+  S.grid = [];
+  for (let r = 0; r < MAXROWS; r++) {
+    const row = new Array(colsOf(r)).fill(-1);
+    const str = L.rows[r] || '';
+    for (let c = 0; c < row.length; c++) { const ch = str[c]; if (ch && ch !== '.') row[c] = CP.KEY[ch]; }
+    S.grid.push(row);
+  }
+  S.rand = CP.rng(1234 + i * 77);
+  S.desc = 0; S.misses = 0; S.shots = 0; S.ball = null; S.anims = []; S.falls = []; S.aim = null;
+  S.cur = pickColor(); S.nxt = pickColor();
+  S.face = 'wait'; S.st = 'aim';
+  layout(); hideOv(); hud();
+}
+
+function hud() {
+  const L = LEVELS[S.lv];
+  document.getElementById('hTitle').textContent = S.st === 'menu' ? 'Paw Swat' : (S.lv + 1) + '. ' + L.name;
+  const left = L.misses - S.misses;
+  document.getElementById('hStat').textContent = S.st === 'menu' ? '' : 'Shots ' + S.shots + ' · drop in ' + left;
+}
+
+// ---------- shooting ----------
+function shooterPos() { return { x: CP.W / 2, y: CP.H - 62 }; }
+function nextPos() { return { x: CP.W / 2 - Math.min(110, CP.W * 0.28), y: CP.H - 40 }; }
+function clampAngle(dx, dy) {
+  let a = Math.atan2(dy, dx); // up is negative
+  const minUp = 0.17;
+  if (a > -minUp && a <= Math.PI / 2) a = -minUp;
+  if (a < -Math.PI + minUp || a > Math.PI / 2) a = -Math.PI + minUp;
+  return a;
+}
+function hitsAt(x, y) {
+  if (y - S.r <= originY()) return true;
+  const rh = rowH(); const rr = Math.round((y - originY() - S.r) / rh);
+  for (let row = Math.max(0, rr - 1); row <= Math.min(MAXROWS - 1, rr + 1); row++) {
+    for (let c = 0; c < colsOf(row); c++) {
+      if (S.grid[row][c] < 0) continue;
+      const p = cellXY(row, c);
+      const dx = p.x - x, dy = p.y - y;
+      if (dx * dx + dy * dy < (S.r * 1.7) * (S.r * 1.7)) return true;
+    }
+  }
+  return false;
+}
+function stepBall(b, dist) { // move with wall bounces; return true if collided
+  const n = Math.ceil(dist / (S.r * 0.3));
+  const d = dist / n;
+  const lw = S.left + S.r, rw = S.left + 18 * S.r - S.r;
+  for (let i = 0; i < n; i++) {
+    b.x += b.vx * d; b.y += b.vy * d;
+    if (b.x < lw) { b.x = lw + (lw - b.x); b.vx = -b.vx; b.bounces = (b.bounces || 0) + 1; }
+    if (b.x > rw) { b.x = rw - (b.x - rw); b.vx = -b.vx; b.bounces = (b.bounces || 0) + 1; }
+    if (hitsAt(b.x, b.y)) return true;
+  }
+  return false;
+}
+function aimPath(a) {
+  const p = shooterPos(); const b = { x: p.x, y: p.y - S.r * 1.2, vx: Math.cos(a), vy: Math.sin(a), bounces: 0 };
+  const pts = [];
+  for (let k = 0; k < 120; k++) {
+    if (stepBall(b, S.r * 0.7)) break;
+    if (b.bounces > 2) break;
+    pts.push({ x: b.x, y: b.y });
+  }
+  return pts;
+}
+function fire(a) {
+  const p = shooterPos();
+  S.ball = { x: p.x, y: p.y - S.r * 1.2, vx: Math.cos(a), vy: Math.sin(a), ci: S.cur };
+  S.cur = S.nxt; S.nxt = pickColor();
+  S.st = 'fly'; S.swat = 1; S.shots++;
+  CP.play('land', 1.5, 0.35);
+  hud();
+}
+function attached(row, c) {
+  if (row === 0) return true;
+  return nbrs(row, c).some(([r2, c2]) => S.grid[r2][c2] >= 0);
+}
+function snap(b) {
+  let best = null, bd = 1e9;
+  for (let row = 0; row < MAXROWS; row++) for (let c = 0; c < colsOf(row); c++) {
+    if (S.grid[row][c] >= 0) continue;
+    const p = cellXY(row, c); const d = (p.x - b.x) ** 2 + (p.y - b.y) ** 2;
+    if (d < bd && d < (S.r * 3) ** 2 && attached(row, c)) { bd = d; best = [row, c]; }
+  }
+  if (!best) { // fallback: nearest empty
+    for (let row = 0; row < MAXROWS; row++) for (let c = 0; c < colsOf(row); c++) {
+      if (S.grid[row][c] >= 0) continue;
+      const p = cellXY(row, c); const d = (p.x - b.x) ** 2 + (p.y - b.y) ** 2;
+      if (d < bd) { bd = d; best = [row, c]; }
+    }
+  }
+  return best;
+}
+function group(row, c) {
+  const col = S.grid[row][c]; const seen = new Set([row + ',' + c]); const out = [[row, c, 0]]; const q = [[row, c, 0]];
+  while (q.length) {
+    const [r, cc, d] = q.shift();
+    for (const [r2, c2] of nbrs(r, cc)) {
+      const k = r2 + ',' + c2;
+      if (!seen.has(k) && S.grid[r2][c2] === col) { seen.add(k); q.push([r2, c2, d + 1]); out.push([r2, c2, d + 1]); }
+    }
+  }
+  return out;
+}
+function floaters() {
+  const seen = new Set(); const q = [];
+  for (let c = 0; c < colsOf(0); c++) if (S.grid[0][c] >= 0) { seen.add('0,' + c); q.push([0, c]); }
+  while (q.length) {
+    const [r, c] = q.shift();
+    for (const [r2, c2] of nbrs(r, c)) { const k = r2 + ',' + c2; if (!seen.has(k) && S.grid[r2][c2] >= 0) { seen.add(k); q.push([r2, c2]); } }
+  }
+  const out = [];
+  for (let r = 0; r < MAXROWS; r++) for (let c = 0; c < colsOf(r); c++) if (S.grid[r][c] >= 0 && !seen.has(r + ',' + c)) out.push([r, c]);
+  return out;
+}
+
+function land(b) {
+  const cell = snap(b); S.ball = null;
+  const [row, c] = cell; S.grid[row][c] = b.ci;
+  const g = group(row, c);
+  const p0 = cellXY(row, c);
+  if (g.length >= 3) {
+    CP.payStart(CP.W / 2, Math.min(p0.y + 40, CP.H * 0.55));
+    let i = 0;
+    g.sort((a, b2) => a[2] - b2[2]);
+    for (const [r, cc, d] of g) {
+      const p = cellXY(r, cc);
+      S.anims.push({ kind: 'pop', x: p.x, y: p.y, ci: S.grid[r][cc], t: -i * 0.045, idx: i });
+      S.grid[r][cc] = -1; i++;
+    }
+    const fl = floaters();
+    const popDur = i * 0.045;
+    fl.sort((a, b2) => b2[0] - a[0]);
+    let j = 0;
+    for (const [r, cc] of fl) {
+      const p = cellXY(r, cc);
+      S.falls.push({ x: p.x, y: p.y, ci: S.grid[r][cc], vx: (Math.random() - 0.5) * 120, vy: -60 - Math.random() * 80,
+        t: -popDur - 0.05 - j * 0.012, counted: false, idx: i + j, rot: 0 });
+      S.grid[r][cc] = -1; j++;
+    }
+    S.pendingTotal = i + j; S.counted = 0;
+    S.st = 'resolve';
+    if (i + j >= 10) { S.face = 'wild'; S.faceT = 1.6; }
+  } else {
+    CP.play('land', 1, 0.6);
+    S.misses++;
+    if (S.misses >= LEVELS[S.lv].misses) { S.misses = 0; S.desc++; S.shake = 0.35; CP.play('spill', 0.7, 0.4); }
+    afterResolve();
+  }
+  hud();
+}
+function afterResolve() {
+  if (colorsPresent().length === 0) { S.st = 'won'; S.endT = 0; CP.sparkleStars(CP.W / 2, CP.H * 0.4, 60); CP.play('spill', 1.1, 0.8); saveBest(); setTimeout(() => { if (S.st === 'won') showWin(); }, 900); return; }
+  // lose check
+  for (let r = 0; r < MAXROWS; r++) for (let c = 0; c < colsOf(r); c++)
+    if (S.grid[r][c] >= 0 && r + S.desc >= DANGER) { S.st = 'lost'; S.face = 'wait'; setTimeout(() => { if (S.st === 'lost') showLose(); }, 700); return; }
+  // keep current/next to colours still on the board
+  const cs = colorsPresent();
+  if (!cs.includes(S.cur)) S.cur = pickColor();
+  if (!cs.includes(S.nxt)) S.nxt = pickColor();
+  S.st = 'aim'; hud();
+}
+function countCoin(x, y, ci) {
+  CP.chainTick(S.counted, 0); S.counted++; CP.payAdd(1); CP.burst(x, y, ci, 5, 140);
+  if (S.counted === S.pendingTotal && S.pendingTotal >= 8) { CP.play('spill', 1, 0.7); CP.sparkleStars(CP.pay.x, CP.pay.y, 20 + S.pendingTotal); }
+}
+
+// ---------- update / draw ----------
+let last = performance.now();
+function frame(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  update(dt); draw(dt);
+  requestAnimationFrame(frame);
+}
+function update(dt) {
+  if (S.ball) { if (stepBall(S.ball, S.r * 34 * dt)) land(S.ball); }
+  S.swat = Math.max(0, S.swat - dt * 4);
+  if (S.faceT > 0) { S.faceT -= dt; if (S.faceT <= 0) S.face = 'wait'; }
+  if (S.shake > 0) S.shake -= dt;
+  for (let i = S.anims.length - 1; i >= 0; i--) {
+    const a = S.anims[i]; const was = a.t; a.t += dt;
+    if (was < 0 && a.t >= 0) countCoin(a.x, a.y, a.ci);
+    if (a.t > 0.25) S.anims.splice(i, 1);
+  }
+  for (let i = S.falls.length - 1; i >= 0; i--) {
+    const f = S.falls[i]; f.t += dt;
+    if (f.t < 0) continue;
+    f.vy += 1400 * dt; f.x += f.vx * dt; f.y += f.vy * dt; f.rot += dt * 6;
+    if (!f.counted && f.y > CP.H - 120) { f.counted = true; countCoin(f.x, CP.H - 120, f.ci); }
+    if (f.y > CP.H + 40) S.falls.splice(i, 1);
+  }
+  if (S.st === 'resolve' && S.anims.length === 0 && S.falls.length === 0) afterResolve();
+  CP.updParts(dt);
+}
+function drawBG() {
+  const W = CP.W, H = CP.H;
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, '#3b2752'); g.addColorStop(1, '#1f1530');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  // play area frame
+  ctx.fillStyle = 'rgba(255,255,255,0.04)';
+  ctx.fillRect(S.left, S.top0, 18 * S.r, H - S.top0);
+  // ceiling plate (descends)
+  const oy = originY();
+  const pg = ctx.createLinearGradient(0, S.top0, 0, oy + 6);
+  pg.addColorStop(0, '#6b4a2b'); pg.addColorStop(1, '#8a6238');
+  ctx.fillStyle = pg; ctx.fillRect(S.left - 4, S.top0 - 6, 18 * S.r + 8, oy - S.top0 + 6);
+  ctx.fillStyle = '#4a3019'; ctx.fillRect(S.left - 4, oy - 2, 18 * S.r + 8, 4);
+  // danger line
+  const dy = S.top0 + S.r + (DANGER - 0.5) * rowH();
+  ctx.setLineDash([8, 8]); ctx.strokeStyle = 'rgba(255,120,120,0.55)'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(S.left, dy); ctx.lineTo(S.left + 18 * S.r, dy); ctx.stroke(); ctx.setLineDash([]);
+}
+function draw(dt) {
+  const W = CP.W, H = CP.H;
+  ctx.save();
+  if (S.shake > 0) ctx.translate((Math.random() - 0.5) * 8, (Math.random() - 0.5) * 4);
+  drawBG();
+  if (S.st !== 'menu') {
+    for (let r = 0; r < MAXROWS; r++) for (let c = 0; c < colsOf(r); c++) {
+      const v = S.grid[r][c]; if (v < 0) continue;
+      const p = cellXY(r, c); CP.coin(v, p.x, p.y, S.r * 0.97);
+    }
+    for (const a of S.anims) {
+      const p = cellXY(0, 0);
+      if (a.t < 0) CP.coin(a.ci, a.x, a.y, S.r * 0.97);
+      else CP.coin(a.ci, a.x, a.y, S.r * 0.97, 1 - a.t / 0.25, 1 + a.t * 2.5);
+    }
+    for (const f of S.falls) CP.coin(f.ci, f.x, f.y, S.r * 0.97);
+    // aim
+    if (S.st === 'aim' && S.aim !== null) {
+      const pts = aimPath(S.aim);
+      ctx.fillStyle = CP.COLORS[S.cur].light;
+      pts.forEach((p, i) => { if (i % 2 === 0) { ctx.globalAlpha = 0.9 - i / pts.length * 0.5; ctx.beginPath(); ctx.arc(p.x, p.y, Math.max(2, S.r * 0.16), 0, Math.PI * 2); ctx.fill(); } });
+      ctx.globalAlpha = 1;
+    }
+    if (S.ball) CP.coin(S.ball.ci, S.ball.x, S.ball.y, S.r * 0.97);
+    drawShooter();
+  }
+  CP.drawParts();
+  CP.drawPay(dt);
+  ctx.restore();
+}
+function drawShooter() {
+  const sp = shooterPos(), W = CP.W, H = CP.H;
+  const im = CP.IMG[S.face === 'wild' ? 'wild' : S.st === 'won' ? 'sweet' : 'wait'];
+  const hw = Math.min(150, W * 0.36), hh = im && im.width ? hw * im.height / im.width : hw * 0.63;
+  if (im && im.width) ctx.drawImage(im, sp.x - hw / 2, H - hh - 6, hw, hh);
+  // paw beside the head, swings up when firing
+  const paw = CP.IMG.paw;
+  if (paw && paw.width) {
+    const pw = hw * 0.3, ph = pw * paw.height / paw.width;
+    ctx.save(); ctx.translate(sp.x + hw * 0.56, H - 8);
+    ctx.rotate(0.35 - S.swat * 0.9); ctx.drawImage(paw, -pw / 2, -ph - S.swat * 14, pw, ph); ctx.restore();
+  }
+  // current coin
+  if (S.st === 'aim' || S.st === 'fly' || S.st === 'resolve') {
+    if (S.cur >= 0 && S.st !== 'fly') CP.coin(S.cur, sp.x, sp.y - S.r * 1.2, S.r * 1.05);
+    else if (S.cur >= 0) CP.coin(S.cur, sp.x, sp.y - S.r * 1.2, S.r * 1.05, 0.5);
+    const np = nextPos();
+    ctx.fillStyle = 'rgba(255,255,255,0.08)'; ctx.beginPath(); ctx.arc(np.x, np.y, S.r * 1.25, 0, Math.PI * 2); ctx.fill();
+    if (S.nxt >= 0) CP.coin(S.nxt, np.x, np.y, S.r * 0.85);
+    ctx.fillStyle = 'rgba(255,246,230,0.75)'; ctx.font = '700 11px system-ui'; ctx.textAlign = 'center';
+    ctx.fillText('NEXT · tap to swap', np.x, np.y - S.r * 1.45);
+  }
+}
+
+// ---------- input ----------
+let downAt = null;
+CP.cv.addEventListener('pointerdown', e => {
+  CP.unlockAudio();
+  if (S.st !== 'aim') return;
+  const np = nextPos();
+  if (Math.hypot(e.clientX - np.x, e.clientY - np.y) < S.r * 1.8) {
+    const t = S.cur; S.cur = S.nxt; S.nxt = t; CP.play('land', 1.8, 0.3); return;
+  }
+  downAt = { x: e.clientX, y: e.clientY };
+  const sp = shooterPos(); S.aim = clampAngle(e.clientX - sp.x, e.clientY - (sp.y - S.r * 1.2));
+});
+CP.cv.addEventListener('pointermove', e => {
+  if (S.st !== 'aim' || !downAt) return;
+  const sp = shooterPos(); S.aim = clampAngle(e.clientX - sp.x, e.clientY - (sp.y - S.r * 1.2));
+});
+CP.cv.addEventListener('pointerup', e => {
+  if (S.st !== 'aim' || !downAt) { downAt = null; return; }
+  downAt = null;
+  if (e.clientY > shooterPos().y + 10 && Math.abs(e.clientX - shooterPos().x) < 40) { S.aim = null; return; } // cancel by releasing on the cat
+  fire(S.aim); S.aim = null;
+});
+CP.cv.addEventListener('pointercancel', () => { downAt = null; S.aim = null; });
+
+// ---------- overlays ----------
+const ov = document.getElementById('ov');
+function hideOv() { ov.classList.add('hide'); }
+function bestKey(i) { return 'cp84-swat-best-' + i; }
+function saveBest() { const b = +CP.store(bestKey(S.lv)) || 0; if (!b || S.shots < b) CP.store(bestKey(S.lv), String(S.shots)); }
+function showMenu() {
+  S.st = 'menu'; hud();
+  const btns = LEVELS.map((L, i) => {
+    const b = CP.store(bestKey(i));
+    return `<button class="btn" data-l="${i}">${i + 1}. ${L.name}<small>${b ? 'best ' + b + ' shots' : L.note}</small></button>`;
+  }).join('');
+  ov.innerHTML = `<img src="${IMGS.wait}" alt=""><h1>Paw Swat</h1>
+    <p>Drag to aim, let go to swat a coin up. 3 or more of one colour clear, and anything hanging from them drops.</p>
+    <div class="levels">${btns}</div>`;
+  ov.classList.remove('hide');
+  ov.querySelectorAll('[data-l]').forEach(b => b.onclick = () => { CP.unlockAudio(); startLevel(+b.dataset.l); });
+}
+function showWin() {
+  const nx = S.lv + 1 < LEVELS.length;
+  ov.innerHTML = `<img src="${IMGS.sweet}" alt=""><h1>Cleared!</h1><p>${S.shots} shots.</p>
+    ${nx ? '<button class="btn big" id="oNext">Next puzzle</button>' : '<p>That was the last one.</p>'}
+    <button class="btn" id="oAgain">Play again</button><button class="btn" id="oMenu">All puzzles</button>`;
+  ov.classList.remove('hide');
+  if (nx) document.getElementById('oNext').onclick = () => startLevel(S.lv + 1);
+  document.getElementById('oAgain').onclick = () => startLevel(S.lv);
+  document.getElementById('oMenu').onclick = showMenu;
+}
+function showLose() {
+  ov.innerHTML = `<img src="${IMGS.wait}" alt=""><h1>Too low!</h1><p>The wall crossed the red line.</p>
+    <button class="btn big" id="oAgain">Try again</button><button class="btn" id="oMenu">All puzzles</button>`;
+  ov.classList.remove('hide');
+  document.getElementById('oAgain').onclick = () => startLevel(S.lv);
+  document.getElementById('oMenu').onclick = showMenu;
+}
+document.getElementById('bMenu').onclick = showMenu;
+const bMute = document.getElementById('bMute');
+function muteIcon() { bMute.textContent = CP.muted ? '🔇' : '🔊'; }
+bMute.onclick = () => { CP.unlockAudio(); CP.setMuted(!CP.muted); muteIcon(); };
+muteIcon();
+
+// test hook (used by the capture script only)
+// bot helper for the capture script: what would a shot at angle a clear?
+function evalShot(a) {
+  const p = shooterPos(); const b = { x: p.x, y: p.y - S.r * 1.2, vx: Math.cos(a), vy: Math.sin(a), bounces: 0 };
+  let k = 0; while (!stepBall(b, S.r * 0.5) && k < 600) k++;
+  const cell = snap(b); if (!cell) return { n: 0, drop: 0, row: 99 };
+  const [row, c] = cell; S.grid[row][c] = S.cur; const g = group(row, c); let n = g.length, drop = 0;
+  if (n >= 3) { const sv = g.map(([r, cc]) => [r, cc, S.grid[r][cc]]); for (const [r, cc] of g) S.grid[r][cc] = -1; drop = floaters().length; for (const [r, cc, v] of sv) S.grid[r][cc] = v; }
+  S.grid[row][c] = -1; return { n, drop, row, bounces: b.bounces };
+}
+window.__cp84 = { S, startLevel, fire, LEVELS, cellXY, aimPath, evalShot, shooterPos };
+CP.loadImages({ wait: IMGS.wait, sweet: IMGS.sweet, wild: IMGS.wild, paw: IMGS.paw }).then(() => {
+  layout(); showMenu(); requestAnimationFrame(frame);
+});
+</script>
+</body>
+</html>

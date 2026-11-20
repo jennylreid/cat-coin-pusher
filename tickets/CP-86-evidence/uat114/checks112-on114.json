@@ -1,0 +1,60 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp86-mitts\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp113\\release.html",
+ "passed": true,
+ "passedN": 13,
+ "failed": [],
+ "notes": {
+  "timeline": {
+   "titleFrom": [
+    0.017,
+    "cp82title",
+    0.017,
+    "HUG!",
+    0
+   ],
+   "titleTo": [
+    1.233,
+    "cp82title",
+    1.233,
+    "HUG!",
+    0
+   ],
+   "hugFrom": [
+    1.25,
+    "hug",
+    0,
+    null,
+    0
+   ],
+   "hugTo": [
+    10.233,
+    "hug",
+    8.983,
+    null,
+    1
+   ],
+   "wallsFrom": [
+    2.75,
+    "hug",
+    1.5,
+    null,
+    2
+   ],
+   "wallsTo": [
+    8.75,
+    "hug",
+    7.5,
+    null,
+    2
+   ],
+   "end": [
+    11.5,
+    null,
+    -1,
+    null,
+    1
+   ]
+  }
+ }
+}

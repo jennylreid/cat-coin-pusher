@@ -1,0 +1,27 @@
+{
+  "version": 20261119000027,
+  "displayName": "2026.11.19 UAT 116",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "669e875c72ed8c83b0f89e7f140ddb4d4d783de24021f99d2ba67b2770751739",
+  "stagedJSONSHA256": "282ad5e9ff6f1f0f552a5fc8c2efcba89dd40587020258a711069e3654cccb2a",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "2cc19c70e54b1a7743a09cdd06fc6106db333a6d75220f1168d92c78b9841a05",
+  "jsonBytes": 59454491,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.19 UAT 115",
+  "backup": "uat/backups/before-UAT116-20261119000027",
+  "evidence": "tickets/CP-86-evidence/uat116",
+  "checks": [
+    "checks112-on116.json",
+    "checks64-on116.json",
+    "checks88-on116.json",
+    "checks86m.json"
+  ],
+  "authorization": "UAT 116: CP-86 mitts final, E with a longer hold and a quick return, the choice removed (PM, Nov 19, Jenny's words: \"I agree with E, but I want an adjustment... just quickly back to home.\"; PM: \"Change for UAT 116, on UAT 115\"); UAT only"
+}

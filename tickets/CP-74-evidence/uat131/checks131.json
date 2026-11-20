@@ -1,0 +1,165 @@
+{
+ "passed": [
+  "0 build = base + name + rescue block",
+  "1 no Hug: identical to base",
+  "2 walls up/down at the same moments as base",
+  "3 nothing at a side edge at let-go; side drops after <= base",
+  "4 slides, no teleport (max one-frame move < 6 units)",
+  "5 Home / round end mid-Hug clean; no frame errors"
+ ],
+ "failed": [],
+ "info": {
+  "0 build = base + name + rescue block": {
+   "dev": false,
+   "bytes": [
+    2715279,
+    2717545
+   ]
+  },
+  "1 no Hug: identical to base": {
+   "bodies": [
+    81,
+    81
+   ]
+  },
+  "runs": {
+   "base11": {
+    "ok": true,
+    "on": 165,
+    "off": 526,
+    "edge": 12,
+    "after3s": 0,
+    "maxMove": 5.91,
+    "errs": 0,
+    "stats": null
+   },
+   "base22": {
+    "ok": true,
+    "on": 165,
+    "off": 526,
+    "edge": 5,
+    "after3s": 0,
+    "maxMove": 2.67,
+    "errs": 0,
+    "stats": null
+   },
+   "base33": {
+    "ok": true,
+    "on": 165,
+    "off": 526,
+    "edge": 4,
+    "after3s": 0,
+    "maxMove": 2.34,
+    "errs": 0,
+    "stats": null
+   },
+   "build11": {
+    "ok": true,
+    "on": 165,
+    "off": 526,
+    "edge": 0,
+    "after3s": 0,
+    "maxMove": 5.91,
+    "errs": 0,
+    "stats": {
+     "moved": 27,
+     "ticks": 440,
+     "maxIn": 30.022929668426514
+    }
+   },
+   "build22": {
+    "ok": true,
+    "on": 165,
+    "off": 526,
+    "edge": 0,
+    "after3s": 0,
+    "maxMove": 2.87,
+    "errs": 0,
+    "stats": {
+     "moved": 28,
+     "ticks": 440,
+     "maxIn": 60.2595911026001
+    }
+   },
+   "build33": {
+    "ok": true,
+    "on": 165,
+    "off": 526,
+    "edge": 0,
+    "after3s": 0,
+    "maxMove": 2.34,
+    "errs": 0,
+    "stats": {
+     "moved": 25,
+     "ticks": 440,
+     "maxIn": 29.950510025024414
+    }
+   }
+  },
+  "2 walls up/down at the same moments as base": [
+   [
+    165,
+    526
+   ],
+   [
+    165,
+    526
+   ],
+   [
+    165,
+    526
+   ]
+  ],
+  "3 nothing at a side edge at let-go; side drops after <= base": [
+   {
+    "base": 12,
+    "build": 0,
+    "dropsBase": 0,
+    "dropsBuild": 0
+   },
+   {
+    "base": 5,
+    "build": 0,
+    "dropsBase": 0,
+    "dropsBuild": 0
+   },
+   {
+    "base": 4,
+    "build": 0,
+    "dropsBase": 0,
+    "dropsBuild": 0
+   }
+  ],
+  "4 slides, no teleport (max one-frame move < 6 units)": [
+   [
+    5.91,
+    5.91
+   ],
+   [
+    2.67,
+    2.87
+   ],
+   [
+    2.34,
+    2.34
+   ]
+  ],
+  "5 Home / round end mid-Hug clean; no frame errors": [
+   {
+    "how": "wildExit()",
+    "px": true,
+    "cols": 0,
+    "errs": 0
+   },
+   {
+    "how": "WILD.left=0",
+    "px": true,
+    "cols": 0,
+    "errs": 0
+   }
+  ]
+ },
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp132-hug\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp130\\release.html",
+ "passed_all": true
+}

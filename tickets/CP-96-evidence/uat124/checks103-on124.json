@@ -1,0 +1,221 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp124\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp123\\release.html",
+ "passed": true,
+ "passedN": 8,
+ "failed": [],
+ "notes": {
+  "boards": [
+   {
+    "k": "tower",
+    "on": true,
+    "coins": 60,
+    "left": 149,
+    "def": {
+     "coins": 60,
+     "secs": 150
+    },
+    "items": [
+     "tuna"
+    ],
+    "stacks": 1,
+    "goalStacks": 1,
+    "red": 0,
+    "msg": "Topple the tower",
+    "plain": 68,
+    "txt": [
+     "LAB · Tall tower",
+     "Topple the tower   0 / 1"
+    ],
+    "win": {
+     "w0": {
+      "pending": true,
+      "got": 1,
+      "phase": "play"
+     },
+     "w1": "play",
+     "w2": {
+      "phase": "end",
+      "win": true
+     }
+    }
+   },
+   {
+    "k": "edge",
+    "on": true,
+    "coins": 60,
+    "left": 149,
+    "def": {
+     "coins": 60,
+     "secs": 150
+    },
+    "items": [
+     "shrimp",
+     "tuna",
+     "cheese"
+    ],
+    "stacks": 0,
+    "goalStacks": 0,
+    "red": 0,
+    "msg": "Get all 3",
+    "plain": 63,
+    "txt": [
+     "LAB · Cliff edge",
+     "Get all 3"
+    ],
+    "win": {
+     "w0": {
+      "pending": true,
+      "got": 0,
+      "phase": "play"
+     },
+     "w1": "play",
+     "w2": {
+      "phase": "end",
+      "win": true
+     }
+    }
+   },
+   {
+    "k": "pins",
+    "on": true,
+    "coins": 60,
+    "left": 149,
+    "def": {
+     "coins": 60,
+     "secs": 150
+    },
+    "items": [],
+    "stacks": 6,
+    "goalStacks": 6,
+    "red": 0,
+    "msg": "Knock down all 6 pins",
+    "plain": 83,
+    "txt": [
+     "LAB · Bowling pins",
+     "Knock down all 6 pins   0 / 6"
+    ],
+    "win": {
+     "w0": {
+      "pending": true,
+      "got": 6,
+      "phase": "play"
+     },
+     "w1": "play",
+     "w2": {
+      "phase": "end",
+      "win": true
+     }
+    }
+   },
+   {
+    "k": "wall",
+    "on": true,
+    "coins": 70,
+    "left": 149,
+    "def": {
+     "coins": 70,
+     "secs": 150
+    },
+    "items": [
+     "yarn",
+     "bell",
+     "duck"
+    ],
+    "stacks": 5,
+    "goalStacks": 0,
+    "red": 0,
+    "msg": "Behind the wall",
+    "plain": 81,
+    "txt": [
+     "LAB · Break the wall",
+     "Behind the wall"
+    ],
+    "win": {
+     "w0": {
+      "pending": true,
+      "got": 0,
+      "phase": "play"
+     },
+     "w1": "play",
+     "w2": {
+      "phase": "end",
+      "win": true
+     }
+    }
+   },
+   {
+    "k": "mice",
+    "on": true,
+    "coins": 70,
+    "left": 149,
+    "def": {
+     "coins": 70,
+     "secs": 150
+    },
+    "items": [
+     "mouse",
+     "mouse",
+     "mouse",
+     "mouse",
+     "mouse",
+     "mouse",
+     "mouse"
+    ],
+    "stacks": 2,
+    "goalStacks": 0,
+    "red": 0,
+    "msg": "Get 5 mice",
+    "plain": 63,
+    "txt": [
+     "LAB · Mouse hunt",
+     "Get 5 mice   0 / 5"
+    ],
+    "win": {
+     "w0": {
+      "pending": true,
+      "got": 5,
+      "phase": "play"
+     },
+     "w1": "play",
+     "w2": {
+      "phase": "end",
+      "win": true
+     }
+    }
+   },
+   {
+    "k": "red",
+    "on": true,
+    "coins": 60,
+    "left": 149,
+    "def": {
+     "coins": 60,
+     "secs": 150
+    },
+    "items": [],
+    "stacks": 0,
+    "goalStacks": 0,
+    "red": 14,
+    "msg": "Collect 8 red coins",
+    "plain": 53,
+    "txt": [
+     "LAB · Red coins",
+     "Collect 8 red coins   0 / 8"
+    ],
+    "win": {
+     "w0": {
+      "pending": true,
+      "got": 8,
+      "phase": "play"
+     },
+     "w1": "play",
+     "w2": {
+      "phase": "end",
+      "win": true
+     }
+    }
+   }
+  ]
+ }
+}

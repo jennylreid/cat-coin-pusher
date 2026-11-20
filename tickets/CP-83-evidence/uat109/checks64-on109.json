@@ -1,0 +1,398 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp109-lab\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\ref78-cp86-base85.html",
+ "passed": true,
+ "passedN": 10,
+ "failed": [],
+ "notes": {
+  "wheel": {
+   "before": [
+    "QUAKE COIN 21.1%",
+    "DANCE AGAIN 16.8%",
+    "YAWN 12.6%",
+    "PRIZE YOU NEED 15.8%",
+    "PRIZE YOU NEED 15.8%",
+    "JACKPOT 25 5.3%",
+    "YAWN 12.6%"
+   ],
+   "after": [
+    "QUAKE COIN 22.0% (drawn 21.84%)",
+    "DANCE AGAIN 17.0% (drawn 16.83%)",
+    "YAWN 13.0% (drawn 13.21%)",
+    "PRIZE YOU NEED 17.0% (drawn 17.12%)",
+    "PRIZE YOU NEED 17.0% (drawn 17.02%)",
+    "JACKPOT 2.0% (drawn 1.99%)",
+    "YAWN 12.0% (drawn 11.98%)"
+   ]
+  },
+  "wheelRuns": [
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 1,
+    "fromWheel": 9.32,
+    "leftAtDance": 50,
+    "leftAtStart": 50,
+    "started": 0.016666666666666666,
+    "ended": 8.900000000000022,
+    "dur": 8.88,
+    "leftMin": 50,
+    "leftMax": 50,
+    "maxPieces": 123,
+    "maxAwards": 6,
+    "stats": {
+     "n": 48,
+     "prizes": 42,
+     "rain": 4,
+     "quakes": 2,
+     "skipped": 5,
+     "peak": 123,
+     "t": 8.92,
+     "why": "done"
+    },
+    "leftAfter": 50,
+    "gotBefore": 0,
+    "gotAfter": 4,
+    "phaseAfter": "play",
+    "win": false,
+    "timerRunsAfter": 2,
+    "periodAfter": 3.2,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 60,
+    "seed": 2,
+    "fromWheel": 9.32,
+    "leftAtDance": 50,
+    "leftAtStart": 50,
+    "started": 0.016666666666666666,
+    "ended": 8.399999999999997,
+    "dur": 8.38,
+    "leftMin": 50,
+    "leftMax": 50,
+    "maxPieces": 122,
+    "maxAwards": 4,
+    "stats": {
+     "n": 44,
+     "prizes": 37,
+     "rain": 5,
+     "quakes": 2,
+     "skipped": 9,
+     "peak": 123,
+     "t": 8.42,
+     "why": "done"
+    },
+    "leftAfter": 50,
+    "gotBefore": 0,
+    "gotAfter": 4,
+    "phaseAfter": "play",
+    "win": false,
+    "timerRunsAfter": 2,
+    "periodAfter": 3.2,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 1,
+    "fromWheel": 9.4,
+    "leftAtDance": 50,
+    "leftAtStart": 50,
+    "started": 0.03333333333333333,
+    "ended": 8.899999999999979,
+    "dur": 8.87,
+    "leftMin": 50,
+    "leftMax": 50,
+    "maxPieces": 120,
+    "maxAwards": 3,
+    "stats": {
+     "n": 42,
+     "prizes": 36,
+     "rain": 4,
+     "quakes": 2,
+     "skipped": 11,
+     "peak": 120,
+     "t": 8.93,
+     "why": "done"
+    },
+    "leftAfter": 50,
+    "gotBefore": 0,
+    "gotAfter": 4,
+    "phaseAfter": "play",
+    "win": false,
+    "timerRunsAfter": 2,
+    "periodAfter": 3.2,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "fps": 30,
+    "seed": 2,
+    "fromWheel": 9.4,
+    "leftAtDance": 50,
+    "leftAtStart": 50,
+    "started": 0.03333333333333333,
+    "ended": 8.666666666666647,
+    "dur": 8.63,
+    "leftMin": 50,
+    "leftMax": 50,
+    "maxPieces": 124,
+    "maxAwards": 5,
+    "stats": {
+     "n": 43,
+     "prizes": 36,
+     "rain": 5,
+     "quakes": 2,
+     "skipped": 10,
+     "peak": 125,
+     "t": 8.7,
+     "why": "done"
+    },
+    "leftAfter": 50,
+    "gotBefore": 0,
+    "gotAfter": 3,
+    "phaseAfter": "play",
+    "win": false,
+    "timerRunsAfter": 2,
+    "periodAfter": 3.2,
+    "errs": 0
+   },
+   {
+    "level": 8,
+    "fps": 60,
+    "seed": 1,
+    "fromWheel": 9.32,
+    "leftAtDance": 60,
+    "leftAtStart": 60,
+    "started": 0.016666666666666666,
+    "ended": 9.05000000000003,
+    "dur": 9.03,
+    "leftMin": 60.00000000000057,
+    "leftMax": 60.00000000000057,
+    "maxPieces": 133,
+    "maxAwards": 8,
+    "stats": {
+     "n": 48,
+     "prizes": 39,
+     "rain": 7,
+     "quakes": 2,
+     "skipped": 4,
+     "peak": 134,
+     "t": 9.07,
+     "why": "done"
+    },
+    "leftAfter": 60,
+    "gotBefore": 0,
+    "gotAfter": 5,
+    "phaseAfter": "play",
+    "win": false,
+    "timerRunsAfter": 2,
+    "periodAfter": 3.2,
+    "errs": 0
+   },
+   {
+    "level": 8,
+    "fps": 60,
+    "seed": 2,
+    "fromWheel": 9.32,
+    "leftAtDance": 60,
+    "leftAtStart": 60,
+    "started": 0.016666666666666666,
+    "ended": 8.883333333333354,
+    "dur": 8.87,
+    "leftMin": 60.00000000000057,
+    "leftMax": 60.00000000000057,
+    "maxPieces": 134,
+    "maxAwards": 8,
+    "stats": {
+     "n": 48,
+     "prizes": 41,
+     "rain": 5,
+     "quakes": 2,
+     "skipped": 5,
+     "peak": 135,
+     "t": 8.9,
+     "why": "done"
+    },
+    "leftAfter": 60,
+    "gotBefore": 0,
+    "gotAfter": 5,
+    "phaseAfter": "play",
+    "win": false,
+    "timerRunsAfter": 2,
+    "periodAfter": 3.2,
+    "errs": 0
+   },
+   {
+    "level": 8,
+    "fps": 30,
+    "seed": 1,
+    "fromWheel": 9.4,
+    "leftAtDance": 60,
+    "leftAtStart": 60,
+    "started": 0.03333333333333333,
+    "ended": 8.39999999999998,
+    "dur": 8.37,
+    "leftMin": 60.00000000000057,
+    "leftMax": 60.00000000000057,
+    "maxPieces": 131,
+    "maxAwards": 6,
+    "stats": {
+     "n": 48,
+     "prizes": 41,
+     "rain": 5,
+     "quakes": 2,
+     "skipped": 0,
+     "peak": 127,
+     "t": 8.43,
+     "why": "done"
+    },
+    "leftAfter": 60,
+    "gotBefore": 0,
+    "gotAfter": 4,
+    "phaseAfter": "play",
+    "win": false,
+    "timerRunsAfter": 2,
+    "periodAfter": 3.2,
+    "errs": 0
+   },
+   {
+    "level": 8,
+    "fps": 30,
+    "seed": 2,
+    "fromWheel": 9.4,
+    "leftAtDance": 60,
+    "leftAtStart": 60,
+    "started": 0.03333333333333333,
+    "ended": 9.166666666666645,
+    "dur": 9.13,
+    "leftMin": 60.00000000000057,
+    "leftMax": 60.00000000000057,
+    "maxPieces": 135,
+    "maxAwards": 6,
+    "stats": {
+     "n": 46,
+     "prizes": 39,
+     "rain": 5,
+     "quakes": 2,
+     "skipped": 7,
+     "peak": 135,
+     "t": 9.2,
+     "why": "done"
+    },
+    "leftAfter": 60,
+    "gotBefore": 0,
+    "gotAfter": 5,
+    "phaseAfter": "play",
+    "win": false,
+    "timerRunsAfter": 2,
+    "periodAfter": 3.2,
+    "errs": 0
+   }
+  ],
+  "hostile": [
+   {
+    "fps": 60,
+    "cascadeS": 8.43,
+    "lostDuring": false,
+    "stats": {
+     "n": 48,
+     "prizes": 43,
+     "rain": 3,
+     "quakes": 2,
+     "skipped": 1,
+     "peak": 105,
+     "t": 8.45,
+     "why": "done"
+    },
+    "atEnd": {
+     "left": 0.01,
+     "phase": "play"
+    },
+    "then": {
+     "phase": "end",
+     "reason": "time"
+    },
+    "errs": 0
+   },
+   {
+    "fps": 30,
+    "cascadeS": 9.2,
+    "lostDuring": false,
+    "stats": {
+     "n": 48,
+     "prizes": 43,
+     "rain": 3,
+     "quakes": 2,
+     "skipped": 5,
+     "peak": 106,
+     "t": 9.23,
+     "why": "done"
+    },
+    "atEnd": {
+     "left": 0.01,
+     "phase": "play"
+    },
+    "then": {
+     "phase": "end",
+     "reason": "time"
+    },
+    "errs": 0
+   },
+   {
+    "fps": 20,
+    "cascadeS": 8.4,
+    "lostDuring": false,
+    "stats": {
+     "n": 43,
+     "prizes": 37,
+     "rain": 4,
+     "quakes": 2,
+     "skipped": 10,
+     "peak": 111,
+     "t": 8.45,
+     "why": "done"
+    },
+    "atEnd": {
+     "left": 0.01,
+     "phase": "play"
+    },
+    "then": {
+     "phase": "end",
+     "reason": "time"
+    },
+    "errs": 0
+   }
+  ],
+  "backToBack": {
+   "jackpots": 12,
+   "maxPieces": 157,
+   "why": [
+    "done"
+   ],
+   "phase": "play",
+   "errs": 0
+  },
+  "level8": {
+   "piecesBefore": 92,
+   "peakDuring": 131,
+   "tickMsNormal": 5.97,
+   "tickMsJackpotMean": 9.67,
+   "tickMsJackpotWorstSecond": 12.13,
+   "uat85SameSecondsMean": 7.38,
+   "uat85WorstSecond": 9.52,
+   "perSecond": [
+    7.17,
+    6.64,
+    8.98,
+    9.17,
+    9.16,
+    11.39,
+    11.35,
+    11,
+    12.13
+   ]
+  }
+ }
+}

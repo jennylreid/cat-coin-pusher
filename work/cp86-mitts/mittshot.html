@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- CP-86 mitts: the full runtime (?dir=) in a WxH frame, Siamese board, Sonic meow with mitt choice ?pick=; held still at the
+     times in ?at= (comma list, seconds into the action), asking the runner for a screenshot (window.__shot) at each. -->
+<html><head><meta charset="utf-8"><title>mitt shots</title><style>body{margin:0}</style></head><body>
+<iframe id="g" style="border:0;display:block"></iframe><pre id="result">PENDING</pre>
+<script>
+const q=new URLSearchParams(location.search),dir=q.get('dir'),pick=q.get('pick')||'',W=+q.get('w')||412,H=+q.get('h')||915,at=(q.get('at')||'').split(',').filter(Boolean).map(Number),
+ g=document.getElementById('g'),out=document.getElementById('result');g.style.width=W+'px';g.style.height=H+'px';
+const res={dir,pick,W,H,shots:{},errors:[],probe:null};const done=()=>{out.textContent=JSON.stringify(res);};const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+window.__shot=null;const shot=async n=>{window.__shot=n;for(let i=0;i<60&&window.__shot;i++)await sleep(100);};
+if(pick)try{localStorage.setItem('catpusher.uat.cp86mitts.v1',pick);}catch(e){}
+g.src=dir+'/index.html';
+g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));
+ const iv=setInterval(async()=>{try{if(!w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0"))return;clearInterval(iv);
+  w.eval("if(!PG)pgInit();PGU.title.t=9;pgTitleDone();for(const c of PG_CATS)PG.open[c]=true;PG.lv.passed=Math.max(2,PG_SWITCH_LEVEL);PG.lv.sel=3;wildReset();pgPlay('siamese');if(WILD.phase==='end')wildReset();wildStartCountdown();");
+  for(let i=0;i<60&&w.eval("WILD.phase")!=='play';i++)await sleep(250);await sleep(2500);
+  res.probe=JSON.parse(w.eval("JSON.stringify({rest:[cp58Rest(-1),cp58Rest(1)],wait:[mittRest(-1),mittRest(1)],VIEW:{y:VIEW.y,zy:VIEW.zy},restPose:isRestPose(),pick:typeof CP86M==='object'?CP86M.get():null})"));
+  w.eval("WILD.left=60;WILD.nextBonus=999;PG.powers.siamese=1;{const f=wildFinish;wildFinish=function(){if(PGPX)return;return f.apply(this,arguments);};}");
+  if(q.get('panel')){res.panel={before:w.eval("CP86M.get()")};w.eval("S.dev=true;openCredits();");await sleep(400);
+   res.panel.found=JSON.parse(w.eval("JSON.stringify((()=>{const e=panel.querySelector('#cp70-engineer');if(e)e.open=true;const b=panel.querySelector('#cp86-mitts');if(b)b.scrollIntoView();return b?[...b.querySelectorAll('button')].map(x=>x.textContent):null;})())"));
+   await sleep(300);await shot('panel-before');
+   w.eval("panel.querySelector('#cp86-mitts [data-m=B]').click()");await sleep(300);
+   res.panel.after=JSON.parse(w.eval("JSON.stringify({pick:CP86M.get(),saved:localStorage.getItem(CP86M.KEY),labels:[...panel.querySelectorAll('#cp86-mitts button')].map(x=>x.textContent)})"));await shot('panel-B');
+   w.eval("panel.querySelector('#cp86-mitts [data-m=head]').click()");res.panel.back=w.eval("CP86M.get()");done();return;}
+  if(q.get('yawn')){w.eval("cp58StartYawn()");for(let i=0;i<400&&+w.eval("W2_YAWN?W2_YAWN.t:0")<+q.get('yawn');i++)await sleep(20);
+   w.eval("globalThis.__frz=true;{const u=update;update=function(){if(__frz)return;return u.apply(this,arguments);};const st=step;step=function(){if(__frz)return;return st.apply(this,arguments);};}");
+   await sleep(300);res.yawn=JSON.parse(w.eval("JSON.stringify({t:W2_YAWN.t,m:[cp58Mitt(-1,W2_YAWN.t),cp58Mitt(1,W2_YAWN.t)],rest:isRestPose()})"));await shot('yawn-t'+q.get('yawn'));done();return;}
+  const B=JSON.parse(w.eval('JSON.stringify(pgpButton())'));w.eval('powerTap({x:'+(B.x+B.w/2)+',y:'+(B.y+B.h/2)+'})');
+  for(const T of at){for(let i=0;i<400&&+w.eval("PGPX&&PGPX.id==='sonic'?PGPX.t:0")<T;i++)await sleep(20);
+   w.eval("globalThis.__frz=true;if(!globalThis.__frzOn){globalThis.__frzOn=1;const u=update;update=function(){if(__frz)return;return u.apply(this,arguments);};const st=step;step=function(){if(__frz)return;return st.apply(this,arguments);};}");
+   await sleep(300);const n=(pick||'base')+'-t'+T;res.shots[n]=JSON.parse(w.eval("JSON.stringify({t:PGPX&&PGPX.t,face:cp86K(),off:typeof cp86MittOff==='function'?[cp86MittOff(-1,'wait',__cp86MittRest(-1)),cp86MittOff(1,'wait',__cp86MittRest(1)),cp86MWeight(),cp86MPick()]:null})"));
+   await shot(n);w.eval("__frz=false");}
+  done();}catch(e){res.errors.push(String(e&&e.stack||e));done();}},250);};
+</script></body></html>

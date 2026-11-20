@@ -1,0 +1,179 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp129\\boot129",
+ "sizes": {
+  "412x915": {
+   "long": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 553,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 619,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 665,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 348,
+      "r": 25
+     },
+     "list": null,
+     "dev": true,
+     "level": 40
+    },
+    "lvPt": {
+     "x": 206,
+     "y": 656.11,
+     "hit": "c"
+    },
+    "lv": {
+     "list": "flex",
+     "mode": "levels",
+     "rows": 10,
+     "goals": 0,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    },
+    "goalPt": {
+     "x": 206,
+     "y": 703.49,
+     "hit": "c"
+    },
+    "goal": {
+     "list": "flex",
+     "mode": "goals",
+     "rows": 0,
+     "goals": 12,
+     "screen": "main",
+     "end": false,
+     "lab": false
+    }
+   },
+   "touch-touch": {
+    "before": {
+     "screen": "main",
+     "phase": "card",
+     "wild": true,
+     "end": false,
+     "ab": "A",
+     "abOn": true,
+     "homeOff": false,
+     "oldBoards": false,
+     "win": false,
+     "pick": false,
+     "modes": false,
+     "door": false,
+     "rules": false,
+     "labhEl": null,
+     "labhActive": false,
+     "free": true,
+     "play": {
+      "x": 118.66666666666667,
+      "y": 553,
+      "w": 162.66666666666666,
+      "h": 52
+     },
+     "lv": {
+      "x": 112,
+      "y": 619,
+      "w": 176,
+      "h": 36
+     },
+     "goal": {
+      "x": 112,
+      "y": 665,
+      "w": 176,
+      "h": 36
+     },
+     "daily": {
+      "x": 364,
+      "y": 348,
+      "r": 25
+     },
+     "list": "none",
+     "dev": true,
+     "level": 40
+    },
+    "lv": {
+     "list": "none",
+     "mode": "levels",
+     "screen": "board",
+     "end": true,
+     "endKey": "L9",
+     "lab": false,
+     "daily": false,
+     "clicks": [
+      "BUTTON btn:L9"
+     ],
+     "backHome": "main"
+    },
+    "goal": {
+     "list": "none",
+     "mode": "goals",
+     "screen": "board",
+     "end": false,
+     "endKey": null,
+     "lab": true,
+     "daily": false,
+     "clicks": [
+      "BUTTON btn:gate"
+     ],
+     "backHome": "main"
+    },
+    "daily": {
+     "list": "none",
+     "mode": "goals",
+     "screen": "main",
+     "end": false,
+     "endKey": null,
+     "lab": false,
+     "daily": true,
+     "clicks": [
+      "DIV"
+     ],
+     "row": {
+      "tapped": "‹ Puzzles",
+      "list": "none",
+      "screen": "main",
+      "end": false,
+      "endKey": null,
+      "lab": false,
+      "frame": false,
+      "ate": null
+     },
+     "backHome": "main"
+    }
+   }
+  }
+ },
+ "errors": [],
+ "t1": "main",
+ "t2": "main"
+}

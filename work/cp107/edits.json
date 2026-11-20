@@ -1,0 +1,12 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp106-hug\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.18 UAT 106';",
+   "const BUILD = '2026.11.18 UAT 107';"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp87-puzzles.js"
+ ]
+}

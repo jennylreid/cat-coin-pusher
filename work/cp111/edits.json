@@ -1,0 +1,16 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp110-hug\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 110';",
+   "const BUILD = '2026.11.19 UAT 111';"
+  ],
+  [
+   "else{laserDotGlyph(x0+12,y,6,1);ctx.font='bold 11px system-ui';ctx.fillStyle='#ffc8c8';ctx.fillText(WILD.chases?'LASER \u00d7'+WILD.chaseKnocked:'LASER COIN SOON',x0+24,y+1,100);}",
+   "else{const cp88=typeof cp88Shown==='function'&&cp88Shown();if(!cp88)laserDotGlyph(x0+12,y,6,1);ctx.font='bold 11px system-ui';ctx.fillStyle='#ffc8c8';ctx.fillText(WILD.chases?'LASER \u00d7'+WILD.chaseKnocked:'LASER COIN SOON',cp88?x0+50:x0+24,y+1,cp88?74:100);} /* CP-88 */"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp88-bank.js"
+ ]
+}

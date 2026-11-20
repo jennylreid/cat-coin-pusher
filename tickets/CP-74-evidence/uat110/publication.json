@@ -1,0 +1,28 @@
+﻿{
+    "version":  20261119000021,
+    "displayName":  "2026.11.19 UAT 110",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "5f9b1d6259a45ff18ee5c97288d3ff968779ca2a8bb84f15232664e32f68fd58",
+    "stagedJSONSHA256":  "8f00e74a47e91e12049170aa99a115e76ac375e839652c2809a14a616830b926",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "4c881a8aa5162a1ac64a681e8835f0304bcdbac9b86c349dfc8c09197c92e15e",
+    "jsonBytes":  59433875,
+    "runtimeFiles":  78,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.18 UAT 109",
+    "backup":  "uat/backups/before-UAT110-20261119000021",
+    "evidence":  "tickets/CP-74-evidence/uat110",
+    "checks":  [
+                   "checks110.json",
+                   "checks64-on110.json"
+               ],
+    "authorization":  "UAT 110: CP-74 Hug try 8 (PM, Nov 19, with Jenny\u0027s delegated approval: \"Try 8: approved for UAT\"; Jenny: \"I think you can approve Hug if you want to... if you think it looks good, go ahead and push it to UAT\"); PM: \"UAT 109 is out ... Build UAT 110 (try 8) on it now\"; UAT only",
+    "localPublication":  "verified"
+}

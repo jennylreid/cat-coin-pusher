@@ -1,0 +1,507 @@
+{
+ "base": "2026.11.19 UAT 117",
+ "jsonBytes": 59884525,
+ "runtimeBytes": 44911267,
+ "unused": [
+  "img/art/uat18-soft-paw.png",
+  "img/art/head-waiting.webp"
+ ],
+ "png": [
+  {
+   "file": "img/art/uat18-coin-faces.png",
+   "from": 2559813,
+   "to": 2377134,
+   "pixelIdentical": true,
+   "sha256": "b6fa6f7af15667dbd8112900c643462c64e08acd9702584da4180b6a52efe870"
+  },
+  {
+   "file": "img/art/uat18-small-paw.png",
+   "from": 2527075,
+   "to": 2344808,
+   "pixelIdentical": true,
+   "sha256": "9d41d9753e9e232ad0491bb21745f2e65a0319850f547d4d8546161f2e198f50"
+  },
+  {
+   "file": "img/art/water-scene-v1.png",
+   "from": 2076479,
+   "to": 1937072,
+   "pixelIdentical": true,
+   "sha256": "f4896f717db55c0ff816b3702db0ce1ee65c947d32442740ee1258aed8818011"
+  },
+  {
+   "file": "img/art/cheese-scene-v1.png",
+   "from": 1945136,
+   "to": 1830390,
+   "pixelIdentical": true,
+   "sha256": "7b0b1d051ec47a3d0ff01471c6bdf8fc53a730f9e0a5c2cc10f9ef99c1196c44"
+  },
+  {
+   "file": "img/art/collections-satchel-v1.png",
+   "from": 1943419,
+   "to": 1846011,
+   "pixelIdentical": true,
+   "sha256": "49693ddb47a5fddf46a875ec01a8591ecd30773ab97f5a15c5d184e698d2e045"
+  },
+  {
+   "file": "img/art/tuna.png",
+   "from": 1867722,
+   "to": 1695661,
+   "pixelIdentical": true,
+   "sha256": "4c57001d7bd8e805b49714670958eaab0888c66ecb9393d87bddba41477119fd"
+  },
+  {
+   "file": "img/art/brass-pusher.png",
+   "from": 1200122,
+   "to": 1038947,
+   "pixelIdentical": true,
+   "sha256": "83439598fe0a2eaf884a75c02fe477d8b83d2bbc6d823d6b9d81d242bda11059"
+  },
+  {
+   "file": "img/art/head-calm.png",
+   "from": 565723,
+   "to": 519934,
+   "pixelIdentical": true,
+   "sha256": "ec82b3461ba911df92d4166804a8d86d5ffea4e866b6c495d832fbac8813315b"
+  },
+  {
+   "file": "img/art/cp69-hat.png",
+   "from": 310162,
+   "to": 308348,
+   "pixelIdentical": true,
+   "sha256": "28d43fd8b1171a4f5bc213314c16939b8080a0c9e007d1de92c0ea123a863918"
+  },
+  {
+   "file": "img/art/cp69-bowtie.png",
+   "from": 215604,
+   "to": 215061,
+   "pixelIdentical": true,
+   "sha256": "d216d1212c1f3a2a87b74b290acbc00602b6222e2b676b7cb679339e27151b35"
+  },
+  {
+   "file": "img/art/cp69-cane.png",
+   "from": 115644,
+   "to": 113916,
+   "pixelIdentical": true,
+   "sha256": "3f0cbec1a16d4a17e40acaaee0a00fef421b85ca6ab29802c3bd3c5cb63e9bfa"
+  }
+ ],
+ "flac": {
+  "file": "sounds/effects/paw-dance.wav",
+  "to": "sounds/effects/paw-dance.flac",
+  "from": 11060374,
+  "bytes": 4723340,
+  "sampleIdentical": true
+ },
+ "projected": {
+  "A_remove_unused": 57987902,
+  "B_plus_png": 56521742,
+  "C_plus_flac": 48072362
+ },
+ "inventory": [
+  {
+   "file": "sounds/effects/paw-dance.wav",
+   "bytes": 11060374,
+   "nameRefs": 1
+  },
+  {
+   "file": "index.html",
+   "bytes": 2633968,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/uat18-coin-faces.png",
+   "bytes": 2559813,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/uat18-small-paw.png",
+   "bytes": 2527075,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/water-scene-v1.png",
+   "bytes": 2076479,
+   "nameRefs": 1
+  },
+  {
+   "file": "lib/rapier.js",
+   "bytes": 2062025,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cheese-scene-v1.png",
+   "bytes": 1945136,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/collections-satchel-v1.png",
+   "bytes": 1943419,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/tuna.png",
+   "bytes": 1867722,
+   "nameRefs": 2
+  },
+  {
+   "file": "img/art/table.webp",
+   "bytes": 1610850,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/coin.webp",
+   "bytes": 1542234,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/background.webp",
+   "bytes": 1297974,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/brass-pusher.png",
+   "bytes": 1200122,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/uat18-soft-paw.png",
+   "bytes": 1040404,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/tongue.webp",
+   "bytes": 874312,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/snacks.webp",
+   "bytes": 861266,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp58-yawn-face.webp",
+   "bytes": 687740,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/head-calm.png",
+   "bytes": 565723,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/cp75-yawn-face-tortie.webp",
+   "bytes": 501124,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/head-wild.webp",
+   "bytes": 474992,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/cp75-yawn-face-orange.webp",
+   "bytes": 463636,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/cp75-yawn-face-ragdoll.webp",
+   "bytes": 458968,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/head-sweet.webp",
+   "bytes": 429602,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/cp75-yawn-face-siamese.webp",
+   "bytes": 426344,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/paw.webp",
+   "bytes": 392070,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/head-waiting.webp",
+   "bytes": 382012,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/head.webp",
+   "bytes": 377886,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/happy-mitt.webp",
+   "bytes": 365264,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/cp69-hat.png",
+   "bytes": 310162,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/pupil.webp",
+   "bytes": 308156,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/cp69-bowtie.png",
+   "bytes": 215604,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp90-ginger-run.webp",
+   "bytes": 136672,
+   "nameRefs": 2
+  },
+  {
+   "file": "img/art/cp69-cane.png",
+   "bytes": 115644,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp90-cream-run.webp",
+   "bytes": 100854,
+   "nameRefs": 2
+  },
+  {
+   "file": "img/art/cp69-monocle.png",
+   "bytes": 92818,
+   "nameRefs": 1
+  },
+  {
+   "file": "sounds/effects/coin-spill.mp3",
+   "bytes": 88320,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp90-ginger-peek.webp",
+   "bytes": 80516,
+   "nameRefs": 2
+  },
+  {
+   "file": "sounds/effects/coin-off.mp3",
+   "bytes": 78576,
+   "nameRefs": 1
+  },
+  {
+   "file": "sounds/effects/coin-roll.mp3",
+   "bytes": 66816,
+   "nameRefs": 2
+  },
+  {
+   "file": "sounds/effects/coin-drop.mp3",
+   "bytes": 35108,
+   "nameRefs": 1
+  },
+  {
+   "file": "sounds/effects/tickle-swat.wav",
+   "bytes": 31796,
+   "nameRefs": 1
+  },
+  {
+   "file": "sounds/effects/coin-land.mp3",
+   "bytes": 26880,
+   "nameRefs": 3
+  },
+  {
+   "file": "sounds/effects/pusher.mp3",
+   "bytes": 26880,
+   "nameRefs": 2
+  },
+  {
+   "file": "img/art/cp62-yarn-b.png",
+   "bytes": 25351,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-yarn-c.png",
+   "bytes": 24924,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-yarn-a.png",
+   "bytes": 23885,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-yarn.png",
+   "bytes": 23885,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp58-yawn-eyes.png",
+   "bytes": 23348,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp75-yawn-eyes-tortie.png",
+   "bytes": 22586,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/cp75-yawn-eyes-ragdoll.png",
+   "bytes": 21433,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/cp75-yawn-eyes-siamese.png",
+   "bytes": 21190,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/cp75-yawn-eyes-orange.png",
+   "bytes": 20667,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/cp56-box.png",
+   "bytes": 20536,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-cushion-b.png",
+   "bytes": 20402,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp52-cushion.png",
+   "bytes": 19949,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-cushion-c.png",
+   "bytes": 19949,
+   "nameRefs": 1
+  },
+  {
+   "file": "sounds/effects/tickle.wav",
+   "bytes": 19448,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-cushion-a.png",
+   "bytes": 17944,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp52-ball.png",
+   "bytes": 17080,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp56-biscuit.png",
+   "bytes": 14778,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp56-sock.png",
+   "bytes": 14768,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-bowtie-c.png",
+   "bytes": 14165,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-mouse.png",
+   "bytes": 14022,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-bowtie-b.png",
+   "bytes": 13177,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-bowtie-a.png",
+   "bytes": 12570,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-bowtie.png",
+   "bytes": 12570,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-bell.png",
+   "bytes": 12493,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp56-egg.png",
+   "bytes": 11995,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-notes-b.png",
+   "bytes": 11545,
+   "nameRefs": 1
+  },
+  {
+   "file": "lib/RAPIER-LICENSE.txt",
+   "bytes": 11343,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp52-feather.png",
+   "bytes": 11251,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp56-sardine.png",
+   "bytes": 10930,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-notes-a.png",
+   "bytes": 10329,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-notes-c.png",
+   "bytes": 10245,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp62-notes.png",
+   "bytes": 10245,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cp58-milk-empty.png",
+   "bytes": 9910,
+   "nameRefs": 2
+  },
+  {
+   "file": "img/art/cp62-milk.png",
+   "bytes": 9766,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/happy-mouth.webp",
+   "bytes": 4148,
+   "nameRefs": 0
+  },
+  {
+   "file": "img/art/tuna-outline.png",
+   "bytes": 2011,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/shrimp-outline.png",
+   "bytes": 1707,
+   "nameRefs": 1
+  },
+  {
+   "file": "img/art/cheese-outline.png",
+   "bytes": 1386,
+   "nameRefs": 1
+  }
+ ]
+}

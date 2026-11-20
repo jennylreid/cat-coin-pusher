@@ -1,0 +1,21 @@
+{
+  "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher/work/cp26/art/head-calm.png",
+  "baseSHA256": "6f170c8ca9bfe4cf72019ef58d1b22687ebe35bce9c14eb2383751543de7dd49",
+  "preferredEyes": "squint/CP-55-playful-review.png",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "previews": [
+    {
+      "file": "composite.png",
+      "changedPixelsOutsideEyesAndMouth": 0,
+      "overlayPixelsOutsideAllowedRegions": 0
+    },
+    {
+      "file": "composite-with-pupils.png",
+      "changedPixelsOutsideEyesAndMouth": 0,
+      "overlayPixelsOutsideAllowedRegions": 0
+    }
+  ]
+}

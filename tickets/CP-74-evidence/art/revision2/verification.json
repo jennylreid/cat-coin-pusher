@@ -1,0 +1,37 @@
+{
+  "baseline": {
+    "displayName": "2026.11.18 UAT 101",
+    "version": 20261118000012,
+    "packageSHA256": "35830a39c47f4d8d2e52d8b20908ad1496b975cf80dd02f04a61804230d076a8",
+    "indexSHA256": "8924190e43c50421679348813bc23458e42218d1afbe2752c16957794451f95f",
+    "source": "uat/CatCoinPusher-UAT-game.json",
+    "previewOnly": true
+  },
+  "checks": [
+    {
+      "size": [
+        412,
+        915
+      ],
+      "edgeCoverageSamples": 810,
+      "edgeCoverageGaps": 0,
+      "playAreaOverlapSamples": 0,
+      "shoulderCoverageSamples": 19016,
+      "shoulderCoverageGaps": 0,
+      "error": null
+    },
+    {
+      "size": [
+        360,
+        640
+      ],
+      "edgeCoverageSamples": 632,
+      "edgeCoverageGaps": 0,
+      "playAreaOverlapSamples": 0,
+      "shoulderCoverageSamples": 13636,
+      "shoulderCoverageGaps": 0,
+      "error": null
+    }
+  ],
+  "passed": true
+}

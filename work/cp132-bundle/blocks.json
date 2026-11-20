@@ -1,0 +1,25 @@
+{
+ "blocks": [
+  "cp132-bundle/pet-follow.js",
+  "cp132-bundle/chip-132.js",
+  "cp132-bundle/pause-132.js",
+  "cp132-bundle/shop-132.js",
+  "cp132-bundle/coll-132.js",
+  "cp132-bundle/collwallet-132.js",
+  "cp71-ledge/cp71-gutter.js",
+  "cp101-body/cp101-body.js",
+  "cp102-dev/cp102-dev.js"
+ ],
+ "edits": [
+  [
+   ".filter(top);if(!L.length){g.missed=true;return;}",
+   ".filter(c=>cp71GOnTable(c));if(!L.length){g.missed=true;return;} /* CP-71 gutter push: coins still on the table */"
+  ]
+ ],
+ "swaps": [
+  [
+   "cp132-hug/cp74-rescue.js",
+   "cp74-hold/cp74-hold.js"
+  ]
+ ]
+}

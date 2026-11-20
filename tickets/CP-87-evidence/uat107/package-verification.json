@@ -1,0 +1,27 @@
+{
+  "version": 20261118000018,
+  "displayName": "2026.11.18 UAT 107",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "766bcff279eafb0682dc7ef7e7022628f12cf369e2faa80383a83d84cf8c053e",
+  "stagedJSONSHA256": "bc133848cc9449f9962ad9a13d36442d5b7f9fa96bdf1f6748d0561acc3551a3",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "32ee00c953968677c31c49ca7607761ce351285226a36bc21a69244c8e15f1bd",
+  "jsonBytes": 59399831,
+  "jsonGrowthBytes": 354948,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.18 UAT 106",
+  "backup": "uat/backups/before-UAT107-20261118000018",
+  "evidence": "tickets/CP-87-evidence/uat107",
+  "checks": [
+    "checks107.json",
+    "checks64-on107.json",
+    "homecheck.json"
+  ],
+  "authorization": "UAT 107: CP-87 Daily puzzles button (Jenny, Nov 18, via PM: \"I think I should get the Codex daily puzzles into the build. Can you, in the build, in the UAT build, make another button for it on the home screen\"; \"We can put all the games in there.\"); PM: UAT only, build after \"channel is free\"; UAT only"
+}

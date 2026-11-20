@@ -1,0 +1,118 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp132-bundle\\release.html",
+ "releaseSHA256": "1d360b1c371b068044669821975058b043241a374a8ca1463500e76187c0ab5d",
+ "passed": true,
+ "passedN": 17,
+ "failed": [],
+ "results": [
+  {
+   "name": "CP-71 gutter push, levels",
+   "ok": true,
+   "info": {
+    "pass": 2,
+    "fail": 0
+   }
+  },
+  {
+   "name": "CP-71 gutter push, endless",
+   "ok": true,
+   "info": {
+    "pass": 2,
+    "fail": 0
+   }
+  },
+  {
+   "name": "CP-74 hold (checks 1-5; check 0 = build identity, fails on a bundle by design)",
+   "ok": true,
+   "info": {
+    "pass": 5,
+    "fail": 1
+   }
+  },
+  {
+   "name": "CP-101 body",
+   "ok": true,
+   "info": {
+    "pass": 8,
+    "fail": 0
+   }
+  },
+  {
+   "name": "frozen pickup checks64",
+   "ok": true,
+   "info": {
+    "pass": 10,
+    "fail": 0
+   }
+  },
+  {
+   "name": "Ragdoll dance checks101r",
+   "ok": true,
+   "info": {
+    "pass": 12,
+    "fail": 0
+   }
+  },
+  {
+   "name": "CP-102 behaviour",
+   "ok": true,
+   "info": {
+    "pass": 6,
+    "fail": 0
+   }
+  },
+  {
+   "name": "CP-102 panel",
+   "ok": true,
+   "info": {
+    "pass": 8,
+    "fail": 0
+   }
+  },
+  {
+   "name": "mine mineA.log: no page errors",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "mine mineB.log: no page errors",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "mine mineC.log: no page errors",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "lists stay on touch, both sizes",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "hit-area audit: no overlaps, both sizes",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "collections reward into the wallet (420 -> 520), both sizes",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "chip: heart does not lock, converts to fish, locks in Pet the cat, both sizes",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "Pet strip beneath the board, peak 3.5, both sizes",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "pause: no END ROUND on endless; goal END ROUND ends the round, both sizes",
+   "ok": true,
+   "info": null
+  }
+ ]
+}

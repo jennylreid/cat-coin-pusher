@@ -1,0 +1,301 @@
+{
+ "passed": [
+  "I1 from the endless board (Tuxedo): every power and side game runs on the same endless board with its own cat (no countdown, same board, wallet kept, power stock unchanged)",
+  "I2 from Home (Tuxedo): every power and side game starts the endless board with its own cat and runs",
+  "I3 from a timed level (Tuxedo): the endless board with the own cat, never a timed level",
+  "I4 Hug from the Orange, Pet the cat on the Ragdoll (no switch needed), Inspect from the Siamese, all on the endless board",
+  "I5 tapped while another power runs (the Tuxedo's Inspect): waits for it to end, then switches to the Ragdoll and plays the Hug",
+  "I6 Start Dance break now: the cat in play, on the endless board (Orange there; from Home the Ragdoll; from a level the Tuxedo); the Siamese (no dance) gets the note and nothing starts",
+  "H1 412x915 Ragdoll Dance break: grey shoulders and the white chest both draw (the grey shows beside the chest); no pixel on the board changes; the rim line along the board's sides changes exactly as UAT 132's grey shoulders changed it (CP-101 body redraws the rim; logs/rim132.log)",
+  "H3 in a Ragdoll dance: mode 'white' (default) = shoulders + chest; 'grey' = shoulders only; 'none' = neither",
+  "X production and UAT JSON untouched"
+ ],
+ "failed": [
+  "H1 360x640 Ragdoll Dance break: grey shoulders and the white chest both draw (the grey shows beside the chest); no pixel on the board changes; the rim line along the board's sides changes exactly as UAT 132's grey shoulders changed it (CP-101 body redraws the rim; logs/rim132.log)",
+  "H2 the Hug is unchanged (white chest only, pixel-identical to UAT 133)"
+ ],
+ "res": {
+  "I1 from the endless board (Tuxedo): every power and side game runs on the same endless board with its own cat (no countdown, same board, wallet kept, power stock unchanged)": {
+   "pass": true,
+   "info": {
+    "power:tuxedo": {
+     "cat": "tuxedo",
+     "count": false,
+     "key": [
+      "L1",
+      "L1"
+     ],
+     "coins": 37,
+     "errs": 0
+    },
+    "power:orange": {
+     "cat": "orange",
+     "count": false,
+     "key": [
+      "L1",
+      "L1"
+     ],
+     "coins": 37,
+     "errs": 0
+    },
+    "power:ragdoll": {
+     "cat": "ragdoll",
+     "count": false,
+     "key": [
+      "L1",
+      "L1"
+     ],
+     "coins": 37,
+     "errs": 0
+    },
+    "power:siamese": {
+     "cat": "siamese",
+     "count": false,
+     "key": [
+      "L1",
+      "L1"
+     ],
+     "coins": 37,
+     "errs": 0
+    },
+    "power:tortie": {
+     "cat": "tortie",
+     "count": false,
+     "key": [
+      "L1",
+      "L1"
+     ],
+     "coins": 37,
+     "errs": 0
+    },
+    "game:toss": {
+     "cat": "orange",
+     "count": false,
+     "key": [
+      "L1",
+      "L1"
+     ],
+     "coins": 37,
+     "errs": 0
+    },
+    "game:chase": {
+     "cat": "siamese",
+     "count": false,
+     "key": [
+      "L1",
+      "L1"
+     ],
+     "coins": 37,
+     "errs": 0
+    },
+    "game:pet": {
+     "cat": "ragdoll",
+     "count": false,
+     "key": [
+      "L1",
+      "L1"
+     ],
+     "coins": 37,
+     "errs": 0
+    },
+    "game:pounce": {
+     "cat": "tortie",
+     "count": false,
+     "key": [
+      "L1",
+      "L1"
+     ],
+     "coins": 37,
+     "errs": 0
+    }
+   }
+  },
+  "I2 from Home (Tuxedo): every power and side game starts the endless board with its own cat and runs": {
+   "pass": true,
+   "info": {
+    "power:tuxedo": {
+     "from": "main",
+     "cat": "tuxedo",
+     "endA": true,
+     "lvl": false
+    },
+    "power:orange": {
+     "from": "main",
+     "cat": "orange",
+     "endA": true,
+     "lvl": false
+    },
+    "power:ragdoll": {
+     "from": "main",
+     "cat": "ragdoll",
+     "endA": true,
+     "lvl": false
+    },
+    "power:siamese": {
+     "from": "main",
+     "cat": "siamese",
+     "endA": true,
+     "lvl": false
+    },
+    "power:tortie": {
+     "from": "main",
+     "cat": "tortie",
+     "endA": true,
+     "lvl": false
+    },
+    "game:toss": {
+     "from": "main",
+     "cat": "orange",
+     "endA": true,
+     "lvl": false
+    },
+    "game:chase": {
+     "from": "main",
+     "cat": "siamese",
+     "endA": true,
+     "lvl": false
+    },
+    "game:pet": {
+     "from": "main",
+     "cat": "ragdoll",
+     "endA": true,
+     "lvl": false
+    },
+    "game:pounce": {
+     "from": "main",
+     "cat": "tortie",
+     "endA": true,
+     "lvl": false
+    }
+   }
+  },
+  "I3 from a timed level (Tuxedo): the endless board with the own cat, never a timed level": {
+   "pass": true,
+   "info": {
+    "power:ragdoll": {
+     "cat": "ragdoll",
+     "endA": true,
+     "lvl": false
+    },
+    "game:toss": {
+     "cat": "orange",
+     "endA": true,
+     "lvl": false
+    },
+    "game:pounce": {
+     "cat": "tortie",
+     "endA": true,
+     "lvl": false
+    },
+    "power:siamese": {
+     "cat": "siamese",
+     "endA": true,
+     "lvl": false
+    }
+   }
+  },
+  "I4 Hug from the Orange, Pet the cat on the Ragdoll (no switch needed), Inspect from the Siamese, all on the endless board": {
+   "pass": true,
+   "info": {
+    "hugFromOrange": {
+     "cat": "ragdoll",
+     "endA": true
+    },
+    "petOnRagdoll": {
+     "cat": "ragdoll",
+     "endA": true
+    },
+    "inspectFromSiamese": {
+     "cat": "tuxedo",
+     "endA": true
+    }
+   }
+  },
+  "I5 tapped while another power runs (the Tuxedo's Inspect): waits for it to end, then switches to the Ragdoll and plays the Hug": {
+   "pass": true,
+   "info": {
+    "before": "inspect",
+    "at": "ragdoll",
+    "ticks": 361
+   }
+  },
+  "I6 Start Dance break now: the cat in play, on the endless board (Orange there; from Home the Ragdoll; from a level the Tuxedo); the Siamese (no dance) gets the note and nothing starts": {
+   "pass": true,
+   "info": {
+    "o": "orange",
+    "h": "ragdoll",
+    "l": "tuxedo",
+    "siameseDance": false
+   }
+  },
+  "H1 412x915 Ragdoll Dance break: grey shoulders and the white chest both draw (the grey shows beside the chest); no pixel on the board changes; the rim line along the board's sides changes exactly as UAT 132's grey shoulders changed it (CP-101 body redraws the rim; logs/rim132.log)": {
+   "pass": true,
+   "info": {
+    "grey": [
+     0,
+     2
+    ],
+    "white": [
+     2,
+     2
+    ],
+    "changedOffBoard": 2835,
+    "changedOnBoard": 0,
+    "rimEdgePixels": 98,
+    "rimEdgeMaxDelta": 36,
+    "bbox": null
+   }
+  },
+  "H1 360x640 Ragdoll Dance break: grey shoulders and the white chest both draw (the grey shows beside the chest); no pixel on the board changes; the rim line along the board's sides changes exactly as UAT 132's grey shoulders changed it (CP-101 body redraws the rim; logs/rim132.log)": {
+   "pass": false,
+   "info": {
+    "grey": [
+     0,
+     2
+    ],
+    "white": [
+     2,
+     2
+    ],
+    "changedOffBoard": 2399,
+    "changedOnBoard": 28,
+    "rimEdgePixels": 104,
+    "rimEdgeMaxDelta": 694,
+    "bbox": [
+     85,
+     703,
+     91,
+     707
+    ]
+   }
+  },
+  "H2 the Hug is unchanged (white chest only, pixel-identical to UAT 133)": {
+   "pass": false,
+   "info": {
+    "diff": 63,
+    "grey": 0,
+    "px": "hug"
+   }
+  },
+  "H3 in a Ragdoll dance: mode 'white' (default) = shoulders + chest; 'grey' = shoulders only; 'none' = neither": {
+   "pass": true,
+   "info": {
+    "white": [
+     true,
+     true
+    ],
+    "grey": [
+     true,
+     false
+    ],
+    "none": [
+     false,
+     false
+    ]
+   }
+  },
+  "X production and UAT JSON untouched": {
+   "pass": true
+  }
+ }
+}

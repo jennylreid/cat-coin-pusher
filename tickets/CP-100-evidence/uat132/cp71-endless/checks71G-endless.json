@@ -1,0 +1,2118 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp132-bundle\\release.html",
+ "passed": true,
+ "failed": [],
+ "rows": [
+  {
+   "fps": 60,
+   "seed": 1,
+   "level": "E:L1",
+   "pick": [
+    [
+     [
+      "coin",
+      342,
+      543,
+      28
+     ],
+     [
+      "silver",
+      342,
+      491,
+      28
+     ],
+     [
+      "silver",
+      342,
+      595,
+      28
+     ],
+     [
+      "silver",
+      285,
+      530,
+      85
+     ]
+    ]
+   ],
+   "kinds": {
+    "coin": 56,
+    "silver": 9
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 553.2,
+     "y": -30.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.85
+    },
+    {
+     "kind": "silver",
+     "z": 601.4,
+     "y": -32.5,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "silver",
+     "z": 488.4,
+     "y": -35.1,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "silver",
+     "z": 538.7,
+     "y": -30.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.98
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 559,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 88,
+    "wild": null
+   },
+   "c1": {
+    "coins": 89
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 1,
+   "level": "E:L3",
+   "pick": [
+    [
+     [
+      "rain5",
+      297,
+      632,
+      73
+     ],
+     [
+      "silver",
+      341,
+      612,
+      29
+     ],
+     [
+      "coin",
+      341,
+      664,
+      29
+     ],
+     [
+      "coin",
+      287,
+      607,
+      83
+     ]
+    ]
+   ],
+   "kinds": {
+    "rain5": 3,
+    "coin": 57,
+    "silver": 10
+   },
+   "rm": [
+    {
+     "kind": "silver",
+     "z": 622,
+     "y": -35.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.88
+    },
+    {
+     "kind": "coin",
+     "z": 675.9,
+     "y": -35,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.92
+    },
+    {
+     "kind": "coin",
+     "z": 618.1,
+     "y": -34.2,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3
+    },
+    {
+     "kind": "rain5",
+     "z": 643.2,
+     "y": -32.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.02
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 630,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 1
+   },
+   "placed": null,
+   "c0": {
+    "coins": 86,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 1,
+   "level": "E:L5",
+   "pick": [
+    [
+     [
+      "quake",
+      293,
+      672,
+      77
+     ],
+     [
+      "coin",
+      335,
+      666,
+      35
+     ],
+     [
+      "coin",
+      283,
+      667,
+      87
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "rain5": 2,
+    "quake": 1,
+    "coin": 60,
+    "silver": 12
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 669.2,
+     "y": -35.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.88
+    },
+    {
+     "kind": "coin",
+     "z": 672,
+     "y": -30.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.98
+    },
+    {
+     "kind": "quake",
+     "z": 676.6,
+     "y": -35.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.02
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 660,
+   "stats": {
+    "runs": 1,
+    "pushed": 3,
+    "gutter": 3,
+    "special": 1
+   },
+   "placed": null,
+   "c0": {
+    "coins": 86,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 1,
+   "level": "E:L7",
+   "pick": [
+    [
+     [
+      "coin",
+      57,
+      515,
+      27
+     ],
+     [
+      "coin",
+      61,
+      463,
+      31
+     ],
+     [
+      "coin",
+      61,
+      567,
+      31
+     ],
+     [
+      "coin",
+      104,
+      538,
+      74
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 2,
+    "rain5": 1,
+    "coin": 55,
+    "silver": 12
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 528.9,
+     "y": -34.1,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.87
+    },
+    {
+     "kind": "coin",
+     "z": 598,
+     "y": -35.1,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.88
+    },
+    {
+     "kind": "coin",
+     "z": 481.8,
+     "y": -31.6,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "coin",
+     "z": 558.3,
+     "y": -33.3,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 554,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 86,
+    "wild": null
+   },
+   "c1": {
+    "coins": 90
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 1,
+   "level": "E:L9",
+   "pick": [
+    [
+     [
+      "coin",
+      340,
+      540,
+      30
+     ],
+     [
+      "coin",
+      340,
+      488,
+      30
+     ],
+     [
+      "silver",
+      339,
+      592,
+      31
+     ],
+     [
+      "coin",
+      291,
+      562,
+      79
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "silver": 13,
+    "coin": 61
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 537.8,
+     "y": -33,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.87
+    },
+    {
+     "kind": "silver",
+     "z": 608.9,
+     "y": -32.1,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.88
+    },
+    {
+     "kind": "coin",
+     "z": 490.5,
+     "y": -31.3,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "coin",
+     "z": 567.1,
+     "y": -32.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 561,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 84,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 1,
+   "level": "E:L10",
+   "pick": [
+    [
+     [
+      "coin",
+      55,
+      570,
+      25
+     ],
+     [
+      "silver",
+      58,
+      518,
+      28
+     ],
+     [
+      "silver",
+      59,
+      622,
+      29
+     ],
+     [
+      "coin",
+      108,
+      567,
+      78
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "coin": 56,
+    "silver": 11,
+    "rain5": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 589.5,
+     "y": -30.2,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.85
+    },
+    {
+     "kind": "silver",
+     "z": 641.8,
+     "y": -31.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "silver",
+     "z": 531,
+     "y": -33.6,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.92
+    },
+    {
+     "kind": "coin",
+     "z": 580.8,
+     "y": -35.5,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.02
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 589,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 86,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 1,
+   "level": "E:lab:wall",
+   "noYawn": true,
+   "errs": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 2,
+   "level": "E:L1",
+   "pick": [
+    [
+     [
+      "coin",
+      58,
+      553,
+      28
+     ],
+     [
+      "coin",
+      57,
+      501,
+      27
+     ],
+     [
+      "coin",
+      59,
+      605,
+      29
+     ],
+     [
+      "coin",
+      113,
+      557,
+      83
+     ]
+    ]
+   ],
+   "kinds": {
+    "coin": 62,
+    "silver": 10
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 573.4,
+     "y": -35.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.87
+    },
+    {
+     "kind": "coin",
+     "z": 629.4,
+     "y": -30.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "coin",
+     "z": 523.2,
+     "y": -31.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "coin",
+     "z": 576.5,
+     "y": -30.6,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.98
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 581,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 82,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 2,
+   "level": "E:L3",
+   "pick": [
+    [
+     [
+      "rain5",
+      300,
+      622,
+      70
+     ],
+     [
+      "silver",
+      342,
+      596,
+      28
+     ],
+     [
+      "coin",
+      342,
+      648,
+      28
+     ],
+     [
+      "coin",
+      290,
+      597,
+      80
+     ]
+    ]
+   ],
+   "kinds": {
+    "rain5": 3,
+    "coin": 62,
+    "silver": 10,
+    "quake": 1
+   },
+   "rm": [
+    {
+     "kind": "silver",
+     "z": 623.1,
+     "y": -30.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.85
+    },
+    {
+     "kind": "coin",
+     "z": 675.2,
+     "y": -34.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.92
+    },
+    {
+     "kind": "coin",
+     "z": 622.3,
+     "y": -33.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.98
+    },
+    {
+     "kind": "rain5",
+     "z": 650.1,
+     "y": -35.3,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 635,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 1
+   },
+   "placed": null,
+   "c0": {
+    "coins": 81,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 2,
+   "level": "E:L5",
+   "pick": [
+    [
+     [
+      "rain10",
+      73,
+      599,
+      43
+     ],
+     [
+      "coin",
+      49,
+      567,
+      19
+     ],
+     [
+      "coin",
+      43,
+      651,
+      13
+     ],
+     [
+      "silver",
+      122,
+      574,
+      92
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "rain5": 1,
+    "quake": 1,
+    "coin": 57,
+    "silver": 13,
+    "rain10": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 686.1,
+     "y": -30.3,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.83
+    },
+    {
+     "kind": "coin",
+     "z": 590,
+     "y": -30.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.83
+    },
+    {
+     "kind": "rain10",
+     "z": 634.7,
+     "y": -33.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3
+    },
+    {
+     "kind": "silver",
+     "z": 598.8,
+     "y": -32.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 619,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 1
+   },
+   "placed": null,
+   "c0": {
+    "coins": 84,
+    "wild": null
+   },
+   "c1": {
+    "coins": 87
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 2,
+   "level": "E:L7",
+   "pick": [
+    [
+     [
+      "coin",
+      60,
+      528,
+      30
+     ],
+     [
+      "coin",
+      60,
+      580,
+      30
+     ],
+     [
+      "coin",
+      60,
+      476,
+      30
+     ],
+     [
+      "coin",
+      118,
+      508,
+      88
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 2,
+    "rain5": 1,
+    "coin": 58,
+    "silver": 12,
+    "quake": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 562.9,
+     "y": -31.2,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.87
+    },
+    {
+     "kind": "coin",
+     "z": 609.4,
+     "y": -31.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "coin",
+     "z": 492.2,
+     "y": -35.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "coin",
+     "z": 536.4,
+     "y": -35,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 563,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 83,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 2,
+   "level": "E:L9",
+   "pick": [
+    [
+     [
+      "coin",
+      354,
+      530,
+      16
+     ],
+     [
+      "coin",
+      356,
+      478,
+      14
+     ],
+     [
+      "silver",
+      339,
+      580,
+      31
+     ],
+     [
+      "silver",
+      309,
+      502,
+      61
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "rain5": 1,
+    "silver": 14,
+    "coin": 57,
+    "quake": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 560.8,
+     "y": -31.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.83
+    },
+    {
+     "kind": "coin",
+     "z": 492.3,
+     "y": -33.8,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.83
+    },
+    {
+     "kind": "silver",
+     "z": 607.6,
+     "y": -31.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "silver",
+     "z": 527.3,
+     "y": -34.8,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.98
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 561,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 82,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 2,
+   "level": "E:L10",
+   "pick": [
+    [
+     [
+      "rain10",
+      106,
+      574,
+      76
+     ],
+     [
+      "coin",
+      61,
+      551,
+      31
+     ],
+     [
+      "silver",
+      62,
+      603,
+      32
+     ],
+     [
+      "coin",
+      113,
+      548,
+      83
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "coin": 60,
+    "silver": 13,
+    "rain10": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 576,
+     "y": -35.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.87
+    },
+    {
+     "kind": "silver",
+     "z": 626.7,
+     "y": -31.1,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "coin",
+     "z": 572.1,
+     "y": -35.1,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.98
+    },
+    {
+     "kind": "rain10",
+     "z": 599.4,
+     "y": -35.3,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 595,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 1
+   },
+   "placed": null,
+   "c0": {
+    "coins": 80,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 60,
+   "seed": 2,
+   "level": "E:lab:wall",
+   "noYawn": true,
+   "errs": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 1,
+   "level": "E:L1",
+   "pick": [
+    [
+     [
+      "coin",
+      342,
+      543,
+      28
+     ],
+     [
+      "silver",
+      342,
+      491,
+      28
+     ],
+     [
+      "silver",
+      342,
+      595,
+      28
+     ],
+     [
+      "silver",
+      285,
+      530,
+      85
+     ]
+    ]
+   ],
+   "kinds": {
+    "coin": 56,
+    "silver": 9
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 551.1,
+     "y": -31.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "silver",
+     "z": 601.6,
+     "y": -32.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    },
+    {
+     "kind": "silver",
+     "z": 497.4,
+     "y": -32.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    },
+    {
+     "kind": "silver",
+     "z": 537.5,
+     "y": -35.8,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.1
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 559,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 88,
+    "wild": null
+   },
+   "c1": {
+    "coins": 89
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 1,
+   "level": "E:L3",
+   "pick": [
+    [
+     [
+      "rain5",
+      297,
+      632,
+      73
+     ],
+     [
+      "silver",
+      341,
+      612,
+      29
+     ],
+     [
+      "coin",
+      341,
+      664,
+      29
+     ],
+     [
+      "coin",
+      287,
+      607,
+      83
+     ]
+    ]
+   ],
+   "kinds": {
+    "rain5": 3,
+    "coin": 57,
+    "silver": 10,
+    "item": 1
+   },
+   "rm": [
+    {
+     "kind": "silver",
+     "z": 620.4,
+     "y": -34.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    },
+    {
+     "kind": "coin",
+     "z": 675.4,
+     "y": -34.6,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    },
+    {
+     "kind": "rain5",
+     "z": 649.7,
+     "y": -31.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.07
+    },
+    {
+     "kind": "coin",
+     "z": 618.9,
+     "y": -32.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.13
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 630,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 1
+   },
+   "placed": null,
+   "c0": {
+    "coins": 86,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 1,
+   "level": "E:L5",
+   "pick": [
+    [
+     [
+      "quake",
+      293,
+      669,
+      77
+     ],
+     [
+      "coin",
+      336,
+      663,
+      34
+     ],
+     [
+      "coin",
+      283,
+      664,
+      87
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "rain5": 2,
+    "quake": 1,
+    "coin": 60,
+    "silver": 12,
+    "item": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 663.5,
+     "y": -30.5,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    },
+    {
+     "kind": "coin",
+     "z": 664.9,
+     "y": -35.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.13
+    },
+    {
+     "kind": "quake",
+     "z": 669.1,
+     "y": -32.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.13
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 654,
+   "stats": {
+    "runs": 1,
+    "pushed": 3,
+    "gutter": 3,
+    "special": 1
+   },
+   "placed": null,
+   "c0": {
+    "coins": 86,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 1,
+   "level": "E:L7",
+   "pick": [
+    [
+     [
+      "coin",
+      57,
+      515,
+      27
+     ],
+     [
+      "coin",
+      60,
+      567,
+      30
+     ],
+     [
+      "coin",
+      61,
+      463,
+      31
+     ],
+     [
+      "coin",
+      104,
+      539,
+      74
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 2,
+    "rain5": 1,
+    "coin": 55,
+    "silver": 12,
+    "item": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 531.5,
+     "y": -35.5,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    },
+    {
+     "kind": "coin",
+     "z": 591.9,
+     "y": -33.2,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    },
+    {
+     "kind": "coin",
+     "z": 480.2,
+     "y": -32.6,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.97
+    },
+    {
+     "kind": "coin",
+     "z": 558.6,
+     "y": -36,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.1
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 554,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 86,
+    "wild": null
+   },
+   "c1": {
+    "coins": 90
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 1,
+   "level": "E:L9",
+   "pick": [
+    [
+     [
+      "coin",
+      340,
+      540,
+      30
+     ],
+     [
+      "coin",
+      340,
+      488,
+      30
+     ],
+     [
+      "silver",
+      339,
+      592,
+      31
+     ],
+     [
+      "coin",
+      292,
+      562,
+      78
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "silver": 13,
+    "coin": 61,
+    "item": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 542.2,
+     "y": -32.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    },
+    {
+     "kind": "silver",
+     "z": 603.6,
+     "y": -31.5,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    },
+    {
+     "kind": "coin",
+     "z": 490.7,
+     "y": -33,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.97
+    },
+    {
+     "kind": "coin",
+     "z": 568.5,
+     "y": -35.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.1
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 561,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 84,
+    "wild": null
+   },
+   "c1": {
+    "coins": 87
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 1,
+   "level": "E:L10",
+   "pick": [
+    [
+     [
+      "coin",
+      56,
+      574,
+      26
+     ],
+     [
+      "silver",
+      58,
+      626,
+      28
+     ],
+     [
+      "silver",
+      61,
+      522,
+      31
+     ],
+     [
+      "coin",
+      108,
+      572,
+      78
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "coin": 56,
+    "silver": 11,
+    "rain5": 1,
+    "item": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 581.6,
+     "y": -31.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "silver",
+     "z": 634.1,
+     "y": -32.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.97
+    },
+    {
+     "kind": "silver",
+     "z": 528.6,
+     "y": -34.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3
+    },
+    {
+     "kind": "coin",
+     "z": 579.9,
+     "y": -31.5,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.13
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 585,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 86,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 1,
+   "level": "E:lab:wall",
+   "noYawn": true,
+   "errs": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 2,
+   "level": "E:L1",
+   "pick": [
+    [
+     [
+      "coin",
+      58,
+      553,
+      28
+     ],
+     [
+      "coin",
+      57,
+      501,
+      27
+     ],
+     [
+      "coin",
+      58,
+      605,
+      28
+     ],
+     [
+      "coin",
+      114,
+      555,
+      84
+     ]
+    ]
+   ],
+   "kinds": {
+    "coin": 62,
+    "silver": 11
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 574.7,
+     "y": -31.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "coin",
+     "z": 627.4,
+     "y": -33.2,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.97
+    },
+    {
+     "kind": "coin",
+     "z": 523.3,
+     "y": -34.3,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.97
+    },
+    {
+     "kind": "coin",
+     "z": 579.9,
+     "y": -34.6,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.1
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 581,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 81,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 2,
+   "level": "E:L3",
+   "pick": [
+    [
+     [
+      "rain5",
+      301,
+      622,
+      69
+     ],
+     [
+      "coin",
+      343,
+      643,
+      27
+     ],
+     [
+      "silver",
+      343,
+      591,
+      27
+     ],
+     [
+      "coin",
+      291,
+      597,
+      79
+     ]
+    ]
+   ],
+   "kinds": {
+    "rain5": 3,
+    "coin": 62,
+    "silver": 11,
+    "quake": 1,
+    "item": 1
+   },
+   "rm": [
+    {
+     "kind": "silver",
+     "z": 611.9,
+     "y": -32,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "coin",
+     "z": 662.6,
+     "y": -34.5,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    },
+    {
+     "kind": "rain5",
+     "z": 655.9,
+     "y": -35.3,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.07
+    },
+    {
+     "kind": "coin",
+     "z": 619.7,
+     "y": -31.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.1
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 629,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 1
+   },
+   "placed": null,
+   "c0": {
+    "coins": 80,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 2,
+   "level": "E:L5",
+   "pick": [
+    [
+     [
+      "rain10",
+      67,
+      630,
+      37
+     ],
+     [
+      "coin",
+      35,
+      598,
+      5
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "rain5": 1,
+    "quake": 1,
+    "coin": 57,
+    "silver": 15,
+    "rain10": 1,
+    "item": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 593.6,
+     "y": -33.1,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.83
+    },
+    {
+     "kind": "rain10",
+     "z": 636.5,
+     "y": -34.2,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.97
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 619,
+   "stats": {
+    "runs": 1,
+    "pushed": 2,
+    "gutter": 2,
+    "special": 1
+   },
+   "placed": null,
+   "c0": {
+    "coins": 85,
+    "wild": null
+   },
+   "c1": {
+    "coins": 87
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 2,
+   "level": "E:L7",
+   "pick": [
+    [
+     [
+      "coin",
+      56,
+      607,
+      26
+     ],
+     [
+      "coin",
+      56,
+      659,
+      26
+     ],
+     [
+      "coin",
+      56,
+      555,
+      26
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 2,
+    "rain5": 1,
+    "coin": 56,
+    "silver": 12,
+    "quake": 1,
+    "item": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 580.9,
+     "y": -35.8,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.87
+    },
+    {
+     "kind": "coin",
+     "z": 633.6,
+     "y": -35,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.9
+    },
+    {
+     "kind": "coin",
+     "z": 685.7,
+     "y": -33.3,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 626,
+   "stats": {
+    "runs": 1,
+    "pushed": 3,
+    "gutter": 3,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 85,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 2,
+   "level": "E:L9",
+   "pick": [
+    [
+     [
+      "coin",
+      356,
+      531,
+      14
+     ],
+     [
+      "coin",
+      356,
+      479,
+      14
+     ],
+     [
+      "silver",
+      339,
+      581,
+      31
+     ],
+     [
+      "silver",
+      306,
+      501,
+      64
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "rain5": 1,
+    "silver": 13,
+    "coin": 56,
+    "quake": 1,
+    "item": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 495.3,
+     "y": -31.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.87
+    },
+    {
+     "kind": "coin",
+     "z": 560.6,
+     "y": -34.8,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.87
+    },
+    {
+     "kind": "silver",
+     "z": 609.6,
+     "y": -33.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.97
+    },
+    {
+     "kind": "silver",
+     "z": 528.4,
+     "y": -35.4,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.07
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 562,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 0
+   },
+   "placed": null,
+   "c0": {
+    "coins": 84,
+    "wild": null
+   },
+   "c1": {
+    "coins": 87
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 2,
+   "level": "E:L10",
+   "pick": [
+    [
+     [
+      "rain10",
+      110,
+      579,
+      80
+     ],
+     [
+      "coin",
+      62,
+      560,
+      32
+     ],
+     [
+      "silver",
+      63,
+      612,
+      33
+     ],
+     [
+      "coin",
+      114,
+      553,
+      84
+     ]
+    ]
+   ],
+   "kinds": {
+    "stack": 5,
+    "coin": 59,
+    "silver": 13,
+    "rain10": 1,
+    "item": 1
+   },
+   "rm": [
+    {
+     "kind": "coin",
+     "z": 587.4,
+     "y": -33.5,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.93
+    },
+    {
+     "kind": "silver",
+     "z": 642.5,
+     "y": -35.7,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 2.97
+    },
+    {
+     "kind": "rain10",
+     "z": 615.5,
+     "y": -33.9,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.1
+    },
+    {
+     "kind": "coin",
+     "z": 584.7,
+     "y": -33.2,
+     "by": "gutterOff (evalmachine.<anonymous>:10877:2)",
+     "t": 3.13
+    }
+   ],
+   "left": [],
+   "len": 3.93,
+   "mittMaxY": 603,
+   "stats": {
+    "runs": 1,
+    "pushed": 4,
+    "gutter": 4,
+    "special": 1
+   },
+   "placed": null,
+   "c0": {
+    "coins": 81,
+    "wild": null
+   },
+   "c1": {
+    "coins": 86
+   },
+   "errs": [],
+   "inYawn": [],
+   "ok": true
+  },
+  {
+   "fps": 30,
+   "seed": 2,
+   "level": "E:lab:wall",
+   "noYawn": true,
+   "errs": [],
+   "ok": true
+  }
+ ]
+}

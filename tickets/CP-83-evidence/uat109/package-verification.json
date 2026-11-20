@@ -1,0 +1,25 @@
+{
+  "version": 20261118000020,
+  "displayName": "2026.11.18 UAT 109",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "62251b1472d9643e37bc9a58f50ac1db68cf1e318247f703dc0ae3ffbc7a0b45",
+  "stagedJSONSHA256": "5f9b1d6259a45ff18ee5c97288d3ff968779ca2a8bb84f15232664e32f68fd58",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "20501ca668f1efd31acd138920f72fea4f2f8ce421d0627bb4e4ed4f90d56e8d",
+  "jsonBytes": 59429779,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.18 UAT 108",
+  "backup": "uat/backups/before-UAT109-20261118000020",
+  "evidence": "tickets/CP-83-evidence/uat109",
+  "checks": [
+    "checks109.json",
+    "checks64-on109.json"
+  ],
+  "authorization": "UAT 109: CP-83 Home > Board lab + round 3 Pusher chains (Jenny, Nov 18: \"Just give me a button on the home screen with all the lab boards so I can work through them all, please.\"; \"Let's go with A, please, for CP 83.\"); PM: \"Yours is UAT 109, built on 108\"; UAT only"
+}

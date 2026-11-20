@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- UAT 112 (CP-74) real-browser check: loads ?dir=<folder>/index.html (the full runtime folder, as on the phone) in a frame,
+     waits for the title with art, starts a Level 3 round on the Ragdoll's board, taps the power button: "HUG!" alone first,
+     then the hug with the art decoded by the browser (three images), the rim found, the walls up, no drawing error; after it
+     ends nothing is left. Writes JSON into #result. -->
+<html><head><meta charset="utf-8"><title>hug check</title></head><body>
+<iframe id="g" style="width:412px;height:915px;border:0"></iframe><pre id="result">PENDING</pre>
+<script>
+const dir=new URLSearchParams(location.search).get('dir')||'boot112',g=document.getElementById('g'),out=document.getElementById('result');
+const res={dir,steps:[],errors:[]};const done=()=>{out.textContent=JSON.stringify(res);};
+g.src=dir+'/index.html';
+g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));
+ const t0=Date.now();const iv=setInterval(()=>{try{
+  const txt=w.document.body.innerText||'';if(/Could not start/.test(txt)){res.steps.push('could not start: '+txt.slice(0,160));clearInterval(iv);return done();}
+  const ok=w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0");
+  if(ok&&!res.title){res.title=true;res.build=w.eval('BUILD');res.steps.push('title with art at '+(Date.now()-t0)+' ms');
+   w.eval("if(!PG)pgInit();for(const c of PG_CATS)PG.open[c]=true;PG.current='ragdoll';PGU.title.t=9;pgTitleDone();const L=pglLv();L.passed=Math.max(L.passed,2);L.sel=3;wildReset();pgPlay('ragdoll');if(WILD.phase!=='card')wildReset();wildStartCountdown();");}
+  if(res.title&&!res.play&&w.eval("WILD.phase==='play'")){res.play=true;clearInterval(iv);res.steps.push('round in play at '+(Date.now()-t0)+' ms');
+   w.eval("S.muted=true;WILD.nextBonus=999;WILD.left=Math.max(WILD.left,40);if(!PG.powers)PG.powers={};PG.powers.ragdoll=1;if(board.status==='ready')board.status='playing';{const b=pgpButton();powerTap({x:b.x+b.w/2,y:b.y+b.h/2});}");
+   const st="JSON.stringify({id:PGPX&&PGPX.id,word:CP82W&&CP82W.word,t:PGPX?+PGPX.t.toFixed(2):null,img:Object.keys(Z74.img).filter(k=>Z74.img[k].naturalWidth>0).map(k=>k+':'+Z74.img[k].naturalWidth+'x'+Z74.img[k].naturalHeight),rim:!!Z74.rim,cols:!!(PGPX&&PGPX.cols),err:Z74.err||null,drawn:Z74.drawnF>0})";
+   // waits for each stage (headless Chrome without a GPU runs the game slower than real time)
+   let stage=0;const t1=Date.now();const iv2=setInterval(()=>{try{const s=JSON.parse(w.eval(st));
+    if(stage===0&&s.id==='cp82title'){res.title1=s;res.steps.push('title: '+JSON.stringify(s));stage=1;}
+    else if(stage===1&&s.id==='hug'&&s.t>=1.6){res.hug=s;res.steps.push('hug: '+JSON.stringify(s));stage=2;}
+    else if(stage===2&&s.id===null){res.after=s;res.after.phase=w.eval('WILD.phase');res.after.cols=w.eval('world.colliders.len()');res.steps.push('ended: '+JSON.stringify(res.after)+' after '+(Date.now()-t1)+' ms');stage=3;}
+    if(stage===3||Date.now()-t1>90000){clearInterval(iv2);
+     res.cp74=stage===3&&res.build==='2026.11.19 UAT 112'&&res.title1.word==='HUG!'&&!res.title1.cols&&res.hug.img.length===3&&res.hug.rim&&res.hug.cols&&!res.hug.err&&res.hug.drawn&&!res.after.err;
+     res.steps.push('cp74 '+res.cp74);done();}}catch(e){res.errors.push(String(e));clearInterval(iv2);done();}},100);
+   return;}
+  if(Date.now()-t0>80000){res.steps.push('timeout');clearInterval(iv);done();}
+ }catch(e){res.errors.push(String(e));}},250);};
+</script></body></html>

@@ -1,0 +1,95 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp133-bundle\\release.html",
+ "releaseSHA256": "d89e6ff170b94b91471cb9a0969336130d7a9e21eb43c5caeec5407d60bffa68",
+ "passed": true,
+ "passedN": 16,
+ "failed": [],
+ "results": [
+  {
+   "name": "CP-94 round (music, chest, powers)",
+   "ok": true,
+   "info": {
+    "pass": 17,
+    "fail": 0
+   }
+  },
+  {
+   "name": "frozen pickup checks64",
+   "ok": true,
+   "info": {
+    "pass": 10,
+    "fail": 0
+   }
+  },
+  {
+   "name": "CP-94 panel in real Chrome, both sizes",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "mineA: no page errors",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "mineB: no page errors",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "mineC: no page errors",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "lists stay on touch and a row starts its board",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "hit-area audit: no overlaps, both sizes",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "Collections reward into the wallet",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "item 5: the two top-right icons have no tap area; a tap where they were opens nothing, both sizes",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "item 3: Pet the cat runs with the ring; DONE ends it, both sizes",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "item 1: goal boards: wide pill, drops only, both sizes",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "item 7: banner = board name only",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "chip decision still right, both sizes",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "pause: no END ROUND on endless; goal END ROUND ends the round",
+   "ok": true,
+   "info": null
+  },
+  {
+   "name": "item 7: no ENDLESS text left for players",
+   "ok": true,
+   "info": null
+  }
+ ]
+}

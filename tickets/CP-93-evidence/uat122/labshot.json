@@ -1,0 +1,39 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp122-giant\\boot122",
+ "sizes": {
+  "412x915": {
+   "list": {
+    "cp93": true,
+    "giant": true,
+    "build": "2026.11.19 UAT 122"
+   },
+   "board": {
+    "deck": [
+     350,
+     420
+    ],
+    "tops": 3,
+    "segs": 21,
+    "goal": "Spill all 3 giant towers"
+   }
+  },
+  "360x640": {
+   "list": {
+    "cp93": true,
+    "giant": true,
+    "build": "2026.11.19 UAT 122"
+   },
+   "board": {
+    "deck": [
+     350,
+     420
+    ],
+    "tops": 3,
+    "segs": 22,
+    "goal": "Spill all 3 giant towers"
+   }
+  }
+ },
+ "errors": [],
+ "passed": true
+}

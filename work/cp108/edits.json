@@ -1,0 +1,16 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp107\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.18 UAT 107';",
+   "const BUILD = '2026.11.18 UAT 108';"
+  ],
+  [
+   "{const __labCredits=openCredits;\r\n openCredits=function(){const r=__labCredits.apply(this,arguments);try{\r\n  const eng=panel.querySelector&&panel.querySelector('#cp70-engineer');if(!S.dev||!eng||eng.querySelector('#cp83-lab'))return r;\r\n  const box=document.createElement('div');box.id='cp83-lab';const hd=document.createElement('h3');hd.textContent='Board lab';box.appendChild(hd);\r\n  const note=document.createElement('p');note.style.margin='0 0 6px';note.style.fontSize='12px';note.textContent='Tap a board to play it now. Lasts until the app closes or Off.';box.appendChild(note);\r\n  const btns=[];const paint=()=>btns.forEach(b=>{const k=b.dataset.lab,on=(LAB.st.sel||'')===k;const nm=k?LAB.B[k].name+': '+LAB.B[k].lab.text:'Off (normal levels)';b.textContent=(on?'\u2713 ':'')+nm;b.style.fontWeight=on?'700':'400';});\r\n  for(const k of ['',...LAB.ORDER]){const b=document.createElement('button');b.dataset.lab=k;b.className='wide';b.style.display='block';b.style.margin='4px 0';b.style.textAlign='left';\r\n   b.onclick=()=>{labStart(k||null);paint();};btns.push(b);box.appendChild(b);}\r\n  paint();const sum=eng.querySelector('summary');if(sum&&sum.nextSibling)eng.insertBefore(box,sum.nextSibling);else eng.appendChild(box);}catch(e){}return r;};}",
+   "/* CP-83: the Board lab picker is removed (PM, Nov 18: no lab state can reach normal play) */"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp86-meow.js"
+ ]
+}

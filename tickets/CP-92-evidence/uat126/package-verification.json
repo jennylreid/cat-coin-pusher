@@ -1,0 +1,29 @@
+{
+  "version": 20261119000037,
+  "displayName": "2026.11.19 UAT 126",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "ec243345b69f88dfca2671c3fe1d7eeac5322035a3c536aa5debfb52199e3714",
+  "stagedJSONSHA256": "3c544de1654874c82d4e9a1efc56150fd5c13dcbc57228b9d8c9945f01637614",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "323479547f66871733177edb3049678c0481c5999c502b65e2e5e2609f6f6ad7",
+  "jsonBytes": 47717713,
+  "baselineJSONBytes": 47709789,
+  "runtimeFiles": 76,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.19 UAT 125",
+  "backup": "uat/backups/before-UAT126-20261119000037",
+  "evidence": "tickets/CP-92-evidence/uat126",
+  "checks": [
+    "checks97s-on126.json",
+    "checks64-on126.json",
+    "checks92e-on126.json",
+    "checks93g-on126.json",
+    "checks99-on126.json"
+  ],
+  "authorization": "UAT 126: CP-92 rework 2, the NEW BOARD sweep as a plow, + the endless HUD fix (Jenny via PM, Nov 19: \"consider it like a snow plow\"; \"the pause button is hidden by the time\"; PM: \"Fold them into UAT 126 on 125\"); UAT only"
+}

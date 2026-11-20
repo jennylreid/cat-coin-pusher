@@ -1,0 +1,30 @@
+{
+  "version": 20261119000034,
+  "displayName": "2026.11.19 UAT 123",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "ef167995efb7e4267168d2139721f5e18a23ce694055abffd4e1ea2c4f32d36d",
+  "stagedJSONSHA256": "12e57a240ee16585b57b19dd7bcb2cfc915fc2b640c99ad8dd1b048a775aeb06",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "930b2d57683b64a3698ba2e180d8688ab746b0288008be9061532f8f44e9b993",
+  "jsonBytes": 47730037,
+  "baselineJSONBytes": 47715409,
+  "runtimeFiles": 76,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.19 UAT 122",
+  "backup": "uat/backups/before-UAT123-20261119000034",
+  "evidence": "tickets/CP-97-evidence/uat123",
+  "checks": [
+    "checks97s.json",
+    "checks64-on123.json",
+    "checks92e-on123.json",
+    "checks88-on123.json",
+    "checks93g-on123.json",
+    "real-browser-probe.json"
+  ],
+  "authorization": "UAT 123: CP-97 Switch cats on the endless board + CP-92 sweep rework (PM, Nov 19: \"Rebase on 122, then run your pre-publish checks ... Stage (report the bytes), publish UAT 123, verify the cloud copy\"); UAT only"
+}

@@ -1,0 +1,553 @@
+{
+ "build": "cp107/boot107",
+ "passed": true,
+ "failed": [],
+ "results": [
+  {
+   "name": "412x915 reaches Home",
+   "ok": true
+  },
+  {
+   "name": "412x915 build name",
+   "ok": true,
+   "info": "2026.11.18 UAT 107"
+  },
+  {
+   "name": "412x915 button sits below PLAY and on screen",
+   "ok": true,
+   "info": {
+    "x": 206,
+    "y": 656.11,
+    "top": 637.57,
+    "bot": 674.65,
+    "playBot": 623.15,
+    "screenBot": 890.2800000000001,
+    "innerH": 915
+   }
+  },
+  {
+   "name": "412x915 the opening tap doesn't also open a puzzle",
+   "ok": true
+  },
+  {
+   "name": "412x915 tapping it opens the menu",
+   "ok": true
+  },
+  {
+   "name": "412x915 the game is paused while the menu is open",
+   "ok": true,
+   "info": {
+    "tA": 5.604099999928487,
+    "tB": 5.604099999928487
+   }
+  },
+  {
+   "name": "412x915 menu lists all five",
+   "ok": true
+  },
+  {
+   "name": "412x915 paw-swat opens full width under the bar",
+   "ok": true,
+   "info": {
+    "cur": "paw-swat",
+    "shim": true,
+    "top": 52,
+    "h": 863,
+    "w": 412,
+    "bodyH": 863,
+    "title": "Paw Swat"
+   }
+  },
+  {
+   "name": "412x915 paw-swat puzzle 2 starts from a tap",
+   "ok": true,
+   "info": "aim"
+  },
+  {
+   "name": "412x915 paw-swat sound runs through the app's volume after a tap",
+   "ok": true,
+   "info": {
+    "n": 1,
+    "vol": 1,
+    "states": [
+     "running"
+    ],
+    "gains": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "412x915 paw-swat back returns to the menu and closes the page",
+   "ok": true
+  },
+  {
+   "name": "412x915 cat-cafe opens full width under the bar",
+   "ok": true,
+   "info": {
+    "cur": "cat-cafe",
+    "shim": true,
+    "top": 52,
+    "h": 863,
+    "w": 412,
+    "bodyH": 863,
+    "title": "Cat Café"
+   }
+  },
+  {
+   "name": "412x915 cat-cafe puzzle 2 starts from a tap",
+   "ok": true,
+   "info": "play"
+  },
+  {
+   "name": "412x915 cat-cafe sound runs through the app's volume after a tap",
+   "ok": true,
+   "info": {
+    "n": 1,
+    "vol": 1,
+    "states": [
+     "running"
+    ],
+    "gains": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "412x915 cat-cafe back returns to the menu and closes the page",
+   "ok": true
+  },
+  {
+   "name": "412x915 pocket-pounce opens full width under the bar",
+   "ok": true,
+   "info": {
+    "cur": "pocket-pounce",
+    "shim": true,
+    "top": 52,
+    "h": 863,
+    "w": 412,
+    "bodyH": 863,
+    "title": "Pocket Pounce · CatCoin Daily"
+   }
+  },
+  {
+   "name": "412x915 pocket-pounce a control was tapped",
+   "ok": true,
+   "info": {
+    "x": 83.328125,
+    "y": 368.7421875,
+    "t": "◆◆◆◆◆◆6♥♥♥♥♥♥♥♥♥♥♥♥♥"
+   }
+  },
+  {
+   "name": "412x915 pocket-pounce sound runs through the app's volume after a tap",
+   "ok": true,
+   "info": {
+    "n": 1,
+    "vol": 1,
+    "states": [
+     "running"
+    ],
+    "gains": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "412x915 pocket-pounce back returns to the menu and closes the page",
+   "ok": true
+  },
+  {
+   "name": "412x915 moon-mint opens full width under the bar",
+   "ok": true,
+   "info": {
+    "cur": "moon-mint",
+    "shim": true,
+    "top": 52,
+    "h": 863,
+    "w": 412,
+    "bodyH": 863,
+    "title": "Moon Mint · CatCoin Daily"
+   }
+  },
+  {
+   "name": "412x915 moon-mint a control was tapped",
+   "ok": true,
+   "info": {
+    "x": 120.125,
+    "y": 443.53125,
+    "t": "♥Rose"
+   }
+  },
+  {
+   "name": "412x915 moon-mint sound runs through the app's volume after a tap",
+   "ok": true,
+   "info": {
+    "n": 1,
+    "vol": 1,
+    "states": [
+     "running"
+    ],
+    "gains": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "412x915 moon-mint back returns to the menu and closes the page",
+   "ok": true
+  },
+  {
+   "name": "412x915 whisker-spark opens full width under the bar",
+   "ok": true,
+   "info": {
+    "cur": "whisker-spark",
+    "shim": true,
+    "top": 52,
+    "h": 863,
+    "w": 412,
+    "bodyH": 863,
+    "title": "Whisker Spark · CatCoin Daily"
+   }
+  },
+  {
+   "name": "412x915 whisker-spark a control was tapped",
+   "ok": true,
+   "info": {
+    "x": 83.328125,
+    "y": 305.7421875,
+    "t": "♥♥♥♥♥♥6"
+   }
+  },
+  {
+   "name": "412x915 whisker-spark sound runs through the app's volume after a tap",
+   "ok": true,
+   "info": {
+    "n": 1,
+    "vol": 1,
+    "states": [
+     "running"
+    ],
+    "gains": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "412x915 whisker-spark back returns to the menu and closes the page",
+   "ok": true
+  },
+  {
+   "name": "412x915 with the app's sound off the puzzle is silent",
+   "ok": true,
+   "info": {
+    "vol": 0,
+    "gains": [
+     0
+    ]
+   }
+  },
+  {
+   "name": "412x915 app in background holds the puzzle's sound; back in front it resumes",
+   "ok": true,
+   "info": {
+    "bg": [
+     "suspended"
+    ],
+    "fg": [
+     "running"
+    ]
+   }
+  },
+  {
+   "name": "412x915 Home closes the puzzles and Home runs again",
+   "ok": true,
+   "info": {
+    "t1": 6.313999999952329,
+    "t2": 7.014199999952331
+   }
+  },
+  {
+   "name": "412x915 PLAY still starts a round",
+   "ok": true
+  },
+  {
+   "name": "412x915 no errors",
+   "ok": true,
+   "info": []
+  },
+  {
+   "name": "360x640 reaches Home",
+   "ok": true
+  },
+  {
+   "name": "360x640 build name",
+   "ok": true,
+   "info": "2026.11.18 UAT 107"
+  },
+  {
+   "name": "360x640 button sits below PLAY and on screen",
+   "ok": true,
+   "info": {
+    "x": 179.99652777777777,
+    "y": 530.8292063492063,
+    "top": 514.8292063492063,
+    "bot": 546.8292063492063,
+    "playBot": 502.38476190476183,
+    "screenBot": 618.6666666666666,
+    "innerH": 640
+   }
+  },
+  {
+   "name": "360x640 the opening tap doesn't also open a puzzle",
+   "ok": true
+  },
+  {
+   "name": "360x640 tapping it opens the menu",
+   "ok": true
+  },
+  {
+   "name": "360x640 the game is paused while the menu is open",
+   "ok": true,
+   "info": {
+    "tA": 4.9637220000238464,
+    "tB": 4.9637220000238464
+   }
+  },
+  {
+   "name": "360x640 menu lists all five",
+   "ok": true
+  },
+  {
+   "name": "360x640 paw-swat opens full width under the bar",
+   "ok": true,
+   "info": {
+    "cur": "paw-swat",
+    "shim": true,
+    "top": 52,
+    "h": 588,
+    "w": 360,
+    "bodyH": 588,
+    "title": "Paw Swat"
+   }
+  },
+  {
+   "name": "360x640 paw-swat puzzle 2 starts from a tap",
+   "ok": true,
+   "info": "aim"
+  },
+  {
+   "name": "360x640 paw-swat sound runs through the app's volume after a tap",
+   "ok": true,
+   "info": {
+    "n": 1,
+    "vol": 1,
+    "states": [
+     "running"
+    ],
+    "gains": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "360x640 paw-swat back returns to the menu and closes the page",
+   "ok": true
+  },
+  {
+   "name": "360x640 cat-cafe opens full width under the bar",
+   "ok": true,
+   "info": {
+    "cur": "cat-cafe",
+    "shim": true,
+    "top": 52,
+    "h": 588,
+    "w": 360,
+    "bodyH": 588,
+    "title": "Cat Café"
+   }
+  },
+  {
+   "name": "360x640 cat-cafe puzzle 2 starts from a tap",
+   "ok": true,
+   "info": "play"
+  },
+  {
+   "name": "360x640 cat-cafe sound runs through the app's volume after a tap",
+   "ok": true,
+   "info": {
+    "n": 1,
+    "vol": 1,
+    "states": [
+     "running"
+    ],
+    "gains": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "360x640 cat-cafe back returns to the menu and closes the page",
+   "ok": true
+  },
+  {
+   "name": "360x640 pocket-pounce opens full width under the bar",
+   "ok": true,
+   "info": {
+    "cur": "pocket-pounce",
+    "shim": true,
+    "top": 52,
+    "h": 588,
+    "w": 360,
+    "bodyH": 634,
+    "title": "Pocket Pounce · CatCoin Daily"
+   }
+  },
+  {
+   "name": "360x640 pocket-pounce a control was tapped",
+   "ok": true,
+   "info": {
+    "x": 74.6640625,
+    "y": 327.71875,
+    "t": "◆◆◆◆◆◆6♥♥♥♥♥♥♥♥♥♥♥♥♥"
+   }
+  },
+  {
+   "name": "360x640 pocket-pounce sound runs through the app's volume after a tap",
+   "ok": true,
+   "info": {
+    "n": 1,
+    "vol": 1,
+    "states": [
+     "running"
+    ],
+    "gains": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "360x640 pocket-pounce back returns to the menu and closes the page",
+   "ok": true
+  },
+  {
+   "name": "360x640 moon-mint opens full width under the bar",
+   "ok": true,
+   "info": {
+    "cur": "moon-mint",
+    "shim": true,
+    "top": 52,
+    "h": 588,
+    "w": 360,
+    "bodyH": 588,
+    "title": "Moon Mint · CatCoin Daily"
+   }
+  },
+  {
+   "name": "360x640 moon-mint a control was tapped",
+   "ok": true,
+   "info": {
+    "x": 94.125,
+    "y": 425.5625,
+    "t": "♥Rose"
+   }
+  },
+  {
+   "name": "360x640 moon-mint sound runs through the app's volume after a tap",
+   "ok": true,
+   "info": {
+    "n": 1,
+    "vol": 1,
+    "states": [
+     "running"
+    ],
+    "gains": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "360x640 moon-mint back returns to the menu and closes the page",
+   "ok": true
+  },
+  {
+   "name": "360x640 whisker-spark opens full width under the bar",
+   "ok": true,
+   "info": {
+    "cur": "whisker-spark",
+    "shim": true,
+    "top": 52,
+    "h": 588,
+    "w": 360,
+    "bodyH": 588,
+    "title": "Whisker Spark · CatCoin Daily"
+   }
+  },
+  {
+   "name": "360x640 whisker-spark a control was tapped",
+   "ok": true,
+   "info": {
+    "x": 74.6640625,
+    "y": 287.0625,
+    "t": "♥♥♥♥♥♥6"
+   }
+  },
+  {
+   "name": "360x640 whisker-spark sound runs through the app's volume after a tap",
+   "ok": true,
+   "info": {
+    "n": 1,
+    "vol": 1,
+    "states": [
+     "running"
+    ],
+    "gains": [
+     1
+    ]
+   }
+  },
+  {
+   "name": "360x640 whisker-spark back returns to the menu and closes the page",
+   "ok": true
+  },
+  {
+   "name": "360x640 with the app's sound off the puzzle is silent",
+   "ok": true,
+   "info": {
+    "vol": 0,
+    "gains": [
+     0
+    ]
+   }
+  },
+  {
+   "name": "360x640 app in background holds the puzzle's sound; back in front it resumes",
+   "ok": true,
+   "info": {
+    "bg": [
+     "suspended"
+    ],
+    "fg": [
+     "running"
+    ]
+   }
+  },
+  {
+   "name": "360x640 Home closes the puzzles and Home runs again",
+   "ok": true,
+   "info": {
+    "t1": 5.4941220000238475,
+    "t2": 6.061022000023857
+   }
+  },
+  {
+   "name": "360x640 PLAY still starts a round",
+   "ok": true
+  },
+  {
+   "name": "360x640 no errors",
+   "ok": true,
+   "info": []
+  }
+ ]
+}

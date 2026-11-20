@@ -1,0 +1,73 @@
+[
+ {
+  "seed": 10,
+  "rows": [
+   "RRRRRG",
+   "RRBGGG",
+   "RBBGGG",
+   "RRBBGG",
+   "RBBBGG",
+   "BBBRRG",
+   "BGBRRR"
+  ],
+  "queue": "RGRBRRG"
+ },
+ {
+  "seed": 150,
+  "rows": [
+   "YYYYYYB",
+   "YYYYRRB",
+   "YYYYRRG",
+   "RYYYYGG",
+   "RBYYYGG",
+   "RRYYYGG",
+   "RRBBBBB",
+   "RBBBBBB"
+  ],
+  "queue": "GBRYGBR"
+ },
+ {
+  "seed": 128,
+  "rows": [
+   "YYYYYYY",
+   "YYYYYYY",
+   "RRRRYYY",
+   "YYYGYBB",
+   "GYGGGBB",
+   "GRGGGBB",
+   "YGGGGRR",
+   "YGGRRRR"
+  ],
+  "queue": "RGRYYBYR"
+ },
+ {
+  "seed": 527,
+  "rows": [
+   "GGRRPPP",
+   "GGRRRPP",
+   "GRRRRBR",
+   "GGRRRBR",
+   "GGRYGRR",
+   "BGRGGGG",
+   "BGGPPPG",
+   "BGGPGPG",
+   "BGGGGGY"
+  ],
+  "queue": "GPYGPRBPY"
+ },
+ {
+  "seed": 530,
+  "rows": [
+   "BBBPPPP",
+   "YYGGGGB",
+   "YYGGGRB",
+   "YYYBBRR",
+   "YYYRRRR",
+   "YYYRRRR",
+   "YYRRBBR",
+   "GGGBBBB",
+   "BGGBBBB"
+  ],
+  "queue": "BGYRPBPG"
+ }
+]

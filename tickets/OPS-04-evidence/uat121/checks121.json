@@ -1,0 +1,25 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\ops04\\release.html",
+ "passed": true,
+ "passedN": 6,
+ "failed": [],
+ "notes": {
+  "changedVsBase": [
+   "img/art/brass-pusher.png",
+   "img/art/cheese-scene-v1.png",
+   "img/art/collections-satchel-v1.png",
+   "img/art/cp69-bowtie.png",
+   "img/art/cp69-cane.png",
+   "img/art/cp69-hat.png",
+   "img/art/head-calm.png",
+   "img/art/tuna.png",
+   "img/art/uat18-coin-faces.png",
+   "img/art/uat18-small-paw.png",
+   "img/art/water-scene-v1.png"
+  ],
+  "literalAssetRefs": 48,
+  "missingInBaseToo": [
+   "img/machine_source.webp"
+  ]
+ }
+}

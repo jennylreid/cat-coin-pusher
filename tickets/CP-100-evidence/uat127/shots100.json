@@ -1,0 +1,201 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp127\\boot127",
+ "sizes": {
+  "412x915": {
+   "home": {
+    "btn": {
+     "x": 112,
+     "y": 619,
+     "w": 176,
+     "h": 36
+    },
+    "lab": null,
+    "coins": 100,
+    "gentle": true,
+    "build": "2026.11.19 UAT 127"
+   },
+   "list": {
+    "shown": true,
+    "rows": 10,
+    "goals": 0,
+    "giant": false,
+    "first": true,
+    "order": 10,
+    "tap": {
+     "list": true,
+     "mode": "levels",
+     "board": false,
+     "rows": 10,
+     "goals": 0,
+     "title": "Level boards"
+    },
+    "goalTap": {
+     "list": true,
+     "mode": "goals",
+     "board": false,
+     "rows": 0,
+     "goals": 12,
+     "title": "Goal boards",
+     "cup": true
+    }
+   },
+   "play": {
+    "on": true,
+    "key": "L1",
+    "lv1": true,
+    "phase": "play"
+   },
+   "nb": {
+    "key": "L2",
+    "recipe": true,
+    "kitchen": true
+   }
+  },
+  "360x640": {
+   "home": {
+    "btn": {
+     "x": 112,
+     "y": 579.1828571428571,
+     "w": 176,
+     "h": 36
+    },
+    "lab": null,
+    "coins": 100,
+    "gentle": true,
+    "build": "2026.11.19 UAT 127"
+   },
+   "list": {
+    "shown": true,
+    "rows": 10,
+    "goals": 0,
+    "giant": false,
+    "first": true,
+    "order": 10,
+    "tap": {
+     "list": true,
+     "mode": "levels",
+     "board": false,
+     "rows": 10,
+     "goals": 0,
+     "title": "Level boards"
+    },
+    "goalTap": {
+     "list": true,
+     "mode": "goals",
+     "board": false,
+     "rows": 0,
+     "goals": 12,
+     "title": "Goal boards",
+     "cup": true
+    }
+   },
+   "play": {
+    "on": true,
+    "key": "L1",
+    "lv1": true,
+    "phase": "play"
+   },
+   "nb": {
+    "key": "L2",
+    "recipe": true,
+    "kitchen": true
+   }
+  }
+ },
+ "errors": [],
+ "home": {
+  "412x915": {
+   "levels": {
+    "list": true,
+    "mode": "levels",
+    "board": false,
+    "rows": 10,
+    "goals": 0,
+    "title": "Level boards"
+   },
+   "goals": {
+    "list": true,
+    "mode": "goals",
+    "board": false,
+    "rows": 0,
+    "goals": 12,
+    "title": "Goal boards",
+    "cup": true
+   },
+   "daily": {
+    "open": true,
+    "board": false
+   },
+   "db": {
+    "x": 374.92,
+    "y": 358.44,
+    "gy": 348,
+    "side": [
+     {
+      "id": "shop",
+      "y": 148
+     },
+     {
+      "id": "board",
+      "y": 248
+     }
+    ]
+   }
+  },
+  "360x640": {
+   "levels": {
+    "list": true,
+    "mode": "levels",
+    "board": false,
+    "rows": 10,
+    "goals": 0,
+    "title": "Level boards"
+   },
+   "goals": {
+    "list": true,
+    "mode": "goals",
+    "board": false,
+    "rows": 0,
+    "goals": 12,
+    "title": "Goal boards",
+    "cup": true
+   },
+   "daily": {
+    "open": true,
+    "board": false
+   },
+   "db": {
+    "x": 323.55555555555554,
+    "y": 309.3333333333333,
+    "gy": 348,
+    "side": [
+     {
+      "id": "shop",
+      "y": 148
+     },
+     {
+      "id": "board",
+      "y": 248
+     }
+    ]
+   }
+  }
+ },
+ "goal": {
+  "412x915": {
+   "lab": true,
+   "sel": "cup",
+   "budget": 18,
+   "end": false,
+   "wallet": true
+  },
+  "360x640": {
+   "lab": true,
+   "sel": "cup",
+   "budget": 18,
+   "end": false,
+   "wallet": true
+  }
+ },
+ "passed": true
+}

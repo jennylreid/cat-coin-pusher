@@ -1,0 +1,158 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp116\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp115\\release.html",
+ "passed": true,
+ "passedN": 9,
+ "failed": [],
+ "notes": {
+  "timeline": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "same": true,
+    "face": true,
+    "early": 0,
+    "hold": 3.95,
+    "holdA": 0.037,
+    "returnFrames": 17,
+    "moving": 16,
+    "topBefore": true,
+    "topAfter": true,
+    "startD": 328.2,
+    "maxStep": 38.6,
+    "maxStepShare": 0.118,
+    "exitOff": 0,
+    "outside": 0,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "same": true,
+    "face": true,
+    "early": 0,
+    "hold": 3.95,
+    "holdA": 0.037,
+    "returnFrames": 17,
+    "moving": 16,
+    "topBefore": true,
+    "topAfter": true,
+    "startD": 328.2,
+    "maxStep": 38.6,
+    "maxStepShare": 0.118,
+    "exitOff": 0,
+    "outside": 0,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "same": true,
+    "face": true,
+    "early": 0,
+    "hold": 3.95,
+    "holdA": 0.037,
+    "returnFrames": 8,
+    "moving": 7,
+    "topBefore": true,
+    "topAfter": true,
+    "startD": 328.4,
+    "maxStep": 75.2,
+    "maxStepShare": 0.229,
+    "exitOff": 0,
+    "outside": 0,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "same": true,
+    "face": true,
+    "early": 0,
+    "hold": 3.95,
+    "holdA": 0.037,
+    "returnFrames": 8,
+    "moving": 7,
+    "topBefore": true,
+    "topAfter": true,
+    "startD": 328.4,
+    "maxStep": 75.2,
+    "maxStepShare": 0.229,
+    "exitOff": 0,
+    "outside": 0,
+    "errs": 0,
+    "ok": true
+   }
+  ],
+  "screen": [
+   {
+    "sz": "412x915",
+    "diffBefore": 0,
+    "changedLate": 7,
+    "diffAfter": 0,
+    "frames": 86,
+    "seen": 1,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "sz": "360x640",
+    "diffBefore": 0,
+    "changedLate": 8,
+    "diffAfter": 0,
+    "frames": 86,
+    "seen": 1,
+    "edgeMax": 10,
+    "errs": 0,
+    "ok": true
+   }
+  ],
+  "opacity": [
+   {
+    "sz": "412x915",
+    "frames": 301,
+    "draws": 602,
+    "notOpaque": 0,
+    "framesWithout2": 0,
+    "sizes": [
+     "1.0300/182"
+    ],
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "sz": "360x640",
+    "frames": 301,
+    "draws": 602,
+    "notOpaque": 0,
+    "framesWithout2": 0,
+    "sizes": [
+     "0.8889/182"
+    ],
+    "errs": 0,
+    "ok": true
+   }
+  ],
+  "layer": [
+   {
+    "sz": "412x915",
+    "t": 4.817,
+    "onTopThatFrame": false,
+    "frontVsBehind": 0,
+    "sameModeTwice": 0,
+    "ok": true
+   },
+   {
+    "sz": "360x640",
+    "t": 4.817,
+    "onTopThatFrame": false,
+    "frontVsBehind": 547,
+    "sameModeTwice": 563,
+    "ok": true
+   }
+  ]
+ }
+}

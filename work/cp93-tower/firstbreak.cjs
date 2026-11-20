@@ -1,0 +1,6 @@
+const path=require('path'),vm=require('vm');const make33=require('../cp33/runtime.cjs');
+(async()=>{for(const seed of (process.env.SEEDS||'1,3,5,7').split(',').map(Number)){const g=await make33({sourceFile:path.resolve(__dirname,'release.html'),render:false,seed,width:412,height:915,storage:{'catpusher.uat.devdefault.v1':'1'}});
+ g.run=s=>vm.runInContext(s,g.c);g.run("S.dev=false;S.muted=true;");for(let i=0;i<150;i++)g.tick();g.run(`CP93.seed=${seed*7919};Object.assign(CP93.cfg,${process.env.CFG||'{}'});`);
+ g.run("if(!PG)pgInit();for(const c of PG_CATS)PG.open[c]=true;if(PGU.screen==='title'&&PGU.title){PGU.title.t=9;pgTitleDone();}");g.run("labStart('giant')");
+ g.run("CP93.log=[];{const b0=breakStack;breakStack=function(b){if(b&&b.cp93!=null&&CP93.log.length<3){const segs=bodies.filter(s=>!s.dead&&s.cp93===b.cp93).sort((a,c)=>a.cp93Seg-c.cp93Seg);CP93.log.push({t:+time.toFixed(2),ph:WILD.phase,py:Math.round(pusherY),tw:b.cp93,seg:b.cp93Seg,of:segs.length,up:+qrot(b.rb.rotation(),{x:0,y:1,z:0}).y.toFixed(3),xs:segs.map(s=>[Math.round(s.rb.translation().x/M),Math.round(s.rb.translation().z/M)])});}return b0(b);};}");
+ for(let i=0;i<1500;i++)g.tick();console.log(seed,g.run("JSON.stringify(CP93.log.slice(0,2))"));}})();

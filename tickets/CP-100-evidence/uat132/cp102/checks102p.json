@@ -1,0 +1,137 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp102-dev\\release.html",
+ "passed": true,
+ "passedChecks": [
+  "1 412x915: Developer = Endless board, Start now (Dance break first, 4 side games, 5 powers, wheel, Jackpot, Cat visits), Basics",
+  "2 412x915: removed buttons are hidden (levels, give all cats/cat coins, +1,000 coins, duplicates, the old Treat toss/Laser/Pet/Mouse pounce start buttons)",
+  "3 412x915: kept and shown: Give powers, Give prizes + 300 coins, Ragdoll and Orange music, Yawn sound, Dance tuning, Endless board, the rest",
+  "4 412x915: every element ID of the UAT 131 panel is still there; no page errors",
+  "1 360x640: Developer = Endless board, Start now (Dance break first, 4 side games, 5 powers, wheel, Jackpot, Cat visits), Basics",
+  "2 360x640: removed buttons are hidden (levels, give all cats/cat coins, +1,000 coins, duplicates, the old Treat toss/Laser/Pet/Mouse pounce start buttons)",
+  "3 360x640: kept and shown: Give powers, Give prizes + 300 coins, Ragdoll and Orange music, Yawn sound, Dance tuning, Endless board, the rest",
+  "4 360x640: every element ID of the UAT 131 panel is still there; no page errors"
+ ],
+ "failed": [],
+ "res": {
+  "1 412x915: Developer = Endless board, Start now (Dance break first, 4 side games, 5 powers, wheel, Jackpot, Cat visits), Basics": {
+   "pass": true,
+   "info": {
+    "heads": [
+     "Developer",
+     "Endless board",
+     "Start now",
+     "Side games",
+     "Powers",
+     "Basics"
+    ],
+    "first": [
+     "btn",
+     "dance-now",
+     "Start Dance break now"
+    ],
+    "games": [
+     "cp102-game-toss",
+     "cp102-game-chase",
+     "cp102-game-pet",
+     "cp102-game-pounce"
+    ],
+    "powers": [
+     "cp102-power-orange",
+     "cp102-power-ragdoll",
+     "cp102-power-siamese",
+     "cp102-power-tortie",
+     "cp102-power-tuxedo"
+    ]
+   }
+  },
+  "2 412x915: removed buttons are hidden (levels, give all cats/cat coins, +1,000 coins, duplicates, the old Treat toss/Laser/Pet/Mouse pounce start buttons)": {
+   "pass": true,
+   "info": {
+    "still shown": [],
+    "+1000": 0,
+    "level heads": []
+   }
+  },
+  "3 412x915: kept and shown: Give powers, Give prizes + 300 coins, Ragdoll and Orange music, Yawn sound, Dance tuning, Endless board, the rest": {
+   "pass": true,
+   "info": []
+  },
+  "4 412x915: every element ID of the UAT 131 panel is still there; no page errors": {
+   "pass": true,
+   "info": {
+    "missing": [],
+    "errors": [],
+    "scroll": [
+     {
+      "sh": 7580,
+      "ch": 915
+     },
+     {
+      "sh": 6939,
+      "ch": 915
+     }
+    ]
+   }
+  },
+  "1 360x640: Developer = Endless board, Start now (Dance break first, 4 side games, 5 powers, wheel, Jackpot, Cat visits), Basics": {
+   "pass": true,
+   "info": {
+    "heads": [
+     "Developer",
+     "Endless board",
+     "Start now",
+     "Side games",
+     "Powers",
+     "Basics"
+    ],
+    "first": [
+     "btn",
+     "dance-now",
+     "Start Dance break now"
+    ],
+    "games": [
+     "cp102-game-toss",
+     "cp102-game-chase",
+     "cp102-game-pet",
+     "cp102-game-pounce"
+    ],
+    "powers": [
+     "cp102-power-orange",
+     "cp102-power-ragdoll",
+     "cp102-power-siamese",
+     "cp102-power-tortie",
+     "cp102-power-tuxedo"
+    ]
+   }
+  },
+  "2 360x640: removed buttons are hidden (levels, give all cats/cat coins, +1,000 coins, duplicates, the old Treat toss/Laser/Pet/Mouse pounce start buttons)": {
+   "pass": true,
+   "info": {
+    "still shown": [],
+    "+1000": 0,
+    "level heads": []
+   }
+  },
+  "3 360x640: kept and shown: Give powers, Give prizes + 300 coins, Ragdoll and Orange music, Yawn sound, Dance tuning, Endless board, the rest": {
+   "pass": true,
+   "info": []
+  },
+  "4 360x640: every element ID of the UAT 131 panel is still there; no page errors": {
+   "pass": true,
+   "info": {
+    "missing": [],
+    "errors": [],
+    "scroll": [
+     {
+      "sh": 7739,
+      "ch": 640
+     },
+     {
+      "sh": 7049,
+      "ch": 640
+     }
+    ]
+   }
+  }
+ }
+}

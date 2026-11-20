@@ -1,0 +1,87 @@
+const STATE="JSON.stringify({p:PGPX?[PGPX.id,+PGPX.t.toFixed(4)]:null,reach:pglReach(),coins:board.coins,pieces:bodies.filter(b=>!b.dead).map(b=>{const q=b.rb.translation();return [b.kind,+q.x.toFixed(3),+q.y.toFixed(3),+q.z.toFixed(3)];})})";
+// each mitt as seen on screen: place and turn (left mitt's turn; the right mirrors), from whichever way the mitts are drawn
+const POSE_A="(()=>{const r=[];for(const s of [-1,1]){if(isRestPose()){const m=pawMotion(s),R=cp58Rest(s);r.push({x:R.x+m.x,y:R.y+m.y,a:s<0?m.r-.12:-m.r-.12});}else{const b=__cp86MittRest(s),o=cp86MittOff(s,'wait',b)||{x:0,y:0,r:0};r.push({x:b.x+o.x,y:b.y+o.y,a:MITT_TURN+(s<0?o.r:-o.r)});}}return r;})()";
+const POSE_B="(()=>{const r=[];for(const s of [-1,1]){if(isRestPose()){const m=pawMotion(s),R=cp58Rest(s);r.push({x:R.x+m.x,y:R.y+m.y,a:s<0?m.r-.12:-m.r-.12});}else{const b=mittRest(s);r.push({x:b.x,y:b.y,a:MITT_TURN});}}return r;})()";
+const TARGET="[cp86MTarget(-1),cp86MTarget(1)]";
+const dist=(p,q)=>Math.hypot(p.x-q.x,p.y-q.y);
+(async()=>{
+ // 0. the build is the base + this ticket's edits and block, as the build folder's edits.json says
+ if(process.env.BUILD_DIR){const D=process.env.BUILD_DIR,E=JSON.parse(fs.readFileSync(path.join(D,'edits.json'),'utf8')),V=JSON.parse(fs.readFileSync(path.join(D,'release-version.json'),'utf8'));
+  let B=fs.readFileSync(base,'utf8'),m=sha(base)===V.baseSHA256;for(const [a,b] of E.edits){if(B.split(a).length!==2)m=false;B=B.split(a).join(b);}
+  for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(D,f),'utf8')+String.fromCharCode(10)+B.slice(i);}
+  check('0 the build is the published UAT 114 + build name + 4 marked CP-86 mitts D E F edits (everything else unchanged)',fs.readFileSync(src,'utf8')===B&&m&&E.edits.length===5&&E.edits.slice(1).every(e=>/CP-86 mitts D E F/.test(e[1]))&&!E.appendedBeforeLastScriptClose.length);}
+ // 1. each option x 60/30 fps x 2 seeds: the game itself identical to UAT 113 every frame; the face and eyes switch on exactly
+ // the base's frames; the mitts are exactly at rest outside the action; in it they start at rest, travel (no jump bigger than
+ // the travel's own speed plus the shake), hold the pose from 1.0 to 4.0 s (within the shake), and are back at rest by the
+ // face's switch (4.9 s)
+ {const rows=[];let ok=true;for(const pick of ['head','B','C','D','E','F'])for(const fps of [60,30])for(const seed of [1,2]){const row={pick,fps,seed};
+   const A=await midRound(src,{cat:'siamese',seed,fps,pick}),B=await midRound(ref,{cat:'siamese',seed,fps});A.g.run(TAP);B.g.run(TAP);
+   let tStep=0,prevT=null,same=true,face=true,prev=null,maxStep=0,startOff=null,holdMax=0,holdA=0,exitOff=0,outside=0,act=0,onTop=0,onTopOutside=0,D=0;let T=null;
+   for(let i=0;i<Math.round(8*fps);i++){A.tk();B.tk();const sa=A.g.run(STATE),sb=B.g.run(STATE);if(sa!==sb)same=false;
+    const id=A.g.run("PGPX?PGPX.id:'-'"),t=+A.g.run('PGPX?PGPX.t:0');
+    if(+A.g.run('cp86K()')!==+B.g.run('cp86K()')||+A.g.run('cp86Open()')!==+B.g.run('cp86Open()'))face=false;
+    const pa=J(A.g,POSE_A),pb=J(B.g,POSE_B),off=Math.max(...pa.map((p,k)=>dist(p,pb[k])+60*Math.abs(p.a-pb[k].a)));
+    const kk=+A.g.run('cp86K()'),top=A.g.run('cp86MOnTop()');if(top&&kk>0)onTop++;if(top&&!(kk>0))onTopOutside++;
+    if(id!=='sonic'){outside=Math.max(outside,off);prev=null;}
+    else{act++;if(startOff===null){T=J(A.g,TARGET);startOff=off;D=Math.max(...pa.map((p,k)=>dist(pb[k],T[k])));}
+     const Tn=J(A.g,TARGET);if(prevT)tStep=Math.max(tStep,...Tn.map((p,k)=>dist(p,prevT[k])));prevT=Tn;T=Tn;
+     if(prev)maxStep=Math.max(maxStep,...pa.map((p,k)=>dist(p,prev[k])));prev=pa;
+     if(t>=1&&t<=4){holdMax=Math.max(holdMax,...pa.map((p,k)=>dist(p,T[k])));holdA=Math.max(holdA,...pa.map((p,k)=>Math.abs(p.a-T[k].a)));}
+     if(t>=4.9)exitOff=Math.max(exitOff,off);}
+    if(!A.g.run('!!PGPX')&&i>fps*7)break;}
+   Object.assign(row,{same,face,act,startOff:+(startOff||0).toFixed(2),travel:+D.toFixed(1),maxStep:+maxStep.toFixed(2),stepLimit:+(Math.max(2.5*D/fps*1.2,tStep*1.3)+9).toFixed(2),tStep:+tStep.toFixed(2),holdMax:+holdMax.toFixed(2),holdA:+holdA.toFixed(3),exitOff:+exitOff.toFixed(3),outside:+outside.toFixed(4),onTop,onTopOutside,errs:J(A.g,'__errs').length+J(B.g,'__errs').length,pickUsed:A.g.run('CP86M.get()')});
+   A.g.close();B.g.close();
+   row.ok=same&&face&&act>0&&row.startOff<=9&&row.maxStep<=row.stepLimit&&row.holdMax<=5.5&&row.holdA<=.08&&row.exitOff<=.05&&row.outside===0&&(pick==='B'||pick==='C'?onTop===0:onTop>0)&&onTopOutside===0&&!row.errs&&row.pickUsed===pick;
+   if(!row.ok)ok=false;rows.push(row);}
+  notes.timeline=rows;check('1 each option (above the head, B, C, D, E, F) x 60/30 fps x 2 seeds: game identical to UAT 114 every frame; face and eyes switch on the base frames; mitts exactly at rest outside the action; in it they start at rest, travel without a jump, hold the pose 1.0-4.0 s (within the shake), and are at rest by the face switch at 4.9 s; drawn after the head for all but B and C, only while the face shows',ok,rows);}
+ // 2. the poses: above the head is the wheel's Yawn stretch exactly (cp58Mitt at the end of its rise: place and turn); B and C
+ // are the mock-ups' places and turns at 412x915 (B: x 52, y 520, turn .35 out; C: x 150, y 560, turn .35 in; right mirrored)
+ {const {g}=await midRound(src,{cat:'siamese',seed:3,w:412,h:915});const r={};
+  g.run("W2_YAWN={t:0,cp58:true,grabs:[],away:1,crumbs:[],mouth:null,fx:{}};");r.yawn=J(g,"[cp58Mitt(-1,CP58.up),cp58Mitt(1,CP58.up)].map(m=>({x:m.x,y:m.y,dr:m.r}))");g.run("W2_YAWN=null;");
+  r.head=J(g,"(()=>{CP86M.set('head');return [-1,1].map(s=>{const T=cp86MTarget(s);return {x:T.x,y:T.y,a:T.a,dr:-s*(T.a+.12)};});})()");
+  r.B=J(g,"(()=>{CP86M.set('B');return [cp86MTarget(-1),cp86MTarget(1)];})()");r.C=J(g,"(()=>{CP86M.set('C');return [cp86MTarget(-1),cp86MTarget(1)];})()");r.D=J(g,"(()=>{CP86M.set('D');return [cp86MTarget(-1),cp86MTarget(1),cp58Rest(-1),cp58Rest(1)];})()");g.run("CP86M.set('head')");g.close();
+  const near=(a,b,e=.05)=>Math.abs(a-b)<=e;
+  const okH=r.head.every((h,k)=>near(h.x,r.yawn[k].x)&&near(h.y,r.yawn[k].y)&&near(h.dr,r.yawn[k].dr,1e-9));
+  const okB=near(r.B[0].x,52,.1)&&near(r.B[0].y,520,.6)&&near(r.B[0].a,.35,1e-9)&&near(r.B[1].x,348,.1)&&near(r.B[1].y,520,.6);
+  const okC=near(r.C[0].x,150,.1)&&near(r.C[0].y,560,.6)&&near(r.C[0].a,-.35,1e-9)&&near(r.C[1].x,250,.1)&&near(r.C[1].y,560,.6);
+  const okD=near(r.D[0].x,r.D[2].x+12,1e-9)&&near(r.D[0].y,r.D[2].y-30,1e-9)&&near(r.D[0].a,-.12,1e-9)&&near(r.D[1].x,r.D[3].x-12,1e-9)&&near(r.D[1].y,r.D[3].y-30,1e-9);
+  notes.poses=r;check('2 poses: above the head = the Yawn stretch exactly (place and turn); B and C = the mock-ups at 412x915 (all as UAT 114); D = the Dancing pose centre (its rest place, 12 in, 30 up, its own turn)',okH&&okB&&okC&&okD,r);}
+ // 2b. E and F: the first pose held until 3.0 s, the travel between 3.0 s and the eyes opening, the second pose exactly when the
+ // eyes open (the first frame cp86Open() is 1) and after; the travel is continuous (largest target step per frame reported)
+ {const rows=[];let ok=true;for(const pick of ['E','F'])for(const fps of [60,30]){const {g,tk}=await midRound(src,{cat:'siamese',seed:8,fps,pick});g.run(TAP);
+   const P=J(g,'CP86M.POSE'),a=P[pick].seq[0],z=P[pick].seq[1],r={pick,fps,swap:J(g,'CP86M.swap'),openAt:+g.run('CP86.openAt'),before:0,openFrame:null,after:0,maxStep:0};let prev=null;
+   // the target the pose k alone would give (the same code path, with this pick's entry swapped for pose k for one call)
+   const tg=k=>J(g,`(()=>{const s=CP86M.POSE,keep=s['${pick}'];s['${pick}']=s['${k}'];const v=[cp86MTarget(-1),cp86MTarget(1)];s['${pick}']=keep;return v;})()`);
+   for(let i=0;i<9*fps;i++){tk();if(!g.run("!!PGPX&&PGPX.id==='sonic'")){if(r.openFrame!==null)break;continue;}const t=+g.run('PGPX.t'),T=J(g,'[cp86MTarget(-1),cp86MTarget(1)]'),open=+g.run('cp86Open()');
+    const A=tg(a),Z=tg(z),dA=Math.max(...T.map((p,k)=>dist(p,A[k])+60*Math.abs(p.a-A[k].a))),dZ=Math.max(...T.map((p,k)=>dist(p,Z[k])+60*Math.abs(p.a-Z[k].a)));
+    if(t<3)r.before=Math.max(r.before,dA);if(open){if(r.openFrame===null)r.openFrame={t:+t.toFixed(3),off:+dZ.toFixed(6)};r.after=Math.max(r.after,dZ);}
+    if(prev)r.maxStep=Math.max(r.maxStep,...T.map((p,k)=>dist(p,prev[k])));prev=T;}
+   r.errs=J(g,'__errs').length;g.close();r.ok=r.swap[1]===r.openAt&&r.before<1e-9&&!!r.openFrame&&r.openFrame.off<1e-6&&r.after<1e-6&&r.maxStep<400/fps*1.2&&!r.errs;if(!r.ok)ok=false;rows.push(r);}
+  notes.EF=rows;check('2b E and F: the first pose until 3.0 s, then travel, reaching the second pose exactly as the eyes open (3.75 s) and holding it; no jump in the travel',ok,rows);}
+ // 3. the pick is read when a meow starts: changed mid-meow, that meow keeps its pose and the next uses the new one; a
+ // stored value that isn't an option gives the default (above the head)
+ {const {g,tk}=await midRound(src,{cat:'siamese',seed:5,pick:'head'});g.run('wildFinish=function(){};'); /* the round stays open for a second meow */g.run(TAP);const r={first:null,second:null};
+  for(let i=0;i<9*60;i++){tk();if(g.run("!!PGPX&&PGPX.id==='sonic'")&&+g.run('PGPX.t')>1&&r.first===null){g.run("CP86M.set('C')");r.first=[];}
+   if(r.first&&g.run("!!PGPX&&PGPX.id==='sonic'"))r.first.push(g.run('cp86MPick()'));if(r.first&&!g.run('!!PGPX'))break;}
+  for(let i=0;i<60;i++)tk();g.run(TAP);for(let i=0;i<10*60;i++){tk();if(g.run("!!PGPX&&PGPX.id==='sonic'")){r.second=g.run('cp86MPick()');break;}}
+  r.first=[...new Set(r.first||[])];r.errs=J(g,'__errs').length;g.close();
+  const b=await midRound(src,{cat:'siamese',seed:5,pick:'nonsense'});r.bad=b.g.run('CP86M.get()');b.g.close();const n=await midRound(src,{cat:'siamese',seed:5});r.none=n.g.run('CP86M.get()');n.g.close();
+  check('3 the pick holds for a whole meow (changed mid-meow: that meow stays above the head, the next is C); no or a wrong saved value = above the head',r.first.length===1&&r.first[0]==='head'&&r.second==='C'&&r.bad==='head'&&r.none==='head'&&!r.errs,r);}
+ // 4. nowhere else: other cats' powers never move the mitts or change their layer
+ {const rows=[];let ok=true;for(const cat of ['tuxedo','orange','ragdoll','tortie']){const {g,tk}=await midRound(src,{cat,seed:4});g.run(TAP);let mx=0,top=0;for(let i=0;i<9*60;i++){tk();mx=Math.max(mx,+g.run('cp86MWeight()'));if(g.run('cp86MOnTop()'))top++;}rows.push([cat,mx,top]);if(mx||top)ok=false;g.close();}
+  check('4 the other cats powers never move the mitts or change their layer',ok,rows);}
+ // 5. on screen (render harness, 412x915 and 360x640, each option): frames identical to UAT 113 outside the meow's action; no draw errors
+ {const rows=[];let ok=true;for(const [w,h] of [[412,915],[360,640]])for(const pick of ['head','B','C','D','E','F']){const sz=w+'x'+h;
+   const A=await midRound(src,{cat:'siamese',seed:7,w,h,pr:1,render:true,pick}),B=await midRound(ref,{cat:'siamese',seed:7,w,h,pr:1,render:true,pick:'DEF'.includes(pick)?'head':pick});A.g.run(TAP);B.g.run(TAP);
+   const grab=g=>{g.c.draw();const cv=g.c.document.getElementById('cv');return cv.getContext('2d').getImageData(0,0,cv.width,cv.height).data;};
+   // the canvas's last pixel column is only part-covered by the background in this harness at 360 wide, so it keeps a faint
+   // trace of whatever was drawn there earlier (the right mitt now reaches the edge in the meow): that column is allowed a
+   // small difference (reported as edgeMax); every other pixel must be identical
+   const r={sz,pick,outsideDiff:0,actionChanged:0,frames:0,edgeMax:0};
+   for(let i=0;i<8*60;i++){A.tk();B.tk();if(i%10)continue;const id=A.g.run("PGPX?PGPX.id:'-'");const a=grab(A.g),b=grab(B.g),CW=+A.g.run("document.getElementById('cv').width");r.frames++;let n=0,ne=0;for(let p=0;p<a.length;p+=4)if(a[p]!==b[p]||a[p+1]!==b[p+1]||a[p+2]!==b[p+2]){if((p/4)%CW===CW-1&&id!=='sonic'){r.edgeMax=Math.max(r.edgeMax,Math.abs(a[p]-b[p]),Math.abs(a[p+1]-b[p+1]),Math.abs(a[p+2]-b[p+2]));continue;}n++;}
+    if(id!=='sonic'){if(n)r.outsideDiff++;}else if(n)r.actionChanged++;if(!A.g.run('!!PGPX')&&i>7*60)break;}
+   r.errs=J(A.g,'__errs').length;A.g.close();B.g.close();r.ok=r.outsideDiff===0&&('DEF'.includes(pick)?r.edgeMax<=16:r.edgeMax===0)&&('DEF'.includes(pick)?r.actionChanged>0:r.actionChanged===0)&&!r.errs;if(!r.ok)ok=false;rows.push(r);}
+  notes.screen=rows;check('5 on screen (412x915, 360x640): above the head, B and C draw every frame exactly as UAT 114 with the same choice (meow included); D, E and F are identical to UAT 114 outside the meow (but for the harness edge-column trace at 360 wide, edgeMax) and differs only during it; no draw errors',ok,rows);}
+ check('6 production untouched',sha(prodJ)===prod0);
+ fs.writeFileSync(path.join(out,'checks86m.json'),JSON.stringify({build:src,base,passed:failed.length===0,passedN:passed.length,failed,notes},null,1));if(failed.length)process.exitCode=1;
+})().catch(e=>{console.error(e);process.exit(1)});

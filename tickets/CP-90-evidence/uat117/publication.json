@@ -1,0 +1,32 @@
+﻿{
+    "version":  20261119000028,
+    "displayName":  "2026.11.19 UAT 117",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "282ad5e9ff6f1f0f552a5fc8c2efcba89dd40587020258a711069e3654cccb2a",
+    "stagedJSONSHA256":  "34c945a40396602ccaae8fe8e8573d75252e891c8e2cf99e65ffdc4015e7b29d",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "680f834a8d4e7086fe5c5f2c14200e6fa16c3dd5b39448a96f4030473bf26762",
+    "jsonBytes":  59884525,
+    "runtimeFiles":  81,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  {
+                              "img/art/cp90-ginger-run.webp":  "32edfaf6ba51fc1f4c6389368d9fbfc99965d4d50176771d4160d0b3b5107016",
+                              "img/art/cp90-cream-run.webp":  "70f9742a60f3a1eca2466a1f01117fc412c2b800cafbd5f1e2ac37216224ffa5",
+                              "img/art/cp90-ginger-peek.webp":  "eaaf9bbcfd43415d9d7aa6a610a993e1d4238cc40ee7d988ef9160ec97e117ca"
+                          },
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.19 UAT 116",
+    "backup":  "uat/backups/before-UAT117-20261119000028",
+    "evidence":  "tickets/CP-90-evidence/uat117",
+    "checks":  [
+                   "checks64-on117.json",
+                   "checks72-on117.json",
+                   "checks94-on117.json",
+                   "checks90.json"
+               ],
+    "authorization":  "UAT 117: CP-90 Zoomies painted kittens as a Developer choice, Painted default, the puff original (PM, Nov 19, Jenny\u0027s words: \"I prefer the original Ginger Puff cat.\" / \"I need to see both. I need to see them in action as well.\"; PM: \"Do (UAT 117, on UAT 116)\"); UAT only",
+    "localPublication":  "verified"
+}

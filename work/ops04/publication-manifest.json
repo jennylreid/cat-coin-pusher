@@ -1,0 +1,107 @@
+{
+  "version": 20261119000032,
+  "displayName": "2026.11.19 UAT 121",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "8a84d1150a8e0aa503198eff87036964b50b1e74f94d43301928112c39cdab39",
+  "stagedJSONSHA256": "e0303b2161e37c0cdfe394d99cedb741e81563f0dae13e89e2cf5fb7a76c2ea0",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "c6463c48f77a86450465f6a97384108f262c707d568ac405e66d7aa3dde7c5b4",
+  "jsonBytes": 47699229,
+  "baselineJSONBytes": 59941421,
+  "runtimeFiles": 76,
+  "carriedByteForByte": 63,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "removedUnused": {
+    "img/art/uat18-soft-paw.png": 1040404,
+    "img/art/head-waiting.webp": 382012
+  },
+  "removedCP90": {
+    "img/art/cp90-ginger-run.webp": 136672,
+    "img/art/cp90-cream-run.webp": 100854,
+    "img/art/cp90-ginger-peek.webp": 80516
+  },
+  "resavedLossless": {
+    "img/art/brass-pusher.png": {
+      "from": 1200122,
+      "to": 1038947,
+      "sha256": "83439598fe0a2eaf884a75c02fe477d8b83d2bbc6d823d6b9d81d242bda11059"
+    },
+    "img/art/cheese-scene-v1.png": {
+      "from": 1945136,
+      "to": 1830390,
+      "sha256": "7b0b1d051ec47a3d0ff01471c6bdf8fc53a730f9e0a5c2cc10f9ef99c1196c44"
+    },
+    "img/art/collections-satchel-v1.png": {
+      "from": 1943419,
+      "to": 1846011,
+      "sha256": "49693ddb47a5fddf46a875ec01a8591ecd30773ab97f5a15c5d184e698d2e045"
+    },
+    "img/art/cp69-bowtie.png": {
+      "from": 215604,
+      "to": 215061,
+      "sha256": "d216d1212c1f3a2a87b74b290acbc00602b6222e2b676b7cb679339e27151b35"
+    },
+    "img/art/cp69-cane.png": {
+      "from": 115644,
+      "to": 113916,
+      "sha256": "3f0cbec1a16d4a17e40acaaee0a00fef421b85ca6ab29802c3bd3c5cb63e9bfa"
+    },
+    "img/art/cp69-hat.png": {
+      "from": 310162,
+      "to": 308348,
+      "sha256": "28d43fd8b1171a4f5bc213314c16939b8080a0c9e007d1de92c0ea123a863918"
+    },
+    "img/art/head-calm.png": {
+      "from": 565723,
+      "to": 519934,
+      "sha256": "ec82b3461ba911df92d4166804a8d86d5ffea4e866b6c495d832fbac8813315b"
+    },
+    "img/art/tuna.png": {
+      "from": 1867722,
+      "to": 1695661,
+      "sha256": "4c57001d7bd8e805b49714670958eaab0888c66ecb9393d87bddba41477119fd"
+    },
+    "img/art/uat18-coin-faces.png": {
+      "from": 2559813,
+      "to": 2377134,
+      "sha256": "b6fa6f7af15667dbd8112900c643462c64e08acd9702584da4180b6a52efe870"
+    },
+    "img/art/uat18-small-paw.png": {
+      "from": 2527075,
+      "to": 2344808,
+      "sha256": "9d41d9753e9e232ad0491bb21745f2e65a0319850f547d4d8546161f2e198f50"
+    },
+    "img/art/water-scene-v1.png": {
+      "from": 2076479,
+      "to": 1937072,
+      "sha256": "f4896f717db55c0ff816b3702db0ce1ee65c947d32442740ee1258aed8818011"
+    }
+  },
+  "replaced": {
+    "sounds/effects/paw-dance.wav": {
+      "bytes": 11060374,
+      "by": "sounds/effects/paw-dance.flac",
+      "flacBytes": 4723340,
+      "flacSHA256": "faa3a8a3f96c9e349ca4470f15825d34c5a4b8a661a713200898278e4386f29e",
+      "sampleIdentical": true
+    }
+  },
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.19 UAT 120",
+  "backup": "uat/backups/before-UAT121-20261119000032",
+  "evidence": "tickets/OPS-04-evidence/uat121",
+  "checks": [
+    "checks121.json",
+    "checks64-on121.json",
+    "checks72-on121.json",
+    "checks94-on121.json",
+    "checks72s-on121.json",
+    "checks80-on121.json",
+    "real-browser-probe.json",
+    "audio-check.json"
+  ],
+  "authorization": "UAT 121: OPS-04 package trim A+B+C plus the CP-90 painted-kitten removal (PM, Nov 19: \"Go for A+B+C, plus the CP-90 painted-kitten removal\"; Jenny: \"I prefer the original zoomies.\"; PM, Nov 19: UAT 120 out, rebase, check, stage, publish); UAT only"
+}

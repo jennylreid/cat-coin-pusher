@@ -1,0 +1,30 @@
+﻿{
+    "version":  20261119000025,
+    "displayName":  "2026.11.19 UAT 114",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "ff7ff909e0cf8f0eedef42face54ac13879abd558b01799dd317e0562a4b757b",
+    "stagedJSONSHA256":  "1c0bf91b0bbf37876ce9b969aef30afaf0008604d30e609e41da40eb31da8338",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "0ab22e2b088423813919475780871eb4cd821c243461fecacfffbcf540987040",
+    "jsonBytes":  59450103,
+    "runtimeFiles":  78,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.19 UAT 113",
+    "backup":  "uat/backups/before-UAT114-20261119000025",
+    "evidence":  "tickets/CP-86-evidence/uat114",
+    "checks":  [
+                   "checks112-on114.json",
+                   "checks64-on114.json",
+                   "checks88-on114.json",
+                   "checks86m.json"
+               ],
+    "authorization":  "UAT 114: CP-86 Sonic meow mitts, three options (PM, Nov 19, Jenny\u0027s go: \"I would like to see B and C, and also above the head, like the yawn pose.\"; PM: \"Publish as UAT 114, on UAT 113. The channel is free\"); UAT only",
+    "localPublication":  "verified"
+}

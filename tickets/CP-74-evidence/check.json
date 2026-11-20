@@ -1,0 +1,56 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp74-hug\\game\\proto.html",
+ "passed": true,
+ "res": {
+  "lockCount": [
+   1,
+   1
+  ],
+  "walls": {
+   "pass": true,
+   "detail": {
+    "first": [
+     0.52,
+     2
+    ],
+    "last": [
+     6.42,
+     2
+    ],
+    "end": [
+     -1,
+     0
+    ]
+   }
+  },
+  "lock": {
+   "pass": true,
+   "detail": [
+    1,
+    1
+   ]
+  },
+  "ends": {
+   "pass": true,
+   "detail": null
+  },
+  "errors": {
+   "pass": true,
+   "detail": []
+  },
+  "homeMidPower": {
+   "pass": true,
+   "detail": {
+    "px": null,
+    "cols": 0
+   }
+  },
+  "roundEndMidPower": {
+   "pass": true,
+   "detail": {
+    "px": null,
+    "cols": 0
+   }
+  }
+ }
+}

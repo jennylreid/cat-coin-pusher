@@ -1,0 +1,47 @@
+{
+ "W": 400,
+ "H": 888.3,
+ "lipY": 770.7,
+ "chinY": 354.6,
+ "shoulder": {
+  "cx": 50,
+  "cy": 372.6,
+  "r": 80,
+  "ry": 64
+ },
+ "arm": {
+  "radiusWorld": 27,
+  "thickBack": 49.3,
+  "thickFront": 59.7,
+  "innerEdgeBack": {
+   "x": 44.5,
+   "y": 512.2
+  },
+  "innerEdgeFront": {
+   "x": 11.6,
+   "y": 770.7
+  }
+ },
+ "mitts": {
+  "w": 182,
+  "left": {
+   "x": 120,
+   "y": 832.7
+  },
+  "right": {
+   "x": 280,
+   "y": 832.7
+  },
+  "turn": 0.3,
+  "visibleTop": 778.1
+ },
+ "walls": {
+  "worldX": [
+   14,
+   30
+  ],
+  "zFrom": 411,
+  "zTo": 780,
+  "height": 80
+ }
+}

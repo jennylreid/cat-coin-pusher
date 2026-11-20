@@ -1,0 +1,10 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp86-mitts\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp113\\release.html",
+ "passed": true,
+ "passedN": 8,
+ "failed": [],
+ "notes": {
+  "reference": "frames and play compared with the base renamed to this build name (ref-base-named.html): the build name is drawn on screen"
+ }
+}

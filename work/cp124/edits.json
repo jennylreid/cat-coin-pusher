@@ -1,0 +1,13 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp123\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 123';",
+   "const BUILD = '2026.11.19 UAT 124';"
+  ]
+ ],
+ "replacedBlock": {
+  "old": "work/cp107/cp87-puzzles.js",
+  "new": "work/cp124/cp96-puzzles.js"
+ }
+}

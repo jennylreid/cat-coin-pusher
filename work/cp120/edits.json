@@ -1,0 +1,73 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp119\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.19 UAT 119';",
+   "const BUILD = '2026.11.19 UAT 120';"
+  ],
+  [
+   "const adj=stamp-D.latency,k=Math.round((adj-D.p0)/D.beat),err=adj-(D.p0+k*D.beat);",
+   "const adj=stamp-D.latency,k=D.rest?danceSlot(D,adj):Math.round((adj-D.p0)/D.beat),err=adj-(D.p0+k*D.beat);/*CP-94*/"
+  ],
+  [
+   "D.blocked=err<0?k:k+1;",
+   "D.blocked=err<0?k:D.rest?danceNextTap(D,k):k+1;/*CP-94*/"
+  ],
+  [
+   "const k0=Math.round((stamp-D.p0)/D.beat),raw=",
+   "const k0=D.rest?danceSlot(D,stamp-D.latency):Math.round((stamp-D.p0)/D.beat),raw="
+  ],
+  [
+   "k0>=-DANCE_COUNT_IN&&k0<D.n",
+   "k0>=-DANCE_COUNT_IN*(D.per||1)&&k0<D.n&&!(D.rest&&D.rest[k0])"
+  ],
+  [
+   "off=((o+b/2)%b+b)%b-b/2",
+   "off=D.rest?o:((o+b/2)%b+b)%b-b/2"
+  ],
+  [
+   "f.off/D.beat*68",
+   "f.off/D.beat*(D.px||68)"
+  ],
+  [
+   "for(let k=Math.max(-DANCE_COUNT_IN,Math.floor(x)-1);k<=Math.min(D.n-1,Math.floor(x)+3);k++){const u=k-x;if(u<-.3||u>2.6)continue;",
+   "for(let k=Math.max(-DANCE_COUNT_IN*(D.per||1),Math.floor(x)-1);k<=Math.min(D.n-1,Math.floor(x)+(D.ahead?Math.ceil(D.ahead):3));k++){const u=k-x;if(u<-.3||u>(D.ahead||2.6)||(D.rest&&D.rest[k]))continue;/*CP-94*/"
+  ],
+  [
+   "const nx=200+s*u*68;",
+   "const nx=200+s*u*(D.px||68);"
+  ],
+  [
+   "near=Math.max(0,1-Math.abs(ph)*4)",
+   "near=D.rest&&D.rest[Math.round(x)]?0:Math.max(0,1-Math.abs(ph)*4)"
+  ],
+  [
+   "bi=x<0?-1:Math.floor(x+.5)%4",
+   "bi=x<0?-1:Math.floor(x/(D.per||1)+.5)%4"
+  ],
+  [
+   "if(x<0){const c=Math.ceil(-x);ctx.globalAlpha=fade*Math.min(1,(1-(c+x))*3+.2);",
+   "if(x<0){const xq=x/(D.per||1),c=Math.ceil(-xq);ctx.globalAlpha=fade*Math.min(1,(1-(c+xq))*3+.2);/*CP-94*/"
+  ],
+  [
+   "if(x<0)return {intro:true,t:Math.max(0,(x+DANCE_COUNT_IN)/DANCE_COUNT_IN)*1.667};",
+   "if(x<0)return {intro:true,t:Math.max(0,(x/(D.per||1)+DANCE_COUNT_IN)/DANCE_COUNT_IN)*1.667};/*CP-94*/"
+  ],
+  [
+   "x0=W-Math.max(8,hud.right+10)-124,y=hud.bannerY,w=124,",
+   "x0=W-Math.max(8,hud.right+10)-124+(typeof danceMeterShift==='function'?danceMeterShift():0),y=hud.bannerY,w=124-(typeof danceMeterShift==='function'?danceMeterShift():0),"
+  ],
+  [
+   "D.perfect=D.hits===D.n;",
+   "D.perfect=D.hits===(D.taps||D.n);"
+  ],
+  [
+   "danceLoud(kind,vol=1,delay=0,arg=0){if(inBackground||document.hidden||!ready())return;const m=master,b=this._dBus();master=b;try{this.dance(kind,vol,delay,arg);}finally{master=m;}},",
+   "danceLoud(kind,vol=1,delay=0,arg=0){if(inBackground||document.hidden||!ready())return;const m=master,b=this._dBus();master=b;try{this.dance(kind,vol,delay,arg);}finally{master=m;}},cp94Loud(kind,vol=1,delay=0,arg=0){if(inBackground||document.hidden||!ready())return;const m=master,b=this._dBus();master=b;try{const v=vol*(typeof pickupFx==='object'?pickupFx.volume:1);if(!(v>0))return;const t=ac.currentTime+Math.max(0,delay);if(kind==='pluck'){tone(arg,t,.2,'sawtooth',.045*v,arg*.995);tone(arg*2,t,.09,'square',.014*v);tone(arg,t,.24,'triangle',.06*v);}else if(kind==='cowbell'){tone(587,t,.13,'square',.03*v);tone(845,t,.13,'square',.024*v);noise(t,.03,.04*v,3000,2);}else if(kind==='clave'){tone(2500,t,.05,'sine',.12*v);tone(1800,t,.035,'triangle',.05*v);}else if(kind==='conga'){tone(arg,t,.2,'sine',.24*v,arg*.72);noise(t,.02,.06*v,1200,1);}else if(kind==='shaker'){noise(t,.06,.07*v,7000,1.5);}else if(kind==='marimba'){tone(arg,t,.3,'sine',.15*v);tone(arg*4,t,.06,'sine',.03*v);bell(t,arg*2,.02*v,.18);}else if(kind==='sq'){tone(arg,t,.15,'square',.034*v);}else if(kind==='tri'){tone(arg,t,.24,'triangle',.2*v);}else if(kind==='blip'){tone(arg,t,.08,'square',.026*v,arg*1.5);}else if(kind==='chipsnare'){noise(t,.12,.22*v,2600,.6);tone(180,t,.06,'square',.05*v,110);}else if(kind==='grit'){tone(arg,t,.16,'sawtooth',.06*v,arg*.98);tone(arg/2,t,.14,'square',.03*v);}else if(kind==='tom'){tone(arg,t,.25,'sine',.3*v,arg*.55);noise(t,.04,.08*v,900,1);}else if(kind==='stopF'){noise(t,1.4,.2*v,6000,.5);[349.23,440,523.25,698.46].forEach(f=>{tone(f,t,1,'sawtooth',.04*v);tone(f,t,1.2,'triangle',.07*v);});tone(87.31,t,.8,'sine',.4*v,44);}else this.dance(kind,vol,delay,arg);}finally{master=m;}}, /* CP-94 Orange dance voices */"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp94-orange-dance.js",
+  "cp98-orange-eyes.js"
+ ]
+}

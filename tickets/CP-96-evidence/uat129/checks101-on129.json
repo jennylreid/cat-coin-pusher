@@ -1,0 +1,1136 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp129\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp100\\release.html",
+ "passed": true,
+ "passedN": 7,
+ "failed": [],
+ "notes": {
+  "timeline": [
+   {
+    "cat": "siamese",
+    "fps": 60,
+    "seed": 1,
+    "title": {
+     "from": 0.02,
+     "to": 1.18
+    },
+    "actStart": 1.25,
+    "actLen": [
+     5,
+     5
+    ],
+    "len": [
+     6.27,
+     5.02
+    ],
+    "sounds": [
+     [
+      "wild:thud",
+      "cp82title",
+      0.88
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      0
+     ],
+     [
+      "wild:topple",
+      "sonic",
+      0
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      0.65
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      0.65
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      0.77
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      0.88
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      1.12
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.12
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.23
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      1.25
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.35
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.47
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      1.57
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.57
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.68
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.8
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.92
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.03
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.17
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.28
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      2.52
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      3.77
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      5.02
+     ]
+    ],
+    "fails": []
+   },
+   {
+    "cat": "siamese",
+    "fps": 60,
+    "seed": 2,
+    "title": {
+     "from": 0.02,
+     "to": 1.18
+    },
+    "actStart": 1.25,
+    "actLen": [
+     5,
+     5
+    ],
+    "len": [
+     6.27,
+     5.02
+    ],
+    "sounds": [
+     [
+      "wild:thud",
+      "cp82title",
+      0.88
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      0
+     ],
+     [
+      "wild:topple",
+      "sonic",
+      0
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      0.82
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      0.82
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      0.93
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.05
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.17
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      1.25
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      1.28
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.28
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.4
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.52
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.63
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.75
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.88
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      2.3
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.3
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.42
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      2.52
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.53
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.65
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.77
+     ],
+     [
+      "wild:whistle",
+      "sonic",
+      3.75
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      3.77
+     ],
+     [
+      "wild:thud",
+      "sonic",
+      4.63
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      5.02
+     ]
+    ],
+    "fails": []
+   },
+   {
+    "cat": "siamese",
+    "fps": 30,
+    "seed": 1,
+    "title": {
+     "from": 0.03,
+     "to": 1.17
+    },
+    "actStart": 1.25,
+    "actLen": [
+     4.98,
+     5
+    ],
+    "len": [
+     6.27,
+     5.03
+    ],
+    "sounds": [
+     [
+      "wild:whistle",
+      "cp82title",
+      0
+     ],
+     [
+      "wild:thud",
+      "cp82title",
+      0.93
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      0
+     ],
+     [
+      "wild:topple",
+      "sonic",
+      0
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      0.65
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      0.65
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      0.75
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      0.88
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      0.98
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      1.12
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.12
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.22
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      1.25
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.35
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.45
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      1.55
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.55
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.65
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.78
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.88
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.02
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.12
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.25
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      2.52
+     ],
+     [
+      "wild:whistle",
+      "sonic",
+      2.98
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      3.78
+     ],
+     [
+      "wild:thud",
+      "sonic",
+      3.88
+     ],
+     [
+      "wild:whistle",
+      "sonic",
+      4.98
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      5.02
+     ]
+    ],
+    "fails": []
+   },
+   {
+    "cat": "siamese",
+    "fps": 30,
+    "seed": 2,
+    "title": {
+     "from": 0.03,
+     "to": 1.17
+    },
+    "actStart": 1.25,
+    "actLen": [
+     4.98,
+     5
+    ],
+    "len": [
+     6.27,
+     5.03
+    ],
+    "sounds": [
+     [
+      "wild:whistle",
+      "cp82title",
+      0
+     ],
+     [
+      "wild:thud",
+      "cp82title",
+      0.93
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      0
+     ],
+     [
+      "wild:topple",
+      "sonic",
+      0
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      0.95
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      0.95
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.05
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.18
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      1.25
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.28
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      1.42
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.42
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.52
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.65
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.75
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.88
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      1.98
+     ],
+     [
+      "wild:rain",
+      "sonic",
+      2.12
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.12
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.22
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.35
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.45
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      2.52
+     ],
+     [
+      "wild:drip",
+      "sonic",
+      2.58
+     ],
+     [
+      "wild:whistle",
+      "sonic",
+      2.68
+     ],
+     [
+      "wild:thud",
+      "sonic",
+      3.58
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      3.78
+     ],
+     [
+      "wild:whistle",
+      "sonic",
+      4.68
+     ],
+     [
+      "pg:meow",
+      "sonic",
+      5.02
+     ]
+    ],
+    "fails": []
+   },
+   {
+    "cat": "tortie",
+    "fps": 60,
+    "seed": 1,
+    "title": {
+     "from": 0.02,
+     "to": 1.18
+    },
+    "actStart": 1.25,
+    "actLen": [
+     1.6,
+     1.6
+    ],
+    "len": [
+     2.87,
+     1.62
+    ],
+    "sounds": [
+     [
+      "wild:thud",
+      "cp82title",
+      0.88
+     ],
+     [
+      "dance:roar",
+      "tortitude",
+      0
+     ],
+     [
+      "wild:topple",
+      "tortitude",
+      0
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      0.77
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      0.77
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      0.88
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.12
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      1.23
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.23
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.35
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.47
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.58
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      1.6
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.6
+     ]
+    ],
+    "fails": []
+   },
+   {
+    "cat": "tortie",
+    "fps": 60,
+    "seed": 2,
+    "title": {
+     "from": 0.02,
+     "to": 1.18
+    },
+    "actStart": 1.25,
+    "actLen": [
+     1.6,
+     1.6
+    ],
+    "len": [
+     2.87,
+     1.62
+    ],
+    "sounds": [
+     [
+      "wild:thud",
+      "cp82title",
+      0.88
+     ],
+     [
+      "dance:roar",
+      "tortitude",
+      0
+     ],
+     [
+      "wild:topple",
+      "tortitude",
+      0
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      0.68
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      0.68
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      0.8
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      0.92
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.03
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      1.15
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.15
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.27
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.38
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.5
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      1.52
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.52
+     ]
+    ],
+    "fails": []
+   },
+   {
+    "cat": "tortie",
+    "fps": 30,
+    "seed": 1,
+    "title": {
+     "from": 0.03,
+     "to": 1.17
+    },
+    "actStart": 1.25,
+    "actLen": [
+     1.58,
+     1.57
+    ],
+    "len": [
+     2.87,
+     1.6
+    ],
+    "sounds": [
+     [
+      "wild:whistle",
+      "cp82title",
+      0
+     ],
+     [
+      "wild:thud",
+      "cp82title",
+      0.93
+     ],
+     [
+      "dance:roar",
+      "tortitude",
+      0
+     ],
+     [
+      "wild:topple",
+      "tortitude",
+      0
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      0.68
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      0.68
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      0.78
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      0.92
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.02
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      1.15
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.15
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.25
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.38
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.48
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      1.52
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.52
+     ]
+    ],
+    "fails": []
+   },
+   {
+    "cat": "tortie",
+    "fps": 30,
+    "seed": 2,
+    "title": {
+     "from": 0.03,
+     "to": 1.17
+    },
+    "actStart": 1.25,
+    "actLen": [
+     1.58,
+     1.57
+    ],
+    "len": [
+     2.87,
+     1.6
+    ],
+    "sounds": [
+     [
+      "wild:whistle",
+      "cp82title",
+      0
+     ],
+     [
+      "wild:thud",
+      "cp82title",
+      0.93
+     ],
+     [
+      "dance:roar",
+      "tortitude",
+      0
+     ],
+     [
+      "wild:topple",
+      "tortitude",
+      0
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      0.68
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      0.68
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      0.78
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      0.92
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.02
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      1.15
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.15
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.25
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.38
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.48
+     ],
+     [
+      "wild:rain",
+      "tortitude",
+      1.52
+     ],
+     [
+      "wild:drip",
+      "tortitude",
+      1.52
+     ]
+    ],
+    "fails": []
+   }
+  ],
+  "screen": [
+   {
+    "cat": "siamese",
+    "sz": "412x915",
+    "shots": [
+     [
+      "1-title",
+      "cp82title",
+      0.52
+     ],
+     [
+      "2-action",
+      "sonic",
+      -1
+     ],
+     [
+      "3-action",
+      "sonic",
+      -1
+     ]
+    ],
+    "words": [],
+    "errs": 0
+   },
+   {
+    "cat": "siamese",
+    "sz": "360x640",
+    "shots": [
+     [
+      "1-title",
+      "cp82title",
+      0.52
+     ],
+     [
+      "2-action",
+      "sonic",
+      -1
+     ],
+     [
+      "3-action",
+      "sonic",
+      -1
+     ]
+    ],
+    "words": [],
+    "errs": 0,
+    "baseWords": [
+     "sonic:2× REACH"
+    ]
+   },
+   {
+    "cat": "tortie",
+    "sz": "412x915",
+    "shots": [
+     [
+      "1-title",
+      "cp82title",
+      0.52
+     ],
+     [
+      "2-action",
+      "tortitude",
+      -1
+     ],
+     [
+      "3-action",
+      "tortitude",
+      -1
+     ]
+    ],
+    "words": [],
+    "errs": 0
+   },
+   {
+    "cat": "tortie",
+    "sz": "360x640",
+    "shots": [
+     [
+      "1-title",
+      "cp82title",
+      0.52
+     ],
+     [
+      "2-action",
+      "tortitude",
+      -1
+     ],
+     [
+      "3-action",
+      "tortitude",
+      -1
+     ]
+    ],
+    "words": [],
+    "errs": 0
+   }
+  ]
+ }
+}

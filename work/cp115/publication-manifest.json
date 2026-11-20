@@ -1,0 +1,27 @@
+{
+  "version": 20261119000026,
+  "displayName": "2026.11.19 UAT 115",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "1c0bf91b0bbf37876ce9b969aef30afaf0008604d30e609e41da40eb31da8338",
+  "stagedJSONSHA256": "669e875c72ed8c83b0f89e7f140ddb4d4d783de24021f99d2ba67b2770751739",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "299a5f1440762d81e8b0a088a4c5bea289fa1cdb160c9b86b799cd5ddb718861",
+  "jsonBytes": 59450987,
+  "runtimeFiles": 78,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.19 UAT 114",
+  "backup": "uat/backups/before-UAT115-20261119000026",
+  "evidence": "tickets/CP-86-evidence/uat115",
+  "checks": [
+    "checks112-on115.json",
+    "checks64-on115.json",
+    "checks88-on115.json",
+    "checks86m.json"
+  ],
+  "authorization": "UAT 115: CP-86 mitts choice D, the Dancing pose (PM, Nov 19, Jenny's words: \"another option where the mitts come out and in front of the face, a little bit like the pose after a board is won\"; PM: \"Publish as UAT 115 on UAT 114\"); UAT only"
+}

@@ -1,0 +1,44 @@
+{
+  "displayName": "2026.11.20",
+  "version": 20261120200000,
+  "apkVersion": 17,
+  "baselineJSONSHA256": "ae4564ad4dce0f2a3c6091dd73dc6262a49ae1f2bcd3518d75b73fd325e91bb4",
+  "productionAPKSHA256": "df205863d0bf755276f7f4acf301b3c573788ccef09b8f8bc0cd0263121e8e45",
+  "uatJSONSHA256": "95cd7bb762cfb174154331e9bd00f736fe7cb90bc1c2a72027225b7c72525acd",
+  "uatAPKSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "stagedJSONSHA256": "e24153c03933b38c62514e7a7d5200f86de0d2ad431ddb52628810b9c1c0fe67",
+  "releaseHTMLSHA256": "e6742b2c9a071eaca7e030cc65a280c5e5c975a48a8617c14fc4c3e1f67133d5",
+  "sourceHTML": "work/cp134-bundle/release.html",
+  "sourceHTMLSHA256": "a98a8f05e5547f820a55fe28bd8de037ca319945bfe031aaf97f2ae09300e9c8",
+  "jsonBytes": 47824970,
+  "runtimeFiles": 76,
+  "changedRuntimeFiles": [
+    "index.html",
+    "img/art/brass-pusher.png",
+    "img/art/cheese-scene-v1.png",
+    "img/art/collections-satchel-v1.png",
+    "img/art/cp69-bowtie.png",
+    "img/art/cp69-cane.png",
+    "img/art/cp69-hat.png",
+    "img/art/head-calm.png",
+    "img/art/tuna.png",
+    "img/art/uat18-coin-faces.png",
+    "img/art/uat18-small-paw.png",
+    "img/art/water-scene-v1.png"
+  ],
+  "addedRuntimeFilesFromUAT134": [
+    "sounds/effects/paw-dance.flac"
+  ],
+  "droppedRuntimeFiles": [
+    "img/art/head-waiting.webp",
+    "img/art/uat18-soft-paw.png",
+    "sounds/effects/paw-dance.wav"
+  ],
+  "unchangedRuntimeFilesMatchProduction": 63,
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "updateURL": "production (work/prod04/download-url.txt, APK17 assets/update-url.txt)",
+  "backup": "backups/before-PROD-10-20261120200000",
+  "evidence": "tickets/PROD-10-evidence",
+  "authorization": "Jenny, Nov 20, 2026, via the PM, on UAT 134: 'Hug takes me to Ragdoll on the main board. Pass, we're ready.' (promote UAT 134 to production; Goal boards off by the build name)"
+}

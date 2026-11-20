@@ -1,0 +1,101 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp106\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp105\\release.html",
+ "passed": true,
+ "passedN": 5,
+ "failed": [],
+ "notes": {
+  "timeline": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "fadeOut": true,
+    "afterMax": 0,
+    "same": true,
+    "frames": 422,
+    "errs": 0,
+    "art": true,
+    "ok": true
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "fadeOut": true,
+    "afterMax": 0,
+    "same": true,
+    "frames": 422,
+    "errs": 0,
+    "art": true,
+    "ok": true
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "fadeOut": true,
+    "afterMax": 0,
+    "same": true,
+    "frames": 212,
+    "errs": 0,
+    "art": true,
+    "ok": true
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "titleMax": 0,
+    "full": true,
+    "fadeIn": true,
+    "fadeOut": true,
+    "afterMax": 0,
+    "same": true,
+    "frames": 212,
+    "errs": 0,
+    "art": true,
+    "ok": true
+   }
+  ],
+  "screen": [
+   {
+    "sz": "412x915",
+    "diffOutside": 0,
+    "diffFramesOutsideAction": 0,
+    "actionFramesChanged": 50,
+    "box": [
+     1,
+     214,
+     823,
+     733
+    ],
+    "shot": 1,
+    "headBottom": 731,
+    "errs": 0,
+    "ok": true
+   },
+   {
+    "sz": "360x640",
+    "diffOutside": 0,
+    "diffFramesOutsideAction": 0,
+    "actionFramesChanged": 50,
+    "box": [
+     0,
+     184,
+     710,
+     592
+    ],
+    "shot": 1,
+    "headBottom": 590,
+    "errs": 0,
+    "ok": true
+   }
+  ]
+ }
+}

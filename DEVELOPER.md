@@ -1,3 +1,37 @@
+## CP-88 Bank side-game coins — UAT 111, November 19, 2026
+Block `work/cp111/cp88-bank.js` (`work/cp111/setup.py <base> <UAT number>` writes `build.py` and builds it on a published base).
+- **Banking:** an outermost `wildRainCollected` wrapper runs the coin's own handler (its pickup via `queueTreatAward`, so the frozen pickup is untouched), puts back the side game's pending start it set (`chasePending` / `tossPending` / `pouncePending`) and adds 1 to `CP88.bank[kind]` (`laser`, `fish`, `mousecoin`).
+- **Starting:** a tap on the slot (`powerTap` wrapper, `cp88Btn()`) runs `cp88Use()`, which sets that pending start to `{f:null,wait:9}`, so the side game's own tick starts it. `cp88Ready()` refuses (lock sound) unless the round is in play with no `PGPX`, no `pgpSideGame()`, no Dance break, no side game or pending start, no `W2_YAWN`, no paw swipe and no pause. The Developer "start now" (`*Force`) paths are unchanged.
+- **Charges** are cleared by `wildReset` and `wildExit` (they last the round).
+- **The slot:** `cp88Kind()` is the board's own coin (`WILD.laser`, `wildFeature('toss')`, `wildFeature('pounce')`); none on the Tuxedo or Ragdoll. `cp88Btn()`: 34 units (`CP88R`), right of `powerButtons().quake`, just below `wildButton()` (Home). It is drawn after `drawPowerButtons` in the cat power button's style, and hidden while its side game runs. One build edit moves the laser HUD hint right of it (`x0+50`, no dot) while it shows.
+- Checks: `checks88.cjs`; real Chrome `bankshot.cjs` (a fresh game per board).
+
+## CP-83 Home Board lab + round 3 — UAT 109, November 19, 2026
+Block `work/cp83lab/cp83-lab.js` (build `work/cp109-lab/` swaps UAT 108's CP-83 block for it). No Engineer tools picker (`__labCredits` replaced by a comment, as UAT 108 did). `LABH`: a DOM list `#cp83home` opened by the Home button (`labhBtn`, drawn in a `pgDrawMain` wrapper, tapped in a `pgMainTap` wrapper; only with `S.dev`), `labhPlay(k)` -> `labStart`, round end (`wildTick` wrapper, `WILD.endT>1.8`) reopens the list with the result; `labhHome()` turns the lab off. Guard (`update` wrapper): Home showing with `LAB.st.sel` set and the list closed -> `LAB.set(null)` + `wildReset()`, so the round's own Home (`cp51Home`) can't leave a lab board selected. `LAB3` Pusher chains: colours on `b.id` ('lab-red/green/blue', tinted coin sprite), preview `LAB3.ahead`, trigger only within 0.4 s of landing (group of 3+), chain to touching groups of 2+ of the next colour (red -> green -> blue). Test traps: the release has CRLF line endings, so read sources as bytes or with node's fs when matching blocks; UAT 108's checks72s/80 reference chain keeps UAT 104's block with its picker.
+
+## CP-86 Sonic meow face — UAT 108, November 18, 2026
+**UAT 115 (Nov 19): choices D, E, F** (`work/cp115/`, four marked in-place edits to the UAT 114 block). D = the Dancing pose's
+centre (`POSE.D`: cp58Rest, 12 in, 30 up, seen turn -.12). E/F = `{seq:[first,second]}`: `cp86MTarget` eases from the first pose
+to the second between `CP86M.swap` [3, 3.75] s (3.75 = `CP86.openAt`, the eyes opening). `cp86MOnTop()` is true for every
+choice but B and C, so D/E/F draw in front of the head with no mid-meow layer change.
+
+**UAT 114 (Nov 19): the mitts have three options** (`work/cp86-mitts/cp86-mitts.js` + five marked edits). `CP86M` holds the
+Developer choice (Engineer tools > "Sonic meow mitts", `catpusher.uat.cp86mitts.v1`; default `head`, also `B`, `C`), latched on
+the meow's first update (`cp86MPick`, stored on PGPX). `cp86MTarget(side)`: head = cp58Mitt's Yawn stretch (cp58Rest +
+side*48, -185, seen turn .43); B/C = the mock-ups, offsets from cp58Rest. `cp86MittOff(side,path,base)` now takes the drawing
+path ('rest' = pawMotion around cp58Rest, 'wait' = idle mitts at mittRest + the drawMittArm turn) and that path's resting
+place, so a pose lands on the same spot and turn either way; weight `cp86MWeight()` eases in over 0.6 s and out over 0.6 s to
+the face switch; the shake (`cp86Pose`) stays on top. `cp86MOnTop()` (head option only, while cp86K>0) moves the idle mitts'
+drawing from before the head to the HUD pass (after the head), as the rest pose and Yawn draw them. Checks
+`work/cp86-mitts/checks86m.cjs` (made by `make-checks86m.py`); stills `mittshot.cjs`.
+Block `work/cp108/cp86-meow.js` (`work/cp108/setup.py <base>` writes `build.py` and builds it on a published base). Drawing only, plus the floating-text hold.
+- **Face:** during Sonic meow's action (`PGPX.id==='sonic'`, Siamese art on screen: `CP75_CAT`) `drawTrackingPupils` draws `CP75_ART.siamese.face` over the normal face on the head canvas, as CP-58 does. `cp86K()` is 1 from the action's first frame until `dur-CP86.tail` (0.1 s), else 0: no fades (Jenny: "Fades don't work").
+- **Eyes:** `cp86Open()` is 1 from `CP86.openAt` (3.75 s, the last meow). Open eyes = the current head art (`cp86HeadArt()`, same choice as the head draw) clipped to the two eye ellipses `CP86.eyeArea`/`eyeR`, at full strength, then the normal pupils. They stay solid until the face switches back.
+- **Movement:** `cp86Pose()` (scaled to 0 over `CP86.settle` 0.25 s before the face leaves): shiver `sin(t*58)`, a lunge per meow (`cp86Pulse`, 0.08 s eased build), mitts pushed forward/inward and kneading between meows. Head via a `petHeadXf` wrapper; mitts via `pawMotion` (rest pose) and `mittRest` + `drawMittArm` (idle mitts; the right one is mirrored). Mitt colliders are not moved.
+- **Floating texts wait for powers:** an `update` wrapper moves floats made while any `PGPX` is set into `CP86.held` and puts them back (from t=0) when the power ends; floats already showing are marked `cp86seen` and stay. Not held: the frozen pickup's board texts ("2 / 5", "REPEAT +5 COINS", "COLLECTION!"; `CP86.holdPickupTexts` stays false, PM Nov 18). `wildReset`/`wildExit` drop what is held.
+- **CP-83 (same build):** the Board lab picker wrapper (`__labCredits`) is replaced by a comment; nothing else in the CP-83 block changes.
+- Checks: `checks86.cjs` (timeline vs the base, other powers, on-screen diff, floats for all five powers); real Chrome `meowshot.cjs` (also the picker gone); clips `record.cjs`; frame probe `frames.cjs`.
+
 ## CP-83 round 2 — UAT 104, November 18, 2026
 Same block (`work/cp83lab/cp83-lab.js`; build `work/cp104-lab/` replaces UAT 103's block with it). Added: `LAB2` lab pieces (`rails`, `cup`, `bumpers`, `gate`+`pad`) as world colliders without a body, built in a `wildPrefill` wrapper after every board build (`lab2Build`, which also clears grid coins under them) and removed on every build and on `wildExit` (`lab2Clear`); their play rules run from an `update` wrapper (`lab2Tick`); drawn after the table, before the coins (`drawMachine` wrapper). Goal kinds `cup`, `bump`. Round-2 boards have `extras:true` (normal bonus prizes and cat drops) and `budget` (drops; `LAB.st.left`; `wildClock()` returns "N drops", drawn with a coin over the clock icon; `WILD.left` held at 600+; out of drops plus 4 s without the goal ends the round as 'coins'). `LABT` Tower fall (key `catpusher.uat.cp83tower.v1`): Topple re-tips a shoved upright tower every 0.4 s while it moves (>0.02 m/s), defers `breakStack` until 48 degrees or 0.7 s, then breaks it with `BOARD` temporarily set to an object whose `id` is 'tuna-terraces' (WILD_BOARD is frozen: use `Object.create(B0,{id:{value:...}})`). `LAB2T` timing strip (key `catpusher.uat.cp83timing.v1`): window 35-60% of the pusher cycle (measured: ~90 pieces over per 100 coins vs ~50 random). Test-harness trap: after `pgPlay(cat)` always call `wildReset()` before `wildStartCountdown()`, or the round keeps the layout built on entry (Level 1's). The game has its own top-level `const __front`; pick other names in injected test code.
 
@@ -23,13 +57,23 @@ Jenny added bow tie A/B/C variation. On pinned UAT 80, `work/cp81/build.py` adds
 
 `work/cp69/build.py` pins published UAT 68 and preloads three approved 128×128 PNGs into `WILD_ART` during `loadArt`: `img/art/cp52-feather.png` (D), `cp52-ball.png` (C), `cp52-cushion.png` (C). The `.pgl` cache flag lets the existing ball branch reuse its PNG. All existing `wildPrizeArt`/`drawPrize` consumers use them; no size, aspect, opaque-share, collider or pickup code changes. Game-only APK7 payload now contains 40 files: the previous 37 plus these three PNGs. Future staging must preserve these files rather than rebuilding non-HTML assets solely from APK7. Source PNG copies live in `work/cp69/art/`; approved originals and options in `tickets/CP-52-evidence/`. Checks and phone-size screenshots: `tickets/CP-52-evidence/uat69/`. Production unchanged.
 
+## PROD-10 production update — November 20, 2026
+
+Production **2026.11.20 / APK17**, numeric 20261120200000 = UAT 134 (`work/cp134-bundle/release.html`) + the 17 production adaptations (`work/prod10/prepare.py`, same as PROD-05/06/08/09). Game-only; native unchanged. The runtime is UAT 134's 76 files (11 newer art files, `paw-dance.flac` added; `head-waiting.webp`, `uat18-soft-paw.png` and `paw-dance.wav` dropped). Goal boards are UAT-only: `CP134_GOALS=/UAT/.test(BUILD)`, so the production build name turns them off. The UAT Developer default is off for the same reason. Scripts: `stage.py`, `publish.ps1` (Jenny ran it; the engineer session's permission check blocks production writes), `verify-cloud.py`. Checks: `checks.cjs` and `bootcheck.cjs` (evidence in `tickets/PROD-10-evidence`). Future production builds start from `work/prod10/prepare.py` on the next signed-off UAT source.
+
 ## PROD-05 production baseline — November 15, 2026
 
 Production **2026.11.15 / APK17**, numeric 20261115224800 = Baseline 1 (UAT 64, 20261115190000, as is). Game-only: `phone/CatCoinPusher-game.json` carries the complete 37-file runtime in `files` (`apk` empty, apkVersion 17, channel `catpusher`, com.jenny.catpusher); index.html is `work/prod05/release.html`, the other 36 files are APK17's assets byte for byte. Build: `work/prod05/prepare.py` (pinned UAT 64 source, 17 recorded adaptations in `adaptations.json`): BUILD `2026.11.15`, title CatCoin, `catpusher.uat.*` -> `catpusher.*`, Settings heading "Settings" without the three log-file buttons (APK17 has no log bridge), safe-area/Happy previews and the faces note only with Developer on, the local performance log (`diagEvent`, `diagFrame`, `diagPersist`...) a no-op with Developer off. The UAT Developer default-on is keyed on "UAT" in BUILD, so it never applies. Then `stage.py`, `publish.ps1`, `verify-cloud.py`; checks `checks.cjs` (Developer-off screens, Oct 31 save upgrade, parity with UAT 64). First open of an Oct 31 save: `pgInit` migrates `catpusher.loop.v1` coins and treats (cap 9, extras as coins) into `catpusher.progress.v1`, Level 1. Future production builds start from `work/prod05/release.html` or repeat `prepare.py` on the next signed-off UAT source.
 
 ## GitHub WIP checkpoint (November 12, 2026)
 
-After publishing a UAT, run `python work/checkpoint.py`. It copies the published UAT runtime, the work/cpNN build sources, ticket reports and text evidence (and .png evidence from CP-33 on) and the main docs into the cat-coin-pusher repo, commits on branch `wip/uat` (never main) and pushes. `--dry-run` shows what would change.
+After publishing a UAT, run `python work/checkpoint.py` (`--dry-run` first shows what would change). Since OPS-03 (Nov 18) it commits only what the published build uses, never every work folder:
+- the published UAT runtime (index.html, img/, lib/);
+- the published build's own work folder (found by matching its release.html to the published UAT; `--build work/<folder>` to name it), source and scripts only (no boot*/ game*/ art/ logs/ runtime copies, no *-game.json);
+- that build's ticket: the evidence folder its publication-manifest.json names (text files) and tickets/<ID>.md, -brief.md, -ticket.md;
+- the main docs (GAMEPLAY_DESIGN, SPEC, DEVELOPER, AGENTS, CODEX_BRIEF) and the script itself.
+
+Add more with `--include work/<folder or file>` (e.g. the source folder a build copies its blocks from, `--include work/cp74-hug/release`), `--ticket <ID>`, `--evidence <folder>`, and `--png` for the evidence folders' .png stills (off by default; they are large). `--exclude <path>` leaves something out; `--message "..."` sets the commit subject. It commits on branch `wip/uat` only (never main) and pushes; banned files (Screenshots/, ibear-*, ref-*, keystores, .env, WAV/MP3 via .gitignore) are never copied, and it stops above 5 MB per file.
 
 ## CP-25 production baseline — November 1, 2026
 
@@ -358,6 +402,21 @@ settings in `Z72` (timing, speeds, stunt plans, caps). The old Zoomies code (sid
 - Guards: shoved pieces and prizes are eased back from the side edges while it runs; the button is locked while it
   plays; Home, round end and reset go through `pgpEnd` (kittens gone, pusher back to normal).
 - The frozen pickup is untouched.
+
+## The Orange's Dance break (CP-94, UAT 120, Nov 19, 2026)
+- On the Orange's own level boards (`WILD.mode==='treats'`, `PGU.boardCat==='orange'`), `wildFeature('dance')` is on next to Treat toss (each waits for the other; the CP-88 slot refuses a tap during the dance). Same trigger as the Tuxedo (meter of 4 prizes, music-note coin).
+- The dance (`cp94-orange-dance.js`, `CP94`): a half-beat grid (`D.per=2`, `D.beat` = half a beat at 108 BPM), 32 slots, `D.rest[k]` marks slots without a tap (19 taps). `danceSlot` judges a tap against the nearest tap slot; a tap on a rest is off the beat. Perfect = `D.hits===D.taps` -> the wheel.
+- The in-place edits in `work/cp94-orange/build.py` all pass straight through when `D.rest`/`D.per`/`D.px` are unset, so the Tuxedo's dance is byte-for-byte the same in play, sound and motion (checks94o check 8).
+- Moves: `cp94State`/`cp94Motion` via pawMotion (swipes, quick-run climbs, the pounce); faces via petDrawHead (Sharp Grin on runs, Wild on the pounce), instant swaps, only the Orange's recoloured approved art.
+- Music: `CP94_TRACKS` A/B/C on `sfx.cp94Loud` (synth voices); saved in `catpusher.uat.cp94music.v1`; Developer > Engineer tools "Orange dance music".
+- HUD: the Dance meter starts right of the CP-88 slot on that board (`danceMeterShift()`); elsewhere unmoved. Picture comparisons on the Orange board must blank that HUD box (see `work/cp120/checks90-on120.cjs`).
+- CP-98: `drawHappyFeatures` draws `CP75_ART[cat].eyes` (+ the happy mouth) for the Orange, Ragdoll, Siamese and Tortie instead of the Tuxedo's black patches and arcs.
+
+## The Ragdoll's Dance break (CP-101, UAT 128, Nov 19, 2026)
+- On the Ragdoll's own level boards (`WILD.mode==='cozy'`, `PGU.boardCat==='ragdoll'`), `wildFeature('dance')` is on (`cp101-ragdoll-dance.js`, `CP101`). It uses the CP-94 grid support: `D.per=1`, `D.rest`, 18 beats in 3/4, 11 taps; `D.ragdoll` marks it (the Orange's code keys on `D.orange`).
+- Waits: `danceStart` returns while `PGPX` (the Hug) runs, so the dance stays pending; Pet the cat already waits for the dance and vice versa.
+- Moves: `cp101State`/`cp101Motion` via pawMotion (lift before each flop, limp drop with a rebound, slumped head, step dips, sway); closed eyes by returning 1 from `petSquint` during a flop (the Ragdoll's CP-75 eyes via CP-98's happy face).
+- Music: `CP101_TRACKS` A/B/C on `sfx.cp94Loud`; saved in `catpusher.uat.cp101music.v1`; Engineer tools "Ragdoll dance music".
 
 ## Jackpot cascade (CP-64, UAT 86, Jenny's go Nov 17, 2026)
 - The wheel's JACKPOT slice (weight .02, about 2%; was JACKPOT 25 at 5%) sets `WILD.jpPending`. Once no side game runs

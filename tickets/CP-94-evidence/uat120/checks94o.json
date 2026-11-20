@@ -1,0 +1,19 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp120\\release.html",
+ "passed": true,
+ "passedChecks": [
+  "1 Orange board: Dance break on, the Orange dance (32 slots, 19 taps, 108 BPM) with track A",
+  "2 perfect Orange dance -> wheel (60 fps)",
+  "2 perfect Orange dance -> wheel (30 fps)",
+  "3 forgiving: ±0.12 s all hit; 0.22 s off misses",
+  "4 tapping every half beat does not pay",
+  "5 Treat toss and the Dance break wait for each other; the slot refuses during the dance",
+  "6 the meter is right of the Treat toss slot (Orange), unmoved (Tuxedo)",
+  "7 music choices A B C each play their own voices and a stop",
+  "8 the Tuxedo dance is identical to the base (slots, judging, sounds, motion)",
+  "9 other cats unchanged (Dance break as on the base)",
+  "11 CP-98 each cat's happy face draws its own closed eyes (no black patches); the Tuxedo unchanged",
+  "10 production and the UAT channel untouched"
+ ],
+ "failed": []
+}

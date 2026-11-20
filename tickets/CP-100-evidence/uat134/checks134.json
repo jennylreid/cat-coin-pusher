@@ -1,0 +1,298 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp134-bundle\\release.html",
+ "releaseSHA256": "a98a8f05e5547f820a55fe28bd8de037ca319945bfe031aaf97f2ae09300e9c8",
+ "passed": true,
+ "passedChecks": [
+  "A1 412x915",
+  "B1 412x915",
+  "D1 412x915",
+  "E1 412x915",
+  "J1 412x915",
+  "E2 412x915",
+  "F1 412x915",
+  "G1 412x915",
+  "A1 360x640",
+  "B1 360x640",
+  "D1 360x640",
+  "E1 360x640",
+  "J1 360x640",
+  "E2 360x640",
+  "F1 360x640",
+  "G1 360x640",
+  "Z errors",
+  "Z channels"
+ ],
+ "failed": [],
+ "res": {
+  "A1 412x915": {
+   "pass": true,
+   "info": {
+    "strip": 671,
+    "hud": 468,
+    "done": {
+     "x": 302,
+     "y": 652,
+     "w": 76,
+     "h": 38
+    },
+    "chin": 354.6204081632653,
+    "back": 370.83514883660473,
+    "front": 770.6890744832965,
+    "H": 888.3495145631068,
+    "bars": 102,
+    "own": true,
+    "wide": true
+   }
+  },
+  "B1 412x915": {
+   "pass": true,
+   "info": {
+    "pet": true,
+    "dance": {
+     "dance": true,
+     "own": true
+    },
+    "bars": 102
+   }
+  },
+  "D1 412x915": {
+   "pass": true,
+   "info": {
+    "modes": null,
+    "goalBtn": {
+     "x": 112,
+     "y": 665,
+     "w": 176,
+     "h": 36
+    },
+    "goals": true,
+    "cat": "tuxedo",
+    "hearts": 0
+   }
+  },
+  "E1 412x915": {
+   "pass": true,
+   "info": {
+    "L": {
+     "cat": "orange",
+     "hearts": 0,
+     "swipes": 1
+    },
+    "R": {
+     "cat": "tuxedo",
+     "hearts": 0
+    },
+    "tap": {
+     "cat": "tuxedo",
+     "hearts": 8,
+     "radial": 8,
+     "quads": "LD,LU,RD,RU"
+    },
+    "loop": [
+     "orange",
+     "ragdoll",
+     "siamese",
+     "tortie",
+     "tuxedo"
+    ]
+   }
+  },
+  "J1 412x915": {
+   "pass": true,
+   "info": {
+    "cat": "tuxedo",
+    "hearts": 8,
+    "radial": 8,
+    "quads": "LD,LU,RD,RU"
+   }
+  },
+  "E2 412x915": {
+   "pass": true,
+   "info": {
+    "end": true,
+    "cat": "siamese",
+    "mode": "laser",
+    "open": 0,
+    "screen": "board",
+    "phase": "play"
+   }
+  },
+  "F1 412x915": {
+   "pass": true,
+   "info": {
+    "at1s": {
+     "pending": true,
+     "name": "Crammed",
+     "phase": "play"
+    },
+    "at4.7s": {
+     "pending": false,
+     "phase": "play"
+    }
+   }
+  },
+  "G1 412x915": {
+   "pass": true,
+   "info": {
+    "uat": {
+     "x": 112,
+     "y": 665,
+     "w": 176,
+     "h": 36
+    },
+    "prod": {
+     "home": {
+      "build": "2026.11.20",
+      "goals": false,
+      "goalBtn": null,
+      "lv": true
+     },
+     "list": {
+      "mode": "levels",
+      "goalRows": 0,
+      "rows": 10
+     }
+    }
+   }
+  },
+  "A1 360x640": {
+   "pass": true,
+   "info": {
+    "strip": 622,
+    "hud": 468,
+    "done": {
+     "x": 302,
+     "y": 603,
+     "w": 76,
+     "h": 38
+    },
+    "chin": 331.59999999999997,
+    "back": 346.3133757961783,
+    "front": 709.1437898089171,
+    "H": 720,
+    "bars": 102,
+    "own": true,
+    "wide": true
+   }
+  },
+  "B1 360x640": {
+   "pass": true,
+   "info": {
+    "pet": true,
+    "dance": {
+     "dance": true,
+     "own": true
+    },
+    "bars": 102
+   }
+  },
+  "D1 360x640": {
+   "pass": true,
+   "info": {
+    "modes": null,
+    "goalBtn": {
+     "x": 112,
+     "y": 625.1828571428571,
+     "w": 176,
+     "h": 36
+    },
+    "goals": true,
+    "cat": "tuxedo",
+    "hearts": 0
+   }
+  },
+  "E1 360x640": {
+   "pass": true,
+   "info": {
+    "L": {
+     "cat": "orange",
+     "hearts": 0,
+     "swipes": 1
+    },
+    "R": {
+     "cat": "tuxedo",
+     "hearts": 0
+    },
+    "tap": {
+     "cat": "tuxedo",
+     "hearts": 8,
+     "radial": 8,
+     "quads": "LD,LU,RD,RU"
+    },
+    "loop": [
+     "orange",
+     "ragdoll",
+     "siamese",
+     "tortie",
+     "tuxedo"
+    ]
+   }
+  },
+  "J1 360x640": {
+   "pass": true,
+   "info": {
+    "cat": "tuxedo",
+    "hearts": 8,
+    "radial": 8,
+    "quads": "LD,LU,RD,RU"
+   }
+  },
+  "E2 360x640": {
+   "pass": true,
+   "info": {
+    "end": true,
+    "cat": "siamese",
+    "mode": "laser",
+    "open": 0,
+    "screen": "board",
+    "phase": "play"
+   }
+  },
+  "F1 360x640": {
+   "pass": true,
+   "info": {
+    "at1s": {
+     "pending": true,
+     "name": "Crammed",
+     "phase": "play"
+    },
+    "at4.7s": {
+     "pending": false,
+     "phase": "play"
+    }
+   }
+  },
+  "G1 360x640": {
+   "pass": true,
+   "info": {
+    "uat": {
+     "x": 112,
+     "y": 625.1828571428571,
+     "w": 176,
+     "h": 36
+    },
+    "prod": {
+     "home": {
+      "build": "2026.11.20",
+      "goals": false,
+      "goalBtn": null,
+      "lv": true
+     },
+     "list": {
+      "mode": "levels",
+      "goalRows": 0,
+      "rows": 10
+     }
+    }
+   }
+  },
+  "Z errors": {
+   "pass": true,
+   "info": []
+  },
+  "Z channels": {
+   "pass": true,
+   "info": null
+  }
+ }
+}

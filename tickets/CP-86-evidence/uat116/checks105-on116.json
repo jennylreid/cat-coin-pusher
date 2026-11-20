@@ -1,0 +1,228 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp116\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp104-lab\\release.html",
+ "passed": true,
+ "passedN": 6,
+ "failed": [],
+ "notes": {
+  "paths": {
+   "onlyPeek": true,
+   "cream": true,
+   "paths": [
+    {
+     "before": true,
+     "segsBefore": true,
+     "leaps": [
+      "leap:0.2500",
+      "leap:0.6000",
+      "leap:0.2400",
+      "leap:0.5000",
+      "leap:0.1400"
+     ],
+     "maxGrow": 1.197,
+     "baseMaxGrow": 2.344,
+     "hangS": 0.6,
+     "puffed": true,
+     "noTilt": true,
+     "peekS": [
+      0.25,
+      0.5,
+      0.13
+     ],
+     "shorter": 0.4
+    },
+    {
+     "before": true,
+     "segsBefore": true,
+     "leaps": [
+      "leap:0.2500",
+      "leap:0.6000",
+      "leap:0.2400",
+      "leap:0.5000",
+      "leap:0.1400"
+     ],
+     "maxGrow": 1.197,
+     "baseMaxGrow": 2.344,
+     "hangS": 0.6,
+     "puffed": true,
+     "noTilt": true,
+     "peekS": [
+      0.25,
+      0.5,
+      0.13
+     ],
+     "shorter": 0.4
+    },
+    {
+     "before": true,
+     "segsBefore": true,
+     "leaps": [
+      "leap:0.2500",
+      "leap:0.6000",
+      "leap:0.2400",
+      "leap:0.5000",
+      "leap:0.1400"
+     ],
+     "maxGrow": 1.197,
+     "baseMaxGrow": 2.344,
+     "hangS": 0.6,
+     "puffed": true,
+     "noTilt": true,
+     "peekS": [
+      0.23,
+      0.5,
+      0.15
+     ],
+     "shorter": 0.4
+    }
+   ]
+  },
+  "play": [
+   {
+    "fps": 60,
+    "seed": 1,
+    "len": [
+     8.75,
+     9.15
+    ],
+    "carried": [
+     "egg",
+     "rain5",
+     "coin",
+     "rain5"
+    ],
+    "paid": [
+     "egg",
+     "rain5",
+     "coin",
+     "rain5"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 60,
+    "seed": 2,
+    "len": [
+     8.88,
+     9.28
+    ],
+    "carried": [
+     "tuna",
+     "rain10"
+    ],
+    "paid": [
+     "tuna",
+     "rain10"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 1,
+    "len": [
+     9.1,
+     9.5
+    ],
+    "carried": [
+     "tuna",
+     "rain5",
+     "rain5"
+    ],
+    "paid": [
+     "tuna",
+     "rain5",
+     "rain5"
+    ],
+    "fails": []
+   },
+   {
+    "fps": 30,
+    "seed": 2,
+    "len": [
+     8.9,
+     9.3
+    ],
+    "carried": [
+     "silver",
+     "rain10",
+     "rain5",
+     "tuna"
+    ],
+    "paid": [
+     "rain10",
+     "silver",
+     "tuna",
+     "rain5"
+    ],
+    "fails": []
+   }
+  ],
+  "screen": [
+   {
+    "sz": "412x915",
+    "shots": [
+     "1-hang",
+     "2-drop",
+     "3-peek",
+     "4-duck"
+    ],
+    "hangW": 62.2,
+    "peek": {
+     "eyeTop": 870,
+     "eyeBot": 887.8,
+     "bottom": 888.3,
+     "ratio": 1.15
+    },
+    "duckEnd": {
+     "earTop": 899.1,
+     "bottom": 888.3
+    },
+    "errs": 0
+   },
+   {
+    "sz": "360x640",
+    "shots": [
+     "1-hang",
+     "2-drop",
+     "3-peek",
+     "4-duck"
+    ],
+    "hangW": 62.2,
+    "peek": {
+     "eyeTop": 701.6,
+     "eyeBot": 719.5,
+     "bottom": 720,
+     "ratio": 1.15
+    },
+    "duckEnd": {
+     "earTop": 736.1,
+     "bottom": 720
+    },
+    "errs": 0
+   }
+  ],
+  "choices": {
+   "pick": {
+    "ending": "peek",
+    "style": "peek",
+    "sound": "today",
+    "endingChoices": [
+     "peek"
+    ],
+    "soundChoices": [
+     "today"
+    ]
+   },
+   "played": {},
+   "errs": 0,
+   "level7": [
+    3,
+    1.2,
+    0.1,
+    1,
+    4.6,
+    2.1
+   ]
+  }
+ }
+}
