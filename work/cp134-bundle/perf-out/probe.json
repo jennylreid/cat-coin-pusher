@@ -1,0 +1,89 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp134-bundle\\boot134",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "perf134": {
+  "L1": {
+   "name": "First push",
+   "coins": 130,
+   "bodies": 134,
+   "prizes": 4,
+   "steps": 120,
+   "msPerStep": 29.109,
+   "stepsPerSec": 19.9,
+   "fps": 6.6
+  },
+  "L2": {
+   "name": "Line up",
+   "coins": 127,
+   "bodies": 141,
+   "prizes": 14,
+   "steps": 120,
+   "msPerStep": 30.054,
+   "stepsPerSec": 19.5,
+   "fps": 6.5
+  },
+  "L3": {
+   "name": "At the back",
+   "coins": 127,
+   "bodies": 138,
+   "prizes": 11,
+   "steps": 120,
+   "msPerStep": 29.774,
+   "stepsPerSec": 20,
+   "fps": 6.6
+  },
+  "L4": {
+   "name": "Crammed",
+   "coins": 119,
+   "bodies": 137,
+   "prizes": 18,
+   "steps": 108,
+   "msPerStep": 32.427,
+   "stepsPerSec": 17.7,
+   "fps": 7.3
+  },
+  "L5": {
+   "name": "Tower wall",
+   "coins": 126,
+   "bodies": 142,
+   "prizes": 16,
+   "steps": 87,
+   "msPerStep": 41.326,
+   "stepsPerSec": 14.2,
+   "fps": 4.4
+  },
+  "L6": {
+   "name": "Tower block",
+   "coins": 129,
+   "bodies": 145,
+   "prizes": 16,
+   "steps": 105,
+   "msPerStep": 34.466,
+   "stepsPerSec": 17.1,
+   "fps": 5.8
+  },
+  "L7": {
+   "name": "Edge of the table",
+   "coins": 121,
+   "bodies": 134,
+   "prizes": 13,
+   "steps": 129,
+   "msPerStep": 28.3,
+   "stepsPerSec": 21.3,
+   "fps": 7.1
+  },
+  "L8": {
+   "name": "Wall and back",
+   "coins": 127,
+   "bodies": 143,
+   "prizes": 16,
+   "steps": 93,
+   "msPerStep": 37.32,
+   "stepsPerSec": 15.4,
+   "fps": 5.5
+  }
+ }
+}

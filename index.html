@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.20 UAT 133';
+const BUILD = '2026.11.20 UAT 134';
 
 
 
@@ -37590,7 +37590,7 @@ drawWildHud=function(hud){
   ctx.save();ctx.translate(sx+seg/2,y);ctx.scale(pop,pop);uiRound(-seg/2+1,-7,seg-2,14,5,'rgba(40,16,50,.9)','#ff9ad8',1.2);
   if(fillAmt>0){uiRound(-seg/2+1,-7,(seg-2)*fillAmt,14,5,full?'rgba(255,'+(120+100*pulse|0)+',220,1)':'#ff5fb0');}
   ctx.restore();}
- if(WILD.dance){ctx.fillStyle='#ffd0f4';ctx.fillRect(hud.left+78,y-6,3.5,12);ctx.fillRect(hud.left+84,y-6,3.5,12);} // round timer paused
+ if(WILD.dance){ctx.fillStyle='#ffd0f4';ctx.fillRect(cp134BarX(hud),y-6,3.5,12);ctx.fillRect(cp134BarX(hud)+6,y-6,3.5,12);} /* UAT 134 B */ // round timer paused
  ctx.restore();
 };
 wildDraw=function(){__danceDrawW();if(WILD.on&&WILD.dance&&!inventoryOpen)danceDraw();};
@@ -38670,7 +38670,7 @@ wildPointer=function(e,p){
  const hud=hudLayout();if(!pgOwnHud()&&p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings
  tossTap(e,p);return true; // every other tap is a catch: no coin drops during the toss
 };
-drawWildHud=function(hud){__tossHud(hud);if(WILD.toss){ctx.save();ctx.fillStyle='#bff7e6';ctx.fillRect(hud.left+78,hud.bannerY-6,3.5,12);ctx.fillRect(hud.left+84,hud.bannerY-6,3.5,12);ctx.restore();}};
+drawWildHud=function(hud){__tossHud(hud);if(WILD.toss){ctx.save();ctx.fillStyle='#bff7e6';ctx.fillRect(cp134BarX(hud),hud.bannerY-6,3.5,12);ctx.fillRect(cp134BarX(hud)+6,hud.bannerY-6,3.5,12); /* UAT 134 B */ctx.restore();}};
 wildDraw=function(){__tossDrawW();if(WILD.on&&WILD.toss&&!inventoryOpen)tossDraw();};
 
 // A soft light glow behind a treat in the air, so it reads apart from the same prizes lying on the board (cached).
@@ -38975,7 +38975,7 @@ wildPointer=function(e,p){
 drawWildHud=function(hud){
  __laserHud(hud);if(!WILD.laser)return;const D=WILD.chase,x0=W-Math.max(8,hud.right+10)-124,y=hud.bannerY,w=124;
  ctx.save();ctx.textBaseline='middle';ctx.textAlign='left';
- if(D){ctx.fillStyle='#ff9a9a';ctx.fillRect(hud.left+78,y-6,3.5,12);ctx.fillRect(hud.left+84,y-6,3.5,12); // the round timer's pause mark
+ if(D){ctx.fillStyle='#ff9a9a';ctx.fillRect(cp134BarX(hud),y-6,3.5,12);ctx.fillRect(cp134BarX(hud)+6,y-6,3.5,12); /* UAT 134 B */ // the round timer's pause mark
   const left=D.phase==='intro'?1:D.phase==='play'?Math.max(0,1-(D.t)/(D.len-LASER_INTRO)):0;
   uiRound(x0,y-7,w-34,14,7,'rgba(40,6,10,.85)','#ff8a8a',1.2);uiRound(x0+2,y-5,Math.max(0,(w-38)*left),10,5,'#ff3b3b');
   ctx.font='900 15px Impact, "Arial Black", system-ui';ctx.fillStyle='#ffe0e0';ctx.fillText('×'+D.knocked,x0+w-30,y+1);}
@@ -39353,7 +39353,7 @@ wildPointer=function(e,p){
  const hud=hudLayout();if(!pgOwnHud()&&p.y>hud.settingsY-20&&p.y<hud.settingsY+12&&p.x>hud.settingsX-78&&p.x<hud.settingsX+6)return false; // Settings
  petDown(e,p);return true; // every other touch is for the cat: no coin drops while you pet
 };
-drawWildHud=function(hud){__petHud(hud);if(WILD.petGame){ctx.save();ctx.fillStyle='#ffd0ea';ctx.fillRect(hud.left+78,hud.bannerY-6,3.5,12);ctx.fillRect(hud.left+84,hud.bannerY-6,3.5,12);ctx.restore();}};
+drawWildHud=function(hud){__petHud(hud);if(WILD.petGame){ctx.save();ctx.fillStyle='#ffd0ea';ctx.fillRect(cp134BarX(hud),hud.bannerY-6,3.5,12);ctx.fillRect(cp134BarX(hud)+6,hud.bannerY-6,3.5,12); /* UAT 134 B */ctx.restore();}};
 wildDraw=function(){__petDrawW();if(WILD.on&&WILD.petGame&&!inventoryOpen)petDraw();};
 drawWildButton=function(){__petDrawWildButton();if(!PET_REG)drawPetButton();};
 
@@ -39362,13 +39362,30 @@ function petDraw(){
  const D=WILD.petGame,Y=petHudY();ctx.save(); /* Nov 20 follow-up */ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
  const fade=D.phase==='end'?Math.max(0,1-D.endT/.5):Math.min(1,(time-D.started)/.25);
  if(fade>0){ctx.globalAlpha=fade;
-  petRing133(D,fade); /* UAT 133: the ring around the head replaces the strip (heart, meter, PEAK) */
+  {const Y=petStripY(); /* UAT 134 A: the strip again, over the board 3/4 of the way to the front */
+  uiRound(14,Y-22,372,44,20,'rgba(48,10,36,.78)','#ff8ac8',2);
+  // the heart beats with the purr
+  const L=D.phase==='end'?D.result.L:D.L,beat=1+(.08+.14*L)*Math.max(0,Math.sin(time*Math.PI*2*(1.2+2.2*L)));
+  ctx.save();ctx.translate(38,Y+1);ctx.scale(beat,beat);petHeartPath(ctx,0,0,13);ctx.fillStyle=D.flat>.5?'#ff6a4a':'#ff5fa8';ctx.fill();ctx.lineWidth=2;ctx.strokeStyle='#fff';ctx.stroke();ctx.restore();
+  ctx.font='bold 10px system-ui';ctx.fillStyle='#ffd0ea';ctx.fillText('PURR',38,Y+17);
+  // the meter: fills to the PEAK star; past it, a red "grumpy" zone
+  const x0=62,x1=292,w=x1-x0,peakX=x0+w*.78,gx=peakX+(x1-peakX)*Math.min(1,D.flat);
+  uiRound(x0,Y-9,w,18,9,'rgba(20,4,16,.9)','rgba(255,180,220,.5)',1);
+  ctx.fillStyle='rgba(255,90,60,.28)';ctx.fillRect(peakX+8,Y-8,x1-peakX-14,16);
+  const fx=x0+(peakX-x0)*Math.min(1,L);const g=ctx.createLinearGradient(x0,0,peakX,0);g.addColorStop(0,'#ff8ac8');g.addColorStop(.8,'#ffb3dc');g.addColorStop(1,'#ffe066');
+  if(fx>x0+2)uiRound(x0+1,Y-8,fx-x0-2,16,8,g);
+  if(D.flat>0){const rg=ctx.createLinearGradient(peakX,0,x1,0);rg.addColorStop(0,'#ffb04a');rg.addColorStop(1,'#ff3a2a');uiRound(peakX,Y-8,gx-peakX,16,6,rg);}
+  // the peak star, glowing when you're there
+  const at=L>=.97&&D.flat<.4,st=at?1.25+.15*Math.sin(time*14):1;ctx.save();ctx.translate(peakX,Y);ctx.scale(st,st);ctx.fillStyle=at?'#fff6a0':'#ffd23f';ctx.strokeStyle='#5a2a00';ctx.lineWidth=1.5;
+  ctx.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,r=i%2?5:12;ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r);}ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
+  ctx.font='bold 9px system-ui';ctx.fillStyle='#ffe066';ctx.fillText('PEAK',peakX,Y+17);
+  }
   // DONE (fills as you stay off the cat: lifting your finger and leaving it is a stop too)
   const R=petDoneRect();uiRound(R.x,R.y,R.w,R.h,16,D.phase==='play'?'#3ccf4e':'rgba(60,207,78,.5)','#d9ffd9',2);
   if(D.doneP>0){ctx.save();ctx.globalAlpha=fade*.55;uiRound(R.x+2,R.y+2,(R.w-4)*D.doneP,R.h-4,14,'#e8ffd0');ctx.restore();}
   ctx.font='900 18px Impact, "Arial Black", system-ui';ctx.fillStyle='#0c3a12';ctx.fillText('DONE',R.x+R.w/2,R.y+R.h/2+1);
   // the time left: a thin bar under the strip
-  if(D.phase==='play'){const u=Math.max(0,1-D.t/D.len);ctx.fillStyle='rgba(255,138,200,.85)';ctx.fillRect(30,Y+25,340*u,3);}
+  if(D.phase==='play'){const u=Math.max(0,1-D.t/D.len);ctx.fillStyle='rgba(255,138,200,.85)';ctx.fillRect(30,petStripY()+25,340*u,3); /* UAT 134 A */}
   if(D.phase==='intro'||(D.phase==='play'&&D.t<1)){const u=Math.min(1,(D.t+PET_INTRO)/.3),k=(.6+.4*(1-Math.pow(1-u,3)))*(1+.04*Math.sin(time*9));ctx.save();if(D.phase==='play')ctx.globalAlpha=fade*(1-D.t); /* UAT 133: the title stays up through the first second of play, fading */ctx.translate(200,Y+60);ctx.scale(k,k);ctx.rotate(-.05);wildText('PET THE CAT!',0,0,44,'#ff8ac8','#3a0b2a',8);ctx.restore();
    ctx.font='bold 15px system-ui';ctx.fillStyle='#fff';ctx.fillText('Stroke the head · tap the ears',200,Y+98);ctx.fillStyle='#ffe066';ctx.fillText('Stop at the peak purr!',200,Y+120);}
   if(D.phase==='play'&&D.t>=1&&D.t<2.5&&!D.strokes&&!D.ears){ /* UAT 133: after the title */ctx.font='bold 14px system-ui';ctx.fillStyle='#fff';ctx.globalAlpha=fade*(.6+.4*Math.sin(time*6));ctx.fillText('Stroke the cat\'s head',200,Y+44);}
@@ -40659,7 +40676,7 @@ function pgDrawMain(dt){const R=pgMainRects(),t=PGU.T,cat=PGU.boardCat||'tuxedo'
  // the board's cat: floats, blinks, looks around; a tap gets the sweet face, hearts and a meow
  const el=t-PGA.react,live=el<1.4,by=Math.sin(t*1.6)*4-(live?Math.abs(Math.sin(el*9))*10*(1-el/1.4):0);
  pgHead(cat,R.head.x,R.head.y+by,R.head.w,live||(t%7)<1?'sweet':'calm',{look:Math.sin(t*.5)*.8,lookY:Math.sin(t*.37),blink:((t+.3)%4.7)<.13?1:0});
- for(let i=PGA.hearts.length-1;i>=0;i--){const h=PGA.hearts[i];h.t+=dt;if(h.t>1.3){PGA.hearts.splice(i,1);continue;}if(h.t<0)continue;ctx.save();ctx.globalAlpha=Math.max(0,1-h.t/1.3);pgHeart(h.x+Math.sin(h.t*5)*7,h.y-h.t*50,1,'#ff6ab8');ctx.restore();}
+ for(let i=PGA.hearts.length-1;i>=0;i--){const h=PGA.hearts[i];h.t+=dt;const hl=h.L||1.3;if(h.t>hl){PGA.hearts.splice(i,1);continue;}if(h.t<0)continue;ctx.save();ctx.globalAlpha=Math.max(0,1-h.t/hl);if(h.vx!==undefined)pgHeart(h.x+h.vx*h.t+Math.sin(h.t*5+h.ph)*5,h.y+h.vy*h.t-h.t*h.t*12,1,'#ff6ab8');else pgHeart(h.x+Math.sin(h.t*5)*7,h.y-h.t*50,1,'#ff6ab8'); /* UAT 134 J */ctx.restore();}
  ctx.textAlign='center';ctx.textBaseline='middle';PGA.L=pgCentre(R.name,t);PGA.L.play=pgMainPlay(R.play,t);pgDrawSide(R.side,t);
  pgDrawMainBar();
  if(PGU.pick)pgDrawBoardPick(dt);ctx.save();pgDrawModes();ctx.restore();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';}
@@ -40673,7 +40690,7 @@ function pgMainTap(p){const R=pgMainRects(),L=PGA.L;
  if(pgSideTap(R.side,p))return;
  if(L&&contains(L.play,p)){PGU.screen='board';PGU.fade=.25;pgStartRound();return;}
  if(L&&contains(L.help,p)){pgSfx('tap');PGU.rules=true;PGU.screen='board';PGU.fade=.2;return;}
- if(Math.hypot(p.x-R.head.x,(p.y-R.head.y)*1.2)<R.head.w*.45){PGA.react=PGU.T;pgSfx('meow');pgSfx('purr',.7);for(let i=0;i<5;i++)PGA.hearts.push({x:R.head.x+rand(-60,60),y:R.head.y-40,t:-i*.08});}}
+ if(Math.hypot(p.x-R.head.x,(p.y-R.head.y)*1.2)<R.head.w*.45){PGA.react=PGU.T;pgSfx('meow');pgSfx('purr',.7);cp134Hearts(R); /* UAT 134 J: hearts burst from all around the face */}}
 const __abDown=pgPointerDown;pgPointerDown=function(e,p){if(PGU.screen==='main'){pgMainTap(p);return;}return __abDown(e,p);};
 // A: between rounds (a goal card is up and no rules asked for), the main screen shows instead of the board; B: never.
 const __abUpdate=update;
@@ -41625,7 +41642,7 @@ const __cp51Hud=drawWildHud;
 drawWildHud=function(hud){const on=cp51ShowButton();
  if(on){const r=cp51Btn(hud);ctx.save();uiRound(r.x,r.y,r.w,r.h,r.h/2,cp51Paused?'rgba(255,210,63,.28)':'rgba(255,255,255,.12)','rgba(255,255,255,.6)',1.3);ctx.restore();}
  __cp51Hud(hud);
- if(on&&!WILD.dance){ctx.save();ctx.fillStyle='#fff';const x=hud.left+((typeof hudWide133==='function'&&hudWide133())?102:78),y=hud.bannerY;ctx.fillRect(x,y-6,3.5,12); /* CP-92 HUD */ctx.fillRect(x+6,y-6,3.5,12);ctx.restore();}};
+ if(on&&!cp134OwnBars()){ctx.save();ctx.fillStyle='#fff'; /* UAT 134 B */const x=hud.left+((typeof hudWide133==='function'&&hudWide133())?102:78),y=hud.bannerY;ctx.fillRect(x,y-6,3.5,12); /* CP-92 HUD */ctx.fillRect(x+6,y-6,3.5,12);ctx.restore();}};
 const __cp51Draw=draw;
 draw=function(){__cp51Draw();if(!cp51Paused)return;ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
  try{cp51DrawPop();}finally{ctx.restore();}};
@@ -44188,7 +44205,7 @@ function endRowRect(){const R=cp50RowLayout(),h=Math.max(18,Math.min(28,R.D)),w=
 {const __endRow=cp50DrawRow;cp50DrawRow=function(){if(!END.on)return __endRow.apply(this,arguments);if(!cp50RowOn())return;
  const R=cp50RowLayout(),b=endRowRect(),w=endLoad(),k=Math.min(1,w.meter/END.METER),full=k>=1,free=endFree();globalThis.CP50_ROW=R;
  ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.textAlign='center';ctx.textBaseline='middle';
- wildText(endName(),200,R.ly,14,'#ffd23f','#2a0b3e',4);
+ cp134BoardName(R); /* UAT 134 F: no permanent name; a short title on a new board */
  if(END.sweep){uiRound(b.x,b.y,b.w,b.h,b.h/2,'rgba(42,11,62,.85)','#fff6d0',1.5);wildText('NEW BOARD…',200,b.y+b.h/2+1,15,'#fff6d0','#2a0b3e',4);}
  else if(full){let pu=time-END.pulse;if(!(pu>=0))pu=9;const s=1+(pu<2?.08*Math.abs(Math.sin(pu*7)):.03*Math.sin(time*4));
   ctx.translate(200,b.y+b.h/2);ctx.scale(s,s);ctx.translate(-200,-(b.y+b.h/2));
@@ -45326,6 +45343,94 @@ cp102Start=function(kind,id){
    if(endless&&!END.on)END.on=true;try{diagEvent('cp102','power '+id+': switched to its cat'+(endless?' (endless)':''));}catch(e){}}}
  return __rpowStart.apply(this,arguments);};
 // ---------- end next round #6 ----------
+
+
+// ---- UAT 134 items A, B, D, E, F, G (Jenny, Nov 20; tickets/ROUND-134.md) ----
+// A. Pet the cat: the ring is gone; the strip meter is back (heart, meter, PEAK star, DONE and the time-left line), over the
+//    coin board about 3/4 of the way down toward the front ("as much out of the way as possible, but while still being easy to
+//    spot"). Fill and timing unchanged. The title (with UAT 133's longer time), the hints and the result stay under the chin
+//    (petHudY, y 468), so the strip never sits on them. (Edits in build: the ring call is the strip again, drawn at petStripY.)
+function petStripY(){try{const b=skyScreen(200,T.BACK,0).y,f=skyScreen(200,T.FRONT,0).y;return Math.round(Math.min(f-24,Math.max(b+(f-b)*.75,petHudY()+154)));}catch(e){return 560;}} // short phones: just below the hint lines
+petDoneRect=function(){return {x:302,y:petStripY()-19,w:76,h:38};};
+// B. One set of pause bars in the top-left pill. The side games (Dance, Treat toss, Laser chase, Pet the cat) draw their own
+//    coloured "paused" bars after the timer; on the wider pill (endless board, goal boards) they sat at the narrow pill's spot
+//    while the pause button's white bars sat further right, so two sets showed. Now the coloured bars use the pause button's
+//    spot and the white bars stay off while a side game shows its own. (Edits in build.)
+function cp134BarX(hud){return hud.left+((typeof hudWide133==='function'&&hudWide133())?102:78);}
+function cp134OwnBars(){return !!(WILD.dance||WILD.toss||WILD.petGame||(WILD.laser&&WILD.chase));}
+// D. MODES is gone from Home (button and tap area); the Developer panel keeps its MODES section.
+{const __d134=pgDock;pgDock=function(){const D=__d134.apply(this,arguments);try{if(D)D.modes=null;}catch(e){}return D;};}
+// E. Home: swipe the big cat face left or right to switch cats (swipe left = next). Instant, no fade. The same cats as the
+//    board's chip (all five). A plain tap on the face still gets the sweet face, hearts and a meow (now on the lift, so a
+//    swipe doesn't meow first). PLAY then starts the endless board with that cat.
+const CP134H={down:null,swipes:0};
+function cp134SwipeCat(dir){const L=PG_CATS.slice(),cur=PGU.boardCat||PG.current||'tuxedo',i=Math.max(0,L.indexOf(cur)),cat=L[(i+dir+L.length)%L.length];
+ PGU.boardCat=cat;if(PG.open[cat])PG.current=cat;try{pgSave();}catch(e){}CP134H.swipes++;try{pgSfx('tap');}catch(e){}try{diagEvent('cp134','home swipe '+cur+' -> '+cat);}catch(e){}}
+{const __mt134=pgMainTap;pgMainTap=function(p){try{if(endHomeFree()){const R=pgMainRects();if(Math.hypot(p.x-R.head.x,(p.y-R.head.y)*1.2)<R.head.w*.45){CP134H.down={x:p.x,y:p.y,t:performance.now(),tap:__mt134};return;}}}catch(e){}return __mt134(p);};}
+try{const up=e=>{const d=CP134H.down;if(!d)return;CP134H.down=null;if(e.type==='pointercancel')return;let p;try{p=toGame(e);}catch(_){return;}
+  const dx=p.x-d.x,dy=p.y-d.y;if(PGU.screen!=='main')return;
+  if(Math.abs(dx)>=36&&Math.abs(dx)>Math.abs(dy)*1.2)cp134SwipeCat(dx<0?1:-1);else d.tap({x:d.x,y:d.y});};
+ document.addEventListener('pointerup',up,true);document.addEventListener('pointercancel',up,true);}catch(e){}
+// a cat not opened yet plays the endless board too (as the chip allows); it stays unopened everywhere else
+{const __es134=endStart;endStart=function(){const cat=PGU.boardCat;if(!PG||!cat||PG.open[cat])return __es134.apply(this,arguments);
+ const was=PG.open[cat];PG.open[cat]=1;try{return __es134.apply(this,arguments);}finally{PG.open[cat]=was;try{pgSave();}catch(e){}}};}
+// F. The board's name: no permanent banner. When a new board starts (the first board, or NEW BOARD), "New board: <name>" shows
+//    for about 3 s in the row above the cat's head, then goes. (Edit in build: the row's name line calls cp134BoardName.)
+const CP134N={pending:false,at:null,SECS:3};
+{const __sb134=endSetBoard;endSetBoard=function(){const r=__sb134.apply(this,arguments);CP134N.pending=true;CP134N.at=null;return r;};}
+function cp134BoardName(R){if(!CP134N.pending)return;if(WILD.phase!=='play'&&WILD.phase!=='count')return;const now=performance.now()/1000;
+ if(CP134N.at==null)CP134N.at=now;const u=now-CP134N.at;if(u>CP134N.SECS){CP134N.pending=false;return;}
+ ctx.save();ctx.globalAlpha=Math.min(1,u/.2,(CP134N.SECS-u)/.4);wildText('New board: '+endName(),200,R.ly,16,'#ffd23f','#2a0b3e',4);ctx.restore();}
+// G. Goal boards are UAT only until their design pass. The switch is the channel: on when the build name says UAT (the same
+//    test the UAT Developer default uses); the production build's name has no "UAT", so there the Home "Goal boards" button
+//    and its list are gone. The endless rotation's open boards are unchanged.
+const CP134_GOALS=/\bUAT\b/.test(BUILD);
+{const __gb134=cp100GoalBtn;cp100GoalBtn=function(){return CP134_GOALS?__gb134.apply(this,arguments):null;};}
+{const __co134=cp100Open;cp100Open=function(mode){if(!CP134_GOALS&&mode==='goals')mode='levels';return __co134.call(this,mode);};}
+// J. Home: a tap on the cat sends hearts out from all around the face, every angle, floating outward and across (Jenny, Nov 20:
+//    "coming out from every angle"). Same heart art; 8 hearts (was 5 off the top), about 1.6 s each (was 1.3). Edits in build:
+//    the tap calls cp134Hearts, and the hearts loop moves a heart with a direction along it.
+function cp134Hearts(R){const n=8,a0=Math.random()*Math.PI*2,rx=R.head.w*.42,ry=R.head.w*.36;
+ for(let i=0;i<n;i++){const a=a0+i*Math.PI*2/n+rand(-.2,.2),sp=rand(70,95);
+  PGA.hearts.push({x:R.head.x+Math.cos(a)*rx,y:R.head.y+Math.sin(a)*ry,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp*.85,ph:rand(0,6),L:1.6,t:-i*.03});}}
+// ---- end UAT 134 items A, B, D, E, F, G, J ----
+
+
+// ---------- UAT 134 item H: the Ragdoll's Dance break: grey shoulders on either side of the white chest (Jenny, Nov 20,
+// UAT 133: both together). The CP-101 grey shoulders draw again during the Dance break, and UAT 133's white chest draws over
+// them, so the grey shows on either side of the white. The Hug is unchanged (passed in UAT 133: white chest only).
+// CP133C.mode='grey' still gives the grey shoulders alone; CP133C.mode='none' neither.
+cp101BodyOn=function(){if(CP133C.mode==='none')return false;return __rchestOn.apply(this,arguments);};
+// ---------- end UAT 134 item H ----------
+
+
+// ---------- UAT 134 item I: Developer start-now buttons always start on the endless board with that game's or power's own cat
+// (Jenny, Nov 20: Pet the cat -> Ragdoll, Treat toss -> Orange, Hug -> Ragdoll...; "from Home or any board, never a timed
+// level"). Replaces UAT 133's power switch (next round #6), which left the board and built a new one for the new cat.
+// - On the endless board: the same board stays (coins, wallet, layout, meter); the cat changes the way the cat chip changes it
+//   (CP-97), at the moment the start fires: once the round is in play and nothing else is running.
+// - From Home, a timed level or any other board: the endless board starts with that cat (as Home's PLAY does).
+// - Side games: Treat toss -> Orange, Laser chase -> Siamese, Pet the cat -> Ragdoll, Mouse pounce -> Tortie. Powers: their own
+//   cat. Start Dance break now: the cat in play (from Home: the current cat), on the endless board too.
+// - As before (CP-102): no coin or power is taken from the player; a cat not yet open is opened for the test.
+const CP134S={GAME_CAT:{toss:'orange',chase:'siamese',pet:'ragdoll',pounce:'tortie'},log:[],err:null};
+function cp134Cat(kind,id){if(kind==='power')return PGP[id]?id:null;if(kind==='game')return CP134S.GAME_CAT[id]||null;
+ const c=PGU.screen==='board'&&WILD.on?PGU.boardCat:PG.current;return c&&PG.open[c]?c:'tuxedo';}
+function cp134OnEndless(){return typeof endActive==='function'&&endActive()&&PGU.screen==='board';}
+cp102Start=function(kind,id){panel.style.display='none';if(!PG)pgInit();const cat=cp134Cat(kind,id);if(!cat)return;
+ if(!PG.open[cat]){PG.open[cat]=1;if(PG.openOrder&&!PG.openOrder.includes(cat))PG.openOrder.push(cat);try{pgSave();}catch(e){}}
+ const from=cp134OnEndless()?'endless':PGU.screen==='board'&&WILD.on?'board':'home';
+ if(from!=='endless'){PGU.boardCat=cat;PG.current=cat;endStart();}
+ if(!cp134OnEndless()&&!(END.on&&WILD.on)){CP134S.err='endless did not start';cp102Note('Endless board did not start');return;}
+ if(kind==='dance'&&!wildFeature('dance')){cp102Note('No dance for this cat yet');return;}
+ CP102.want={kind,id,cat,t:time};CP134S.log.push({kind,id,cat,from});
+ try{diagEvent('cp102','start-now '+kind+' '+id+' cat='+cat+' from='+from);}catch(e){}};
+// the cat switch on the endless board, right before the start fires (nothing else running, the round in play)
+const __cp134Fire=cp102Fire;cp102Fire=function(){const W0=CP102.want;
+ if(W0&&W0.cat&&cp134OnEndless()&&PGU.boardCat!==W0.cat&&WILD.phase==='play'&&board.status==='playing'&&!cp102Busy()){
+  CP97.open=false;if(!cp97Switch(W0.cat)){CP134S.err='switch refused '+W0.cat;CP102.want=null;return;}}
+ return __cp134Fire.apply(this,arguments);};
+// ---------- end UAT 134 item I ----------
 
 </script>
 

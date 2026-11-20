@@ -1,0 +1,161 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp134-bundle\\boot134",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "v134": {
+  "412x915": {
+   "home": {
+    "modes": null,
+    "goalBtn": {
+     "x": 112,
+     "y": 665,
+     "w": 176,
+     "h": 36
+    },
+    "goals": true,
+    "cat": "tuxedo",
+    "hearts": 0
+   },
+   "swipeL": {
+    "cat": "orange",
+    "hearts": 0,
+    "swipes": 1
+   },
+   "swipeR": {
+    "cat": "tuxedo",
+    "hearts": 0
+   },
+   "tapHead": {
+    "cat": "tuxedo",
+    "hearts": 5
+   },
+   "loop0": "orange",
+   "loop1": "ragdoll",
+   "loop2": "siamese",
+   "loop3": "tortie",
+   "loop4": "tuxedo",
+   "toSiamese": {
+    "cat": "siamese",
+    "open": 0,
+    "current": "tuxedo"
+   },
+   "playSiamese": {
+    "end": true,
+    "cat": "siamese",
+    "mode": "laser",
+    "open": 0,
+    "screen": "board",
+    "phase": "play"
+   },
+   "nb1": {
+    "pending": true,
+    "name": "Crammed",
+    "phase": "play"
+   },
+   "nb2": {
+    "pending": false,
+    "phase": "play"
+   },
+   "geo": {
+    "strip": 671,
+    "hud": 468,
+    "done": {
+     "x": 302,
+     "y": 652,
+     "w": 76,
+     "h": 38
+    },
+    "chin": 354.6204081632653,
+    "back": 370.83514883660473,
+    "front": 770.6890744832965,
+    "H": 888.3495145631068,
+    "bars": 102,
+    "own": true,
+    "wide": true
+   },
+   "doneTap": "end",
+   "dance": {
+    "dance": true,
+    "own": true
+   }
+  },
+  "360x640": {
+   "home": {
+    "modes": null,
+    "goalBtn": {
+     "x": 112,
+     "y": 625.1828571428571,
+     "w": 176,
+     "h": 36
+    },
+    "goals": true,
+    "cat": "tuxedo",
+    "hearts": 0
+   },
+   "swipeL": {
+    "cat": "orange",
+    "hearts": 0,
+    "swipes": 1
+   },
+   "swipeR": {
+    "cat": "tuxedo",
+    "hearts": 0
+   },
+   "tapHead": {
+    "cat": "tuxedo",
+    "hearts": 5
+   },
+   "loop0": "orange",
+   "loop1": "ragdoll",
+   "loop2": "siamese",
+   "loop3": "tortie",
+   "loop4": "tuxedo",
+   "toSiamese": {
+    "cat": "siamese",
+    "open": 0,
+    "current": "tuxedo"
+   },
+   "playSiamese": {
+    "end": true,
+    "cat": "siamese",
+    "mode": "laser",
+    "open": 0,
+    "screen": "board",
+    "phase": "play"
+   },
+   "nb1": {
+    "pending": true,
+    "name": "Crammed",
+    "phase": "play"
+   },
+   "nb2": {
+    "pending": false,
+    "phase": "play"
+   },
+   "geo": {
+    "strip": 618,
+    "hud": 468,
+    "done": {
+     "x": 302,
+     "y": 599,
+     "w": 76,
+     "h": 38
+    },
+    "chin": 331.59999999999997,
+    "back": 346.3133757961783,
+    "front": 709.1437898089171,
+    "H": 720,
+    "bars": 102,
+    "own": true,
+    "wide": true
+   },
+   "doneTap": "end",
+   "dance": {
+    "dance": true,
+    "own": true
+   }
+  }
+ }
+}

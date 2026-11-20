@@ -1,0 +1,28 @@
+﻿{
+    "version":  20261119000045,
+    "displayName":  "2026.11.20 UAT 134",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "5fdc6cd7f67d778d3bf91326718cf702818598b3acc723eeacd89ed92d619b36",
+    "stagedJSONSHA256":  "95cd7bb762cfb174154331e9bd00f736fe7cb90bc1c2a72027225b7c72525acd",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "a98a8f05e5547f820a55fe28bd8de037ca319945bfe031aaf97f2ae09300e9c8",
+    "jsonBytes":  47825861,
+    "baselineJSONBytes":  47811193,
+    "runtimeFiles":  76,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.20 UAT 133",
+    "backup":  "uat/backups/before-UAT134-20261119000045",
+    "evidence":  "tickets/CP-100-evidence/uat134",
+    "checks":  [
+                   "checks134.json"
+               ],
+    "authorization":  "UAT 134: round 134 bundle (tickets/ROUND-134.md: A, B, D, E, F, G, J by the integrator; H, I by the CP-94 engineer; C report only); Jenny approved the round via the PM, Nov 20; UAT only",
+    "localPublication":  "verified"
+}

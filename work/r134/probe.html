@@ -1,0 +1,15 @@
+<!doctype html>
+<!-- UAT 134 item I: the real page (?dir=) in a WxH frame; runs scenario ?scn=<file>.js (an async function body given w, sleep, shot, log) and dumps its result. -->
+<html><head><meta charset="utf-8"><title>probe</title><style>body{margin:0}</style></head><body>
+<iframe id="g" style="border:0;display:block"></iframe><pre id="result">PENDING</pre>
+<script>
+const q=new URLSearchParams(location.search),dir=q.get('dir'),W=+q.get('w')||412,H=+q.get('h')||915,g=document.getElementById('g'),out=document.getElementById('result');
+g.style.width=W+'px';g.style.height=H+'px';const res={dir,W,H,errors:[],log:[]};const done=()=>{out.textContent=JSON.stringify(res);};const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+window.__shot=null;const shot=async n=>{window.__shot=n;for(let i=0;i<60&&window.__shot;i++)await sleep(100);};const log=x=>res.log.push(x);
+g.src=dir+'/index.html';
+g.onload=()=>{const w=g.contentWindow;w.addEventListener('error',e=>res.errors.push(String(e.message)));
+ const iv=setInterval(async()=>{try{if(!w.eval("typeof ART!=='undefined'&&!!ART.head&&typeof bodies!=='undefined'&&bodies.length>0"))return;clearInterval(iv);
+  await sleep(1500);const body=await (await fetch(q.get('scn')+'?r='+Date.now())).text();
+  res.result=await (new Function('w','sleep','shot','log','return (async()=>{'+body+'})()'))(w,sleep,shot,log);done();}catch(e){res.errors.push(String(e&&e.stack||e));clearInterval(iv);done();}},250);};
+setTimeout(()=>{if(out.textContent==='PENDING'){res.errors.push('timeout');done();}},150000);
+</script></body></html>
