@@ -1,0 +1,85 @@
+{
+ "build": "cp132-hug/boot131",
+ "passed": true,
+ "failed": [],
+ "results": [
+  {
+   "name": "412x915 reaches Home",
+   "ok": true
+  },
+  {
+   "name": "412x915 build name",
+   "ok": true,
+   "info": "2026.11.20 UAT 131"
+  },
+  {
+   "name": "412x915 rescue block present",
+   "ok": true
+  },
+  {
+   "name": "412x915 Hug starts",
+   "ok": true
+  },
+  {
+   "name": "412x915 during the hold: walls up, edge pieces moved in, no Hug error",
+   "ok": true,
+   "info": {
+    "walls": true,
+    "moved": 24,
+    "err": null
+   }
+  },
+  {
+   "name": "412x915 Hug ends cleanly",
+   "ok": true,
+   "info": {
+    "px": true,
+    "err": null
+   }
+  },
+  {
+   "name": "412x915 no exceptions",
+   "ok": true,
+   "info": []
+  },
+  {
+   "name": "360x640 reaches Home",
+   "ok": true
+  },
+  {
+   "name": "360x640 build name",
+   "ok": true,
+   "info": "2026.11.20 UAT 131"
+  },
+  {
+   "name": "360x640 rescue block present",
+   "ok": true
+  },
+  {
+   "name": "360x640 Hug starts",
+   "ok": true
+  },
+  {
+   "name": "360x640 during the hold: walls up, edge pieces moved in, no Hug error",
+   "ok": true,
+   "info": {
+    "walls": true,
+    "moved": 26,
+    "err": null
+   }
+  },
+  {
+   "name": "360x640 Hug ends cleanly",
+   "ok": true,
+   "info": {
+    "px": true,
+    "err": null
+   }
+  },
+  {
+   "name": "360x640 no exceptions",
+   "ok": true,
+   "info": []
+  }
+ ]
+}

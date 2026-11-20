@@ -1,0 +1,12 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp130\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.20 UAT 130';",
+   "const BUILD = '2026.11.20 UAT 131';"
+  ]
+ ],
+ "appendedBeforeLastScriptClose": [
+  "cp74-rescue.js"
+ ]
+}

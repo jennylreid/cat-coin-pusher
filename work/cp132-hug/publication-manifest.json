@@ -1,0 +1,26 @@
+{
+  "version": 20261119000042,
+  "displayName": "2026.11.20 UAT 131",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "d1bae2308135bf2008f36ce0d67b0554817f6d4b04cc8a2fbcb79772ea77c8e5",
+  "stagedJSONSHA256": "1e66d6885b1f8e42ba7f73286662aefab0b632caee1f6924313c89a87f48f84a",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "8bb0b1453443d1bb0295bb752976f29e2003b5655420c2b3ffb13b089593859f",
+  "jsonBytes": 47760149,
+  "baselineJSONBytes": 47757125,
+  "runtimeFiles": 76,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.20 UAT 130",
+  "backup": "uat/backups/before-UAT131-20261119000042",
+  "evidence": "tickets/CP-74-evidence/uat131",
+  "checks": [
+    "checks131.json",
+    "chromecheck.json"
+  ],
+  "authorization": "UAT 131: CP-74 Hug rescue (Jenny via PM on UAT 129: \"...anything that is about to fall off the edge or close to the edge gets relocated during the hug; it gets moved inward to safety.\"; PM, Nov 20: \"publish as UAT 133 after 132 is out. You have my OK.\"; renumbered Nov 20: \"The Hug fix is UAT 132. Publish it right after UAT 131 (the yawn fix) is out, built on 131.\"; renumbered again Nov 20: \"you're UAT 131, built on 130 as you have it.\"); UAT only"
+}
