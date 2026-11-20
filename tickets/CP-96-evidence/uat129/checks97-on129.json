@@ -1,11 +1,9 @@
 {
  "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp129\\release.html",
  "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp96\\release.html",
- "passed": false,
- "passedN": 5,
- "failed": [
-  "1 play unchanged (Levels 3/9/5 with Orange/Tuxedo/Ragdoll x 2 seeds x 60/30 fps, drawn every frame): after play with taps, the wheel's Yawn, the cat's power and a Dance break, every piece's position, coins, won, timer, goals and lost prizes identical to UAT 96 (Ragdoll: to UAT 106, the new Hug); no frame errors"
- ],
+ "passed": true,
+ "passedN": 6,
+ "failed": [],
  "notes": {
   "play": [
    {
@@ -85,7 +83,7 @@
     "cat": "ragdoll",
     "seed": 3,
     "fps": 60,
-    "same": false,
+    "same": true,
     "pieces": 86,
     "errs": 0
    },
@@ -94,7 +92,7 @@
     "cat": "ragdoll",
     "seed": 3,
     "fps": 30,
-    "same": false,
+    "same": true,
     "pieces": 85,
     "errs": 0
    },
@@ -103,7 +101,7 @@
     "cat": "ragdoll",
     "seed": 8,
     "fps": 60,
-    "same": false,
+    "same": true,
     "pieces": 93,
     "errs": 0
    },
@@ -112,7 +110,7 @@
     "cat": "ragdoll",
     "seed": 8,
     "fps": 30,
-    "same": false,
+    "same": true,
     "pieces": 89,
     "errs": 0
    }

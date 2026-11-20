@@ -70,6 +70,21 @@ for f in S128+S124:
             return q.group(0)
         return re.sub(r"'([^']+)'",one,mo.group(0))
     s=re.sub(r"for\(const f of \[[^\]]*\]\)",lst,s)
+    # CP-96 UAT 129 test upkeep (PM, Nov 19). Since UAT 127 (CP-100) Home's PLAY opens the Endless board and the Level boards list
+    # also starts the Endless board on a layout; timed levels have no button. On a build with CP-100 these suites start the timed
+    # level with exactly what PLAY did before CP-100 (UAT 126's pgMainTap: PGU.screen='board';PGU.fade=.25;pgStartRound()), so
+    # their UAT 94 / UAT 92 references still apply; on the references themselves PLAY is tapped as before.
+    OLDPLAY="g.run(\"PGU.screen='board';PGU.fade=.25;pgStartRound()\")"
+    if stem=='75':
+        a="if(pl)tap(pl.x+pl.w/2,pl.y+pl.h/2);";assert s.count(a)==1,o
+        s=s.replace(a,"if(g.run(\"typeof cp100Play==='function'\"))"+OLDPLAY+";else if(pl)tap(pl.x+pl.w/2,pl.y+pl.h/2); /* CP-96 UAT 129: the timed level as PLAY started it before CP-100 */")
+    if stem=='93':
+        a="const pl=J(g,'PGA.L.play');tap(pl.x+pl.w/2,pl.y+pl.h/2);";assert s.count(a)==1,o
+        s=s.replace(a,"if(g.run(\"typeof cp100Play==='function'\"))"+OLDPLAY+";else{const pl=J(g,'PGA.L.play');tap(pl.x+pl.w/2,pl.y+pl.h/2);} /* CP-96 UAT 129: the timed level as PLAY started it before CP-100 */")
+    if stem=='97':  # the Ragdoll rows against UAT 128 (CP-101 gave the Ragdoll its waltz Dance break, which this play run reaches)
+        a="const base106=path.resolve(__dirname,'../cp106-hug/release.html');";assert s.count(a)==1,o
+        s=s.replace(a,"const base106=path.resolve(__dirname,'../cp128/release.html'); /* CP-96 UAT 129: Ragdoll rows against UAT 128 (CP-101 waltz); was UAT 106 (the new Hug) */")
+        s=s.replace("UAT 96 (Ragdoll: to UAT 106, the new Hug)","UAT 96 (Ragdoll: to UAT 128, the CP-101 waltz)")
     if stem=='75':assert 'FR()' in s,'checks75 Orange Dance meter baseline missing'
     code='\n'.join(x for x in s.split('\n') if not x.startswith('//'))
     bad=[e for e in re.findall(r'CP-\d+-evidence',code) if e!='CP-96-evidence']

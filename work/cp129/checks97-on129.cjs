@@ -42,13 +42,13 @@ function besideCount(g){g.c.draw();const R=J(g,REGION),cv=g.c.document.getElemen
   check('0 the build is published 2026.11.19 UAT 128 + build name + the Daily puzzles block with the Sleepy Coins pupils fix (everything else unchanged)',S===B&&m.length===1);}
  // 1. play unchanged: same taps, the wheel's Yawn and the cat's power, drawn every frame (render), against UAT 96
  // (UAT 110, CP-74: the Ragdoll rows against UAT 106, the first build with the new Hug, whose walls run 1.5-7.5 s after the tap)
- const base106=path.resolve(__dirname,'../cp106-hug/release.html');
+ const base106=path.resolve(__dirname,'../cp128/release.html'); /* CP-96 UAT 129: Ragdoll rows against UAT 128 (CP-101 waltz); was UAT 106 (the new Hug) */
  {const rows=[];let ok=true;for(const [level,cat] of [[3,'orange'],[9,'tuxedo'],[5,'ragdoll']])for(const seed of [3,8])for(const fps of [60,30]){const sig=[];
    for(const f of [src,cat==='ragdoll'?base106:base]){const {g,tk}=await midRound(f,{seed,level,fps,cat,render:true});const s=[];s.push(g.run(SIG));
     g.run('cp58StartYawn()');for(let i=0;i<fps*5;i++)tk();s.push(g.run(SIG));g.run(TAP);for(let i=0;i<fps*7;i++)tk();s.push(g.run(SIG));g.run('danceStartNow()');for(let i=0;i<fps*4;i++)tk();s.push(g.run(SIG));
     s.push(String(g.run('__errs.length')));sig.push(s);g.close();}
    const same=JSON.stringify(sig[0])===JSON.stringify(sig[1]),r={level,cat,seed,fps,same,pieces:JSON.parse(sig[0][2]).b.length,errs:+sig[0][4]};rows.push(r);if(!same||r.errs)ok=false;}
-  notes.play=rows;check('1 play unchanged (Levels 3/9/5 with Orange/Tuxedo/Ragdoll x 2 seeds x 60/30 fps, drawn every frame): after play with taps, the wheel\'s Yawn, the cat\'s power and a Dance break, every piece\'s position, coins, won, timer, goals and lost prizes identical to UAT 96 (Ragdoll: to UAT 106, the new Hug); no frame errors',ok,rows);}
+  notes.play=rows;check('1 play unchanged (Levels 3/9/5 with Orange/Tuxedo/Ragdoll x 2 seeds x 60/30 fps, drawn every frame): after play with taps, the wheel\'s Yawn, the cat\'s power and a Dance break, every piece\'s position, coins, won, timer, goals and lost prizes identical to UAT 96 (Ragdoll: to UAT 128, the CP-101 waltz); no frame errors',ok,rows);}
  // 2. behind and beside the cat: no armrest gold/teal, no rest rail, at both sizes, idle, mid-Yawn, every cat's power and the Dance
  {const rows=[];let ok=true;const shots={};for(const [w,h] of [[412,915],[360,640]])for(const cat of ['tuxedo','orange','ragdoll','siamese','tortie']){const sz=w+'x'+h;
    for(const [tag,f] of [['after',src],['before',base]]){const {g,tk}=await midRound(f,{seed:7,level:3,secs:4,cat,render:true,w,h,pr:2});const r={sz,cat,tag,frames:[]};

@@ -27,7 +27,7 @@ async function run(file,cat,{w=360,h=640,shots=null,spy=false}={}){
  g.run("globalThis.__errs=[];const fe=frameError;frameError=function(e){__errs.push(String(e&&e.stack||e).slice(0,300));return fe(e);}");
  g.run('S.dev=false;S.muted=true;if(typeof cp88Shown==="function")cp88Shown=function(){return false;};'); /* as work/cp111/checks75-on111.cjs: CP-88's slot off (checked in checks88) */ticks(150);tap(200,700);ticks(40);
  g.run(`for(const c of PG_CATS)PG.open[c]=true;PG.level=Math.max(PG.level,PG_SWITCH_LEVEL);pgSave();if(WILD.on)wildExit();pgPlay('${cat}');`);
- let k=0;while(g.run("WILD.phase")!=='play'&&k++<900){if(g.run("WILD.phase")==='card'){g.c.draw();const pl=J(g,'(typeof PGA==="object"&&PGA.L&&PGA.L.play)||null');if(pl)tap(pl.x+pl.w/2,pl.y+pl.h/2);}g.tick();}
+ let k=0;while(g.run("WILD.phase")!=='play'&&k++<900){if(g.run("WILD.phase")==='card'){g.c.draw();const pl=J(g,'(typeof PGA==="object"&&PGA.L&&PGA.L.play)||null');if(g.run("typeof cp100Play==='function'"))g.run("PGU.screen='board';PGU.fade=.25;pgStartRound()");else if(pl)tap(pl.x+pl.w/2,pl.y+pl.h/2);}g.tick();}
  ticks(240);for(let i=0;i<40;i++){g.tick();await new Promise(r=>setTimeout(r,10));}
  g.run('WILD.nextBonus=999;WILD.left=60;');if(spy)g.run(SPY);
  const png=()=>{g.c.draw();return g.c.document.getElementById('cv').toBuffer('image/png');},H=b=>crypto.createHash('sha256').update(b).digest('hex');
