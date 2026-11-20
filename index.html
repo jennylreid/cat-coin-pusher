@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.19 UAT 126';
+const BUILD = '2026.11.19 UAT 127';
 
 
 
@@ -39790,7 +39790,7 @@ function pgFloat(text,x,y,color){PGU.floats.push({text,x,y,t:0,color:color||'#ff
 // Adds n of a prize, stopping at the cap: anything over turns into coins at once (a clink and a small "+n").
 function pgAddItem(id,n=1,x=200,y=300){
  const room=Math.max(0,pgCap()-pgHave(id)),k=Math.min(room,n),over=n-k;PG.items[id]=pgHave(id)+k;if(n>0)PG.ever[id]=1;
- if(over>0){const c=over*pgSell(id);PG.coins+=c;pgFloat('+'+c,x,y,'#ffd23f');pgSfx('clink');}
+ if(over>0){const c=over*pgSell(id);PG.catnip+=c;pgFloat('+'+c+' Catnip',x,y,'#8dff9a');pgSfx('clink');} /* CP-100 */
  pgCheckStamps();pgSave();return over;}
 function pgXPNeed(L){return 50+30*(L-1);}
 function pgAddXP(n){PG.xp+=Math.round(n*PG_DEV.xp);const ups=[];while(PG.xp>=pgXPNeed(PG.level)){PG.xp-=pgXPNeed(PG.level);PG.level++;ups.push(PG.level);pgUnlocks(PG.level);}
@@ -39935,7 +39935,7 @@ function pgHeader(title,color){const y0=pgTop(),b=pgBack();ctx.fillStyle='rgba(1
  ctx.save();ctx.textAlign='left';ctx.font='italic 900 28px Impact, "Arial Black", system-ui';const tz=Math.min(28,28*146/Math.max(1,ctx.measureText(title).width));wildText(title,108,y0+38,tz,color||'#ffd23f','#2a0b3e',6);ctx.restore();
  pgCounters(y0+76);pgScreenCat(PGU.hdt||.016);}
 function pgCounters(y){ctx.save();ctx.textBaseline='middle';ctx.textAlign='left';ctx.font='bold 13px system-ui';
- const c=PG.coins,n=PG.catnip;ctx.fillStyle='#ffd76a';ctx.fillText(c+' coins',16,y);ctx.fillStyle='#8dff9a';ctx.fillText(n+' Catnip',16+ctx.measureText(c+' coins').width+14,y);ctx.restore();}
+ const c=(typeof cp100Coins==='function'?cp100Coins():PG.coins),n=PG.catnip;ctx.fillStyle='#ffd76a';ctx.fillText(c+' coins',16,y); /* CP-100 */ctx.fillStyle='#8dff9a';ctx.fillText(n+' Catnip',16+ctx.measureText(c+' coins').width+14,y);ctx.restore();}
 function pgButton(r,label,fill,text,size,off){ctx.save();if(off)ctx.globalAlpha=.45;wildButtonDraw(r,label,fill,text,size||20);ctx.restore();}
 function pgPrizeIcon(id,x,y,w,a=1){ctx.save();ctx.globalAlpha*=a;drawPrize('item',id,x,y+w*.3,w/(radius('item')*2.8));ctx.restore();}
 function pgPaw(x,y,k,c){uiPaw(x,y,k,c||'#ffe08a');}
@@ -39979,7 +39979,7 @@ function pgWaiting(id){
  if(id==='porch')return PG.porch.some(s=>s&&(s.state==='visit'||s.state==='missed'))||(PG.level>=2&&PG.porch.some(s=>!s)&&Object.values(PG.dishes).some(n=>n>0));
  if(id==='album')return !!PG.newPhoto;
  if(id==='board')return !!PG.newBoard;
- if(id==='shop'){const m=pgMissing(pgCurrentRecipe());return Object.keys(m).some(i=>!pgWinnable(i)&&PG.coins>=pgBuy(i));}
+ if(id==='shop'){const m=pgMissing(pgCurrentRecipe());return Object.keys(m).some(i=>!pgWinnable(i)&&PG.catnip>=pgBuy(i));} /* CP-100 */
  return false;}
 function pgDrawDock(){
  const D=pgDock(),t=PGU.T,a=WILD.phase==='card'?Math.min(1,(WILD.cardT||0)/.2):Math.min(1,((WILD.endT||0)-.9)/.2);if(!(a>0))return;
@@ -39993,8 +39993,8 @@ function pgDrawDock(){
  uiRound(bx,y-8,bw,16,8,'rgba(255,255,255,.12)','#ffe08a',1);if(u>0)uiRound(bx+1,y-7,Math.max(14,(bw-2)*u),14,7,'#7dff6a');
  ctx.fillStyle='#fff';ctx.font='bold 10px system-ui';ctx.fillText(PG.xp+' / '+need+' XP',bx+bw/2,y+1,bw-8);
  // coins (the jar) and Catnip
- uiCircle(152,y,8,'#f5c632','#a8740c',1.5);pgPaw(152,y+1,.16,'#a8740c');ctx.textAlign='left';ctx.font='bold 15px system-ui';ctx.fillStyle='#ffd76a';ctx.fillText(PG.coins,163,y+1,48);
- const cx=163+Math.min(48,ctx.measureText(String(PG.coins)).width)+15;pgCatnipLeaf(cx,y+7,.72);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,cx+12,y+1);
+ uiCircle(152,y,8,'#f5c632','#a8740c',1.5);pgPaw(152,y+1,.16,'#a8740c');ctx.textAlign='left';ctx.font='bold 15px system-ui';ctx.fillStyle='#ffd76a';ctx.fillText((typeof cp100Coins==='function'?cp100Coins():PG.coins),163,y+1,48);
+ const cx=163+Math.min(48,ctx.measureText(String((typeof cp100Coins==='function'?cp100Coins():PG.coins))).width)+15; /* CP-100 */pgCatnipLeaf(cx,y+7,.72);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,cx+12,y+1);
  // Collections and Inventory (moved up from the bottom strip), MODES (Developer only), Settings
  pgCollIcon(D.coll.x+D.coll.w/2,y);pgInvIcon(D.inv.x+D.inv.w/2,y);
  if(D.modes){const m=D.modes;uiRound(m.x,m.y,m.w,m.h,10,'rgba(20,60,60,.92)','#5ef0c0',1.5);ctx.fillStyle='#d8fff2';ctx.textAlign='center';ctx.font='900 11px Impact, system-ui';ctx.fillText('MODES',m.x+m.w/2,m.y+m.h/2+1);}
@@ -40040,7 +40040,7 @@ function pgDrawDockCompact(D,t){const cy=D.cy,r=Math.min(14,D.rh/2-3),need=pgXPN
   else if(pgWaiting(id)){const kk=1+.12*Math.sin(t*6);uiCircle(b.x+b.w-6,b.y+6,7*kk,'#fff','#ff6ab8',1.5);pgPaw(b.x+b.w-6,b.y+7,.16*kk,'#ff3a8a');}
   ctx.restore();}
  if(D.modes){const m=D.modes;uiRound(m.x,m.y,m.w,m.h,9,'rgba(20,60,60,.92)','#5ef0c0',1.2);ctx.fillStyle='#d8fff2';ctx.textAlign='center';ctx.font='900 9px Impact, system-ui';ctx.fillText('MODES',m.x+m.w/2,cy+1,m.w-4);}
- ctx.textAlign='left';ctx.font='bold 12px system-ui';uiCircle(272,cy-8,5,'#f5c632','#a8740c',1);ctx.fillStyle='#ffd76a';ctx.fillText(PG.coins,280,cy-7,34);pgCatnipLeaf(272,cy+11,.5);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,280,cy+8,34);
+ ctx.textAlign='left';ctx.font='bold 12px system-ui';uiCircle(272,cy-8,5,'#f5c632','#a8740c',1);ctx.fillStyle='#ffd76a';ctx.fillText((typeof cp100Coins==='function'?cp100Coins():PG.coins),280,cy-7,34); /* CP-100 */pgCatnipLeaf(272,cy+11,.5);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,280,cy+8,34);
  pgCollIcon(D.coll.x+D.coll.w/2,cy);pgInvIcon(D.inv.x+D.inv.w/2,cy);pgGearIcon(D.gear.x+D.gear.w/2,cy,8);}
 function pgDoorIcon(id,x,y,t){
  if(id==='kitchen'){ctx.fillStyle='#3a3a48';ctx.beginPath();ctx.moveTo(x-30,y-8);ctx.lineTo(x+30,y-8);ctx.quadraticCurveTo(x+28,y+22,x,y+24);ctx.quadraticCurveTo(x-28,y+22,x-30,y-8);ctx.fill();ctx.fillStyle='#5a5a6a';ctx.fillRect(x-34,y-12,68,7);
@@ -40305,24 +40305,21 @@ function pgDrawShop(dt){
  const t=PGU.t,Sh=PGU.shop;let gr=ctx.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#0f4a6a');gr.addColorStop(1,'#08202e');ctx.fillStyle=gr;ctx.fillRect(0,0,W,H);
  ctx.fillStyle='rgba(255,255,255,.05)';for(let x=0;x<W;x+=28)ctx.fillRect(x,0,14,H); // awning stripes
  pgHeader('SHOP','#7ae0ff');
- // the coin jar: fills with your coins
- const jx=200,jy=pgTop()+160,jw=120,jh=120,fill=Math.min(1,PG.coins/600);Sh.jarT+=dt;const wob=Sh.jarT<.3?Math.sin(Sh.jarT*40)*3*(1-Sh.jarT/.3):0;
- ctx.save();ctx.translate(jx+wob,jy);ctx.fillStyle='rgba(200,230,255,.18)';ctx.strokeStyle='#d8eeff';ctx.lineWidth=3;ctx.beginPath();ctx.roundRect(-jw/2,-jh/2,jw,jh,22);ctx.fill();ctx.stroke();ctx.fillStyle='#b88a4a';ctx.fillRect(-jw/2+8,-jh/2-12,jw-16,14);
- ctx.save();ctx.beginPath();ctx.roundRect(-jw/2+4,-jh/2+4,jw-8,jh-8,18);ctx.clip();const lvl=jh/2-4-(jh-8)*fill;for(let y=jh/2;y>lvl;y-=9)for(let x=-jw/2+10;x<jw/2;x+=16)uiCircle(x+((y/9|0)%2)*8,y,8,'#f5c632','#a8740c',1);ctx.restore();
- ctx.fillStyle='#fff';ctx.font='bold 18px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(PG.coins+' coins',0,jh/2+18);ctx.restore();
+ // CP-100: no coin jar; the Catnip balance in its place (sold prizes fly to it)
+ const jx=200,jy=pgTop()+170;Sh.jarT+=dt;ctx.save();pgCatnipLeaf(jx-46,jy-36,1.6);ctx.fillStyle='#8dff9a';ctx.font='900 34px Impact, system-ui';ctx.textAlign='left';ctx.textBaseline='middle';ctx.fillText(String(PG.catnip),jx-22,jy-30);ctx.font='bold 15px system-ui';ctx.fillStyle='#cfe6f4';ctx.textAlign='center';ctx.fillText('Catnip · sell prizes for it, buy ingredients with it',200,jy+8,360);ctx.restore();
  const T2=pgShopTabs();for(const k of ['sell','buy']){const r=T2[k],on=Sh.tab===k;uiRound(r.x,r.y,r.w,r.h,14,on?'#ffd23f':'rgba(255,255,255,.12)','#fff6d0',2);ctx.fillStyle=on?'#3a1a00':'#fff';ctx.font='900 18px Impact, system-ui';ctx.fillText(k==='sell'?'SELL PRIZES':'BUY INGREDIENTS',r.x+r.w/2,r.y+r.h/2+1,r.w-10);}
  const rows=pgShopRows(),need=pgMissing(pgCurrentRecipe());
  if(!rows.length){ctx.fillStyle='#cfe6f4';ctx.font='15px system-ui';ctx.fillText(Sh.tab==='sell'?'No prizes yet. Win some on a board!':'Everything can be won on your boards.',200,pgTop()+340,360);}
  for(const r of rows){uiRound(r.x,r.y,r.w,r.h,12,need[r.id]?'rgba(125,255,106,.18)':'rgba(255,255,255,.1)',need[r.id]?'#7dff6a':'rgba(255,255,255,.3)',1.5);pgPrizeIcon(r.id,r.x+30,r.y+r.h/2-6,Math.min(40,r.h-6));
   ctx.textAlign='left';ctx.fillStyle='#fff';ctx.font='bold 15px system-ui';ctx.fillText(pgName(r.id)+(Sh.tab==='sell'?'  ×'+pgHave(r.id):''),r.x+62,r.y+r.h/2-8,190);
   ctx.font='11px system-ui';ctx.fillStyle='#cfe6f4';const o=pgOwner(r.id);ctx.fillText(need[r.id]?'your recipe needs it':o?'only on the '+PG_CAT[o].name+"'s board":'on every board',r.x+62,r.y+r.h/2+10,190);
-  const price=Sh.tab==='sell'?pgSell(r.id):pgBuy(r.id),off=Sh.tab==='buy'&&(PG.coins<price||pgHave(r.id)>=pgCap());ctx.textAlign='center';
+  const price=Sh.tab==='sell'?pgSell(r.id):pgBuy(r.id),off=Sh.tab==='buy'&&(PG.catnip<price||pgHave(r.id)>=pgCap()); /* CP-100 */ctx.textAlign='center';
   pgButton(r.btn,(Sh.tab==='sell'?'+':'')+price,Sh.tab==='sell'?'#ffd23f':'#3ccf4e',Sh.tab==='sell'?'#3a1a00':'#0c3a12',18,off);}
  for(let i=Sh.flies.length-1;i>=0;i--){const f=Sh.flies[i];f.t+=dt;const u=Math.min(1,f.t/.5);if(u>=1){Sh.flies.splice(i,1);continue;}const x=f.x+(jx-f.x)*u,y=f.y+(jy-40-f.y)*u-Math.sin(u*Math.PI)*60;uiCircle(x,y,8,'#f5c632','#a8740c',1);}
  ctx.textAlign='center';ctx.fillStyle='#cfe6f4';ctx.font='12px system-ui';ctx.fillText(Sh.tab==='sell'?'Tip: keep what your recipes need':'Things you can’t win on your boards yet',200,pgBot()-14);}
 function pgShopTap(r){const Sh=PGU.shop;
- if(Sh.tab==='sell'){if(pgHave(r.id)<1)return;PG.items[r.id]--;PG.coins+=pgSell(r.id);Sh.flies.push({x:r.btn.x+r.btn.w/2,y:r.btn.y,t:0});Sh.flies.push({x:r.btn.x+r.btn.w/2,y:r.btn.y,t:-.08});Sh.jarT=0;pgSfx('jar');pgSfx('clink',.6);pgSave();return;}
- const p=pgBuy(r.id);if(PG.coins<p||pgHave(r.id)>=pgCap()){pgSfx('lock');return;}PG.coins-=p;PG.items[r.id]=pgHave(r.id)+1;PG.ever[r.id]=1;pgSfx('till');pgFloat('+1 '+pgName(r.id),r.x+150,r.y,'#7dff6a');pgCheckStamps();pgSave();}
+ if(Sh.tab==='sell'){if(pgHave(r.id)<1)return;PG.items[r.id]--;PG.catnip+=pgSell(r.id); /* CP-100 */Sh.flies.push({x:r.btn.x+r.btn.w/2,y:r.btn.y,t:0});Sh.flies.push({x:r.btn.x+r.btn.w/2,y:r.btn.y,t:-.08});Sh.jarT=0;pgSfx('jar');pgSfx('clink',.6);pgSave();return;}
+ const p=pgBuy(r.id);if(PG.catnip<p||pgHave(r.id)>=pgCap()){pgSfx('lock');return;}PG.catnip-=p; /* CP-100 */PG.items[r.id]=pgHave(r.id)+1;PG.ever[r.id]=1;pgSfx('till');pgFloat('+1 '+pgName(r.id),r.x+150,r.y,'#7dff6a');pgCheckStamps();pgSave();}
 // ---------- the round: list, star, rewards, cat coins, recipe coins ----------
 RAIN.recipecoin={n:0,pgcoin:'recipe',r:33,half:4.4,face:['#fff6e0','#ff9a4a','#8a3a10'],edge:'#7a3010'};
 for(const c of PG_CATS){if(c==='tuxedo')continue;RAIN['cc_'+c]={n:0,pgcoin:'cat',cat:c,r:34,half:4.4,face:['#fff8e0',PG_CAT[c].tag,'#2a1a10'],edge:'#3a2a10'};}
@@ -40360,7 +40357,7 @@ wildRainCollected=function(b,x){const R=RAIN[b.kind];if(!R||!R.pgcoin||!PG)retur
 function pgOpenBoard(cat){if(PG.open[cat])return;PG.open[cat]=1;PG.openOrder.push(cat);PG.current=cat;PG.newBoard=cat;delete PG.coinReady[cat];pgAddXP(30);pgCheckWin();pgSave();
  PGU.moment={cat,t:0};pgSfx('fanfare');try{wildConfetti(90);}catch(e){}try{diagEvent('progress','board open '+cat);}catch(e){}}
 function pgWinRecipe(){const r=PG_RECIPES.find(r=>pgRecipeOpen(r)&&!PG.recipes[r.id]&&!(PG.photos[r.cat]>0))||PG_RECIPES.find(r=>pgRecipeOpen(r)&&!PG.recipes[r.id]);
- if(r){PG.recipes[r.id]=1;PG.seen['r:'+r.id]=0;callout('RECIPE: '+r.name.toUpperCase()+'!',{color:'#ffb07a',dur:1.6});pgSfx('buy');}else{PG.coins+=25;callout('+25 COINS TO THE JAR',{color:'#ffd23f',dur:1.2});}pgSave();}
+ if(r){PG.recipes[r.id]=1;PG.seen['r:'+r.id]=0;callout('RECIPE: '+r.name.toUpperCase()+'!',{color:'#ffb07a',dur:1.6});pgSfx('buy');}else{PG.catnip+=3;callout('+3 CATNIP',{color:'#8dff9a',dur:1.2});} /* CP-100 */pgSave();}
 function pgCCEligible(){return PG_CATS.filter(c=>PG.coinReady[c]&&!PG.open[c]);}
 function pgRCEligible(){return PG_RECIPES.some(r=>pgRecipeOpen(r)&&!PG.recipes[r.id]&&!(PG.photos[r.cat]>0)&&!(PG.dishes[r.id]>0)&&!PG.porch.some(s=>s&&s.cat===r.cat&&s.state!=='missed'));}
 let PG_FORCE_CC=null;
@@ -40561,7 +40558,7 @@ const __pgFinishCook=pgFinishCook;pgFinishCook=function(){const r=__pgFinishCook
 const __pgPhotoR=pgPhoto;pgPhoto=function(i){const n=PG.porch[i]&&PG.porch[i].state;const r=__pgPhotoR(i);if(n==='visit')pgScreenReact('perk');return r;};
 const __pgPorchTickR=pgPorchTick;pgPorchTick=function(){const v=PG?PG.porch.filter(s=>s&&s.state==='visit').length:0;const r=__pgPorchTickR();if(PG&&PGU.screen==='porch'&&PG.porch.filter(s=>s&&s.state==='visit').length>v){pgScreenReact('perk');pgSfx('meow',.7);}return r;};
 const __pgStampsR=pgCheckStamps;pgCheckStamps=function(){const n=PG?PG.catnip:0;const r=__pgStampsR();if(PG&&PG.catnip>n){pgScreenReact('purr');pgSfx('purr',.9);}return r;};
-const __pgShopTapR=pgShopTap;pgShopTap=function(r){const c=PG.coins;const out=__pgShopTapR(r);if(PG.coins>c)pgScreenReact('nod');return out;};
+const __pgShopTapR=pgShopTap;pgShopTap=function(r){const c=PG.catnip;const out=__pgShopTapR(r);if(PG.catnip>c)pgScreenReact('nod'); /* CP-100 */return out;};
 
 const __pgModeName=wildModeName;wildModeName=function(){return PG&&!PG_HOME_OFF&&!wildMode()?'TUXEDO':__pgModeName();};
 
@@ -41143,8 +41140,8 @@ pgDrawDock=function(){if(!pglActive()||!pgABOn())return __pglDrawDock();
  ctx.save();ctx.globalAlpha=a;ctx.textBaseline='middle';
  let gr=ctx.createLinearGradient(0,0,0,D.bottom);gr.addColorStop(0,'#160a24');gr.addColorStop(1,'#2c1544');ctx.fillStyle=gr;ctx.fillRect(0,0,W,D.bottom);
  ctx.fillStyle='rgba(0,0,0,.35)';ctx.fillRect(0,D.bottom,W,4);ctx.fillStyle='#ffe08a';ctx.fillRect(0,D.bottom-2,W,2);
- const y=D.y1;uiCircle(24,y,10,'#f5c632','#a8740c',1.5);pgPaw(24,y+1,.2,'#a8740c');ctx.textAlign='left';ctx.font='bold 17px system-ui';ctx.fillStyle='#ffd76a';ctx.fillText(PG.coins,40,y+1,70);
- const cx=40+Math.min(70,ctx.measureText(String(PG.coins)).width)+18;pgCatnipLeaf(cx,y+8,.8);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,cx+13,y+1);
+ const y=D.y1;uiCircle(24,y,10,'#f5c632','#a8740c',1.5);pgPaw(24,y+1,.2,'#a8740c');ctx.textAlign='left';ctx.font='bold 17px system-ui';ctx.fillStyle='#ffd76a';ctx.fillText((typeof cp100Coins==='function'?cp100Coins():PG.coins),40,y+1,70);
+ const cx=40+Math.min(70,ctx.measureText(String((typeof cp100Coins==='function'?cp100Coins():PG.coins))).width)+18; /* CP-100 */pgCatnipLeaf(cx,y+8,.8);ctx.fillStyle='#8dff9a';ctx.fillText(PG.catnip,cx+13,y+1);
  pgCollIcon(D.coll.x+D.coll.w/2,y);pgInvIcon(D.inv.x+D.inv.w/2,y);
  if(D.modes){const m=D.modes;uiRound(m.x,m.y,m.w,m.h,10,'rgba(20,60,60,.92)','#5ef0c0',1.5);ctx.fillStyle='#d8fff2';ctx.textAlign='center';ctx.font='900 11px Impact, system-ui';ctx.fillText('MODES',m.x+m.w/2,m.y+m.h/2+1);}
  pgGearIcon(D.gear.x+D.gear.w/2,y,9);ctx.restore();};
@@ -44242,8 +44239,8 @@ function endBtn(){if(!PG)return null;const L=PGA.L,R=pgMainRects();if(!L||!L.pla
 function endHomeFree(){return typeof labhFree==='function'?labhFree():(PGU.screen==='main'&&!PGU.win&&!PGU.pick&&!PGU.modes&&!PGU.door);}
 {const __endDrawMain=pgDrawMain;pgDrawMain=function(dt){const r=__endDrawMain(dt);try{if(endHomeFree()){const b=endBtn();if(b){
    uiRound(b.x,b.y,b.w,b.h,b.h/2,'rgba(232,140,40,.94)','rgba(255,240,210,.9)',1.5);
-   ctx.save();ctx.font='bold '+(b.h<34?14:15)+'px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#ffffff';ctx.fillText('Endless board',200,b.y+b.h/2+1);ctx.restore();}}}catch(e){}return r;};}
-{const __endMainTap=pgMainTap;pgMainTap=function(p){try{if(endHomeFree()){const b=endBtn();if(b&&contains({x:b.x-4,y:b.y-4,w:b.w+8,h:b.h+4},p)){pgSfx('tap');endStart();return;}}}catch(e){}return __endMainTap(p);};}
+   ctx.save();ctx.font='bold '+(b.h<34?14:15)+'px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#ffffff';ctx.fillText('Level boards',200,b.y+b.h/2+1); /* CP-100 */ctx.restore();}}}catch(e){}return r;};}
+{const __endMainTap=pgMainTap;pgMainTap=function(p){try{if(endHomeFree()){const b=endBtn();if(b&&contains({x:b.x-4,y:b.y-4,w:b.w+8,h:b.h+4},p)){pgSfx('tap');cp100Open('levels');return;}}}catch(e){}return __endMainTap(p); /* CP-100 */};}
 // --- Developer: Settings > Engineer tools > "Endless board" (empty or fill the wallet, fill the meter, start the order again) ---
 {const __endCredits=openCredits;
  openCredits=function(){const r=__endCredits.apply(this,arguments);try{
@@ -44675,6 +44672,112 @@ function endPlowDraw(){const S0=END.sweep;if(!S0||!S0.plow||!END_PLOW.bodies)ret
  ctx.restore();}
 {const __plowTongue=drawTongue;drawTongue=function(){const r=__plowTongue.apply(this,arguments);try{endPlowDraw();}catch(e){}return r;};}
 // ---------- end CP-92 rework 2 ----------
+
+// ---------- CP-100 Home: PLAY goes to the endless board (Jenny, Nov 19: "I would like the play button to take us to the endless
+// board... let's combine Board Lab and Levels into just all the boards we've tested or created, and those will [be] what the
+// endless play will use"; her answers via PM: All boards starts the endless board on that layout, no timed levels; recipes unlock
+// as the rotation reaches new boards; "We don't need a coin jar anymore"; Catnip from selling prizes; all lab boards incl. Giant
+// towers rotate; PLAY opens the endless board with a gentle Level 1-style first board for new players.) UAT only. ----------
+// - PLAY opens the endless board (the cat you're on). Home's card shows the endless board: the board you're on, your coins and
+//   the refill, instead of Level n and its goal.
+// - Home (Jenny, Nov 19): PLAY; under it "Level boards" and "Goal boards", each opening its own list (never a board); Daily
+//   puzzles becomes a round button under Cats on the right ("a circular button under cats to the right"); Board lab's and the
+//   centre Daily puzzles buttons go. All UAT only. ("we don't want to mix levels and lab boards if they operate differently")
+//   Level boards: the open layouts that play on the wallet with no goal (the 10 level boards). Tap one: the endless board
+//   starts on it. Only these are the NEW BOARD rotation.
+//   Goal boards: every Board lab board (each has its own goal, and a drop budget or a timer). Tap one: it plays as it does in
+//   Board lab today (its goal, its own coins and budget or timer, never the wallet), and the list comes back with the result.
+//   Not in the rotation; candidates for daily challenges. A board added to Board lab's list appears here.
+//   Developer switches (Tower fall, Timing strip) stay at the bottom of Goal boards with Developer on.
+// - Recipes unlock as the rotation reaches new boards: reaching the 2nd board unlocks what passing Level 2 did, and so on to
+//   the 6th (Tuna dish, Cheese plate, Shrimp skewers, Fish pie, Formal supper); the Kitchen appears with the first.
+// - No coin jar: the coins are only the coin push's (the endless wallet). The Shop sells prizes for Catnip (1, a cat's own
+//   prize 2) and sells ingredients for Catnip (4, a cat's own 8): the old coin prices divided by about 8 (sell 8/15, buy
+//   30/60). Prizes over the pantry cap and a recipe coin with no recipe left give Catnip (+3) instead of jar coins. The top
+//   bars show your coins (the wallet) and Catnip. The jar's coins stay in the save, unused and unshown.
+// - A new player's first endless board is First push with Level 1's quiet rules (no bonus prizes, no cat sky drops) until
+//   the first NEW BOARD. Players who already have an endless wallet keep theirs.
+// Production and saves untouched (nothing deleted or renamed; levels progress kept in its save).
+const CP100={list:null,body:null,mode:'levels',side:null};
+function cp100Coins(){try{endRefill();const w=endLoad();return END.on&&WILD.on?S.coins:w.coins;}catch(e){return 0;}}
+// one board list, for All boards and the rotation
+function cp100Labs(){try{return (typeof LABH_ROUNDS!=='undefined'?LABH_ROUNDS.flatMap(r=>r[1]):[]).filter((k,i,a)=>LAB.B[k]&&a.indexOf(k)===i).map(k=>'lab:'+k);}catch(e){return END_LABS;}}
+endOrder=function(){return END_LEVELS.slice();}; // the rotation: the open boards only (the level layouts); goal boards are played from the list
+// a new player: the gentle first board
+{const fresh=(()=>{try{return !localStorage.getItem(END.KEY);}catch(e){return false;}})();if(fresh){const w=endLoad();w.gentle=true;endSave();}}
+{const __cp100Lv1=cp50Lv1;cp50Lv1=function(){if(END.on)return !!(END.w&&END.w.gentle&&endKey()==='L1');return __cp100Lv1();};}
+// reaching new boards unlocks the recipes (as passing levels did)
+function cp100Unlock(){try{const n=endLoad().seen.length;for(let i=1;i<=n;i++)pglUnlocks(i);pglCheckScreens();}catch(e){}}
+{const __cp100Set=endSetBoard;endSetBoard=function(k){const w=endLoad();if(k!=='L1')w.gentle=false;const r=__cp100Set.apply(this,arguments);cp100Unlock();return r;};}
+{const __cp100Start=endStart;endStart=function(){const r=__cp100Start.apply(this,arguments);cp100Unlock();return r;};}
+// PLAY opens the endless board
+{const __cp100Tap=pgMainTap;pgMainTap=function(p){try{const L=PGA.L;if(L&&L.play&&contains(L.play,p)&&endHomeFree()){pgSfx('tap');endStart();return;}}catch(e){}return __cp100Tap(p);};}
+// Board lab's own button goes (its boards are in All boards)
+labhBtn=function(){return null;};
+// Home's card: the endless board instead of the level
+{const __cp100Centre=pgCentre;pgCentre=function(y,t,o={}){if(PGU.screen!=='main'||!PG)return __cp100Centre.apply(this,arguments);const L={};
+ wildText(o.name||PG_CAT[PGU.boardCat||PG.current||'tuxedo'].name.toUpperCase(),200,y,o.nameSize||30,'#ffd23f','#2a0b3e',6);
+ const w=endLoad(),k=w.cur||endPickNext(),nm=k.startsWith('lab:')?(LAB.B[k.slice(4)]||{}).name:(PGL_LEVELS[+k.slice(1)-1]||{}).name;
+ wildText('ENDLESS BOARD',200,y+38,22,'#fff','#2a0b3e',5);
+ ctx.font='bold 15px system-ui';ctx.fillStyle='#ffe8b0';ctx.textAlign='center';ctx.fillText((w.cur?'On ':'First board: ')+(nm||'')+(w.cur?' · New board '+Math.round(Math.min(1,w.meter/END.METER)*100)+'%':''),200,y+72,330);
+ const c=cp100Coins(),ms=endNextIn();ctx.font='bold 17px system-ui';ctx.fillStyle='#ffd76a';ctx.fillText(c+' coins'+(ms==null?' · full':' · +1 in '+endClockText(ms)),200,y+104,330);
+ L.help={x:200-58,y:y+CP50_HOME.help,w:116,h:26};uiRound(L.help.x,L.help.y,L.help.w,L.help.h,13,'rgba(255,255,255,.1)','rgba(232,220,255,.5)',1);ctx.font='bold 12px system-ui';ctx.fillStyle='#e8dcff';ctx.fillText('? How to play',200,L.help.y+L.help.h/2+1);
+ return L;};}
+// a goal board's round ends: the list comes back (Board lab's own list never shows); Home from the list turns the lab off
+labhOpen=function(){cp100Open('goals');};
+// the Shop in Catnip
+pgSell=function(id){return pgOwner(id)?2:1;};
+pgBuy=function(id){return pgOwner(id)?8:4;};
+// --- All boards: the list ---
+function cp100Name(k){return k.startsWith('lab:')?(LAB.B[k.slice(4)]||{}).name:(PGL_LEVELS[+k.slice(1)-1]||{}).name;}
+function cp100GoalSub(k){const L=LAB.B[k];if(!L)return '';return (L.lab&&L.lab.text||'Goal')+' · '+(L.budget?L.budget+' drops':Math.round((L.secs||0)/60*10)/10+' min, '+(L.coins|0)+' coins');}
+function cp100Build(){if(CP100.list)return CP100.list;const el=document.createElement('div');el.id='cp100boards';
+ el.style.cssText='position:fixed;inset:0;z-index:60;display:none;flex-direction:column;background:rgba(18,10,34,.97);color:#f4ecff;font:15px system-ui,sans-serif;overflow:hidden';
+ const st=document.createElement('style');st.textContent='#cp100boards .bar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-bottom:1px solid #4a3a6a}'+
+  '#cp100boards .bar b{font-size:18px}#cp100boards .body{overflow-y:auto;padding:8px 14px 24px;flex:1}#cp100boards h3{margin:14px 0 6px;font-size:13px;color:#bfaee0;letter-spacing:.05em;text-transform:uppercase}'+
+  '#cp100boards button{font:700 15px system-ui,sans-serif;color:#f4ecff;background:#3a2d52;border:1px solid #6b5a8a;border-radius:12px;min-height:40px;padding:0 12px;touch-action:manipulation}'+
+  '#cp100boards .bd{display:flex;flex-direction:column;align-items:flex-start;width:100%;margin:5px 0;padding:8px 12px;text-align:left}#cp100boards .bd small{font-weight:400;color:#cfc2ea;font-size:13px;margin-top:2px}'+
+  '#cp100boards .bd.cur{background:#2fb5a8;color:#08201d;border-color:#bff5ee}#cp100boards .bd.cur small{color:#08201d}#cp100boards .goal{background:#4a2a3e;border-color:#a8708a}#cp100boards .res{margin:6px 0 2px;color:#ffe08a;font-weight:700}#cp100boards p{margin:2px 0 6px;color:#cfc2ea;font-size:13px}'+
+  '#cp100boards .sw{display:flex;align-items:center;gap:6px;margin:6px 0;flex-wrap:wrap}#cp100boards .sw span{min-width:96px;color:#cfc2ea}#cp100boards .sw button.on{background:#2fb5a8;color:#08201d;border-color:#bff5ee}';
+ el.appendChild(st);const bar=document.createElement('div');bar.className='bar';bar.innerHTML='<span style="width:76px"></span><b id="cp100title">Level boards</b><button data-a="home">Home</button>';el.appendChild(bar);CP100.title=bar.querySelector('#cp100title');
+ const body=document.createElement('div');body.className='body';el.appendChild(body);CP100.body=body;
+ el.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;try{pgSfx('tap');}catch(_){}
+  if(b.dataset.a==='home'){el.style.display='none';if(typeof LABH!=='undefined'&&(LABH.active||LAB.st.sel))labhHome();return;}
+  if(b.dataset.k){el.style.display='none';return cp100Play(b.dataset.k);}if(b.dataset.g){el.style.display='none';return cp100Goal(b.dataset.g);}
+  if(b.dataset.tf&&typeof LABT!=='undefined'){LABT.set(b.dataset.tf);cp100Paint();}if(b.dataset.ts&&typeof LAB2T!=='undefined'){LAB2T.set(b.dataset.ts);cp100Paint();}});
+ document.body.appendChild(el);CP100.list=el;return el;}
+function cp100Paint(){const B=CP100.body;if(!B)return;const w=endLoad(),esc=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));let h='';
+ const row=(k,sub)=>'<button class="bd'+(w.cur===k?' cur':'')+'" data-k="'+k+'"><span>'+esc(cp100Name(k))+(w.seen.includes(k)?' ✓':'')+'</span><small>'+esc(sub)+'</small></button>';
+ if(typeof LABH!=='undefined'&&LABH.result)h+='<div class="res">'+esc(LABH.result)+'</div>';
+ const goals=CP100.mode==='goals';try{if(CP100.title)CP100.title.textContent=goals?'Goal boards':'Level boards';}catch(e){}
+ if(!goals){h+='<p>Open boards: they play on your coins, with no goal. NEW BOARD picks from these.</p>';END_LEVELS.forEach((k,i)=>h+=row(k,'Board '+(i+1)+' · '+(PGL_LEVELS[i].tag||'')));}
+ else{h+='<p>Each has its own goal and drops (or a timer). Your coins stay as they are.</p>';cp100Labs().forEach(k=>{const g=k.slice(4),won=typeof LABH!=='undefined'&&LABH.won[g],pl=typeof LABH!=='undefined'&&LABH.played[g];
+  h+='<button class="bd goal" data-g="'+g+'"><span>'+esc(cp100Name(k))+(won?' ✓★':pl?' ✓':'')+'</span><small>'+esc(cp100GoalSub(g))+'</small></button>';});}
+ if(goals&&S.dev&&typeof LABT!=='undefined'){h+='<h3>Developer</h3><div class="sw"><span>Tower fall</span>'+['today','topple'].map(k=>'<button data-tf="'+k+'" class="'+(LABT.get()===k?'on':'')+'">'+LABT.NAMES[k]+'</button>').join('')+'</div>';
+  if(typeof LAB2T!=='undefined')h+='<div class="sw"><span>Timing strip</span>'+['off','on'].map(k=>'<button data-ts="'+k+'" class="'+(LAB2T.mode===k?'on':'')+'">'+(k==='on'?'On':'Off')+'</button>').join('')+'</div>';}
+ B.innerHTML=h;}
+function cp100Open(mode){if(mode)CP100.mode=mode;const el=cp100Build();cp100Paint();el.style.display='flex';try{diagEvent('cp100','list '+CP100.mode);}catch(e){}}
+// --- Home: the Goal boards button (under Level boards) and the Daily puzzles round button (under Cats, right) ---
+cp87Btn=function(){return null;}; // the centre Daily puzzles button goes; Level boards takes its place
+function cp100GoalBtn(){const b=endBtn();if(!b)return null;const R=pgMainRects(),h=b.h,y=Math.min(b.y+b.h+10,R.bot-h-2);return {x:b.x,y,w:b.w,h};}
+{const __cp100Side=pgSideRects;pgSideRects=function(y0,gap){const r=__cp100Side.apply(this,arguments);try{const n=r.filter(b=>b.x>200).length;CP100.side={x:W-36,y:y0+n*gap,r:25};}catch(e){}return r;};}
+function cp100DailyBtn(){const d=CP100.side;if(!d||PGU.screen!=='main')return null;return d;}
+function cp100DrawDaily(){const b=cp100DailyBtn();if(!b)return;ctx.save();ctx.translate(b.x,b.y);uiCircle(0,3,b.r,'rgba(0,0,0,.35)');
+ const g=ctx.createLinearGradient(0,-b.r,0,b.r);g.addColorStop(0,'#5ee6d4');g.addColorStop(1,'#1f8f84');uiCircle(0,0,b.r,g,'#fff6d0',2);
+ // a little calendar page with a star: the day's puzzle
+ uiRound(-11,-10,22,20,4,'#fff8ec','#2a5a55',1.5);ctx.fillStyle='#e0533a';ctx.fillRect(-11,-10,22,6);ctx.fillStyle='#2a5a55';ctx.fillRect(-6,-13,2.5,5);ctx.fillRect(3.5,-13,2.5,5);
+ ctx.fillStyle='#ffc21f';ctx.beginPath();for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?2.6:6;ctx.lineTo(Math.cos(a)*rr,3+Math.sin(a)*rr);}ctx.closePath();ctx.fill();
+ ctx.textAlign='center';ctx.textBaseline='middle';const lab='DAILY';ctx.font='900 10px Impact, system-ui';const lw=ctx.measureText(lab).width+10;uiRound(-lw/2,b.r-4,lw,15,7,'rgba(16,8,28,.9)','#5ee6d4',1);ctx.fillStyle='#fff';ctx.fillText(lab,0,b.r+4);
+ ctx.restore();}
+{const __cp100DM=pgDrawMain;pgDrawMain=function(dt){const r=__cp100DM(dt);try{if(endHomeFree()){const b=cp100GoalBtn();if(b){uiRound(b.x,b.y,b.w,b.h,b.h/2,'rgba(47,181,168,.92)','rgba(220,255,250,.85)',1.5);
+   ctx.save();ctx.font='bold '+(b.h<34?14:15)+'px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#ffffff';ctx.fillText('Goal boards',200,b.y+b.h/2+1);ctx.restore();}
+  if(typeof cp87OpenMenu==='function')cp100DrawDaily();}}catch(e){}return r;};}
+{const __cp100MT=pgMainTap;pgMainTap=function(p){try{if(endHomeFree()){const b=cp100GoalBtn();if(b&&contains({x:b.x-4,y:b.y-2,w:b.w+8,h:b.h+6},p)){pgSfx('tap');cp100Open('goals');return;}
+   const d=cp100DailyBtn();if(d&&typeof cp87OpenMenu==='function'&&Math.hypot(p.x-d.x,p.y-d.y)<d.r+8){pgSfx('tap');cp87OpenMenu();return;}}}catch(e){}return __cp100MT(p);};}
+// a goal board: Board lab's own path (its goal, coins, budget or timer); the wallet isn't touched
+function cp100Goal(g){if(!LAB.B[g])return;try{if(END.on)endStop();}catch(e){}try{diagEvent('cp100','goal '+g);}catch(e){}labhPlay(g);}
+function cp100Play(k){if(!endOrder().includes(k))return;const w=endLoad();w.cur=k;w.meter=0;END.emptyT=0;if(k!=='L1')w.gentle=false;endSave();try{diagEvent('cp100','play '+k);}catch(e){}endStart();}
+// ---------- end CP-100 ----------
 
 </script>
 
