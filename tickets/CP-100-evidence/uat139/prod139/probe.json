@@ -1,0 +1,27 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp139-bundle\\boot139",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "prod138": {
+  "412x915": {
+   "on": false,
+   "pills": false,
+   "after": {
+    "test": false,
+    "inv": true,
+    "loop": "water"
+   }
+  },
+  "360x640": {
+   "on": false,
+   "pills": false,
+   "after": {
+    "test": false,
+    "inv": true,
+    "loop": "water"
+   }
+  }
+ }
+}

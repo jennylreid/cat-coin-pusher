@@ -1,0 +1,286 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp139-bundle\\release.html",
+ "releaseSHA256": "c4392c8f3f9befcc462abb18e734103810ef44f3f31c2dc5d4bf6ce94148a8f5",
+ "passed": true,
+ "passedChecks": [
+  "B1 412x915",
+  "S1 412x915",
+  "C1 412x915",
+  "D1 412x915",
+  "B2 412x915",
+  "B3 412x915",
+  "B1 360x640",
+  "S1 360x640",
+  "C1 360x640",
+  "D1 360x640",
+  "B2 360x640",
+  "B3 360x640",
+  "Z errors",
+  "Z channels"
+ ],
+ "failed": [],
+ "res": {
+  "B1 412x915": {
+   "pass": true,
+   "info": {
+    "art": {
+     "bad": [],
+     "first": [
+      "balloon_animal",
+      "daisy",
+      "owl",
+      "oyster",
+      "sunflower",
+      "cornflower",
+      "rose",
+      "hydrangea",
+      "tulip"
+     ],
+     "views": 1,
+     "tw": 6,
+     "starK": 2.7
+    },
+    "missing": [],
+    "drawn": {
+     "balloon_animal": "cp138/first/balloon_animal.png",
+     "sapphire_ring": "cp137/sapphire_ring.png"
+    }
+   }
+  },
+  "S1 412x915": {
+   "pass": true,
+   "info": [
+    {
+     "tipped": true,
+     "id": "egg",
+     "res": {
+      "alive": true,
+      "x": 240,
+      "z": 504,
+      "bats": 1,
+      "saved": 1
+     }
+    },
+    {
+     "tipped": true,
+     "id": "egg",
+     "res": {
+      "alive": true,
+      "x": 177,
+      "z": 556,
+      "bats": 2,
+      "saved": 2
+     }
+    },
+    {
+     "tipped": true,
+     "id": "egg",
+     "res": {
+      "alive": true,
+      "x": 207,
+      "z": 582,
+      "bats": 3,
+      "saved": 3
+     }
+    }
+   ]
+  },
+  "C1 412x915": {
+   "pass": true,
+   "info": {
+    "mode": "b",
+    "row": 838,
+    "label": 866.3495145631068,
+    "cats": {
+     "tuxedo": {
+      "drawn": true,
+      "err": null
+     },
+     "orange": {
+      "drawn": true,
+      "err": null
+     },
+     "ragdoll": {
+      "drawn": true,
+      "err": null
+     },
+     "siamese": {
+      "drawn": true,
+      "err": null
+     },
+     "tortie": {
+      "drawn": true,
+      "err": null
+     }
+    }
+   }
+  },
+  "D1 412x915": {
+   "pass": true,
+   "info": {
+    "setTo": 5,
+    "afterAgain": 0,
+    "later": 346,
+    "excluded": 348
+   }
+  },
+  "B2 412x915": {
+   "pass": true,
+   "info": {
+    "starK": 2.7
+   }
+  },
+  "B3 412x915": {
+   "pass": true,
+   "info": {
+    "uat": {
+     "on": true,
+     "rects": [
+      "today",
+      "a",
+      "c",
+      "ac",
+      "a",
+      "b"
+     ]
+    },
+    "prod": false
+   }
+  },
+  "B1 360x640": {
+   "pass": true,
+   "info": {
+    "art": {
+     "bad": [],
+     "first": [
+      "balloon_animal",
+      "daisy",
+      "owl",
+      "oyster",
+      "sunflower",
+      "cornflower",
+      "rose",
+      "hydrangea",
+      "tulip"
+     ],
+     "views": 1,
+     "tw": 6,
+     "starK": 2.7
+    },
+    "missing": [],
+    "drawn": {
+     "balloon_animal": "cp138/first/balloon_animal.png",
+     "sapphire_ring": "cp137/sapphire_ring.png"
+    }
+   }
+  },
+  "S1 360x640": {
+   "pass": true,
+   "info": [
+    {
+     "tipped": true,
+     "id": "milk",
+     "res": {
+      "alive": true,
+      "x": 218,
+      "z": 613,
+      "bats": 1,
+      "saved": 1
+     }
+    },
+    {
+     "tipped": true,
+     "id": "egg",
+     "res": {
+      "alive": true,
+      "x": 161,
+      "z": 527,
+      "bats": 2,
+      "saved": 2
+     }
+    },
+    {
+     "tipped": true,
+     "id": "egg",
+     "res": {
+      "alive": true,
+      "x": 112,
+      "z": 630,
+      "bats": 3,
+      "saved": 3
+     }
+    }
+   ]
+  },
+  "C1 360x640": {
+   "pass": true,
+   "info": {
+    "mode": "b",
+    "row": 674,
+    "label": 698,
+    "cats": {
+     "tuxedo": {
+      "drawn": true,
+      "err": null
+     },
+     "orange": {
+      "drawn": true,
+      "err": null
+     },
+     "ragdoll": {
+      "drawn": true,
+      "err": null
+     },
+     "siamese": {
+      "drawn": true,
+      "err": null
+     },
+     "tortie": {
+      "drawn": true,
+      "err": null
+     }
+    }
+   }
+  },
+  "D1 360x640": {
+   "pass": true,
+   "info": {
+    "setTo": 5,
+    "afterAgain": 0,
+    "later": 341,
+    "excluded": 320
+   }
+  },
+  "B2 360x640": {
+   "pass": true,
+   "info": {
+    "starK": 2.7
+   }
+  },
+  "B3 360x640": {
+   "pass": true,
+   "info": {
+    "uat": {
+     "on": true,
+     "rects": [
+      "today",
+      "a",
+      "c",
+      "ac",
+      "a",
+      "b"
+     ]
+    },
+    "prod": false
+   }
+  },
+  "Z errors": {
+   "pass": true,
+   "info": []
+  },
+  "Z channels": {
+   "pass": true,
+   "info": null
+  }
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp138-bundle\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.20 UAT 138';",
+   "const BUILD = '2026.11.21 UAT 139';"
+  ],
+  [
+   "for(const id of CP137_IDS){CP137.art[id]=cp137Img(id+'.png');",
+   "for(const id of CP137_IDS){CP137.art[id]=([\"balloon_animal\", \"cornflower\", \"daisy\", \"hydrangea\", \"owl\", \"oyster\", \"rose\", \"sunflower\", \"tulip\"].includes(id)?(()=>{const im=new Image();im.src='img/art/cp138/first/'+id+'.png';return im;})():cp137Img(id+'.png')); /* UAT 139: Prize art B (Jenny); the rainbow and the diamond stay A (her exceptions) */"
+  ],
+  [
+   "for(const id of CP137_VIEWED)CP137.views[id]=CP137_VIEWS.map(v=>cp137Img(id+'-'+v+'.png'));",
+   "CP137.views.diamond=CP137_VIEWS.map(v=>v.startsWith('tilt')?cp137Img('diamond-'+v+'.png'):null); /* UAT 139: no landing views except the A diamond's two tilted views (Jenny) */"
+  ],
+  [
+   "CP137.tw=CP137_VIEWS.map(v=>cp137Img('diamond-'+v+'-twinkle.png'));",
+   "CP137.tw=CP137_VIEWS.map(v=>v.startsWith('tilt')?cp137Img('diamond-'+v+'-twinkle.png'):null); /* UAT 139: the diamond's twinkle in its tilted views */"
+  ],
+  [
+   "const CP137_STAR_K=1.7;",
+   "const CP137_STAR_K=2.7; /* UAT 139: the Star bigger, about 1.15 coins (Jenny) */"
+  ],
+  [
+   "const groups=[['Prize art',[['real','A'],['first','B']],CP138A.mode,k=>{CP138A.mode=k;try{localStorage.setItem(CP138A.KEY,k);}catch(e){}try{diagEvent('cp138','art '+k);}catch(e){}}],",
+   "const groups=[ /* UAT 139: Prize art decided (B); its pill is gone */"
+  ],
+  [
+   "['Towers',[['today','A'],['a','B'],['c','C'],['ac','D']],typeof CP93P==='object'?CP93P.get():'today',k=>{if(typeof CP93P==='object')CP93P.set(k);}]];",
+   "['Towers',[['today','A'],['a','B'],['c','C'],['ac','D']],typeof CP93P==='object'?CP93P.get():'today',k=>{if(typeof CP93P==='object')CP93P.set(k);}],\n  ['Body',[['a','A'],['b','B']],typeof CP139BODY==='object'?CP139BODY.mode:'a',k=>{if(typeof CP139BODY==='object'){CP139BODY.mode=k;try{localStorage.setItem(CP139BODY.KEY,k);}catch(e){}}}]]; /* UAT 139: the Body pill (item 26) */"
+  ]
+ ],
+ "appended": [
+  "cp139-bundle/round-139.js"
+ ],
+ "swapped": []
+}

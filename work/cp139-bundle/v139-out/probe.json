@@ -1,0 +1,45 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp139-bundle\\boot139",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "v139": {
+  "412x915": {
+   "art": {
+    "bad": [],
+    "first": [
+     "rainbow",
+     "balloon_animal",
+     "daisy",
+     "owl",
+     "diamond",
+     "oyster",
+     "sunflower",
+     "cornflower",
+     "rose",
+     "hydrangea",
+     "tulip"
+    ],
+    "views": 0,
+    "tw": 0,
+    "starK": 2.7
+   },
+   "missing": [],
+   "drawn": {
+    "diamond": "cp138/first/diamond.png",
+    "balloon_animal": "cp138/first/balloon_animal.png",
+    "sapphire_ring": "cp137/sapphire_ring.png"
+   },
+   "pills": {
+    "on": true,
+    "rects": [
+     "today",
+     "a",
+     "c",
+     "ac"
+    ]
+   }
+  }
+ }
+}

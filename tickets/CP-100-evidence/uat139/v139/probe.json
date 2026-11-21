@@ -1,0 +1,235 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp139-bundle\\boot139",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "v139": {
+  "412x915": {
+   "art": {
+    "bad": [],
+    "first": [
+     "balloon_animal",
+     "daisy",
+     "owl",
+     "oyster",
+     "sunflower",
+     "cornflower",
+     "rose",
+     "hydrangea",
+     "tulip"
+    ],
+    "views": 1,
+    "tw": 6,
+    "starK": 2.7
+   },
+   "missing": [],
+   "drawn": {
+    "balloon_animal": "cp138/first/balloon_animal.png",
+    "sapphire_ring": "cp137/sapphire_ring.png"
+   },
+   "diamondViews": [
+    "tilt-right",
+    "tilt-right",
+    "tilt-right",
+    "tilt-right",
+    "tilt-left",
+    "tilt-right",
+    "tilt-right",
+    "tilt-right"
+   ],
+   "pawsave": [
+    {
+     "tipped": true,
+     "id": "egg",
+     "res": {
+      "alive": true,
+      "x": 240,
+      "z": 504,
+      "bats": 1,
+      "saved": 1
+     }
+    },
+    {
+     "tipped": true,
+     "id": "egg",
+     "res": {
+      "alive": true,
+      "x": 177,
+      "z": 556,
+      "bats": 2,
+      "saved": 2
+     }
+    },
+    {
+     "tipped": true,
+     "id": "egg",
+     "res": {
+      "alive": true,
+      "x": 207,
+      "z": 582,
+      "bats": 3,
+      "saved": 3
+     }
+    }
+   ],
+   "body": {
+    "mode": "b",
+    "row": 838,
+    "label": 866.3495145631068,
+    "cats": {
+     "tuxedo": {
+      "drawn": true,
+      "err": null
+     },
+     "orange": {
+      "drawn": true,
+      "err": null
+     },
+     "ragdoll": {
+      "drawn": true,
+      "err": null
+     },
+     "siamese": {
+      "drawn": true,
+      "err": null
+     },
+     "tortie": {
+      "drawn": true,
+      "err": null
+     }
+    }
+   },
+   "again": {
+    "setTo": 5,
+    "afterAgain": 0,
+    "later": 346,
+    "excluded": 348
+   },
+   "pills": {
+    "on": true,
+    "rects": [
+     "today",
+     "a",
+     "c",
+     "ac",
+     "a",
+     "b"
+    ]
+   }
+  },
+  "360x640": {
+   "art": {
+    "bad": [],
+    "first": [
+     "balloon_animal",
+     "daisy",
+     "owl",
+     "oyster",
+     "sunflower",
+     "cornflower",
+     "rose",
+     "hydrangea",
+     "tulip"
+    ],
+    "views": 1,
+    "tw": 6,
+    "starK": 2.7
+   },
+   "missing": [],
+   "drawn": {
+    "balloon_animal": "cp138/first/balloon_animal.png",
+    "sapphire_ring": "cp137/sapphire_ring.png"
+   },
+   "diamondViews": [
+    "tilt-right",
+    "tilt-left",
+    "tilt-right",
+    "tilt-right",
+    "tilt-right",
+    "tilt-right",
+    "tilt-right",
+    "tilt-left"
+   ],
+   "pawsave": [
+    {
+     "tipped": true,
+     "id": "milk",
+     "res": {
+      "alive": true,
+      "x": 218,
+      "z": 613,
+      "bats": 1,
+      "saved": 1
+     }
+    },
+    {
+     "tipped": true,
+     "id": "egg",
+     "res": {
+      "alive": true,
+      "x": 161,
+      "z": 527,
+      "bats": 2,
+      "saved": 2
+     }
+    },
+    {
+     "tipped": true,
+     "id": "egg",
+     "res": {
+      "alive": true,
+      "x": 112,
+      "z": 630,
+      "bats": 3,
+      "saved": 3
+     }
+    }
+   ],
+   "body": {
+    "mode": "b",
+    "row": 674,
+    "label": 698,
+    "cats": {
+     "tuxedo": {
+      "drawn": true,
+      "err": null
+     },
+     "orange": {
+      "drawn": true,
+      "err": null
+     },
+     "ragdoll": {
+      "drawn": true,
+      "err": null
+     },
+     "siamese": {
+      "drawn": true,
+      "err": null
+     },
+     "tortie": {
+      "drawn": true,
+      "err": null
+     }
+    }
+   },
+   "again": {
+    "setTo": 5,
+    "afterAgain": 0,
+    "later": 341,
+    "excluded": 320
+   },
+   "pills": {
+    "on": true,
+    "rects": [
+     "today",
+     "a",
+     "c",
+     "ac",
+     "a",
+     "b"
+    ]
+   }
+  }
+ }
+}
