@@ -1,0 +1,46 @@
+﻿{
+    "version":  20261119000049,
+    "displayName":  "2026.11.20 UAT 138",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "4ba346caee9ac7226c339adf918b81403b405f49999f9d665bef0d2020314051",
+    "stagedJSONSHA256":  "fd8ac08e09e1dd9d47e6da6e668d133bfb5d9126e6372f0bdd4292c99be7dc87",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "4afc7bf343a18090936cf82d062d0c5c6f5e4bd055721d2d0a3c8b82e61b583d",
+    "jsonBytes":  54811230,
+    "baselineJSONBytes":  51083775,
+    "runtimeFiles":  156,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+                              "img/art/cp138/cozy.png",
+                              "img/art/cp138/fairground.png",
+                              "img/art/cp138/first/balloon_animal.png",
+                              "img/art/cp138/first/cornflower.png",
+                              "img/art/cp138/first/daisy.png",
+                              "img/art/cp138/first/diamond.png",
+                              "img/art/cp138/first/hydrangea.png",
+                              "img/art/cp138/first/owl.png",
+                              "img/art/cp138/first/oyster.png",
+                              "img/art/cp138/first/rainbow.png",
+                              "img/art/cp138/first/rose.png",
+                              "img/art/cp138/first/sunflower.png",
+                              "img/art/cp138/first/tulip.png",
+                              "img/art/cp138/flowers.png",
+                              "img/art/cp138/jewelry-prongs.png",
+                              "img/art/cp138/jewelry.png",
+                              "img/art/cp138/kitchen.png",
+                              "img/art/cp138/playroom.png",
+                              "img/art/cp138/water.png"
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.20 UAT 137",
+    "backup":  "uat/backups/before-UAT138-20261119000049",
+    "evidence":  "tickets/CP-100-evidence/uat138",
+    "checks":  [
+                   "checks138.json"
+               ],
+    "authorization":  "UAT 138: Cat Jam v4 in Daily puzzles (CP-104) and the CP-106 painted Collections pages as a UAT-only test; Jenny approved both via the PM, Nov 20; UAT only",
+    "localPublication":  "verified"
+}
