@@ -1,0 +1,273 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp135-bundle\\release.html",
+ "passed": true,
+ "passedChecks": [
+  "1 (UAT 134) every Side game button starts its game on the endless board with its own cat, from every board and Home, no coin used",
+  "2 (UAT 134) every Power button starts its power on the endless board with that power's cat, from every board and Home; the player's own power stock is unchanged",
+  "3 Start Dance break now: the current cat's board and its own dance (endless too, and from Home); Siamese and Tortie get the note, no dance",
+  "4 (UAT 133, Jenny) no Music row: a tap where it was is a dance tap, the music stays at the pick (Orange B, Ragdoll A), Developer on or off",
+  "5 a start-now while another side game runs waits for it, then starts",
+  "6 production and the UAT channel untouched"
+ ],
+ "failed": [],
+ "res": {
+  "1 (UAT 134) every Side game button starts its game on the endless board with its own cat, from every board and Home, no coin used": {
+   "pass": true,
+   "info": {}
+  },
+  "sideGames": {
+   "endless:tuxedo toss": "ok",
+   "endless:tuxedo chase": "ok",
+   "endless:tuxedo pet": "ok",
+   "endless:tuxedo pounce": "ok",
+   "endless:orange toss": "ok",
+   "endless:orange chase": "ok",
+   "endless:orange pet": "ok",
+   "endless:orange pounce": "ok",
+   "level:tuxedo toss": "ok",
+   "level:tuxedo chase": "ok",
+   "level:tuxedo pet": "ok",
+   "level:tuxedo pounce": "ok",
+   "level:orange toss": "ok",
+   "level:orange chase": "ok",
+   "level:orange pet": "ok",
+   "level:orange pounce": "ok",
+   "level:ragdoll toss": "ok",
+   "level:ragdoll chase": "ok",
+   "level:ragdoll pet": "ok",
+   "level:ragdoll pounce": "ok",
+   "level:siamese toss": "ok",
+   "level:siamese chase": "ok",
+   "level:siamese pet": "ok",
+   "level:siamese pounce": "ok",
+   "level:tortie toss": "ok",
+   "level:tortie chase": "ok",
+   "level:tortie pet": "ok",
+   "level:tortie pounce": "ok",
+   "home:orange toss": "ok",
+   "home:orange chase": "ok",
+   "home:orange pet": "ok",
+   "home:orange pounce": "ok"
+  },
+  "2 (UAT 134) every Power button starts its power on the endless board with that power's cat, from every board and Home; the player's own power stock is unchanged": {
+   "pass": true,
+   "info": {}
+  },
+  "powers": {
+   "endless:tuxedo tuxedo": "ok",
+   "endless:tuxedo orange": "ok",
+   "endless:tuxedo ragdoll": "ok",
+   "endless:tuxedo siamese": "ok",
+   "endless:tuxedo tortie": "ok",
+   "endless:orange tuxedo": "ok",
+   "endless:orange orange": "ok",
+   "endless:orange ragdoll": "ok",
+   "endless:orange siamese": "ok",
+   "endless:orange tortie": "ok",
+   "level:tuxedo tuxedo": "ok",
+   "level:tuxedo orange": "ok",
+   "level:tuxedo ragdoll": "ok",
+   "level:tuxedo siamese": "ok",
+   "level:tuxedo tortie": "ok",
+   "level:orange tuxedo": "ok",
+   "level:orange orange": "ok",
+   "level:orange ragdoll": "ok",
+   "level:orange siamese": "ok",
+   "level:orange tortie": "ok",
+   "level:ragdoll tuxedo": "ok",
+   "level:ragdoll orange": "ok",
+   "level:ragdoll ragdoll": "ok",
+   "level:ragdoll siamese": "ok",
+   "level:ragdoll tortie": "ok",
+   "level:siamese tuxedo": "ok",
+   "level:siamese orange": "ok",
+   "level:siamese ragdoll": "ok",
+   "level:siamese siamese": "ok",
+   "level:siamese tortie": "ok",
+   "level:tortie tuxedo": "ok",
+   "level:tortie orange": "ok",
+   "level:tortie ragdoll": "ok",
+   "level:tortie siamese": "ok",
+   "level:tortie tortie": "ok",
+   "home:orange tuxedo": "ok",
+   "home:orange orange": "ok",
+   "home:orange ragdoll": "ok",
+   "home:orange siamese": "ok",
+   "home:orange tortie": "ok"
+  },
+  "3 Start Dance break now: the current cat's board and its own dance (endless too, and from Home); Siamese and Tortie get the note, no dance": {
+   "pass": true,
+   "info": {
+    "level:tuxedo": {
+     "dance": true,
+     "cat": "tuxedo",
+     "end": true,
+     "orange": false,
+     "ragdoll": false,
+     "want": null,
+     "errs": 0
+    },
+    "level:orange": {
+     "dance": true,
+     "cat": "orange",
+     "end": true,
+     "orange": true,
+     "ragdoll": false,
+     "want": null,
+     "errs": 0
+    },
+    "level:ragdoll": {
+     "dance": true,
+     "cat": "ragdoll",
+     "end": true,
+     "orange": false,
+     "ragdoll": true,
+     "want": null,
+     "errs": 0
+    },
+    "endless:tuxedo": {
+     "dance": true,
+     "cat": "tuxedo",
+     "end": true,
+     "orange": false,
+     "ragdoll": false,
+     "want": null,
+     "errs": 0
+    },
+    "home:orange": {
+     "dance": true,
+     "cat": "orange",
+     "end": true,
+     "orange": true,
+     "ragdoll": false,
+     "want": null,
+     "errs": 0
+    },
+    "home:ragdoll": {
+     "dance": true,
+     "cat": "ragdoll",
+     "end": true,
+     "orange": false,
+     "ragdoll": true,
+     "want": null,
+     "errs": 0
+    },
+    "level:siamese": {
+     "dance": false,
+     "cat": "siamese",
+     "end": true,
+     "orange": false,
+     "ragdoll": false,
+     "want": null,
+     "errs": 0
+    },
+    "level:tortie": {
+     "dance": false,
+     "cat": "tortie",
+     "end": true,
+     "orange": false,
+     "ragdoll": false,
+     "want": null,
+     "errs": 0
+    }
+   }
+  },
+  "4 (UAT 133, Jenny) no Music row: a tap where it was is a dance tap, the music stays at the pick (Orange B, Ragdoll A), Developer on or off": {
+   "pass": true,
+   "info": {
+    "orange dev": {
+     "before": {
+      "music": "B",
+      "taps": 14,
+      "hits": 0,
+      "misses": 0,
+      "tapsN": 0
+     },
+     "mid": {
+      "music": "B",
+      "saved": "B",
+      "misses": 0,
+      "hits": 1
+     },
+     "after": {
+      "misses": 0,
+      "hits": 1
+     },
+     "errs": 0
+    },
+    "orange no-dev": {
+     "before": {
+      "music": "B",
+      "taps": 14,
+      "hits": 0,
+      "misses": 0,
+      "tapsN": 0
+     },
+     "mid": {
+      "music": "B",
+      "saved": "B",
+      "misses": 0,
+      "hits": 1
+     },
+     "after": {
+      "misses": 0,
+      "hits": 1
+     },
+     "errs": 0
+    },
+    "ragdoll dev": {
+     "before": {
+      "music": "A",
+      "taps": 8,
+      "hits": 0,
+      "misses": 0,
+      "tapsN": 0
+     },
+     "mid": {
+      "music": "A",
+      "saved": "A",
+      "misses": 1,
+      "hits": 0
+     },
+     "after": {
+      "misses": 2,
+      "hits": 0
+     },
+     "errs": 0
+    },
+    "ragdoll no-dev": {
+     "before": {
+      "music": "A",
+      "taps": 8,
+      "hits": 0,
+      "misses": 0,
+      "tapsN": 0
+     },
+     "mid": {
+      "music": "A",
+      "saved": "A",
+      "misses": 1,
+      "hits": 0
+     },
+     "after": {
+      "misses": 2,
+      "hits": 0
+     },
+     "errs": 0
+    }
+   }
+  },
+  "5 a start-now while another side game runs waits for it, then starts": {
+   "pass": true,
+   "info": {
+    "during": true,
+    "notYet": true,
+    "st": true,
+    "errs": []
+   }
+  },
+  "6 production and the UAT channel untouched": {
+   "pass": true
+  }
+ }
+}

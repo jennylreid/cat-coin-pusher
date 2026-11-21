@@ -1,0 +1,57 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\prod11\\release.html",
+ "buildSHA256": "b6758163e22112fd5b084de5c01cad01661672a90038c8f4d35c67033b322ffa",
+ "runtimeFolder": "work/prod11/boot11 (UAT 135's 76 files, index.html = the production build)",
+ "browser": "headless Chrome, real time, work/prod11/bootcheck.cjs",
+ "passed": true,
+ "failed": [],
+ "result": {
+  "dir": "boot11",
+  "steps": [
+   "title with art at 1248 ms",
+   "round in play at 4779 ms"
+  ],
+  "errors": [],
+  "title": true,
+  "build": "2026.11.20.2",
+  "screen": "title",
+  "play": true,
+  "state": {
+   "level": 1,
+   "prizes": [
+    "cheese",
+    "shrimp"
+   ],
+   "cp62": 4,
+   "runway": true,
+   "bottleArt": true,
+   "jackpot": 0.02,
+   "meterAddon": true,
+   "dev": false,
+   "cp75": [
+    true,
+    true,
+    true,
+    true
+   ],
+   "zoomies": "peek",
+   "endings": [
+    "peek"
+   ],
+   "sounds": [
+    "today"
+   ],
+   "cp78": true,
+   "cp82": true,
+   "lab": true,
+   "uatKeys": []
+  }
+ },
+ "uat135SameRun": {
+  "build": "2026.11.20 UAT 135",
+  "title": true,
+  "play": true,
+  "errors": [],
+  "sameState": true
+ }
+}

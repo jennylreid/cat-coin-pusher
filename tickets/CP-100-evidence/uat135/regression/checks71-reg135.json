@@ -1,0 +1,1101 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp135-bundle\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp97\\ref78-cp90-base89.html",
+ "passed": true,
+ "passedN": 6,
+ "failed": [],
+ "notes": {
+  "coins": [
+   {
+    "mode": "none",
+    "level": 1,
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@55",
+     "coin@55",
+     "coin@55",
+     "coin@101"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "none",
+    "level": 1,
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@56",
+     "coin@56",
+     "coin@56",
+     "coin@113"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "none",
+    "level": 1,
+    "fps": 60,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@56",
+     "coin@83",
+     "coin@61",
+     "coin@61"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "none",
+    "level": 1,
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@54",
+     "coin@54",
+     "coin@54",
+     "coin@107"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "none",
+    "level": 1,
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@56",
+     "coin@56",
+     "coin@56",
+     "coin@113"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "none",
+    "level": 1,
+    "fps": 30,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@54",
+     "coin@83",
+     "coin@61",
+     "coin@62"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "none",
+    "level": 3,
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@298",
+     "silver@342",
+     "coin@343",
+     "coin@289"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "none",
+    "level": 3,
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@99",
+     "coin@57",
+     "coin@57",
+     "coin@109"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "none",
+    "level": 3,
+    "fps": 60,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@298",
+     "coin@337",
+     "silver@338",
+     "silver@337"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "none",
+    "level": 3,
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@299",
+     "silver@342",
+     "coin@342",
+     "coin@289"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "none",
+    "level": 3,
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@99",
+     "coin@57",
+     "coin@57",
+     "coin@109"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "none",
+    "level": 3,
+    "fps": 30,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@299",
+     "coin@337",
+     "silver@337",
+     "silver@337"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 1,
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@55",
+     "coin@55",
+     "coin@55",
+     "coin@107"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 1,
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@56",
+     "coin@56",
+     "coin@56",
+     "coin@113"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 1,
+    "fps": 60,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@56",
+     "coin@83",
+     "coin@61",
+     "coin@61"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 1,
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@54",
+     "coin@54",
+     "coin@54",
+     "coin@107"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 1,
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@56",
+     "coin@56",
+     "coin@56",
+     "coin@113"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 1,
+    "fps": 30,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "coin@54",
+     "coin@83",
+     "coin@61",
+     "coin@62"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 3,
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@300",
+     "silver@343",
+     "coin@343",
+     "coin@290"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 3,
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@99",
+     "coin@57",
+     "coin@57",
+     "coin@109"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 3,
+    "fps": 60,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@301",
+     "coin@339",
+     "silver@339",
+     "silver@338"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 3,
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@301",
+     "silver@344",
+     "coin@344",
+     "coin@292"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 3,
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@99",
+     "coin@57",
+     "coin@57",
+     "coin@109"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "toys",
+    "level": 3,
+    "fps": 30,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@304",
+     "coin@342",
+     "silver@340",
+     "silver@338"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": 3,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 1,
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@342",
+     "coin@344",
+     "silver@344",
+     "silver@286"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 1,
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@58",
+     "coin@56",
+     "coin@56",
+     "coin@113"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 1,
+    "fps": 60,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@343",
+     "coin@338",
+     "silver@338",
+     "silver@292"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 1,
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@342",
+     "coin@344",
+     "silver@344",
+     "silver@284"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 1,
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@58",
+     "coin@56",
+     "coin@56",
+     "coin@113"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 1,
+    "fps": 30,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@342",
+     "coin@337",
+     "silver@337",
+     "silver@291"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 3,
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@343",
+     "coin@341",
+     "silver@343",
+     "coin@288"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 3,
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@58",
+     "silver@57",
+     "coin@56",
+     "silver@109"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 3,
+    "fps": 60,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@343",
+     "silver@338",
+     "coin@340",
+     "coin@288"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 3,
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@344",
+     "coin@341",
+     "silver@343",
+     "coin@287"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 3,
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@58",
+     "silver@57",
+     "coin@56",
+     "silver@109"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   },
+   {
+    "mode": "rain",
+    "level": 3,
+    "fps": 30,
+    "seed": 3,
+    "grabs": [
+     "coins"
+    ],
+    "pick": [
+     "rain5@344",
+     "silver@338",
+     "coin@341",
+     "coin@288"
+    ],
+    "pushed": 4,
+    "gutter": 4,
+    "front": 0,
+    "inYawn": 0,
+    "held": false,
+    "len": 3.93,
+    "toysLeft": null,
+    "nom": [],
+    "chew": [],
+    "errs": 0
+   }
+  ],
+  "food": [
+   {
+    "level": 3,
+    "milk": false,
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "egg",
+     "biscuit"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "milk": false,
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "egg",
+     "sardine"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "milk": false,
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "egg",
+     "biscuit"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "milk": false,
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "egg",
+     "sardine"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 4,
+    "milk": false,
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "egg",
+     "milk"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 4,
+    "milk": false,
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "milk",
+     "egg"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 4,
+    "milk": false,
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "egg",
+     "milk"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 4,
+    "milk": false,
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "milk",
+     "egg"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "milk": false,
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "sardine",
+     "milk"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "milk": false,
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "milk",
+     "sardine"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "milk": false,
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "sardine",
+     "milk"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 9,
+    "milk": false,
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "milk",
+     "sardine"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "milk": true,
+    "fps": 60,
+    "seed": 1,
+    "grabs": [
+     "milk"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "milk": true,
+    "fps": 60,
+    "seed": 2,
+    "grabs": [
+     "milk"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "milk": true,
+    "fps": 30,
+    "seed": 1,
+    "grabs": [
+     "milk"
+    ],
+    "same": true,
+    "errs": 0
+   },
+   {
+    "level": 3,
+    "milk": true,
+    "fps": 30,
+    "seed": 2,
+    "grabs": [
+     "milk"
+    ],
+    "same": true,
+    "errs": 0
+   }
+  ]
+ }
+}
