@@ -15,3 +15,8 @@ tickets/CP-55-evidence/round1/contact-sheet-full.png
 Screenshots/ibear-*
 Screenshots/ref-*
 **/ref-other-pusher-*
+# Jenny's personal photos and third-party art references never go in Git (PROD-11)
+photos-private/
+art-moodboard/
+**/photos-private/
+**/art-moodboard/
