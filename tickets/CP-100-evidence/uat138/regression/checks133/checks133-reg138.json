@@ -1,0 +1,327 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp138-bundle\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp132-published\\release.html",
+ "passed": true,
+ "passedChecks": [
+  "M1 the Orange dances to B (Wild mambo) whatever was saved; identical to the base with B",
+  "M2 the Ragdoll dances to A (Music box) whatever was saved; identical to the base with A",
+  "M3 the Developer A/B/C row is gone: a tap where it was is an ordinary dance tap; the music stays",
+  "M4 the Tuxedo's dance is identical to the base",
+  "C1 412x915: during the Hug no gold pusher and no dark rim line between the chin and the board; the face's white",
+  "C2 412x915: (UAT 134) during the Ragdoll's flop no gold and no dark rim line under the head; the grey shoulders draw with the chest",
+  "C3 412x915: (UAT 134) during the Hug the chest never changes a pixel inside the board below its back edge",
+  "C1 360x640: during the Hug no gold pusher and no dark rim line between the chin and the board; the face's white",
+  "C2 360x640: (UAT 134) during the Ragdoll's flop no gold and no dark rim line under the head; the grey shoulders draw with the chest",
+  "C3 360x640: (UAT 134) during the Hug the chest never changes a pixel inside the board below its back edge",
+  "C4 (UAT 134) the Ragdoll's board (no Hug, no dance) and the Tuxedo's dance are pixel-identical to this build without H and I",
+  "C5 the grey fallback (CP133C.mode='grey') brings back the CP-101 grey shoulders in the dance",
+  "P1 Hug from the Tuxedo's, the Orange's, the endless board and Home: (UAT 134) the endless board with the Ragdoll, the Hug plays, stock unchanged",
+  "P2 every power from the Tuxedo's board switches to its own cat and plays",
+  "P3 (UAT 134) a power on its own cat's endless board: no switch, the round goes on",
+  "P4 (UAT 134) Treat toss from the Tuxedo's board starts on the endless board with the Orange",
+  "9 production and the UAT channel untouched"
+ ],
+ "failed": [],
+ "res": {
+  "M1 the Orange dances to B (Wild mambo) whatever was saved; identical to the base with B": {
+   "pass": true,
+   "info": {
+    "music": [
+     "B",
+     "B",
+     "B"
+    ],
+    "sounds": [
+     152,
+     152
+    ],
+    "hits": [
+     {
+      "hits": 11,
+      "misses": 0
+     },
+     {
+      "hits": 11,
+      "misses": 0
+     }
+    ]
+   }
+  },
+  "M2 the Ragdoll dances to A (Music box) whatever was saved; identical to the base with A": {
+   "pass": true,
+   "info": {
+    "music": [
+     "A",
+     "A"
+    ],
+    "sounds": [
+     79,
+     79
+    ]
+   }
+  },
+  "M3 the Developer A/B/C row is gone: a tap where it was is an ordinary dance tap; the music stays": {
+   "pass": true,
+   "info": {
+    "orange": {
+     "before": 0,
+     "after": 1,
+     "music": [
+      "B",
+      "B"
+     ],
+     "row": true,
+     "errs": 0
+    },
+    "ragdoll": {
+     "before": 0,
+     "after": 1,
+     "music": [
+      "A",
+      "A"
+     ],
+     "row": true,
+     "errs": 0
+    }
+   }
+  },
+  "M4 the Tuxedo's dance is identical to the base": {
+   "pass": true,
+   "info": {
+    "snd": [
+     128,
+     128
+    ]
+   }
+  },
+  "C1 412x915: during the Hug no gold pusher and no dark rim line between the chin and the board; the face's white": {
+   "pass": true,
+   "info": {
+    "goldBase": 1332,
+    "goldNew": 0,
+    "darkNew": 0,
+    "white": 2480,
+    "all": 2480,
+    "inside": 0,
+    "grey": 0,
+    "chest": 3,
+    "errs": 0
+   }
+  },
+  "C2 412x915: (UAT 134) during the Ragdoll's flop no gold and no dark rim line under the head; the grey shoulders draw with the chest": {
+   "pass": true,
+   "info": {
+    "goldBase": 0,
+    "goldNew": 0,
+    "darkNew": 0,
+    "white": 9325,
+    "all": 12400,
+    "inside": 489,
+    "grey": 3,
+    "chest": 3,
+    "errs": 0
+   }
+  },
+  "C3 412x915: (UAT 134) during the Hug the chest never changes a pixel inside the board below its back edge": {
+   "pass": true,
+   "info": {
+    "hug": 0,
+    "dance": 489
+   }
+  },
+  "C1 360x640: during the Hug no gold pusher and no dark rim line between the chin and the board; the face's white": {
+   "pass": true,
+   "info": {
+    "goldBase": 893,
+    "goldNew": 0,
+    "darkNew": 0,
+    "white": 1729,
+    "all": 1729,
+    "inside": 0,
+    "grey": 0,
+    "chest": 3,
+    "errs": 0
+   }
+  },
+  "C2 360x640: (UAT 134) during the Ragdoll's flop no gold and no dark rim line under the head; the grey shoulders draw with the chest": {
+   "pass": true,
+   "info": {
+    "goldBase": 44,
+    "goldNew": 0,
+    "darkNew": 0,
+    "white": 6720,
+    "all": 9044,
+    "inside": 370,
+    "grey": 3,
+    "chest": 3,
+    "errs": 0
+   }
+  },
+  "C3 360x640: (UAT 134) during the Hug the chest never changes a pixel inside the board below its back edge": {
+   "pass": true,
+   "info": {
+    "hug": 0,
+    "dance": 370
+   }
+  },
+  "C4 (UAT 134) the Ragdoll's board (no Hug, no dance) and the Tuxedo's dance are pixel-identical to this build without H and I": {
+   "pass": true
+  },
+  "C5 the grey fallback (CP133C.mode='grey') brings back the CP-101 grey shoulders in the dance": {
+   "pass": true,
+   "info": {
+    "grey": 1,
+    "white": 0
+   }
+  },
+  "P1 Hug from the Tuxedo's, the Orange's, the endless board and Home: (UAT 134) the endless board with the Ragdoll, the Hug plays, stock unchanged": {
+   "pass": true,
+   "info": {
+    "level:tuxedo": {
+     "a": {
+      "cat": "tuxedo",
+      "end": false,
+      "powers": {
+       "tuxedo": 2,
+       "orange": 1,
+       "ragdoll": 0,
+       "siamese": 3,
+       "tortie": 1
+      },
+      "left": 90
+     },
+     "st": {
+      "px": "hug",
+      "cat": "ragdoll",
+      "end": true,
+      "powers": {
+       "tuxedo": 2,
+       "orange": 1,
+       "ragdoll": 0,
+       "siamese": 3,
+       "tortie": 1
+      },
+      "phase": "play"
+     },
+     "errs": 0
+    },
+    "level:orange": {
+     "a": {
+      "cat": "orange",
+      "end": false,
+      "powers": {
+       "tuxedo": 2,
+       "orange": 1,
+       "ragdoll": 0,
+       "siamese": 3,
+       "tortie": 1
+      },
+      "left": 90
+     },
+     "st": {
+      "px": "hug",
+      "cat": "ragdoll",
+      "end": true,
+      "powers": {
+       "tuxedo": 2,
+       "orange": 1,
+       "ragdoll": 0,
+       "siamese": 3,
+       "tortie": 1
+      },
+      "phase": "play"
+     },
+     "errs": 0
+    },
+    "endless:tuxedo": {
+     "a": {
+      "cat": "tuxedo",
+      "end": true,
+      "powers": {
+       "tuxedo": 2,
+       "orange": 1,
+       "ragdoll": 0,
+       "siamese": 3,
+       "tortie": 1
+      },
+      "left": 599.9833333333333
+     },
+     "st": {
+      "px": "hug",
+      "cat": "ragdoll",
+      "end": true,
+      "powers": {
+       "tuxedo": 2,
+       "orange": 1,
+       "ragdoll": 0,
+       "siamese": 3,
+       "tortie": 1
+      },
+      "phase": "play"
+     },
+     "errs": 0
+    },
+    "home:tuxedo": {
+     "a": {
+      "cat": "tuxedo",
+      "end": false,
+      "powers": {
+       "tuxedo": 2,
+       "orange": 1,
+       "ragdoll": 0,
+       "siamese": 3,
+       "tortie": 1
+      },
+      "left": 50
+     },
+     "st": {
+      "px": "hug",
+      "cat": "ragdoll",
+      "end": true,
+      "powers": {
+       "tuxedo": 2,
+       "orange": 1,
+       "ragdoll": 0,
+       "siamese": 3,
+       "tortie": 1
+      },
+      "phase": "play"
+     },
+     "errs": 0
+    }
+   }
+  },
+  "P2 every power from the Tuxedo's board switches to its own cat and plays": {
+   "pass": true,
+   "info": {
+    "tuxedo": "tuxedo",
+    "orange": "orange",
+    "ragdoll": "ragdoll",
+    "siamese": "siamese",
+    "tortie": "tortie"
+   }
+  },
+  "P3 (UAT 134) a power on its own cat's endless board: no switch, the round goes on": {
+   "pass": true,
+   "info": {
+    "st": true,
+    "s": {
+     "cat": "siamese",
+     "phase": "play",
+     "end": true
+    },
+    "l0": 0
+   }
+  },
+  "P4 (UAT 134) Treat toss from the Tuxedo's board starts on the endless board with the Orange": {
+   "pass": true,
+   "info": {
+    "st": true,
+    "cat": "orange"
+   }
+  },
+  "9 production and the UAT channel untouched": {
+   "pass": true
+  }
+ }
+}
