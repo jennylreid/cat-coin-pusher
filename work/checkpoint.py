@@ -18,7 +18,7 @@ It copies into C:/Users/jenny/GitHub/cat-coin-pusher:
   - that build's ticket: the evidence folder its publication-manifest.json names (text files; its .png stills only with --png) plus
     tickets/<ID>.md, <ID>-brief.md and <ID>-ticket.md; --ticket and --evidence add more,
   - GAMEPLAY_DESIGN.md, SPEC.md, DEVELOPER.md, AGENTS.md, CODEX_BRIEF.md and this script.
-Other engineers' work folders and prototypes are never swept in. It never copies Screenshots/, ibear-*, ref-*,
+Other engineers' work folders and prototypes are never swept in. It never copies Screenshots/, photos-private/, art-moodboard/, ibear-*, ref-*,
 ref-other-pusher-*, keystores, .env, phone/ or backups/, honours the repo's .gitignore (no WAV/MP3), stops if any file is
 over 5 MB, only ever commits on wip/uat (main stays sign-off only), and never deletes anything from the repo.
 """
@@ -51,7 +51,7 @@ def git(*args, check=True, capture=True):
 
 def banned(rel):
     parts = Path(rel).parts
-    if any(p in ('phone', 'backups', 'Screenshots') for p in parts):
+    if any(p in ('phone', 'backups', 'Screenshots', 'photos-private', 'art-moodboard') for p in parts):  # PROD-11: Jenny's private photos, third-party references
         return True
     return any(fnmatch.fnmatch(parts[-1].lower(), pat) for pat in BANNED)
 

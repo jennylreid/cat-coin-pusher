@@ -1,0 +1,27 @@
+{
+  "displayName": "2026.11.20.2",
+  "version": 20261120230000,
+  "apkVersion": 17,
+  "baselineJSONSHA256": "e24153c03933b38c62514e7a7d5200f86de0d2ad431ddb52628810b9c1c0fe67",
+  "productionAPKSHA256": "df205863d0bf755276f7f4acf301b3c573788ccef09b8f8bc0cd0263121e8e45",
+  "uatJSONSHA256": "3e591ea66bacd9488ce98ba5f86878bfdccff0950c563c484e06634dc1fb114d",
+  "uatAPKSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "stagedJSONSHA256": "34cff930dcb9d8e3115f5f3c8b8a37fb806743e9340fec424a6b0518f673d23e",
+  "releaseHTMLSHA256": "b6758163e22112fd5b084de5c01cad01661672a90038c8f4d35c67033b322ffa",
+  "sourceHTML": "work/cp135-bundle/release.html",
+  "sourceHTMLSHA256": "8efe1830d997264562db67453847ad4f96d64302a6a072221f7e193f88d9ddf4",
+  "jsonBytes": 47830436,
+  "runtimeFiles": 76,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFilesFromUAT135": [],
+  "droppedRuntimeFiles": [],
+  "unchangedRuntimeFilesMatchProduction": 75,
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "updateURL": "production (work/prod04/download-url.txt, APK17 assets/update-url.txt)",
+  "backup": "backups/before-PROD-11-20261120230000",
+  "evidence": "tickets/PROD-11-evidence",
+  "authorization": "Jenny, Nov 20, 2026, via the PM: 'I'm going to say 136 past. I'm going to say yes to 135 on production. And I can send that command on PC when you have it ready for me.' (production takes UAT 135 alone)"
+}
