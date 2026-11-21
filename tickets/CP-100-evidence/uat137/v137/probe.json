@@ -1,0 +1,244 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp137-bundle\\boot137",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "v137": {
+  "412x915": {
+   "on": true,
+   "loaded": 18,
+   "landings": [
+    "balloon_animal:top-down",
+    "diamond:back",
+    "hot_dog:top-down",
+    "crab:top-down",
+    "owl:tilt-right",
+    "balloon_animal:top-down",
+    "diamond:back",
+    "hot_dog:back",
+    "owl:side",
+    "balloon_animal:back",
+    "diamond:side",
+    "hot_dog:tilt-left",
+    "crab:top-down",
+    "owl:side",
+    "balloon_animal:side"
+   ],
+   "twinkle": {
+    "v": "side",
+    "frames": [
+     40,
+     8
+    ]
+   },
+   "boardDrops": {
+    "flag": true,
+    "newOnBoard": [
+     "hot_water_bottle",
+     "daisy"
+    ],
+    "n": 4
+   },
+   "bonusShare": {
+    "landed": 40,
+    "newOnes": 16
+   },
+   "pounce": {
+    "maxRunning": 3,
+    "meterY": 428,
+    "miceY": [
+     473,
+     748
+    ],
+    "front": 771,
+    "pusherFront": 409
+   },
+   "topbar": {
+    "gear": {
+     "x": 354,
+     "y": 30,
+     "w": 42,
+     "h": 34
+    },
+    "taps": {
+     "x306": {
+      "cu": 0,
+      "settings": "none",
+      "muteChanged": false
+     },
+     "x318": {
+      "cu": 0,
+      "settings": "none",
+      "muteChanged": false
+     },
+     "x334": {
+      "cu": 0,
+      "settings": "none",
+      "muteChanged": false
+     },
+     "x362": {
+      "cu": 0,
+      "settings": "block",
+      "muteChanged": false
+     },
+     "x378": {
+      "cu": 0,
+      "settings": "block",
+      "muteChanged": false
+     },
+     "x390": {
+      "cu": 0,
+      "settings": "block",
+      "muteChanged": false
+     }
+    }
+   },
+   "goal": {
+    "lab": true,
+    "on": true,
+    "locked": false,
+    "cats": [
+     "tuxedo",
+     "orange",
+     "ragdoll",
+     "siamese",
+     "tortie"
+    ],
+    "cat": "tuxedo",
+    "rowOpen": true,
+    "after": {
+     "cat": "ragdoll",
+     "mode": "cozy",
+     "lab": true,
+     "phase": "play"
+    }
+   },
+   "shop": {
+    "inBag": 1,
+    "sellRow": true,
+    "price": 1,
+    "name": "Diamond"
+   }
+  },
+  "360x640": {
+   "on": true,
+   "loaded": 18,
+   "landings": [
+    "balloon_animal:front",
+    "diamond:side",
+    "hot_dog:side",
+    "crab:side",
+    "hot_dog:tilt-right",
+    "owl:tilt-right",
+    "balloon_animal:top-down",
+    "diamond:top-down",
+    "diamond:tilt-left",
+    "hot_dog:front",
+    "crab:top-down",
+    "owl:tilt-left",
+    "balloon_animal:side",
+    "owl:tilt-left",
+    "diamond:front",
+    "hot_dog:top-down",
+    "crab:top-down",
+    "owl:front"
+   ],
+   "twinkle": {
+    "v": "front",
+    "frames": [
+     21,
+     31
+    ]
+   },
+   "boardDrops": {
+    "flag": true,
+    "newOnBoard": [
+     "accordion",
+     "rainbow"
+    ],
+    "n": 4
+   },
+   "bonusShare": {
+    "landed": 40,
+    "newOnes": 18
+   },
+   "pounce": {
+    "maxRunning": 3,
+    "meterY": 398,
+    "miceY": [
+     473,
+     683
+    ],
+    "front": 709,
+    "pusherFront": 381
+   },
+   "topbar": {
+    "gear": {
+     "x": 354,
+     "y": 30,
+     "w": 42,
+     "h": 34
+    },
+    "taps": {
+     "x306": {
+      "cu": 0,
+      "settings": "none",
+      "muteChanged": false
+     },
+     "x318": {
+      "cu": 0,
+      "settings": "none",
+      "muteChanged": false
+     },
+     "x334": {
+      "cu": 0,
+      "settings": "none",
+      "muteChanged": false
+     },
+     "x362": {
+      "cu": 0,
+      "settings": "block",
+      "muteChanged": false
+     },
+     "x378": {
+      "cu": 0,
+      "settings": "block",
+      "muteChanged": false
+     },
+     "x390": {
+      "cu": 0,
+      "settings": "block",
+      "muteChanged": false
+     }
+    }
+   },
+   "goal": {
+    "lab": true,
+    "on": true,
+    "locked": false,
+    "cats": [
+     "tuxedo",
+     "orange",
+     "ragdoll",
+     "siamese",
+     "tortie"
+    ],
+    "cat": "tuxedo",
+    "rowOpen": true,
+    "after": {
+     "cat": "ragdoll",
+     "mode": "cozy",
+     "lab": true,
+     "phase": "play"
+    }
+   },
+   "shop": {
+    "inBag": 1,
+    "sellRow": true,
+    "price": 1,
+    "name": "Diamond"
+   }
+  }
+ }
+}

@@ -1,0 +1,111 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp137-bundle\\boot137",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "v137": {
+  "412x915": {
+   "on": true,
+   "loaded": 18,
+   "landings": [
+    "balloon_animal:top-down",
+    "diamond:top-down",
+    "sapphire_ring:tilt-left",
+    "crab:top-down",
+    "balloon_animal:top-down",
+    "diamond:tilt-left",
+    "hot_dog:back",
+    "crab:back",
+    "owl:back",
+    "balloon_animal:top-down",
+    "diamond:tilt-right",
+    "hot_dog:top-down",
+    "crab:back",
+    "owl:front"
+   ],
+   "twinkle": {
+    "v": "tilt-right",
+    "frameAt": 25
+   },
+   "boardDrops": {
+    "flag": true,
+    "newOnBoard": [
+     "sunflower",
+     "sunflower"
+    ],
+    "n": 4
+   },
+   "bonusShare": {
+    "landed": 40,
+    "newOnes": 21
+   },
+   "pounce": {
+    "maxRunning": 3,
+    "meterY": 428,
+    "miceY": [
+     483,
+     749
+    ],
+    "front": 771,
+    "pusherFront": 409
+   },
+   "topbar": {
+    "gear": {
+     "x": 354,
+     "y": 30,
+     "w": 42,
+     "h": 34
+    },
+    "taps": {
+     "x306": {
+      "cu": 0,
+      "settings": "none"
+     },
+     "x318": {
+      "cu": 0,
+      "settings": "none"
+     },
+     "x326": {
+      "cu": 0,
+      "settings": "none"
+     },
+     "x334": {
+      "cu": 0,
+      "settings": "none"
+     },
+     "x342": {
+      "cu": 0,
+      "settings": "none"
+     }
+    }
+   },
+   "goal": {
+    "lab": true,
+    "on": true,
+    "locked": false,
+    "cats": [
+     "tuxedo",
+     "orange",
+     "ragdoll",
+     "siamese",
+     "tortie"
+    ],
+    "cat": "tuxedo",
+    "rowOpen": true,
+    "after": {
+     "cat": "ragdoll",
+     "mode": "cozy",
+     "lab": true,
+     "phase": "play"
+    }
+   },
+   "shop": {
+    "inBag": 1,
+    "sellRow": true,
+    "price": 1,
+    "name": "Diamond"
+   }
+  }
+ }
+}

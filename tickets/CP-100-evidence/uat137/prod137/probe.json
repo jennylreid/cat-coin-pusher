@@ -1,0 +1,17 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp137-bundle\\boot137",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "prod137": {
+  "412x915": {
+   "on": false,
+   "build": "2026.11.20"
+  },
+  "360x640": {
+   "on": false,
+   "build": "2026.11.20"
+  }
+ }
+}

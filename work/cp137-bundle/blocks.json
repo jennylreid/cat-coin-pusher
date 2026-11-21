@@ -1,0 +1,32 @@
+{
+ "edits": [
+  [
+   "if(S.dev&&window.Android){ctx.font='20px system-ui';ctx.fillText('\u21bb',W-hud.right-66,hud.mainY);}",
+   "/* UAT 137 C: the Developer check-for-updates shortcut is gone (Settings has it) */"
+  ],
+  [
+   "else if (p.x > W-hud.right-100 && S.dev && window.Android) Android.checkUpdates();",
+   "/* UAT 137 C: no check-for-updates shortcut in the top bar */"
+  ],
+  [
+   "ids=tab==='sell'?PG_PRIZES.filter(id=>pgHave(id)>0)",
+   "ids=tab==='sell'?[...PG_PRIZES,...(typeof cp137SellIds==='function'?cp137SellIds():[])].filter(id=>pgHave(id)>0) /* UAT 137 A: new prizes sell too */"
+  ],
+  [
+   "function pounceDraw(){const D=WILD.pounce,Y=POUNCE_HUD_Y;",
+   "function pounceDraw(){const D=WILD.pounce,Y=(typeof cp137PounceY==='function'?cp137PounceY():POUNCE_HUD_Y); /* UAT 137 B: the meter just under the pusher */"
+  ],
+  [
+   "ctx.fillText(S.muted?'\ud83d\udd07':'\ud83d\udd0a',W-hud.right-12,hud.mainY);",
+   "if(!(typeof cp137OneButton==='function'&&cp137OneButton()))ctx.fillText(S.muted?'\ud83d\udd07':'\ud83d\udd0a',W-hud.right-12,hud.mainY); /* UAT 137 C: no sound icon on a board */"
+  ],
+  [
+   "if (p.x > W-hud.right-52) { S.muted = !S.muted; saveAudioSettings();musicTick(); }",
+   "if (p.x > W-hud.right-52) { if(!(typeof cp137OneButton==='function'&&cp137OneButton())){S.muted = !S.muted; saveAudioSettings();musicTick();} } /* UAT 137 C */"
+  ]
+ ],
+ "swaps": [],
+ "blocks": [
+  "cp137-bundle/round-137.js"
+ ]
+}
