@@ -12,7 +12,7 @@
   - fresh anonymous download, 47,830,436 bytes, sha256 34cff930...d23e (= the staged JSON);
   - channel catpusher, com.jenny.catpusher, apkVersion 17, 76 runtime files;
   - index.html = the production build (b6758163...2ffa).
-- GitHub `main`: commit recorded below.
+- GitHub `main`: commit **5151911** (main + only the PROD-11 scope: production build as root index.html, work/prod11, work/cp135-bundle, UAT 135 and PROD-11 evidence, ROUND-135, CP-100, .gitignore).
 - **Phone receipt pending Jenny** (check below).
 
 ## What production gets (ROUND-135, `tickets/ROUND-135.md`)
