@@ -1,0 +1,28 @@
+﻿{
+    "version":  20261119000046,
+    "displayName":  "2026.11.20 UAT 135",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "95cd7bb762cfb174154331e9bd00f736fe7cb90bc1c2a72027225b7c72525acd",
+    "stagedJSONSHA256":  "3e591ea66bacd9488ce98ba5f86878bfdccff0950c563c484e06634dc1fb114d",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "8efe1830d997264562db67453847ad4f96d64302a6a072221f7e193f88d9ddf4",
+    "jsonBytes":  47831321,
+    "baselineJSONBytes":  47825861,
+    "runtimeFiles":  76,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.20 UAT 134",
+    "backup":  "uat/backups/before-UAT135-20261119000046",
+    "evidence":  "tickets/CP-100-evidence/uat135",
+    "checks":  [
+                   "checks135.json"
+               ],
+    "authorization":  "UAT 135: round 135 (tickets/ROUND-135.md: prize refill, no repeat board, Level boards UAT only, board Home button gone); Jenny approved the round via the PM, Nov 20; UAT only",
+    "localPublication":  "verified"
+}

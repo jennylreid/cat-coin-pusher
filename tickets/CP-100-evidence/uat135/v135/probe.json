@@ -1,0 +1,950 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp135-bundle\\boot135",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "gentle135": {
+  "412x915": {
+   "refills": [
+    2.45
+   ],
+   "timeline": [
+    {
+     "t": 2,
+     "on": 0,
+     "inc": 1
+    },
+    {
+     "t": 4,
+     "on": 2,
+     "inc": 0
+    },
+    {
+     "t": 6,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 8,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 10,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 12.1,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 14.1,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 16.1,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 18.1,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 20.2,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 22.2,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 24.2,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 26.2,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 28.3,
+     "on": 3,
+     "inc": 0
+    }
+   ],
+   "ids": [
+    "shrimp",
+    "shrimp",
+    "cheese"
+   ]
+  },
+  "392x874": {
+   "refills": [
+    2.47,
+    8.47,
+    14.47
+   ],
+   "timeline": [
+    {
+     "t": 2,
+     "on": 0,
+     "inc": 0
+    },
+    {
+     "t": 3.8,
+     "on": 2,
+     "inc": 0
+    },
+    {
+     "t": 5.8,
+     "on": 2,
+     "inc": 0
+    },
+    {
+     "t": 7.8,
+     "on": 2,
+     "inc": 0
+    },
+    {
+     "t": 9.9,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 11.9,
+     "on": 2,
+     "inc": 0
+    },
+    {
+     "t": 13.9,
+     "on": 2,
+     "inc": 0
+    },
+    {
+     "t": 15.9,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 17.9,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 19.9,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 21.9,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 23.9,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 25.9,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 28,
+     "on": 3,
+     "inc": 0
+    }
+   ],
+   "ids": [
+    "shrimp",
+    "cheese",
+    "shrimp"
+   ]
+  },
+  "360x640": {
+   "refills": [
+    2.48,
+    8.48,
+    14.48
+   ],
+   "timeline": [
+    {
+     "t": 2,
+     "on": 0,
+     "inc": 1
+    },
+    {
+     "t": 4,
+     "on": 2,
+     "inc": 0
+    },
+    {
+     "t": 6.1,
+     "on": 2,
+     "inc": 0
+    },
+    {
+     "t": 8.1,
+     "on": 2,
+     "inc": 0
+    },
+    {
+     "t": 10.1,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 12.1,
+     "on": 2,
+     "inc": 0
+    },
+    {
+     "t": 14.1,
+     "on": 2,
+     "inc": 0
+    },
+    {
+     "t": 16.1,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 18.1,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 20.1,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 22.2,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 24.2,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 26.2,
+     "on": 3,
+     "inc": 0
+    },
+    {
+     "t": 28.2,
+     "on": 3,
+     "inc": 0
+    }
+   ],
+   "ids": [
+    "shrimp",
+    "cheese",
+    "shrimp"
+   ]
+  }
+ },
+ "fresh135": {
+  "412x915": [
+   "L1 gentle",
+   "L2",
+   "L3"
+  ],
+  "392x874": [
+   "L1 gentle",
+   "L2",
+   "L3"
+  ],
+  "360x640": [
+   "L1 gentle",
+   "L2",
+   "L3"
+  ]
+ },
+ "t2": "main",
+ "v135": {
+  "412x915": {
+   "top_tuxedo": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 808.3495145631068,
+     "settingsX": 388,
+     "settingsY": 876.3495145631068
+    }
+   },
+   "top_siamese": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 808.3495145631068,
+     "settingsX": 388,
+     "settingsY": 876.3495145631068
+    }
+   },
+   "top_ragdoll": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 808.3495145631068,
+     "settingsX": 388,
+     "settingsY": 876.3495145631068
+    }
+   },
+   "top_orange": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 808.3495145631068,
+     "settingsX": 388,
+     "settingsY": 876.3495145631068
+    }
+   },
+   "homeTap": {
+    "screen": "board",
+    "end": true,
+    "paused": false
+   },
+   "pauseHome": {
+    "screen": "main",
+    "end": false
+   },
+   "refill": {
+    "mine": [
+     1.07
+    ],
+    "drops": [
+     1.07,
+     2.02,
+     4.03,
+     6.05,
+     8.03,
+     8.08,
+     12.83,
+     19.93
+    ],
+    "timeline": [
+     {
+      "t": 2,
+      "on": 1,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 4,
+      "on": 2,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 6,
+      "on": 3,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 7.9,
+      "on": 3,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 9.6,
+      "on": 5,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 11.4,
+      "on": 4,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 13.3,
+      "on": 4,
+      "inc": 1,
+      "mine": 1
+     },
+     {
+      "t": 15.2,
+      "on": 5,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 17,
+      "on": 5,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 18.9,
+      "on": 5,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 20.6,
+      "on": 5,
+      "inc": 1,
+      "mine": 1
+     },
+     {
+      "t": 22.4,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 24.4,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     }
+    ],
+    "ids": [
+     "egg",
+     "milk",
+     "ball",
+     "bowtie",
+     "feather",
+     "sock"
+    ],
+    "coll": [
+     "egg",
+     "milk",
+     "sock",
+     "ball",
+     "feather"
+    ]
+   },
+   "seq": [
+    "play:L6",
+    "play:L7",
+    "play:L8",
+    "play:L9",
+    "play:L10",
+    "new:L6",
+    "new:L3",
+    "new:L6",
+    "new:L2",
+    "new:L4",
+    "new:L1"
+   ],
+   "repeat": false,
+   "firstGentle": false,
+   "levelBtn": true
+  },
+  "392x874": {
+   "top_tuxedo": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 811.8367346938776,
+     "settingsX": 388,
+     "settingsY": 879.8367346938776
+    }
+   },
+   "top_siamese": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 811.8367346938776,
+     "settingsX": 388,
+     "settingsY": 879.8367346938776
+    }
+   },
+   "top_ragdoll": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 811.8367346938776,
+     "settingsX": 388,
+     "settingsY": 879.8367346938776
+    }
+   },
+   "top_orange": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 811.8367346938776,
+     "settingsX": 388,
+     "settingsY": 879.8367346938776
+    }
+   },
+   "homeTap": {
+    "screen": "board",
+    "end": true,
+    "paused": false
+   },
+   "pauseHome": {
+    "screen": "main",
+    "end": false
+   },
+   "refill": {
+    "mine": [
+     1.08
+    ],
+    "drops": [
+     1.08,
+     2.02,
+     4.05,
+     6.07,
+     8.08,
+     8.08,
+     10.12
+    ],
+    "timeline": [
+     {
+      "t": 2,
+      "on": 1,
+      "inc": 1,
+      "mine": 1
+     },
+     {
+      "t": 4,
+      "on": 2,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 5.9,
+      "on": 3,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 7.5,
+      "on": 3,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 9.4,
+      "on": 5,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 11.1,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 13,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 15,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 16.8,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 18.5,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 20.4,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 22.4,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 24.2,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     }
+    ],
+    "ids": [
+     "ball",
+     "egg",
+     "sock",
+     "milk",
+     "bowtie",
+     "feather"
+    ],
+    "coll": [
+     "egg",
+     "milk",
+     "sock",
+     "ball",
+     "feather"
+    ]
+   },
+   "seq": [
+    "play:L6",
+    "play:L7",
+    "play:L8",
+    "play:L9",
+    "play:L10",
+    "new:L4",
+    "new:L9",
+    "new:L2",
+    "new:L9",
+    "new:L6",
+    "new:L5"
+   ],
+   "repeat": false,
+   "firstGentle": false,
+   "levelBtn": true
+  },
+  "360x640": {
+   "top_tuxedo": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 640,
+     "settingsX": 388,
+     "settingsY": 708
+    }
+   },
+   "top_siamese": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 640,
+     "settingsX": 388,
+     "settingsY": 708
+    }
+   },
+   "top_ragdoll": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 640,
+     "settingsX": 388,
+     "settingsY": 708
+    }
+   },
+   "top_orange": {
+    "wb": {
+     "x": 257,
+     "y": 34,
+     "w": 56,
+     "h": 28
+    },
+    "gone": true,
+    "gear": {
+     "left": 0,
+     "right": 0,
+     "top": 0,
+     "bottom": 0,
+     "mainY": 47,
+     "bannerY": 84,
+     "headerBottom": 98,
+     "extraTop": 0,
+     "bottomY": 640,
+     "settingsX": 388,
+     "settingsY": 708
+    }
+   },
+   "homeTap": {
+    "screen": "board",
+    "end": true,
+    "paused": false
+   },
+   "pauseHome": {
+    "screen": "main",
+    "end": false
+   },
+   "refill": {
+    "mine": [
+     1.03
+    ],
+    "drops": [
+     1.03,
+     2.02,
+     4.05,
+     6.07,
+     8.02,
+     8.1
+    ],
+    "timeline": [
+     {
+      "t": 2,
+      "on": 1,
+      "inc": 1,
+      "mine": 1
+     },
+     {
+      "t": 3.9,
+      "on": 2,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 5.6,
+      "on": 3,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 7.3,
+      "on": 4,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 9.2,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 11.3,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 13.3,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 15.3,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 17.3,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 19.3,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 21.3,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 23.3,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     },
+     {
+      "t": 25.4,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     }
+    ],
+    "ids": [
+     "sock",
+     "egg",
+     "milk",
+     "ball",
+     "bowtie",
+     "feather"
+    ],
+    "coll": [
+     "egg",
+     "milk",
+     "sock",
+     "ball",
+     "feather"
+    ]
+   },
+   "seq": [
+    "play:L6",
+    "play:L7",
+    "play:L8",
+    "play:L9",
+    "play:L10",
+    "new:L9",
+    "new:L1",
+    "new:L2",
+    "new:L8",
+    "new:L5",
+    "new:L1"
+   ],
+   "repeat": false,
+   "firstGentle": false,
+   "levelBtn": true
+  }
+ }
+}

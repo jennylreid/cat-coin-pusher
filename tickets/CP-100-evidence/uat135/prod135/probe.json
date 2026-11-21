@@ -1,0 +1,33 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp135-bundle\\boot135",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "prod135": {
+  "412x915": {
+   "home": {
+    "build": "2026.11.20",
+    "levelBtn": null,
+    "goalBtn": null
+   },
+   "list": "none"
+  },
+  "392x874": {
+   "home": {
+    "build": "2026.11.20",
+    "levelBtn": null,
+    "goalBtn": null
+   },
+   "list": "none"
+  },
+  "360x640": {
+   "home": {
+    "build": "2026.11.20",
+    "levelBtn": null,
+    "goalBtn": null
+   },
+   "list": "none"
+  }
+ }
+}

@@ -1,0 +1,291 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp135-bundle\\release.html",
+ "releaseSHA256": "8efe1830d997264562db67453847ad4f96d64302a6a072221f7e193f88d9ddf4",
+ "passed": true,
+ "passedChecks": [
+  "R1 412x915",
+  "R2 412x915",
+  "R3 412x915",
+  "R4 412x915",
+  "R1 392x874",
+  "R2 392x874",
+  "R3 392x874",
+  "R4 392x874",
+  "R1 360x640",
+  "R2 360x640",
+  "R3 360x640",
+  "R4 360x640",
+  "Z errors",
+  "Z channels"
+ ],
+ "failed": [],
+ "res": {
+  "R1 412x915": {
+   "pass": true,
+   "info": {
+    "levelBoard": {
+     "refills": [
+      1.07
+     ],
+     "end": {
+      "t": 24.4,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     }
+    },
+    "gentleFirstPush": {
+     "refills": [
+      2.45
+     ],
+     "gaps": [],
+     "end": {
+      "t": 28.3,
+      "on": 3,
+      "inc": 0
+     },
+     "ids": [
+      "shrimp",
+      "shrimp",
+      "cheese"
+     ]
+    }
+   }
+  },
+  "R2 412x915": {
+   "pass": true,
+   "info": {
+    "seq": [
+     "play:L6",
+     "play:L7",
+     "play:L8",
+     "play:L9",
+     "play:L10",
+     "new:L6",
+     "new:L3",
+     "new:L6",
+     "new:L2",
+     "new:L4",
+     "new:L1"
+    ],
+    "fresh": [
+     "L1 gentle",
+     "L2",
+     "L3"
+    ]
+   }
+  },
+  "R3 412x915": {
+   "pass": true,
+   "info": {
+    "uat": true,
+    "prod": {
+     "home": {
+      "build": "2026.11.20",
+      "levelBtn": null,
+      "goalBtn": null
+     },
+     "list": "none"
+    }
+   }
+  },
+  "R4 412x915": {
+   "pass": true,
+   "info": {
+    "tap": {
+     "screen": "board",
+     "end": true,
+     "paused": false
+    },
+    "pauseHome": {
+     "screen": "main",
+     "end": false
+    }
+   }
+  },
+  "R1 392x874": {
+   "pass": true,
+   "info": {
+    "levelBoard": {
+     "refills": [
+      1.08
+     ],
+     "end": {
+      "t": 24.2,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     }
+    },
+    "gentleFirstPush": {
+     "refills": [
+      2.47,
+      8.47,
+      14.47
+     ],
+     "gaps": [
+      6.0,
+      6.0
+     ],
+     "end": {
+      "t": 28,
+      "on": 3,
+      "inc": 0
+     },
+     "ids": [
+      "shrimp",
+      "cheese",
+      "shrimp"
+     ]
+    }
+   }
+  },
+  "R2 392x874": {
+   "pass": true,
+   "info": {
+    "seq": [
+     "play:L6",
+     "play:L7",
+     "play:L8",
+     "play:L9",
+     "play:L10",
+     "new:L4",
+     "new:L9",
+     "new:L2",
+     "new:L9",
+     "new:L6",
+     "new:L5"
+    ],
+    "fresh": [
+     "L1 gentle",
+     "L2",
+     "L3"
+    ]
+   }
+  },
+  "R3 392x874": {
+   "pass": true,
+   "info": {
+    "uat": true,
+    "prod": {
+     "home": {
+      "build": "2026.11.20",
+      "levelBtn": null,
+      "goalBtn": null
+     },
+     "list": "none"
+    }
+   }
+  },
+  "R4 392x874": {
+   "pass": true,
+   "info": {
+    "tap": {
+     "screen": "board",
+     "end": true,
+     "paused": false
+    },
+    "pauseHome": {
+     "screen": "main",
+     "end": false
+    }
+   }
+  },
+  "R1 360x640": {
+   "pass": true,
+   "info": {
+    "levelBoard": {
+     "refills": [
+      1.03
+     ],
+     "end": {
+      "t": 25.4,
+      "on": 6,
+      "inc": 0,
+      "mine": 1
+     }
+    },
+    "gentleFirstPush": {
+     "refills": [
+      2.48,
+      8.48,
+      14.48
+     ],
+     "gaps": [
+      6.0,
+      6.0
+     ],
+     "end": {
+      "t": 28.2,
+      "on": 3,
+      "inc": 0
+     },
+     "ids": [
+      "shrimp",
+      "cheese",
+      "shrimp"
+     ]
+    }
+   }
+  },
+  "R2 360x640": {
+   "pass": true,
+   "info": {
+    "seq": [
+     "play:L6",
+     "play:L7",
+     "play:L8",
+     "play:L9",
+     "play:L10",
+     "new:L9",
+     "new:L1",
+     "new:L2",
+     "new:L8",
+     "new:L5",
+     "new:L1"
+    ],
+    "fresh": [
+     "L1 gentle",
+     "L2",
+     "L3"
+    ]
+   }
+  },
+  "R3 360x640": {
+   "pass": true,
+   "info": {
+    "uat": true,
+    "prod": {
+     "home": {
+      "build": "2026.11.20",
+      "levelBtn": null,
+      "goalBtn": null
+     },
+     "list": "none"
+    }
+   }
+  },
+  "R4 360x640": {
+   "pass": true,
+   "info": {
+    "tap": {
+     "screen": "board",
+     "end": true,
+     "paused": false
+    },
+    "pauseHome": {
+     "screen": "main",
+     "end": false
+    }
+   }
+  },
+  "Z errors": {
+   "pass": true,
+   "info": []
+  },
+  "Z channels": {
+   "pass": true,
+   "info": null
+  }
+ }
+}
