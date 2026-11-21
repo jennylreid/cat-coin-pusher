@@ -1,0 +1,28 @@
+{
+  "version": 20261119000047,
+  "displayName": "2026.11.20 UAT 136",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "3e591ea66bacd9488ce98ba5f86878bfdccff0950c563c484e06634dc1fb114d",
+  "stagedJSONSHA256": "a29143cf1d90b64f11fae5bc58420a4eb04d409f4db1395436e795bae9fd401d",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "d2a1eaefa547f6afa6b5f78f0e961df93bbac775bb42a82b0a39cb6d85771ec6",
+  "jsonBytes": 47847545,
+  "baselineJSONBytes": 47831321,
+  "runtimeFiles": 76,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.20 UAT 135",
+  "backup": "uat/backups/before-UAT136-20261119000047",
+  "evidence": "tickets/CP-93-evidence/uat136",
+  "checks": [
+    "checks136.json",
+    "checks64/checks64-r136.json",
+    "real-browser-probe.json",
+    "labshot.json"
+  ],
+  "authorization": "UAT 136: CP-93 Tower physics Developer choice (PM, Nov 20: \"put the options into UAT as a clearly labelled Developer choice, Tower physics ... you'll be UAT 136\"); UAT only"
+}

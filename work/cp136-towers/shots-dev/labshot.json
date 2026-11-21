@@ -1,0 +1,101 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp136-towers\\bootdev",
+ "sizes": {
+  "412x915": {
+   "engineer": [
+    "✓ Today",
+    "A: heavy towers, fast spill",
+    "C: giant towers on the shelf",
+    "A + C"
+   ],
+   "dbg": {
+    "eng": true,
+    "timing": true,
+    "err": null,
+    "dev": true,
+    "inPanel": true
+   },
+   "goals": [
+    "Today",
+    "A: heavy towers, fast spill",
+    "C: giant towers on the shelf",
+    "A + C"
+   ],
+   "modes": {
+    "a": {
+     "m": "a",
+     "shelf": false,
+     "heavy": true,
+     "stacks": 2
+    },
+    "today": {
+     "m": "today",
+     "shelf": false,
+     "heavy": false,
+     "stacks": 20
+    },
+    "c": {
+     "m": "c",
+     "shelf": true,
+     "heavy": false,
+     "stacks": 20
+    },
+    "ac": {
+     "m": "ac",
+     "shelf": true,
+     "heavy": false,
+     "stacks": 20
+    }
+   }
+  },
+  "360x640": {
+   "engineer": [
+    "✓ Today",
+    "A: heavy towers, fast spill",
+    "C: giant towers on the shelf",
+    "A + C"
+   ],
+   "dbg": {
+    "eng": true,
+    "timing": true,
+    "err": null,
+    "dev": true,
+    "inPanel": true
+   },
+   "goals": [
+    "Today",
+    "A: heavy towers, fast spill",
+    "C: giant towers on the shelf",
+    "A + C"
+   ],
+   "modes": {
+    "a": {
+     "m": "a",
+     "shelf": false,
+     "heavy": true,
+     "stacks": 2
+    },
+    "today": {
+     "m": "today",
+     "shelf": false,
+     "heavy": false,
+     "stacks": 20
+    },
+    "c": {
+     "m": "c",
+     "shelf": true,
+     "heavy": false,
+     "stacks": 20
+    },
+    "ac": {
+     "m": "ac",
+     "shelf": true,
+     "heavy": false,
+     "stacks": 20
+    }
+   }
+  }
+ },
+ "errors": [],
+ "passed": true
+}

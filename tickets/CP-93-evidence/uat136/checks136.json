@@ -1,0 +1,136 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp136-towers\\release.html",
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp135-bundle\\release.html",
+ "passed": true,
+ "passedN": 10,
+ "failed": [],
+ "notes": {
+  "1 default \"Today\": Level 5 and Giant towers play exactly as the base (towers in the same places after 15 s / 20 s of drops)": {
+   "m": "today",
+   "l5": 5,
+   "giant": 21,
+   "errs": 0
+  },
+  "2 choosing \"A: heavy towers, fast spill\" saves it on the phone and switches the towers in play at once: twice the weight (5x today), 2x gravity, grip 0.25, no tip after a shove": {
+   "key": "a",
+   "today": {
+    "m": 0.0091,
+    "g": 1,
+    "f": 0.45,
+    "lim": 3.8598918624780065
+   },
+   "a": {
+    "m": 0.0454,
+    "g": 2,
+    "f": 0.25,
+    "lim": 1000000000
+   }
+  },
+  "3 A on Level 5: 20 s of drops with no frame errors, towers on the board": {
+   "drops": 15,
+   "towers": 5,
+   "bodies": 83,
+   "errs": []
+  },
+  "4 back to \"Today\" puts the towers in play back to today's weight, gravity, grip and tip rule": {
+   "back": {
+    "m": 0.0091,
+    "g": 1,
+    "f": 0.45,
+    "lim": 3.8598918624780065
+   },
+   "today": {
+    "m": 0.0091,
+    "g": 1,
+    "f": 0.45,
+    "lim": 3.8598918624780065
+   }
+  },
+  "5 A: a broken tower's coins fall at 2.5x gravity with drag 0.05, back to normal after 1.2 s": {
+   "n": 3,
+   "g": [
+    2.5,
+    2.5,
+    2.5
+   ],
+   "d": [
+    0.05,
+    0.05,
+    0.05
+   ],
+   "stillFast": 0
+  },
+  "6 A: Quake spills towers on Level 2 (Today: none)": {
+   "today": 0,
+   "a": 2
+  },
+  "7 \"C: giant towers on the shelf\": the giant towers stand on the shelf in front of the deck (deck 350/420), a prize on each; with drops at least one is pushed to the ledge and spills within 60 s, counted; no frame errors": {
+   "st": {
+    "shelf": true,
+    "heavy": false,
+    "deck": [
+     350,
+     420
+    ],
+    "base": [
+     [
+      665,
+      25
+     ],
+     [
+      650,
+      12
+     ],
+     [
+      660,
+      16
+     ]
+    ],
+    "tops": 3
+   },
+   "drops": 39,
+   "tw": [
+    "edge",
+    "edge",
+    "edge"
+   ],
+   "broke": 11,
+   "got": 2,
+   "errs": []
+  },
+  "8 \"A + C\": the giant towers stand on the shelf in front of the deck (deck 350/420), a prize on each; with drops at least one is pushed to the ledge and spills within 60 s, counted; no frame errors": {
+   "st": {
+    "shelf": true,
+    "heavy": true,
+    "deck": [
+     350,
+     420
+    ],
+    "base": [
+     [
+      665,
+      25
+     ],
+     [
+      650,
+      12
+     ],
+     [
+      660,
+      16
+     ]
+    ],
+    "tops": 3
+   },
+   "drops": 39,
+   "tw": [
+    "edge",
+    null,
+    "edge"
+   ],
+   "broke": 9,
+   "got": 2,
+   "errs": []
+  }
+ }
+}
