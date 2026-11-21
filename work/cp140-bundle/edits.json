@@ -1,0 +1,13 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp139-bundle\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.21 UAT 139';",
+   "const BUILD = '2026.11.21 UAT 140';"
+  ]
+ ],
+ "appended": [
+  "cp140-bundle/round-140.js"
+ ],
+ "swapped": []
+}

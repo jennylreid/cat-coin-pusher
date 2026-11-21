@@ -1,0 +1,53 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp140-bundle\\boot140",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "touch140": {
+  "412x915": {
+   "drag": [
+    "Sunflower"
+   ],
+   "swipe": {
+    "placed": [
+     "Sunflower"
+    ],
+    "scroll": [
+     0,
+     64
+    ]
+   },
+   "dbl": [
+    "Sunflower",
+    "Rose"
+   ],
+   "old": {
+    "placed": true,
+    "crab": 1
+   }
+  },
+  "360x640": {
+   "drag": [
+    "Sunflower"
+   ],
+   "swipe": {
+    "placed": [
+     "Sunflower"
+    ],
+    "scroll": [
+     0,
+     116
+    ]
+   },
+   "dbl": [
+    "Sunflower",
+    "Rose"
+   ],
+   "old": {
+    "placed": true,
+    "crab": 1
+   }
+  }
+ }
+}

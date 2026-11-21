@@ -1,0 +1,92 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp140-bundle\\release.html",
+ "releaseSHA256": "70c3b6e34d8f68bd51b0e7d51774a2f2b1e0606cd32ce73bc0038efd4ca09ba0",
+ "passed": true,
+ "passedChecks": [
+  "T1 412x915",
+  "T2 412x915",
+  "T3 412x915",
+  "T4 412x915",
+  "T1 360x640",
+  "T2 360x640",
+  "T3 360x640",
+  "T4 360x640",
+  "Z errors",
+  "Z channels"
+ ],
+ "failed": [],
+ "res": {
+  "T1 412x915": {
+   "pass": true,
+   "info": [
+    "Sunflower"
+   ]
+  },
+  "T2 412x915": {
+   "pass": true,
+   "info": {
+    "placed": [
+     "Sunflower"
+    ],
+    "scroll": [
+     0,
+     64
+    ]
+   }
+  },
+  "T3 412x915": {
+   "pass": true,
+   "info": [
+    "Sunflower",
+    "Rose"
+   ]
+  },
+  "T4 412x915": {
+   "pass": true,
+   "info": {
+    "placed": true,
+    "crab": 1
+   }
+  },
+  "T1 360x640": {
+   "pass": true,
+   "info": [
+    "Sunflower"
+   ]
+  },
+  "T2 360x640": {
+   "pass": true,
+   "info": {
+    "placed": [
+     "Sunflower"
+    ],
+    "scroll": [
+     0,
+     116
+    ]
+   }
+  },
+  "T3 360x640": {
+   "pass": true,
+   "info": [
+    "Sunflower",
+    "Rose"
+   ]
+  },
+  "T4 360x640": {
+   "pass": true,
+   "info": {
+    "placed": true,
+    "crab": 1
+   }
+  },
+  "Z errors": {
+   "pass": true,
+   "info": []
+  },
+  "Z channels": {
+   "pass": true,
+   "info": null
+  }
+ }
+}

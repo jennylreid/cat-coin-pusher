@@ -1,0 +1,24 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp139-bundle\\boot139",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "touch140": {
+  "412x915": {
+   "drag": [],
+   "swipe": {
+    "placed": [],
+    "scroll": [
+     0,
+     145
+    ]
+   },
+   "dbl": [],
+   "old": {
+    "placed": true,
+    "crab": 1
+   }
+  }
+ }
+}

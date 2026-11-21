@@ -1,0 +1,31 @@
+﻿{
+    "version":  20261119000051,
+    "displayName":  "2026.11.21 UAT 140",
+    "apkVersion":  7,
+    "baselineJSONSHA256":  "97e2746b93a6769155341c2afe47e779fbe01f65d78d2704a50ee27ccee97721",
+    "stagedJSONSHA256":  "7824c506f16a355c9df9ed902877e423ecc39cb8bc2f4249bcb3b1409cfcd5eb",
+    "apkSHA256":  "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+    "releaseHTMLSHA256":  "70c3b6e34d8f68bd51b0e7d51774a2f2b1e0606cd32ce73bc0038efd4ca09ba0",
+    "jsonBytes":  52616171,
+    "baselineJSONBytes":  52611595,
+    "runtimeFiles":  109,
+    "changedRuntimeFiles":  [
+                                "index.html"
+                            ],
+    "addedRuntimeFiles":  [
+
+                          ],
+    "droppedRuntimeFiles":  [
+
+                            ],
+    "embeddedAPKBytes":  0,
+    "nativeChange":  false,
+    "base":  "2026.11.21 UAT 139",
+    "backup":  "uat/backups/before-UAT140-20261119000051",
+    "evidence":  "tickets/CP-100-evidence/uat140",
+    "checks":  [
+                   "checks140.json"
+               ],
+    "authorization":  "UAT 140: Collections test placement by touch fixed, double-tap to place (Jenny, Nov 21 via the PM); UAT only",
+    "localPublication":  "verified"
+}
