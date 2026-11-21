@@ -1,59 +1,107 @@
-// UAT 107 checks (CP-87 Daily puzzles button, UAT only). Usage: node checks107.cjs   (DEV=1: the scratch build on UAT 105)
-// -> tickets/CP-87-evidence/uat107/checks107.json (dev: .../dev/checks107.json). The menu itself is checked in real Chrome (homecheck.cjs).
-const fs=require('fs'),path=require('path'),crypto=require('crypto');
-const {game}=require('../cp43/harness.cjs');
-const DEV=process.env.DEV==='1';
-const E=JSON.parse(fs.readFileSync(path.join(__dirname,DEV?'edits-dev.json':'edits.json'),'utf8'));
-const V=DEV?{baseSHA256:'d08597d1a6e355071a67742cd070a687156b7dd40ea791d3d71b1f57b4e6db39',displayName:'dev'}:JSON.parse(fs.readFileSync(path.join(__dirname,'release-version.json')));
-const src=path.resolve(__dirname,DEV?'release-dev.html':'release.html'),base=path.resolve(E.base);
-const out=path.resolve(__dirname,'../../tickets/CP-87-evidence/'+(DEV?'dev':'uat107'));fs.mkdirSync(out,{recursive:true});
+const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');const make=require('../cp72/runtime.cjs'),make33=require('../cp33/runtime.cjs');
+const NAPI='C:/Users/jenny/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/@napi-rs/canvas';const {loadImage,Path2D}=require(NAPI);
+const src=path.resolve(process.env.SRC||path.join(__dirname,'release.html')),base=path.resolve(__dirname,'../cp138-published/release.html');
+const out=path.resolve(process.argv[2]||path.join(__dirname,'../../tickets/CP-107-evidence'));fs.mkdirSync(out,{recursive:true});let passed=[],failed=[],res={};function check(n,b,info){(b?passed:failed).push(n);res[n]={pass:!!b,info};console.log((b?'PASS ':'FAIL ')+n+(info!==undefined?' '+JSON.stringify(info).slice(0,900):''));}
 const root=path.resolve(__dirname,'../..'),sha=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
-const prodJ=path.join(root,'phone/CatCoinPusher-game.json'),prod0=sha(prodJ);
-let passed=[],failed=[];function check(n,b,info){(b?passed:failed).push(n);console.log((b?'PASS ':'FAIL ')+n+(info!==undefined?' '+JSON.stringify(info).slice(0,800):''));}
-const J=(g,s)=>JSON.parse(g.run('JSON.stringify('+s+')'));
-async function boot(file,seed,render=false){const g=await game({src:file,seed,render});
- g.run('S.muted=true;globalThis.__errs=[];const __fe=frameError;frameError=e=>{__errs.push(String(e&&e.stack||e).slice(0,300));return __fe(e)}');
- g.ticks(150);g.tap(200,700);g.ticks(30);g.run("if(!PG)pgInit();for(const c of PG_CATS)PG.open[c]=true;if(PGU.screen==='title'&&PGU.title){PGU.title.t=9;pgTitleDone();}");return g;}
-const STATE="bodies.filter(b=>!b.dead).map(b=>{const q=b.rb.translation();return [b.kind,b.id||'',Math.round(q.x*1e4),Math.round(q.y*1e4),Math.round(q.z*1e4)]})";
-async function levelRun(file,lv,seed,cat){const g=await boot(file,seed);
- g.run(`PG.lv.passed=Math.max(PG.lv.passed,${lv-1});PG.lv.sel=${lv};pgPlay('${cat}');if(WILD.phase!=='card')wildReset();wildStartCountdown();`);g.until("WILD.phase==='play'",900);
- const tr=[];for(let i=0;i<900;i++){if(i%24===0)g.run(`tryDrop({x:${Math.round(200+120*Math.sin(i/37))},y:DROP_Y})`);g.tick();if(i%30===0)tr.push(J(g,`[${STATE},S.coins,Math.round(WILD.left*100),WILD.got]`));}
- const keys=J(g,'Object.keys(localStorage.__store||{}).length');const r={trace:JSON.stringify(tr),errs:J(g,'__errs').length,keys};g.close&&g.close();return r;}
+const prodJ=path.join(root,'phone/CatCoinPusher-game.json'),uatJ=path.join(root,'uat/CatCoinPusher-UAT-game.json'),prod0=sha(prodJ),uat0=sha(uatJ);
+async function game(file,where,{render=false,W=412,H=915,store={},dev=false}={}){const [kind,cat]=where.split(':');
+ const g=render?await make33({sourceFile:file,render:true,seed:7,pixelRatio:1,width:W,height:H,storage:{'catpusher.uat.devdefault.v1':'1',...store}})
+  :await make({sourceFile:file,render:false,width:400,height:889,pixelRatio:1,seed:7,storage:{'catpusher.uat.devdefault.v1':'1',...store}});
+ if(render)g.c.Path2D=Path2D;
+ let ms=100000;g.c.performance={now:()=>ms,timeOrigin:0};const t=g.tick.bind(g);g.tick=()=>{ms+=1000/60;t();};g.run=s=>vm.runInContext(s,g.c);
+ g.run("S.dev=false;S.muted=true;globalThis.__errs=[];const __fe=frameError;frameError=e=>{__errs.push(String(e&&e.stack||e).slice(0,300));return __fe(e)}");
+ const sc=()=>+g.run('scale');g.tap=(x,y)=>{g.pointer('pointerdown',x*sc(),y*sc());g.pointer('pointerup',x*sc(),y*sc());};
+ for(let i=0;i<150;i++)g.tick();g.tap(200,700);for(let i=0;i<30;i++)g.tick();
+ g.run(`if(!PG)pgInit();for(const c of PG_CATS)PG.open[c]=true;PG.lv.passed=Math.max(2,PG_SWITCH_LEVEL);PG.lv.sel=3;if(PGU.screen==='title'){PGU.title.t=9;pgTitleDone();}PGU.boardCat='${cat}';PG.current='${cat}';PG.powers={tuxedo:2,orange:1,ragdoll:0,siamese:3,tortie:1};`+
+  (kind==='endless'?`endStart();`:`pgPlay('${cat}');if(WILD.phase==='end')wildReset();wildStartCountdown();`));
+ let k=0;while(g.run("WILD.phase")!=='play'&&k++<900)g.tick();for(let i=0;i<240;i++){if(i%30===0)g.tap(200+110*Math.sin(i/60*1.2+7),560);g.tick();}
+ g.run("WILD.left=Math.max(WILD.left,90);WILD.nextBonus=999;globalThis.__snd=[];for(const f of ['danceLoud','cp94Loud','dance']){const o=sfx[f];if(o)sfx[f]=function(k,v,d,a){__snd.push([f,k,+(+v).toFixed(3),+(+a||0).toFixed(2)]);return o.apply(this,arguments);};}");
+ if(kind==='home'){g.run("if(WILD.on)wildExit();PGU.screen='main';");for(let i=0;i<30;i++)g.tick();}
+ if(dev)g.run('S.dev=true;');
+ if(render){for(const k2 of ['shoulder','left','right']){const u=g.run('CP74_ART.'+k2);g.c.__im=await loadImage(Buffer.from(u.split(',')[1],'base64'));g.run('Z74.img.'+k2+'=__im');}
+  const cv=g.c.document.getElementById('cv');g.frame=()=>{g.c.draw();return cv.getContext('2d').getImageData(0,0,cv.width,cv.height);};g.png=f=>{g.c.draw();fs.writeFileSync(path.join(out,f),cv.toBuffer('image/png'));};}
+ g.errs=()=>JSON.parse(g.run('JSON.stringify(__errs)'));return g;}
+// ---- CP-107 change checks: node checks107.cjs [outDir] ----
+const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+const TAPNOW="(()=>{const D=WILD.dance,x=(danceNow()-D.p0)/D.beat,k=Math.floor(x);if(x-k<.12&&k>=0&&k<D.n&&!D.judged[k]&&!(D.rest&&D.rest[k]))danceTap({timeStamp:performance.now()+D.latency*1000})})()";
+// a whole dance; extra(g,x) may tap at other moments; returns the start, the judging, sounds and the music events
+async function dance(g,extra){g.run("WILD.dancePending={f:null,wait:9};");for(let i=0;i<60&&!g.run('!!WILD.dance');i++)g.tick();if(!g.run('!!WILD.dance'))return {started:false};
+ const D0=JSON.parse(g.run('JSON.stringify({n:WILD.dance.n,taps:WILD.dance.taps||null,per:WILD.dance.per||1,siamese:!!WILD.dance.siamese,tortie:!!WILD.dance.tortie,quiet:WILD.dance.quiet||null,music:WILD.dance.music||null})'));
+ g.run("if(typeof CP107!=='undefined')CP107.rec=[]");const faces={},seen=[];let j=0,prevF=null,switches=0;
+ while(g.run('!!WILD.dance&&WILD.dance.phase!=="finale"')&&j++<6000){g.run(TAPNOW);if(extra)extra(g,+g.run('(danceNow()-WILD.dance.p0)/WILD.dance.beat'));g.tick();
+  const f=g.run("String(typeof cp107Face==='function'?cp107Face():null)");faces[f]=(faces[f]||0)+1;if(f!==prevF){switches++;prevF=f;}}
+ for(let i=0;i<400&&g.run('!!WILD.dance&&!WILD.dance.stage');i++)g.tick();
+ const end=JSON.parse(g.run('JSON.stringify(WILD.dance&&{hits:WILD.dance.hits,misses:WILD.dance.misses,perfect:!!WILD.dance.perfect,stage:WILD.dance.stage||null})'));
+ return {started:true,D0,end,faces,switches,rec:JSON.parse(g.run("JSON.stringify(typeof CP107!=='undefined'?CP107.rec:[])")),snd:JSON.parse(g.run('JSON.stringify(__snd)')),quiet:+g.run("typeof CP107!=='undefined'?CP107.stats.quiet:0"),errs:g.errs()};}
 (async()=>{
- // 0. the build is the base + the build name + the block, nothing else
- {const S=fs.readFileSync(src,'utf8');let B=fs.readFileSync(base,'utf8');let ok=crypto.createHash('sha256').update(B).digest('hex')===V.baseSHA256;
-  for(const [a,b] of E.edits){if(B.split(a).length!==2)ok=false;B=B.split(a).join(b);}
-  for(const f of E.appendedBeforeLastScriptClose){const i=B.lastIndexOf('</script>');B=B.slice(0,i)+fs.readFileSync(path.join(__dirname,f),'utf8')+String.fromCharCode(10)+B.slice(i);}
-  check('0 the build is the base + build name + cp87-puzzles.js (everything else unchanged)',S===B&&ok,{base:E.base});}
- // 1. the five pages are in the block byte for byte; the block writes no game storage
- {const blk=fs.readFileSync(path.join(__dirname,'cp87-puzzles.js'),'utf8');const i=blk.indexOf('const CP87_PAGES=')+17,j=blk.indexOf('const CP87_LIST');const P=JSON.parse(blk.slice(i,j).trim().replace(/;$/,''));
-  const pj=JSON.parse(fs.readFileSync(path.join(__dirname,'pages.json'),'utf8'));
-  const same=Object.keys(pj).every(k=>crypto.createHash('sha256').update(Buffer.from(P[k],'utf8')).digest('hex')===pj[k].sha256&&pj[k].sha256===sha(path.join(root,'work',pj[k].file)));
-  check('1 all five puzzle pages are embedded byte for byte',Object.keys(P).length===5&&same,Object.keys(P));
-  const shell=fs.readFileSync(path.join(__dirname,'cp87-shell.js'),'utf8');
-  const keys=Object.values(P).flatMap(s=>[...s.matchAll(/(?:store|localStorage\.(?:get|set)Item)\(\s*['"`]([^'"`]+)/g)].map(m=>m[1]));
-  check('1b the button code touches no storage; the puzzles only use their own cp84-/cp85- keys',!/localStorage|sessionStorage|indexedDB|[^.]save\(/.test(shell)&&keys.every(k=>/^cp8[45]-/.test(k)),keys);}
- // 2. the pusher plays identically: 3 rounds (levels, cats, seeds), every piece every 0.5 s, coins, clock, prizes
- for(const [lv,seed,cat] of [[1,4,'tuxedo'],[3,11,'orange'],[5,7,'siamese']]){
-  const a=await levelRun(base,lv,seed,cat),b=await levelRun(src,lv,seed,cat);
-  check(`2 level ${lv} ${cat} seed ${seed}: the round plays identically to the base`,a.trace===b.trace&&a.errs===0&&b.errs===0,{len:a.trace.length,errs:[a.errs,b.errs]});}
- // 3. Home: the button is drawn under PLAY; a tap on it opens the puzzles (the menu's DOM is stubbed here) and pauses the game;
- //    closing resumes; other Home taps still work
- {const g=await boot(src,4);g.ticks(30);g.run("PGA.L=Object.assign(PGA.L||{},{play:(()=>{const R=pgMainRects(),k=PG_MAIN_PLAY,cy=R.play+39;return {x:200-244*k/2,y:cy-78*k/2,w:244*k,h:78*k}})()})"); // the harness doesn't draw Home; PLAY's rect as pgMainPlay makes it (drawn button: real-Chrome homecheck)
-  const scr=g.run('PGU.screen');const btn=J(g,'(()=>{const b=cp87Btn(),L=PGA.L.play;return {b,playBot:L.y+L.h,bot:pgMainRects().bot}})()');
-  check('3 Home shows the Daily puzzles button under PLAY, inside the screen',scr==='main'&&btn.b&&btn.b.y>btn.playBot&&btn.b.y+btn.b.h<=btn.bot,btn);
-  g.run('globalThis.__opened=0;cp87Build=()=>({style:{},querySelector:()=>({style:{},textContent:""})});cp87Menu=()=>{};const __o=cp87OpenMenu;cp87OpenMenu=function(){__opened++;return __o();}');
-  g.tap(btn.b.x+btn.b.w/2,btn.b.y+btn.b.h/2);g.ticks(5);
-  const FB="{const __d=draw;draw=()=>{};try{for(let i=1;i<=30;i++)frameBody(performance.now()+i*16.7)}finally{draw=__d}}"; // no drawing in the harness (no images) // the phone's frame loop (the harness's tick bypasses it)
-  const t1=g.run('PGU.T');g.run(FB);const t2=g.run('PGU.T');
-  g.run('void 0');check('3b a tap on it opens the puzzles and the game pauses (no frames run)',g.run('__opened')===1&&g.run('CP87.open')===true&&t2===t1&&g.run("PGU.screen")==='main',{t1,t2});
-  g.run('cp87Close()');g.run(FB);const t3=g.run('PGU.T');
-  check('3c closing returns to a running Home',g.run('CP87.open')===false&&t3>t2&&g.run("PGU.screen")==='main',{t3});
-  // PLAY still starts a round
-  g.run("PGA.L=Object.assign(PGA.L||{},{play:(()=>{const R=pgMainRects(),k=PG_MAIN_PLAY,cy=R.play+39;return {x:200-244*k/2,y:cy-78*k/2,w:244*k,h:78*k}})()})");const pl=J(g,'PGA.L.play');g.tap(pl.x+pl.w/2,pl.y+pl.h/2);g.ticks(60);
-  check('3d PLAY still starts a round',g.run("PGU.screen")==='board',g.run('PGU.screen'));
-  check('3e no frame errors',J(g,'__errs').length===0,J(g,'__errs'));g.close&&g.close();}
- check('4 production untouched',sha(prodJ)===prod0);
- const res={build:src,passed:failed.length===0,failed,passedList:passed};fs.writeFileSync(path.join(out,'checks107.json'),JSON.stringify(res,null,1));
- console.log(failed.length?'FAILED '+failed.length:'ALL PASS');process.exitCode=failed.length?1:0;
+ // --- Siamese ---
+ {const g=await game(src,'level:siamese');const a=JSON.parse(g.run("JSON.stringify({dance:wildFeature('dance'),noteAt:WILD.noteAt,fishAt:WILD.fishAt,laser:!!WILD.laser})"));
+  g.run('laserTweaks()');const b=JSON.parse(g.run("JSON.stringify({noteAt:WILD.noteAt,fishAt:WILD.fishAt,happy:WILD.happy})"));
+  g.run('WILD.happy=0;danceFill(1,200);');const h1=+g.run('WILD.happy');g.run('danceFill(9,200);');for(let i=0;i<200&&!g.run('!!WILD.dance');i++)g.tick();
+  const st=JSON.parse(g.run("JSON.stringify({dance:!!WILD.dance,siamese:!!(WILD.dance&&WILD.dance.siamese)})"));g.close();
+  check("S1 the Siamese's board has the Dance break: meter fills, music note scheduled (not switched off by Laser mode), fish stays off; a full meter starts the Siamese's dance",
+   a.dance&&a.laser&&b.noteAt<900&&b.fishAt===999&&h1===1&&st.siamese,{a,b,h1,st});}
+ {const g=await game(src,'level:siamese');const r=await dance(g);g.close();
+  const yowls=r.rec.filter(e=>e[0]==='yowl').length,calls=JSON.parse(JSON.stringify([[0,4],[0,2,4],[0,2,4,5],[0,2,4,5,6]]));
+  check("S2 Siamese structure: 4 rounds, the cat sings 2, 3, 4, 5 notes (14 yowls) and the player taps each phrase back in the next bar (14 taps); 112 BPM, half-beat grid",
+   r.D0.siamese&&r.D0.n===64&&r.D0.taps===14&&r.D0.per===2&&yowls===14+1&&same(r.D0.quiet,[[0,7],[16,23],[32,39],[48,55]]),{D0:r.D0,yowls,note:'15 = 14 + the closing yowl'});
+  check('S3 Siamese: every tap on time = a perfect dance and the wheel; faces switch only between Sharp/none and the singing face',r.end.perfect&&r.end.stage!==null&&r.faces.sing>0&&!r.errs.length,{end:r.end,faces:r.faces,errs:r.errs.length});}
+ {const g=await game(src,'level:siamese');let sang=0;const done={};const r=await dance(g,(g,x)=>{const k=Math.floor(x);if((k===0||k===16)&&x-k<.12&&!done[k]){done[k]=1;sang++;g.run('danceTap({timeStamp:performance.now()+WILD.dance.latency*1000})');}});g.close();
+  check('S4 Siamese: tapping along while the cat sings counts as off the beat ("Listen!") and costs the next tap: no perfect dance',sang===2&&r.quiet>=2&&!r.end.perfect&&r.end.misses>=2,{sang,quiet:r.quiet,end:r.end});}
+ {const g=await game(src,'level:siamese');g.run("WILD.chasePending={f:null,wait:9};");let k=0;for(;k<300&&!g.run('!!WILD.chase');k++)g.tick();
+  g.run("WILD.dancePending={f:null,wait:9};");for(let i=0;i<60;i++)g.tick();const during=JSON.parse(g.run("JSON.stringify({chase:!!WILD.chase,dance:!!WILD.dance,pending:!!WILD.dancePending})"));
+  for(let i=0;i<2000&&g.run('!!WILD.chase');i++)g.tick();for(let i=0;i<200&&!g.run('!!WILD.dance');i++)g.tick();const after=JSON.parse(g.run("JSON.stringify({dance:!!WILD.dance,siamese:!!(WILD.dance&&WILD.dance.siamese)})"));
+  g.run("WILD.chasePending={f:null,wait:9};");for(let i=0;i<120;i++)g.tick();const chaseDuring=!!g.run('!!WILD.chase');g.close();
+  const p=await game(src,'level:siamese');p.run("PG.powers.siamese=2;");for(let i=0;i<400&&!p.run('pgpReady()');i++)p.tick();p.run('pgpUse()');p.run("WILD.dancePending={f:null,wait:9};");for(let i=0;i<30;i++)p.tick();
+  const pw={px:p.run('PGPX&&(PGPX.power||PGPX.id)'),dance:!!p.run('!!WILD.dance')};for(let i=0;i<1500&&p.run('!!PGPX');i++)p.tick();for(let i=0;i<200&&!p.run('!!WILD.dance');i++)p.tick();pw.after=!!p.run('!!(WILD.dance&&WILD.dance.siamese)');pw.readyInDance=!!p.run('pgpReady()');p.close();
+  check("S5 Siamese overlaps: the dance waits for Laser chase and for Sonic meow, then starts; Laser chase and the power wait for the dance",during.chase&&!during.dance&&during.pending&&after.siamese&&!chaseDuring&&String(pw.px).startsWith('sonic')&&!pw.dance&&pw.after&&!pw.readyInDance,{during,after,chaseDuring,pw});}
+ // --- Tortie ---
+ {const g=await game(src,'level:tortie');const a=JSON.parse(g.run("JSON.stringify({dance:wildFeature('dance'),noteAt:WILD.noteAt})"));g.run('WILD.happy=0;danceFill(1,200);');const h1=+g.run('WILD.happy');g.run('danceFill(9,200);');
+  for(let i=0;i<200&&!g.run('!!WILD.dance');i++)g.tick();const st=!!g.run('!!(WILD.dance&&WILD.dance.tortie)');g.close();
+  check("T1 the Tortie's board has the Dance break: meter fills, music note scheduled; a full meter starts the Tortie's dance",a.dance&&a.noteAt<900&&h1===1&&st,{a,h1,st});}
+ {const g=await game(src,'level:tortie');g.run("globalThis.__ev={};const __L=cp107L;cp107L=function(k,v,d,a,dur){const D=WILD.dance;if(D){const s=Math.round((danceNow()+d+sfx.danceLatency()-D.p0)/D.beat);(__ev[s]||(__ev[s]=[])).push(k);}return __L.apply(this,arguments);}");
+  const r=await dance(g);const perSlot=JSON.parse(g.run('JSON.stringify(__ev)'));g.close();
+  const stops=r.D0.quiet||[];let inStop=[];for(const [a,b] of stops)for(let k=a;k<=b;k++)inStop.push([k,(perSlot[k]||[]).join('+')]);
+  const silent=stops.every(([a,b])=>{for(let k=a;k<=b;k++){const ev=perSlot[k]||[];if(k===a?!(ev.includes('swish')&&ev.every(e=>e==='swish'||e==='tom')):ev.length)return false;}return true;});
+  check("T2 Tortie structure: 8 bars, 26 taps, 4 stops; the band goes silent in every stop (only the swish at its start); 104 BPM, half-beat grid",r.D0.tortie&&r.D0.n===64&&r.D0.taps===26&&r.D0.per===2&&same(stops,[[12,15],[28,31],[42,47],[59,61]])&&silent,{D0:r.D0,silent,sample:inStop.slice(0,6)});
+  check("T3 Tortie: every tap on time = a perfect dance and the wheel; Sharp Grin while she struts, Sweet while she looks away",r.end.perfect&&r.faces.strut>0&&r.faces.away>0&&!r.errs.length,{end:r.end,faces:r.faces,errs:r.errs.length});}
+ {const r={};for(const [n,at] of [['onBeat',0],['between',.5]]){const g=await game(src,'level:tortie');const done={};
+   r[n]=await dance(g,(g,x)=>{const k=Math.floor(x-at);if(k===13&&x-at-k<.12&&!done[k]){done[k]=1;g.run('danceTap({timeStamp:performance.now()+WILD.dance.latency*1000})');}});g.close();}
+  check('T4 Tortie: a tap during a stop (on its silent beat, or between) counts as off the beat ("Not now!") and costs her next tap: no perfect dance',
+   Object.values(r).every(x=>x.quiet>=1&&!x.end.perfect&&x.end.hits===25),Object.fromEntries(Object.entries(r).map(([n,x])=>[n,{quiet:x.quiet,end:x.end}])));}
+ {const g=await game(src,'level:tortie');g.run("WILD.dancePending={f:null,wait:9};");for(let i=0;i<60&&!g.run('!!WILD.dance');i++)g.tick();
+  g.run("WILD.pouncePending={f:null,wait:9};");for(let i=0;i<120;i++)g.tick();const during={pounce:!!g.run('!!WILD.pounce'),pending:!!g.run('!!WILD.pouncePending')};
+  for(let i=0;i<3000&&g.run('!!WILD.dance');i++)g.tick();for(let i=0;i<200&&!g.run('!!WILD.pounce');i++)g.tick();const after=!!g.run('!!WILD.pounce');
+  g.run("WILD.dancePending={f:null,wait:9};");for(let i=0;i<60;i++)g.tick();const dDuring=!!g.run('!!WILD.dance');g.close();
+  const p=await game(src,'level:tortie');p.run("PG.powers.tortie=2;");for(let i=0;i<400&&!p.run('pgpReady()');i++)p.tick();p.run('pgpUse()');p.run("WILD.dancePending={f:null,wait:9};");for(let i=0;i<30;i++)p.tick();
+  const pw={px:p.run('PGPX&&(PGPX.power||PGPX.id)'),dance:!!p.run('!!WILD.dance')};for(let i=0;i<2500&&p.run('!!PGPX');i++)p.tick();for(let i=0;i<200&&!p.run('!!WILD.dance');i++)p.tick();pw.after=!!p.run('!!(WILD.dance&&WILD.dance.tortie)');p.close();
+  check("T5 Tortie overlaps: Mouse pounce waits for the dance (then starts); the dance waits for Mouse pounce and for Tortitude",!during.pounce&&during.pending&&after&&!dDuring&&pw.px&&!pw.dance&&pw.after,{during,after,dDuring,pw});}
+ // --- music candidates and the pill ---
+ {const r={};const ev=(g)=>g.run("globalThis.__ev={};const __L=cp107L;cp107L=function(k,v,d,a,dur){const D=WILD.dance;if(D){const s=Math.round((danceNow()+d+sfx.danceLatency()-D.p0)/D.beat);(__ev[s]||(__ev[s]=[])).push(k);}return __L.apply(this,arguments);}");
+  for(const [cat,key] of [['siamese','catpusher.uat.cp107siam.v1'],['tortie','catpusher.uat.cp107tort.v1']])for(const m of ['A','B','C']){const g=await game(src,'level:'+cat,{store:{[key]:m}});ev(g);const x=await dance(g);const per=JSON.parse(g.run('JSON.stringify(__ev)'));g.close();
+   let ok=true,bad=[];if(cat==='tortie'){for(const [a,b] of x.D0.quiet)for(let k=a;k<=b;k++){const e=per[k]||[];if(k===a?!(e.length&&e.every(z=>z==='swish'||z==='tom')):e.length){ok=false;bad.push([k,e.join('+')]);}}}
+   else{for(let k=0;k<64;k++)if((k&15)<8){const e=per[k]||[];if(e.some(z=>['sq','pluck','marimba','blip'].includes(z))){ok=false;bad.push([k,e.join('+')]);}}}
+   r[cat+' '+m]={music:x.D0.music,perfect:x.end.perfect,events:Object.values(per).reduce((n,e)=>n+e.length,0),ok,bad:bad.slice(0,4),errs:x.errs.length};}
+  const distinct=['siamese','tortie'].every(c=>new Set(['A','B','C'].map(m=>r[c+' '+m].events)).size===3);
+  check("M1 three music candidates per cat: each plays a full perfect dance; every Tortie track is silent in every stop (only the swish); the Siamese's tracks leave the cat's bar free of melody (room for the mews)",
+   Object.entries(r).every(([n,x])=>x.music===n.split(' ')[1]&&x.perfect&&x.ok&&!x.errs)&&distinct,r);}
+ {const g=await game(src,'level:tortie');g.run("WILD.dancePending={f:null,wait:9};");for(let i=0;i<60&&!g.run('!!WILD.dance');i++)g.tick();
+  let j=0;while(+g.run('(danceNow()-WILD.dance.p0)/WILD.dance.beat')<3.3&&j++<600){g.run(TAPNOW);g.tick();}
+  const before=JSON.parse(g.run('JSON.stringify({m:WILD.dance.music,h:WILD.dance.hits,x:WILD.dance.misses,pill:!!cp107Pill(),build:BUILD})'));
+  const sc=+g.run('scale'),Y=+g.run('DANCE_LANE_Y+52'),bx=+g.run('cp107PillRects()[1].x+17');g.pointer('pointerdown',bx*sc,Y*sc);g.pointer('pointerup',bx*sc,Y*sc);g.tick();
+  const after=JSON.parse(g.run("JSON.stringify({m:WILD.dance.music,h:WILD.dance.hits,x:WILD.dance.misses,saved:localStorage.getItem('catpusher.uat.cp107tort.v1')})"));
+  const prod=g.run("/\bUAT\b/.test('2026.11.21 CatCoin')");g.close();
+  check('M2 the pill (UAT build): a tap on B switches the music at once and remembers it; it is never a dance tap; a production build name (no "UAT") has no pill',
+   before.pill&&/\bUAT\b/.test(before.build)&&after.m==='B'&&after.saved==='B'&&after.h===before.h&&after.x===before.x&&prod===false,{before,after,prod});}
+ // --- the other cats ---
+ {const r={};for(const cat of ['tuxedo','orange','ragdoll']){const a=await game(base,'level:'+cat),b=await game(src,'level:'+cat);
+   const x=await dance(a),y=await dance(b);a.close();b.close();r[cat]={same:same(x.D0,y.D0)&&same(x.end,y.end)&&same(x.snd,y.snd),snd:[x.snd.length,y.snd.length],end:[x.end,y.end]};}
+  check("X1 the Tuxedo's, Orange's and Ragdoll's dances are identical to UAT 138 (start, judging, every sound)",Object.values(r).every(v=>v.same),r);}
+ // --- stills ---
+ for(const [W,H] of [[412,915],[360,640]]){const sz=W+'x'+H,errs={};
+  for(const [cat,ats] of [['siamese',[4.3,9.1,52.3]],['tortie',[2.1,13.5,51]]]){const g=await game(src,'level:'+cat,{render:true,W,H});g.run("WILD.dancePending={f:null,wait:9};");for(let i=0;i<60&&!g.run('!!WILD.dance');i++)g.tick();
+   for(const x of ats){let j=0;while(+g.run('(danceNow()-WILD.dance.p0)/WILD.dance.beat')<x&&j++<3000)g.tick();g.png(`${cat}-x${x}-${sz}.png`);}errs[cat]=g.errs().length;g.close();}
+  check(`X2 ${sz} stills of both dances render with no errors`,Object.values(errs).every(e=>!e),errs);}
+ check('X production and UAT JSON untouched',sha(prodJ)===prod0&&sha(uatJ)===uat0);
+ fs.writeFileSync(path.join(out,'checks107.json'),JSON.stringify({passed,failed,res},null,1));console.log(passed.length+'/'+(passed.length+failed.length)+' pass');
 })().catch(e=>{console.error(e);process.exit(1);});

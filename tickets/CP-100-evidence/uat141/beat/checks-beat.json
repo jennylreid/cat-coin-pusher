@@ -1,0 +1,227 @@
+{
+ "passed": [
+  "B1 Beat A (the default, and when picked) is today: all five dances identical to the base (start, judging, every sound) and no buzz on taps",
+  "B1b on UAT 140 alone (without CP-107) the block runs and A is identical too",
+  "B2 Beat B: the same notes as A; the melody, bass and voices untouched; the drum layer full through the count-in and first bar, then fades (only down) to 35% and stays there; every tap still scores",
+  "B3 Beat B: one buzz per hit, no more (never on beats without a tap); on-the-dot taps get the stronger 28 ms",
+  "B4 Beat B: on the dot = 28 ms, late but inside the window = 12 ms, off the beat = no buzz",
+  "B5 the pill (UAT build): a tap on B switches at once and is remembered; never a dance tap; a production build name (no \"UAT\") has no pill",
+  "B6 412x915 stills (Tuxedo; Siamese with CP-107's cue and music pill) render with no errors",
+  "B6 360x640 stills (Tuxedo; Siamese with CP-107's cue and music pill) render with no errors",
+  "X production and UAT JSON untouched"
+ ],
+ "failed": [],
+ "res": {
+  "B1 Beat A (the default, and when picked) is today: all five dances identical to the base (start, judging, every sound) and no buzz on taps": {
+   "pass": true,
+   "info": {
+    "tuxedo": {
+     "same": true,
+     "vib": [
+      0,
+      0
+     ],
+     "snd": 125,
+     "errs": 0
+    },
+    "orange": {
+     "same": true,
+     "vib": [
+      0,
+      0
+     ],
+     "snd": 158,
+     "errs": 0
+    },
+    "ragdoll": {
+     "same": true,
+     "vib": [
+      0,
+      0
+     ],
+     "snd": 75,
+     "errs": 0
+    },
+    "siamese": {
+     "same": true,
+     "vib": [
+      0,
+      0
+     ],
+     "snd": 164,
+     "errs": 0
+    },
+    "tortie": {
+     "same": true,
+     "vib": [
+      0,
+      0
+     ],
+     "snd": 203,
+     "errs": 0
+    }
+   }
+  },
+  "B1b on UAT 140 alone (without CP-107) the block runs and A is identical too": {
+   "pass": true,
+   "info": {
+    "snd": [
+     158,
+     158
+    ]
+   }
+  },
+  "B2 Beat B: the same notes as A; the melody, bass and voices untouched; the drum layer full through the count-in and first bar, then fades (only down) to 35% and stays there; every tap still scores": {
+   "pass": true,
+   "info": {
+    "tuxedo": {
+     "sameEvents": true,
+     "melodyUntouched": true,
+     "fadesOnlyDown": true,
+     "fullAtStart": 15,
+     "end": 0.35,
+     "min": 0.35,
+     "hits": 16,
+     "taps": 16,
+     "errs": 0
+    },
+    "orange": {
+     "sameEvents": true,
+     "melodyUntouched": true,
+     "fadesOnlyDown": true,
+     "fullAtStart": 32,
+     "end": 0.349,
+     "min": 0.349,
+     "hits": 19,
+     "taps": 19,
+     "errs": 0
+    },
+    "ragdoll": {
+     "sameEvents": true,
+     "melodyUntouched": true,
+     "fadesOnlyDown": true,
+     "fullAtStart": 2,
+     "end": 0.351,
+     "min": 0.351,
+     "hits": 11,
+     "taps": 11,
+     "errs": 0
+    },
+    "siamese": {
+     "sameEvents": true,
+     "melodyUntouched": true,
+     "fadesOnlyDown": true,
+     "fullAtStart": 21,
+     "end": 0.35,
+     "min": 0.349,
+     "hits": 14,
+     "taps": 14,
+     "errs": 0
+    },
+    "tortie": {
+     "sameEvents": true,
+     "melodyUntouched": true,
+     "fadesOnlyDown": true,
+     "fullAtStart": 27,
+     "end": 0.35,
+     "min": 0.349,
+     "hits": 26,
+     "taps": 26,
+     "errs": 0
+    }
+   }
+  },
+  "B3 Beat B: one buzz per hit, no more (never on beats without a tap); on-the-dot taps get the stronger 28 ms": {
+   "pass": true,
+   "info": {
+    "tuxedo": {
+     "hits": 16,
+     "vib": 16,
+     "kinds": [
+      28
+     ]
+    },
+    "orange": {
+     "hits": 19,
+     "vib": 19,
+     "kinds": [
+      28
+     ]
+    },
+    "ragdoll": {
+     "hits": 11,
+     "vib": 11,
+     "kinds": [
+      28
+     ]
+    },
+    "siamese": {
+     "hits": 14,
+     "vib": 14,
+     "kinds": [
+      28
+     ]
+    },
+    "tortie": {
+     "hits": 26,
+     "vib": 26,
+     "kinds": [
+      28
+     ]
+    }
+   }
+  },
+  "B4 Beat B: on the dot = 28 ms, late but inside the window = 12 ms, off the beat = no buzz": {
+   "pass": true,
+   "info": {
+    "onDot": [
+     28
+    ],
+    "late": [
+     28,
+     12
+    ],
+    "off": [
+     28,
+     12
+    ]
+   }
+  },
+  "B5 the pill (UAT build): a tap on B switches at once and is remembered; never a dance tap; a production build name (no \"UAT\") has no pill": {
+   "pass": true,
+   "info": {
+    "before": {
+     "m": "A",
+     "h": 2,
+     "x": 0,
+     "pill": true,
+     "build": "2026.11.21 UAT 141"
+    },
+    "after": {
+     "m": "B",
+     "h": 2,
+     "x": 0,
+     "saved": "B"
+    },
+    "prod": true
+   }
+  },
+  "B6 412x915 stills (Tuxedo; Siamese with CP-107's cue and music pill) render with no errors": {
+   "pass": true,
+   "info": {
+    "tuxedo": 0,
+    "siamese": 0
+   }
+  },
+  "B6 360x640 stills (Tuxedo; Siamese with CP-107's cue and music pill) render with no errors": {
+   "pass": true,
+   "info": {
+    "tuxedo": 0,
+    "siamese": 0
+   }
+  },
+  "X production and UAT JSON untouched": {
+   "pass": true
+  }
+ }
+}

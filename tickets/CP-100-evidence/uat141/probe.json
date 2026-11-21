@@ -1,0 +1,159 @@
+{
+ "dir": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp141-bundle\\boot141",
+ "sizes": {},
+ "errors": [],
+ "t1": "main",
+ "t2": "main",
+ "t141": {
+  "412x915": {
+   "reset": {
+    "placed": {},
+    "rose": 1,
+    "diamond": 1,
+    "key": "1",
+    "oldSame": true,
+    "again": {
+     "Flowers": [
+      "Tulip"
+     ]
+    }
+   },
+   "swipe": {
+    "placed": [],
+    "scroll": [
+     0,
+     135
+    ]
+   },
+   "tap": {
+    "beats": [
+     "lift",
+     "flight",
+     "land"
+    ],
+    "placed": [
+     "Rose"
+    ],
+    "landings": 1,
+    "vib": 1,
+    "vibApi": "function"
+   },
+   "drag": {
+    "placed": [
+     "Rose",
+     "Tulip"
+    ],
+    "landing": 1
+   },
+   "dance_siamese": {
+    "on": true,
+    "kind": [
+     "siamese"
+    ],
+    "pills": [
+     "today",
+     "a",
+     "c",
+     "ac",
+     "a",
+     "b"
+    ],
+    "music": null
+   },
+   "dance_tortie": {
+    "on": true,
+    "kind": [
+     "tortie"
+    ],
+    "pills": [
+     "today",
+     "a",
+     "c",
+     "ac",
+     "a",
+     "b"
+    ],
+    "music": null
+   },
+   "giant": {
+    "phase": "play",
+    "towers": 3
+   }
+  },
+  "360x640": {
+   "reset": {
+    "placed": {},
+    "rose": 1,
+    "diamond": 1,
+    "key": "1",
+    "oldSame": true,
+    "again": {
+     "Flowers": [
+      "Tulip"
+     ]
+    }
+   },
+   "swipe": {
+    "placed": [],
+    "scroll": [
+     0,
+     135
+    ]
+   },
+   "tap": {
+    "beats": [
+     "lift",
+     "flight",
+     "land"
+    ],
+    "placed": [
+     "Rose"
+    ],
+    "landings": 1,
+    "vib": 1,
+    "vibApi": "function"
+   },
+   "drag": {
+    "placed": [
+     "Rose",
+     "Tulip"
+    ],
+    "landing": 1
+   },
+   "dance_siamese": {
+    "on": true,
+    "kind": [
+     "siamese"
+    ],
+    "pills": [
+     "today",
+     "a",
+     "c",
+     "ac",
+     "a",
+     "b"
+    ],
+    "music": null
+   },
+   "dance_tortie": {
+    "on": true,
+    "kind": [
+     "tortie"
+    ],
+    "pills": [
+     "today",
+     "a",
+     "c",
+     "ac",
+     "a",
+     "b"
+    ],
+    "music": null
+   },
+   "giant": {
+    "phase": "play",
+    "towers": 3
+   }
+  }
+ }
+}

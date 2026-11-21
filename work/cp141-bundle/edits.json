@@ -1,0 +1,20 @@
+{
+ "base": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp140-bundle\\release.html",
+ "edits": [
+  [
+   "const BUILD = '2026.11.21 UAT 140';",
+   "const BUILD = '2026.11.21 UAT 141';"
+  ],
+  [
+   "const now=performance.now(),T=CP140.tap;if(T&&T.n===d.n&&now-T.t<350){CP140.tap=null;cp140Fly(d.n);}else CP140.tap={n:d.n,t:now};",
+   "const now=performance.now();if(now-s.t<600){CP140.tap=null;cp140Fly(d.n);} /* UAT 141 (Jenny): a single tap places it; a second tap does nothing extra */"
+  ]
+ ],
+ "appended": [
+  "cp107/cp107-dances.js",
+  "cp141-bundle/cp141-coll.js",
+  "beat-ab/beat-ab.js",
+  "cp93-towers/cp93-round3.js"
+ ],
+ "swapped": []
+}

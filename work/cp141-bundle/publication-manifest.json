@@ -1,0 +1,26 @@
+{
+  "version": 20261119000052,
+  "displayName": "2026.11.21 UAT 141",
+  "apkVersion": 7,
+  "baselineJSONSHA256": "7824c506f16a355c9df9ed902877e423ecc39cb8bc2f4249bcb3b1409cfcd5eb",
+  "stagedJSONSHA256": "0f14b9125b349cb67244f7e162028fe9a2b1130495cee4f8562ab2a94fb8aa93",
+  "apkSHA256": "3e5c234e56f72b73c25aa3fd7ad8edd41744bf3993bbb2090a6059edef16fb72",
+  "releaseHTMLSHA256": "93c5e7b6c54fb143a3c275b020f2fcce6bc8ed8c388aaf5e2ef4eadd5085c737",
+  "jsonBytes": 52674523,
+  "baselineJSONBytes": 52616171,
+  "runtimeFiles": 109,
+  "changedRuntimeFiles": [
+    "index.html"
+  ],
+  "addedRuntimeFiles": [],
+  "droppedRuntimeFiles": [],
+  "embeddedAPKBytes": 0,
+  "nativeChange": false,
+  "base": "2026.11.21 UAT 140",
+  "backup": "uat/backups/before-UAT141-20261119000052",
+  "evidence": "tickets/CP-100-evidence/uat141",
+  "checks": [
+    "checks141.json"
+  ],
+  "authorization": "UAT 141: CP-107 Siamese and Tortie Dance breaks with the Music pill; Collections single tap in three beats and a one-time test-page reset (Jenny via the PM); Beat A/B (Jenny approved via the PM); CP-93 round 3 (PM); one bundle per the PM, OK if the change list matches, Nov 21; UAT only"
+}

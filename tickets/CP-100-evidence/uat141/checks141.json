@@ -1,0 +1,154 @@
+{
+ "build": "C:\\Users\\jenny\\OneDrive\\work\\CoinPusher\\work\\cp141-bundle\\release.html",
+ "releaseSHA256": "93c5e7b6c54fb143a3c275b020f2fcce6bc8ed8c388aaf5e2ef4eadd5085c737",
+ "passed": true,
+ "passedChecks": [
+  "R 412x915",
+  "T1 412x915",
+  "T2 412x915",
+  "T3 412x915",
+  "R 360x640",
+  "T1 360x640",
+  "T2 360x640",
+  "T3 360x640",
+  "D CP-107 suite",
+  "B Beat A/B suite",
+  "G CP-93 round 3 suite",
+  "Z errors",
+  "Z channels"
+ ],
+ "failed": [],
+ "res": {
+  "R 412x915": {
+   "pass": true,
+   "info": {
+    "placed": {},
+    "rose": 1,
+    "diamond": 1,
+    "key": "1",
+    "oldSame": true,
+    "again": {
+     "Flowers": [
+      "Tulip"
+     ]
+    }
+   }
+  },
+  "T1 412x915": {
+   "pass": true,
+   "info": {
+    "placed": [],
+    "scroll": [
+     0,
+     135
+    ]
+   }
+  },
+  "T2 412x915": {
+   "pass": true,
+   "info": {
+    "beats": [
+     "lift",
+     "flight",
+     "land"
+    ],
+    "placed": [
+     "Rose"
+    ],
+    "landings": 1,
+    "vib": 1,
+    "vibApi": "function"
+   }
+  },
+  "T3 412x915": {
+   "pass": true,
+   "info": {
+    "placed": [
+     "Rose",
+     "Tulip"
+    ],
+    "landing": 1
+   }
+  },
+  "R 360x640": {
+   "pass": true,
+   "info": {
+    "placed": {},
+    "rose": 1,
+    "diamond": 1,
+    "key": "1",
+    "oldSame": true,
+    "again": {
+     "Flowers": [
+      "Tulip"
+     ]
+    }
+   }
+  },
+  "T1 360x640": {
+   "pass": true,
+   "info": {
+    "placed": [],
+    "scroll": [
+     0,
+     135
+    ]
+   }
+  },
+  "T2 360x640": {
+   "pass": true,
+   "info": {
+    "beats": [
+     "lift",
+     "flight",
+     "land"
+    ],
+    "placed": [
+     "Rose"
+    ],
+    "landings": 1,
+    "vib": 1,
+    "vibApi": "function"
+   }
+  },
+  "T3 360x640": {
+   "pass": true,
+   "info": {
+    "placed": [
+     "Rose",
+     "Tulip"
+    ],
+    "landing": 1
+   }
+  },
+  "D CP-107 suite": {
+   "pass": true,
+   "info": {
+    "passed": 16,
+    "failed": []
+   }
+  },
+  "B Beat A/B suite": {
+   "pass": true,
+   "info": {
+    "passed": 9,
+    "failed": []
+   }
+  },
+  "G CP-93 round 3 suite": {
+   "pass": true,
+   "info": {
+    "pass": 5,
+    "fail": 0
+   }
+  },
+  "Z errors": {
+   "pass": true,
+   "info": []
+  },
+  "Z channels": {
+   "pass": true,
+   "info": null
+  }
+ }
+}

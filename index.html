@@ -2423,7 +2423,7 @@ const perf = { step: 0, fps: 0, slow: 0, physics: 0, draw: 0, coins: 0 };
 
 
 const renderPixelRatio=Math.min(2,window.devicePixelRatio||1);
-const BUILD = '2026.11.21 UAT 140';
+const BUILD = '2026.11.21 UAT 141';
 
 
 
@@ -45968,9 +45968,425 @@ function cp140Hook(){const el=CP138.el;if(!el||el.cp140)return;el.cp140=1;
  el.addEventListener('pointerdown',e=>{CP140.start={x:e.clientX,y:e.clientY,t:performance.now()};},true);
  el.addEventListener('pointercancel',()=>{if(CP138.drag){CP138.drag=null;CP140.stats.cancels++;}},true);
  el.addEventListener('pointerup',e=>{const d=CP138.drag,s=CP140.start;if(!d||!s)return;if(Math.hypot(e.clientX-s.x,e.clientY-s.y)>12)return;
-  CP138.drag=null;const now=performance.now(),T=CP140.tap;if(T&&T.n===d.n&&now-T.t<350){CP140.tap=null;cp140Fly(d.n);}else CP140.tap={n:d.n,t:now};},true);}
+  CP138.drag=null;const now=performance.now();if(now-s.t<600){CP140.tap=null;cp140Fly(d.n);} /* UAT 141 (Jenny): a single tap places it; a second tap does nothing extra */},true);}
 {const __op140=cp138Open;cp138Open=function(){const r=__op140.apply(this,arguments);cp140Hook();return r;};}
 // ---- end UAT 140 ----
+
+
+
+// ---------- CP-107 Dance break for the Siamese (call and response) and the Tortie (sassy strut with no-tap stops) (Jenny,
+// Nov 21: "your ideas for dance beat are stellar. Please proceed with those. We're going to need new cat art for Torty for
+// sure.") ----------
+// The same method as CP-94 (Orange) and CP-101 (Ragdoll): on each cat's own board the Dance break is on (the same meter,
+// music-note coin, start and perfect-dance wheel as the others), with its own grid, moves and three code-made music candidates (a UAT-only "Music: A | B | C" pill
+// during the dance; Jenny's pick becomes final).
+// The ladder: Tuxedo = entry, steady beat; Orange = wild; Ragdoll = slow waltz with flops; Siamese = listen and repeat;
+// Tortie = read her mood.
+// SIAMESE: call and response, 112 BPM on a half-beat grid (2 slots per beat). Four rounds; each round is one bar where the cat
+//   sings a short rhythm (short, cute code-made mews, no taps) and one bar where the player taps it back. The phrase grows by one note a
+//   round: 2, 3, 4, 5 notes (14 taps). A tap while the cat sings counts as off the beat ("Listen!"). Moves: the Siamese's
+//   approved yawn face (CP-75, used as painted) is its singing face, shown on each yowl (instant switch); the head lifts and
+//   tips back on each yowl, one mitt rises with it; in the player's bar the head tilts to listen and the mitts pat each tap.
+// TORTIE: a sassy strut, 104 BPM on a half-beat grid. A steady strut, then sudden stops: the music cuts out with a swish, she
+//   turns her head away, nose up, one mitt on her hip; a tap during a stop counts as off the beat ("Not now!"). Then she
+//   struts on, sometimes at a new speed (quick bars at double time, slow bars at half time). 8 bars, 26 taps. Faces: the
+//   Sharp Grin while she struts, Sweet (smug, mouth closed) while she looks away; instant switches. Her tail flick needs new
+//   art (see tickets/CP-107.md); for now the swish is heard, not seen.
+// Both lanes show what's coming: the Siamese's yowls slide in as hollow blue rings (not to be tapped), the Tortie's stops as
+// an amber "hold" band; a small cue under the lane says LISTEN / YOUR TURN / HOLD (the music pill sits right of it).
+// Overlaps (as the others): the Dance break waits while the cat's power or its side game runs, and they wait for it.
+// Laser mode's "no Dance break" rule is lifted on the Siamese's own board only (its laser coin and Laser chase are unchanged;
+// the fish stays off). The Tuxedo's, Orange's and Ragdoll's dances are unchanged; everything here checks D.siamese/D.tortie.
+const CP107={
+ siam:{bpm:112,per:2,window:.15,px:34,ahead:6,
+  // the cat's phrase each round (slots in a bar of 8); the player's bar repeats it
+  CALLS:[[0,4],[0,2,4],[0,2,4,5],[0,2,4,5,6]],
+  // A minor pentatonic; the yowls sing these and the player's bar echoes them softly
+  MEL:[[659.25,440],[440,523.25,659.25],[659.25,587.33,523.25,440],[440,523.25,587.33,659.25,783.99]],
+  BASS:[110,87.31,130.81,98],CHORD:[[220,261.63,329.63],[174.61,220,261.63],[261.63,329.63,392],[196,246.94,293.66]]},
+ tort:{bpm:104,per:2,window:.15,px:34,ahead:6,
+  // t: tap slots in a bar of 8; stop: [first, last] silent slots (no tapping); slow: half-time feel; quick bars are the ones
+  // with taps on neighbouring slots (double time)
+  BARS:[{t:[0,2,4,6]},{t:[0,2],stop:[4,7]},{t:[0,2,4,6]},{t:[0,1,2,3],stop:[4,7]},
+        {t:[0,4],slow:1},{t:[0],stop:[2,7],slow:1},{t:[0,1,2,3,4,6]},{t:[0,2,6],stop:[3,5]}],
+  // E minor (dorian) strut; the tune plays the taps
+  MEL:[[329.63,392,440,493.88],[493.88,440],[329.63,392,440,587.33],[659.25,587.33,493.88,440],
+       [329.63,493.88],[659.25],[329.63,392,440,493.88,587.33,659.25],[493.88,587.33,659.25]],
+  BASS:[82.41,82.41,98,110,82.41,73.42,98,82.41]},
+ stats:{siam:0,tort:0,quiet:0},rec:null};
+// each cat's own board (its level boards and the endless board; not the old Developer modes, not the other cats)
+function cp107Board(cat){return !!(WILD.on&&typeof PGU!=='undefined'&&PGU.boardCat===cat&&WILD.mode===(cat==='siamese'?'laser':'pounce')&&typeof PG_HOME_OFF!=='undefined'&&!PG_HOME_OFF&&PG);}
+const cp107Siam=()=>cp107Board('siamese'),cp107Tort=()=>cp107Board('tortie');
+const __cp107Feature=wildFeature;wildFeature=function(f){if(f==='dance'&&!CP107.noMeter&&(cp107Siam()||cp107Tort()))return true;return __cp107Feature(f);};
+// Laser mode switches the meter, the music note and the dance off; on the Siamese's own board they're on (the fish stays off)
+// (WILD.laser is a getter: "a board in Laser mode"; it reads false only while CP107.noLaser is set, inside these two calls)
+{const P=Object.getOwnPropertyDescriptor(WILD,'laser');if(P&&P.get&&P.configurable)Object.defineProperty(WILD,'laser',{configurable:true,enumerable:P.enumerable,
+ get(){return CP107.noLaser?false:P.get.call(this);},set(v){return P.set&&P.set.call(this,v);}});}
+function cp107NoLaser(fn,self,args){const was=CP107.noLaser;CP107.noLaser=true;try{return fn.apply(self,args);}finally{CP107.noLaser=was;}}
+const __cp107Fill=danceFill;danceFill=function(){if(cp107Siam())return cp107NoLaser(__cp107Fill,this,arguments);return __cp107Fill.apply(this,arguments);};
+const __cp107Tweaks=laserTweaks;laserTweaks=function(){if(cp107Siam()){WILD.fishAt=999;WILD.fishN=9;return;}return __cp107Tweaks.apply(this,arguments);};
+// the banner on the Siamese's board: the Dance meter, as on the other boards (Laser mode's "LASER COIN SOON" label, which sat
+// in the same place, isn't drawn); while a Laser chase runs, the chase's own timer bar there instead of the meter
+const __cp107Hud=drawWildHud;drawWildHud=function(hud){if(!cp107Siam())return __cp107Hud.apply(this,arguments);
+ if(WILD.chase){CP107.noMeter=true;try{return __cp107Hud.apply(this,arguments);}finally{CP107.noMeter=false;}}
+ return cp107NoLaser(__cp107Hud,this,arguments);};
+// Mouse pounce waits for the Dance break (Laser chase already does)
+const __cp107Pounce=pounceStart;pounceStart=function(){if(WILD.dance&&cp107Tort())return;return __cp107Pounce.apply(this,arguments);};
+// the meter sits right of the banked side-game coin's slot on these boards too (as on the Orange's)
+const __cp107Shift=danceMeterShift;danceMeterShift=function(){if((cp107Siam()||cp107Tort())&&typeof cp88Btn==='function'){const hud=hudLayout(),x0=W-Math.max(8,hud.right+10)-124,s=cp88Btn();return Math.max(0,Math.min(48,s.x+s.w+6-x0));}return __cp107Shift.apply(this,arguments);};
+
+// --- the two grids ---
+function cp107SiamAt(k){const C=CP107.siam,r=k>>4,call=(k&15)<8,s=k&7,P=C.CALLS[r]||[],i=P.indexOf(s);return {r,call,s,i,tap:!call&&i>=0,yowl:call&&i>=0};}
+function cp107TortAt(k){const B=CP107.tort.BARS[k>>3]||{t:[]},s=k&7,i=B.t.indexOf(s),stop=!!(B.stop&&s>=B.stop[0]&&s<=B.stop[1]);
+ const quick=i>=0&&(B.t.includes(s-1)||B.t.includes(s+1));return {bar:k>>3,s,i,tap:i>=0,stop,quick,slow:!!B.slow,B};}
+function cp107Setup(D,kind){const C=CP107[kind],q=60/C.bpm,per=C.per,n=64,rest={},quiet=[];let taps=0;
+ for(let k=0;k<n;k++){const f=kind==='siam'?cp107SiamAt(k):cp107TortAt(k);if(f.tap)taps++;else rest[k]=1;}
+ if(kind==='siam')for(let r=0;r<4;r++)quiet.push([r*16,r*16+7]);
+ else CP107.tort.BARS.forEach((B,b)=>{if(B.stop)quiet.push([b*8+B.stop[0],b*8+B.stop[1]]);});
+ for(let k=-DANCE_COUNT_IN*per;k<0;k++)if(k%per)rest[k]=1; // count-in: one count per beat
+ Object.assign(D,{[kind==='siam'?'siamese':'tortie']:true,per,beat:q/per,n,taps,rest,judged:{},quiet,sched:-DANCE_COUNT_IN*per,
+  p0:danceNow()+.25+DANCE_COUNT_IN*q,window:C.window,px:C.px,ahead:C.ahead,move:1,music:CP107M.get(kind)});
+ for(const k in rest)if(+k>=0)D.judged[k]='rest';
+ CP107.stats[kind]++;try{diagEvent('dance',(kind==='siam'?'siamese':'tortie')+' start bpm='+C.bpm+' taps='+taps+' music='+D.music);}catch(e){}}
+
+// --- start: waits for the cat's power and side game; then its own grid ---
+const __cp107Start=danceStart;
+danceStart=function(){const S7=cp107Siam(),T7=cp107Tort();
+ if((S7||T7)&&((typeof PGPX!=='undefined'&&PGPX)||WILD.chase||WILD.pounce))return; // they first; the dance stays pending
+ const had=WILD.dance;const r=S7?cp107NoLaser(__cp107Start,this,arguments):__cp107Start.apply(this,arguments);const D=WILD.dance;
+ if(!D||D===had||!(S7||T7))return r;
+ cp107Setup(D,S7?'siam':'tort');return r;};
+
+// --- taps: a tap while the Siamese sings or during the Tortie's stop is off the beat (and blocks her next tap) ---
+function cp107Quiet(D,adj){const x=(adj-D.p0)/D.beat;for(const [a,b] of D.quiet)if(x>=a-.5&&x<=b+.5)return [a,b];return null;}
+const __cp107Tap=danceTap;danceTap=function(e){const D=WILD.dance;
+ if(D&&(D.siamese||D.tortie)&&D.phase!=='finale'&&D.quiet){
+  const now=danceNow(),stamp=e&&Number.isFinite(e.timeStamp)&&e.timeStamp>0&&Math.abs(performance.now()-e.timeStamp)<500?e.timeStamp/1000:now,adj=stamp-D.latency;
+  const k=danceSlot(D,adj),err=adj-(D.p0+k*D.beat),onTap=k>=0&&k<D.n&&!D.rest[k]&&Math.abs(err)<=D.window,Q=onTap?null:cp107Quiet(D,adj);
+  if(Q){D.blocked=danceNextTap(D,Q[1]);D.misses++;D.streak=0;CP107.stats.quiet++;danceFx(D.siamese?'Listen!':'Not now!','#b9a6d6');sfx.dance('miss',1);
+   try{diagEvent('dance',(D.siamese?'siamese':'tortie')+' quiet tap');}catch(_){}return;}}
+ return __cp107Tap.apply(this,arguments);};
+
+// --- sound: the Siamese's mew and the Tortie's swish, made on the Dance break's own music bus ---
+// The game has no meow recording of its own (its meows are code-made too; the Pixabay cat songs in the project have their
+// meows mixed over music), so the Siamese's voice is made in code. Jenny: "We want it to be cute, not annoying": a short,
+// rounded "mi-ew" (sine and triangle, a soft vowel, a little vibrato), quieter than the band, one per note so the phrase
+// stays clear.
+const CP107A={noise:null};
+function cp107Voice(kind,vol,delay,f,dur){try{if(!sfx._w2ok())return;const bus=sfx._dBus(),ac=bus&&bus.context;if(!ac)return;
+ const v=vol*(typeof pickupFx==='object'&&pickupFx?pickupFx.volume:1);if(!(v>0))return;const t=ac.currentTime+Math.max(0,delay);
+ if(kind==='yowl'){
+  const d=Math.max(.14,Math.min(.38,dur||.26)),nodes=[];
+  const osc=(type,mul)=>{const o=ac.createOscillator();o.type=type;o.frequency.setValueAtTime(f*.9*mul,t);o.frequency.exponentialRampToValueAtTime(f*1.1*mul,t+d*.3);o.frequency.exponentialRampToValueAtTime(f*.84*mul,t+d);nodes.push(o);return o;};
+  const lfo=ac.createOscillator(),lg=ac.createGain();lfo.frequency.value=5.5;lg.gain.value=f*.012;lfo.connect(lg);nodes.push(lfo);
+  const body=osc('sine',1),edge=osc('triangle',1),vow=osc('sawtooth',1);for(const o of [body,edge,vow])lg.connect(o.frequency);
+  const bp=ac.createBiquadFilter();bp.type='bandpass';bp.Q.value=4;bp.frequency.setValueAtTime(1900,t);bp.frequency.linearRampToValueAtTime(2500,t+d*.3);bp.frequency.linearRampToValueAtTime(1300,t+d);
+  const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=3200;
+  const g=ac.createGain(),gb=ac.createGain(),ge=ac.createGain(),gv=ac.createGain();gb.gain.value=.55;ge.gain.value=.3;gv.gain.value=.16;
+  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.26*v,t+.03);g.gain.setValueAtTime(.26*v,t+d*.55);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+  body.connect(gb);edge.connect(ge);vow.connect(bp);bp.connect(gv);for(const x of [gb,ge,gv])x.connect(lp);lp.connect(g);g.connect(bus);
+  for(const n of nodes){n.start(t);n.stop(t+d+.05);}}
+ else if(kind==='swish'){ // the tail flick: a quick airy sweep up
+  if(!CP107A.noise){const n=ac.createBuffer(1,ac.sampleRate*.5|0,ac.sampleRate),c=n.getChannelData(0);for(let i=0;i<c.length;i++)c[i]=Math.random()*2-1;CP107A.noise=n;}
+  const s=ac.createBufferSource(),bp=ac.createBiquadFilter(),g=ac.createGain();s.buffer=CP107A.noise;bp.type='bandpass';bp.Q.value=1.4;
+  bp.frequency.setValueAtTime(700,t);bp.frequency.exponentialRampToValueAtTime(4200,t+.2);
+  g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.35*v,t+.05);g.gain.exponentialRampToValueAtTime(.0001,t+.26);
+  s.connect(bp);bp.connect(g);g.connect(bus);s.start(t);s.stop(t+.3);}
+ CP107.voices=(CP107.voices|0)+1;}catch(e){CP107.audioErr=String(e);}}
+// every music event goes through here (CP107.rec, when set by a check, lists them)
+function cp107L(k,v,d,a,dur){if(CP107.rec)CP107.rec.push([k,+v.toFixed(2),+(a||0).toFixed(2)]);if(k==='yowl'||k==='swish')cp107Voice(k,v,d,a,dur);else sfx.cp94Loud(k,v,d,a);}
+
+// --- music: three candidates per cat (Jenny: "pick some good music and let me do some A/B/C testing"); a UAT-only pill
+// "Music: A | B | C" under the lane during that cat's dance switches from the next note and is remembered ---
+const CP107M={siam:{KEY:'catpusher.uat.cp107siam.v1',NAMES:{A:'Purr groove',B:'Bossa lounge',C:'Chip chat'}},
+ tort:{KEY:'catpusher.uat.cp107tort.v1',NAMES:{A:'Funky strut',B:'Swing sashay',C:'Disco diva'}},CHOICES:['A','B','C']};
+CP107M.get=function(c){try{const v=localStorage.getItem(CP107M[c].KEY);if(CP107M.CHOICES.includes(v))return v;}catch(e){}return 'A';};
+CP107M.set=function(c,v){if(!CP107M.CHOICES.includes(v))return;try{localStorage.setItem(CP107M[c].KEY,v);}catch(e){}try{diagEvent('cp107',c+' music='+v);}catch(e){}};
+function cp107PillOn(){return typeof BUILD==='string'&&/\bUAT\b/.test(BUILD);}
+// The Siamese's tracks keep the cat's bar sparse (room for the mews) and fill in a little on the player's bar.
+// o: d (delay), k, s (slot in the bar), call (the cat's bar), yowl, tap, i, mel, bass, chord, beat
+const CP107_SIAM={
+ // A: purr groove. Kick on 1 and 3, a soft clap on 2 and 4, hats, a round bass; a marimba echoes the player's taps
+ A:{step(o){const L=cp107L,d=o.d,s=o.s;if(s===0||s===4)L('kick',.75,d);if(s===2||s===6)L('clap',.45,d);L('hat',s%2?.4:.65,d);
+   if(s===0)L('bass',.85,d,o.bass);if(s===4)L('bass',.55,d,o.bass*1.5);if(s===0&&!o.call){L('marimba',.25,d,o.chord[0]*2);L('marimba',.2,d,o.chord[2]*2);}
+   if(o.tap)L('marimba',.45,d,o.mel);},
+  end(d){const L=cp107L;L('crash',.6,d);L('bass',1,d,110);L('marimba',.6,d,440);L('marimba',.5,d,659.25);}},
+ // B: bossa lounge. A soft 3-3-2 clave, a shaker, a gentle kick, a triangle bass (root and fifth); quiet square chords on
+ // the player's bar only; a soft pluck echoes the taps
+ B:{step(o){const L=cp107L,d=o.d,s=o.s;if(s===0||s===3||s===6)L('clave',.45,d);L('shaker',s%2?.3:.42,d);if(s===0||s===4)L('kick',.5,d);
+   if(s===0||s===4)L('tri',.8,d,o.bass);if(s===3||s===7)L('tri',.55,d,o.bass*1.5);
+   if(!o.call&&(s===2||s===6)){L('sq',.22,d,o.chord[0]*2);L('sq',.18,d,o.chord[1]*2);L('sq',.15,d,o.chord[2]*2);}
+   if(o.tap)L('pluck',.5,d,o.mel);},
+  end(d){const L=cp107L;L('clave',.6,d);L('tri',1,d,110);for(const f of [440,523.25,659.25])L('sq',.25,d,f);}},
+ // C: chip chat. Chip drums, a bouncing triangle bass (root, octave); little square arpeggios between the player's taps;
+ // a square blip echoes the taps
+ C:{step(o){const L=cp107L,d=o.d,s=o.s;if(s===0||s===4)L('kick',.7,d);if(s===2||s===6)L('chipsnare',.6,d);if(s%2)L('hat',.35,d);
+   if(s%2===0)L('tri',.85,d,s%4?o.bass*2:o.bass);
+   if(!o.call&&!o.tap)L('sq',.24,d,o.chord[s%3]*2);if(o.tap)L('sq',.5,d,o.mel);},
+  end(d){const L=cp107L;L('kick',.8,d);L('tri',1,d,110);L('blip',.7,d,880);L('sq',.4,d,659.25);}}};
+// The Tortie's tracks: each a strut that stops dead on a stop (nothing sounds inside a stop, nothing spills into one).
+// o: d, k, s, tap, i, mel, bass, slow, quickBar, back (the first slot after a stop), beat, intoStop (the next slot is a stop)
+const CP107_TORT={
+ // A: funky strut. Kick, snare on 2 and 4, hats, a gritty walking bass, a cowbell on the quick bars; a pluck plays the taps
+ A:{step(o){const L=cp107L,d=o.d,s=o.s,b=o.bass;if(o.back||o.k===0)L('crash',.55,d);
+   if(o.slow){if(s===0)L('kick',.9,d);if(s===4)L('snare',.9,d);if(s%2===0)L('hat',.55,d);if(s===0||s===6)L('grit',.8,d,s?b*1.5:b);}
+   else{if(s===0||s===3||s===4)L('kick',.85,d);if(s===2||s===6)L('snare',.85,d);L('hat',s%2?.45:.7,d);
+    if(o.quickBar){if(!o.intoStop)L('hat',.35,d+o.beat/2);if(s%2===0)L('cowbell',.3,d);}
+    if(s%2===0)L('grit',.75,d,[b,b*1.5,b*2,b*1.5][s>>1]);}
+   if(o.tap){L('pluck',1,d,o.mel);if(!o.quick)L('clap',.35,d);}},
+  end(d){const L=cp107L;L('crash',.8,d);L('kick',1,d);L('bass',1,d,82.41);for(const f of [659.25,493.88,329.63])L('pluck',.8,d,f);}},
+ // B: swing sashay. A swung shaker, brushes on 2 and 4, a walking triangle bass; muted-horn squares play the taps
+ B:{step(o){const L=cp107L,d=o.d,s=o.s,b=o.bass;if(o.back||o.k===0)L('crash',.4,d);
+   if(s%2===0)L('shaker',.55,d);else L('shaker',.38,d+o.beat*.33);
+   if(o.slow){if(s===0)L('kick',.7,d);if(s===4)L('snare',.55,d);if(s===0||s===4)L('tri',.85,d,s?b*1.5:b);}
+   else{if(s===0||s===4)L('kick',.6,d);if(s===2||s===6)L('snare',.5,d);if(s%2===0)L('tri',.85,d,[b,b*1.26,b*1.5,b*1.68][s>>1]);}
+   if(o.tap){L('sq',.6,d,o.mel);L('marimba',.3,d,o.mel);}},
+  end(d){const L=cp107L;L('crash',.6,d);L('tri',1,d,82.41);L('sq',.5,d,659.25);L('sq',.4,d,493.88);}},
+ // C: disco diva. Four on the floor, open hats off the beat, claps on 2 and 4, an octave bass; strings play the taps
+ C:{step(o){const L=cp107L,d=o.d,s=o.s,b=o.bass;if(o.back||o.k===0)L('crash',.6,d);
+   if(o.slow){if(s===0||s===4)L('kick',.9,d);if(s===4)L('clap',.6,d);if(s%2)L('hat',.5,d);if(s%4===0)L('bass',.85,d,b);}
+   else{if(s%2===0)L('kick',.9,d);else L('hat',.6,d);if(s===2||s===6)L('clap',.6,d);L('bass',.7,d,s%2?b*2:b);}
+   if(o.tap){L('pluck',.8,d,o.mel);L('marimba',.45,d,o.mel*2);}},
+  end(d){const L=cp107L;L('crash',.8,d);L('kick',1,d);L('bass',1,d,82.41);for(const f of [659.25,493.88,392])L('pluck',.7,d,f);}}};
+
+function cp107SiamSchedule(D){const C=CP107.siam,now=danceNow(),lat=sfx.danceLatency(),L=cp107L,T=CP107_SIAM[D.music]||CP107_SIAM.A;
+ while(D.sched<=D.n&&D.p0+D.sched*D.beat-now<.15+lat){const k=D.sched,d=D.p0+k*D.beat-now-lat;D.sched++;
+  if(k<0){if(!D.rest[k])L('count',1,d,k===-D.per?1600:1200);L('hat',.5,d);continue;}
+  if(k===D.n){T.end(d);L('yowl',1,d,880,.36);continue;}
+  const f=cp107SiamAt(k),r=f.r;if(k===0)L('crash',.5,d);
+  T.step({d,k,s:f.s,call:f.call,yowl:f.yowl,tap:f.tap,i:f.i,mel:f.i>=0?C.MEL[r][f.i]:0,bass:C.BASS[r],chord:C.CHORD[r],beat:D.beat});
+  if(f.yowl){const P=C.CALLS[r],nx=P[f.i+1]!=null?P[f.i+1]:8;L('yowl',1,d,C.MEL[r][f.i],Math.min(nx-f.s,2)*D.beat*.8);}}}
+function cp107TortSchedule(D){const C=CP107.tort,now=danceNow(),lat=sfx.danceLatency(),L=cp107L,T=CP107_TORT[D.music]||CP107_TORT.A;
+ while(D.sched<=D.n&&D.p0+D.sched*D.beat-now<.15+lat){const k=D.sched,d=D.p0+k*D.beat-now-lat;D.sched++;
+  if(k<0){if(!D.rest[k])L('count',1,d,k===-D.per?1600:1200);L('hat',.5,d);continue;}
+  if(k===D.n){T.end(d);continue;}
+  const f=cp107TortAt(k);
+  if(f.stop){if(f.s===f.B.stop[0]){L('swish',1,d);L('tom',.5,d,90);}continue;}
+  T.step({d,k,s:f.s,tap:f.tap,i:f.i,quick:f.quick,mel:f.tap?C.MEL[f.bar][f.i]:0,bass:C.BASS[f.bar],slow:f.slow,quickBar:f.B.t.some(u=>f.B.t.includes(u+1)),
+   back:k>0&&cp107TortAt(k-1).stop,intoStop:cp107TortAt(k+1).stop,beat:D.beat});}}
+const __cp107Sched=danceSchedule;danceSchedule=function(D){if(D&&D.siamese)return cp107SiamSchedule(D);if(D&&D.tortie)return cp107TortSchedule(D);return __cp107Sched.apply(this,arguments);};
+// the pill (UAT only): right of the cue, under the lane; a tap on it is never a dance tap
+function cp107PillRects(){const Y=DANCE_LANE_Y+40;return ['A','B','C'].map((k,i)=>({k,x:262+i*38,y:Y,w:34,h:24}));}
+function cp107Pill(){const D=WILD.on&&WILD.dance;if(!D||!(D.siamese||D.tortie)||D.phase==='finale'||!cp107PillOn())return null;return {D,c:D.siamese?'siam':'tort'};}
+
+// --- moves ---
+const cp107E=u=>{u=Math.max(0,Math.min(1,u));return u*u*(3-2*u);};
+function cp107Bump(u,w){u/=w;return u<-1||u>1?0:.5+.5*Math.cos(Math.PI*u);}
+// the Siamese at x (slots): yowl (singing, with its side), listen (the player's bar), pats per side, a bob on the beat
+function cp107SiamState(x,D){const o={yowl:0,yside:1,listen:0,pat:{'-1':0,'1':0},bob:Math.max(0,Math.cos(Math.PI*x))*.5,sing:false};
+ const k0=Math.floor(x);
+ for(let k=k0-6;k<=k0+2;k++){if(k<0||k>=D.n)continue;const f=cp107SiamAt(k);const u=x-k;
+  if(f.yowl){const P=CP107.siam.CALLS[f.r],nx=P[f.i+1]!=null?P[f.i+1]:8,len=Math.min(nx-f.s,3)*.92;
+   const e=u>=-.15&&u<len?Math.min(cp107E((u+.15)/.25),1-cp107E((u-len+.35)/.35)):0;if(e>o.yowl){o.yowl=e;o.yside=f.i%2?1:-1;}if(u>=-.05&&u<len-.1)o.sing=true;}
+  if(f.tap){const side=f.i%2?1:-1,b=cp107Bump(u,1);o.pat[side]=Math.max(o.pat[side],b);}}
+ const r=Math.floor(Math.max(0,x)/16),inBar=x-r*16;o.listen=x>=0&&x<D.n&&inBar>=7.5?Math.min(cp107E((inBar-7.5)/.6),1-cp107E((inBar-15.4)/.6)):0;
+ return o;}
+function cp107SiamMotion(side,x,D){const st=cp107SiamState(x,D),Y=st.yowl,Ls=st.listen,b=st.bob;
+ if(!side)return {x:6*Y*st.yside-5*Ls,y:-16*Y+3*b,r:-.1*Y*st.yside-.13*Ls+.03*b*(Math.floor(x)%2?1:-1)};
+ const up=side===st.yside?Y:0,p=st.pat[side];
+ return {x:-side*8*up+side*4*p,y:-34*up+22*p-4*b,r:side*.22*up-side*.12*p};}
+// the Tortie at x (slots): steps per side, the stop (turned away, mitt on hip), the head toss
+function cp107TortState(x,D){const o={step:{'-1':0,'1':0},sway:0,toss:0,stop:0,dir:1,looking:false};
+ const k0=Math.floor(x);
+ for(let k=k0-4;k<=k0+2;k++){if(k<0||k>=D.n)continue;const f=cp107TortAt(k);if(!f.tap)continue;const u=x-k,w=f.slow?1.8:f.quick?.7:1.1,side=f.i%2?1:-1,b=cp107Bump(u,w);
+  o.step[side]=Math.max(o.step[side],b);o.sway+=side*b;if(!f.quick)o.toss+=side*b;}
+ const bar=Math.floor(Math.max(0,x)/8),B=CP107.tort.BARS[bar];
+ if(B&&B.stop&&x<D.n){const a=bar*8+B.stop[0],e=bar*8+B.stop[1]+1,u=x;o.stop=u>=a-.3&&u<e?Math.min(cp107E((u-a+.3)/.35),1-cp107E((u-e+.3)/.3)):0;o.dir=bar%4<2?1:-1;o.looking=u>=a-.1&&u<e-.15;}
+ return o;}
+function cp107TortMotion(side,x,D){const st=cp107TortState(x,D),S=st.stop,dir=st.dir,k=1-S;
+ if(!side)return {x:(10*st.sway)*k+dir*18*S,y:-4*Math.abs(st.sway)*k-10*S,r:(.1*st.toss)*k+dir*.26*S};
+ const p=st.step[side]*k,hip=side===dir?S:0;
+ return {x:side*10*p+side*16*hip,y:26*p-28*hip,r:-side*.16*p+side*.34*hip};}
+const __cp107Motion=pawMotion;
+pawMotion=function(side=0){const D=WILD.on&&WILD.dance;if(D&&(D.siamese||D.tortie)){const x=danceBeatX();if(x!=null)return D.siamese?cp107SiamMotion(side,x,D):cp107TortMotion(side,x,D);}return __cp107Motion.apply(this,arguments);};
+// faces: the Siamese's yawn face while it sings (as its Sonic meow shows it); the Tortie's Sharp Grin while she struts, Sweet while she looks away
+function cp107Face(){const D=WILD.on&&WILD.dance;if(!D||!(D.siamese||D.tortie))return null;const x=danceBeatX();if(x==null)return null;
+ if(D.siamese)return cp107SiamState(x,D).sing?'sing':null;return cp107TortState(x,D).looking?'away':'strut';}
+const __cp107Head=petDrawHead;petDrawHead=function(img){const f=cp107Face();
+ if(f==='strut'&&ART.headSharp)img=ART.headSharp;else if(f==='away'&&ART.headSweet)img=ART.headSweet;
+ return __cp107Head.call(this,img);};
+// the singing face is drawn the way the Siamese's own Sonic meow (CP-86) draws it: the yawn face over the head, no pupils
+const __cp107Pupils=drawTrackingPupils;drawTrackingPupils=function(){
+ if(cp107Face()==='sing'&&typeof CP75_ART!=='undefined'&&CP75_ART.siamese&&CP75_ART.siamese.face){ctx.save();ctx.translate(-10,-25);ctx.scale(420/1536,240/1024);ctx.drawImage(CP75_ART.siamese.face,0,0);ctx.restore();return;}
+ return __cp107Pupils.apply(this,arguments);};
+
+// --- the lane: the Siamese's yowls (hollow blue rings) and the Tortie's stops (an amber hold band); the cue below ---
+const __cp107Draw=danceDraw;danceDraw=function(){const r=__cp107Draw.apply(this,arguments);const D=WILD.dance;if(!D||!(D.siamese||D.tortie)||D.phase==='finale')return r;
+ const x=(danceNow()-D.p0)/D.beat,Y=DANCE_LANE_Y,px=D.px,ah=D.ahead,fade=Math.min(1,(time-D.started)/.25);
+ ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.globalAlpha=fade;
+ ctx.save();ctx.beginPath();ctx.rect(20,Y-32,360,64);ctx.clip();
+ if(D.siamese){for(let k=Math.max(0,Math.floor(x)-1);k<=Math.min(D.n-1,Math.floor(x)+Math.ceil(ah));k++){const f=cp107SiamAt(k);if(!f.yowl)continue;const u=k-x;if(u<-.3||u>ah)continue;
+   ctx.globalAlpha=fade*(u<0?Math.max(0,1+u/.3):.9);for(const s of [-1,1]){const nx=200+s*u*px;ctx.lineWidth=3;ctx.strokeStyle='#8fd3ff';ctx.beginPath();ctx.arc(nx,Y,11,0,7);ctx.stroke();
+    ctx.lineWidth=2;ctx.beginPath();ctx.arc(nx,Y,5,-.9,.9);ctx.stroke();}}}
+ else{for(const [a,b] of D.quiet){const u0=a-.5-x,u1=b+.5-x;if(u1<-.3||u0>ah)continue;ctx.globalAlpha=fade*.85;
+   for(const s of [-1,1]){const xa=200+s*Math.max(-.3,u0)*px,xb=200+s*Math.min(ah,u1)*px,l=Math.min(xa,xb),w=Math.abs(xb-xa);if(w<1)continue;
+    uiRound(l,Y-9,w,18,9,'rgba(255,178,63,.35)','#ffb23f',2);const hx=200+s*u0*px;if(u0>-.3&&u0<ah){ctx.fillStyle='#ffb23f';ctx.fillRect(hx-6,Y-7,4,14);ctx.fillRect(hx+2,Y-7,4,14);}}}}
+ ctx.restore();
+ // the cue
+ let cue=null,col='#ffe0f4';if(x>=-.5&&x<D.n){if(D.siamese){const inBar=((x%16)+16)%16;cue=x<0||inBar<7.6?['LISTEN','#8fd3ff']:['YOUR TURN','#ffd23f'];}
+  else{const Q=D.quiet.find(([a,b])=>x>=a-.4&&x<b+.6);if(Q)cue=['HOLD','#ffb23f'];}}
+ const P=cp107Pill(),cx=P?110:200;
+ if(cue){ctx.globalAlpha=fade;ctx.textAlign='center';ctx.textBaseline='middle';uiRound(cx-50,Y+40,100,24,12,'rgba(26,10,44,.85)',cue[1],1.5);ctx.font='bold 13px system-ui';ctx.fillStyle=cue[1];ctx.fillText(cue[0],cx,Y+52);}
+ if(P){ctx.globalAlpha=fade;ctx.textAlign='center';ctx.textBaseline='middle';uiRound(192,Y+38,186,28,14,'rgba(26,10,44,.85)','#ff9ad8',1.5);
+  ctx.font='bold 12px system-ui';ctx.fillStyle='#ffe0f4';ctx.fillText('Music:',226,Y+52);
+  for(const b of cp107PillRects()){const on=P.D.music===b.k;uiRound(b.x,b.y+2,b.w,b.h-4,10,on?'#ff7ad5':'rgba(255,255,255,.12)',on?'#ffffff':'rgba(255,255,255,.4)',1.2);
+   ctx.font='bold 13px system-ui';ctx.fillStyle=on?'#2a0b3e':'#ffffff';ctx.fillText(b.k,b.x+b.w/2,Y+53);}}
+ ctx.restore();return r;};
+// a tap on the pill switches the music from the next note and remembers it; the pill's taps are never dance taps
+const __cp107Pointer=wildPointer;wildPointer=function(e,p){const P=cp107Pill();
+ if(P&&p&&p.x>=188&&p.x<=382&&p.y>=DANCE_LANE_Y+34&&p.y<=DANCE_LANE_Y+70){const b=cp107PillRects().find(b=>p.x>=b.x-2&&p.x<=b.x+b.w+2);
+  if(b&&P.D.music!==b.k){P.D.music=b.k;CP107M.set(P.c,b.k);}return true;}
+ return __cp107Pointer.apply(this,arguments);};
+// ---------- end CP-107 ----------
+
+// ---- UAT 141: the Collections test's tap-to-place in three beats (Jenny, Nov 21: the teleport felt "deeply unsatisfying";
+// "a single tap is enough because there's only one action here"). A single tap on a satchel item places it (edit in build: a tap
+// is finger down and up within 0.6 s moving under 12 px; a sideways swipe is a scroll the browser cancels, so it never counts as a
+// tap; a second tap while it flies does nothing).
+// 1. Lift: on the tap the prize pops up under the finger (a quick grow with a bounce, 0.22 s) with a soft pick-up sound.
+// 2. Flight: it flies to its spot on an arc (up and over, easing in, 0.55 s) with a sparkle trail.
+// 3. Landing: a small squash on arrival, a ring of light rippling out, a chime and a short vibration (navigator.vibrate, skipped
+//    quietly if the phone doesn't allow it), then the existing blend-in glow and glints as it's placed.
+// Drag-and-drop gets the same landing. Drawn on a full-screen layer over the Collections screen that takes no touches.
+const CP141={fx:[],cv:null,raf:0,stats:{flies:0,landings:0,vib:0}};
+function cp141Layer(){const el=CP138.el;if(!el)return null;if(CP141.cv&&CP141.cv.parentNode===el)return CP141.cv;const c=document.createElement('canvas');
+ c.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:5';el.appendChild(c);CP141.cv=c;return c;}
+function cp141Screen(page,name){const [sx,sy]=cp138Center(page,name),r=CP138.cv.getBoundingClientRect();return {x:r.left+sx/368*r.width,y:r.top+sy/492*r.height,k:r.width/368};}
+function cp141Loop(){const c=cp141Layer();if(!c){CP141.raf=0;return;}const dpr=window.devicePixelRatio||1,W0=innerWidth,H0=innerHeight;if(c.width!==Math.round(W0*dpr)||c.height!==Math.round(H0*dpr)){c.width=Math.round(W0*dpr);c.height=Math.round(H0*dpr);}
+ const g=c.getContext('2d');g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,W0,H0);const now=performance.now()/1000;
+ for(let i=CP141.fx.length-1;i>=0;i--){const f=CP141.fx[i],u=now-f.t;if(u>f.len){CP141.fx.splice(i,1);if(f.done)try{f.done();}catch(e){}continue;}cp141DrawFx(g,f,u,now);}
+ CP141.raf=CP141.fx.length?requestAnimationFrame(cp141Loop):0;if(!CP141.raf)g.clearRect(0,0,W0,H0);}
+function cp141Kick(){if(!CP141.raf)CP141.raf=requestAnimationFrame(cp141Loop);}
+function cp141Sprite(g,id,x,y,size,sx=1,sy=1,a=1){const sp=cp138Sprite(id),[bx,by,bw,bh]=sp.bb,s=size/Math.max(bw,bh);g.save();g.globalAlpha=a;g.translate(x,y);g.scale(sx,sy);g.drawImage(sp.cv,bx,by,bw,bh,-bw*s/2,-bh*s/2,bw*s,bh*s);g.restore();}
+function cp141Spark(g,x,y,r,a){g.save();g.globalAlpha=a;g.translate(x,y);g.fillStyle='#fff6d0';g.beginPath();for(let i=0;i<8;i++){const an=i*Math.PI/4,rr=i%2?r*.3:r;g.lineTo(Math.cos(an)*rr,Math.sin(an)*rr);}g.closePath();g.fill();g.restore();}
+function cp141DrawFx(g,f,u){const E=x=>x*x*(3-2*x);
+ if(f.kind==='lift'){const v=Math.min(1,u/f.len),b=1+.35*Math.sin(Math.PI*v)*(1-v*.4);cp141Sprite(g,f.id,f.x,f.y-14*E(v),f.size*b);}
+ if(f.kind==='flight'){const v=Math.min(1,u/f.len),e=1-Math.pow(1-v,2.2);const x=f.x0+(f.x1-f.x0)*e,y=f.y0+(f.y1-f.y0)*e-Math.sin(Math.PI*e)*f.arc;
+  f.trail.push({x,y,t:u});while(f.trail.length&&u-f.trail[0].t>.35)f.trail.shift();for(const p of f.trail){const a=1-(u-p.t)/.35;cp141Spark(g,p.x+(Math.sin(p.t*40)*6),p.y+(Math.cos(p.t*33)*6),5*a+1,a*.85);}
+  cp141Sprite(g,f.id,x,y,f.size*(1.15-.35*e));}
+ if(f.kind==='land'){const v=Math.min(1,u/f.len),sq=v<.35?1-.18*Math.sin(Math.PI*v/.35):1+.08*Math.sin(Math.PI*(v-.35)/.65)*(1-v),a=v<.7?1:1-(v-.7)/.3;
+  cp141Sprite(g,f.id,f.x,f.y,f.size,1+(1-sq)*.9,sq,a);const R=f.size*(.45+1.2*E(v));g.save();g.globalAlpha=(1-v)*.9;g.strokeStyle='#ffe9b0';g.lineWidth=4*(1-v)+1;g.shadowColor='#ffd27a';g.shadowBlur=14;g.beginPath();g.arc(f.x,f.y,R,0,Math.PI*2);g.stroke();g.restore();}}
+// the landing (both paths): squash, ring, chime, a short buzz
+function cp141Land(page,name,then){const id=CP138_IDS[name],p=cp141Screen(page,name),now=performance.now()/1000;cp141Layer();
+ CP141.fx.push({kind:'land',id,x:p.x,y:p.y,size:62*p.k,t:now,len:.42,done:then});CP141.stats.landings++;try{pgSfx('ding',.9);}catch(e){}
+ try{if(navigator.vibrate&&navigator.vibrate(22))CP141.stats.vib++;}catch(e){}cp141Kick();}
+// the tap: lift under the finger, arc flight with sparkles, then the landing and the placement
+cp140Fly=function(name){const page=CP138.page,id=CP138_IDS[name];if(!id||pgHave(id)<1||cp138Placed(page).has(name)||!CP138.cv||CP141.busy)return;CP141.busy=true;
+ const chip=CP138.el.querySelector('#cp138sat [data-n="'+name.replace(/"/g,'')+'"]'),r=chip?chip.getBoundingClientRect():{left:innerWidth/2-30,top:innerHeight-80,width:60,height:60};
+ const x0=r.left+r.width/2,y0=r.top+r.height/2,t=cp141Screen(page,name),now=performance.now()/1000,size=62*t.k;cp141Layer();
+ if(chip)chip.style.visibility='hidden';try{pgSfx('bubble',.8);}catch(e){}CP140.stats.flies++;CP141.stats.flies++;
+ CP141.fx.push({kind:'lift',id,x:x0,y:y0,size:Math.max(48,size),t:now,len:.22,done:()=>{
+  CP141.fx.push({kind:'flight',id,x0,y0:y0-14,x1:t.x,y1:t.y,arc:Math.max(60,Math.abs(y0-t.y)*.35),size:Math.max(48,size),trail:[],t:performance.now()/1000,len:.55,done:()=>{
+   cp141Land(page,name,null);try{cp138Place(page,name);}catch(e){}CP141.busy=false;}});cp141Kick();}});cp141Kick();};
+// drag-and-drop: the same landing on a successful drop
+{const __pl141=cp138Place;cp138Place=function(page,name){const fromDrag=!!CP141.dropping;const r=__pl141.apply(this,arguments);try{if(fromDrag&&cp138Placed(page).has(name))cp141Land(page,name,null);}catch(e){}return r;};}
+// the screen's own pointerup listener was added when it was built: mark the drop with one listener before it and one after
+{const __op141=cp138Open;cp138Open=function(){const r=__op141.apply(this,arguments);try{const el=CP138.el;if(el&&!el.cp141){el.cp141=1;el.addEventListener('pointerup',()=>{CP141.dropping=true;},true);el.addEventListener('pointerup',()=>{CP141.dropping=false;});}}catch(e){}return r;};}
+// Reset for retesting (Jenny: "When you promote UAT 141, I'd like you to reset the collections so I can retest"): once, on the first
+// launch of this build (UAT only), the Collections test pages are emptied (as "Reset the test pages") and every prize that was
+// placed on them goes back to the bag (up to the pantry cap) so it can be placed again. The old Water and Kitchen pages keep their
+// own save and are not touched.
+const CP141R={KEY:'catpusher.uat.cp141reset.v1',done:false,back:0};
+function cp141Reset(){if(CP141R.done)return;try{if(!/\bUAT\b/.test(BUILD)||localStorage.getItem(CP141R.KEY)){CP141R.done=true;return;}if(typeof PG==='undefined'||!PG||!PG.items)return;
+ const st=cp138Load();for(const page in (st.placed||{}))for(const name of st.placed[page]){const id=CP138_IDS[name];if(!id)continue;PG.items[id]=Math.min(pgCap(),pgHave(id)+1);CP141R.back++;}
+ cp138Save({placed:{}});try{pgSave();}catch(e){}localStorage.setItem(CP141R.KEY,'1');CP141R.done=true;try{diagEvent('cp141','collections test reset, '+CP141R.back+' prizes back to the bag');}catch(e){}}catch(e){}}
+{const __u141=update;update=function(dt){const r=__u141(dt);if(!CP141R.done)cp141Reset();return r;};}
+// ---- end UAT 141 Collections tap ----
+
+
+// ---------- Dance beat A/B, all five Dance breaks (Jenny, Nov 21, approved verbatim: "Dances: beat strong in the count-in,
+// then fades so the music leads; small buzz on my taps (stronger on perfect), not on every beat. 'Beat: A | B' pill (A =
+// today, B = new) to compare." Her reason: "I really want to hear the music, and the beat is kind of drowning out the
+// music.") ----------
+// A = today: nothing changes. B:
+//  - The guide beat is each dance's own drum layer (kick, snare, clap, hats, claves, shakers, cowbell, congas, toms, crashes;
+//    there is no separate click). It plays full through the count-in and the first bar, then fades over the second bar down
+//    to 35% (never silent) and stays there, so the melody, the bass and the cat's own voice carry the rhythm. Those melodic
+//    parts are untouched, as are the tap sounds and the count-in clicks.
+//  - Taps: a short phone buzz on every hit (12 ms) and a slightly stronger one (28 ms) on a tap right on the beat (within
+//    40% of the timing window). Nothing on a miss, an off-beat tap or a beat with no tap; never one per beat. Phones (or
+//    WebViews) that can't vibrate skip it quietly.
+//  - A small UAT-only pill "Beat: A | B" above the lane during every Dance break; a tap switches at once and is remembered;
+//    it is never a dance tap. Production (a build name without "UAT") has no pill and plays A until Jenny picks.
+const BEATAB={KEY:'catpusher.uat.dancebeat.v1',LOW:.35,PERFECT:.4,BUZZ:12,BUZZ_PERFECT:28,
+ DRUMS:['kick','snare','clap','hat','crash','chipsnare','shaker','clave','cowbell','conga','tom'],rec:null,buzzes:[],stats:{buzz:0,perfect:0}};
+BEATAB.get=function(){try{const v=localStorage.getItem(BEATAB.KEY);if(v==='A'||v==='B')return v;}catch(e){}return 'A';};
+BEATAB.set=function(v){if(v!=='A'&&v!=='B')return;try{localStorage.setItem(BEATAB.KEY,v);}catch(e){}try{diagEvent('beatab','beat='+v);}catch(e){}};
+function beatabPillOn(){return typeof BUILD==='string'&&/\bUAT\b/.test(BUILD);}
+// the drum layer's level for a note heard `delay` seconds from now: 1 through the count-in and the first bar, then down to
+// LOW across the second bar (the Ragdoll's bars are 3 beats, the others' 4)
+function beatabLevel(delay){const D=WILD.on&&WILD.dance;if(!D||D.phase==='finale'||BEATAB.get()!=='B')return 1;
+ let lat=0;try{lat=sfx.danceLatency();}catch(e){}const beats=(danceNow()+delay+lat-D.p0)/D.beat/(D.per||1),bar=D.ragdoll?3:4;
+ if(beats<bar)return 1;if(beats>=2*bar)return BEATAB.LOW;return 1-(1-BEATAB.LOW)*(beats-bar)/bar;}
+for(const fn of ['danceLoud','cp94Loud']){const prev=sfx[fn];if(typeof prev!=='function')continue;
+ sfx[fn]=function(kind,vol=1,delay=0,arg=0){const k=BEATAB.DRUMS.includes(kind)?beatabLevel(delay):1,v=vol*k;
+  if(BEATAB.rec)BEATAB.rec.push([kind,+v.toFixed(3)]);return prev.call(this,kind,v,delay,arg);};}
+// taps: the buzz (B only), after the game has judged the tap
+const __beatabTap=danceTap;danceTap=function(e){const D=WILD.dance;if(!D||D.phase==='finale'||BEATAB.get()!=='B')return __beatabTap.apply(this,arguments);
+ const h0=D.hits,now=danceNow(),stamp=e&&Number.isFinite(e.timeStamp)&&e.timeStamp>0&&Math.abs(performance.now()-e.timeStamp)<500?e.timeStamp/1000:now,adj=stamp-D.latency;
+ const k=D.rest&&typeof danceSlot==='function'?danceSlot(D,adj):Math.round((adj-D.p0)/D.beat),err=Math.abs(adj-(D.p0+k*D.beat));
+ const r=__beatabTap.apply(this,arguments);
+ if(WILD.dance===D&&D.hits>h0){const perfect=err<=D.window*BEATAB.PERFECT,ms=perfect?BEATAB.BUZZ_PERFECT:BEATAB.BUZZ;BEATAB.stats.buzz++;if(perfect)BEATAB.stats.perfect++;
+  if(BEATAB.buzzes.length<200)BEATAB.buzzes.push(ms);try{navigator.vibrate&&navigator.vibrate(ms);}catch(_){}}
+ return r;};
+// the pill: above the lane, left; a tap on it is never a dance tap
+function beatabRects(){const Y=DANCE_LANE_Y-64;return {box:{x:18,y:Y,w:122,h:26},b:[{k:'A',x:70,y:Y+3,w:30,h:20},{k:'B',x:104,y:Y+3,w:30,h:20}]};}
+function beatabPill(){const D=WILD.on&&WILD.dance;return !!(D&&D.phase!=='finale'&&beatabPillOn());}
+const __beatabDraw=danceDraw;danceDraw=function(){const r=__beatabDraw.apply(this,arguments);if(!beatabPill())return r;const D=WILD.dance,R=beatabRects(),m=BEATAB.get();
+ ctx.save();ctx.setTransform(scale*renderPixelRatio,0,0,scale*renderPixelRatio,0,0);ctx.globalAlpha=Math.min(1,(time-D.started)/.25);ctx.textAlign='center';ctx.textBaseline='middle';
+ uiRound(R.box.x,R.box.y,R.box.w,R.box.h,13,'rgba(26,10,44,.85)','#ff9ad8',1.5);ctx.font='bold 12px system-ui';ctx.fillStyle='#ffe0f4';ctx.fillText('Beat:',44,R.box.y+13);
+ for(const b of R.b){const on=m===b.k;uiRound(b.x,b.y,b.w,b.h,10,on?'#ff7ad5':'rgba(255,255,255,.12)',on?'#ffffff':'rgba(255,255,255,.4)',1.2);ctx.font='bold 13px system-ui';ctx.fillStyle=on?'#2a0b3e':'#ffffff';ctx.fillText(b.k,b.x+b.w/2,b.y+b.h/2+1);}
+ ctx.restore();return r;};
+const __beatabPointer=wildPointer;wildPointer=function(e,p){if(beatabPill()&&p){const R=beatabRects(),B=R.box;
+  if(p.x>=B.x-4&&p.x<=B.x+B.w+4&&p.y>=B.y-6&&p.y<=B.y+B.h+6){const b=R.b.find(b=>p.x>=b.x-3&&p.x<=b.x+b.w+3);if(b&&b.k!==BEATAB.get())BEATAB.set(b.k);return true;}}
+ return __beatabPointer.apply(this,arguments);};
+// ---------- end Dance beat A/B ----------
+
+// ---- CP-93 round 3 (Jenny, Nov 21, via PM: "Towers: build 1, 2, 3 (no hidden timer)") ----
+// Giant towers board only; level boards and the frozen pickup are unchanged. Falls still come from physics: no timer, no
+// scripted tip added.
+// 1. Tapping a Towers option (the on-board pill, Engineer tools or Goal boards) while on the Giant towers board rebuilds the
+//    three towers at once in that option (fresh towers, the spill count back to 0 of 3; coins, timer and wallet untouched).
+//    The board always shows the active option ("Towers A: Today" ... "Towers D: heavy + shelf"), in the pill's letters.
+// 2. Quake knocks a tower over in every option: on the hit, the standing tower nearest the front is let go and pushed near
+//    its top (the same push B and D already gave every tower); the shake moves the rest as usual. (Before: B and D only, and
+//    they pushed every tower.)
+// 3. C and D: the shelf towers start 12 units nearer the front edge (shelf depths 665/650/660 -> 677/662/672).
+// 4. A log line per spill in the phone's diagnostic log: "cp93 spill <tower> <why> t=<s since built> drops=<coins dropped
+//    since built> towers=<A-D>", plus "cp93 build <A-D>" when the towers are built.
+CP93P.cfg.shelf=CP93P.cfg.shelf.map(z=>z+12);
+const CP93R_LETTER={today:'A',a:'B',c:'C',ac:'D'};
+Object.assign(CP93P.NAMES,{today:'A: Today',a:'B: heavy towers',c:'C: towers on the shelf',ac:'D: heavy + shelf'});
+function cp93rLetter(){return CP93R_LETTER[CP93P.get()]||'A';}
+// 1. rebuild on a switch (done at the next frame, outside the physics step)
+{const __cp93rSet=CP93P.set;CP93P.set=function(k){const old=CP93P.get();__cp93rSet.call(CP93P,k);
+  try{if(CP93P.get()!==old&&typeof cp93L==='function'&&cp93L())CP93.rebuild=true;}catch(e){}};}
+function cp93rRebuild(){CP93.rebuild=false;if(!(typeof cp93L==='function'&&cp93L()))return false;
+ if(['won','lost'].includes(board.status)||(LAB.st&&LAB.st.pending))return false;
+ for(const b of [...bodies]){if(b.dead)continue;if((b.kind==='stack'&&b.cp93!=null)||b.cp93Top!=null)removeCoin(b);}
+ cp93Build();if(LAB.st)LAB.st.got=0;CP93.flash=time+1.5;try{diagEvent('cp93','rebuilt '+cp93rLetter());}catch(e){}return true;}
+{const __cp93rUpd=update;update=function(dt){try{if(CP93.rebuild)cp93rRebuild();}catch(e){try{diagEvent('cp93','rebuild '+e);}catch(_){}}return __cp93rUpd(dt);};}
+// the active option on the Giant board (other boards keep the label shown only when not A)
+{const __cp93rHud=drawBoardHUD;drawBoardHUD=function(){const r=__cp93rHud.apply(this,arguments);try{if(CP93P.get()==='today'&&typeof cp93L==='function'&&cp93L()){
+  const hud=hudLayout(),tx='Tower physics: '+CP93P.NAMES.today;ctx.save();ctx.font='bold 11px system-ui';ctx.textAlign='left';const w=ctx.measureText(tx).width+12;
+  ctx.fillStyle='rgba(120,40,0,.92)';ctx.fillRect(hud.left+2,hud.bottomY-47,w,16);ctx.fillStyle='#ffe08a';ctx.fillText(tx,hud.left+8,hud.bottomY-35);ctx.restore();}
+  if(CP93.flash&&time<CP93.flash&&typeof cp93L==='function'&&cp93L()){const hud=hudLayout();ctx.save();ctx.font='bold 13px system-ui';ctx.textAlign='center';
+   const tx='Towers '+CP93P.NAMES[CP93P.get()]+' - new towers',w=ctx.measureText(tx).width+18;ctx.fillStyle='rgba(120,40,0,.92)';ctx.fillRect(200-w/2,hud.bottomY-74,w,22);
+   ctx.fillStyle='#ffe08a';ctx.fillText(tx,200,hud.bottomY-58);ctx.restore();}}catch(e){}return r;};}
+// 2. Quake on the Giant board: one tower (the standing one nearest the front), every option
+{const __cp93rQuake=stepCatquake;stepCatquake=function(){const giant=typeof cp93L==='function'&&!!cp93L(),was=catquakeHit;
+  if(!giant)return __cp93rQuake();const A0=CP93P.A;CP93P.A=()=>false;try{__cp93rQuake();}finally{CP93P.A=A0;} // B/D's every-tower push is replaced here
+  try{if(!was&&catquakeHit&&CP93.tw){let best=-1,bz=-1e9;
+    for(let gi=0;gi<CP93.tw.length;gi++){if(CP93.tw[gi].tipped)continue;const base=bodies.find(b=>!b.dead&&b.kind==='stack'&&b.cp93===gi&&b.cp93Seg===0);if(!base)continue;
+     const z=base.rb.translation().z;if(z>bz){bz=z;best=gi;}}
+    if(best>=0){cp93Let(best,false,'quake');for(const b of bodies){if(b.dead||b.kind!=='stack'||b.cp93!==best)continue;
+      const t=b.rb.translation(),top=qrot(b.rb.rotation(),{x:0,y:b.half*M,z:0}),k=b.rb.mass()*TOWER_TIP_PUSH*CP93P.cfg.quake,sx=(Math.random()-.5)*1.2;
+      b.tipping=true;b.rb.wakeUp();b.rb.applyImpulseAtPoint({x:sx*k,y:0,z:k},{x:t.x+top.x,y:t.y+top.y,z:t.z+top.z},true);}}}}catch(e){}};}
+// 4. the log lines
+{const __cp93rBuild=cp93Build;cp93Build=function(){const r=__cp93rBuild();try{if(typeof cp93L==='function'&&cp93L()){CP93.rel0=board.released|0;diagEvent('cp93','build '+cp93rLetter());}}catch(e){}return r;};}
+{const __cp93rBreak=breakStack;breakStack=function(b){const gi=b&&!b.dead&&b.cp93!=null?b.cp93:null,fresh=gi!=null&&CP93.done&&!CP93.done[gi];const r=__cp93rBreak(b);
+  try{if(fresh&&CP93.done[gi]){const tw=CP93.tw&&CP93.tw[gi];diagEvent('cp93','spill '+gi+' '+((tw&&tw.why)||'break')+' t='+(time-(CP93.t0b||0)).toFixed(1)+' drops='+((board.released|0)-(CP93.rel0|0))+' towers='+cp93rLetter());}}catch(e){}return r;};}
+// ---- end CP-93 round 3 ----
 
 </script>
 
