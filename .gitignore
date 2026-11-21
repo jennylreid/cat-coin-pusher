@@ -20,3 +20,6 @@ photos-private/
 art-moodboard/
 **/photos-private/
 **/art-moodboard/
+# Reference images Jenny gives Codex/Claude (web pictures, other art) never go in Git (Nov 21)
+art-references/
+**/art-references/
